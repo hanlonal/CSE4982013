@@ -70,5 +70,19 @@ namespace IBMConsultantTool
         {
             Application.Run(new AddInitiative());
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void New_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
     }
 }

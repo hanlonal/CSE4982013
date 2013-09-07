@@ -53,11 +53,19 @@
             this.OpenCUPEButton = new System.Windows.Forms.Button();
             this.NewCUPEButton = new System.Windows.Forms.Button();
             this.ITCAP = new System.Windows.Forms.TabPage();
+            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.New = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabControl.SuspendLayout();
             this.BOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).BeginInit();
             this.CUPE.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CUPETable)).BeginInit();
+            this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl
@@ -65,10 +73,10 @@
             this.TabControl.Controls.Add(this.BOM);
             this.TabControl.Controls.Add(this.CUPE);
             this.TabControl.Controls.Add(this.ITCAP);
-            this.TabControl.Location = new System.Drawing.Point(12, 13);
+            this.TabControl.Location = new System.Drawing.Point(12, 25);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(765, 404);
+            this.TabControl.Size = new System.Drawing.Size(765, 392);
             this.TabControl.TabIndex = 0;
             // 
             // BOM
@@ -82,7 +90,7 @@
             this.BOM.Controls.Add(this.NewBOMButton);
             this.BOM.Location = new System.Drawing.Point(4, 22);
             this.BOM.Name = "BOM";
-            this.BOM.Size = new System.Drawing.Size(757, 378);
+            this.BOM.Size = new System.Drawing.Size(757, 366);
             this.BOM.TabIndex = 0;
             this.BOM.Text = "BOM";
             this.BOM.UseVisualStyleBackColor = true;
@@ -199,7 +207,7 @@
             this.CUPE.Controls.Add(this.NewCUPEButton);
             this.CUPE.Location = new System.Drawing.Point(4, 22);
             this.CUPE.Name = "CUPE";
-            this.CUPE.Size = new System.Drawing.Size(757, 378);
+            this.CUPE.Size = new System.Drawing.Size(757, 366);
             this.CUPE.TabIndex = 1;
             this.CUPE.Text = "CUPE";
             this.CUPE.UseVisualStyleBackColor = true;
@@ -275,10 +283,63 @@
             // 
             this.ITCAP.Location = new System.Drawing.Point(4, 22);
             this.ITCAP.Name = "ITCAP";
-            this.ITCAP.Size = new System.Drawing.Size(757, 378);
+            this.ITCAP.Size = new System.Drawing.Size(757, 366);
             this.ITCAP.TabIndex = 2;
             this.ITCAP.Text = "ITCAP";
             this.ITCAP.UseVisualStyleBackColor = true;
+            // 
+            // MainMenu
+            // 
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu,
+            this.toolsToolStripMenuItem,
+            this.viewToolStripMenuItem});
+            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(789, 24);
+            this.MainMenu.TabIndex = 1;
+            this.MainMenu.Text = "Menu";
+            // 
+            // Menu
+            // 
+            this.Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.New,
+            this.saveToolStripMenuItem});
+            this.Menu.Name = "Menu";
+            this.Menu.Size = new System.Drawing.Size(37, 20);
+            this.Menu.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // New
+            // 
+            this.New.Name = "New";
+            this.New.Size = new System.Drawing.Size(152, 22);
+            this.New.Text = "New";
+            this.New.Click += new System.EventHandler(this.New_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
             // 
             // MainForm
             // 
@@ -286,15 +347,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 429);
             this.Controls.Add(this.TabControl);
+            this.Controls.Add(this.MainMenu);
+            this.MainMenuStrip = this.MainMenu;
             this.Name = "MainForm";
             this.Text = "IBMConsultantTool";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.TabControl.ResumeLayout(false);
             this.BOM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).EndInit();
             this.CUPE.ResumeLayout(false);
             this.CUPE.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CUPETable)).EndInit();
+            this.MainMenu.ResumeLayout(false);
+            this.MainMenu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -325,6 +392,13 @@
         private System.Windows.Forms.Button CUPENOQUpdateButton;
         private System.Windows.Forms.Button BOMAddInitiativeButton;
         private System.Windows.Forms.Button SendBOMButton;
+        private System.Windows.Forms.MenuStrip MainMenu;
+        private System.Windows.Forms.ToolStripMenuItem Menu;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem New;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
     }
 }
 
