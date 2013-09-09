@@ -65,6 +65,12 @@
     <Compile Include="BOMBubbleChart.Designer.cs">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
     </Compile>
+    <Compile Include="CUPEAnalytics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUPEAnalytics.Designer.cs">
+      <DependentUpon>CUPEAnalytics.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -91,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BOMBubbleChart.resx">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUPEAnalytics.resx">
+      <DependentUpon>CUPEAnalytics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
