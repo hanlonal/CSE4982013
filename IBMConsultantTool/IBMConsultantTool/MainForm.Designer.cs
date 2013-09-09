@@ -63,6 +63,7 @@
             this.Objective = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Participant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnswersSubmitted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button4 = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.BOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).BeginInit();
@@ -212,6 +213,7 @@
             // 
             // CUPE
             // 
+            this.CUPE.Controls.Add(this.button4);
             this.CUPE.Controls.Add(this.button3);
             this.CUPE.Controls.Add(this.button2);
             this.CUPE.Controls.Add(this.dataGridView1);
@@ -392,6 +394,16 @@
             this.AnswersSubmitted.Name = "AnswersSubmitted";
             this.AnswersSubmitted.Width = 110;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(771, 223);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(143, 36);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Generate WebPage";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -454,6 +466,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Objective;
         private System.Windows.Forms.DataGridViewTextBoxColumn Participant;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnswersSubmitted;
+        private System.Windows.Forms.Button button4;
     }
 }
 
