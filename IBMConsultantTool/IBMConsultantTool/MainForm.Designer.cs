@@ -307,7 +307,7 @@
         private System.Windows.Forms.Button NewBOMButton;
         private System.Windows.Forms.Button SaveBOMButton;
         private System.Windows.Forms.Button OpenBOMButton;
-        private System.Windows.Forms.DataGridView BOMTable;
+        public System.Windows.Forms.DataGridView BOMTable;
         private System.Windows.Forms.Button BOMBubbleChartButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
         private System.Windows.Forms.DataGridViewTextBoxColumn BusinessObjective;

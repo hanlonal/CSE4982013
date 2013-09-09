@@ -11,11 +11,13 @@ namespace IBMConsultantTool
 {
     public partial class MainForm : Form
     {
-        public int numberOfColumns = 1;
+        public int numberOfCUPEColumns = 1;
+        public SAMPLEEntities dbo;
 
         public MainForm()
         {
             InitializeComponent();
+            dbo = new SAMPLEEntities();
         }
 
         private void BOMBubbleChartButton_Click(object sender, EventArgs e)
@@ -32,10 +34,10 @@ namespace IBMConsultantTool
 
         private void CUPENOQUpdateButton_Click(object sender, EventArgs e)
         {
-            int newNumberOfColumns = 1;
+            int newnumberOfCUPEColumns = 1;
             try
             {
-                newNumberOfColumns = Convert.ToInt32(NumberOfQuestionsTextBox.Text);
+                newnumberOfCUPEColumns = Convert.ToInt32(NumberOfQuestionsTextBox.Text);
             }
 
             catch
@@ -43,32 +45,39 @@ namespace IBMConsultantTool
                 return;
             }
 
-            if (newNumberOfColumns < 1)
+            if (newnumberOfCUPEColumns < 1)
             {
                 return;
             }
 
-            CUPETable.ColumnCount = newNumberOfColumns + 1;
+            CUPETable.ColumnCount = newnumberOfCUPEColumns + 1;
 
-            while (numberOfColumns <= newNumberOfColumns)
+            while (numberOfCUPEColumns <= newnumberOfCUPEColumns)
             {
-                CUPETable.Columns[numberOfColumns].HeaderText = "Q" + numberOfColumns.ToString();
-                numberOfColumns++;
+                CUPETable.Columns[numberOfCUPEColumns].HeaderText = "Q" + numberOfCUPEColumns.ToString();
+                numberOfCUPEColumns++;
             }
 
-            numberOfColumns = newNumberOfColumns;
+            numberOfCUPEColumns = newnumberOfCUPEColumns;
         }
 
         private void BOMAddInitiativeButton_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcBOMAddInitiative));
-            t.Start();
-            return;
+            new AddInitiative(this).Show();
         }
 
-        public static void ThreadProcBOMAddInitiative()
+        private void MainForm_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            Application.Run(new AddInitiative());
+            if (MessageBox.Show("Do you want to Exit?", "My Application",
+            MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                dbo.Dispose();
+            }
+
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

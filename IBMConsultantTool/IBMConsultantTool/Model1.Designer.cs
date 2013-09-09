@@ -18,11 +18,10 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("Model1", "DomainImperative", "Domain", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BusinessObjective), "Imperative", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.Imperative))]
-[assembly: EdmRelationshipAttribute("Model1", "CategoryBusinessObjective", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.Category), "BusinessObjective", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BusinessObjective))]
-[assembly: EdmRelationshipAttribute("Model1", "BOMImperative", "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BOM), "Imperative", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.Imperative))]
-[assembly: EdmRelationshipAttribute("Model1", "ClientBOM", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.Client), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BOM))]
-[assembly: EdmRelationshipAttribute("Model1", "InitiativeBusinessObjective", "Initiative", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.Initiative), "BusinessObjective", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BusinessObjective))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "BOM_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "INITIATIVE_BOM_FK", "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BOM), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "CATEGORY", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CATEGORY), "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BUSINESSOBJECTIVE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
 
 #endregion
 
@@ -33,32 +32,32 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class Model1Container : ObjectContext
+    public partial class SAMPLEEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new Model1Container object using the connection string found in the 'Model1Container' section of the application configuration file.
+        /// Initializes a new SAMPLEEntities object using the connection string found in the 'SAMPLEEntities' section of the application configuration file.
         /// </summary>
-        public Model1Container() : base("name=Model1Container", "Model1Container")
+        public SAMPLEEntities() : base("name=SAMPLEEntities", "SAMPLEEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Model1Container object.
+        /// Initialize a new SAMPLEEntities object.
         /// </summary>
-        public Model1Container(string connectionString) : base(connectionString, "Model1Container")
+        public SAMPLEEntities(string connectionString) : base(connectionString, "SAMPLEEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Model1Container object.
+        /// Initialize a new SAMPLEEntities object.
         /// </summary>
-        public Model1Container(EntityConnection connection) : base(connection, "Model1Container")
+        public SAMPLEEntities(EntityConnection connection) : base(connection, "SAMPLEEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -73,70 +72,6 @@ namespace IBMConsultantTool
         #endregion
     
         #region ObjectSet Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Client> Client
-        {
-            get
-            {
-                if ((_Client == null))
-                {
-                    _Client = base.CreateObjectSet<Client>("Client");
-                }
-                return _Client;
-            }
-        }
-        private ObjectSet<Client> _Client;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<BusinessObjective> BusinessObjective
-        {
-            get
-            {
-                if ((_BusinessObjective == null))
-                {
-                    _BusinessObjective = base.CreateObjectSet<BusinessObjective>("BusinessObjective");
-                }
-                return _BusinessObjective;
-            }
-        }
-        private ObjectSet<BusinessObjective> _BusinessObjective;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Imperative> Imperative
-        {
-            get
-            {
-                if ((_Imperative == null))
-                {
-                    _Imperative = base.CreateObjectSet<Imperative>("Imperative");
-                }
-                return _Imperative;
-            }
-        }
-        private ObjectSet<Imperative> _Imperative;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Category> Category
-        {
-            get
-            {
-                if ((_Category == null))
-                {
-                    _Category = base.CreateObjectSet<Category>("Category");
-                }
-                return _Category;
-            }
-        }
-        private ObjectSet<Category> _Category;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -157,53 +92,69 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Initiative> Initiative
+        public ObjectSet<BUSINESSOBJECTIVE> BUSINESSOBJECTIVE
         {
             get
             {
-                if ((_Initiative == null))
+                if ((_BUSINESSOBJECTIVE == null))
                 {
-                    _Initiative = base.CreateObjectSet<Initiative>("Initiative");
+                    _BUSINESSOBJECTIVE = base.CreateObjectSet<BUSINESSOBJECTIVE>("BUSINESSOBJECTIVE");
                 }
-                return _Initiative;
+                return _BUSINESSOBJECTIVE;
             }
         }
-        private ObjectSet<Initiative> _Initiative;
+        private ObjectSet<BUSINESSOBJECTIVE> _BUSINESSOBJECTIVE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CATEGORY> CATEGORY
+        {
+            get
+            {
+                if ((_CATEGORY == null))
+                {
+                    _CATEGORY = base.CreateObjectSet<CATEGORY>("CATEGORY");
+                }
+                return _CATEGORY;
+            }
+        }
+        private ObjectSet<CATEGORY> _CATEGORY;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CLIENT> CLIENT
+        {
+            get
+            {
+                if ((_CLIENT == null))
+                {
+                    _CLIENT = base.CreateObjectSet<CLIENT>("CLIENT");
+                }
+                return _CLIENT;
+            }
+        }
+        private ObjectSet<CLIENT> _CLIENT;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<INITIATIVE> INITIATIVE
+        {
+            get
+            {
+                if ((_INITIATIVE == null))
+                {
+                    _INITIATIVE = base.CreateObjectSet<INITIATIVE>("INITIATIVE");
+                }
+                return _INITIATIVE;
+            }
+        }
+        private ObjectSet<INITIATIVE> _INITIATIVE;
 
         #endregion
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Client EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClient(Client client)
-        {
-            base.AddObject("Client", client);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the BusinessObjective EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBusinessObjective(BusinessObjective businessObjective)
-        {
-            base.AddObject("BusinessObjective", businessObjective);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Imperative EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToImperative(Imperative imperative)
-        {
-            base.AddObject("Imperative", imperative);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Category EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCategory(Category category)
-        {
-            base.AddObject("Category", category);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the BOM EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -214,11 +165,35 @@ namespace IBMConsultantTool
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Initiative EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the BUSINESSOBJECTIVE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToInitiative(Initiative initiative)
+        public void AddToBUSINESSOBJECTIVE(BUSINESSOBJECTIVE bUSINESSOBJECTIVE)
         {
-            base.AddObject("Initiative", initiative);
+            base.AddObject("BUSINESSOBJECTIVE", bUSINESSOBJECTIVE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CATEGORY EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCATEGORY(CATEGORY cATEGORY)
+        {
+            base.AddObject("CATEGORY", cATEGORY);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CLIENT EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCLIENT(CLIENT cLIENT)
+        {
+            base.AddObject("CLIENT", cLIENT);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the INITIATIVE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToINITIATIVE(INITIATIVE iNITIATIVE)
+        {
+            base.AddObject("INITIATIVE", iNITIATIVE);
         }
 
         #endregion
@@ -232,7 +207,7 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="BOM")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="BOM")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class BOM : EntityObject
@@ -242,11 +217,13 @@ namespace IBMConsultantTool
         /// <summary>
         /// Create a new BOM object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static BOM CreateBOM(global::System.Int32 id)
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        /// <param name="bOMID">Initial value of the BOMID property.</param>
+        public static BOM CreateBOM(global::System.String nAME, global::System.Int32 bOMID)
         {
             BOM bOM = new BOM();
-            bOM.Id = id;
+            bOM.NAME = nAME;
+            bOM.BOMID = bOMID;
             return bOM;
         }
 
@@ -256,29 +233,149 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.String NAME
         {
             get
             {
-                return _Id;
+                return _NAME;
             }
             set
             {
-                if (_Id != value)
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> EFFECTIVENESS
+        {
+            get
+            {
+                return _EFFECTIVENESS;
+            }
+            set
+            {
+                OnEFFECTIVENESSChanging(value);
+                ReportPropertyChanging("EFFECTIVENESS");
+                _EFFECTIVENESS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EFFECTIVENESS");
+                OnEFFECTIVENESSChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _EFFECTIVENESS;
+        partial void OnEFFECTIVENESSChanging(Nullable<global::System.Int16> value);
+        partial void OnEFFECTIVENESSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> CRITICALITY
+        {
+            get
+            {
+                return _CRITICALITY;
+            }
+            set
+            {
+                OnCRITICALITYChanging(value);
+                ReportPropertyChanging("CRITICALITY");
+                _CRITICALITY = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CRITICALITY");
+                OnCRITICALITYChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _CRITICALITY;
+        partial void OnCRITICALITYChanging(Nullable<global::System.Int16> value);
+        partial void OnCRITICALITYChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> DIFFERENTIAL
+        {
+            get
+            {
+                return _DIFFERENTIAL;
+            }
+            set
+            {
+                OnDIFFERENTIALChanging(value);
+                ReportPropertyChanging("DIFFERENTIAL");
+                _DIFFERENTIAL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DIFFERENTIAL");
+                OnDIFFERENTIALChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _DIFFERENTIAL;
+        partial void OnDIFFERENTIALChanging(Nullable<global::System.Int16> value);
+        partial void OnDIFFERENTIALChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PARTICIPANTCOUNT
+        {
+            get
+            {
+                return _PARTICIPANTCOUNT;
+            }
+            set
+            {
+                OnPARTICIPANTCOUNTChanging(value);
+                ReportPropertyChanging("PARTICIPANTCOUNT");
+                _PARTICIPANTCOUNT = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PARTICIPANTCOUNT");
+                OnPARTICIPANTCOUNTChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PARTICIPANTCOUNT;
+        partial void OnPARTICIPANTCOUNTChanging(Nullable<global::System.Int32> value);
+        partial void OnPARTICIPANTCOUNTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BOMID
+        {
+            get
+            {
+                return _BOMID;
+            }
+            set
+            {
+                if (_BOMID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnBOMIDChanging(value);
+                    ReportPropertyChanging("BOMID");
+                    _BOMID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("BOMID");
+                    OnBOMIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _BOMID;
+        partial void OnBOMIDChanging(global::System.Int32 value);
+        partial void OnBOMIDChanged();
 
         #endregion
     
@@ -290,38 +387,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "BOMImperative", "Imperative")]
-        public EntityCollection<Imperative> Imperative
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_CLIENT_FK", "CLIENT")]
+        public CLIENT CLIENT
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Imperative>("Model1.BOMImperative", "Imperative");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT").Value;
             }
             set
             {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Imperative>("Model1.BOMImperative", "Imperative", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "ClientBOM", "Client")]
-        public Client Client
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("Model1.ClientBOM", "Client").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("Model1.ClientBOM", "Client").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT").Value = value;
             }
         }
         /// <summary>
@@ -329,17 +404,39 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Client> ClientReference
+        public EntityReference<CLIENT> CLIENTReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("Model1.ClientBOM", "Client");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Client>("Model1.ClientBOM", "Client", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INITIATIVE_BOM_FK", "INITIATIVE")]
+        public EntityCollection<INITIATIVE> INITIATIVE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<INITIATIVE>("SAMPLEModel.INITIATIVE_BOM_FK", "INITIATIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<INITIATIVE>("SAMPLEModel.INITIATIVE_BOM_FK", "INITIATIVE", value);
                 }
             }
         }
@@ -350,22 +447,24 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="BusinessObjective")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="BUSINESSOBJECTIVE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class BusinessObjective : EntityObject
+    public partial class BUSINESSOBJECTIVE : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new BusinessObjective object.
+        /// Create a new BUSINESSOBJECTIVE object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static BusinessObjective CreateBusinessObjective(global::System.Int32 id)
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        /// <param name="bUSINESSOBJECTIVEID">Initial value of the BUSINESSOBJECTIVEID property.</param>
+        public static BUSINESSOBJECTIVE CreateBUSINESSOBJECTIVE(global::System.String nAME, global::System.Int32 bUSINESSOBJECTIVEID)
         {
-            BusinessObjective businessObjective = new BusinessObjective();
-            businessObjective.Id = id;
-            return businessObjective;
+            BUSINESSOBJECTIVE bUSINESSOBJECTIVE = new BUSINESSOBJECTIVE();
+            bUSINESSOBJECTIVE.NAME = nAME;
+            bUSINESSOBJECTIVE.BUSINESSOBJECTIVEID = bUSINESSOBJECTIVEID;
+            return bUSINESSOBJECTIVE;
         }
 
         #endregion
@@ -374,29 +473,53 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.String NAME
         {
             get
             {
-                return _Id;
+                return _NAME;
             }
             set
             {
-                if (_Id != value)
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BUSINESSOBJECTIVEID
+        {
+            get
+            {
+                return _BUSINESSOBJECTIVEID;
+            }
+            set
+            {
+                if (_BUSINESSOBJECTIVEID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnBUSINESSOBJECTIVEIDChanging(value);
+                    ReportPropertyChanging("BUSINESSOBJECTIVEID");
+                    _BUSINESSOBJECTIVEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("BUSINESSOBJECTIVEID");
+                    OnBUSINESSOBJECTIVEIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _BUSINESSOBJECTIVEID;
+        partial void OnBUSINESSOBJECTIVEIDChanging(global::System.Int32 value);
+        partial void OnBUSINESSOBJECTIVEIDChanged();
 
         #endregion
     
@@ -408,38 +531,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "DomainImperative", "Imperative")]
-        public EntityCollection<Imperative> Imperative
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "CATEGORY")]
+        public CATEGORY CATEGORY
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Imperative>("Model1.DomainImperative", "Imperative");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY").Value;
             }
             set
             {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Imperative>("Model1.DomainImperative", "Imperative", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "CategoryBusinessObjective", "Category")]
-        public Category Category
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY").Value = value;
             }
         }
         /// <summary>
@@ -447,17 +548,17 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Category> CategoryReference
+        public EntityReference<CATEGORY> CATEGORYReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY", value);
                 }
             }
         }
@@ -468,18 +569,18 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "InitiativeBusinessObjective", "Initiative")]
-        public EntityCollection<Initiative> Initiative
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "INITIATIVE")]
+        public EntityCollection<INITIATIVE> INITIATIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Initiative>("Model1.InitiativeBusinessObjective", "Initiative");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<INITIATIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "INITIATIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Initiative>("Model1.InitiativeBusinessObjective", "Initiative", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<INITIATIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "INITIATIVE", value);
                 }
             }
         }
@@ -490,22 +591,24 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Category")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CATEGORY")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Category : EntityObject
+    public partial class CATEGORY : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Category object.
+        /// Create a new CATEGORY object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static Category CreateCategory(global::System.Int32 id)
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        public static CATEGORY CreateCATEGORY(global::System.Int32 id, global::System.String nAME)
         {
-            Category category = new Category();
-            category.Id = id;
-            return category;
+            CATEGORY cATEGORY = new CATEGORY();
+            cATEGORY.ID = id;
+            cATEGORY.NAME = nAME;
+            return cATEGORY;
         }
 
         #endregion
@@ -516,27 +619,51 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 ID
         {
             get
             {
-                return _Id;
+                return _ID;
             }
             set
             {
-                if (_Id != value)
+                if (_ID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
 
         #endregion
     
@@ -548,18 +675,18 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "CategoryBusinessObjective", "BusinessObjective")]
-        public EntityCollection<BusinessObjective> BusinessObjective
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "BUSINESSOBJECTIVE")]
+        public EntityCollection<BUSINESSOBJECTIVE> BUSINESSOBJECTIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BusinessObjective>("Model1.CategoryBusinessObjective", "BusinessObjective");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BUSINESSOBJECTIVE>("SAMPLEModel.BUSINESSOB_CATE_FK", "BUSINESSOBJECTIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BusinessObjective>("Model1.CategoryBusinessObjective", "BusinessObjective", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BUSINESSOBJECTIVE>("SAMPLEModel.BUSINESSOB_CATE_FK", "BUSINESSOBJECTIVE", value);
                 }
             }
         }
@@ -570,22 +697,24 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Client")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CLIENT")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Client : EntityObject
+    public partial class CLIENT : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Client object.
+        /// Create a new CLIENT object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static Client CreateClient(global::System.Int32 id)
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        public static CLIENT CreateCLIENT(global::System.Int32 id, global::System.String nAME)
         {
-            Client client = new Client();
-            client.Id = id;
-            return client;
+            CLIENT cLIENT = new CLIENT();
+            cLIENT.ID = id;
+            cLIENT.NAME = nAME;
+            return cLIENT;
         }
 
         #endregion
@@ -596,27 +725,51 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 ID
         {
             get
             {
-                return _Id;
+                return _ID;
             }
             set
             {
-                if (_Id != value)
+                if (_ID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
 
         #endregion
     
@@ -628,16 +781,122 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "ClientBOM", "BOM")]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_CLIENT_FK", "BOM")]
+        public EntityCollection<BOM> BOM
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BOM>("SAMPLEModel.BOM_CLIENT_FK", "BOM");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BOM>("SAMPLEModel.BOM_CLIENT_FK", "BOM", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="INITIATIVE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class INITIATIVE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new INITIATIVE object.
+        /// </summary>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        /// <param name="iNITIATIVEID">Initial value of the INITIATIVEID property.</param>
+        public static INITIATIVE CreateINITIATIVE(global::System.String nAME, global::System.Int32 iNITIATIVEID)
+        {
+            INITIATIVE iNITIATIVE = new INITIATIVE();
+            iNITIATIVE.NAME = nAME;
+            iNITIATIVE.INITIATIVEID = iNITIATIVEID;
+            return iNITIATIVE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 INITIATIVEID
+        {
+            get
+            {
+                return _INITIATIVEID;
+            }
+            set
+            {
+                if (_INITIATIVEID != value)
+                {
+                    OnINITIATIVEIDChanging(value);
+                    ReportPropertyChanging("INITIATIVEID");
+                    _INITIATIVEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("INITIATIVEID");
+                    OnINITIATIVEIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _INITIATIVEID;
+        partial void OnINITIATIVEIDChanging(global::System.Int32 value);
+        partial void OnINITIATIVEIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INITIATIVE_BOM_FK", "BOM")]
         public BOM BOM
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.ClientBOM", "BOM").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.ClientBOM", "BOM").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM").Value = value;
             }
         }
         /// <summary>
@@ -649,213 +908,13 @@ namespace IBMConsultantTool
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.ClientBOM", "BOM");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("Model1.ClientBOM", "BOM", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Imperative")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Imperative : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Imperative object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="currentRating">Initial value of the CurrentRating property.</param>
-        /// <param name="desiredRating">Initial value of the DesiredRating property.</param>
-        /// <param name="criticality">Initial value of the Criticality property.</param>
-        /// <param name="differential">Initial value of the Differential property.</param>
-        public static Imperative CreateImperative(global::System.Int32 id, global::System.String currentRating, global::System.String desiredRating, global::System.String criticality, global::System.String differential)
-        {
-            Imperative imperative = new Imperative();
-            imperative.Id = id;
-            imperative.CurrentRating = currentRating;
-            imperative.DesiredRating = desiredRating;
-            imperative.Criticality = criticality;
-            imperative.Differential = differential;
-            return imperative;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String CurrentRating
-        {
-            get
-            {
-                return _CurrentRating;
-            }
-            set
-            {
-                OnCurrentRatingChanging(value);
-                ReportPropertyChanging("CurrentRating");
-                _CurrentRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("CurrentRating");
-                OnCurrentRatingChanged();
-            }
-        }
-        private global::System.String _CurrentRating;
-        partial void OnCurrentRatingChanging(global::System.String value);
-        partial void OnCurrentRatingChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DesiredRating
-        {
-            get
-            {
-                return _DesiredRating;
-            }
-            set
-            {
-                OnDesiredRatingChanging(value);
-                ReportPropertyChanging("DesiredRating");
-                _DesiredRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("DesiredRating");
-                OnDesiredRatingChanged();
-            }
-        }
-        private global::System.String _DesiredRating;
-        partial void OnDesiredRatingChanging(global::System.String value);
-        partial void OnDesiredRatingChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Criticality
-        {
-            get
-            {
-                return _Criticality;
-            }
-            set
-            {
-                OnCriticalityChanging(value);
-                ReportPropertyChanging("Criticality");
-                _Criticality = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Criticality");
-                OnCriticalityChanged();
-            }
-        }
-        private global::System.String _Criticality;
-        partial void OnCriticalityChanging(global::System.String value);
-        partial void OnCriticalityChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Differential
-        {
-            get
-            {
-                return _Differential;
-            }
-            set
-            {
-                OnDifferentialChanging(value);
-                ReportPropertyChanging("Differential");
-                _Differential = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Differential");
-                OnDifferentialChanged();
-            }
-        }
-        private global::System.String _Differential;
-        partial void OnDifferentialChanging(global::System.String value);
-        partial void OnDifferentialChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "DomainImperative", "Domain")]
-        public BusinessObjective Domain
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<BusinessObjective> DomainReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM", value);
                 }
             }
         }
@@ -866,16 +925,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "BOMImperative", "BOM")]
-        public BOM BOM
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE")]
+        public BUSINESSOBJECTIVE BUSINESSOBJECTIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.BOMImperative", "BOM").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.BOMImperative", "BOM").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value = value;
             }
         }
         /// <summary>
@@ -883,217 +942,17 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<BOM> BOMReference
+        public EntityReference<BUSINESSOBJECTIVE> BUSINESSOBJECTIVEReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.BOMImperative", "BOM");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("Model1.BOMImperative", "BOM", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Initiative")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Initiative : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Initiative object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="currentRating">Initial value of the CurrentRating property.</param>
-        /// <param name="desiredRating">Initial value of the DesiredRating property.</param>
-        /// <param name="criticality">Initial value of the Criticality property.</param>
-        /// <param name="differential">Initial value of the Differential property.</param>
-        public static Initiative CreateInitiative(global::System.Int32 id, global::System.String currentRating, global::System.String desiredRating, global::System.String criticality, global::System.String differential)
-        {
-            Initiative initiative = new Initiative();
-            initiative.Id = id;
-            initiative.CurrentRating = currentRating;
-            initiative.DesiredRating = desiredRating;
-            initiative.Criticality = criticality;
-            initiative.Differential = differential;
-            return initiative;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String CurrentRating
-        {
-            get
-            {
-                return _CurrentRating;
-            }
-            set
-            {
-                OnCurrentRatingChanging(value);
-                ReportPropertyChanging("CurrentRating");
-                _CurrentRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("CurrentRating");
-                OnCurrentRatingChanged();
-            }
-        }
-        private global::System.String _CurrentRating;
-        partial void OnCurrentRatingChanging(global::System.String value);
-        partial void OnCurrentRatingChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DesiredRating
-        {
-            get
-            {
-                return _DesiredRating;
-            }
-            set
-            {
-                OnDesiredRatingChanging(value);
-                ReportPropertyChanging("DesiredRating");
-                _DesiredRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("DesiredRating");
-                OnDesiredRatingChanged();
-            }
-        }
-        private global::System.String _DesiredRating;
-        partial void OnDesiredRatingChanging(global::System.String value);
-        partial void OnDesiredRatingChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Criticality
-        {
-            get
-            {
-                return _Criticality;
-            }
-            set
-            {
-                OnCriticalityChanging(value);
-                ReportPropertyChanging("Criticality");
-                _Criticality = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Criticality");
-                OnCriticalityChanged();
-            }
-        }
-        private global::System.String _Criticality;
-        partial void OnCriticalityChanging(global::System.String value);
-        partial void OnCriticalityChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Differential
-        {
-            get
-            {
-                return _Differential;
-            }
-            set
-            {
-                OnDifferentialChanging(value);
-                ReportPropertyChanging("Differential");
-                _Differential = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Differential");
-                OnDifferentialChanged();
-            }
-        }
-        private global::System.String _Differential;
-        partial void OnDifferentialChanging(global::System.String value);
-        partial void OnDifferentialChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "InitiativeBusinessObjective", "BusinessObjective")]
-        public BusinessObjective BusinessObjective
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<BusinessObjective> BusinessObjectiveReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", value);
                 }
             }
         }
