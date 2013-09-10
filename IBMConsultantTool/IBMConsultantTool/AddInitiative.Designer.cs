@@ -54,7 +54,6 @@
             this.CategoryComboBox.Location = new System.Drawing.Point(161, 38);
             this.CategoryComboBox.Name = "CategoryComboBox";
             this.CategoryComboBox.Size = new System.Drawing.Size(348, 21);
-            this.CategoryComboBox.Sorted = true;
             this.CategoryComboBox.TabIndex = 1;
             this.CategoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
             // 
@@ -100,7 +99,7 @@
             // 
             // AddInitiativeToTableButton
             // 
-            this.AddInitiativeToTableButton.Location = new System.Drawing.Point(210, 240);
+            this.AddInitiativeToTableButton.Location = new System.Drawing.Point(225, 227);
             this.AddInitiativeToTableButton.Name = "AddInitiativeToTableButton";
             this.AddInitiativeToTableButton.Size = new System.Drawing.Size(134, 36);
             this.AddInitiativeToTableButton.TabIndex = 9;
@@ -112,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 342);
+            this.ClientSize = new System.Drawing.Size(540, 342);
             this.Controls.Add(this.AddInitiativeToTableButton);
             this.Controls.Add(this.InitiativeComboBox);
             this.Controls.Add(this.InitiativeLabel);

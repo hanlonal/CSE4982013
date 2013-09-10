@@ -28,7 +28,7 @@ namespace IBMConsultantTool
 
             foreach (CATEGORY category in categoryList)
             {
-                CategoryComboBox.Items.Add(category.NAME.Trim());
+                CategoryComboBox.Items.Add(category.NAME);
             }
         }
 
@@ -39,14 +39,14 @@ namespace IBMConsultantTool
                                           where ini.NAME == InitiativeComboBox.Text
                                           select ini;
 
-            if(selectedInitiativeQuery.Count() == 0)
+            if (selectedInitiativeQuery.Count() == 0)
             {
                 selectedInitiative = new INITIATIVE();
                 selectedInitiative.NAME = InitiativeComboBox.Text;
                 selectedInitiative.INITIATIVEID = rnd.Next();
                 var selectedBusinessObjectiveQuery = from bus in mainForm.dbo.BUSINESSOBJECTIVE
-                                                 where bus.NAME == BusinessObjectiveComboBox.Text
-                                                 select bus;
+                                                     where bus.NAME == BusinessObjectiveComboBox.Text
+                                                     select bus;
 
                 if (selectedBusinessObjectiveQuery.Count() == 0)
                 {
@@ -103,7 +103,7 @@ namespace IBMConsultantTool
             BusinessObjectiveComboBox.Text = "";
             foreach (BUSINESSOBJECTIVE businessObjective in selectedCategory.BUSINESSOBJECTIVE)
             {
-                BusinessObjectiveComboBox.Items.Add(businessObjective.NAME.Trim());
+                BusinessObjectiveComboBox.Items.Add(businessObjective.NAME);
             }
 
             InitiativeComboBox.Items.Clear();
@@ -127,7 +127,7 @@ namespace IBMConsultantTool
             InitiativeComboBox.Items.Clear();
             foreach (INITIATIVE initiative in selectedBusinessObjective.INITIATIVE)
             {
-                InitiativeComboBox.Items.Add(initiative.NAME.Trim());
+                InitiativeComboBox.Items.Add(initiative.NAME);
             }
 
             InitiativeComboBox.Text = "";
