@@ -34,12 +34,6 @@
             this.BOMAddInitiativeButton = new System.Windows.Forms.Button();
             this.BOMBubbleChartButton = new System.Windows.Forms.Button();
             this.BOMTable = new System.Windows.Forms.DataGridView();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BusinessObjective = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Imperative = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Effectiveness = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Criticality = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Differential = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SaveBOMButton = new System.Windows.Forms.Button();
             this.OpenBOMButton = new System.Windows.Forms.Button();
             this.NewBOMButton = new System.Windows.Forms.Button();
@@ -53,6 +47,12 @@
             this.OpenCUPEButton = new System.Windows.Forms.Button();
             this.NewCUPEButton = new System.Windows.Forms.Button();
             this.ITCAP = new System.Windows.Forms.TabPage();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BusinessObjective = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Imperative = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Effectiveness = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Criticality = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Differential = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabControl.SuspendLayout();
             this.BOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).BeginInit();
@@ -130,37 +130,6 @@
             this.BOMTable.Name = "BOMTable";
             this.BOMTable.Size = new System.Drawing.Size(751, 239);
             this.BOMTable.TabIndex = 3;
-            // 
-            // Category
-            // 
-            this.Category.HeaderText = "Category";
-            this.Category.Name = "Category";
-            // 
-            // BusinessObjective
-            // 
-            this.BusinessObjective.HeaderText = "Business Objectives";
-            this.BusinessObjective.Name = "BusinessObjective";
-            // 
-            // Imperative
-            // 
-            this.Imperative.HeaderText = "Imperative";
-            this.Imperative.Name = "Imperative";
-            this.Imperative.Width = 200;
-            // 
-            // Effectiveness
-            // 
-            this.Effectiveness.HeaderText = "Effectiveness";
-            this.Effectiveness.Name = "Effectiveness";
-            // 
-            // Criticality
-            // 
-            this.Criticality.HeaderText = "Criticality";
-            this.Criticality.Name = "Criticality";
-            // 
-            // Differential
-            // 
-            this.Differential.HeaderText = "Differential";
-            this.Differential.Name = "Differential";
             // 
             // SaveBOMButton
             // 
@@ -280,6 +249,40 @@
             this.ITCAP.Text = "ITCAP";
             this.ITCAP.UseVisualStyleBackColor = true;
             // 
+            // Category
+            // 
+            this.Category.HeaderText = "Category";
+            this.Category.Name = "Category";
+            this.Category.ReadOnly = true;
+            // 
+            // BusinessObjective
+            // 
+            this.BusinessObjective.HeaderText = "Business Objectives";
+            this.BusinessObjective.Name = "BusinessObjective";
+            this.BusinessObjective.ReadOnly = true;
+            // 
+            // Imperative
+            // 
+            this.Imperative.HeaderText = "Imperative";
+            this.Imperative.Name = "Imperative";
+            this.Imperative.ReadOnly = true;
+            this.Imperative.Width = 200;
+            // 
+            // Effectiveness
+            // 
+            this.Effectiveness.HeaderText = "Effectiveness";
+            this.Effectiveness.Name = "Effectiveness";
+            // 
+            // Criticality
+            // 
+            this.Criticality.HeaderText = "Criticality";
+            this.Criticality.Name = "Criticality";
+            // 
+            // Differential
+            // 
+            this.Differential.HeaderText = "Differential";
+            this.Differential.Name = "Differential";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,12 +312,6 @@
         private System.Windows.Forms.Button OpenBOMButton;
         public System.Windows.Forms.DataGridView BOMTable;
         private System.Windows.Forms.Button BOMBubbleChartButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BusinessObjective;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Imperative;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Effectiveness;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Criticality;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Differential;
         private System.Windows.Forms.TextBox NumberOfQuestionsTextBox;
         private System.Windows.Forms.Label NumberOfQuestionsLabel;
         private System.Windows.Forms.DataGridView CUPETable;
@@ -325,6 +322,12 @@
         private System.Windows.Forms.Button CUPENOQUpdateButton;
         private System.Windows.Forms.Button BOMAddInitiativeButton;
         private System.Windows.Forms.Button SendBOMButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BusinessObjective;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Imperative;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Effectiveness;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Criticality;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Differential;
     }
 }
 
