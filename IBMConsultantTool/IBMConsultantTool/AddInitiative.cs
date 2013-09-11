@@ -61,7 +61,7 @@ namespace IBMConsultantTool
                     {
                         selectedCategory = new CATEGORY();
                         selectedCategory.NAME = CategoryComboBox.Text;
-                        selectedCategory.ID = rnd.Next();
+                        selectedCategory.CATEGORYID = rnd.Next();
                         selectedCategory.BUSINESSOBJECTIVE.Add(selectedBusinessObjective);
                         mainForm.dbo.AddToCATEGORY(selectedCategory);
                     }
