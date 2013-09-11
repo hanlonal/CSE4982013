@@ -82,6 +82,7 @@
             this.BusinessObjectiveComboBox.Name = "BusinessObjectiveComboBox";
             this.BusinessObjectiveComboBox.Size = new System.Drawing.Size(348, 21);
             this.BusinessObjectiveComboBox.TabIndex = 4;
+            this.BusinessObjectiveComboBox.SelectedIndexChanged += new System.EventHandler(this.BusinessObjectiveComboBox_SelectedIndexChanged);
             // 
             // BusinessObjectiveLabel
             // 

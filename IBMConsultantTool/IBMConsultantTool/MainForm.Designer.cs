@@ -44,9 +44,16 @@
             this.OpenBOMButton = new System.Windows.Forms.Button();
             this.NewBOMButton = new System.Windows.Forms.Button();
             this.CUPE = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Objective = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.CUPETable = new System.Windows.Forms.DataGridView();
+            this.Participant = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnswersSubmitted = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OpenAnalytics = new System.Windows.Forms.Button();
             this.NewCUPEButton = new System.Windows.Forms.Button();
             this.ITCAP = new System.Windows.Forms.TabPage();
@@ -57,13 +64,7 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Objective = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Participant = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnswersSubmitted = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button4 = new System.Windows.Forms.Button();
+            this.SendToEmail = new System.Windows.Forms.TextBox();
             this.TabControl.SuspendLayout();
             this.BOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).BeginInit();
@@ -78,15 +79,15 @@
             this.TabControl.Controls.Add(this.BOM);
             this.TabControl.Controls.Add(this.CUPE);
             this.TabControl.Controls.Add(this.ITCAP);
-            this.TabControl.Location = new System.Drawing.Point(16, 31);
-            this.TabControl.Margin = new System.Windows.Forms.Padding(4);
+            this.TabControl.Location = new System.Drawing.Point(12, 25);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(1020, 482);
+            this.TabControl.Size = new System.Drawing.Size(765, 392);
             this.TabControl.TabIndex = 0;
             // 
             // BOM
             // 
+            this.BOM.Controls.Add(this.SendToEmail);
             this.BOM.Controls.Add(this.SendBOMButton);
             this.BOM.Controls.Add(this.BOMAddInitiativeButton);
             this.BOM.Controls.Add(this.BOMBubbleChartButton);
@@ -94,30 +95,27 @@
             this.BOM.Controls.Add(this.SaveBOMButton);
             this.BOM.Controls.Add(this.OpenBOMButton);
             this.BOM.Controls.Add(this.NewBOMButton);
-            this.BOM.Location = new System.Drawing.Point(4, 25);
-            this.BOM.Margin = new System.Windows.Forms.Padding(4);
+            this.BOM.Location = new System.Drawing.Point(4, 22);
             this.BOM.Name = "BOM";
-            this.BOM.Size = new System.Drawing.Size(1012, 453);
+            this.BOM.Size = new System.Drawing.Size(757, 366);
             this.BOM.TabIndex = 0;
             this.BOM.Text = "BOM";
             this.BOM.UseVisualStyleBackColor = true;
             // 
             // SendBOMButton
             // 
-            this.SendBOMButton.Location = new System.Drawing.Point(201, 409);
-            this.SendBOMButton.Margin = new System.Windows.Forms.Padding(4);
+            this.SendBOMButton.Location = new System.Drawing.Point(151, 332);
             this.SendBOMButton.Name = "SendBOMButton";
-            this.SendBOMButton.Size = new System.Drawing.Size(143, 36);
+            this.SendBOMButton.Size = new System.Drawing.Size(107, 29);
             this.SendBOMButton.TabIndex = 6;
             this.SendBOMButton.Text = "Send";
             this.SendBOMButton.UseVisualStyleBackColor = true;
             // 
             // BOMAddInitiativeButton
             // 
-            this.BOMAddInitiativeButton.Location = new System.Drawing.Point(669, 27);
-            this.BOMAddInitiativeButton.Margin = new System.Windows.Forms.Padding(4);
+            this.BOMAddInitiativeButton.Location = new System.Drawing.Point(502, 22);
             this.BOMAddInitiativeButton.Name = "BOMAddInitiativeButton";
-            this.BOMAddInitiativeButton.Size = new System.Drawing.Size(144, 36);
+            this.BOMAddInitiativeButton.Size = new System.Drawing.Size(108, 29);
             this.BOMAddInitiativeButton.TabIndex = 5;
             this.BOMAddInitiativeButton.Text = "Add Initiative";
             this.BOMAddInitiativeButton.UseVisualStyleBackColor = true;
@@ -125,10 +123,9 @@
             // 
             // BOMBubbleChartButton
             // 
-            this.BOMBubbleChartButton.Location = new System.Drawing.Point(835, 409);
-            this.BOMBubbleChartButton.Margin = new System.Windows.Forms.Padding(4);
+            this.BOMBubbleChartButton.Location = new System.Drawing.Point(626, 332);
             this.BOMBubbleChartButton.Name = "BOMBubbleChartButton";
-            this.BOMBubbleChartButton.Size = new System.Drawing.Size(143, 36);
+            this.BOMBubbleChartButton.Size = new System.Drawing.Size(107, 29);
             this.BOMBubbleChartButton.TabIndex = 4;
             this.BOMBubbleChartButton.Text = "Bubble Chart";
             this.BOMBubbleChartButton.UseVisualStyleBackColor = true;
@@ -136,6 +133,7 @@
             // 
             // BOMTable
             // 
+            this.BOMTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.BOMTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BOMTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Category,
@@ -144,11 +142,11 @@
             this.Effectiveness,
             this.Criticality,
             this.Differential});
-            this.BOMTable.Location = new System.Drawing.Point(4, 81);
-            this.BOMTable.Margin = new System.Windows.Forms.Padding(4);
+            this.BOMTable.Location = new System.Drawing.Point(3, 66);
             this.BOMTable.Name = "BOMTable";
-            this.BOMTable.Size = new System.Drawing.Size(1001, 294);
+            this.BOMTable.Size = new System.Drawing.Size(751, 239);
             this.BOMTable.TabIndex = 3;
+            this.BOMTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BOMTable_CellContentClick);
             // 
             // Category
             // 
@@ -183,30 +181,27 @@
             // 
             // SaveBOMButton
             // 
-            this.SaveBOMButton.Location = new System.Drawing.Point(36, 409);
-            this.SaveBOMButton.Margin = new System.Windows.Forms.Padding(4);
+            this.SaveBOMButton.Location = new System.Drawing.Point(27, 332);
             this.SaveBOMButton.Name = "SaveBOMButton";
-            this.SaveBOMButton.Size = new System.Drawing.Size(143, 36);
+            this.SaveBOMButton.Size = new System.Drawing.Size(107, 29);
             this.SaveBOMButton.TabIndex = 2;
             this.SaveBOMButton.Text = "Save BOM";
             this.SaveBOMButton.UseVisualStyleBackColor = true;
             // 
             // OpenBOMButton
             // 
-            this.OpenBOMButton.Location = new System.Drawing.Point(220, 27);
-            this.OpenBOMButton.Margin = new System.Windows.Forms.Padding(4);
+            this.OpenBOMButton.Location = new System.Drawing.Point(165, 22);
             this.OpenBOMButton.Name = "OpenBOMButton";
-            this.OpenBOMButton.Size = new System.Drawing.Size(143, 36);
+            this.OpenBOMButton.Size = new System.Drawing.Size(107, 29);
             this.OpenBOMButton.TabIndex = 1;
             this.OpenBOMButton.Text = "Open BOM";
             this.OpenBOMButton.UseVisualStyleBackColor = true;
             // 
             // NewBOMButton
             // 
-            this.NewBOMButton.Location = new System.Drawing.Point(36, 27);
-            this.NewBOMButton.Margin = new System.Windows.Forms.Padding(4);
+            this.NewBOMButton.Location = new System.Drawing.Point(27, 22);
             this.NewBOMButton.Name = "NewBOMButton";
-            this.NewBOMButton.Size = new System.Drawing.Size(143, 36);
+            this.NewBOMButton.Size = new System.Drawing.Size(107, 29);
             this.NewBOMButton.TabIndex = 0;
             this.NewBOMButton.Text = "New BOM";
             this.NewBOMButton.UseVisualStyleBackColor = true;
@@ -221,14 +216,40 @@
             this.CUPE.Controls.Add(this.CUPETable);
             this.CUPE.Controls.Add(this.OpenAnalytics);
             this.CUPE.Controls.Add(this.NewCUPEButton);
-            this.CUPE.Location = new System.Drawing.Point(4, 25);
-            this.CUPE.Margin = new System.Windows.Forms.Padding(4);
+            this.CUPE.Location = new System.Drawing.Point(4, 22);
             this.CUPE.Name = "CUPE";
-            this.CUPE.Size = new System.Drawing.Size(1012, 453);
+            this.CUPE.Size = new System.Drawing.Size(757, 366);
             this.CUPE.TabIndex = 1;
             this.CUPE.Text = "CUPE";
             this.CUPE.UseVisualStyleBackColor = true;
             this.CUPE.Click += new System.EventHandler(this.CUPE_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(578, 181);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(107, 29);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Generate WebPage";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(128, 24);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(107, 29);
+            this.button3.TabIndex = 11;
+            this.button3.Text = "Save Current Users";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(404, 24);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(138, 29);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Save Current Questions";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -236,138 +257,10 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.Objective});
-            this.dataGridView1.Location = new System.Drawing.Point(388, 74);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Location = new System.Drawing.Point(291, 60);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(335, 362);
+            this.dataGridView1.Size = new System.Drawing.Size(251, 294);
             this.dataGridView1.TabIndex = 9;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(388, 29);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(143, 36);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Open Question List";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // CUPETable
-            // 
-            this.CUPETable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CUPETable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Participant,
-            this.AnswersSubmitted});
-            this.CUPETable.Location = new System.Drawing.Point(17, 74);
-            this.CUPETable.Margin = new System.Windows.Forms.Padding(4);
-            this.CUPETable.Name = "CUPETable";
-            this.CUPETable.Size = new System.Drawing.Size(297, 362);
-            this.CUPETable.TabIndex = 4;
-            // 
-            // OpenAnalytics
-            // 
-            this.OpenAnalytics.Location = new System.Drawing.Point(771, 150);
-            this.OpenAnalytics.Margin = new System.Windows.Forms.Padding(4);
-            this.OpenAnalytics.Name = "OpenAnalytics";
-            this.OpenAnalytics.Size = new System.Drawing.Size(143, 36);
-            this.OpenAnalytics.TabIndex = 2;
-            this.OpenAnalytics.Text = "Open Analytics";
-            this.OpenAnalytics.UseVisualStyleBackColor = true;
-            this.OpenAnalytics.Click += new System.EventHandler(this.OpenAnalytics_Click);
-            // 
-            // NewCUPEButton
-            // 
-            this.NewCUPEButton.Location = new System.Drawing.Point(17, 30);
-            this.NewCUPEButton.Margin = new System.Windows.Forms.Padding(4);
-            this.NewCUPEButton.Name = "NewCUPEButton";
-            this.NewCUPEButton.Size = new System.Drawing.Size(143, 36);
-            this.NewCUPEButton.TabIndex = 1;
-            this.NewCUPEButton.Text = "Open User List";
-            this.NewCUPEButton.UseVisualStyleBackColor = true;
-            // 
-            // ITCAP
-            // 
-            this.ITCAP.Location = new System.Drawing.Point(4, 25);
-            this.ITCAP.Margin = new System.Windows.Forms.Padding(4);
-            this.ITCAP.Name = "ITCAP";
-            this.ITCAP.Size = new System.Drawing.Size(1012, 453);
-            this.ITCAP.TabIndex = 2;
-            this.ITCAP.Text = "ITCAP";
-            this.ITCAP.UseVisualStyleBackColor = true;
-            // 
-            // MainMenu
-            // 
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu,
-            this.toolsToolStripMenuItem,
-            this.viewToolStripMenuItem});
-            this.MainMenu.Location = new System.Drawing.Point(0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.MainMenu.Size = new System.Drawing.Size(1052, 28);
-            this.MainMenu.TabIndex = 1;
-            this.MainMenu.Text = "Menu";
-            // 
-            // Menu
-            // 
-            this.Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.New,
-            this.saveToolStripMenuItem});
-            this.Menu.Name = "Menu";
-            this.Menu.Size = new System.Drawing.Size(44, 24);
-            this.Menu.Text = "File";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
-            this.openToolStripMenuItem.Text = "Open";
-            // 
-            // New
-            // 
-            this.New.Name = "New";
-            this.New.Size = new System.Drawing.Size(114, 24);
-            this.New.Text = "New";
-            this.New.Click += new System.EventHandler(this.New_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
-            this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(539, 29);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(184, 36);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Save Current Questions";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(171, 29);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 36);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "Save Current Users";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -380,6 +273,26 @@
             this.Objective.HeaderText = "Objective";
             this.Objective.Name = "Objective";
             this.Objective.Width = 150;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(291, 24);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 29);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Open Question List";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // CUPETable
+            // 
+            this.CUPETable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CUPETable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Participant,
+            this.AnswersSubmitted});
+            this.CUPETable.Location = new System.Drawing.Point(13, 60);
+            this.CUPETable.Name = "CUPETable";
+            this.CUPETable.Size = new System.Drawing.Size(223, 294);
+            this.CUPETable.TabIndex = 4;
             // 
             // Participant
             // 
@@ -394,30 +307,111 @@
             this.AnswersSubmitted.Name = "AnswersSubmitted";
             this.AnswersSubmitted.Width = 110;
             // 
-            // button4
+            // OpenAnalytics
             // 
-            this.button4.Location = new System.Drawing.Point(771, 223);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(143, 36);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "Generate WebPage";
-            this.button4.UseVisualStyleBackColor = true;
+            this.OpenAnalytics.Location = new System.Drawing.Point(578, 122);
+            this.OpenAnalytics.Name = "OpenAnalytics";
+            this.OpenAnalytics.Size = new System.Drawing.Size(107, 29);
+            this.OpenAnalytics.TabIndex = 2;
+            this.OpenAnalytics.Text = "Open Analytics";
+            this.OpenAnalytics.UseVisualStyleBackColor = true;
+            this.OpenAnalytics.Click += new System.EventHandler(this.OpenAnalytics_Click);
+            // 
+            // NewCUPEButton
+            // 
+            this.NewCUPEButton.Location = new System.Drawing.Point(13, 24);
+            this.NewCUPEButton.Name = "NewCUPEButton";
+            this.NewCUPEButton.Size = new System.Drawing.Size(107, 29);
+            this.NewCUPEButton.TabIndex = 1;
+            this.NewCUPEButton.Text = "Open User List";
+            this.NewCUPEButton.UseVisualStyleBackColor = true;
+            // 
+            // ITCAP
+            // 
+            this.ITCAP.Location = new System.Drawing.Point(4, 22);
+            this.ITCAP.Name = "ITCAP";
+            this.ITCAP.Size = new System.Drawing.Size(757, 366);
+            this.ITCAP.TabIndex = 2;
+            this.ITCAP.Text = "ITCAP";
+            this.ITCAP.UseVisualStyleBackColor = true;
+            // 
+            // MainMenu
+            // 
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu,
+            this.toolsToolStripMenuItem,
+            this.viewToolStripMenuItem});
+            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(789, 24);
+            this.MainMenu.TabIndex = 1;
+            this.MainMenu.Text = "Menu";
+            // 
+            // Menu
+            // 
+            this.Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.New,
+            this.saveToolStripMenuItem});
+            this.Menu.Name = "Menu";
+            this.Menu.Size = new System.Drawing.Size(37, 20);
+            this.Menu.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // New
+            // 
+            this.New.Name = "New";
+            this.New.Size = new System.Drawing.Size(152, 22);
+            this.New.Text = "New";
+            this.New.Click += new System.EventHandler(this.New_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // SendToEmail
+            // 
+            this.SendToEmail.Location = new System.Drawing.Point(342, 332);
+            this.SendToEmail.Name = "SendToEmail";
+            this.SendToEmail.Size = new System.Drawing.Size(100, 20);
+            this.SendToEmail.TabIndex = 7;
+            this.SendToEmail.Text = "Email";
+            this.SendToEmail.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1052, 528);
+            this.ClientSize = new System.Drawing.Size(789, 429);
             this.Controls.Add(this.TabControl);
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "IBMConsultantTool";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.TabControl.ResumeLayout(false);
             this.BOM.ResumeLayout(false);
+            this.BOM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).EndInit();
             this.CUPE.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -467,6 +461,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Participant;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnswersSubmitted;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox SendToEmail;
     }
 }
 

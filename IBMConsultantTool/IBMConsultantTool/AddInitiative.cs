@@ -22,5 +22,10 @@ namespace IBMConsultantTool
             InitiativeComboBox.Items.Add("<Select Initiative>");
             InitiativeComboBox.SelectedIndex = 0;
         }
+
+        private void BusinessObjectiveComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
