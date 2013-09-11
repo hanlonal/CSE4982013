@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using System.Text;
 using System.Diagnostics;
 
 namespace IBMConsultantTool
@@ -59,6 +58,7 @@ namespace IBMConsultantTool
         private void NewConsultButton_Click(object sender, EventArgs e)
         {
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcMainForm));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
             this.Close();
             return;

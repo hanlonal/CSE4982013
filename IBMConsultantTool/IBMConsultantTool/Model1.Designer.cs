@@ -18,11 +18,23 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("Model1", "DomainImperative", "Domain", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BusinessObjective), "Imperative", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.Imperative))]
-[assembly: EdmRelationshipAttribute("Model1", "CategoryBusinessObjective", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.Category), "BusinessObjective", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BusinessObjective))]
-[assembly: EdmRelationshipAttribute("Model1", "BOMImperative", "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BOM), "Imperative", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.Imperative))]
-[assembly: EdmRelationshipAttribute("Model1", "ClientBOM", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.Client), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BOM))]
-[assembly: EdmRelationshipAttribute("Model1", "InitiativeBusinessObjective", "Initiative", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.Initiative), "BusinessObjective", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BusinessObjective))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "BOM_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "BOM_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "BOM_INITIATIVE_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.INITIATIVE), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "GROUP_BOM_FK", "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BOM), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "INITIATIVE_BOM_FK", "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BOM), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "CATEGORY", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CATEGORY), "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BUSINESSOBJECTIVE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCAP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CUPEQUESTION), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPEQUESTI_CUPE_FK", "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CUPE), "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPEQUESTION))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPEQUES_INITIA_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.INITIATIVE), "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPEQUESTION))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCAP_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCAPQUE_INITI_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.INITIATIVE), "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPQUESTION))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCA_ITCAPQUEST_FK", "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.ITCAPQUESTION), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCAPQUEST_ITCA_FK", "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.ITCAP), "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPQUESTION))]
 
 #endregion
 
@@ -33,32 +45,32 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class Model1Container : ObjectContext
+    public partial class SAMPLEEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new Model1Container object using the connection string found in the 'Model1Container' section of the application configuration file.
+        /// Initializes a new SAMPLEEntities object using the connection string found in the 'SAMPLEEntities' section of the application configuration file.
         /// </summary>
-        public Model1Container() : base("name=Model1Container", "Model1Container")
+        public SAMPLEEntities() : base("name=SAMPLEEntities", "SAMPLEEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Model1Container object.
+        /// Initialize a new SAMPLEEntities object.
         /// </summary>
-        public Model1Container(string connectionString) : base(connectionString, "Model1Container")
+        public SAMPLEEntities(string connectionString) : base(connectionString, "SAMPLEEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Model1Container object.
+        /// Initialize a new SAMPLEEntities object.
         /// </summary>
-        public Model1Container(EntityConnection connection) : base(connection, "Model1Container")
+        public SAMPLEEntities(EntityConnection connection) : base(connection, "SAMPLEEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -73,70 +85,6 @@ namespace IBMConsultantTool
         #endregion
     
         #region ObjectSet Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Client> Client
-        {
-            get
-            {
-                if ((_Client == null))
-                {
-                    _Client = base.CreateObjectSet<Client>("Client");
-                }
-                return _Client;
-            }
-        }
-        private ObjectSet<Client> _Client;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<BusinessObjective> BusinessObjective
-        {
-            get
-            {
-                if ((_BusinessObjective == null))
-                {
-                    _BusinessObjective = base.CreateObjectSet<BusinessObjective>("BusinessObjective");
-                }
-                return _BusinessObjective;
-            }
-        }
-        private ObjectSet<BusinessObjective> _BusinessObjective;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Imperative> Imperative
-        {
-            get
-            {
-                if ((_Imperative == null))
-                {
-                    _Imperative = base.CreateObjectSet<Imperative>("Imperative");
-                }
-                return _Imperative;
-            }
-        }
-        private ObjectSet<Imperative> _Imperative;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Category> Category
-        {
-            get
-            {
-                if ((_Category == null))
-                {
-                    _Category = base.CreateObjectSet<Category>("Category");
-                }
-                return _Category;
-            }
-        }
-        private ObjectSet<Category> _Category;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -157,53 +105,149 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Initiative> Initiative
+        public ObjectSet<BUSINESSOBJECTIVE> BUSINESSOBJECTIVE
         {
             get
             {
-                if ((_Initiative == null))
+                if ((_BUSINESSOBJECTIVE == null))
                 {
-                    _Initiative = base.CreateObjectSet<Initiative>("Initiative");
+                    _BUSINESSOBJECTIVE = base.CreateObjectSet<BUSINESSOBJECTIVE>("BUSINESSOBJECTIVE");
                 }
-                return _Initiative;
+                return _BUSINESSOBJECTIVE;
             }
         }
-        private ObjectSet<Initiative> _Initiative;
+        private ObjectSet<BUSINESSOBJECTIVE> _BUSINESSOBJECTIVE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CATEGORY> CATEGORY
+        {
+            get
+            {
+                if ((_CATEGORY == null))
+                {
+                    _CATEGORY = base.CreateObjectSet<CATEGORY>("CATEGORY");
+                }
+                return _CATEGORY;
+            }
+        }
+        private ObjectSet<CATEGORY> _CATEGORY;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CLIENT> CLIENT
+        {
+            get
+            {
+                if ((_CLIENT == null))
+                {
+                    _CLIENT = base.CreateObjectSet<CLIENT>("CLIENT");
+                }
+                return _CLIENT;
+            }
+        }
+        private ObjectSet<CLIENT> _CLIENT;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CUPE> CUPE
+        {
+            get
+            {
+                if ((_CUPE == null))
+                {
+                    _CUPE = base.CreateObjectSet<CUPE>("CUPE");
+                }
+                return _CUPE;
+            }
+        }
+        private ObjectSet<CUPE> _CUPE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CUPEQUESTION> CUPEQUESTION
+        {
+            get
+            {
+                if ((_CUPEQUESTION == null))
+                {
+                    _CUPEQUESTION = base.CreateObjectSet<CUPEQUESTION>("CUPEQUESTION");
+                }
+                return _CUPEQUESTION;
+            }
+        }
+        private ObjectSet<CUPEQUESTION> _CUPEQUESTION;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GROUP> GROUP
+        {
+            get
+            {
+                if ((_GROUP == null))
+                {
+                    _GROUP = base.CreateObjectSet<GROUP>("GROUP");
+                }
+                return _GROUP;
+            }
+        }
+        private ObjectSet<GROUP> _GROUP;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<INITIATIVE> INITIATIVE
+        {
+            get
+            {
+                if ((_INITIATIVE == null))
+                {
+                    _INITIATIVE = base.CreateObjectSet<INITIATIVE>("INITIATIVE");
+                }
+                return _INITIATIVE;
+            }
+        }
+        private ObjectSet<INITIATIVE> _INITIATIVE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ITCAP> ITCAP
+        {
+            get
+            {
+                if ((_ITCAP == null))
+                {
+                    _ITCAP = base.CreateObjectSet<ITCAP>("ITCAP");
+                }
+                return _ITCAP;
+            }
+        }
+        private ObjectSet<ITCAP> _ITCAP;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ITCAPQUESTION> ITCAPQUESTION
+        {
+            get
+            {
+                if ((_ITCAPQUESTION == null))
+                {
+                    _ITCAPQUESTION = base.CreateObjectSet<ITCAPQUESTION>("ITCAPQUESTION");
+                }
+                return _ITCAPQUESTION;
+            }
+        }
+        private ObjectSet<ITCAPQUESTION> _ITCAPQUESTION;
 
         #endregion
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Client EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClient(Client client)
-        {
-            base.AddObject("Client", client);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the BusinessObjective EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBusinessObjective(BusinessObjective businessObjective)
-        {
-            base.AddObject("BusinessObjective", businessObjective);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Imperative EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToImperative(Imperative imperative)
-        {
-            base.AddObject("Imperative", imperative);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Category EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCategory(Category category)
-        {
-            base.AddObject("Category", category);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the BOM EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -214,11 +258,75 @@ namespace IBMConsultantTool
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Initiative EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the BUSINESSOBJECTIVE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToInitiative(Initiative initiative)
+        public void AddToBUSINESSOBJECTIVE(BUSINESSOBJECTIVE bUSINESSOBJECTIVE)
         {
-            base.AddObject("Initiative", initiative);
+            base.AddObject("BUSINESSOBJECTIVE", bUSINESSOBJECTIVE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CATEGORY EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCATEGORY(CATEGORY cATEGORY)
+        {
+            base.AddObject("CATEGORY", cATEGORY);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CLIENT EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCLIENT(CLIENT cLIENT)
+        {
+            base.AddObject("CLIENT", cLIENT);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CUPE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCUPE(CUPE cUPE)
+        {
+            base.AddObject("CUPE", cUPE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CUPEQUESTION EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCUPEQUESTION(CUPEQUESTION cUPEQUESTION)
+        {
+            base.AddObject("CUPEQUESTION", cUPEQUESTION);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GROUP EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGROUP(GROUP gROUP)
+        {
+            base.AddObject("GROUP", gROUP);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the INITIATIVE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToINITIATIVE(INITIATIVE iNITIATIVE)
+        {
+            base.AddObject("INITIATIVE", iNITIATIVE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ITCAP EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToITCAP(ITCAP iTCAP)
+        {
+            base.AddObject("ITCAP", iTCAP);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ITCAPQUESTION EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToITCAPQUESTION(ITCAPQUESTION iTCAPQUESTION)
+        {
+            base.AddObject("ITCAPQUESTION", iTCAPQUESTION);
         }
 
         #endregion
@@ -232,7 +340,7 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="BOM")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="BOM")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class BOM : EntityObject
@@ -242,11 +350,13 @@ namespace IBMConsultantTool
         /// <summary>
         /// Create a new BOM object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static BOM CreateBOM(global::System.Int32 id)
+        /// <param name="pARTICIPANT">Initial value of the PARTICIPANT property.</param>
+        /// <param name="bOMID">Initial value of the BOMID property.</param>
+        public static BOM CreateBOM(global::System.String pARTICIPANT, global::System.Int32 bOMID)
         {
             BOM bOM = new BOM();
-            bOM.Id = id;
+            bOM.PARTICIPANT = pARTICIPANT;
+            bOM.BOMID = bOMID;
             return bOM;
         }
 
@@ -256,29 +366,125 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.String PARTICIPANT
         {
             get
             {
-                return _Id;
+                return _PARTICIPANT;
             }
             set
             {
-                if (_Id != value)
+                OnPARTICIPANTChanging(value);
+                ReportPropertyChanging("PARTICIPANT");
+                _PARTICIPANT = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PARTICIPANT");
+                OnPARTICIPANTChanged();
+            }
+        }
+        private global::System.String _PARTICIPANT;
+        partial void OnPARTICIPANTChanging(global::System.String value);
+        partial void OnPARTICIPANTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> EFFECTIVENESS
+        {
+            get
+            {
+                return _EFFECTIVENESS;
+            }
+            set
+            {
+                OnEFFECTIVENESSChanging(value);
+                ReportPropertyChanging("EFFECTIVENESS");
+                _EFFECTIVENESS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EFFECTIVENESS");
+                OnEFFECTIVENESSChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _EFFECTIVENESS;
+        partial void OnEFFECTIVENESSChanging(Nullable<global::System.Int16> value);
+        partial void OnEFFECTIVENESSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> CRITICALITY
+        {
+            get
+            {
+                return _CRITICALITY;
+            }
+            set
+            {
+                OnCRITICALITYChanging(value);
+                ReportPropertyChanging("CRITICALITY");
+                _CRITICALITY = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CRITICALITY");
+                OnCRITICALITYChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _CRITICALITY;
+        partial void OnCRITICALITYChanging(Nullable<global::System.Int16> value);
+        partial void OnCRITICALITYChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> DIFFERENTIAL
+        {
+            get
+            {
+                return _DIFFERENTIAL;
+            }
+            set
+            {
+                OnDIFFERENTIALChanging(value);
+                ReportPropertyChanging("DIFFERENTIAL");
+                _DIFFERENTIAL = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DIFFERENTIAL");
+                OnDIFFERENTIALChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _DIFFERENTIAL;
+        partial void OnDIFFERENTIALChanging(Nullable<global::System.Int16> value);
+        partial void OnDIFFERENTIALChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BOMID
+        {
+            get
+            {
+                return _BOMID;
+            }
+            set
+            {
+                if (_BOMID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnBOMIDChanging(value);
+                    ReportPropertyChanging("BOMID");
+                    _BOMID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("BOMID");
+                    OnBOMIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _BOMID;
+        partial void OnBOMIDChanging(global::System.Int32 value);
+        partial void OnBOMIDChanged();
 
         #endregion
     
@@ -290,18 +496,34 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "BOMImperative", "Imperative")]
-        public EntityCollection<Imperative> Imperative
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_CLIENT_FK", "CLIENT")]
+        public CLIENT CLIENT
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Imperative>("Model1.BOMImperative", "Imperative");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CLIENT> CLIENTReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Imperative>("Model1.BOMImperative", "Imperative", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CLIENT>("SAMPLEModel.BOM_CLIENT_FK", "CLIENT", value);
                 }
             }
         }
@@ -312,16 +534,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "ClientBOM", "Client")]
-        public Client Client
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_GROUP_FK", "GROUP")]
+        public GROUP GROUP
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("Model1.ClientBOM", "Client").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.BOM_GROUP_FK", "GROUP").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("Model1.ClientBOM", "Client").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.BOM_GROUP_FK", "GROUP").Value = value;
             }
         }
         /// <summary>
@@ -329,17 +551,99 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Client> ClientReference
+        public EntityReference<GROUP> GROUPReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("Model1.ClientBOM", "Client");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.BOM_GROUP_FK", "GROUP");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Client>("Model1.ClientBOM", "Client", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GROUP>("SAMPLEModel.BOM_GROUP_FK", "GROUP", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_INITIATIVE_FK", "INITIATIVE")]
+        public INITIATIVE INITIATIVE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.BOM_INITIATIVE_FK", "INITIATIVE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.BOM_INITIATIVE_FK", "INITIATIVE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<INITIATIVE> INITIATIVEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.BOM_INITIATIVE_FK", "INITIATIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<INITIATIVE>("SAMPLEModel.BOM_INITIATIVE_FK", "INITIATIVE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "GROUP_BOM_FK", "GROUP")]
+        public EntityCollection<GROUP> GROUP1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GROUP>("SAMPLEModel.GROUP_BOM_FK", "GROUP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GROUP>("SAMPLEModel.GROUP_BOM_FK", "GROUP", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INITIATIVE_BOM_FK", "INITIATIVE")]
+        public EntityCollection<INITIATIVE> INITIATIVE1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<INITIATIVE>("SAMPLEModel.INITIATIVE_BOM_FK", "INITIATIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<INITIATIVE>("SAMPLEModel.INITIATIVE_BOM_FK", "INITIATIVE", value);
                 }
             }
         }
@@ -350,22 +654,24 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="BusinessObjective")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="BUSINESSOBJECTIVE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class BusinessObjective : EntityObject
+    public partial class BUSINESSOBJECTIVE : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new BusinessObjective object.
+        /// Create a new BUSINESSOBJECTIVE object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static BusinessObjective CreateBusinessObjective(global::System.Int32 id)
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        /// <param name="bUSINESSOBJECTIVEID">Initial value of the BUSINESSOBJECTIVEID property.</param>
+        public static BUSINESSOBJECTIVE CreateBUSINESSOBJECTIVE(global::System.String nAME, global::System.Int32 bUSINESSOBJECTIVEID)
         {
-            BusinessObjective businessObjective = new BusinessObjective();
-            businessObjective.Id = id;
-            return businessObjective;
+            BUSINESSOBJECTIVE bUSINESSOBJECTIVE = new BUSINESSOBJECTIVE();
+            bUSINESSOBJECTIVE.NAME = nAME;
+            bUSINESSOBJECTIVE.BUSINESSOBJECTIVEID = bUSINESSOBJECTIVEID;
+            return bUSINESSOBJECTIVE;
         }
 
         #endregion
@@ -374,29 +680,53 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.String NAME
         {
             get
             {
-                return _Id;
+                return _NAME;
             }
             set
             {
-                if (_Id != value)
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BUSINESSOBJECTIVEID
+        {
+            get
+            {
+                return _BUSINESSOBJECTIVEID;
+            }
+            set
+            {
+                if (_BUSINESSOBJECTIVEID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnBUSINESSOBJECTIVEIDChanging(value);
+                    ReportPropertyChanging("BUSINESSOBJECTIVEID");
+                    _BUSINESSOBJECTIVEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("BUSINESSOBJECTIVEID");
+                    OnBUSINESSOBJECTIVEIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _BUSINESSOBJECTIVEID;
+        partial void OnBUSINESSOBJECTIVEIDChanging(global::System.Int32 value);
+        partial void OnBUSINESSOBJECTIVEIDChanged();
 
         #endregion
     
@@ -408,38 +738,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "DomainImperative", "Imperative")]
-        public EntityCollection<Imperative> Imperative
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "CATEGORY")]
+        public CATEGORY CATEGORY
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Imperative>("Model1.DomainImperative", "Imperative");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY").Value;
             }
             set
             {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Imperative>("Model1.DomainImperative", "Imperative", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "CategoryBusinessObjective", "Category")]
-        public Category Category
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY").Value = value;
             }
         }
         /// <summary>
@@ -447,17 +755,17 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Category> CategoryReference
+        public EntityReference<CATEGORY> CATEGORYReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("Model1.CategoryBusinessObjective", "Category", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CATEGORY>("SAMPLEModel.BUSINESSOB_CATE_FK", "CATEGORY", value);
                 }
             }
         }
@@ -468,18 +776,18 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "InitiativeBusinessObjective", "Initiative")]
-        public EntityCollection<Initiative> Initiative
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "INITIATIVE")]
+        public EntityCollection<INITIATIVE> INITIATIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Initiative>("Model1.InitiativeBusinessObjective", "Initiative");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<INITIATIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "INITIATIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Initiative>("Model1.InitiativeBusinessObjective", "Initiative", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<INITIATIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "INITIATIVE", value);
                 }
             }
         }
@@ -490,22 +798,24 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Category")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CATEGORY")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Category : EntityObject
+    public partial class CATEGORY : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Category object.
+        /// Create a new CATEGORY object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static Category CreateCategory(global::System.Int32 id)
+        /// <param name="cATEGORYID">Initial value of the CATEGORYID property.</param>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        public static CATEGORY CreateCATEGORY(global::System.Int32 cATEGORYID, global::System.String nAME)
         {
-            Category category = new Category();
-            category.Id = id;
-            return category;
+            CATEGORY cATEGORY = new CATEGORY();
+            cATEGORY.CATEGORYID = cATEGORYID;
+            cATEGORY.NAME = nAME;
+            return cATEGORY;
         }
 
         #endregion
@@ -516,27 +826,51 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 CATEGORYID
         {
             get
             {
-                return _Id;
+                return _CATEGORYID;
             }
             set
             {
-                if (_Id != value)
+                if (_CATEGORYID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnCATEGORYIDChanging(value);
+                    ReportPropertyChanging("CATEGORYID");
+                    _CATEGORYID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CATEGORYID");
+                    OnCATEGORYIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _CATEGORYID;
+        partial void OnCATEGORYIDChanging(global::System.Int32 value);
+        partial void OnCATEGORYIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
 
         #endregion
     
@@ -548,18 +882,18 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "CategoryBusinessObjective", "BusinessObjective")]
-        public EntityCollection<BusinessObjective> BusinessObjective
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "BUSINESSOBJECTIVE")]
+        public EntityCollection<BUSINESSOBJECTIVE> BUSINESSOBJECTIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BusinessObjective>("Model1.CategoryBusinessObjective", "BusinessObjective");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BUSINESSOBJECTIVE>("SAMPLEModel.BUSINESSOB_CATE_FK", "BUSINESSOBJECTIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BusinessObjective>("Model1.CategoryBusinessObjective", "BusinessObjective", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BUSINESSOBJECTIVE>("SAMPLEModel.BUSINESSOB_CATE_FK", "BUSINESSOBJECTIVE", value);
                 }
             }
         }
@@ -570,22 +904,24 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Client")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CLIENT")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Client : EntityObject
+    public partial class CLIENT : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Client object.
+        /// Create a new CLIENT object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static Client CreateClient(global::System.Int32 id)
+        /// <param name="cLIENTID">Initial value of the CLIENTID property.</param>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        public static CLIENT CreateCLIENT(global::System.Int32 cLIENTID, global::System.String nAME)
         {
-            Client client = new Client();
-            client.Id = id;
-            return client;
+            CLIENT cLIENT = new CLIENT();
+            cLIENT.CLIENTID = cLIENTID;
+            cLIENT.NAME = nAME;
+            return cLIENT;
         }
 
         #endregion
@@ -596,27 +932,51 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 CLIENTID
         {
             get
             {
-                return _Id;
+                return _CLIENTID;
             }
             set
             {
-                if (_Id != value)
+                if (_CLIENTID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnCLIENTIDChanging(value);
+                    ReportPropertyChanging("CLIENTID");
+                    _CLIENTID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CLIENTID");
+                    OnCLIENTIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _CLIENTID;
+        partial void OnCLIENTIDChanging(global::System.Int32 value);
+        partial void OnCLIENTIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
 
         #endregion
     
@@ -628,34 +988,62 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "ClientBOM", "BOM")]
-        public BOM BOM
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_CLIENT_FK", "BOM")]
+        public EntityCollection<BOM> BOM
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.ClientBOM", "BOM").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.ClientBOM", "BOM").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<BOM> BOMReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.ClientBOM", "BOM");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BOM>("SAMPLEModel.BOM_CLIENT_FK", "BOM");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("Model1.ClientBOM", "BOM", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BOM>("SAMPLEModel.BOM_CLIENT_FK", "BOM", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "GROUP_CLIENT_FK", "GROUP")]
+        public EntityCollection<GROUP> GROUP
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GROUP>("SAMPLEModel.GROUP_CLIENT_FK", "GROUP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GROUP>("SAMPLEModel.GROUP_CLIENT_FK", "GROUP", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAP_CLIENT_FK", "ITCAP")]
+        public EntityCollection<ITCAP> ITCAP
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ITCAP>("SAMPLEModel.ITCAP_CLIENT_FK", "ITCAP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAP>("SAMPLEModel.ITCAP_CLIENT_FK", "ITCAP", value);
                 }
             }
         }
@@ -666,30 +1054,22 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Imperative")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CUPE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Imperative : EntityObject
+    public partial class CUPE : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Imperative object.
+        /// Create a new CUPE object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="currentRating">Initial value of the CurrentRating property.</param>
-        /// <param name="desiredRating">Initial value of the DesiredRating property.</param>
-        /// <param name="criticality">Initial value of the Criticality property.</param>
-        /// <param name="differential">Initial value of the Differential property.</param>
-        public static Imperative CreateImperative(global::System.Int32 id, global::System.String currentRating, global::System.String desiredRating, global::System.String criticality, global::System.String differential)
+        /// <param name="cUPEID">Initial value of the CUPEID property.</param>
+        public static CUPE CreateCUPE(global::System.Int32 cUPEID)
         {
-            Imperative imperative = new Imperative();
-            imperative.Id = id;
-            imperative.CurrentRating = currentRating;
-            imperative.DesiredRating = desiredRating;
-            imperative.Criticality = criticality;
-            imperative.Differential = differential;
-            return imperative;
+            CUPE cUPE = new CUPE();
+            cUPE.CUPEID = cUPEID;
+            return cUPE;
         }
 
         #endregion
@@ -700,123 +1080,75 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 CUPEID
         {
             get
             {
-                return _Id;
+                return _CUPEID;
             }
             set
             {
-                if (_Id != value)
+                if (_CUPEID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnCUPEIDChanging(value);
+                    ReportPropertyChanging("CUPEID");
+                    _CUPEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CUPEID");
+                    OnCUPEIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _CUPEID;
+        partial void OnCUPEIDChanging(global::System.Int32 value);
+        partial void OnCUPEIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String CurrentRating
+        public global::System.String PARTICIPANT
         {
             get
             {
-                return _CurrentRating;
+                return _PARTICIPANT;
             }
             set
             {
-                OnCurrentRatingChanging(value);
-                ReportPropertyChanging("CurrentRating");
-                _CurrentRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("CurrentRating");
-                OnCurrentRatingChanged();
+                OnPARTICIPANTChanging(value);
+                ReportPropertyChanging("PARTICIPANT");
+                _PARTICIPANT = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PARTICIPANT");
+                OnPARTICIPANTChanged();
             }
         }
-        private global::System.String _CurrentRating;
-        partial void OnCurrentRatingChanging(global::System.String value);
-        partial void OnCurrentRatingChanged();
+        private global::System.String _PARTICIPANT;
+        partial void OnPARTICIPANTChanging(global::System.String value);
+        partial void OnPARTICIPANTChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String DesiredRating
+        public global::System.String ANSWER
         {
             get
             {
-                return _DesiredRating;
+                return _ANSWER;
             }
             set
             {
-                OnDesiredRatingChanging(value);
-                ReportPropertyChanging("DesiredRating");
-                _DesiredRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("DesiredRating");
-                OnDesiredRatingChanged();
+                OnANSWERChanging(value);
+                ReportPropertyChanging("ANSWER");
+                _ANSWER = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ANSWER");
+                OnANSWERChanged();
             }
         }
-        private global::System.String _DesiredRating;
-        partial void OnDesiredRatingChanging(global::System.String value);
-        partial void OnDesiredRatingChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Criticality
-        {
-            get
-            {
-                return _Criticality;
-            }
-            set
-            {
-                OnCriticalityChanging(value);
-                ReportPropertyChanging("Criticality");
-                _Criticality = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Criticality");
-                OnCriticalityChanged();
-            }
-        }
-        private global::System.String _Criticality;
-        partial void OnCriticalityChanging(global::System.String value);
-        partial void OnCriticalityChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Differential
-        {
-            get
-            {
-                return _Differential;
-            }
-            set
-            {
-                OnDifferentialChanging(value);
-                ReportPropertyChanging("Differential");
-                _Differential = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Differential");
-                OnDifferentialChanged();
-            }
-        }
-        private global::System.String _Differential;
-        partial void OnDifferentialChanging(global::System.String value);
-        partial void OnDifferentialChanged();
+        private global::System.String _ANSWER;
+        partial void OnANSWERChanging(global::System.String value);
+        partial void OnANSWERChanged();
 
         #endregion
     
@@ -828,16 +1160,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "DomainImperative", "Domain")]
-        public BusinessObjective Domain
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION")]
+        public CUPEQUESTION CUPEQUESTION
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPEQUESTION>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPEQUESTION").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPEQUESTION>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPEQUESTION").Value = value;
             }
         }
         /// <summary>
@@ -845,17 +1177,17 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<BusinessObjective> DomainReference
+        public EntityReference<CUPEQUESTION> CUPEQUESTIONReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPEQUESTION>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPEQUESTION");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BusinessObjective>("Model1.DomainImperative", "Domain", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CUPEQUESTION>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPEQUESTION", value);
                 }
             }
         }
@@ -866,16 +1198,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "BOMImperative", "BOM")]
-        public BOM BOM
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_GROUP_FK", "GROUP")]
+        public GROUP GROUP
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.BOMImperative", "BOM").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.CUPE_GROUP_FK", "GROUP").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.BOMImperative", "BOM").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.CUPE_GROUP_FK", "GROUP").Value = value;
             }
         }
         /// <summary>
@@ -883,17 +1215,39 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<BOM> BOMReference
+        public EntityReference<GROUP> GROUPReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("Model1.BOMImperative", "BOM");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.CUPE_GROUP_FK", "GROUP");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("Model1.BOMImperative", "BOM", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GROUP>("SAMPLEModel.CUPE_GROUP_FK", "GROUP", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPEQUESTI_CUPE_FK", "CUPEQUESTION")]
+        public EntityCollection<CUPEQUESTION> CUPEQUESTION1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPEQUESTION>("SAMPLEModel.CUPEQUESTI_CUPE_FK", "CUPEQUESTION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPEQUESTION>("SAMPLEModel.CUPEQUESTI_CUPE_FK", "CUPEQUESTION", value);
                 }
             }
         }
@@ -904,30 +1258,22 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Initiative")]
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CUPEQUESTION")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Initiative : EntityObject
+    public partial class CUPEQUESTION : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Initiative object.
+        /// Create a new CUPEQUESTION object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="currentRating">Initial value of the CurrentRating property.</param>
-        /// <param name="desiredRating">Initial value of the DesiredRating property.</param>
-        /// <param name="criticality">Initial value of the Criticality property.</param>
-        /// <param name="differential">Initial value of the Differential property.</param>
-        public static Initiative CreateInitiative(global::System.Int32 id, global::System.String currentRating, global::System.String desiredRating, global::System.String criticality, global::System.String differential)
+        /// <param name="cUPEQUESTIONID">Initial value of the CUPEQUESTIONID property.</param>
+        public static CUPEQUESTION CreateCUPEQUESTION(global::System.Int32 cUPEQUESTIONID)
         {
-            Initiative initiative = new Initiative();
-            initiative.Id = id;
-            initiative.CurrentRating = currentRating;
-            initiative.DesiredRating = desiredRating;
-            initiative.Criticality = criticality;
-            initiative.Differential = differential;
-            return initiative;
+            CUPEQUESTION cUPEQUESTION = new CUPEQUESTION();
+            cUPEQUESTION.CUPEQUESTIONID = cUPEQUESTIONID;
+            return cUPEQUESTION;
         }
 
         #endregion
@@ -938,123 +1284,147 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 CUPEQUESTIONID
         {
             get
             {
-                return _Id;
+                return _CUPEQUESTIONID;
             }
             set
             {
-                if (_Id != value)
+                if (_CUPEQUESTIONID != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnCUPEQUESTIONIDChanging(value);
+                    ReportPropertyChanging("CUPEQUESTIONID");
+                    _CUPEQUESTIONID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CUPEQUESTIONID");
+                    OnCUPEQUESTIONIDChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _CUPEQUESTIONID;
+        partial void OnCUPEQUESTIONIDChanging(global::System.Int32 value);
+        partial void OnCUPEQUESTIONIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String CurrentRating
+        public global::System.String QUESTION
         {
             get
             {
-                return _CurrentRating;
+                return _QUESTION;
             }
             set
             {
-                OnCurrentRatingChanging(value);
-                ReportPropertyChanging("CurrentRating");
-                _CurrentRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("CurrentRating");
-                OnCurrentRatingChanged();
+                OnQUESTIONChanging(value);
+                ReportPropertyChanging("QUESTION");
+                _QUESTION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("QUESTION");
+                OnQUESTIONChanged();
             }
         }
-        private global::System.String _CurrentRating;
-        partial void OnCurrentRatingChanging(global::System.String value);
-        partial void OnCurrentRatingChanged();
+        private global::System.String _QUESTION;
+        partial void OnQUESTIONChanging(global::System.String value);
+        partial void OnQUESTIONChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String DesiredRating
+        public global::System.String C
         {
             get
             {
-                return _DesiredRating;
+                return _C;
             }
             set
             {
-                OnDesiredRatingChanging(value);
-                ReportPropertyChanging("DesiredRating");
-                _DesiredRating = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("DesiredRating");
-                OnDesiredRatingChanged();
+                OnCChanging(value);
+                ReportPropertyChanging("C");
+                _C = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("C");
+                OnCChanged();
             }
         }
-        private global::System.String _DesiredRating;
-        partial void OnDesiredRatingChanging(global::System.String value);
-        partial void OnDesiredRatingChanged();
+        private global::System.String _C;
+        partial void OnCChanging(global::System.String value);
+        partial void OnCChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Criticality
+        public global::System.String U
         {
             get
             {
-                return _Criticality;
+                return _U;
             }
             set
             {
-                OnCriticalityChanging(value);
-                ReportPropertyChanging("Criticality");
-                _Criticality = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Criticality");
-                OnCriticalityChanged();
+                OnUChanging(value);
+                ReportPropertyChanging("U");
+                _U = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("U");
+                OnUChanged();
             }
         }
-        private global::System.String _Criticality;
-        partial void OnCriticalityChanging(global::System.String value);
-        partial void OnCriticalityChanged();
+        private global::System.String _U;
+        partial void OnUChanging(global::System.String value);
+        partial void OnUChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Differential
+        public global::System.String P
         {
             get
             {
-                return _Differential;
+                return _P;
             }
             set
             {
-                OnDifferentialChanging(value);
-                ReportPropertyChanging("Differential");
-                _Differential = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Differential");
-                OnDifferentialChanged();
+                OnPChanging(value);
+                ReportPropertyChanging("P");
+                _P = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("P");
+                OnPChanged();
             }
         }
-        private global::System.String _Differential;
-        partial void OnDifferentialChanging(global::System.String value);
-        partial void OnDifferentialChanged();
+        private global::System.String _P;
+        partial void OnPChanging(global::System.String value);
+        partial void OnPChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String E
+        {
+            get
+            {
+                return _E;
+            }
+            set
+            {
+                OnEChanging(value);
+                ReportPropertyChanging("E");
+                _E = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("E");
+                OnEChanged();
+            }
+        }
+        private global::System.String _E;
+        partial void OnEChanging(global::System.String value);
+        partial void OnEChanged();
 
         #endregion
     
@@ -1066,16 +1436,38 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model1", "InitiativeBusinessObjective", "BusinessObjective")]
-        public BusinessObjective BusinessObjective
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_CUPEQUESTI_FK", "CUPE")]
+        public EntityCollection<CUPE> CUPE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPE>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPE");
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective").Value = value;
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPE>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPEQUESTI_CUPE_FK", "CUPE")]
+        public CUPE CUPE1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPE>("SAMPLEModel.CUPEQUESTI_CUPE_FK", "CUPE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPE>("SAMPLEModel.CUPEQUESTI_CUPE_FK", "CUPE").Value = value;
             }
         }
         /// <summary>
@@ -1083,17 +1475,927 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<BusinessObjective> BusinessObjectiveReference
+        public EntityReference<CUPE> CUPE1Reference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPE>("SAMPLEModel.CUPEQUESTI_CUPE_FK", "CUPE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BusinessObjective>("Model1.InitiativeBusinessObjective", "BusinessObjective", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CUPE>("SAMPLEModel.CUPEQUESTI_CUPE_FK", "CUPE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPEQUES_INITIA_FK", "INITIATIVE")]
+        public INITIATIVE INITIATIVE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.CUPEQUES_INITIA_FK", "INITIATIVE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.CUPEQUES_INITIA_FK", "INITIATIVE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<INITIATIVE> INITIATIVEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.CUPEQUES_INITIA_FK", "INITIATIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<INITIATIVE>("SAMPLEModel.CUPEQUES_INITIA_FK", "INITIATIVE", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="GROUP")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class GROUP : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new GROUP object.
+        /// </summary>
+        /// <param name="gROUPID">Initial value of the GROUPID property.</param>
+        public static GROUP CreateGROUP(global::System.Int32 gROUPID)
+        {
+            GROUP gROUP = new GROUP();
+            gROUP.GROUPID = gROUPID;
+            return gROUP;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 GROUPID
+        {
+            get
+            {
+                return _GROUPID;
+            }
+            set
+            {
+                if (_GROUPID != value)
+                {
+                    OnGROUPIDChanging(value);
+                    ReportPropertyChanging("GROUPID");
+                    _GROUPID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("GROUPID");
+                    OnGROUPIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _GROUPID;
+        partial void OnGROUPIDChanging(global::System.Int32 value);
+        partial void OnGROUPIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_GROUP_FK", "BOM")]
+        public EntityCollection<BOM> BOM
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BOM>("SAMPLEModel.BOM_GROUP_FK", "BOM");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BOM>("SAMPLEModel.BOM_GROUP_FK", "BOM", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "GROUP_BOM_FK", "BOM")]
+        public BOM BOM1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.GROUP_BOM_FK", "BOM").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.GROUP_BOM_FK", "BOM").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BOM> BOM1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.GROUP_BOM_FK", "BOM");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("SAMPLEModel.GROUP_BOM_FK", "BOM", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "GROUP_CLIENT_FK", "CLIENT")]
+        public CLIENT CLIENT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.GROUP_CLIENT_FK", "CLIENT").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.GROUP_CLIENT_FK", "CLIENT").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CLIENT> CLIENTReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.GROUP_CLIENT_FK", "CLIENT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CLIENT>("SAMPLEModel.GROUP_CLIENT_FK", "CLIENT", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_GROUP_FK", "CUPE")]
+        public EntityCollection<CUPE> CUPE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPE>("SAMPLEModel.CUPE_GROUP_FK", "CUPE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPE>("SAMPLEModel.CUPE_GROUP_FK", "CUPE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAP_GROUP_FK", "ITCAP")]
+        public EntityCollection<ITCAP> ITCAP
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ITCAP>("SAMPLEModel.ITCAP_GROUP_FK", "ITCAP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAP>("SAMPLEModel.ITCAP_GROUP_FK", "ITCAP", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="INITIATIVE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class INITIATIVE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new INITIATIVE object.
+        /// </summary>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        /// <param name="iNITIATIVEID">Initial value of the INITIATIVEID property.</param>
+        public static INITIATIVE CreateINITIATIVE(global::System.String nAME, global::System.Int32 iNITIATIVEID)
+        {
+            INITIATIVE iNITIATIVE = new INITIATIVE();
+            iNITIATIVE.NAME = nAME;
+            iNITIATIVE.INITIATIVEID = iNITIATIVEID;
+            return iNITIATIVE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 INITIATIVEID
+        {
+            get
+            {
+                return _INITIATIVEID;
+            }
+            set
+            {
+                if (_INITIATIVEID != value)
+                {
+                    OnINITIATIVEIDChanging(value);
+                    ReportPropertyChanging("INITIATIVEID");
+                    _INITIATIVEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("INITIATIVEID");
+                    OnINITIATIVEIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _INITIATIVEID;
+        partial void OnINITIATIVEIDChanging(global::System.Int32 value);
+        partial void OnINITIATIVEIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "BOM_INITIATIVE_FK", "BOM")]
+        public EntityCollection<BOM> BOM
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BOM>("SAMPLEModel.BOM_INITIATIVE_FK", "BOM");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BOM>("SAMPLEModel.BOM_INITIATIVE_FK", "BOM", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INITIATIVE_BOM_FK", "BOM")]
+        public BOM BOM1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BOM> BOM1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BOM>("SAMPLEModel.INITIATIVE_BOM_FK", "BOM", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE")]
+        public BUSINESSOBJECTIVE BUSINESSOBJECTIVE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BUSINESSOBJECTIVE> BUSINESSOBJECTIVEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BUSINESSOBJECTIVE>("SAMPLEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPEQUES_INITIA_FK", "CUPEQUESTION")]
+        public EntityCollection<CUPEQUESTION> CUPEQUESTION
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPEQUESTION>("SAMPLEModel.CUPEQUES_INITIA_FK", "CUPEQUESTION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPEQUESTION>("SAMPLEModel.CUPEQUES_INITIA_FK", "CUPEQUESTION", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAPQUE_INITI_FK", "ITCAPQUESTION")]
+        public EntityCollection<ITCAPQUESTION> ITCAPQUESTION
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ITCAPQUESTION>("SAMPLEModel.ITCAPQUE_INITI_FK", "ITCAPQUESTION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAPQUESTION>("SAMPLEModel.ITCAPQUE_INITI_FK", "ITCAPQUESTION", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="ITCAP")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ITCAP : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ITCAP object.
+        /// </summary>
+        /// <param name="iTCAPID">Initial value of the ITCAPID property.</param>
+        public static ITCAP CreateITCAP(global::System.Int32 iTCAPID)
+        {
+            ITCAP iTCAP = new ITCAP();
+            iTCAP.ITCAPID = iTCAPID;
+            return iTCAP;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ITCAPID
+        {
+            get
+            {
+                return _ITCAPID;
+            }
+            set
+            {
+                if (_ITCAPID != value)
+                {
+                    OnITCAPIDChanging(value);
+                    ReportPropertyChanging("ITCAPID");
+                    _ITCAPID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ITCAPID");
+                    OnITCAPIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ITCAPID;
+        partial void OnITCAPIDChanging(global::System.Int32 value);
+        partial void OnITCAPIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PARTICIPANT
+        {
+            get
+            {
+                return _PARTICIPANT;
+            }
+            set
+            {
+                OnPARTICIPANTChanging(value);
+                ReportPropertyChanging("PARTICIPANT");
+                _PARTICIPANT = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PARTICIPANT");
+                OnPARTICIPANTChanged();
+            }
+        }
+        private global::System.String _PARTICIPANT;
+        partial void OnPARTICIPANTChanging(global::System.String value);
+        partial void OnPARTICIPANTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ANSWER
+        {
+            get
+            {
+                return _ANSWER;
+            }
+            set
+            {
+                OnANSWERChanging(value);
+                ReportPropertyChanging("ANSWER");
+                _ANSWER = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ANSWER");
+                OnANSWERChanged();
+            }
+        }
+        private global::System.String _ANSWER;
+        partial void OnANSWERChanging(global::System.String value);
+        partial void OnANSWERChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAP_CLIENT_FK", "CLIENT")]
+        public CLIENT CLIENT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.ITCAP_CLIENT_FK", "CLIENT").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.ITCAP_CLIENT_FK", "CLIENT").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CLIENT> CLIENTReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("SAMPLEModel.ITCAP_CLIENT_FK", "CLIENT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CLIENT>("SAMPLEModel.ITCAP_CLIENT_FK", "CLIENT", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAP_GROUP_FK", "GROUP")]
+        public GROUP GROUP
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.ITCAP_GROUP_FK", "GROUP").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.ITCAP_GROUP_FK", "GROUP").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<GROUP> GROUPReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GROUP>("SAMPLEModel.ITCAP_GROUP_FK", "GROUP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GROUP>("SAMPLEModel.ITCAP_GROUP_FK", "GROUP", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCA_ITCAPQUEST_FK", "ITCAPQUESTION")]
+        public ITCAPQUESTION ITCAPQUESTION
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAPQUESTION>("SAMPLEModel.ITCA_ITCAPQUEST_FK", "ITCAPQUESTION").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAPQUESTION>("SAMPLEModel.ITCA_ITCAPQUEST_FK", "ITCAPQUESTION").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ITCAPQUESTION> ITCAPQUESTIONReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAPQUESTION>("SAMPLEModel.ITCA_ITCAPQUEST_FK", "ITCAPQUESTION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ITCAPQUESTION>("SAMPLEModel.ITCA_ITCAPQUEST_FK", "ITCAPQUESTION", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAPQUEST_ITCA_FK", "ITCAPQUESTION")]
+        public EntityCollection<ITCAPQUESTION> ITCAPQUESTION1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ITCAPQUESTION>("SAMPLEModel.ITCAPQUEST_ITCA_FK", "ITCAPQUESTION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAPQUESTION>("SAMPLEModel.ITCAPQUEST_ITCA_FK", "ITCAPQUESTION", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="ITCAPQUESTION")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ITCAPQUESTION : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ITCAPQUESTION object.
+        /// </summary>
+        /// <param name="iTCAPQUESTIONID">Initial value of the ITCAPQUESTIONID property.</param>
+        public static ITCAPQUESTION CreateITCAPQUESTION(global::System.Int32 iTCAPQUESTIONID)
+        {
+            ITCAPQUESTION iTCAPQUESTION = new ITCAPQUESTION();
+            iTCAPQUESTION.ITCAPQUESTIONID = iTCAPQUESTIONID;
+            return iTCAPQUESTION;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ITCAPQUESTIONID
+        {
+            get
+            {
+                return _ITCAPQUESTIONID;
+            }
+            set
+            {
+                if (_ITCAPQUESTIONID != value)
+                {
+                    OnITCAPQUESTIONIDChanging(value);
+                    ReportPropertyChanging("ITCAPQUESTIONID");
+                    _ITCAPQUESTIONID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ITCAPQUESTIONID");
+                    OnITCAPQUESTIONIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ITCAPQUESTIONID;
+        partial void OnITCAPQUESTIONIDChanging(global::System.Int32 value);
+        partial void OnITCAPQUESTIONIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String QUESTION
+        {
+            get
+            {
+                return _QUESTION;
+            }
+            set
+            {
+                OnQUESTIONChanging(value);
+                ReportPropertyChanging("QUESTION");
+                _QUESTION = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("QUESTION");
+                OnQUESTIONChanged();
+            }
+        }
+        private global::System.String _QUESTION;
+        partial void OnQUESTIONChanging(global::System.String value);
+        partial void OnQUESTIONChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAPQUE_INITI_FK", "INITIATIVE")]
+        public INITIATIVE INITIATIVE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.ITCAPQUE_INITI_FK", "INITIATIVE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.ITCAPQUE_INITI_FK", "INITIATIVE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<INITIATIVE> INITIATIVEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("SAMPLEModel.ITCAPQUE_INITI_FK", "INITIATIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<INITIATIVE>("SAMPLEModel.ITCAPQUE_INITI_FK", "INITIATIVE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCA_ITCAPQUEST_FK", "ITCAP")]
+        public EntityCollection<ITCAP> ITCAP
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ITCAP>("SAMPLEModel.ITCA_ITCAPQUEST_FK", "ITCAP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAP>("SAMPLEModel.ITCA_ITCAPQUEST_FK", "ITCAP", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "ITCAPQUEST_ITCA_FK", "ITCAP")]
+        public ITCAP ITCAP1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAP>("SAMPLEModel.ITCAPQUEST_ITCA_FK", "ITCAP").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAP>("SAMPLEModel.ITCAPQUEST_ITCA_FK", "ITCAP").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ITCAP> ITCAP1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAP>("SAMPLEModel.ITCAPQUEST_ITCA_FK", "ITCAP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ITCAP>("SAMPLEModel.ITCAPQUEST_ITCA_FK", "ITCAP", value);
                 }
             }
         }

@@ -30,11 +30,8 @@
         {
             this.CategoryLabel = new System.Windows.Forms.Label();
             this.CategoryComboBox = new System.Windows.Forms.ComboBox();
-            this.NewCategoryButton = new System.Windows.Forms.Button();
-            this.NewBusinessObjectiveButton = new System.Windows.Forms.Button();
             this.BusinessObjectiveComboBox = new System.Windows.Forms.ComboBox();
             this.BusinessObjectiveLabel = new System.Windows.Forms.Label();
-            this.NewInitiativeButton = new System.Windows.Forms.Button();
             this.InitiativeComboBox = new System.Windows.Forms.ComboBox();
             this.InitiativeLabel = new System.Windows.Forms.Label();
             this.AddInitiativeToTableButton = new System.Windows.Forms.Button();
@@ -51,32 +48,19 @@
             // 
             // CategoryComboBox
             // 
+            this.CategoryComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CategoryComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CategoryComboBox.FormattingEnabled = true;
             this.CategoryComboBox.Location = new System.Drawing.Point(161, 38);
             this.CategoryComboBox.Name = "CategoryComboBox";
             this.CategoryComboBox.Size = new System.Drawing.Size(348, 21);
             this.CategoryComboBox.TabIndex = 1;
-            // 
-            // NewCategoryButton
-            // 
-            this.NewCategoryButton.Location = new System.Drawing.Point(548, 35);
-            this.NewCategoryButton.Name = "NewCategoryButton";
-            this.NewCategoryButton.Size = new System.Drawing.Size(118, 24);
-            this.NewCategoryButton.TabIndex = 2;
-            this.NewCategoryButton.Text = "New Category";
-            this.NewCategoryButton.UseVisualStyleBackColor = true;
-            // 
-            // NewBusinessObjectiveButton
-            // 
-            this.NewBusinessObjectiveButton.Location = new System.Drawing.Point(548, 93);
-            this.NewBusinessObjectiveButton.Name = "NewBusinessObjectiveButton";
-            this.NewBusinessObjectiveButton.Size = new System.Drawing.Size(141, 24);
-            this.NewBusinessObjectiveButton.TabIndex = 5;
-            this.NewBusinessObjectiveButton.Text = "New Business Objective";
-            this.NewBusinessObjectiveButton.UseVisualStyleBackColor = true;
+            this.CategoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
             // 
             // BusinessObjectiveComboBox
             // 
+            this.BusinessObjectiveComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.BusinessObjectiveComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.BusinessObjectiveComboBox.FormattingEnabled = true;
             this.BusinessObjectiveComboBox.Location = new System.Drawing.Point(161, 96);
             this.BusinessObjectiveComboBox.Name = "BusinessObjectiveComboBox";
@@ -93,22 +77,16 @@
             this.BusinessObjectiveLabel.TabIndex = 3;
             this.BusinessObjectiveLabel.Text = "Business Objective";
             // 
-            // NewInitiativeButton
-            // 
-            this.NewInitiativeButton.Location = new System.Drawing.Point(548, 156);
-            this.NewInitiativeButton.Name = "NewInitiativeButton";
-            this.NewInitiativeButton.Size = new System.Drawing.Size(118, 24);
-            this.NewInitiativeButton.TabIndex = 8;
-            this.NewInitiativeButton.Text = "New Initiative";
-            this.NewInitiativeButton.UseVisualStyleBackColor = true;
-            // 
             // InitiativeComboBox
             // 
+            this.InitiativeComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.InitiativeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.InitiativeComboBox.FormattingEnabled = true;
             this.InitiativeComboBox.Location = new System.Drawing.Point(161, 159);
             this.InitiativeComboBox.Name = "InitiativeComboBox";
             this.InitiativeComboBox.Size = new System.Drawing.Size(348, 21);
             this.InitiativeComboBox.TabIndex = 7;
+            this.InitiativeComboBox.SelectedIndexChanged += new System.EventHandler(this.InitiativeComboBox_SelectedIndexChanged);
             // 
             // InitiativeLabel
             // 
@@ -121,26 +99,24 @@
             // 
             // AddInitiativeToTableButton
             // 
-            this.AddInitiativeToTableButton.Location = new System.Drawing.Point(297, 257);
+            this.AddInitiativeToTableButton.Location = new System.Drawing.Point(225, 227);
             this.AddInitiativeToTableButton.Name = "AddInitiativeToTableButton";
             this.AddInitiativeToTableButton.Size = new System.Drawing.Size(134, 36);
             this.AddInitiativeToTableButton.TabIndex = 9;
             this.AddInitiativeToTableButton.Text = "Add Initiative to Table";
             this.AddInitiativeToTableButton.UseVisualStyleBackColor = true;
+            this.AddInitiativeToTableButton.Click += new System.EventHandler(this.AddInitiativeToTableButton_Click);
             // 
             // AddInitiative
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 342);
+            this.ClientSize = new System.Drawing.Size(540, 342);
             this.Controls.Add(this.AddInitiativeToTableButton);
-            this.Controls.Add(this.NewInitiativeButton);
             this.Controls.Add(this.InitiativeComboBox);
             this.Controls.Add(this.InitiativeLabel);
-            this.Controls.Add(this.NewBusinessObjectiveButton);
             this.Controls.Add(this.BusinessObjectiveComboBox);
             this.Controls.Add(this.BusinessObjectiveLabel);
-            this.Controls.Add(this.NewCategoryButton);
             this.Controls.Add(this.CategoryComboBox);
             this.Controls.Add(this.CategoryLabel);
             this.Name = "AddInitiative";
@@ -154,11 +130,8 @@
 
         private System.Windows.Forms.Label CategoryLabel;
         private System.Windows.Forms.ComboBox CategoryComboBox;
-        private System.Windows.Forms.Button NewCategoryButton;
-        private System.Windows.Forms.Button NewBusinessObjectiveButton;
         private System.Windows.Forms.ComboBox BusinessObjectiveComboBox;
         private System.Windows.Forms.Label BusinessObjectiveLabel;
-        private System.Windows.Forms.Button NewInitiativeButton;
         private System.Windows.Forms.ComboBox InitiativeComboBox;
         private System.Windows.Forms.Label InitiativeLabel;
         private System.Windows.Forms.Button AddInitiativeToTableButton;
