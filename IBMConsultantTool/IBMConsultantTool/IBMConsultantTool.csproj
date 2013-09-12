@@ -37,6 +37,8 @@
     <StartupObject>IBMConsultantTool.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -64,6 +66,12 @@
     </Compile>
     <Compile Include="BOMBubbleChart.Designer.cs">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BOMRedesign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BOMRedesign.Designer.cs">
+      <DependentUpon>BOMRedesign.cs</DependentUpon>
     </Compile>
     <Compile Include="CUPEAnalytics.cs">
       <SubType>Form</SubType>
@@ -98,6 +106,9 @@
     <EmbeddedResource Include="BOMBubbleChart.resx">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BOMRedesign.resx">
+      <DependentUpon>BOMRedesign.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CUPEAnalytics.resx">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>
     </EmbeddedResource>
@@ -125,6 +136,8 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="App.Config" />
+    <None Include="Properties\DataSources\Model1Container.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
