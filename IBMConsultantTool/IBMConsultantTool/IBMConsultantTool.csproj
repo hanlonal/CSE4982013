@@ -73,12 +73,23 @@
     <Compile Include="BOMRedesign.Designer.cs">
       <DependentUpon>BOMRedesign.cs</DependentUpon>
     </Compile>
+    <Compile Include="BusinessObjective.cs" />
+    <Compile Include="Category.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CUPEAnalytics.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CUPEAnalytics.Designer.cs">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataEntryForm.Designer.cs">
+      <DependentUpon>DataEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initiative.cs" />
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,6 +123,9 @@
     <EmbeddedResource Include="CUPEAnalytics.resx">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DataEntryForm.resx">
+      <DependentUpon>DataEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -138,6 +152,7 @@
     </None>
     <None Include="App.Config" />
     <None Include="Properties\DataSources\Model1Container.datasource" />
+    <None Include="Properties\DataSources\SAMPLEEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

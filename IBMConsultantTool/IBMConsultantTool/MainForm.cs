@@ -158,6 +158,11 @@ namespace IBMConsultantTool
 
         }
 
+        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
 
     }
 }

@@ -6,14 +6,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace IBMConsultantTool
 {
     public partial class BOMRedesign : Form
     {
-        List<Panel> categoryPanels = new List<Panel>();
+                
+        List<Category> categoryPanels = new List<Category>();
         List<Color> colors = new List<Color>();
         private int categoryCount = 0;
+        private Panel lastFocused;
 
         public BOMRedesign()
         {
@@ -21,19 +24,15 @@ namespace IBMConsultantTool
             InitializeComponent();
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void CategoryBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void AddBox_Click(object sender, EventArgs e)
         {
-
+           /* categoryCount++;
+            Category category = new Category(this);
+            mainWorkspace.Controls.Add(category);
+            category.BackColor = colors[categoryCount-1];
+            categoryPanels.Add(category);
+            */
             categoryCount++;
             Panel dynamicPanel = new Panel();
 
@@ -55,17 +54,44 @@ namespace IBMConsultantTool
             dynamicPanel.Controls.Add(categoryLabel);
             dynamicPanel.Click +=new EventHandler(dynamicPanel_Click);
             dynamicPanel.MouseMove +=new MouseEventHandler(dynamicPanel_MouseMove);
-
-            categoryPanels.Add(dynamicPanel);
+            dynamicPanel.LostFocus +=new EventHandler(dynamicPanel_LostFocus);
+            
+            
+             
 
         }
 
         private void dynamicPanel_Click(object sender, EventArgs e)
         {
             Panel a = (Panel)sender;
+            foreach (Panel panel in categoryPanels)
+            {
+                if (panel != a)
+                {
+                    a.Focus();
+                }
+            }
+            
+            bool yes = a.Focused;
+            Console.WriteLine(yes.ToString());
+            a.Focus();
+            bool yess =  a.Focused;
+            Console.WriteLine(yess.ToString());
+            a.Height = 200;
+            a.Width = 200;
 
             
             Console.WriteLine(a.Location.ToString());
+        }
+
+        private void dynamicPanel_LostFocus(object sender, EventArgs e)
+        {
+            Panel a = (Panel)sender;
+            a.Width = 100;
+            a.Height = 100;
+            lastFocused = a;
+            Console.WriteLine(lastFocused.Name);
+
         }
         private void dynamicPanel_MouseMove(object sender, MouseEventArgs e)
         {
@@ -87,7 +113,78 @@ namespace IBMConsultantTool
             colors.Add(Color.Lavender);
             colors.Add(Color.Salmon);
             colors.Add(Color.Ivory);
+
+
+            
         }
+
+        private void addData_Click(object sender, EventArgs e)
+        {
+            DataEntryForm dataForm = new DataEntryForm(this);
+            dataForm.Show();
+            dataForm.Location = new Point(100, 100);
+        }
+        #region Properties
+        public int CategoryCount
+        {
+            get
+            {
+                return categoryCount;
+            }
+        }
+
+        public Panel LastFocus
+        {
+            get
+            {
+                return lastFocused;
+            }
+        }
+
+        #endregion
+
+        private void addObjective_Click(object sender, EventArgs e)
+        {
+            Label newLabel = new Label();
+            newLabel.Text = "Yay new objective";
+            newLabel.Location = new System.Drawing.Point(0, 20);
+            newLabel.Show();
+            lastFocused.Controls.Add(newLabel);
+        }
+
+        private void addInitivative_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Thread newThread = new Thread(new ThreadStart(SaveDialogThread));
+            newThread.SetApartmentState(ApartmentState.STA);
+            newThread.Start(); 
+        }
+
+        void SaveDialogThread()
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "comma|*.csv";
+
+            string lines = "";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                //string linesstr ="";
+
+
+
+                //saveDialog.FileName = "untitled";
+                System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveDialog.FileName);
+                SaveFile.WriteLine(lines);
+                SaveFile.Close();
+            }
+        }
+
+
  
 
 

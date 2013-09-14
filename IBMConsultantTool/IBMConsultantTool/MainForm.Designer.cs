@@ -30,6 +30,7 @@
         {
             this.TabControl = new System.Windows.Forms.TabControl();
             this.BOM = new System.Windows.Forms.TabPage();
+            this.SendToEmail = new System.Windows.Forms.TextBox();
             this.SendBOMButton = new System.Windows.Forms.Button();
             this.BOMAddInitiativeButton = new System.Windows.Forms.Button();
             this.BOMBubbleChartButton = new System.Windows.Forms.Button();
@@ -64,7 +65,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SendToEmail = new System.Windows.Forms.TextBox();
             this.TabControl.SuspendLayout();
             this.BOM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BOMTable)).BeginInit();
@@ -101,6 +101,15 @@
             this.BOM.TabIndex = 0;
             this.BOM.Text = "BOM";
             this.BOM.UseVisualStyleBackColor = true;
+            // 
+            // SendToEmail
+            // 
+            this.SendToEmail.Location = new System.Drawing.Point(342, 332);
+            this.SendToEmail.Name = "SendToEmail";
+            this.SendToEmail.Size = new System.Drawing.Size(100, 20);
+            this.SendToEmail.TabIndex = 7;
+            this.SendToEmail.Text = "Email";
+            this.SendToEmail.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // SendBOMButton
             // 
@@ -346,6 +355,7 @@
             this.MainMenu.Size = new System.Drawing.Size(789, 24);
             this.MainMenu.TabIndex = 1;
             this.MainMenu.Text = "Menu";
+            this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
             // 
             // Menu
             // 
@@ -360,20 +370,20 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // New
             // 
             this.New.Name = "New";
-            this.New.Size = new System.Drawing.Size(152, 22);
+            this.New.Size = new System.Drawing.Size(103, 22);
             this.New.Text = "New";
             this.New.Click += new System.EventHandler(this.New_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -388,15 +398,6 @@
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
-            // 
-            // SendToEmail
-            // 
-            this.SendToEmail.Location = new System.Drawing.Point(342, 332);
-            this.SendToEmail.Name = "SendToEmail";
-            this.SendToEmail.Size = new System.Drawing.Size(100, 20);
-            this.SendToEmail.TabIndex = 7;
-            this.SendToEmail.Text = "Email";
-            this.SendToEmail.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // MainForm
             // 
