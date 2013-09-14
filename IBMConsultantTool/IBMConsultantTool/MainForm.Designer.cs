@@ -119,6 +119,7 @@
             this.SendBOMButton.TabIndex = 6;
             this.SendBOMButton.Text = "Send";
             this.SendBOMButton.UseVisualStyleBackColor = true;
+            this.SendBOMButton.Click += new System.EventHandler(this.SendBOMButton_Click);
             // 
             // BOMAddInitiativeButton
             // 

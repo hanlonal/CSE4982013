@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
@@ -161,6 +163,37 @@ namespace IBMConsultantTool
         private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void SendBOMButton_Click(object sender, EventArgs e)
+        {
+            var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
+            var toAddress = new MailAddress(SendToEmail.Text, "Survey Participant");
+            const string fromPassword = "CSE498-38734";
+            const string subject = "IBM BOM Survey Request";
+            const string body = "Please download attatchment, fill out the form, and submit. Thank you!\n\n\n\n\nTeam IBM";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                System.Net.Mail.Attachment attachment;
+                attachment = new System.Net.Mail.Attachment("Test.txt");
+                message.Attachments.Add(attachment);
+                smtp.Send(message);
+                SendToEmail.Text = "";
+            }
         }
 
 
