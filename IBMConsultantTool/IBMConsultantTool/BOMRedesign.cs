@@ -16,8 +16,7 @@ namespace IBMConsultantTool
         List<Category> categoryPanels = new List<Category>();
         List<Color> colors = new List<Color>();
         private int categoryCount = 0;
-        private Panel lastFocused;
-
+        private Category lastFocused;
         public BOMRedesign()
         {
             PopulateColorsList();
@@ -27,13 +26,18 @@ namespace IBMConsultantTool
 
         private void AddBox_Click(object sender, EventArgs e)
         {
-           /* categoryCount++;
-            Category category = new Category(this);
-            mainWorkspace.Controls.Add(category);
-            category.BackColor = colors[categoryCount-1];
-            categoryPanels.Add(category);
-            */
             categoryCount++;
+            Category category = new Category(this, CategoryBox.Text, colors[categoryCount-1]);
+            //mainWorkspace.Controls.Add(category);
+           // category.BackColor = colors[categoryCount-1];
+            categoryPanels.Add(category);
+            
+            //categoryCount++;
+            if (categoryCount > 0)
+            {
+                objectiveAdd.Visible = true;
+            }
+            /*
             Panel dynamicPanel = new Panel();
 
             dynamicPanel.Location = new System.Drawing.Point(0, 0);
@@ -42,19 +46,19 @@ namespace IBMConsultantTool
 
             dynamicPanel.Size = new System.Drawing.Size(100, 100);
 
-            dynamicPanel.BackColor = colors[categoryCount-1];
-            mainWorkspace.Controls.Add(dynamicPanel);
-            dynamicPanel.Visible = true;
-
-            Label categoryLabel = new Label();
-            categoryLabel.BorderStyle = BorderStyle.Fixed3D;
-            categoryLabel.Location = new System.Drawing.Point(0, 0);
-            categoryLabel.Text = CategoryBox.Text;
             
-            dynamicPanel.Controls.Add(categoryLabel);
-            dynamicPanel.Click +=new EventHandler(dynamicPanel_Click);
-            dynamicPanel.MouseMove +=new MouseEventHandler(dynamicPanel_MouseMove);
-            dynamicPanel.LostFocus +=new EventHandler(dynamicPanel_LostFocus);
+            
+            dynamicPanel.Visible = true;
+            */
+
+            mainWorkspace.Controls.Add(category);
+            category.BackColor = colors[categoryCount - 1];
+            
+            
+            //dynamicPanel.Controls.Add(categoryLabel);
+            category.Click +=new EventHandler(dynamicPanel_Click);
+            category.MouseMove +=new MouseEventHandler(dynamicPanel_MouseMove);
+            category.LostFocus +=new EventHandler(dynamicPanel_LostFocus);
             
             
              
@@ -64,9 +68,10 @@ namespace IBMConsultantTool
         private void dynamicPanel_Click(object sender, EventArgs e)
         {
             Panel a = (Panel)sender;
-            foreach (Panel panel in categoryPanels)
+            
+            foreach (Category cat in categoryPanels)
             {
-                if (panel != a)
+                if (cat != a)
                 {
                     a.Focus();
                 }
@@ -77,6 +82,7 @@ namespace IBMConsultantTool
             a.Focus();
             bool yess =  a.Focused;
             Console.WriteLine(yess.ToString());
+            
             a.Height = 200;
             a.Width = 200;
 
@@ -86,7 +92,7 @@ namespace IBMConsultantTool
 
         private void dynamicPanel_LostFocus(object sender, EventArgs e)
         {
-            Panel a = (Panel)sender;
+            Category a = (Category)sender;
             a.Width = 100;
             a.Height = 100;
             lastFocused = a;
@@ -106,6 +112,7 @@ namespace IBMConsultantTool
 
         private void PopulateColorsList()
         {
+            
             colors.Add(Color.Red);
             colors.Add(Color.Blue);
             colors.Add(Color.Pink);
@@ -113,6 +120,8 @@ namespace IBMConsultantTool
             colors.Add(Color.Lavender);
             colors.Add(Color.Salmon);
             colors.Add(Color.Ivory);
+            
+
 
 
             
@@ -120,6 +129,7 @@ namespace IBMConsultantTool
 
         private void addData_Click(object sender, EventArgs e)
         {
+
             DataEntryForm dataForm = new DataEntryForm(this);
             dataForm.Show();
             dataForm.Location = new Point(100, 100);
@@ -145,11 +155,10 @@ namespace IBMConsultantTool
 
         private void addObjective_Click(object sender, EventArgs e)
         {
-            Label newLabel = new Label();
-            newLabel.Text = "Yay new objective";
-            newLabel.Location = new System.Drawing.Point(0, 20);
-            newLabel.Show();
-            lastFocused.Controls.Add(newLabel);
+            //Category cat = (Category)sender;
+            lastFocused.CategoryTreeView.Nodes.Add(objectiveAdd.Text);
+            Console.WriteLine(lastFocused.Parent.Name.ToString());
+
         }
 
         private void addInitivative_Click(object sender, EventArgs e)
@@ -183,6 +192,10 @@ namespace IBMConsultantTool
                 SaveFile.Close();
             }
         }
+
+
+
+
 
 
  

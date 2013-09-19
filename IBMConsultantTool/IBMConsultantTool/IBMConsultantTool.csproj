@@ -151,6 +151,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\DataSources\Model1Container.datasource" />
     <None Include="Properties\DataSources\SAMPLEEntities.datasource" />
     <None Include="Properties\Settings.settings">

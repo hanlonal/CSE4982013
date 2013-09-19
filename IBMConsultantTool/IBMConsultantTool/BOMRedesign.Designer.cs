@@ -45,12 +45,15 @@
             this.addObjective = new System.Windows.Forms.Button();
             this.addInitivative = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.objectiveAdd = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.mainWorkspace.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddBox
             // 
-            this.AddBox.Location = new System.Drawing.Point(626, 30);
+            this.AddBox.Location = new System.Drawing.Point(737, 71);
             this.AddBox.Name = "AddBox";
             this.AddBox.Size = new System.Drawing.Size(75, 23);
             this.AddBox.TabIndex = 0;
@@ -76,6 +79,7 @@
             // 
             this.mainWorkspace.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.mainWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainWorkspace.Controls.Add(this.panel1);
             this.mainWorkspace.Location = new System.Drawing.Point(12, 30);
             this.mainWorkspace.Name = "mainWorkspace";
             this.mainWorkspace.Size = new System.Drawing.Size(571, 281);
@@ -95,7 +99,7 @@
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(792, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(824, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -108,7 +112,7 @@
             this.databaseToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(792, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(824, 24);
             this.menuStrip2.TabIndex = 5;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -168,7 +172,7 @@
             // 
             // addObjective
             // 
-            this.addObjective.Location = new System.Drawing.Point(626, 171);
+            this.addObjective.Location = new System.Drawing.Point(589, 169);
             this.addObjective.Name = "addObjective";
             this.addObjective.Size = new System.Drawing.Size(98, 23);
             this.addObjective.TabIndex = 6;
@@ -178,7 +182,7 @@
             // 
             // addInitivative
             // 
-            this.addInitivative.Location = new System.Drawing.Point(626, 221);
+            this.addInitivative.Location = new System.Drawing.Point(626, 265);
             this.addInitivative.Name = "addInitivative";
             this.addInitivative.Size = new System.Drawing.Size(98, 23);
             this.addInitivative.TabIndex = 7;
@@ -188,7 +192,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(626, 270);
+            this.button1.Location = new System.Drawing.Point(626, 312);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(98, 51);
             this.button1.TabIndex = 8;
@@ -196,11 +200,37 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // objectiveAdd
+            // 
+            this.objectiveAdd.FormattingEnabled = true;
+            this.objectiveAdd.Items.AddRange(new object[] {
+            "Objective 1",
+            "Objective 2",
+            "Objective 3",
+            "Objective 4"});
+            this.objectiveAdd.Location = new System.Drawing.Point(703, 169);
+            this.objectiveAdd.Name = "objectiveAdd";
+            this.objectiveAdd.Size = new System.Drawing.Size(121, 21);
+            this.objectiveAdd.TabIndex = 9;
+            this.objectiveAdd.Text = "Add Objective";
+            this.objectiveAdd.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panel1.Location = new System.Drawing.Point(272, 69);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.TabIndex = 0;
+            // 
             // BOMRedesign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 333);
+            this.ClientSize = new System.Drawing.Size(824, 375);
+            this.Controls.Add(this.objectiveAdd);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.addInitivative);
             this.Controls.Add(this.addObjective);
@@ -213,6 +243,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BOMRedesign";
             this.Text = "BOMRedesign";
+            this.mainWorkspace.ResumeLayout(false);
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
@@ -239,6 +270,8 @@
         private System.Windows.Forms.Button addObjective;
         private System.Windows.Forms.Button addInitivative;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox objectiveAdd;
+        private System.Windows.Forms.Panel panel1;
 
     }
 }
