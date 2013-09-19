@@ -9,84 +9,101 @@ namespace IBMConsultantTool
 {
     public class Category : Panel
     {
-        private TreeView treeView;
+        private BusinessObjective lastClicked;
+        private string name;
+        private int objectivesCount = 0;
+       // private TreeView treeView;
        // private this this;
-        private List<BusinessObjective> objectives;
+        private List<BusinessObjective> objectives = new List<BusinessObjective>();
         private BOMRedesign owner;
         //constructor
-        public Category(BOMRedesign form, string name, Color color )
+        public Category(BOMRedesign owner, string name )
         {
-            MakePanel(name, color);
-            MakeTreeView();
-            //this.DisplayRectangle.
-            owner = form;
-
-
-        }
-
-        private void MakePanel(string name, Color color)
-        {
-
-            Label categoryLabel = new Label();
-            categoryLabel.BorderStyle = BorderStyle.Fixed3D;
-            this.BackColor = Color.WhiteSmoke;
-            categoryLabel.BackColor = this.BackColor;
-            categoryLabel.Location = new System.Drawing.Point(0, 0);
-            categoryLabel.Text = name;
-            categoryLabel.ForeColor = Color.White;
-            this.Controls.Add(categoryLabel);
-            categoryLabel.Width = this.Width;
-            categoryLabel.Click += new EventHandler(categoryLabel_Click);
-            categoryLabel.MouseHover += new EventHandler(categoryLabel_MouseHover);
-            /*
-           // this = new this();
-            this.Location = new System.Drawing.Point(0, 0);
-
-            this.Size = new System.Drawing.Size(100, 100);
-            this.Name = name;
-
+            this.name = name;
+            this.owner = owner;
+            this.BackColor = Color.Red;
             this.Visible = true;
-
-
-            
-           
-            //this.Controls.Add(treeView);*/
+            this.Location = FindLocation();
+            this.Height = 100;
+            this.Width = 100;
+            owner.Controls.Add(this);
         }
-
-        public void categoryLabel_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("Clicked on the label");
-        }
-        public void categoryLabel_MouseHover(object sender, EventArgs e)
-        {
-            Label l = (Label)sender;
-            l.Cursor = Cursors.Hand;
-        }
-
-        private void MakeTreeView()
-        {
-            treeView = new TreeView();
-            treeView.Height = 100;
-            treeView.Width = 100;
-            this.Controls.Add(treeView);
-            treeView.Location = new System.Drawing.Point(50, 50);
-        }
-
-        public void AddObjective()
-        {
-            Console.WriteLine("hello");
-        }
-
-        //public this Category
 
         
-        public TreeView CategoryTreeView
+
+        private Point FindLocation()
+        {
+            Point p = new Point();
+            Console.WriteLine(owner.Width.ToString());
+            if (100 * owner.CategoryCount < owner.Width)
+            
+                p.X = owner.CategoryCount * 100;
+
+
+
+            return p;
+        }
+        public string Name
         {
             get
             {
-                return treeView;
+                return name;
             }
+        }
+    
+
+
+        //public this Category
+
+        public void AddObjective(string name)
+        {
+            BusinessObjective objective = new BusinessObjective(this, name);
+           
+            objectivesCount++;
+
+            
+            objective.BackColor = Color.Wheat;
+            objective.Text = name;
+           // objective.Name = name;
+            objective.Width = 70;
+            objective.Height = 50;
+            this.Controls.Add(objective);
+            objective.Location = new Point(0, 0);
+            objectives.Add(objective);
+            objective.Click +=new EventHandler(objective_Click);
 
         }
-    }
+
+        private void objective_Click(object sender, EventArgs e)
+        {
+            BusinessObjective obj = (BusinessObjective)sender;
+            Console.WriteLine(obj.Name);
+            lastClicked = obj;
+            owner.LastClickedCategory = obj.Owner;
+        }
+
+        public BusinessObjective LastClicked
+        {
+            get
+            {
+                return lastClicked;
+            }
+        }
+
+        public List<BusinessObjective> Objectives
+        {
+            get
+            {
+                return objectives;
+            }
+        }
+        public int BusinessObjectivesCount
+        {
+            get
+            {
+                return objectivesCount;
+            }
+        }
+
+    } // end of class
 }

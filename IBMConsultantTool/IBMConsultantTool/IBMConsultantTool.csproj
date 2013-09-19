@@ -73,7 +73,9 @@
     <Compile Include="BOMRedesign.Designer.cs">
       <DependentUpon>BOMRedesign.cs</DependentUpon>
     </Compile>
-    <Compile Include="BusinessObjective.cs" />
+    <Compile Include="BusinessObjective.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Category.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -89,7 +91,9 @@
     <Compile Include="DataEntryForm.Designer.cs">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Initiative.cs" />
+    <Compile Include="Initiative.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

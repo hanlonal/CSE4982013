@@ -28,250 +28,141 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AddBox = new System.Windows.Forms.Button();
-            this.CategoryBox = new System.Windows.Forms.ComboBox();
-            this.mainWorkspace = new System.Windows.Forms.Panel();
-            this.addData = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downladToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addObjective = new System.Windows.Forms.Button();
-            this.addInitivative = new System.Windows.Forms.Button();
+            this.categoryAddButton = new System.Windows.Forms.Button();
+            this.initiativeAddButton = new System.Windows.Forms.Button();
+            this.objectiveAddButton = new System.Windows.Forms.Button();
+            this.categoryNames = new System.Windows.Forms.ComboBox();
+            this.objectiveNames = new System.Windows.Forms.ComboBox();
+            this.initiativeNames = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.objectiveAdd = new System.Windows.Forms.ComboBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.mainWorkspace.SuspendLayout();
-            this.menuStrip2.SuspendLayout();
+            this.dataInputButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // AddBox
+            // categoryAddButton
             // 
-            this.AddBox.Location = new System.Drawing.Point(737, 71);
-            this.AddBox.Name = "AddBox";
-            this.AddBox.Size = new System.Drawing.Size(75, 23);
-            this.AddBox.TabIndex = 0;
-            this.AddBox.Text = "Add ";
-            this.AddBox.UseVisualStyleBackColor = true;
-            this.AddBox.Click += new System.EventHandler(this.AddBox_Click);
+            this.categoryAddButton.Location = new System.Drawing.Point(691, 12);
+            this.categoryAddButton.Name = "categoryAddButton";
+            this.categoryAddButton.Size = new System.Drawing.Size(94, 23);
+            this.categoryAddButton.TabIndex = 0;
+            this.categoryAddButton.Text = "Add Category";
+            this.categoryAddButton.UseVisualStyleBackColor = true;
+            this.categoryAddButton.Click += new System.EventHandler(this.categoryAddButton_Click);
             // 
-            // CategoryBox
+            // initiativeAddButton
             // 
-            this.CategoryBox.FormattingEnabled = true;
-            this.CategoryBox.Items.AddRange(new object[] {
-            "Products",
-            "Catergory A",
+            this.initiativeAddButton.Location = new System.Drawing.Point(691, 214);
+            this.initiativeAddButton.Name = "initiativeAddButton";
+            this.initiativeAddButton.Size = new System.Drawing.Size(94, 23);
+            this.initiativeAddButton.TabIndex = 1;
+            this.initiativeAddButton.Text = "Add Initiative";
+            this.initiativeAddButton.UseVisualStyleBackColor = true;
+            this.initiativeAddButton.Click += new System.EventHandler(this.initiativeAddButton_Click);
+            // 
+            // objectiveAddButton
+            // 
+            this.objectiveAddButton.Location = new System.Drawing.Point(691, 101);
+            this.objectiveAddButton.Name = "objectiveAddButton";
+            this.objectiveAddButton.Size = new System.Drawing.Size(94, 23);
+            this.objectiveAddButton.TabIndex = 2;
+            this.objectiveAddButton.Text = "Add Objective";
+            this.objectiveAddButton.UseVisualStyleBackColor = true;
+            this.objectiveAddButton.Click += new System.EventHandler(this.objectiveAddButton_Click);
+            // 
+            // categoryNames
+            // 
+            this.categoryNames.FormattingEnabled = true;
+            this.categoryNames.Items.AddRange(new object[] {
+            "Category A ",
             "Category B",
-            "Category C"});
-            this.CategoryBox.Location = new System.Drawing.Point(589, 73);
-            this.CategoryBox.Name = "CategoryBox";
-            this.CategoryBox.Size = new System.Drawing.Size(121, 21);
-            this.CategoryBox.TabIndex = 1;
-            this.CategoryBox.Text = "Select Category";
+            "Category C",
+            "Category D",
+            "Category E"});
+            this.categoryNames.Location = new System.Drawing.Point(691, 57);
+            this.categoryNames.Name = "categoryNames";
+            this.categoryNames.Size = new System.Drawing.Size(121, 21);
+            this.categoryNames.TabIndex = 3;
+            this.categoryNames.Text = "Select Category";
             // 
-            // mainWorkspace
+            // objectiveNames
             // 
-            this.mainWorkspace.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.mainWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.mainWorkspace.Controls.Add(this.panel1);
-            this.mainWorkspace.Location = new System.Drawing.Point(12, 30);
-            this.mainWorkspace.Name = "mainWorkspace";
-            this.mainWorkspace.Size = new System.Drawing.Size(571, 281);
-            this.mainWorkspace.TabIndex = 2;
+            this.objectiveNames.FormattingEnabled = true;
+            this.objectiveNames.Items.AddRange(new object[] {
+            "Objective A",
+            "Objective B",
+            "Objective C",
+            "Objective D",
+            "Objective E"});
+            this.objectiveNames.Location = new System.Drawing.Point(691, 153);
+            this.objectiveNames.Name = "objectiveNames";
+            this.objectiveNames.Size = new System.Drawing.Size(121, 21);
+            this.objectiveNames.TabIndex = 4;
+            this.objectiveNames.Text = "Select Objective";
             // 
-            // addData
+            // initiativeNames
             // 
-            this.addData.Location = new System.Drawing.Point(626, 123);
-            this.addData.Name = "addData";
-            this.addData.Size = new System.Drawing.Size(98, 23);
-            this.addData.TabIndex = 3;
-            this.addData.Text = "Add Data";
-            this.addData.UseVisualStyleBackColor = true;
-            this.addData.Click += new System.EventHandler(this.addData_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 24);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(824, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // menuStrip2
-            // 
-            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.tableToolStripMenuItem,
-            this.databaseToolStripMenuItem});
-            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(824, 24);
-            this.menuStrip2.TabIndex = 5;
-            this.menuStrip2.Text = "menuStrip2";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // tableToolStripMenuItem
-            // 
-            this.tableToolStripMenuItem.Name = "tableToolStripMenuItem";
-            this.tableToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.tableToolStripMenuItem.Text = "Table";
-            // 
-            // databaseToolStripMenuItem
-            // 
-            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.uploadToolStripMenuItem,
-            this.downladToolStripMenuItem});
-            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.databaseToolStripMenuItem.Text = "Database";
-            // 
-            // uploadToolStripMenuItem
-            // 
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.uploadToolStripMenuItem.Text = "Upload";
-            // 
-            // downladToolStripMenuItem
-            // 
-            this.downladToolStripMenuItem.Name = "downladToolStripMenuItem";
-            this.downladToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.downladToolStripMenuItem.Text = "Download";
-            // 
-            // addObjective
-            // 
-            this.addObjective.Location = new System.Drawing.Point(589, 169);
-            this.addObjective.Name = "addObjective";
-            this.addObjective.Size = new System.Drawing.Size(98, 23);
-            this.addObjective.TabIndex = 6;
-            this.addObjective.Text = "Add Objective";
-            this.addObjective.UseVisualStyleBackColor = true;
-            this.addObjective.Click += new System.EventHandler(this.addObjective_Click);
-            // 
-            // addInitivative
-            // 
-            this.addInitivative.Location = new System.Drawing.Point(626, 265);
-            this.addInitivative.Name = "addInitivative";
-            this.addInitivative.Size = new System.Drawing.Size(98, 23);
-            this.addInitivative.TabIndex = 7;
-            this.addInitivative.Text = "Add Initiative";
-            this.addInitivative.UseVisualStyleBackColor = true;
-            this.addInitivative.Click += new System.EventHandler(this.addInitivative_Click);
+            this.initiativeNames.FormattingEnabled = true;
+            this.initiativeNames.Items.AddRange(new object[] {
+            "Initiative A",
+            "Initiative B",
+            "Initiative C",
+            "Initiative D",
+            "Initiative E"});
+            this.initiativeNames.Location = new System.Drawing.Point(691, 267);
+            this.initiativeNames.Name = "initiativeNames";
+            this.initiativeNames.Size = new System.Drawing.Size(121, 21);
+            this.initiativeNames.TabIndex = 5;
+            this.initiativeNames.Text = "Select Initiatives";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(626, 312);
+            this.button1.Location = new System.Drawing.Point(741, 324);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 51);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Create Presentation Slide";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // objectiveAdd
+            // dataInputButton
             // 
-            this.objectiveAdd.FormattingEnabled = true;
-            this.objectiveAdd.Items.AddRange(new object[] {
-            "Objective 1",
-            "Objective 2",
-            "Objective 3",
-            "Objective 4"});
-            this.objectiveAdd.Location = new System.Drawing.Point(703, 169);
-            this.objectiveAdd.Name = "objectiveAdd";
-            this.objectiveAdd.Size = new System.Drawing.Size(121, 21);
-            this.objectiveAdd.TabIndex = 9;
-            this.objectiveAdd.Text = "Add Objective";
-            this.objectiveAdd.Visible = false;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panel1.Location = new System.Drawing.Point(272, 69);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
-            this.panel1.TabIndex = 0;
+            this.dataInputButton.Location = new System.Drawing.Point(643, 324);
+            this.dataInputButton.Name = "dataInputButton";
+            this.dataInputButton.Size = new System.Drawing.Size(75, 23);
+            this.dataInputButton.TabIndex = 7;
+            this.dataInputButton.Text = "Input Data";
+            this.dataInputButton.UseVisualStyleBackColor = true;
+            this.dataInputButton.Click += new System.EventHandler(this.dataInputButton_Click);
             // 
             // BOMRedesign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 375);
-            this.Controls.Add(this.objectiveAdd);
+            this.Controls.Add(this.dataInputButton);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.addInitivative);
-            this.Controls.Add(this.addObjective);
-            this.Controls.Add(this.addData);
-            this.Controls.Add(this.mainWorkspace);
-            this.Controls.Add(this.CategoryBox);
-            this.Controls.Add(this.AddBox);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.menuStrip2);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.initiativeNames);
+            this.Controls.Add(this.objectiveNames);
+            this.Controls.Add(this.categoryNames);
+            this.Controls.Add(this.objectiveAddButton);
+            this.Controls.Add(this.initiativeAddButton);
+            this.Controls.Add(this.categoryAddButton);
             this.Name = "BOMRedesign";
             this.Text = "BOMRedesign";
-            this.mainWorkspace.ResumeLayout(false);
-            this.menuStrip2.ResumeLayout(false);
-            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button AddBox;
-        private System.Windows.Forms.ComboBox CategoryBox;
-        private System.Windows.Forms.Panel mainWorkspace;
-        private System.Windows.Forms.Button addData;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem downladToolStripMenuItem;
-        private System.Windows.Forms.Button addObjective;
-        private System.Windows.Forms.Button addInitivative;
+        private System.Windows.Forms.Button categoryAddButton;
+        private System.Windows.Forms.Button initiativeAddButton;
+        private System.Windows.Forms.Button objectiveAddButton;
+        private System.Windows.Forms.ComboBox categoryNames;
+        private System.Windows.Forms.ComboBox objectiveNames;
+        private System.Windows.Forms.ComboBox initiativeNames;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox objectiveAdd;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button dataInputButton;
+
 
     }
 }
