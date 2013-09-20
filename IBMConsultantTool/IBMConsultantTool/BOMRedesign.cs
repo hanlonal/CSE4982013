@@ -13,128 +13,31 @@ namespace IBMConsultantTool
     public partial class BOMRedesign : Form
     {
                 
-        List<Category> categoryPanels = new List<Category>();
+        List<Category> categories = new List<Category>();
         List<Color> colors = new List<Color>();
         private int categoryCount = 0;
         private Category lastFocused;
         public BOMRedesign()
         {
-            PopulateColorsList();
+           // PopulateColorsList();
             InitializeComponent();
         }
 
-
-        private void AddBox_Click(object sender, EventArgs e)
+        private void categoryAddButton_Click(object sender, EventArgs e)
         {
+            Category category = new Category(this, categoryNames.Text);
+            categories.Add(category);
             categoryCount++;
-            Category category = new Category(this, CategoryBox.Text, colors[categoryCount-1]);
-            //mainWorkspace.Controls.Add(category);
-           // category.BackColor = colors[categoryCount-1];
-            categoryPanels.Add(category);
-            
-            //categoryCount++;
-            if (categoryCount > 0)
-            {
-                objectiveAdd.Visible = true;
-            }
-            /*
-            Panel dynamicPanel = new Panel();
-
-            dynamicPanel.Location = new System.Drawing.Point(0, 0);
-
-            dynamicPanel.Name = CategoryBox.Text;
-
-            dynamicPanel.Size = new System.Drawing.Size(100, 100);
-
-            
-            
-            dynamicPanel.Visible = true;
-            */
-
-            mainWorkspace.Controls.Add(category);
-            category.BackColor = colors[categoryCount - 1];
-            
-            
-            //dynamicPanel.Controls.Add(categoryLabel);
-            category.Click +=new EventHandler(dynamicPanel_Click);
-            category.MouseMove +=new MouseEventHandler(dynamicPanel_MouseMove);
-            category.LostFocus +=new EventHandler(dynamicPanel_LostFocus);
-            
-            
-             
-
+            category.Click += new EventHandler(category_Click);
         }
 
-        private void dynamicPanel_Click(object sender, EventArgs e)
+        private void category_Click(object sender, EventArgs e)
         {
-            Panel a = (Panel)sender;
-            
-            foreach (Category cat in categoryPanels)
-            {
-                if (cat != a)
-                {
-                    a.Focus();
-                }
-            }
-            
-            bool yes = a.Focused;
-            Console.WriteLine(yes.ToString());
-            a.Focus();
-            bool yess =  a.Focused;
-            Console.WriteLine(yess.ToString());
-            
-            a.Height = 200;
-            a.Width = 200;
-
-            
-            Console.WriteLine(a.Location.ToString());
+            Category cat = (Category)sender;
+            lastFocused = cat;
+            Console.WriteLine("clicked on category:" + cat.Name);
         }
 
-        private void dynamicPanel_LostFocus(object sender, EventArgs e)
-        {
-            Category a = (Category)sender;
-            a.Width = 100;
-            a.Height = 100;
-            lastFocused = a;
-            Console.WriteLine(lastFocused.Name);
-
-        }
-        private void dynamicPanel_MouseMove(object sender, MouseEventArgs e)
-        {
-            Panel panel = (Panel)sender;
-            if (e.Button == MouseButtons.Left)
-            {
-                panel.Left += e.X;
-                panel.Top += e.Y;
-                Console.WriteLine(panel.Name);
-            }
-        }
-
-        private void PopulateColorsList()
-        {
-            
-            colors.Add(Color.Red);
-            colors.Add(Color.Blue);
-            colors.Add(Color.Pink);
-            colors.Add(Color.Green);
-            colors.Add(Color.Lavender);
-            colors.Add(Color.Salmon);
-            colors.Add(Color.Ivory);
-            
-
-
-
-            
-        }
-
-        private void addData_Click(object sender, EventArgs e)
-        {
-
-            DataEntryForm dataForm = new DataEntryForm(this);
-            dataForm.Show();
-            dataForm.Location = new Point(100, 100);
-        }
-        #region Properties
         public int CategoryCount
         {
             get
@@ -143,30 +46,47 @@ namespace IBMConsultantTool
             }
         }
 
-        public Panel LastFocus
+        private void initiativeAddButton_Click(object sender, EventArgs e)
         {
-            get
-            {
-                return lastFocused;
-            }
+            lastFocused.LastClicked.AddInitiative(initiativeNames.Text);
         }
 
-        #endregion
-
-        private void addObjective_Click(object sender, EventArgs e)
+        private void objectiveAddButton_Click(object sender, EventArgs e)
         {
-            //Category cat = (Category)sender;
-            lastFocused.CategoryTreeView.Nodes.Add(objectiveAdd.Text);
-            Console.WriteLine(lastFocused.Parent.Name.ToString());
-
-        }
-
-        private void addInitivative_Click(object sender, EventArgs e)
-        {
-
+            Console.WriteLine(categoryCount.ToString());
+            lastFocused.AddObjective(objectiveNames.Text);
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (Category cat in categories)
+            {
+                Console.WriteLine(cat.Name);
+            }
+        }
+        public Category LastClickedCategory
+        {
+            set
+            {
+                lastFocused = value;
+            }
+        }
+
+        private void dataInputButton_Click(object sender, EventArgs e)
+        {
+            DataEntryForm form = new DataEntryForm(this);
+            form.Show();
+        }
+
+        public List<Category> Categories
+        {
+            get
+            {
+                return categories;
+            }
+        }
+
+     /*   private void createPPTButton_Click(object sender, EventArgs e)
         {
             Thread newThread = new Thread(new ThreadStart(SaveDialogThread));
             newThread.SetApartmentState(ApartmentState.STA);
@@ -191,17 +111,9 @@ namespace IBMConsultantTool
                 SaveFile.WriteLine(lines);
                 SaveFile.Close();
             }
-        }
+        }*/
 
+        
 
-
-
-
-
- 
-
-
-
-
-    }
+    } // end of class
 }
