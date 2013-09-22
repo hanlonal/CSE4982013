@@ -15,7 +15,7 @@ namespace IBMConsultantTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BOMRedesign());
+            Application.Run(new TestForm());
         }
     }
 }

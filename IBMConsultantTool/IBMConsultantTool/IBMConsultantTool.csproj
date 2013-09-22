@@ -99,6 +99,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="NewBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewBOM.Designer.cs">
+      <DependentUpon>NewBOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenBOM.Designer.cs">
+      <DependentUpon>OpenBOM.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -130,6 +142,12 @@
     <EmbeddedResource Include="DataEntryForm.resx">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewBOM.resx">
+      <DependentUpon>NewBOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenBOM.resx">
+      <DependentUpon>OpenBOM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -147,15 +165,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="App.Config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\DataSources\Model1Container.datasource" />
     <None Include="Properties\DataSources\SAMPLEEntities.datasource" />
     <None Include="Properties\Settings.settings">

@@ -17,6 +17,8 @@ namespace IBMConsultantTool
         public int numberOfColumns = 1;
         public SAMPLEEntities dbo;
 
+        public CLIENT currentClient;
+
         public MainForm()
         {
             InitializeComponent();
@@ -67,37 +69,14 @@ namespace IBMConsultantTool
 
         private void BOMAddInitiativeButton_Click(object sender, EventArgs e)
         {
-            new AddInitiative(this).Show();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void New_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CUPE_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NumberOfQuestionsLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            if (currentClient == null)
+            {
+                MessageBox.Show("A BOM must be opened before adding Initiatives");
+            }
+            else
+            {
+                new AddInitiative(this).Show();
+            }
         }
 
         private void OpenAnalytics_Click(object sender, EventArgs e)
@@ -110,16 +89,6 @@ namespace IBMConsultantTool
         public static void ThreadCUPEAnalForm()
         {
             Application.Run(new CUPEAnalytics());
-        }
-
-        private void BOMTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,11 +129,6 @@ namespace IBMConsultantTool
 
         }
 
-        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private void SendBOMButton_Click(object sender, EventArgs e)
         {
             var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
@@ -196,6 +160,40 @@ namespace IBMConsultantTool
             }
         }
 
+        private void NewBOMButton_Click(object sender, EventArgs e)
+        {
+            new NewBOM(this).Show();
+        }
 
+        private void OpenBOMButton_Click(object sender, EventArgs e)
+        {
+            new OpenBOM(this).Show();
+        }
+
+        public int GetUniqueID(List<int> idList)
+        {
+            Random rnd = new Random();
+
+            int id = rnd.Next();
+
+            while (true)
+            {
+                var idQuery = from tmp in idList
+                              where tmp == id
+                              select tmp;
+
+                if (idQuery.Count() == 0)
+                {
+                    break;
+                }
+
+                else
+                {
+                    id = rnd.Next();
+                }
+            }
+
+            return id;
+        }
     }
 }

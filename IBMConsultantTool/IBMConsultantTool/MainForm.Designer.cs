@@ -41,7 +41,6 @@
             this.Effectiveness = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Criticality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Differential = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SaveBOMButton = new System.Windows.Forms.Button();
             this.OpenBOMButton = new System.Windows.Forms.Button();
             this.NewBOMButton = new System.Windows.Forms.Button();
             this.CUPE = new System.Windows.Forms.TabPage();
@@ -92,7 +91,6 @@
             this.BOM.Controls.Add(this.BOMAddInitiativeButton);
             this.BOM.Controls.Add(this.BOMBubbleChartButton);
             this.BOM.Controls.Add(this.BOMTable);
-            this.BOM.Controls.Add(this.SaveBOMButton);
             this.BOM.Controls.Add(this.OpenBOMButton);
             this.BOM.Controls.Add(this.NewBOMButton);
             this.BOM.Location = new System.Drawing.Point(4, 22);
@@ -109,7 +107,6 @@
             this.SendToEmail.Size = new System.Drawing.Size(100, 20);
             this.SendToEmail.TabIndex = 7;
             this.SendToEmail.Text = "Email";
-            this.SendToEmail.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // SendBOMButton
             // 
@@ -156,7 +153,6 @@
             this.BOMTable.Name = "BOMTable";
             this.BOMTable.Size = new System.Drawing.Size(751, 239);
             this.BOMTable.TabIndex = 3;
-            this.BOMTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BOMTable_CellContentClick);
             // 
             // Category
             // 
@@ -189,15 +185,6 @@
             this.Differential.HeaderText = "Differential";
             this.Differential.Name = "Differential";
             // 
-            // SaveBOMButton
-            // 
-            this.SaveBOMButton.Location = new System.Drawing.Point(27, 332);
-            this.SaveBOMButton.Name = "SaveBOMButton";
-            this.SaveBOMButton.Size = new System.Drawing.Size(107, 29);
-            this.SaveBOMButton.TabIndex = 2;
-            this.SaveBOMButton.Text = "Save BOM";
-            this.SaveBOMButton.UseVisualStyleBackColor = true;
-            // 
             // OpenBOMButton
             // 
             this.OpenBOMButton.Location = new System.Drawing.Point(165, 22);
@@ -206,6 +193,7 @@
             this.OpenBOMButton.TabIndex = 1;
             this.OpenBOMButton.Text = "Open BOM";
             this.OpenBOMButton.UseVisualStyleBackColor = true;
+            this.OpenBOMButton.Click += new System.EventHandler(this.OpenBOMButton_Click);
             // 
             // NewBOMButton
             // 
@@ -215,6 +203,7 @@
             this.NewBOMButton.TabIndex = 0;
             this.NewBOMButton.Text = "New BOM";
             this.NewBOMButton.UseVisualStyleBackColor = true;
+            this.NewBOMButton.Click += new System.EventHandler(this.NewBOMButton_Click);
             // 
             // CUPE
             // 
@@ -232,7 +221,6 @@
             this.CUPE.TabIndex = 1;
             this.CUPE.Text = "CUPE";
             this.CUPE.UseVisualStyleBackColor = true;
-            this.CUPE.Click += new System.EventHandler(this.CUPE_Click);
             // 
             // button4
             // 
@@ -356,7 +344,6 @@
             this.MainMenu.Size = new System.Drawing.Size(789, 24);
             this.MainMenu.TabIndex = 1;
             this.MainMenu.Text = "Menu";
-            this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
             // 
             // Menu
             // 
@@ -379,7 +366,6 @@
             this.New.Name = "New";
             this.New.Size = new System.Drawing.Size(103, 22);
             this.New.Text = "New";
-            this.New.Click += new System.EventHandler(this.New_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -410,7 +396,6 @@
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainForm";
             this.Text = "IBMConsultantTool";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.TabControl.ResumeLayout(false);
             this.BOM.ResumeLayout(false);
             this.BOM.PerformLayout();
@@ -431,8 +416,6 @@
         private System.Windows.Forms.TabPage BOM;
         private System.Windows.Forms.TabPage CUPE;
         private System.Windows.Forms.TabPage ITCAP;
-        private System.Windows.Forms.Button NewBOMButton;
-        private System.Windows.Forms.Button SaveBOMButton;
         private System.Windows.Forms.Button OpenBOMButton;
         public System.Windows.Forms.DataGridView BOMTable;
         private System.Windows.Forms.Button BOMBubbleChartButton;
@@ -464,6 +447,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AnswersSubmitted;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox SendToEmail;
+        private System.Windows.Forms.Button NewBOMButton;
     }
 }
 
