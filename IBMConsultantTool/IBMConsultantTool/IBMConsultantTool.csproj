@@ -33,7 +33,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>IBMConsultantTool.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -62,16 +67,69 @@
     <Compile Include="BOMBubbleChart.Designer.cs">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="BOMRedesign.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="BOMRedesign.Designer.cs">
+      <DependentUpon>BOMRedesign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjective.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Category.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrossClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrossClientForm.Designer.cs">
+      <DependentUpon>CrossClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUPEAnalytics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUPEAnalytics.Designer.cs">
+      <DependentUpon>CUPEAnalytics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataEntryForm.Designer.cs">
+      <DependentUpon>DataEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Initiative.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="NewBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewBOM.Designer.cs">
+      <DependentUpon>NewBOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenBOM.Designer.cs">
+      <DependentUpon>OpenBOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +138,28 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BOMBubbleChart.resx">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BOMRedesign.resx">
+      <DependentUpon>BOMRedesign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrossClientForm.resx">
+      <DependentUpon>CrossClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUPEAnalytics.resx">
+      <DependentUpon>CUPEAnalytics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEntryForm.resx">
+      <DependentUpon>DataEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewBOM.resx">
+      <DependentUpon>NewBOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenBOM.resx">
+      <DependentUpon>OpenBOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -92,14 +172,16 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Properties\DataSources\Model1Container.datasource" />
+    <None Include="Properties\DataSources\SAMPLEEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,6 +191,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\names.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="names.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

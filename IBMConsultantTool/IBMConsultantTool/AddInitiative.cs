@@ -23,45 +23,46 @@ namespace IBMConsultantTool
 
             mainForm = parentForm as MainForm;
 
-            var categoryList = (from cat in mainForm.dbo.CATEGORY
-                                select cat).ToList();
-
-            foreach (CATEGORY category in categoryList)
-            {
-                CategoryComboBox.Items.Add(category.NAME);
-            }
+            CategoryComboBox.Items.AddRange((from cat in mainForm.dbo.CATEGORY
+                                             select cat.NAME.TrimEnd()).ToArray());
         }
 
         private void AddInitiativeToTableButton_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
+            List<int> idList;
             var selectedInitiativeQuery = from ini in mainForm.dbo.INITIATIVE
-                                          where ini.NAME == InitiativeComboBox.Text
+                                          where ini.NAME.TrimEnd() == InitiativeComboBox.Text
                                           select ini;
 
             if (selectedInitiativeQuery.Count() == 0)
             {
                 selectedInitiative = new INITIATIVE();
                 selectedInitiative.NAME = InitiativeComboBox.Text;
-                selectedInitiative.INITIATIVEID = rnd.Next();
+                idList = (from ini in mainForm.dbo.INITIATIVE
+                          select ini.INITIATIVEID).ToList();
+                selectedInitiative.INITIATIVEID = mainForm.GetUniqueID(idList);
                 var selectedBusinessObjectiveQuery = from bus in mainForm.dbo.BUSINESSOBJECTIVE
-                                                     where bus.NAME == BusinessObjectiveComboBox.Text
+                                                     where bus.NAME.TrimEnd() == BusinessObjectiveComboBox.Text
                                                      select bus;
 
                 if (selectedBusinessObjectiveQuery.Count() == 0)
                 {
                     selectedBusinessObjective = new BUSINESSOBJECTIVE();
                     selectedBusinessObjective.NAME = BusinessObjectiveComboBox.Text;
-                    selectedBusinessObjective.BUSINESSOBJECTIVEID = rnd.Next();
+                    idList = (from bus in mainForm.dbo.BUSINESSOBJECTIVE
+                              select bus.BUSINESSOBJECTIVEID).ToList();
+                    selectedBusinessObjective.BUSINESSOBJECTIVEID = mainForm.GetUniqueID(idList);
                     var selectedCategoryQuery = from cat in mainForm.dbo.CATEGORY
-                                                where cat.NAME == CategoryComboBox.Text
+                                                where cat.NAME.TrimEnd() == CategoryComboBox.Text
                                                 select cat;
 
                     if (selectedCategoryQuery.Count() == 0)
                     {
                         selectedCategory = new CATEGORY();
                         selectedCategory.NAME = CategoryComboBox.Text;
-                        selectedCategory.CATEGORYID = rnd.Next();
+                        idList = (from cat in mainForm.dbo.CATEGORY
+                                 select cat.CATEGORYID).ToList();
+                        selectedCategory.CATEGORYID = mainForm.GetUniqueID(idList);
                         selectedCategory.BUSINESSOBJECTIVE.Add(selectedBusinessObjective);
                         mainForm.dbo.AddToCATEGORY(selectedCategory);
                     }
@@ -72,16 +73,25 @@ namespace IBMConsultantTool
                 }
 
                 selectedInitiative.BUSINESSOBJECTIVE = selectedBusinessObjective;
-                mainForm.dbo.AddToINITIATIVE(selectedInitiative);
 
-                mainForm.dbo.SaveChanges();
+                mainForm.dbo.AddToINITIATIVE(selectedInitiative);
             }
+
+            BOM newBOM = new BOM();
+            idList = (from bom in mainForm.dbo.BOM
+                     select bom.BOMID).ToList();
+            newBOM.BOMID = mainForm.GetUniqueID(idList);
+            newBOM.CLIENT = mainForm.currentClient;
+            newBOM.INITIATIVE = selectedInitiative;
+            selectedInitiative.BOM.Add(newBOM);
+
+            mainForm.dbo.SaveChanges();
 
 
             DataGridViewRow row = (DataGridViewRow)mainForm.BOMTable.Rows[0].Clone();
-            row.Cells[0].Value = selectedCategory.NAME;
-            row.Cells[1].Value = selectedBusinessObjective.NAME;
-            row.Cells[2].Value = selectedInitiative.NAME;
+            row.Cells[0].Value = selectedCategory.NAME.TrimEnd();
+            row.Cells[1].Value = selectedBusinessObjective.NAME.TrimEnd();
+            row.Cells[2].Value = selectedInitiative.NAME.TrimEnd();
             mainForm.BOMTable.Rows.Add(row);
             this.Close();
         }
@@ -91,7 +101,7 @@ namespace IBMConsultantTool
             try
             {
                 var selectedCategoryQuery = from cat in mainForm.dbo.CATEGORY
-                                            where cat.NAME == CategoryComboBox.Text
+                                            where cat.NAME.TrimEnd() == CategoryComboBox.Text
                                             select cat;
 
                 selectedCategory = selectedCategoryQuery.Single();
@@ -115,7 +125,7 @@ namespace IBMConsultantTool
             try
             {
                 var selectedBOQuery = from bus in mainForm.dbo.BUSINESSOBJECTIVE
-                                      where bus.NAME == BusinessObjectiveComboBox.Text
+                                      where bus.NAME.TrimEnd() == BusinessObjectiveComboBox.Text
                                       select bus;
 
 
@@ -138,7 +148,7 @@ namespace IBMConsultantTool
             try
             {
                 var selectedInitiativeQuery = from ini in mainForm.dbo.INITIATIVE
-                                              where ini.NAME == InitiativeComboBox.Text
+                                              where ini.NAME.TrimEnd() == InitiativeComboBox.Text
                                               select ini;
 
                 selectedInitiative = selectedInitiativeQuery.Single();
