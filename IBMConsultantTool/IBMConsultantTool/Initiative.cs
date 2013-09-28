@@ -20,6 +20,25 @@ namespace IBMConsultantTool
         {
             this.owner = owner;
             this.name = name;
+            this.Text = name;
+            owner.Controls.Add(this);
+            this.Location = FindLocation();
+            this.BackColor = Color.SeaGreen;
+            this.Width = owner.Width;
+            this.Height = 20;
+
+            owner.UpdateHeight();
+           // owner.UpdateLocation();
+        }
+
+        private Point FindLocation()
+        {
+            Point p = new Point();
+
+            p.X = 20;
+            p.Y = 20 +owner.InitiativesCount * 20;
+            return p;
+            
         }
 
         public float Criticality

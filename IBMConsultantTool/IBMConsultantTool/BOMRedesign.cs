@@ -19,10 +19,12 @@ namespace IBMConsultantTool
         List<Color> colors = new List<Color>();
         private int categoryCount = 0;
         private Category lastFocused;
+        
         public BOMRedesign()
         {
            // PopulateColorsList();
             InitializeComponent();
+            
         }
 
         private void categoryAddButton_Click(object sender, EventArgs e)
@@ -124,6 +126,13 @@ namespace IBMConsultantTool
         {
             SurveyGenerator BomSurvGen = new SurveyGenerator();
             BomSurvGen.CreateBomSurvey(this.categories);
+        }
+        public Panel MainWorkspace
+        {
+            get
+            {
+                return mainWorkspace;
+            }
         }
 
      /*   private void createPPTButton_Click(object sender, EventArgs e)
