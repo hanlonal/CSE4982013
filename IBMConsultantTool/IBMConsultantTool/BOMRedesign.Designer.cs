@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1018, 557);
+            this.ClientSize = new System.Drawing.Size(1018, 703);
             this.Controls.Add(this.mainWorkspace);
             this.Controls.Add(this.CreateBomSurveyButton);
             this.Controls.Add(this.dataInputButton);
