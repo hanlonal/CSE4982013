@@ -102,6 +102,18 @@ namespace IBMConsultantTool
             person.PopulateQuestionData();
             ResetQuestions();
         }
+       public void CupeForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Right)
+            {
+                GetNext();
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                GetPrevious();
+            }
+
+        }
 
         public void ResetQuestions()
         {
@@ -119,16 +131,21 @@ namespace IBMConsultantTool
 
         private void previousPersonButton_Click(object sender, EventArgs e)
         {
-           Person per = currentPerson;
-            
-           LinkedListNode<Person> p = persons.Find(per);
-           if (p.Previous != null)
-           {
-               currentPerson = p.Previous.Value;
-               ChangePerson();
-           }
-           else
-               return;
+            GetPrevious();
+        }
+
+        private void GetPrevious()
+        {
+            Person per = currentPerson;
+
+            LinkedListNode<Person> p = persons.Find(per);
+            if (p.Previous != null)
+            {
+                currentPerson = p.Previous.Value;
+                ChangePerson();
+            }
+            else
+                return;
         }
 
         private void ChangePerson()
@@ -143,6 +160,11 @@ namespace IBMConsultantTool
 
         private void nextPersonButton_Click(object sender, EventArgs e)
         {
+            GetNext();
+        }
+
+        public void GetNext()
+        {
             Person per = currentPerson;
             LinkedListNode<Person> p = persons.Find(per);
             if (p.Next != null)
@@ -155,10 +177,21 @@ namespace IBMConsultantTool
                 return;
         }
 
-
-
-
-
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Left)
+            {
+                GetPrevious();
+                return true;
+            }
+            else if (keyData == Keys.Right)
+            {
+                GetNext();
+                return true;
+            }
+            else return base.ProcessCmdKey(ref msg, keyData);
+        } 
+        
 
     } // end of class
 }

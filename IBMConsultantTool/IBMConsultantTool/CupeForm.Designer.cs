@@ -47,9 +47,9 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Location = new System.Drawing.Point(70, 115);
+            this.panel1.Location = new System.Drawing.Point(12, 115);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(319, 224);
+            this.panel1.Size = new System.Drawing.Size(676, 224);
             this.panel1.TabIndex = 0;
             // 
             // personNameLabel
@@ -64,7 +64,7 @@
             // 
             // addPersonButton
             // 
-            this.addPersonButton.Location = new System.Drawing.Point(441, 115);
+            this.addPersonButton.Location = new System.Drawing.Point(416, 56);
             this.addPersonButton.Name = "addPersonButton";
             this.addPersonButton.Size = new System.Drawing.Size(75, 23);
             this.addPersonButton.TabIndex = 2;
@@ -78,7 +78,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(558, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(700, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -98,32 +98,32 @@
             this.new10Question,
             this.new20Question});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // new5Question
             // 
             this.new5Question.Name = "new5Question";
-            this.new5Question.Size = new System.Drawing.Size(152, 22);
+            this.new5Question.Size = new System.Drawing.Size(86, 22);
             this.new5Question.Text = "5";
             // 
             // new10Question
             // 
             this.new10Question.Name = "new10Question";
-            this.new10Question.Size = new System.Drawing.Size(152, 22);
+            this.new10Question.Size = new System.Drawing.Size(86, 22);
             this.new10Question.Text = "10";
             // 
             // new20Question
             // 
             this.new20Question.Name = "new20Question";
-            this.new20Question.Size = new System.Drawing.Size(152, 22);
+            this.new20Question.Size = new System.Drawing.Size(86, 22);
             this.new20Question.Text = "20";
             this.new20Question.Click += new System.EventHandler(this.new20Question_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // previousPersonButton
@@ -145,12 +145,13 @@
             this.nextPersonButton.Text = "-- >";
             this.nextPersonButton.UseVisualStyleBackColor = true;
             this.nextPersonButton.Click += new System.EventHandler(this.nextPersonButton_Click);
+            //this.nextPersonButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nextPersonButton_KeyDown);
             // 
             // CupeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 406);
+            this.ClientSize = new System.Drawing.Size(700, 406);
             this.Controls.Add(this.nextPersonButton);
             this.Controls.Add(this.previousPersonButton);
             this.Controls.Add(this.addPersonButton);
@@ -161,6 +162,7 @@
             this.Name = "CupeForm";
             this.Text = "CupeForm";
             this.Load += new System.EventHandler(this.CupeForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CupeForm_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
