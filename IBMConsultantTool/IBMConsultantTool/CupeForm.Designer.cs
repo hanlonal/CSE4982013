@@ -40,6 +40,21 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previousPersonButton = new System.Windows.Forms.Button();
             this.nextPersonButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.totalCommodityLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.totalUtilityLabel = new System.Windows.Forms.Label();
+            this.totalPartnerLabel = new System.Windows.Forms.Label();
+            this.totalEnablerLabel = new System.Windows.Forms.Label();
+            this.totalFutureCommodityLabel = new System.Windows.Forms.Label();
+            this.totalFutureUtilityLabel = new System.Windows.Forms.Label();
+            this.totalFuturePartnerLabel = new System.Windows.Forms.Label();
+            this.totalFutureEnablerLabel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.personListBox = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,16 +62,16 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Location = new System.Drawing.Point(12, 115);
+            this.panel1.Location = new System.Drawing.Point(270, 115);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(676, 224);
+            this.panel1.Size = new System.Drawing.Size(315, 224);
             this.panel1.TabIndex = 0;
             // 
             // personNameLabel
             // 
             this.personNameLabel.AutoSize = true;
             this.personNameLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.personNameLabel.Location = new System.Drawing.Point(394, 24);
+            this.personNameLabel.Location = new System.Drawing.Point(410, 24);
             this.personNameLabel.Name = "personNameLabel";
             this.personNameLabel.Size = new System.Drawing.Size(37, 15);
             this.personNameLabel.TabIndex = 1;
@@ -64,7 +79,7 @@
             // 
             // addPersonButton
             // 
-            this.addPersonButton.Location = new System.Drawing.Point(416, 56);
+            this.addPersonButton.Location = new System.Drawing.Point(393, 56);
             this.addPersonButton.Name = "addPersonButton";
             this.addPersonButton.Size = new System.Drawing.Size(75, 23);
             this.addPersonButton.TabIndex = 2;
@@ -78,7 +93,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(700, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(880, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -128,7 +143,7 @@
             // 
             // previousPersonButton
             // 
-            this.previousPersonButton.Location = new System.Drawing.Point(87, 56);
+            this.previousPersonButton.Location = new System.Drawing.Point(270, 56);
             this.previousPersonButton.Name = "previousPersonButton";
             this.previousPersonButton.Size = new System.Drawing.Size(75, 23);
             this.previousPersonButton.TabIndex = 4;
@@ -138,20 +153,160 @@
             // 
             // nextPersonButton
             // 
-            this.nextPersonButton.Location = new System.Drawing.Point(290, 55);
+            this.nextPersonButton.Location = new System.Drawing.Point(510, 56);
             this.nextPersonButton.Name = "nextPersonButton";
             this.nextPersonButton.Size = new System.Drawing.Size(75, 23);
             this.nextPersonButton.TabIndex = 5;
             this.nextPersonButton.Text = "-- >";
             this.nextPersonButton.UseVisualStyleBackColor = true;
             this.nextPersonButton.Click += new System.EventHandler(this.nextPersonButton_Click);
-            //this.nextPersonButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nextPersonButton_KeyDown);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(616, 161);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Total Commodity";
+            // 
+            // totalCommodityLabel
+            // 
+            this.totalCommodityLabel.AutoSize = true;
+            this.totalCommodityLabel.Location = new System.Drawing.Point(739, 161);
+            this.totalCommodityLabel.Name = "totalCommodityLabel";
+            this.totalCommodityLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalCommodityLabel.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(616, 205);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Total Utility";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(618, 249);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(68, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Total Partner";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(616, 300);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Total Enabler";
+            // 
+            // totalUtilityLabel
+            // 
+            this.totalUtilityLabel.AutoSize = true;
+            this.totalUtilityLabel.Location = new System.Drawing.Point(739, 205);
+            this.totalUtilityLabel.Name = "totalUtilityLabel";
+            this.totalUtilityLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalUtilityLabel.TabIndex = 11;
+            // 
+            // totalPartnerLabel
+            // 
+            this.totalPartnerLabel.AutoSize = true;
+            this.totalPartnerLabel.Location = new System.Drawing.Point(742, 249);
+            this.totalPartnerLabel.Name = "totalPartnerLabel";
+            this.totalPartnerLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalPartnerLabel.TabIndex = 12;
+            // 
+            // totalEnablerLabel
+            // 
+            this.totalEnablerLabel.AutoSize = true;
+            this.totalEnablerLabel.Location = new System.Drawing.Point(745, 300);
+            this.totalEnablerLabel.Name = "totalEnablerLabel";
+            this.totalEnablerLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalEnablerLabel.TabIndex = 13;
+            // 
+            // totalFutureCommodityLabel
+            // 
+            this.totalFutureCommodityLabel.AutoSize = true;
+            this.totalFutureCommodityLabel.Location = new System.Drawing.Point(806, 161);
+            this.totalFutureCommodityLabel.Name = "totalFutureCommodityLabel";
+            this.totalFutureCommodityLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalFutureCommodityLabel.TabIndex = 14;
+            // 
+            // totalFutureUtilityLabel
+            // 
+            this.totalFutureUtilityLabel.AutoSize = true;
+            this.totalFutureUtilityLabel.Location = new System.Drawing.Point(809, 204);
+            this.totalFutureUtilityLabel.Name = "totalFutureUtilityLabel";
+            this.totalFutureUtilityLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalFutureUtilityLabel.TabIndex = 15;
+            // 
+            // totalFuturePartnerLabel
+            // 
+            this.totalFuturePartnerLabel.AutoSize = true;
+            this.totalFuturePartnerLabel.Location = new System.Drawing.Point(809, 249);
+            this.totalFuturePartnerLabel.Name = "totalFuturePartnerLabel";
+            this.totalFuturePartnerLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalFuturePartnerLabel.TabIndex = 16;
+            // 
+            // totalFutureEnablerLabel
+            // 
+            this.totalFutureEnablerLabel.AutoSize = true;
+            this.totalFutureEnablerLabel.Location = new System.Drawing.Point(809, 299);
+            this.totalFutureEnablerLabel.Name = "totalFutureEnablerLabel";
+            this.totalFutureEnablerLabel.Size = new System.Drawing.Size(0, 13);
+            this.totalFutureEnablerLabel.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(703, 115);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Current";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(800, 115);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(37, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Future";
+            // 
+            // personListBox
+            // 
+            this.personListBox.FormattingEnabled = true;
+            this.personListBox.Location = new System.Drawing.Point(72, 115);
+            this.personListBox.Name = "personListBox";
+            this.personListBox.Size = new System.Drawing.Size(69, 225);
+            this.personListBox.TabIndex = 20;
             // 
             // CupeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 406);
+            this.ClientSize = new System.Drawing.Size(880, 502);
+            this.Controls.Add(this.personListBox);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.totalFutureEnablerLabel);
+            this.Controls.Add(this.totalFuturePartnerLabel);
+            this.Controls.Add(this.totalFutureUtilityLabel);
+            this.Controls.Add(this.totalFutureCommodityLabel);
+            this.Controls.Add(this.totalEnablerLabel);
+            this.Controls.Add(this.totalPartnerLabel);
+            this.Controls.Add(this.totalUtilityLabel);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.totalCommodityLabel);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.nextPersonButton);
             this.Controls.Add(this.previousPersonButton);
             this.Controls.Add(this.addPersonButton);
@@ -184,5 +339,20 @@
         private System.Windows.Forms.ToolStripMenuItem new20Question;
         private System.Windows.Forms.Button previousPersonButton;
         private System.Windows.Forms.Button nextPersonButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label totalCommodityLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label totalUtilityLabel;
+        private System.Windows.Forms.Label totalPartnerLabel;
+        private System.Windows.Forms.Label totalEnablerLabel;
+        private System.Windows.Forms.Label totalFutureCommodityLabel;
+        private System.Windows.Forms.Label totalFutureUtilityLabel;
+        private System.Windows.Forms.Label totalFuturePartnerLabel;
+        private System.Windows.Forms.Label totalFutureEnablerLabel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox personListBox;
     }
 }

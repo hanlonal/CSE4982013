@@ -21,12 +21,34 @@ namespace IBMConsultantTool
         string name;
         CupeForm owner;
         string clientName;
-
+        int totalCommodity = 0;
+        int totalPartner = 0;
+        int totalEnabler = 0;
+        int totalUtility = 0;
+        int totalFutureCommodity = 0;
+        int totalFuturePartner = 0;
+        int totalFutureUtility = 0;
+        int totalFutureEnabler = 0;
 
 
         public Person()
         {
            // PopulateQuestionData();
+        }
+        public void ClearCurrentValues()
+        {
+            totalCommodity = 0;
+            totalPartner = 0;
+            totalEnabler = 0;
+            totalUtility = 0;
+        }
+
+        public void ClearFutureValues()
+        {
+            totalFutureCommodity = 0;
+            totalFuturePartner = 0;
+            totalFutureUtility = 0;
+            totalFutureEnabler = 0;
         }
 
         public CupeForm Owner
@@ -47,6 +69,11 @@ namespace IBMConsultantTool
                 questionData.Add(data);
 
             }
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
 
         public List<CupeQuestionData> Questions
@@ -77,5 +104,104 @@ namespace IBMConsultantTool
                 name = value;
             }
         }
+
+
+        #region GET TOTAL VALUE PROPERTIES
+
+
+        public int TotalPartner
+        {
+            get
+            {
+                return totalPartner;
+            }
+            set
+            {
+                totalPartner = value;
+            }
+        }
+        public int TotalEnabler
+        {
+            get
+            {
+                return totalEnabler;
+            }
+            set
+            {
+                totalEnabler = value;
+            }
+        }
+        public int TotalCommodity
+        {
+            get
+            {
+                return totalCommodity;
+            }
+            set
+            {
+                totalCommodity = value;
+            }
+        }
+        public int TotalUtility
+        {
+            get
+            {
+                return totalUtility;
+            }
+            set
+            {
+                totalUtility = value;
+            }
+        }
+
+        public int TotalFuturePartner
+        {
+            get
+            {
+                return totalFuturePartner;
+            }
+            set
+            {
+                totalFuturePartner = value;
+            }
+        }
+        public int TotalFutureCommodity
+        {
+            get
+            {
+                return totalFutureCommodity;
+            }
+            set
+            {
+                totalFutureCommodity = value;
+            }
+        }
+        public int TotalFutureUtility
+        {
+            get
+            {
+                return totalFutureUtility;
+            }
+            set
+            {
+                totalFutureUtility = value;
+            }
+        }
+        public int TotalFutureEnabler
+        {
+            get
+            {
+                return totalFutureEnabler;
+            }
+            set
+            {
+                totalFutureEnabler = value;
+            }
+        }
+
+
+        #endregion
+
+
     }// end class
 }

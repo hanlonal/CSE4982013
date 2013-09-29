@@ -55,6 +55,7 @@ namespace IBMConsultantTool
                     q.CurrentBox.Location = new Point(190, 30 * i);
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
+                   
                     i++;
                     q.Owner = panel1;
                     mainQuestions.Add(q);
@@ -81,14 +82,59 @@ namespace IBMConsultantTool
         {
             CustomBox box = (CustomBox)sender;
             currentPerson.Questions[box.QuestionID].CurrentValue = box.Text;
-            
-           // box.Owner.QuestionData.CurrentValue = box.Text;
+            // box.Owner.QuestionData.CurrentValue = box.Text;
+            UpdateCurrentLabels();
         }
 
         public void FutureBox_TextChanged(object sender, EventArgs e)
         {
             CustomBox box = (CustomBox)sender;
             currentPerson.Questions[box.QuestionID].FutureValue = box.Text;
+            UpdateFutureLabels();
+        }
+
+        public void UpdateCurrentLabels()
+        {
+            currentPerson.ClearCurrentValues();
+            foreach (CupeQuestionData data in currentPerson.Questions)
+            {
+                if (data.CurrentValue == "a")
+                    currentPerson.TotalCommodity++;                                   
+                if (data.CurrentValue == "b")
+                    currentPerson.TotalUtility++;
+                if (data.CurrentValue == "c")
+                    currentPerson.TotalPartner++;
+                if (data.CurrentValue == "d")
+                    currentPerson.TotalEnabler++;
+
+                totalCommodityLabel.Text = currentPerson.TotalCommodity.ToString();
+                totalEnablerLabel.Text = currentPerson.TotalEnabler.ToString();
+                totalPartnerLabel.Text = currentPerson.TotalPartner.ToString();
+                totalUtilityLabel.Text = currentPerson.TotalUtility.ToString();
+            }
+            
+        }
+
+        public void UpdateFutureLabels()
+        {
+            currentPerson.ClearFutureValues();
+            foreach (CupeQuestionData data in currentPerson.Questions)
+            {
+                if (data.FutureValue == "a")
+                    currentPerson.TotalFutureCommodity++;
+                if (data.FutureValue == "b")
+                    currentPerson.TotalFutureUtility++;
+                if (data.FutureValue == "c")
+                    currentPerson.TotalFuturePartner++;
+                if (data.FutureValue == "d")
+                    currentPerson.TotalFutureEnabler++;
+
+                totalFutureCommodityLabel.Text = currentPerson.TotalFutureCommodity.ToString();
+                totalFutureEnablerLabel.Text = currentPerson.TotalFutureEnabler.ToString();
+                totalFuturePartnerLabel.Text = currentPerson.TotalFuturePartner.ToString();
+                totalFutureUtilityLabel.Text = currentPerson.TotalFutureUtility.ToString();
+            }
+
         }
 
         private void addPersonButton_Click(object sender, EventArgs e)
@@ -101,7 +147,20 @@ namespace IBMConsultantTool
             personNameLabel.Text = person.Name;
             person.PopulateQuestionData();
             ResetQuestions();
+            personListBox.Items.Add(person);
+            personListBox.SelectedValueChanged += new EventHandler(personListBox_SelectedValueChanged);
+            
         }
+        public void personListBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ListBox box = (ListBox)sender;
+            int selectedindex = box.SelectedIndex;
+           // Console.WriteLine(selectedindex.ToString());
+            currentPerson = persons.ElementAt<Person>(selectedindex);
+            ChangePerson();
+
+        }
+
        public void CupeForm_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Right)
@@ -151,10 +210,13 @@ namespace IBMConsultantTool
         private void ChangePerson()
         {
             personNameLabel.Text = currentPerson.Name;
+
             foreach (CupeQuestion question in mainQuestions)
             {
                 question.CurrentBox.Text = currentPerson.Questions[question.ID].CurrentValue;
                 question.FutureBox.Text = currentPerson.Questions[question.ID].FutureValue;
+                UpdateCurrentLabels();
+                UpdateFutureLabels();
             }
         }
 
@@ -190,7 +252,9 @@ namespace IBMConsultantTool
                 return true;
             }
             else return base.ProcessCmdKey(ref msg, keyData);
-        } 
+        }
+
+
         
 
     } // end of class
