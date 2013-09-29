@@ -120,9 +120,15 @@ namespace IBMConsultantTool
         private void previousPersonButton_Click(object sender, EventArgs e)
         {
            Person per = currentPerson;
+            
            LinkedListNode<Person> p = persons.Find(per);
-           currentPerson = p.Previous.Value;
-           ChangePerson();
+           if (p.Previous != null)
+           {
+               currentPerson = p.Previous.Value;
+               ChangePerson();
+           }
+           else
+               return;
         }
 
         private void ChangePerson()
@@ -133,6 +139,20 @@ namespace IBMConsultantTool
                 question.CurrentBox.Text = currentPerson.Questions[question.ID].CurrentValue;
                 question.FutureBox.Text = currentPerson.Questions[question.ID].FutureValue;
             }
+        }
+
+        private void nextPersonButton_Click(object sender, EventArgs e)
+        {
+            Person per = currentPerson;
+            LinkedListNode<Person> p = persons.Find(per);
+            if (p.Next != null)
+            {
+                currentPerson = p.Next.Value;
+
+                ChangePerson();
+            }
+            else
+                return;
         }
 
 

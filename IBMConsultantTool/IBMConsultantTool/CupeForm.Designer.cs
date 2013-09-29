@@ -39,6 +39,7 @@
             this.new20Question = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previousPersonButton = new System.Windows.Forms.Button();
+            this.nextPersonButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@
             // 
             this.personNameLabel.AutoSize = true;
             this.personNameLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.personNameLabel.Location = new System.Drawing.Point(325, 56);
+            this.personNameLabel.Location = new System.Drawing.Point(394, 24);
             this.personNameLabel.Name = "personNameLabel";
             this.personNameLabel.Size = new System.Drawing.Size(37, 15);
             this.personNameLabel.TabIndex = 1;
@@ -135,11 +136,22 @@
             this.previousPersonButton.UseVisualStyleBackColor = true;
             this.previousPersonButton.Click += new System.EventHandler(this.previousPersonButton_Click);
             // 
+            // nextPersonButton
+            // 
+            this.nextPersonButton.Location = new System.Drawing.Point(290, 55);
+            this.nextPersonButton.Name = "nextPersonButton";
+            this.nextPersonButton.Size = new System.Drawing.Size(75, 23);
+            this.nextPersonButton.TabIndex = 5;
+            this.nextPersonButton.Text = "-- >";
+            this.nextPersonButton.UseVisualStyleBackColor = true;
+            this.nextPersonButton.Click += new System.EventHandler(this.nextPersonButton_Click);
+            // 
             // CupeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 406);
+            this.Controls.Add(this.nextPersonButton);
             this.Controls.Add(this.previousPersonButton);
             this.Controls.Add(this.addPersonButton);
             this.Controls.Add(this.personNameLabel);
@@ -169,5 +181,6 @@
         private System.Windows.Forms.ToolStripMenuItem new10Question;
         private System.Windows.Forms.ToolStripMenuItem new20Question;
         private System.Windows.Forms.Button previousPersonButton;
+        private System.Windows.Forms.Button nextPersonButton;
     }
 }
