@@ -14,6 +14,7 @@ using System.Data.EntityClient;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.Windows.Forms;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -23,11 +24,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "BOM_INITIATIVE_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.INITIATIVE), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "BUSINESSOB_CATE_FK", "CATEGORY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CATEGORY), "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BUSINESSOBJECTIVE))]
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
-[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPEManager))]
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCAP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
-[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CUPEQUESTION), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
-[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CUPEQUESTION), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPEManager))]
+[assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPE_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPEManager))]
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "CUPEQUES_INITIA_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.INITIATIVE), "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPEQUESTION))]
 [assembly: EdmRelationshipAttribute("SAMPLEModel", "ITCAP_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
 
@@ -148,18 +149,18 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<CUPE> CUPE
+        public ObjectSet<CUPEManager> CUPE
         {
             get
             {
                 if ((_CUPE == null))
                 {
-                    _CUPE = base.CreateObjectSet<CUPE>("CUPE");
+                    _CUPE = base.CreateObjectSet<CUPEManager>("CUPE");
                 }
                 return _CUPE;
             }
         }
-        private ObjectSet<CUPE> _CUPE;
+        private ObjectSet<CUPEManager> _CUPE;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -263,7 +264,7 @@ namespace IBMConsultantTool
         /// <summary>
         /// Deprecated Method for adding a new object to the CUPE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToCUPE(CUPE cUPE)
+        public void AddToCUPE(CUPEManager cUPE)
         {
             base.AddObject("CUPE", cUPE);
         }
@@ -912,17 +913,17 @@ namespace IBMConsultantTool
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_CLIENT_FK", "CUPE")]
-        public EntityCollection<CUPE> CUPE
+        public EntityCollection<CUPEManager> CUPE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPE>("SAMPLEModel.CUPE_CLIENT_FK", "CUPE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPEManager>("SAMPLEModel.CUPE_CLIENT_FK", "CUPE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPE>("SAMPLEModel.CUPE_CLIENT_FK", "CUPE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPEManager>("SAMPLEModel.CUPE_CLIENT_FK", "CUPE", value);
                 }
             }
         }
@@ -980,7 +981,7 @@ namespace IBMConsultantTool
     [EdmEntityTypeAttribute(NamespaceName="SAMPLEModel", Name="CUPE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class CUPE : EntityObject
+    public partial class CUPEManager : EntityObject
     {
         #region Factory Method
     
@@ -988,9 +989,9 @@ namespace IBMConsultantTool
         /// Create a new CUPE object.
         /// </summary>
         /// <param name="cUPEID">Initial value of the CUPEID property.</param>
-        public static CUPE CreateCUPE(global::System.Int32 cUPEID)
+        public static CUPEManager CreateCUPE(global::System.Int32 cUPEID)
         {
-            CUPE cUPE = new CUPE();
+            CUPEManager cUPE = new CUPEManager();
             cUPE.CUPEID = cUPEID;
             return cUPE;
         }
@@ -1014,7 +1015,7 @@ namespace IBMConsultantTool
                 if (_CUPEID != value)
                 {
                     OnCUPEIDChanging(value);
-                    ReportPropertyChanging("CUPEID");
+                    ReportPropertyChanged("CUPEID");
                     _CUPEID = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("CUPEID");
                     OnCUPEIDChanged();
@@ -1376,17 +1377,17 @@ namespace IBMConsultantTool
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_CUPEQUESTI_FK", "CUPE")]
-        public EntityCollection<CUPE> CUPE
+        public EntityCollection<CUPEManager> CUPE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPE>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPEManager>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPE>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPEManager>("SAMPLEModel.CUPE_CUPEQUESTI_FK", "CUPE", value);
                 }
             }
         }
@@ -1580,17 +1581,17 @@ namespace IBMConsultantTool
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SAMPLEModel", "CUPE_GROUP_FK", "CUPE")]
-        public EntityCollection<CUPE> CUPE
+        public EntityCollection<CUPEManager> CUPE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPE>("SAMPLEModel.CUPE_GROUP_FK", "CUPE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPEManager>("SAMPLEModel.CUPE_GROUP_FK", "CUPE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPE>("SAMPLEModel.CUPE_GROUP_FK", "CUPE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPEManager>("SAMPLEModel.CUPE_GROUP_FK", "CUPE", value);
                 }
             }
         }

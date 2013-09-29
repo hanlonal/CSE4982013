@@ -88,6 +88,17 @@
     <Compile Include="CUPEAnalytics.Designer.cs">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>
     </Compile>
+    <Compile Include="CupeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CupeForm.Designer.cs">
+      <DependentUpon>CupeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CupeQuestion.cs" />
+    <Compile Include="CupeQuestionData.cs" />
+    <Compile Include="CustomBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +125,7 @@
     <Compile Include="OpenBOM.Designer.cs">
       <DependentUpon>OpenBOM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Person.cs" />
     <Compile Include="SurveyGenerator.cs" />
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
@@ -142,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CUPEAnalytics.resx">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CupeForm.resx">
+      <DependentUpon>CupeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataEntryForm.resx">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
@@ -307,6 +322,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Questions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
