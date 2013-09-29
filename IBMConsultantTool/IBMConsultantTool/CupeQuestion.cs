@@ -12,12 +12,13 @@ namespace IBMConsultantTool
     {
 
 
-       private CupeQuestionData questionData;
+      
 
        private string current;
        private string future;
        private string text;
        private Label textLabel;
+       private int id;
 
        private CustomBox futureTextBox;
        private CustomBox currentTextBox;
@@ -36,7 +37,7 @@ namespace IBMConsultantTool
            DefineCurrentBox();
            DefineTextLabel();
 
-           questionData = new CupeQuestionData();
+           
        }
 
        public string Current
@@ -88,13 +89,20 @@ namespace IBMConsultantTool
 
        }
 
-       public CupeQuestionData QuestionData
+       public int ID
        {
            get
            {
-               return questionData;
+               return id;
            }
+           set
+            {
+                id = value;
+                currentTextBox.QuestionID = value;
+                futureTextBox.QuestionID = value;
+            }
        }
+
 
     } //end class
 }

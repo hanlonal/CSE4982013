@@ -27,13 +27,7 @@ namespace IBMConsultantTool
 
         private void CupeForm_Load(object sender, EventArgs e)
         {
-            Person person = new Person();
-            person.Name = "Adam";
-            persons.AddLast(person);
-            personNameLabel.Text = person.Name;
-            currentPerson = person;
-            
-            CreateQuestions(); 
+            //CreateQuestions(); 
         }
 
         public void TextLabel_TextChanged(object sender, EventArgs e)
@@ -41,7 +35,7 @@ namespace IBMConsultantTool
 
         }
 
-        public void CreateQuestions()
+        public void CreateQuestions(int number)
         {
             StringReader file = null;
             try
@@ -51,9 +45,10 @@ namespace IBMConsultantTool
                 while ((line = file.ReadLine()) != null)
                 {
                     CupeQuestion q = new CupeQuestion();
-                    mainQuestions.Add(q);
-                    currentPerson.Questions.AddLast(q);
+                   
+                   // currentPerson.Questions.AddLast(q);
                     q.TextLabel.Location = new Point(10, (30 * i) + 5);
+                    q.ID = i;
                     q.TextLabel.Text = line;
                     q.FutureBox.Location = new Point(140, 30 * i);
                     q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
@@ -62,6 +57,7 @@ namespace IBMConsultantTool
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
                     i++;
                     q.Owner = panel1;
+                    mainQuestions.Add(q);
                     //Console.WriteLine("something");
                 }
 
@@ -73,23 +69,37 @@ namespace IBMConsultantTool
             }
         }
 
+        public List<CupeQuestion> Questions
+        {
+            get
+            {
+                return mainQuestions;
+            }
+        }
+
         public void CurrentBox_TextChanged(object sender, EventArgs e)
         {
             CustomBox box = (CustomBox)sender;
-            box.Owner.QuestionData.CurrentValue = box.Text;
+            currentPerson.Questions[box.QuestionID].CurrentValue = box.Text;
+            
+           // box.Owner.QuestionData.CurrentValue = box.Text;
         }
 
         public void FutureBox_TextChanged(object sender, EventArgs e)
         {
             CustomBox box = (CustomBox)sender;
-            box.Owner.QuestionData.FutureValue= box.Text;
+            currentPerson.Questions[box.QuestionID].FutureValue = box.Text;
         }
 
         private void addPersonButton_Click(object sender, EventArgs e)
         {
             Person person = new Person();
+            persons.AddLast(person);
             currentPerson = person;
-            
+            person.Owner = this;
+            person.Name =  "Person " + persons.Count.ToString();
+            personNameLabel.Text = person.Name;
+            person.PopulateQuestionData();
             ResetQuestions();
         }
 
@@ -101,6 +111,33 @@ namespace IBMConsultantTool
                 q.FutureBox.Text = "";
             }
         }
+
+        private void new20Question_Click(object sender, EventArgs e)
+        {
+            CreateQuestions(20);
+        }
+
+        private void previousPersonButton_Click(object sender, EventArgs e)
+        {
+           Person per = currentPerson;
+           LinkedListNode<Person> p = persons.Find(per);
+           currentPerson = p.Previous.Value;
+           ChangePerson();
+        }
+
+        private void ChangePerson()
+        {
+            personNameLabel.Text = currentPerson.Name;
+            foreach (CupeQuestion question in mainQuestions)
+            {
+                question.CurrentBox.Text = currentPerson.Questions[question.ID].CurrentValue;
+                question.FutureBox.Text = currentPerson.Questions[question.ID].FutureValue;
+            }
+        }
+
+
+
+
 
 
     } // end of class

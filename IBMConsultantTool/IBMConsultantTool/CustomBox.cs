@@ -10,6 +10,7 @@ namespace IBMConsultantTool
     {
         private CupeQuestion owner;
         private string value;
+        private int questionID;
 
         public CustomBox(CupeQuestion owner)
         {
@@ -21,6 +22,18 @@ namespace IBMConsultantTool
             get
             {
                 return owner;
+            }
+        }
+
+        public int QuestionID
+        {
+            set
+            {
+                questionID = value;
+            }
+            get
+            {
+                return questionID;
             }
         }
     }
