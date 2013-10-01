@@ -18,7 +18,7 @@ namespace IBMConsultantTool
         LinkedList<Person> persons = new LinkedList<Person>();
         Person currentPerson;
         List<CupeQuestion> mainQuestions = new List<CupeQuestion>();
-
+        private CupeQuestion currentQuestion;
         public CupeForm()
         {
             InitializeComponent();
@@ -50,12 +50,13 @@ namespace IBMConsultantTool
                     q.TextLabel.Location = new Point(10, (30 * i) + 5);
                     q.ID = i;
                     q.TextLabel.Text = line;
+                    q.QuestionText = line;
                     q.FutureBox.Location = new Point(140, 30 * i);
                     q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
                     q.CurrentBox.Location = new Point(190, 30 * i);
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
-                   
+                    q.TextLabel.Click +=new EventHandler(TextLabel_Click);
                     i++;
                     q.Owner = panel1;
                     mainQuestions.Add(q);
@@ -69,6 +70,18 @@ namespace IBMConsultantTool
                     file.Close();
             }
         }
+
+        public void TextLabel_Click(object sender, EventArgs e)
+        {
+            CustomLabel textlabel = (CustomLabel)sender;
+            if(currentQuestion != null)
+                currentQuestion.TextLabel.BackColor = Color.White;
+            //Console.WriteLine(textlabel.Text);
+            currentQuestion = textlabel.Owner;
+            currentQuestion.TextLabel.BackColor = Color.GreenYellow;
+            CalculateTotals();
+        }
+
 
         public List<CupeQuestion> Questions
         {
@@ -91,6 +104,16 @@ namespace IBMConsultantTool
             CustomBox box = (CustomBox)sender;
             currentPerson.Questions[box.QuestionID].FutureValue = box.Text;
             UpdateFutureLabels();
+        }
+
+        public void MakeGraphData()
+        {
+
+        }
+
+        public void CalculateTotals()
+        {
+
         }
 
         public void UpdateCurrentLabels()

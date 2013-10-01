@@ -17,7 +17,7 @@ namespace IBMConsultantTool
        private string current;
        private string future;
        private string text;
-       private Label textLabel;
+       private CustomLabel textLabel;
        private int id;
 
        private CustomBox futureTextBox;
@@ -31,7 +31,7 @@ namespace IBMConsultantTool
        {
            futureTextBox = new CustomBox(this);
            currentTextBox = new CustomBox(this);
-           textLabel = new Label();
+           textLabel = new CustomLabel(this);
 
            DefineFutureBox();
            DefineCurrentBox();
@@ -53,7 +53,7 @@ namespace IBMConsultantTool
            }
        }
        public string Future { get { return future; } set { future = value; Console.WriteLine(textLabel.Text + " texts reads" + future.ToString()); } }
-       public Label TextLabel { get { return textLabel; } }
+       public CustomLabel TextLabel { get { return textLabel; } }
        public TextBox FutureBox { get { return futureTextBox; } }
        public TextBox CurrentBox { get { return currentTextBox; } set { CurrentBox = value; } }
        public Panel Owner
@@ -65,6 +65,18 @@ namespace IBMConsultantTool
                owner.Controls.Add(futureTextBox);
                owner.Controls.Add(currentTextBox);
            } 
+       }
+
+       public string QuestionText
+       {
+           get
+           {
+               return questionText;
+           }
+           set
+           {
+               questionText = value;
+           }
        }
 
        private void DefineCurrentBox()
@@ -100,6 +112,7 @@ namespace IBMConsultantTool
                 id = value;
                 currentTextBox.QuestionID = value;
                 futureTextBox.QuestionID = value;
+                textLabel.QuestionID = value;
             }
        }
 

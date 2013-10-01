@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.personNameLabel = new System.Windows.Forms.Label();
             this.addPersonButton = new System.Windows.Forms.Button();
@@ -55,14 +58,16 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.personListBox = new System.Windows.Forms.ListBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Location = new System.Drawing.Point(270, 115);
+            this.panel1.Location = new System.Drawing.Point(153, 67);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(315, 224);
             this.panel1.TabIndex = 0;
@@ -71,7 +76,7 @@
             // 
             this.personNameLabel.AutoSize = true;
             this.personNameLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.personNameLabel.Location = new System.Drawing.Point(410, 24);
+            this.personNameLabel.Location = new System.Drawing.Point(290, 309);
             this.personNameLabel.Name = "personNameLabel";
             this.personNameLabel.Size = new System.Drawing.Size(37, 15);
             this.personNameLabel.TabIndex = 1;
@@ -79,7 +84,7 @@
             // 
             // addPersonButton
             // 
-            this.addPersonButton.Location = new System.Drawing.Point(393, 56);
+            this.addPersonButton.Location = new System.Drawing.Point(274, 27);
             this.addPersonButton.Name = "addPersonButton";
             this.addPersonButton.Size = new System.Drawing.Size(75, 23);
             this.addPersonButton.TabIndex = 2;
@@ -93,7 +98,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(880, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1041, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -143,7 +148,7 @@
             // 
             // previousPersonButton
             // 
-            this.previousPersonButton.Location = new System.Drawing.Point(270, 56);
+            this.previousPersonButton.Location = new System.Drawing.Point(153, 27);
             this.previousPersonButton.Name = "previousPersonButton";
             this.previousPersonButton.Size = new System.Drawing.Size(75, 23);
             this.previousPersonButton.TabIndex = 4;
@@ -153,7 +158,7 @@
             // 
             // nextPersonButton
             // 
-            this.nextPersonButton.Location = new System.Drawing.Point(510, 56);
+            this.nextPersonButton.Location = new System.Drawing.Point(393, 27);
             this.nextPersonButton.Name = "nextPersonButton";
             this.nextPersonButton.Size = new System.Drawing.Size(75, 23);
             this.nextPersonButton.TabIndex = 5;
@@ -164,7 +169,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(616, 161);
+            this.label1.Location = new System.Drawing.Point(158, 391);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 6;
@@ -173,7 +178,7 @@
             // totalCommodityLabel
             // 
             this.totalCommodityLabel.AutoSize = true;
-            this.totalCommodityLabel.Location = new System.Drawing.Point(739, 161);
+            this.totalCommodityLabel.Location = new System.Drawing.Point(281, 391);
             this.totalCommodityLabel.Name = "totalCommodityLabel";
             this.totalCommodityLabel.Size = new System.Drawing.Size(0, 13);
             this.totalCommodityLabel.TabIndex = 7;
@@ -181,7 +186,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(616, 205);
+            this.label5.Location = new System.Drawing.Point(158, 435);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 13);
             this.label5.TabIndex = 8;
@@ -190,7 +195,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(618, 249);
+            this.label7.Location = new System.Drawing.Point(160, 479);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 13);
             this.label7.TabIndex = 9;
@@ -199,7 +204,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(616, 300);
+            this.label9.Location = new System.Drawing.Point(158, 530);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(70, 13);
             this.label9.TabIndex = 10;
@@ -208,7 +213,7 @@
             // totalUtilityLabel
             // 
             this.totalUtilityLabel.AutoSize = true;
-            this.totalUtilityLabel.Location = new System.Drawing.Point(739, 205);
+            this.totalUtilityLabel.Location = new System.Drawing.Point(281, 435);
             this.totalUtilityLabel.Name = "totalUtilityLabel";
             this.totalUtilityLabel.Size = new System.Drawing.Size(0, 13);
             this.totalUtilityLabel.TabIndex = 11;
@@ -216,7 +221,7 @@
             // totalPartnerLabel
             // 
             this.totalPartnerLabel.AutoSize = true;
-            this.totalPartnerLabel.Location = new System.Drawing.Point(742, 249);
+            this.totalPartnerLabel.Location = new System.Drawing.Point(284, 479);
             this.totalPartnerLabel.Name = "totalPartnerLabel";
             this.totalPartnerLabel.Size = new System.Drawing.Size(0, 13);
             this.totalPartnerLabel.TabIndex = 12;
@@ -224,7 +229,7 @@
             // totalEnablerLabel
             // 
             this.totalEnablerLabel.AutoSize = true;
-            this.totalEnablerLabel.Location = new System.Drawing.Point(745, 300);
+            this.totalEnablerLabel.Location = new System.Drawing.Point(287, 530);
             this.totalEnablerLabel.Name = "totalEnablerLabel";
             this.totalEnablerLabel.Size = new System.Drawing.Size(0, 13);
             this.totalEnablerLabel.TabIndex = 13;
@@ -232,7 +237,7 @@
             // totalFutureCommodityLabel
             // 
             this.totalFutureCommodityLabel.AutoSize = true;
-            this.totalFutureCommodityLabel.Location = new System.Drawing.Point(806, 161);
+            this.totalFutureCommodityLabel.Location = new System.Drawing.Point(348, 391);
             this.totalFutureCommodityLabel.Name = "totalFutureCommodityLabel";
             this.totalFutureCommodityLabel.Size = new System.Drawing.Size(0, 13);
             this.totalFutureCommodityLabel.TabIndex = 14;
@@ -240,7 +245,7 @@
             // totalFutureUtilityLabel
             // 
             this.totalFutureUtilityLabel.AutoSize = true;
-            this.totalFutureUtilityLabel.Location = new System.Drawing.Point(809, 204);
+            this.totalFutureUtilityLabel.Location = new System.Drawing.Point(351, 434);
             this.totalFutureUtilityLabel.Name = "totalFutureUtilityLabel";
             this.totalFutureUtilityLabel.Size = new System.Drawing.Size(0, 13);
             this.totalFutureUtilityLabel.TabIndex = 15;
@@ -248,7 +253,7 @@
             // totalFuturePartnerLabel
             // 
             this.totalFuturePartnerLabel.AutoSize = true;
-            this.totalFuturePartnerLabel.Location = new System.Drawing.Point(809, 249);
+            this.totalFuturePartnerLabel.Location = new System.Drawing.Point(351, 479);
             this.totalFuturePartnerLabel.Name = "totalFuturePartnerLabel";
             this.totalFuturePartnerLabel.Size = new System.Drawing.Size(0, 13);
             this.totalFuturePartnerLabel.TabIndex = 16;
@@ -256,7 +261,7 @@
             // totalFutureEnablerLabel
             // 
             this.totalFutureEnablerLabel.AutoSize = true;
-            this.totalFutureEnablerLabel.Location = new System.Drawing.Point(809, 299);
+            this.totalFutureEnablerLabel.Location = new System.Drawing.Point(351, 529);
             this.totalFutureEnablerLabel.Name = "totalFutureEnablerLabel";
             this.totalFutureEnablerLabel.Size = new System.Drawing.Size(0, 13);
             this.totalFutureEnablerLabel.TabIndex = 17;
@@ -264,7 +269,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(703, 115);
+            this.label8.Location = new System.Drawing.Point(245, 345);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 13);
             this.label8.TabIndex = 18;
@@ -273,7 +278,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(800, 115);
+            this.label10.Location = new System.Drawing.Point(342, 345);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(37, 13);
             this.label10.TabIndex = 19;
@@ -282,16 +287,36 @@
             // personListBox
             // 
             this.personListBox.FormattingEnabled = true;
-            this.personListBox.Location = new System.Drawing.Point(72, 115);
+            this.personListBox.Location = new System.Drawing.Point(12, 66);
             this.personListBox.Name = "personListBox";
             this.personListBox.Size = new System.Drawing.Size(69, 225);
             this.personListBox.TabIndex = 20;
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.DarkGray;
+            this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(603, 66);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(300, 300);
+            this.chart1.TabIndex = 21;
+            this.chart1.Text = "chart1";
             // 
             // CupeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 502);
+            this.ClientSize = new System.Drawing.Size(1041, 566);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.personListBox);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
@@ -320,6 +345,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CupeForm_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,5 +380,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox personListBox;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
