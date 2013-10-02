@@ -26,6 +26,11 @@ namespace IBMConsultantTool
        private string questionText;
        Panel owner = new Panel();
 
+       private float totalCurrentAverageOfAllAnswers;
+       private float totalFutureAverageOfAllAnswers;
+       private float totalAverageofAllITAnswers;
+       private float totalAverageofAllBusiAnswers;
+
 
        public CupeQuestion()
        {
@@ -39,6 +44,9 @@ namespace IBMConsultantTool
 
            
        }
+
+
+
 
        public string Current
        {
@@ -81,21 +89,21 @@ namespace IBMConsultantTool
 
        private void DefineCurrentBox()
        {
-           currentTextBox.Width = 20;
-           currentTextBox.Height = 20;
+           currentTextBox.Width = 30;
+           currentTextBox.Height = 30;
 
        }
        private void DefineFutureBox()
        {
            //q.Visible = true;
-           futureTextBox.Width = 20;
-           futureTextBox.Height = 20;   
+           futureTextBox.Width = 30;
+           futureTextBox.Height = 30;   
        }
 
        private void DefineTextLabel()
        {
            textLabel.BackColor = Color.Red;
-           textLabel.Width = 70;
+           textLabel.Width = 200;
            textLabel.Height = 20;
            textLabel.BackColor = Color.White;
 
@@ -114,6 +122,31 @@ namespace IBMConsultantTool
                 futureTextBox.QuestionID = value;
                 textLabel.QuestionID = value;
             }
+       }
+
+       public float TotalCurrentAverageOfAllAnswers
+       {
+           get
+           {
+               return totalCurrentAverageOfAllAnswers;
+           }
+           set
+           {
+               totalCurrentAverageOfAllAnswers = value;
+           }
+
+       
+       }
+       public float TotalFutureAverageOfAllAnswers
+       {
+           get
+           {
+               return TotalFutureAverageOfAllAnswers;
+           }
+           set
+           {
+               totalFutureAverageOfAllAnswers = value;
+           }
        }
 
 

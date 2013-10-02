@@ -1,0 +1,3 @@
+Just trying to get all features they want, how it looks can be put off until later
+
+--When done inputting data. Hit a button presentation mode, which makes the graph larger, and data invisible to clients

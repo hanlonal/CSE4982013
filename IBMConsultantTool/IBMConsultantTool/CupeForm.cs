@@ -19,6 +19,10 @@ namespace IBMConsultantTool
         Person currentPerson;
         List<CupeQuestion> mainQuestions = new List<CupeQuestion>();
         private CupeQuestion currentQuestion;
+
+        private float avgCurrentAll;
+        private float avgFutureAll;
+
         public CupeForm()
         {
             InitializeComponent();
@@ -61,9 +65,9 @@ namespace IBMConsultantTool
                     q.ID = i;
                     q.TextLabel.Text = line;
                     q.QuestionText = line;
-                    q.FutureBox.Location = new Point(140, 30 * i);
+                    q.FutureBox.Location = new Point(250, 30 * i);
                     q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
-                    q.CurrentBox.Location = new Point(190, 30 * i);
+                    q.CurrentBox.Location = new Point(300, 30 * i);
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
                     q.TextLabel.Click +=new EventHandler(TextLabel_Click);
@@ -89,6 +93,8 @@ namespace IBMConsultantTool
             //Console.WriteLine(textlabel.Text);
             currentQuestion = textlabel.Owner;
             currentQuestion.TextLabel.BackColor = Color.GreenYellow;
+            questionChart.Series["Series1"].Points.Clear();
+            questionNameLabel.Text = "Question # : " + (currentQuestion.ID + 1).ToString();
             CalculateTotals();
         }
 
@@ -118,64 +124,39 @@ namespace IBMConsultantTool
 
         public void MakeGraphData()
         {
+            questionChart.Series["Series1"].Points.AddY(avgCurrentAll);
+            questionChart.Series["Series1"].Points.AddY(avgFutureAll);
 
+            FillGraphLabels();
+        }
+
+        public void FillGraphLabels()
+        {
+            avgCurrentLabel.Text = avgCurrentAll.ToString();
+            avgFutureLabel.Text = avgFutureAll.ToString();
         }
 
         public void CalculateTotals()
         {
-            float totalFutureIT = 0;
-            float totalCurrentIT = 0;
+            float totalFutureAll = 0;
+            float totalCurrentAll = 0;
             
             foreach (Person person in persons)
             {
-                if (person.Questions[currentQuestion.ID].FutureValue == "a")
-                {
-                    totalFutureIT += 1;
-
-                }
-                if (person.Questions[currentQuestion.ID].CurrentValue == "a")
-                {
-                    totalCurrentIT += 1;
-
-                }
-                if (person.Questions[currentQuestion.ID].FutureValue == "b")
-                {
-                    totalFutureIT += 2;
-
-                }
-                if (person.Questions[currentQuestion.ID].CurrentValue == "b")
-                {
-                    totalCurrentIT += 1;
-
-                }
-                if (person.Questions[currentQuestion.ID].FutureValue == "c")
-                {
-                    totalFutureIT += 3;
-
-                }
-                if (person.Questions[currentQuestion.ID].CurrentValue == "c")
-                {
-                    totalCurrentIT += 1;
-
-                }
-                if (person.Questions[currentQuestion.ID].FutureValue == "d")
-                {
-                    totalFutureIT += 4;
-
-                }
-                if (person.Questions[currentQuestion.ID].CurrentValue == "d")
-                {
-                    totalCurrentIT += 1;
-
-                }
-                
+               totalCurrentAll += person.CalculateCurrentData(currentQuestion.ID);
+               totalFutureAll += person.CalculateFutureData(currentQuestion.ID);
             }
 
-            float avgFutureIT = totalFutureIT / persons.Count;
-            float avgCurrentIT = totalCurrentIT / persons.Count;
-
+            avgFutureAll = totalFutureAll / persons.Count;
+            avgCurrentAll = totalCurrentAll / persons.Count;
+            foreach( CupeQuestion question in mainQuestions)
+            {
+                question.TotalCurrentAverageOfAllAnswers = avgCurrentAll;
+                question.TotalFutureAverageOfAllAnswers = avgFutureAll;
+            }
+            MakeGraphData();
            // questionChart.Series[0].Points[0] = DataPointavgFutureIT;
-            questionChart.Series[1].Points[0].SetValueY(avgCurrentIT);
+
         }
 
         public void UpdateCurrentLabels()

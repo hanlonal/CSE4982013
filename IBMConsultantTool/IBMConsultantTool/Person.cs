@@ -105,6 +105,68 @@ namespace IBMConsultantTool
             }
         }
 
+        public int CalculateFutureData(int id)
+        {
+            int totalFutureIT = 0;
+            
+
+
+                if (Questions[id].FutureValue == "a")
+                {
+                    totalFutureIT += 1;
+
+                }
+
+                if (Questions[id].FutureValue == "b")
+                {
+                    totalFutureIT += 2;
+
+                }
+
+                if (Questions[id].FutureValue == "c")
+                {
+                    totalFutureIT += 3;
+
+                }
+
+                if (Questions[id].FutureValue == "d")
+                {
+                    totalFutureIT += 4;
+
+                }
+
+                return totalFutureIT;
+            
+        }
+
+        public int CalculateCurrentData(int id)
+        {
+            int totalCurrentIT = 0;
+
+            if (Questions[id].CurrentValue == "a")
+            {
+                totalCurrentIT += 1;
+
+            }
+            if (Questions[id].CurrentValue == "b")
+            {
+                totalCurrentIT += 2;
+
+            }
+            if (Questions[id].CurrentValue == "c")
+            {
+                totalCurrentIT += 3;
+
+            }
+            if (Questions[id].CurrentValue == "d")
+            {
+                totalCurrentIT += 4;
+
+            }
+
+            return totalCurrentIT;
+        }
+
 
         #region GET TOTAL VALUE PROPERTIES
 

@@ -105,27 +105,29 @@ namespace IBMConsultantTool.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question 1
-        ///Question 2
-        ///Question 3
-        ///Question 4
-        ///Question 5
-        ///Question 6
-        ///Question 7
-        ///Question 8
-        ///Question 9
-        ///Question 10
-        ///Question 11
-        ///Question 12
-        ///Question 13
-        ///Question 14
-        ///Question 15
-        ///Question 16
-        ///Question 17
-        ///Question 18
-        ///Question 19
-        ///Question 20
-        ///.
+        ///   Looks up a localized string similar to Just trying to get all features they want, how it looks can be put off until later
+        ///
+        ///--When done inputting data. Hit a button presentation mode, which makes the graph larger, and data invisible to clients.
+        /// </summary>
+        internal static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How are you doing on this day?
+        ///Have you ever been to the beach?
+        ///Have you played the new League Champ?
+        ///Dont you think programming is so much fun?
+        ///Are you going to buy a PS4?
+        ///Question 6 And this will fill in the of the question
+        ///Question 7 And this will fill in the of the question
+        ///Question 8 And this will fill in the of the question
+        ///Question 9 And this will fill in the of the question
+        ///Question 10 And this will fill in the of the question
+        ///Question 11 And this will fill in the of the question
+        ///Question [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Questions {
             get {
