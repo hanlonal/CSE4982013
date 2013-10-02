@@ -28,6 +28,16 @@ namespace IBMConsultantTool
         private void CupeForm_Load(object sender, EventArgs e)
         {
             //CreateQuestions(); 
+            //questionChart.Series.Remove(Series1);
+           // questionChart.Legends[0].questionchar
+          //  questionChart.Series[0].Points.AddY(5);
+            //questionChart.Series[0].Points.AddY(3);
+            //questionChart.Series[0].Points.AddY(2);
+            //questionChart.Series[0].Points.AddY(4);
+            //questionChart.Legends[0].CustomItems.Add(Color.Green, "IT Future");
+            //questionChart.Legends[0].CustomItems.Add(Color.Brown, "IT Current");
+            //questionChart.Legends[0].CustomItems.Add(Color.Lavender, "Busi Future");
+            //questionChart.Legends[0].CustomItems.Add(Color.Olive, "Busi Future");
         }
 
         public void TextLabel_TextChanged(object sender, EventArgs e)
@@ -113,7 +123,59 @@ namespace IBMConsultantTool
 
         public void CalculateTotals()
         {
+            float totalFutureIT = 0;
+            float totalCurrentIT = 0;
+            
+            foreach (Person person in persons)
+            {
+                if (person.Questions[currentQuestion.ID].FutureValue == "a")
+                {
+                    totalFutureIT += 1;
 
+                }
+                if (person.Questions[currentQuestion.ID].CurrentValue == "a")
+                {
+                    totalCurrentIT += 1;
+
+                }
+                if (person.Questions[currentQuestion.ID].FutureValue == "b")
+                {
+                    totalFutureIT += 2;
+
+                }
+                if (person.Questions[currentQuestion.ID].CurrentValue == "b")
+                {
+                    totalCurrentIT += 1;
+
+                }
+                if (person.Questions[currentQuestion.ID].FutureValue == "c")
+                {
+                    totalFutureIT += 3;
+
+                }
+                if (person.Questions[currentQuestion.ID].CurrentValue == "c")
+                {
+                    totalCurrentIT += 1;
+
+                }
+                if (person.Questions[currentQuestion.ID].FutureValue == "d")
+                {
+                    totalFutureIT += 4;
+
+                }
+                if (person.Questions[currentQuestion.ID].CurrentValue == "d")
+                {
+                    totalCurrentIT += 1;
+
+                }
+                
+            }
+
+            float avgFutureIT = totalFutureIT / persons.Count;
+            float avgCurrentIT = totalCurrentIT / persons.Count;
+
+           // questionChart.Series[0].Points[0] = DataPointavgFutureIT;
+            questionChart.Series[1].Points[0].SetValueY(avgCurrentIT);
         }
 
         public void UpdateCurrentLabels()
@@ -276,6 +338,10 @@ namespace IBMConsultantTool
             }
             else return base.ProcessCmdKey(ref msg, keyData);
         }
+
+
+
+
 
 
         

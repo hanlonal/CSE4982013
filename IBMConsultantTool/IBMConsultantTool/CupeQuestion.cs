@@ -49,7 +49,7 @@ namespace IBMConsultantTool
            set
            {
                current = value;
-               Console.WriteLine(textLabel.Text + " texts reads" + current.ToString());
+               //Console.WriteLine(textLabel.Text + " texts reads" + current.ToString());
            }
        }
        public string Future { get { return future; } set { future = value; Console.WriteLine(textLabel.Text + " texts reads" + future.ToString()); } }
