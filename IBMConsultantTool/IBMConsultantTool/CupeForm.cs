@@ -134,17 +134,32 @@ namespace IBMConsultantTool
         {
             avgCurrentLabel.Text = avgCurrentAll.ToString();
             avgFutureLabel.Text = avgFutureAll.ToString();
+            avgCurrentCommLabel.Text = currentQuestion.TotalNumberOfCurrentCommAnswersAll.ToString();
+            avgCurrentUtilLabel.Text = currentQuestion.TotalNumberOfCurrentUtilAnswersAll.ToString();
+            avgCurrentPartLabel.Text = currentQuestion.TotalNumberOfCurrentPartAnswersAll.ToString();
+            avgCurrentEnabLabel.Text = currentQuestion.TotalNumberOfCurrentEnabAnswersAll.ToString();
         }
 
         public void CalculateTotals()
         {
             float totalFutureAll = 0;
             float totalCurrentAll = 0;
-            
+            int answerFromPerson = 0;
+            currentQuestion.ClearCurrentTotals(); 
             foreach (Person person in persons)
             {
-               totalCurrentAll += person.CalculateCurrentData(currentQuestion.ID);
-               totalFutureAll += person.CalculateFutureData(currentQuestion.ID);
+                
+               answerFromPerson = person.CalculateCurrentDataForQuestion(currentQuestion.ID);
+               if (answerFromPerson == 1)
+                   currentQuestion.TotalNumberOfCurrentCommAnswersAll++;
+               if (answerFromPerson == 2)
+                   currentQuestion.TotalNumberOfCurrentUtilAnswersAll++;
+               if (answerFromPerson == 3)
+                   currentQuestion.TotalNumberOfCurrentPartAnswersAll++;
+               if (answerFromPerson == 4)
+                   currentQuestion.TotalNumberOfCurrentEnabAnswersAll++;
+               totalCurrentAll += answerFromPerson;
+               totalFutureAll += person.CalculateFutureDataForQuestion(currentQuestion.ID);
             }
 
             avgFutureAll = totalFutureAll / persons.Count;

@@ -105,7 +105,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public int CalculateFutureData(int id)
+        public int CalculateFutureDataForQuestion(int id)
         {
             int totalFutureIT = 0;
             
@@ -139,7 +139,7 @@ namespace IBMConsultantTool
             
         }
 
-        public int CalculateCurrentData(int id)
+        public int CalculateCurrentDataForQuestion(int id)
         {
             int totalCurrentIT = 0;
 
@@ -165,6 +165,14 @@ namespace IBMConsultantTool
             }
 
             return totalCurrentIT;
+        }
+
+        public string GetAnswerToQuestion(int id)
+        {
+            //if(Questions[id].CurrentValue == "a")
+
+
+            return "";
         }
 
 

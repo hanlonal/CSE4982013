@@ -31,6 +31,48 @@ namespace IBMConsultantTool
        private float totalAverageofAllITAnswers;
        private float totalAverageofAllBusiAnswers;
 
+       private int totalNumberOfCurrentCommAnswersAll;
+
+       public int TotalNumberOfCurrentCommAnswersAll
+       {
+           get { return totalNumberOfCurrentCommAnswersAll; }
+           set { totalNumberOfCurrentCommAnswersAll = value; }
+       }
+      
+       
+       private int totalNumberOfCurrentUtilAnswersAll;
+
+       public int TotalNumberOfCurrentUtilAnswersAll
+       {
+           get { return totalNumberOfCurrentUtilAnswersAll; }
+           set { totalNumberOfCurrentUtilAnswersAll = value; }
+       }
+      
+       
+       private int totalNumberOfCurrentPartAnswersAll;
+
+       public int TotalNumberOfCurrentPartAnswersAll
+       {
+           get { return totalNumberOfCurrentPartAnswersAll; }
+           set { totalNumberOfCurrentPartAnswersAll = value; }
+       }
+       
+       
+       private int totalNumberOfCurrentEnabAnswersAll;
+
+       public int TotalNumberOfCurrentEnabAnswersAll
+       {
+           get { return totalNumberOfCurrentEnabAnswersAll; }
+           set { totalNumberOfCurrentEnabAnswersAll = value; }
+       }
+
+       public void ClearCurrentTotals()
+       {
+           totalNumberOfCurrentCommAnswersAll = 0;
+           totalNumberOfCurrentPartAnswersAll = 0;
+           totalNumberOfCurrentEnabAnswersAll = 0;
+           totalNumberOfCurrentUtilAnswersAll = 0;
+       }
 
        public CupeQuestion()
        {
