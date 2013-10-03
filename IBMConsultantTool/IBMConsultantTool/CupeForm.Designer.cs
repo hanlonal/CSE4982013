@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem2 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem3 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem4 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem9 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem10 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem11 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem12 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel1 = new System.Windows.Forms.Panel();
             this.personNameLabel = new System.Windows.Forms.Label();
             this.addPersonButton = new System.Windows.Forms.Button();
@@ -88,6 +88,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.avgCurrentLabel = new System.Windows.Forms.Label();
             this.avgFutureLabel = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.questionChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sAMPLEEntitiesBindingSource)).BeginInit();
@@ -98,7 +100,7 @@
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(153, 67);
+            this.panel1.Location = new System.Drawing.Point(153, 82);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(543, 224);
             this.panel1.TabIndex = 0;
@@ -115,7 +117,7 @@
             // 
             // addPersonButton
             // 
-            this.addPersonButton.Location = new System.Drawing.Point(389, 27);
+            this.addPersonButton.Location = new System.Drawing.Point(388, 27);
             this.addPersonButton.Name = "addPersonButton";
             this.addPersonButton.Size = new System.Drawing.Size(75, 23);
             this.addPersonButton.TabIndex = 2;
@@ -318,50 +320,50 @@
             // personListBox
             // 
             this.personListBox.FormattingEnabled = true;
-            this.personListBox.Location = new System.Drawing.Point(12, 66);
+            this.personListBox.Location = new System.Drawing.Point(12, 81);
             this.personListBox.Name = "personListBox";
             this.personListBox.Size = new System.Drawing.Size(72, 225);
             this.personListBox.TabIndex = 20;
             // 
             // questionChart
             // 
-            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            chartArea1.Name = "ChartArea1";
-            this.questionChart.ChartAreas.Add(chartArea1);
-            legendItem1.Color = System.Drawing.Color.Red;
-            legendItem1.Name = "IT Future";
-            legendItem2.Color = System.Drawing.Color.Cyan;
-            legendItem2.Name = "IT Current";
-            legendItem3.Color = System.Drawing.Color.Yellow;
-            legendItem3.Name = "Busi Future";
-            legendItem4.Color = System.Drawing.Color.Fuchsia;
-            legendItem4.Name = "Busi Current";
-            legend1.CustomItems.Add(legendItem1);
-            legend1.CustomItems.Add(legendItem2);
-            legend1.CustomItems.Add(legendItem3);
-            legend1.CustomItems.Add(legendItem4);
-            legend1.Name = "One";
-            legend1.Title = "Legend";
-            legend1.TitleBackColor = System.Drawing.Color.White;
-            this.questionChart.Legends.Add(legend1);
-            this.questionChart.Location = new System.Drawing.Point(729, 27);
+            chartArea3.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            chartArea3.Name = "ChartArea1";
+            this.questionChart.ChartAreas.Add(chartArea3);
+            legendItem9.Color = System.Drawing.Color.Red;
+            legendItem9.Name = "IT Future";
+            legendItem10.Color = System.Drawing.Color.Cyan;
+            legendItem10.Name = "IT Current";
+            legendItem11.Color = System.Drawing.Color.Yellow;
+            legendItem11.Name = "Busi Future";
+            legendItem12.Color = System.Drawing.Color.Fuchsia;
+            legendItem12.Name = "Busi Current";
+            legend3.CustomItems.Add(legendItem9);
+            legend3.CustomItems.Add(legendItem10);
+            legend3.CustomItems.Add(legendItem11);
+            legend3.CustomItems.Add(legendItem12);
+            legend3.Name = "One";
+            legend3.Title = "Legend";
+            legend3.TitleBackColor = System.Drawing.Color.White;
+            this.questionChart.Legends.Add(legend3);
+            this.questionChart.Location = new System.Drawing.Point(729, 42);
             this.questionChart.Name = "questionChart";
             this.questionChart.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series1.BorderWidth = 5;
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            series1.Legend = "One";
-            series1.Name = "Series1";
-            series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            this.questionChart.Series.Add(series1);
+            series3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series3.BorderWidth = 5;
+            series3.ChartArea = "ChartArea1";
+            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            series3.Legend = "One";
+            series3.Name = "Series1";
+            series3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            this.questionChart.Series.Add(series3);
             this.questionChart.Size = new System.Drawing.Size(300, 264);
             this.questionChart.TabIndex = 21;
             this.questionChart.Text = "questionChart";
-            title1.Name = "Title1";
-            title1.Text = "Question Chart";
-            this.questionChart.Titles.Add(title1);
+            title3.Name = "Title1";
+            title3.Text = "Question Chart";
+            this.questionChart.Titles.Add(title3);
             // 
             // sAMPLEEntitiesBindingSource
             // 
@@ -552,11 +554,31 @@
             this.avgFutureLabel.Size = new System.Drawing.Size(0, 13);
             this.avgFutureLabel.TabIndex = 43;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(388, 63);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 13);
+            this.label14.TabIndex = 44;
+            this.label14.Text = "Current";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(454, 63);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(37, 13);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "Future";
+            // 
             // CupeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 588);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.avgFutureLabel);
             this.Controls.Add(this.avgCurrentLabel);
             this.Controls.Add(this.label13);
@@ -668,5 +690,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label avgCurrentLabel;
         private System.Windows.Forms.Label avgFutureLabel;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
     }
 }
