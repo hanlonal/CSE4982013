@@ -73,47 +73,31 @@
             // categoryNames
             // 
             this.categoryNames.FormattingEnabled = true;
-            this.categoryNames.Items.AddRange(new object[] {
-            "Category A ",
-            "Category B",
-            "Category C",
-            "Category D",
-            "Category E"});
             this.categoryNames.Location = new System.Drawing.Point(865, 285);
             this.categoryNames.Name = "categoryNames";
             this.categoryNames.Size = new System.Drawing.Size(121, 21);
             this.categoryNames.TabIndex = 3;
-            this.categoryNames.Text = "Select Category";
+            this.categoryNames.Text = "<Select Category>";
+            this.categoryNames.SelectedIndexChanged += new System.EventHandler(this.categoryNames_SelectedIndexChanged);
+            this.categoryNames.LostFocus += new System.EventHandler(categoryNames_LostFocus);
             // 
             // objectiveNames
             // 
             this.objectiveNames.FormattingEnabled = true;
-            this.objectiveNames.Items.AddRange(new object[] {
-            "Objective A",
-            "Objective B",
-            "Objective C",
-            "Objective D",
-            "Objective E"});
             this.objectiveNames.Location = new System.Drawing.Point(865, 373);
             this.objectiveNames.Name = "objectiveNames";
             this.objectiveNames.Size = new System.Drawing.Size(121, 21);
             this.objectiveNames.TabIndex = 4;
-            this.objectiveNames.Text = "Select Objective";
+            this.objectiveNames.SelectedIndexChanged += new System.EventHandler(this.objectiveNames_SelectedIndexChanged);
+            this.objectiveNames.LostFocus += new System.EventHandler(objectiveNames_LostFocus);
             // 
             // initiativeNames
             // 
             this.initiativeNames.FormattingEnabled = true;
-            this.initiativeNames.Items.AddRange(new object[] {
-            "Initiative A",
-            "Initiative B",
-            "Initiative C",
-            "Initiative D",
-            "Initiative E"});
             this.initiativeNames.Location = new System.Drawing.Point(865, 456);
             this.initiativeNames.Name = "initiativeNames";
             this.initiativeNames.Size = new System.Drawing.Size(121, 21);
             this.initiativeNames.TabIndex = 5;
-            this.initiativeNames.Text = "Select Initiatives";
             // 
             // button1
             // 
@@ -138,7 +122,7 @@
             // CreateBomSurveyButton
             // 
             this.CreateBomSurveyButton.Location = new System.Drawing.Point(773, 510);
-            this.CreateBomSurveyButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CreateBomSurveyButton.Margin = new System.Windows.Forms.Padding(2);
             this.CreateBomSurveyButton.Name = "CreateBomSurveyButton";
             this.CreateBomSurveyButton.Size = new System.Drawing.Size(80, 23);
             this.CreateBomSurveyButton.TabIndex = 8;

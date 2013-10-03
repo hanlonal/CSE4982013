@@ -112,7 +112,7 @@ namespace IBMConsultantTool
 
             try
             {
-                oDoc.SaveAs2("hello", Word.WdSaveFormat.wdFormatDocument);
+                oDoc.SaveAs("hello", Word.WdSaveFormat.wdFormatDocument);
             }
             catch (Exception)
             {

@@ -14,7 +14,7 @@ namespace IBMConsultantTool
 {
     public partial class BOMRedesign : Form
     {
-                
+        DBManager db;        
         List<Category> categories = new List<Category>();
         List<Color> colors = new List<Color>();
         private int categoryCount = 0;
@@ -24,7 +24,10 @@ namespace IBMConsultantTool
         {
            // PopulateColorsList();
             InitializeComponent();
-            
+
+            db = new DBManager();
+
+            categoryNames.Items.AddRange(db.GetCategoryNames());
         }
 
         private void categoryAddButton_Click(object sender, EventArgs e)
@@ -53,6 +56,33 @@ namespace IBMConsultantTool
         private void initiativeAddButton_Click(object sender, EventArgs e)
         {
             lastFocused.LastClicked.AddInitiative(initiativeNames.Text);
+            INITIATIVE initiative;
+            if (!db.GetInitiative(initiativeNames.Text, out initiative))
+            {
+                initiative = new INITIATIVE();
+                initiative.NAME = initiativeNames.Text;
+                BUSINESSOBJECTIVE objective;
+                if(!db.GetObjective(objectiveNames.Text, out objective))
+                {
+                    objective = new BUSINESSOBJECTIVE();
+                    objective.NAME = objectiveNames.Text;
+                    CATEGORY category;
+                    if(!db.GetCategory(categoryNames.Text, out category))
+                    {
+                        category = new CATEGORY();
+                        category.NAME = categoryNames.Text;
+                        db.AddCategory(category);
+                    }
+
+                    objective.CATEGORY = category;
+                    db.AddObjective(objective);
+                }
+
+                initiative.BUSINESSOBJECTIVE = objective;
+                db.AddInitiative(initiative);
+            }
+
+            db.SaveChanges();
         }
 
         private void objectiveAddButton_Click(object sender, EventArgs e)
@@ -132,6 +162,54 @@ namespace IBMConsultantTool
             get
             {
                 return mainWorkspace;
+            }
+        }
+
+        private void categoryNames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangedCategory();
+        }
+
+        private void categoryNames_LostFocus(object sender, EventArgs e)
+        {
+            ChangedCategory();
+        }
+
+        public void ChangedCategory()
+        {
+            CATEGORY category;
+
+            objectiveNames.Items.Clear();
+            objectiveNames.Text = "<Select Objective>";
+            initiativeNames.Items.Clear();
+            initiativeNames.Text = "";
+            if (db.GetCategory(categoryNames.Text, out category))
+            {
+                objectiveNames.Items.AddRange((from ent in category.BUSINESSOBJECTIVE
+                                               select ent.NAME.TrimEnd()).ToArray());
+            }
+        }
+
+        private void objectiveNames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangedObjective();
+        }
+
+        private void objectiveNames_LostFocus(object sender, EventArgs e)
+        {
+            ChangedObjective();
+        }
+
+        private void ChangedObjective()
+        {
+            BUSINESSOBJECTIVE objective;
+
+            initiativeNames.Items.Clear();
+            initiativeNames.Text = "<Select Initiative>";
+            if (db.GetObjective(objectiveNames.Text, out objective))
+            {
+                initiativeNames.Items.AddRange((from ent in objective.INITIATIVE
+                                                select ent.NAME.TrimEnd()).ToArray());
             }
         }
 
