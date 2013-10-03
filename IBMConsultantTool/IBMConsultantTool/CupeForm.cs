@@ -138,6 +138,12 @@ namespace IBMConsultantTool
             avgCurrentUtilLabel.Text = currentQuestion.TotalNumberOfCurrentUtilAnswersAll.ToString();
             avgCurrentPartLabel.Text = currentQuestion.TotalNumberOfCurrentPartAnswersAll.ToString();
             avgCurrentEnabLabel.Text = currentQuestion.TotalNumberOfCurrentEnabAnswersAll.ToString();
+            avgFutureCommLabel.Text = currentQuestion.TotalNumberOfFutureCommAnswersAll.ToString();
+            avgFutureUtilLabel.Text = currentQuestion.TotalNumberOfFutureUtilAnswersAll.ToString();
+            avgFuturePartLabel.Text = currentQuestion.TotalNumberOfFuturePartAnswersAll.ToString();
+            avgFutureEnabLabel.Text = currentQuestion.TotalNumberOfFutureEnabAnswersAll.ToString();
+
+
         }
 
         public void CalculateTotals()
@@ -145,7 +151,8 @@ namespace IBMConsultantTool
             float totalFutureAll = 0;
             float totalCurrentAll = 0;
             int answerFromPerson = 0;
-            currentQuestion.ClearCurrentTotals(); 
+            currentQuestion.ClearCurrentTotals();
+            currentQuestion.ClearFutureTotals();
             foreach (Person person in persons)
             {
                 
@@ -159,7 +166,19 @@ namespace IBMConsultantTool
                if (answerFromPerson == 4)
                    currentQuestion.TotalNumberOfCurrentEnabAnswersAll++;
                totalCurrentAll += answerFromPerson;
-               totalFutureAll += person.CalculateFutureDataForQuestion(currentQuestion.ID);
+
+               answerFromPerson = person.CalculateFutureDataForQuestion(currentQuestion.ID);
+               if (answerFromPerson == 1)
+                   currentQuestion.TotalNumberOfFutureCommAnswersAll++;
+               if (answerFromPerson == 2)
+                   currentQuestion.TotalNumberOfFutureUtilAnswersAll++;
+               if (answerFromPerson == 3)
+                   currentQuestion.TotalNumberOfFuturePartAnswersAll++;
+               if (answerFromPerson == 4)
+                   currentQuestion.TotalNumberOfFutureEnabAnswersAll++;
+
+
+               totalFutureAll += answerFromPerson;
             }
 
             avgFutureAll = totalFutureAll / persons.Count;

@@ -31,6 +31,43 @@ namespace IBMConsultantTool
        private float totalAverageofAllITAnswers;
        private float totalAverageofAllBusiAnswers;
 
+       private int totalNumberOfFutureCommAnswersAll;
+
+       public int TotalNumberOfFutureCommAnswersAll
+       {
+           get { return totalNumberOfFutureCommAnswersAll; }
+           set { totalNumberOfFutureCommAnswersAll = value; }
+       }
+
+       private int totalNumberOfFutureUtilAnswersAll;
+
+       public int TotalNumberOfFutureUtilAnswersAll
+       {
+           get { return totalNumberOfFutureUtilAnswersAll; }
+           set { totalNumberOfFutureUtilAnswersAll = value; }
+       }
+
+       private int totalNumberOfFutureEnabAnswersAll;
+
+       public int TotalNumberOfFutureEnabAnswersAll
+       {
+           get { return totalNumberOfFutureEnabAnswersAll; }
+           set { totalNumberOfFutureEnabAnswersAll = value; }
+       }
+
+       private int totalNumberOfFuturePartAnswersAll;
+
+       public int TotalNumberOfFuturePartAnswersAll
+       {
+           get { return totalNumberOfFuturePartAnswersAll; }
+           set { totalNumberOfFuturePartAnswersAll = value; }
+       }
+
+
+
+
+
+
        private int totalNumberOfCurrentCommAnswersAll;
 
        public int TotalNumberOfCurrentCommAnswersAll
@@ -72,6 +109,13 @@ namespace IBMConsultantTool
            totalNumberOfCurrentPartAnswersAll = 0;
            totalNumberOfCurrentEnabAnswersAll = 0;
            totalNumberOfCurrentUtilAnswersAll = 0;
+       }
+       public void ClearFutureTotals()
+       {
+           totalNumberOfFutureCommAnswersAll = 0;
+           totalNumberOfFuturePartAnswersAll = 0;
+           totalNumberOfFutureEnabAnswersAll = 0;
+           totalNumberOfFutureUtilAnswersAll = 0;
        }
 
        public CupeQuestion()
