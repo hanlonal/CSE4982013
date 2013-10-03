@@ -18,6 +18,10 @@ namespace IBMConsultantTool
         LinkedList<Person> persons = new LinkedList<Person>();
         Person currentPerson;
         List<CupeQuestion> mainQuestions = new List<CupeQuestion>();
+        private CupeQuestion currentQuestion;
+
+        private float avgCurrentAll;
+        private float avgFutureAll;
 
         public CupeForm()
         {
@@ -28,6 +32,16 @@ namespace IBMConsultantTool
         private void CupeForm_Load(object sender, EventArgs e)
         {
             //CreateQuestions(); 
+            //questionChart.Series.Remove(Series1);
+           // questionChart.Legends[0].questionchar
+          //  questionChart.Series[0].Points.AddY(5);
+            //questionChart.Series[0].Points.AddY(3);
+            //questionChart.Series[0].Points.AddY(2);
+            //questionChart.Series[0].Points.AddY(4);
+            //questionChart.Legends[0].CustomItems.Add(Color.Green, "IT Future");
+            //questionChart.Legends[0].CustomItems.Add(Color.Brown, "IT Current");
+            //questionChart.Legends[0].CustomItems.Add(Color.Lavender, "Busi Future");
+            //questionChart.Legends[0].CustomItems.Add(Color.Olive, "Busi Future");
         }
 
         public void TextLabel_TextChanged(object sender, EventArgs e)
@@ -50,12 +64,13 @@ namespace IBMConsultantTool
                     q.TextLabel.Location = new Point(10, (30 * i) + 5);
                     q.ID = i;
                     q.TextLabel.Text = line;
-                    q.FutureBox.Location = new Point(140, 30 * i);
+                    q.QuestionText = line;
+                    q.FutureBox.Location = new Point(250, 30 * i);
                     q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
-                    q.CurrentBox.Location = new Point(190, 30 * i);
+                    q.CurrentBox.Location = new Point(300, 30 * i);
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
-                   
+                    q.TextLabel.Click +=new EventHandler(TextLabel_Click);
                     i++;
                     q.Owner = panel1;
                     mainQuestions.Add(q);
@@ -69,6 +84,20 @@ namespace IBMConsultantTool
                     file.Close();
             }
         }
+
+        public void TextLabel_Click(object sender, EventArgs e)
+        {
+            CustomLabel textlabel = (CustomLabel)sender;
+            if(currentQuestion != null)
+                currentQuestion.TextLabel.BackColor = Color.White;
+            //Console.WriteLine(textlabel.Text);
+            currentQuestion = textlabel.Owner;
+            currentQuestion.TextLabel.BackColor = Color.GreenYellow;
+            questionChart.Series["Series1"].Points.Clear();
+            questionNameLabel.Text = "Question # : " + (currentQuestion.ID + 1).ToString();
+            CalculateTotals();
+        }
+
 
         public List<CupeQuestion> Questions
         {
@@ -91,6 +120,77 @@ namespace IBMConsultantTool
             CustomBox box = (CustomBox)sender;
             currentPerson.Questions[box.QuestionID].FutureValue = box.Text;
             UpdateFutureLabels();
+        }
+
+        public void MakeGraphData()
+        {
+            questionChart.Series["Series1"].Points.AddY(avgCurrentAll);
+            questionChart.Series["Series1"].Points.AddY(avgFutureAll);
+
+            FillGraphLabels();
+        }
+
+        public void FillGraphLabels()
+        {
+            avgCurrentLabel.Text = avgCurrentAll.ToString();
+            avgFutureLabel.Text = avgFutureAll.ToString();
+            avgCurrentCommLabel.Text = currentQuestion.TotalNumberOfCurrentCommAnswersAll.ToString();
+            avgCurrentUtilLabel.Text = currentQuestion.TotalNumberOfCurrentUtilAnswersAll.ToString();
+            avgCurrentPartLabel.Text = currentQuestion.TotalNumberOfCurrentPartAnswersAll.ToString();
+            avgCurrentEnabLabel.Text = currentQuestion.TotalNumberOfCurrentEnabAnswersAll.ToString();
+            avgFutureCommLabel.Text = currentQuestion.TotalNumberOfFutureCommAnswersAll.ToString();
+            avgFutureUtilLabel.Text = currentQuestion.TotalNumberOfFutureUtilAnswersAll.ToString();
+            avgFuturePartLabel.Text = currentQuestion.TotalNumberOfFuturePartAnswersAll.ToString();
+            avgFutureEnabLabel.Text = currentQuestion.TotalNumberOfFutureEnabAnswersAll.ToString();
+
+
+        }
+
+        public void CalculateTotals()
+        {
+            float totalFutureAll = 0;
+            float totalCurrentAll = 0;
+            int answerFromPerson = 0;
+            currentQuestion.ClearCurrentTotals();
+            currentQuestion.ClearFutureTotals();
+            foreach (Person person in persons)
+            {
+                
+               answerFromPerson = person.CalculateCurrentDataForQuestion(currentQuestion.ID);
+               if (answerFromPerson == 1)
+                   currentQuestion.TotalNumberOfCurrentCommAnswersAll++;
+               if (answerFromPerson == 2)
+                   currentQuestion.TotalNumberOfCurrentUtilAnswersAll++;
+               if (answerFromPerson == 3)
+                   currentQuestion.TotalNumberOfCurrentPartAnswersAll++;
+               if (answerFromPerson == 4)
+                   currentQuestion.TotalNumberOfCurrentEnabAnswersAll++;
+               totalCurrentAll += answerFromPerson;
+
+               answerFromPerson = person.CalculateFutureDataForQuestion(currentQuestion.ID);
+               if (answerFromPerson == 1)
+                   currentQuestion.TotalNumberOfFutureCommAnswersAll++;
+               if (answerFromPerson == 2)
+                   currentQuestion.TotalNumberOfFutureUtilAnswersAll++;
+               if (answerFromPerson == 3)
+                   currentQuestion.TotalNumberOfFuturePartAnswersAll++;
+               if (answerFromPerson == 4)
+                   currentQuestion.TotalNumberOfFutureEnabAnswersAll++;
+
+
+               totalFutureAll += answerFromPerson;
+            }
+
+            avgFutureAll = totalFutureAll / persons.Count;
+            avgCurrentAll = totalCurrentAll / persons.Count;
+            foreach( CupeQuestion question in mainQuestions)
+            {
+                question.TotalCurrentAverageOfAllAnswers = avgCurrentAll;
+                question.TotalFutureAverageOfAllAnswers = avgFutureAll;
+            }
+            MakeGraphData();
+           // questionChart.Series[0].Points[0] = DataPointavgFutureIT;
+
         }
 
         public void UpdateCurrentLabels()
@@ -253,6 +353,10 @@ namespace IBMConsultantTool
             }
             else return base.ProcessCmdKey(ref msg, keyData);
         }
+
+
+
+
 
 
         

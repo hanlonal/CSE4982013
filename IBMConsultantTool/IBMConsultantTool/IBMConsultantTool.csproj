@@ -99,6 +99,9 @@
     <Compile Include="CustomBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,6 +329,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Questions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
