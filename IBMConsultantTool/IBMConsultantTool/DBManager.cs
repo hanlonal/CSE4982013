@@ -84,6 +84,51 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region Group
+        //group is a keyword in C#
+
+        public bool GetGroup(string grpName, CLIENT client, out GROUP grp)
+        {
+            try
+            {
+                grp = (from ent in client.GROUP
+                       where ent.NAME.TrimEnd() == grpName
+                       select ent).Single();
+            }
+
+            catch
+            {
+                grp = null;
+                return false;
+            }
+
+            return true;
+        }
+        public bool AddGroup(string grpName, CLIENT client)
+        {
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in client.GROUP
+                 where ent.NAME.TrimEnd() == grpName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            GROUP grp = new GROUP();
+            grp.NAME = grpName;
+            grp.CLIENT = client;
+
+            List<int> idList = (from ent in dbo.GROUP
+                                select ent.GROUPID).ToList();
+
+            grp.GROUPID = GetUniqueID(idList);
+
+            dbo.AddToGROUP(grp);
+
+            return true;
+        }
+        #endregion
+
         #region BOM
         public List<BOM> GetBOMs()
         {

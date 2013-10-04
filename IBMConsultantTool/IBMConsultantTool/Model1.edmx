@@ -43,10 +43,6 @@
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="CUPE" EntitySet="CUPE" />
           </AssociationSet>
-          <AssociationSet Name="CUPEQUES_INITIA_FK" Association="SAMPLEModel.Store.CUPEQUES_INITIA_FK">
-            <End Role="INITIATIVE" EntitySet="INITIATIVE" />
-            <End Role="CUPEQUESTION" EntitySet="CUPEQUESTION" />
-          </AssociationSet>
           <AssociationSet Name="GROUP_CLIENT_FK" Association="SAMPLEModel.Store.GROUP_CLIENT_FK">
             <End Role="CLIENT" EntitySet="CLIENT" />
             <End Role="GROUP" EntitySet="GROUP" />
@@ -72,7 +68,7 @@
           <Property Name="CRITICALITY" Type="smallint" />
           <Property Name="DIFFERENTIAL" Type="smallint" />
           <Property Name="BOMID" Type="integer" Nullable="false" />
-          <Property Name="CLIENT" Type="integer" />
+          <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUPID" Type="integer" />
           <Property Name="INITIATIVEID" Type="integer" Nullable="false" />
         </EntityType>
@@ -105,8 +101,8 @@
           <Property Name="CUPEID" Type="integer" Nullable="false" />
           <Property Name="CURRENT" Type="character" />
           <Property Name="FUTURE" Type="character" />
+          <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUP" Type="integer" />
-          <Property Name="CLIENT" Type="integer" Nullable="false" />
           <Property Name="CUPEQUESTIONID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="CUPEQUESTION">
@@ -119,7 +115,6 @@
           <Property Name="UTILITY" Type="character" MaxLength="150" />
           <Property Name="PARTNER" Type="character" MaxLength="150" />
           <Property Name="ENABLER" Type="character" MaxLength="150" />
-          <Property Name="INITIATIVE" Type="integer" />
         </EntityType>
         <EntityType Name="GROUP">
           <Key>
@@ -127,7 +122,7 @@
           </Key>
           <Property Name="GROUPID" Type="integer" Nullable="false" />
           <Property Name="NAME" Type="character" Nullable="false" MaxLength="30" />
-          <Property Name="CLIENT" Type="integer" Nullable="false" />
+          <Property Name="CLIENTID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="INITIATIVE">
           <Key>
@@ -142,8 +137,8 @@
             <PropertyRef Name="ITCAPID" />
           </Key>
           <Property Name="ITCAPID" Type="integer" Nullable="false" />
+          <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUP" Type="integer" />
-          <Property Name="CLIENT" Type="integer" Nullable="false" />
           <Property Name="QUESTION" Type="character" Nullable="false" MaxLength="150" />
           <Property Name="ASIS" Type="integer" Nullable="false" />
           <Property Name="TOBE" Type="integer" Nullable="false" />
@@ -158,7 +153,7 @@
               <PropertyRef Name="CLIENTID" />
             </Principal>
             <Dependent Role="BOM">
-              <PropertyRef Name="CLIENT" />
+              <PropertyRef Name="CLIENTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -205,7 +200,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="CUPE_CLIENT_FK">
-          <End Role="CLIENT" Type="SAMPLEModel.Store.CLIENT" Multiplicity="1">
+          <End Role="CLIENT" Type="SAMPLEModel.Store.CLIENT" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CUPE" Type="SAMPLEModel.Store.CUPE" Multiplicity="*" />
@@ -214,7 +209,7 @@
               <PropertyRef Name="CLIENTID" />
             </Principal>
             <Dependent Role="CUPE">
-              <PropertyRef Name="CLIENT" />
+              <PropertyRef Name="CLIENTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -246,20 +241,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CUPEQUES_INITIA_FK">
-          <End Role="INITIATIVE" Type="SAMPLEModel.Store.INITIATIVE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CUPEQUESTION" Type="SAMPLEModel.Store.CUPEQUESTION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="INITIATIVE">
-              <PropertyRef Name="INITIATIVEID" />
-            </Principal>
-            <Dependent Role="CUPEQUESTION">
-              <PropertyRef Name="INITIATIVE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="GROUP_CLIENT_FK">
           <End Role="CLIENT" Type="SAMPLEModel.Store.CLIENT" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -270,7 +251,7 @@
               <PropertyRef Name="CLIENTID" />
             </Principal>
             <Dependent Role="GROUP">
-              <PropertyRef Name="CLIENT" />
+              <PropertyRef Name="CLIENTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -289,7 +270,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ITCAP_CLIENT_FK">
-          <End Role="CLIENT" Type="SAMPLEModel.Store.CLIENT" Multiplicity="1">
+          <End Role="CLIENT" Type="SAMPLEModel.Store.CLIENT" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAP" Type="SAMPLEModel.Store.ITCAP" Multiplicity="*" />
@@ -298,7 +279,7 @@
               <PropertyRef Name="CLIENTID" />
             </Principal>
             <Dependent Role="ITCAP">
-              <PropertyRef Name="CLIENT" />
+              <PropertyRef Name="CLIENTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -371,10 +352,6 @@
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="CUPE" EntitySet="CUPE" />
           </AssociationSet>
-          <AssociationSet Name="CUPEQUES_INITIA_FK" Association="SAMPLEModel.CUPEQUES_INITIA_FK">
-            <End Role="INITIATIVE" EntitySet="INITIATIVE" />
-            <End Role="CUPEQUESTION" EntitySet="CUPEQUESTION" />
-          </AssociationSet>
           <AssociationSet Name="ITCAP_GROUP_FK" Association="SAMPLEModel.ITCAP_GROUP_FK">
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="ITCAP" EntitySet="ITCAP" />
@@ -442,7 +419,6 @@
           <Property Name="PARTNER" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
           <Property Name="ENABLER" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CUPE" Relationship="SAMPLEModel.CUPE_CUPEQUESTI_FK" FromRole="CUPEQUESTION" ToRole="CUPE" />
-          <NavigationProperty Name="INITIATIVE" Relationship="SAMPLEModel.CUPEQUES_INITIA_FK" FromRole="CUPEQUESTION" ToRole="INITIATIVE" />
         </EntityType>
         <EntityType Name="GROUP">
           <Key>
@@ -463,7 +439,6 @@
           <Property Name="INITIATIVEID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BOM" Relationship="SAMPLEModel.BOM_INITIATIVE_FK" FromRole="INITIATIVE" ToRole="BOM" />
           <NavigationProperty Name="BUSINESSOBJECTIVE" Relationship="SAMPLEModel.INIT_BUSINESSOB_FK" FromRole="INITIATIVE" ToRole="BUSINESSOBJECTIVE" />
-          <NavigationProperty Name="CUPEQUESTION" Relationship="SAMPLEModel.CUPEQUES_INITIA_FK" FromRole="INITIATIVE" ToRole="CUPEQUESTION" />
         </EntityType>
         <EntityType Name="ITCAP">
           <Key>
@@ -507,7 +482,7 @@
           <End Role="INITIATIVE" Type="SAMPLEModel.INITIATIVE" Multiplicity="*" />
         </Association>
         <Association Name="CUPE_CLIENT_FK">
-          <End Role="CLIENT" Type="SAMPLEModel.CLIENT" Multiplicity="1">
+          <End Role="CLIENT" Type="SAMPLEModel.CLIENT" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CUPE" Type="SAMPLEModel.CUPE" Multiplicity="*" />
@@ -519,7 +494,7 @@
           <End Role="GROUP" Type="SAMPLEModel.GROUP" Multiplicity="*" />
         </Association>
         <Association Name="ITCAP_CLIENT_FK">
-          <End Role="CLIENT" Type="SAMPLEModel.CLIENT" Multiplicity="1">
+          <End Role="CLIENT" Type="SAMPLEModel.CLIENT" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAP" Type="SAMPLEModel.ITCAP" Multiplicity="*" />
@@ -535,12 +510,6 @@
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CUPE" Type="SAMPLEModel.CUPE" Multiplicity="*" />
-        </Association>
-        <Association Name="CUPEQUES_INITIA_FK">
-          <End Role="INITIATIVE" Type="SAMPLEModel.INITIATIVE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CUPEQUESTION" Type="SAMPLEModel.CUPEQUESTION" Multiplicity="*" />
         </Association>
         <Association Name="ITCAP_GROUP_FK">
           <End Role="GROUP" Type="SAMPLEModel.GROUP" Multiplicity="0..1">
@@ -601,12 +570,12 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <AssociationSetMapping Name="BOM_CLIENT_FK" TypeName="SAMPLEModel.BOM_CLIENT_FK" StoreEntitySet="BOM">
             <EndProperty Name="CLIENT">
-              <ScalarProperty Name="CLIENTID" ColumnName="CLIENT" />
+              <ScalarProperty Name="CLIENTID" ColumnName="CLIENTID" />
             </EndProperty>
             <EndProperty Name="BOM">
               <ScalarProperty Name="BOMID" ColumnName="BOMID" />
             </EndProperty>
-            <Condition ColumnName="CLIENT" IsNull="false" />
+            <Condition ColumnName="CLIENTID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="BOM_GROUP_FK" TypeName="SAMPLEModel.BOM_GROUP_FK" StoreEntitySet="BOM">
             <EndProperty Name="GROUP">
@@ -643,15 +612,16 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="CUPE_CLIENT_FK" TypeName="SAMPLEModel.CUPE_CLIENT_FK" StoreEntitySet="CUPE">
             <EndProperty Name="CLIENT">
-              <ScalarProperty Name="CLIENTID" ColumnName="CLIENT" />
+              <ScalarProperty Name="CLIENTID" ColumnName="CLIENTID" />
             </EndProperty>
             <EndProperty Name="CUPE">
               <ScalarProperty Name="CUPEID" ColumnName="CUPEID" />
             </EndProperty>
+            <Condition ColumnName="CLIENTID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="GROUP_CLIENT_FK" TypeName="SAMPLEModel.GROUP_CLIENT_FK" StoreEntitySet="GROUP">
             <EndProperty Name="CLIENT">
-              <ScalarProperty Name="CLIENTID" ColumnName="CLIENT" />
+              <ScalarProperty Name="CLIENTID" ColumnName="CLIENTID" />
             </EndProperty>
             <EndProperty Name="GROUP">
               <ScalarProperty Name="GROUPID" ColumnName="GROUPID" />
@@ -659,11 +629,12 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="ITCAP_CLIENT_FK" TypeName="SAMPLEModel.ITCAP_CLIENT_FK" StoreEntitySet="ITCAP">
             <EndProperty Name="CLIENT">
-              <ScalarProperty Name="CLIENTID" ColumnName="CLIENT" />
+              <ScalarProperty Name="CLIENTID" ColumnName="CLIENTID" />
             </EndProperty>
             <EndProperty Name="ITCAP">
               <ScalarProperty Name="ITCAPID" ColumnName="ITCAPID" />
             </EndProperty>
+            <Condition ColumnName="CLIENTID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="CUPE_CUPEQUESTI_FK" TypeName="SAMPLEModel.CUPE_CUPEQUESTI_FK" StoreEntitySet="CUPE">
             <EndProperty Name="CUPEQUESTION">
@@ -681,15 +652,6 @@
               <ScalarProperty Name="CUPEID" ColumnName="CUPEID" />
             </EndProperty>
             <Condition ColumnName="GROUP" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="CUPEQUES_INITIA_FK" TypeName="SAMPLEModel.CUPEQUES_INITIA_FK" StoreEntitySet="CUPEQUESTION">
-            <EndProperty Name="INITIATIVE">
-              <ScalarProperty Name="INITIATIVEID" ColumnName="INITIATIVE" />
-            </EndProperty>
-            <EndProperty Name="CUPEQUESTION">
-              <ScalarProperty Name="CUPEQUESTIONID" ColumnName="CUPEQUESTIONID" />
-            </EndProperty>
-            <Condition ColumnName="INITIATIVE" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="ITCAP_GROUP_FK" TypeName="SAMPLEModel.ITCAP_GROUP_FK" StoreEntitySet="ITCAP">
             <EndProperty Name="GROUP">
@@ -721,104 +683,81 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="SAMPLEModel.BOM" Width="1.5" PointX="5.25" PointY="7.875" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="1.5" PointY="7.875" Height="1.7879850260416657" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.CATEGORY" Width="1.5" PointX="1.5" PointY="14" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.CLIENT" Width="1.5" PointX="0.75" PointY="4.875" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.CUPE" Width="1.5" PointX="5.25" PointY="5" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.CUPEQUESTION" Width="1.5" PointX="3" PointY="0.75" Height="2.5571907552083326" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.GROUP" Width="1.5" PointX="3" PointY="11" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.INITIATIVE" Width="1.5" PointX="0.75" PointY="1.75" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.ITCAP" Width="1.5" PointX="5.25" PointY="11" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.BOM" Width="1.5" PointX="5.25" PointY="7.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="0.75" PointY="7.5" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.CATEGORY" Width="1.5" PointX="1.5" PointY="1.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.CLIENT" Width="1.5" PointX="0.5" PointY="4.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.CUPE" Width="1.5" PointX="5.25" PointY="4.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.CUPEQUESTION" Width="1.5" PointX="3" PointY="4.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.GROUP" Width="1.5" PointX="3" PointY="10.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.INITIATIVE" Width="1.5" PointX="3" PointY="7.5" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.ITCAP" Width="1.5" PointX="5.25" PointY="10.25" Height="2.1725878906249996" IsExpanded="true" />
         <AssociationConnector Association="SAMPLEModel.BOM_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.09375" PointY="7.047587890625" />
-          <ConnectorPoint PointX="1.09375" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="1.2135441666666667" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="1.3802108333333332" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="2.1354166666666665" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="2.3020833333333335" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="3.3229166666666665" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="3.4895833333333335" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="3.6979166666666665" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="3.8645833333333335" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="9.9826871744791674" />
-          <ConnectorPoint PointX="5.25" PointY="9.9826871744791674" />
+          <ConnectorPoint PointX="0.59375" PointY="6.422587890625" />
+          <ConnectorPoint PointX="0.59375" PointY="7.28125" />
+          <ConnectorPoint PointX="2.0729166666666665" PointY="7.2812499999999991" />
+          <ConnectorPoint PointX="2.2395833333333335" PointY="7.28125" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="7.2812499999999991" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="7.28125" />
+          <ConnectorPoint PointX="5.25" PointY="7.28125" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.BOM_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.78125" PointY="11" />
-          <ConnectorPoint PointX="3.78125" PointY="8.8975910872395829" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="8.8975910872395829" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="8.8975910872395829" />
-          <ConnectorPoint PointX="5.25" PointY="8.8975910872395829" />
+          <ConnectorPoint PointX="4.5" PointY="10.307691307692309" />
+          <ConnectorPoint PointX="5.03125" PointY="9.77644130769231" />
+          <ConnectorPoint PointX="5.03125" PointY="8.3074446614583337" />
+          <ConnectorPoint PointX="5.25" PointY="8.3074446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.BOM_INITIATIVE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="3.7302864583333317" />
-          <ConnectorPoint PointX="2.625" PointY="4.1052864583333317" />
-          <ConnectorPoint PointX="2.625" PointY="7.5" />
-          <ConnectorPoint PointX="2.6979166666666665" PointY="7.4999999999999991" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="7.5" />
-          <ConnectorPoint PointX="3.3229166666666665" PointY="7.4999999999999991" />
-          <ConnectorPoint PointX="3.4895833333333335" PointY="7.5" />
-          <ConnectorPoint PointX="4.875" PointY="7.5" />
-          <ConnectorPoint PointX="5.25" PointY="7.875" />
+          <ConnectorPoint PointX="4.5" PointY="8.86021484375" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="8.8602148437499988" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="8.86021484375" />
+          <ConnectorPoint PointX="5.25" PointY="8.86021484375" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.BUSINESSOB_CATE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.21875" PointY="14" />
-          <ConnectorPoint PointX="2.21875" PointY="9.6629850260416656" />
+          <ConnectorPoint PointX="2.15625" PointY="3.0956835937499996" />
+          <ConnectorPoint PointX="2.15625" PointY="7.5" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.INIT_BUSINESSOB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.78125" PointY="7.875" />
-          <ConnectorPoint PointX="2.78125" PointY="2.7088907291666651" />
-          <ConnectorPoint PointX="2.25" PointY="2.7088907291666651" />
+          <ConnectorPoint PointX="2.25" PointY="7.8844962565104169" />
+          <ConnectorPoint PointX="3" PointY="7.8844962565104169" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.0237939453125" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="6.0237939453124989" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="6.0237939453125" />
-          <ConnectorPoint PointX="3.3229166666666665" PointY="6.0237939453124989" />
-          <ConnectorPoint PointX="3.4895833333333335" PointY="6.0237939453125" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="6.0237939453124989" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="6.0237939453125" />
-          <ConnectorPoint PointX="5.25" PointY="6.0237939453125" />
+          <ConnectorPoint PointX="2" PointY="6.3648945829326919" />
+          <ConnectorPoint PointX="2.0973244349011213" PointY="6.4622190178338128" />
+          <ConnectorPoint PointX="2.2151755650988791" PointY="6.5800701480315711" />
+          <ConnectorPoint PointX="2.3389433076923076" PointY="6.703837890625" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.7038378906249987" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="6.703837890625" />
+          <ConnectorPoint PointX="4.96875" PointY="6.703837890625" />
+          <ConnectorPoint PointX="5.25" PointY="6.422587890625" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.GROUP_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.2968775" PointY="7.047587890625" />
-          <ConnectorPoint PointX="1.2968775" PointY="12.0862939453125" />
-          <ConnectorPoint PointX="2.1354166666666665" PointY="12.0862939453125" />
-          <ConnectorPoint PointX="2.3020833333333335" PointY="12.0862939453125" />
-          <ConnectorPoint PointX="3" PointY="12.0862939453125" />
+          <ConnectorPoint PointX="0.62500249999999991" PointY="6.422587890625" />
+          <ConnectorPoint PointX="0.62500249999999991" PointY="11.3362939453125" />
+          <ConnectorPoint PointX="3" PointY="11.3362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCAP_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.047587890625" />
-          <ConnectorPoint PointX="2.375" PointY="7.172587890625" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="7.1725878906249987" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="7.172587890625" />
-          <ConnectorPoint PointX="3.3229166666666665" PointY="7.1725878906249987" />
-          <ConnectorPoint PointX="3.4895833333333335" PointY="7.172587890625" />
-          <ConnectorPoint PointX="4.875" PointY="7.172587890625" />
-          <ConnectorPoint PointX="4.875" PointY="10.623847153846153" />
-          <ConnectorPoint PointX="5.2511528461538459" PointY="11" />
+          <ConnectorPoint PointX="1.9757692307692309" PointY="6.422587890625" />
+          <ConnectorPoint PointX="2.0973244349011213" PointY="6.5441430947568895" />
+          <ConnectorPoint PointX="2.2151755650988791" PointY="6.6619942249546478" />
+          <ConnectorPoint PointX="2.3507692307692309" PointY="6.797587890625" />
+          <ConnectorPoint PointX="4.9375" PointY="6.797587890625" />
+          <ConnectorPoint PointX="4.9375" PointY="9.9363471538461532" />
+          <ConnectorPoint PointX="5.2511528461538459" PointY="10.25" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CUPEQUESTI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="3.3071907552083326" />
-          <ConnectorPoint PointX="3.75" PointY="6.6294434179687505" />
-          <ConnectorPoint PointX="5.25" PointY="6.6294434179687505" />
+          <ConnectorPoint PointX="4.5" PointY="5.305041445312499" />
+          <ConnectorPoint PointX="5.25" PointY="5.305041445312499" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.40625" PointY="11" />
-          <ConnectorPoint PointX="3.40625" PointY="5.4806444726562491" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="5.4806444726562482" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="5.4806444726562491" />
-          <ConnectorPoint PointX="5.25" PointY="5.4806444726562491" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMPLEModel.CUPEQUES_INITIA_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.1669453645833325" />
-          <ConnectorPoint PointX="3" PointY="2.1669453645833325" />
+          <ConnectorPoint PointX="4.47576923076923" PointY="10.25" />
+          <ConnectorPoint PointX="4.875" PointY="9.8507692307692309" />
+          <ConnectorPoint PointX="4.875" PointY="5.8638146679687493" />
+          <ConnectorPoint PointX="5.25" PointY="5.8638146679687493" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCAP_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="12.0862939453125" />
-          <ConnectorPoint PointX="5.25" PointY="12.0862939453125" />
+          <ConnectorPoint PointX="4.5" PointY="11.396392099158655" />
+          <ConnectorPoint PointX="5.25" PointY="11.396392099158655" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

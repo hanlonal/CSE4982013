@@ -58,6 +58,8 @@ namespace IBMConsultantTool
 
         private void initiativeAddButton_Click(object sender, EventArgs e)
         {
+            string catName;
+            string busName;
             string iniName = initiativeNames.Text.Trim();
             INITIATIVE initiative;
             if (!db.GetInitiative(iniName, out initiative))
@@ -65,13 +67,13 @@ namespace IBMConsultantTool
                 initiative = new INITIATIVE();
                 initiative.NAME = iniName;
                 BUSINESSOBJECTIVE objective;
-                string busName = objectiveNames.Text.Trim();
+                busName = objectiveNames.Text.Trim();
                 if(!db.GetObjective(busName, out objective))
                 {
                     objective = new BUSINESSOBJECTIVE();
                     objective.NAME = objectiveNames.Text.Trim();
                     CATEGORY category;
-                    string catName = categoryNames.Text.Trim();
+                    catName = categoryNames.Text.Trim();
                     if(!db.GetCategory(catName, out category))
                     {
                         category = new CATEGORY();
@@ -116,7 +118,42 @@ namespace IBMConsultantTool
 
             else
             {
-                lastFocused.LastClicked.AddInitiative(initiativeNames.Text);
+                //Successfully added to database, update GUI
+                catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
+                Category category = categories.Find(delegate(Category cat)
+                {
+                    return cat.Name == catName;
+                });
+                if (category == null)
+                {
+                    category = new Category(this, catName);
+                    categories.Add(category);
+                    categoryCount++;
+                    category.Click += new EventHandler(category_Click);
+                }
+
+                busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                BusinessObjective objective = category.Objectives.Find(delegate(BusinessObjective bus)
+                {
+                    return bus.Name == busName;
+                });
+                if (objective == null)
+                {
+                    objective = category.AddObjective(busName);
+                }
+
+                iniName = bom.INITIATIVE.NAME.TrimEnd();
+                if (objective.Initiatives.Find(delegate(Initiative ini)
+                {
+                    return ini.Name == iniName;
+                }) == null)
+                {
+                    objective.AddInitiative(iniName);
+                }
+                else
+                {
+                    MessageBox.Show("Initiative already exists in BOM", "Error");
+                }
             }
         }
 
@@ -130,12 +167,14 @@ namespace IBMConsultantTool
         {
             var FD = new System.Windows.Forms.OpenFileDialog();
             FD.Title = "Select File to Add as an Attachment";
-            if (FD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
-                string fileToOpen = FD.FileName;
-
-                System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
+                return;
             }
+
+            string fileToOpen = FD.FileName;
+
+            System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
 
             var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
             var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");

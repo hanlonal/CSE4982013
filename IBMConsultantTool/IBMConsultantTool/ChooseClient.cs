@@ -32,6 +32,7 @@ namespace IBMConsultantTool
 
                 string catName;
                 string busName;
+                string iniName;
 
                 foreach (BOM bom in client.BOM)
                 {
@@ -58,7 +59,14 @@ namespace IBMConsultantTool
                         objective = category.AddObjective(busName);
                     }
 
-                    objective.AddInitiative(bom.INITIATIVE.NAME.TrimEnd());
+                    iniName = bom.INITIATIVE.NAME.TrimEnd();
+                    if (objective.Initiatives.Find(delegate(Initiative ini)
+                                                   {
+                                                       return ini.Name == iniName;
+                                                   }) == null)
+                    {
+                        objective.AddInitiative(iniName);
+                    }
                 }
 
                 this.Close();
@@ -79,6 +87,19 @@ namespace IBMConsultantTool
                 client = new CLIENT();
                 client.NAME = NewClientTextBox.Text;
                 bomForm.db.AddClient(client);
+
+                if (!bomForm.db.AddGroup("Business", client) || !bomForm.db.AddGroup("IT", client))
+                {
+                    MessageBox.Show("Cannot create groups for client", "Error");
+                    return;
+                }
+
+                if (!bomForm.db.SaveChanges())
+                {
+                    MessageBox.Show("Could not create new Client", "Error");
+                    bomForm.db = new DBManager();
+                    return;
+                }
                 bomForm.client = client;
 
                 this.Close();
