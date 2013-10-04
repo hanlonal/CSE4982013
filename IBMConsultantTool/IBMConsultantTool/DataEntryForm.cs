@@ -83,14 +83,5 @@ namespace IBMConsultantTool
                 }
             }
         }
-
-        private void DataEntryForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
-
     }
 }

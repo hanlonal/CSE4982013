@@ -14,10 +14,11 @@ namespace IBMConsultantTool
 {
     public partial class BOMRedesign : Form
     {
-        DBManager db;        
-        List<Category> categories = new List<Category>();
+        public DBManager db;
+        public CLIENT client;
+        public List<Category> categories = new List<Category>();
         List<Color> colors = new List<Color>();
-        private int categoryCount = 0;
+        public int categoryCount = 0;
         private Category lastFocused;
         
         public BOMRedesign()
@@ -26,6 +27,8 @@ namespace IBMConsultantTool
             InitializeComponent();
 
             db = new DBManager();
+
+            new ChooseClient(this).ShowDialog();
 
             categoryNames.Items.AddRange(db.GetCategoryNames());
         }
@@ -38,7 +41,7 @@ namespace IBMConsultantTool
             category.Click += new EventHandler(category_Click);
         }
 
-        private void category_Click(object sender, EventArgs e)
+        public void category_Click(object sender, EventArgs e)
         {
             Category cat = (Category)sender;
             lastFocused = cat;
@@ -55,34 +58,66 @@ namespace IBMConsultantTool
 
         private void initiativeAddButton_Click(object sender, EventArgs e)
         {
-            lastFocused.LastClicked.AddInitiative(initiativeNames.Text);
+            string iniName = initiativeNames.Text.Trim();
             INITIATIVE initiative;
-            if (!db.GetInitiative(initiativeNames.Text, out initiative))
+            if (!db.GetInitiative(iniName, out initiative))
             {
                 initiative = new INITIATIVE();
-                initiative.NAME = initiativeNames.Text;
+                initiative.NAME = iniName;
                 BUSINESSOBJECTIVE objective;
-                if(!db.GetObjective(objectiveNames.Text, out objective))
+                string busName = objectiveNames.Text.Trim();
+                if(!db.GetObjective(busName, out objective))
                 {
                     objective = new BUSINESSOBJECTIVE();
-                    objective.NAME = objectiveNames.Text;
+                    objective.NAME = objectiveNames.Text.Trim();
                     CATEGORY category;
-                    if(!db.GetCategory(categoryNames.Text, out category))
+                    string catName = categoryNames.Text.Trim();
+                    if(!db.GetCategory(catName, out category))
                     {
                         category = new CATEGORY();
-                        category.NAME = categoryNames.Text;
-                        db.AddCategory(category);
+                        category.NAME = catName;
+                        if(!db.AddCategory(category))
+                        {
+                            MessageBox.Show("Failed to add Category to Database", "Error");
+                            return;
+                        }
                     }
 
                     objective.CATEGORY = category;
-                    db.AddObjective(objective);
+                    if (!db.AddObjective(objective))
+                    {
+                        MessageBox.Show("Failed to add Objective to Database", "Error");
+                        return;
+                    }
                 }
 
                 initiative.BUSINESSOBJECTIVE = objective;
-                db.AddInitiative(initiative);
+                if (!db.AddInitiative(initiative))
+                {
+                    MessageBox.Show("Failed to add Initiative to Database", "Error");
+                    return;
+                }
             }
 
-            db.SaveChanges();
+            BOM bom = new BOM();
+            bom.CLIENT = client;
+            bom.INITIATIVE = initiative;
+            if (!db.AddBOM(bom))
+            {
+                MessageBox.Show("Failed to add Initiative to BOM", "Error");
+                return;
+            }
+            if (!db.SaveChanges())
+            {
+                MessageBox.Show("Failed to save changes to database", "Error");
+                db = new DBManager();
+                return;
+            }
+
+            else
+            {
+                lastFocused.LastClicked.AddInitiative(initiativeNames.Text);
+            }
         }
 
         private void objectiveAddButton_Click(object sender, EventArgs e)
@@ -183,7 +218,7 @@ namespace IBMConsultantTool
             objectiveNames.Text = "<Select Objective>";
             initiativeNames.Items.Clear();
             initiativeNames.Text = "";
-            if (db.GetCategory(categoryNames.Text, out category))
+            if (db.GetCategory(categoryNames.Text.Trim(), out category))
             {
                 objectiveNames.Items.AddRange((from ent in category.BUSINESSOBJECTIVE
                                                select ent.NAME.TrimEnd()).ToArray());
@@ -206,7 +241,7 @@ namespace IBMConsultantTool
 
             initiativeNames.Items.Clear();
             initiativeNames.Text = "<Select Initiative>";
-            if (db.GetObjective(objectiveNames.Text, out objective))
+            if (db.GetObjective(objectiveNames.Text.Trim(), out objective))
             {
                 initiativeNames.Items.AddRange((from ent in objective.INITIATIVE
                                                 select ent.NAME.TrimEnd()).ToArray());

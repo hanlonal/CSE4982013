@@ -82,6 +82,12 @@
     <Compile Include="Category.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ChooseClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseClient.Designer.cs">
+      <DependentUpon>ChooseClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="CUPEAnalytics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BOMRedesign.resx">
       <DependentUpon>BOMRedesign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseClient.resx">
+      <DependentUpon>ChooseClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CUPEAnalytics.resx">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>

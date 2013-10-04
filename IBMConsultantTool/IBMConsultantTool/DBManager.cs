@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBMConsultantTool
 {
-    class DBManager
+    public class DBManager
     {
         public SAMPLEEntities dbo;
 
@@ -79,6 +79,34 @@ namespace IBMConsultantTool
             client.CLIENTID = GetUniqueID(idList);
 
             dbo.AddToCLIENT(client);
+
+            return true;
+        }
+        #endregion
+
+        #region BOM
+        public List<BOM> GetBOMs()
+        {
+            return (from ent in dbo.BOM
+                    select ent).ToList();
+        }
+
+        public bool AddBOM(BOM bom)
+        {
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in bom.CLIENT.BOM
+                 where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
+                 select ent).Count() != 1)
+            {
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.BOM
+                                select ent.BOMID).ToList();
+
+            bom.BOMID = GetUniqueID(idList);
+
+            dbo.AddToBOM(bom);
 
             return true;
         }

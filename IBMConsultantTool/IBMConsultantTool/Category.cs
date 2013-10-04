@@ -66,12 +66,13 @@ namespace IBMConsultantTool
 
         //public this Category
 
-        public void AddObjective(string name)
+        public BusinessObjective AddObjective(string name)
         {
             BusinessObjective objective = new BusinessObjective(this, name);
             objectivesCount++;
             objectives.Add(objective);
             objective.Click +=new EventHandler(objective_Click);
+            return objective;
 
         }
 
