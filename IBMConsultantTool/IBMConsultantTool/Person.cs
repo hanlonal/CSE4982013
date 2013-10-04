@@ -29,7 +29,7 @@ namespace IBMConsultantTool
         int totalFuturePartner = 0;
         int totalFutureUtility = 0;
         int totalFutureEnabler = 0;
-
+        int id;
 
         public Person()
         {
@@ -41,6 +41,22 @@ namespace IBMConsultantTool
             totalPartner = 0;
             totalEnabler = 0;
             totalUtility = 0;
+        }
+
+        public void CalculateTotalFutureCupeScore()
+        {
+
+            foreach (CupeQuestionData question in questionData)
+            {
+                if (question.FutureValue == "a")
+                    return;
+
+            }
+        }
+
+       public void CalculateTotalCurrentCupeScore()
+        {
+
         }
 
         public void ClearFutureValues()
@@ -91,6 +107,18 @@ namespace IBMConsultantTool
                 return questionData;
             }
             
+        }
+
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
         public string Name

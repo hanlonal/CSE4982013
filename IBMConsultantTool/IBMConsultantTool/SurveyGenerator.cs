@@ -37,8 +37,8 @@ namespace IBMConsultantTool
             oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing);
             oWord.Activate();
-            oDoc.PageSetup.LeftMargin = 10.0F;
-            oDoc.PageSetup.RightMargin = 10.0F;
+           // oDoc.PageSetup.LeftMargin = 10.0F;
+           // oDoc.PageSetup.RightMargin = 10.0F;
 
             //Insert a paragraph at the beginning of the document.
             Word.Paragraph oPara1;

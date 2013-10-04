@@ -111,10 +111,10 @@ namespace IBMConsultantTool
                 util += question.TotalNumberOfCurrentUtilAnswersAll;
                 comm += question.TotalNumberOfCurrentCommAnswersAll;
             }
-            cupeResponseChart.Series["cupeResponse"].Points[0].SetValueXY("oneee", enab);
-            cupeResponseChart.Series["cupeResponse"].Points[1].SetValueXY("twooo", part);
-            cupeResponseChart.Series["cupeResponse"].Points[2].SetValueXY("threee", util);
-            cupeResponseChart.Series["cupeResponse"].Points[3].SetValueXY("fourr", comm);
+            cupeResponseChart.Series["cupeResponse"].Points[0].SetValueXY("oneee", util);
+            cupeResponseChart.Series["cupeResponse"].Points[1].SetValueXY("twooo", comm);
+            cupeResponseChart.Series["cupeResponse"].Points[2].SetValueXY("threee", part);
+            cupeResponseChart.Series["cupeResponse"].Points[3].SetValueXY("fourr", enab);
 
             }
 
@@ -148,6 +148,8 @@ namespace IBMConsultantTool
             currentPerson.Questions[box.QuestionID].CurrentValue = box.Text;
             // box.Owner.QuestionData.CurrentValue = box.Text;
             UpdateCurrentLabels();
+            currentPerson.CalculateTotalCurrentCupeScore();
+            UpdateCurrentPersonListBoxLabel();
         }
 
         public void FutureBox_TextChanged(object sender, EventArgs e)
@@ -155,6 +157,13 @@ namespace IBMConsultantTool
             CustomBox box = (CustomBox)sender;
             currentPerson.Questions[box.QuestionID].FutureValue = box.Text;
             UpdateFutureLabels();
+            currentPerson.CalculateTotalFutureCupeScore();
+            UpdateCurrentPersonListBoxLabel();
+        }
+
+        private void UpdateCurrentPersonListBoxLabel()
+        {
+           // if(currentPerson.
         }
 
         public void MakeGraphData()
@@ -281,6 +290,7 @@ namespace IBMConsultantTool
             person.Name =  "Person " + persons.Count.ToString();
             personNameLabel.Text = person.Name;
             person.PopulateQuestionData();
+            person.ID = persons.Count - 1;
             ResetQuestions();
             personListBox.Items.Add(person);
             personListBox.MouseDown +=new MouseEventHandler(personListBox_MouseDown);
@@ -407,6 +417,8 @@ namespace IBMConsultantTool
         {
             ReloadChart();
         }
+
+
 
 
 
