@@ -86,7 +86,6 @@ namespace IBMConsultantTool
 
         #region Group
         //group is a keyword in C#
-
         public bool GetGroup(string grpName, CLIENT client, out GROUP grp)
         {
             try
@@ -134,6 +133,28 @@ namespace IBMConsultantTool
         {
             return (from ent in dbo.BOM
                     select ent).ToList();
+        }
+
+        public bool UpdateBOM(CLIENT client, Initiative ini)
+        {
+            try
+            {
+                BOM bom = (from ent in client.BOM
+                           where ent.INITIATIVE.NAME.TrimEnd() == ini.Name
+                           select ent).Single();
+
+                bom.EFFECTIVENESS = ini.Effectiveness;
+                bom.CRITICALITY = ini.Criticality;
+                bom.DIFFERENTIAL = ini.Differentiation;
+            }
+
+            catch
+            {
+                return false;
+            }
+
+            
+            return true;
         }
 
         public bool AddBOM(BOM bom)

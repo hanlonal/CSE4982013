@@ -143,12 +143,13 @@ namespace IBMConsultantTool
                 }
 
                 iniName = bom.INITIATIVE.NAME.TrimEnd();
-                if (objective.Initiatives.Find(delegate(Initiative ini)
+                Initiative initiativeObj = objective.Initiatives.Find(delegate(Initiative ini)
+                                                                   {
+                                                                       return ini.Name == iniName;
+                                                                   });
+                if (initiativeObj == null)
                 {
-                    return ini.Name == iniName;
-                }) == null)
-                {
-                    objective.AddInitiative(iniName);
+                    initiativeObj = objective.AddInitiative(iniName);
                 }
                 else
                 {

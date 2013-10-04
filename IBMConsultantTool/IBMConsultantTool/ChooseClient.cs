@@ -60,12 +60,16 @@ namespace IBMConsultantTool
                     }
 
                     iniName = bom.INITIATIVE.NAME.TrimEnd();
-                    if (objective.Initiatives.Find(delegate(Initiative ini)
-                                                   {
-                                                       return ini.Name == iniName;
-                                                   }) == null)
+                    Initiative initiative = objective.Initiatives.Find(delegate(Initiative ini)
+                                                                       {
+                                                                           return ini.Name == iniName;
+                                                                       });
+                    if(initiative == null)
                     {
-                        objective.AddInitiative(iniName);
+                        initiative = objective.AddInitiative(iniName);
+                        initiative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
+                        initiative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
+                        initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
                     }
                 }
 

@@ -64,9 +64,9 @@
           <Key>
             <PropertyRef Name="BOMID" />
           </Key>
-          <Property Name="EFFECTIVENESS" Type="smallint" />
-          <Property Name="CRITICALITY" Type="smallint" />
-          <Property Name="DIFFERENTIAL" Type="smallint" />
+          <Property Name="EFFECTIVENESS" Type="real" />
+          <Property Name="CRITICALITY" Type="real" />
+          <Property Name="DIFFERENTIAL" Type="real" />
           <Property Name="BOMID" Type="integer" Nullable="false" />
           <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUPID" Type="integer" />
@@ -361,9 +361,9 @@
           <Key>
             <PropertyRef Name="BOMID" />
           </Key>
-          <Property Name="EFFECTIVENESS" Type="Int16" />
-          <Property Name="CRITICALITY" Type="Int16" />
-          <Property Name="DIFFERENTIAL" Type="Int16" />
+          <Property Name="EFFECTIVENESS" Type="Single" />
+          <Property Name="CRITICALITY" Type="Single" />
+          <Property Name="DIFFERENTIAL" Type="Single" />
           <Property Name="BOMID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CLIENT" Relationship="SAMPLEModel.BOM_CLIENT_FK" FromRole="BOM" ToRole="CLIENT" />
           <NavigationProperty Name="GROUP" Relationship="SAMPLEModel.BOM_GROUP_FK" FromRole="BOM" ToRole="GROUP" />
@@ -686,20 +686,19 @@
         <EntityTypeShape EntityType="SAMPLEModel.BOM" Width="1.5" PointX="5.25" PointY="7.125" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="0.75" PointY="7.5" Height="1.7879850260416665" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CATEGORY" Width="1.5" PointX="1.5" PointY="1.5" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.CLIENT" Width="1.5" PointX="0.5" PointY="4.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.CLIENT" Width="1.5" PointX="0.75" PointY="4.25" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CUPE" Width="1.5" PointX="5.25" PointY="4.25" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CUPEQUESTION" Width="1.5" PointX="3" PointY="4.125" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.GROUP" Width="1.5" PointX="3" PointY="10.25" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.INITIATIVE" Width="1.5" PointX="3" PointY="7.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.ITCAP" Width="1.5" PointX="5.25" PointY="10.25" Height="2.1725878906249996" IsExpanded="true" />
         <AssociationConnector Association="SAMPLEModel.BOM_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="0.59375" PointY="6.422587890625" />
-          <ConnectorPoint PointX="0.59375" PointY="7.28125" />
-          <ConnectorPoint PointX="2.0729166666666665" PointY="7.2812499999999991" />
-          <ConnectorPoint PointX="2.2395833333333335" PointY="7.28125" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="7.2812499999999991" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="7.28125" />
-          <ConnectorPoint PointX="5.25" PointY="7.28125" />
+          <ConnectorPoint PointX="2.25" PointY="6.4098945829326919" />
+          <ConnectorPoint PointX="2.6689433076923077" PointY="6.828837890625" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.8288378906249987" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="6.828837890625" />
+          <ConnectorPoint PointX="6" PointY="6.828837890625" />
+          <ConnectorPoint PointX="6" PointY="7.125" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.BOM_GROUP_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="10.307691307692309" />
@@ -714,35 +713,41 @@
           <ConnectorPoint PointX="5.25" PointY="8.86021484375" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.BUSINESSOB_CATE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.15625" PointY="3.0956835937499996" />
-          <ConnectorPoint PointX="2.15625" PointY="7.5" />
+          <ConnectorPoint PointX="2.6250025" PointY="3.0956835937499996" />
+          <ConnectorPoint PointX="2.6250025" PointY="8.3939925130208337" />
+          <ConnectorPoint PointX="2.25" PointY="8.3939925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.INIT_BUSINESSOB_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="7.8844962565104169" />
+          <ConnectorPoint PointX="2.5416691666666664" PointY="7.884496256510416" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="7.8844962565104169" />
           <ConnectorPoint PointX="3" PointY="7.8844962565104169" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="6.3648945829326919" />
-          <ConnectorPoint PointX="2.0973244349011213" PointY="6.4622190178338128" />
-          <ConnectorPoint PointX="2.2151755650988791" PointY="6.5800701480315711" />
-          <ConnectorPoint PointX="2.3389433076923076" PointY="6.703837890625" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="6.7038378906249987" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="6.703837890625" />
-          <ConnectorPoint PointX="4.96875" PointY="6.703837890625" />
+          <ConnectorPoint PointX="2.25" PointY="6.3810484290865377" />
+          <ConnectorPoint PointX="2.5415394615384619" PointY="6.672587890625" />
+          <ConnectorPoint PointX="2.5416691666666664" PointY="6.6725878906249987" />
+          <ConnectorPoint PointX="2.7083358333333334" PointY="6.672587890625" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.6725878906249987" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="6.672587890625" />
+          <ConnectorPoint PointX="5" PointY="6.672587890625" />
           <ConnectorPoint PointX="5.25" PointY="6.422587890625" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.GROUP_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="0.62500249999999991" PointY="6.422587890625" />
-          <ConnectorPoint PointX="0.62500249999999991" PointY="11.3362939453125" />
+          <ConnectorPoint PointX="2.205" PointY="6.422587890625" />
+          <ConnectorPoint PointX="2.5660769349011212" PointY="6.78366482552612" />
+          <ConnectorPoint PointX="2.683928065098879" PointY="6.9015159557238785" />
+          <ConnectorPoint PointX="2.78125" PointY="6.9988378906249995" />
+          <ConnectorPoint PointX="2.78125" PointY="11.3362939453125" />
           <ConnectorPoint PointX="3" PointY="11.3362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCAP_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.9757692307692309" PointY="6.422587890625" />
-          <ConnectorPoint PointX="2.0973244349011213" PointY="6.5441430947568895" />
-          <ConnectorPoint PointX="2.2151755650988791" PointY="6.6619942249546478" />
-          <ConnectorPoint PointX="2.3507692307692309" PointY="6.797587890625" />
-          <ConnectorPoint PointX="4.9375" PointY="6.797587890625" />
-          <ConnectorPoint PointX="4.9375" PointY="9.9363471538461532" />
+          <ConnectorPoint PointX="2.25" PointY="6.407586890625" />
+          <ConnectorPoint PointX="2.5660769349011212" PointY="6.7236638255261205" />
+          <ConnectorPoint PointX="2.683928065098879" PointY="6.8415149557238788" />
+          <ConnectorPoint PointX="2.71875" PointY="6.876336890625" />
+          <ConnectorPoint PointX="2.71875" PointY="9.875" />
+          <ConnectorPoint PointX="4.8761528461538459" PointY="9.875" />
           <ConnectorPoint PointX="5.2511528461538459" PointY="10.25" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CUPEQUESTI_FK" ManuallyRouted="false">

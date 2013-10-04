@@ -336,7 +336,7 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int16> EFFECTIVENESS
+        public Nullable<global::System.Single> EFFECTIVENESS
         {
             get
             {
@@ -351,8 +351,8 @@ namespace IBMConsultantTool
                 OnEFFECTIVENESSChanged();
             }
         }
-        private Nullable<global::System.Int16> _EFFECTIVENESS;
-        partial void OnEFFECTIVENESSChanging(Nullable<global::System.Int16> value);
+        private Nullable<global::System.Single> _EFFECTIVENESS;
+        partial void OnEFFECTIVENESSChanging(Nullable<global::System.Single> value);
         partial void OnEFFECTIVENESSChanged();
     
         /// <summary>
@@ -360,7 +360,7 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int16> CRITICALITY
+        public Nullable<global::System.Single> CRITICALITY
         {
             get
             {
@@ -375,8 +375,8 @@ namespace IBMConsultantTool
                 OnCRITICALITYChanged();
             }
         }
-        private Nullable<global::System.Int16> _CRITICALITY;
-        partial void OnCRITICALITYChanging(Nullable<global::System.Int16> value);
+        private Nullable<global::System.Single> _CRITICALITY;
+        partial void OnCRITICALITYChanging(Nullable<global::System.Single> value);
         partial void OnCRITICALITYChanged();
     
         /// <summary>
@@ -384,7 +384,7 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int16> DIFFERENTIAL
+        public Nullable<global::System.Single> DIFFERENTIAL
         {
             get
             {
@@ -399,8 +399,8 @@ namespace IBMConsultantTool
                 OnDIFFERENTIALChanged();
             }
         }
-        private Nullable<global::System.Int16> _DIFFERENTIAL;
-        partial void OnDIFFERENTIALChanging(Nullable<global::System.Int16> value);
+        private Nullable<global::System.Single> _DIFFERENTIAL;
+        partial void OnDIFFERENTIALChanging(Nullable<global::System.Single> value);
         partial void OnDIFFERENTIALChanged();
     
         /// <summary>

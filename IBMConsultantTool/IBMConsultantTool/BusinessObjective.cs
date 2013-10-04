@@ -112,7 +112,7 @@ namespace IBMConsultantTool
 
 
 
-        public void AddInitiative(string name)
+        public Initiative AddInitiative(string name)
         {
             Initiative initiative = new Initiative(this, name);
             this.Controls.Add(initiative);
@@ -122,6 +122,8 @@ namespace IBMConsultantTool
             Console.WriteLine(name + "belongs to " + this.name + "which belongs to " + Owner.Name);
 
             UpdateLocation();
+
+            return initiative;
         }
 
         public List<Initiative> Initiatives
