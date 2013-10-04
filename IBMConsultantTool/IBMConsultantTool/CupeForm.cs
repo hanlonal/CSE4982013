@@ -65,9 +65,9 @@ namespace IBMConsultantTool
                     q.ID = i;
                     q.TextLabel.Text = line;
                     q.QuestionText = line;
-                    q.FutureBox.Location = new Point(250, 30 * i);
+                    q.FutureBox.Location = new Point(300, 30 * i);
                     q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
-                    q.CurrentBox.Location = new Point(300, 30 * i);
+                    q.CurrentBox.Location = new Point(250, 30 * i);
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
                     q.TextLabel.Click +=new EventHandler(TextLabel_Click);
