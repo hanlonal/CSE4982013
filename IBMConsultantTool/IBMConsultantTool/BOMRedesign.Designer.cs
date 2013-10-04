@@ -40,6 +40,7 @@
             this.ObjectiveLabel = new System.Windows.Forms.Label();
             this.InitiativeLabel = new System.Windows.Forms.Label();
             this.btnLoadChart = new System.Windows.Forms.Button();
+            this.btnLoadRedesignChart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // initiativeAddButton
@@ -155,15 +156,26 @@
             this.btnLoadChart.Name = "btnLoadChart";
             this.btnLoadChart.Size = new System.Drawing.Size(75, 23);
             this.btnLoadChart.TabIndex = 13;
-            this.btnLoadChart.Text = "btnLoadChart";
+            this.btnLoadChart.Text = "Load Chart";
             this.btnLoadChart.UseVisualStyleBackColor = true;
             this.btnLoadChart.Click += new System.EventHandler(this.btnLoadChart_Click);
+            // 
+            // btnLoadRedesignChart
+            // 
+            this.btnLoadRedesignChart.Location = new System.Drawing.Point(865, 551);
+            this.btnLoadRedesignChart.Name = "btnLoadRedesignChart";
+            this.btnLoadRedesignChart.Size = new System.Drawing.Size(121, 23);
+            this.btnLoadRedesignChart.TabIndex = 14;
+            this.btnLoadRedesignChart.Text = "Load Chart Redesign";
+            this.btnLoadRedesignChart.UseVisualStyleBackColor = true;
+            this.btnLoadRedesignChart.Click += new System.EventHandler(this.btnLoadRedesignChart_Click);
             // 
             // BOMRedesign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 703);
+            this.Controls.Add(this.btnLoadRedesignChart);
             this.Controls.Add(this.btnLoadChart);
             this.Controls.Add(this.InitiativeLabel);
             this.Controls.Add(this.ObjectiveLabel);
@@ -197,6 +209,7 @@
         private System.Windows.Forms.Label ObjectiveLabel;
         private System.Windows.Forms.Label InitiativeLabel;
         private System.Windows.Forms.Button btnLoadChart;
+        private System.Windows.Forms.Button btnLoadRedesignChart;
 
 
     }

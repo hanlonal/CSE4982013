@@ -294,6 +294,12 @@ namespace IBMConsultantTool
             chart.Show();
         }
 
+        private void btnLoadRedesignChart_Click(object sender, EventArgs e)
+        {
+            BOMBubbleChartRedesign chart = new BOMBubbleChartRedesign(this);
+            chart.Show();
+        }
+
      /*   private void createPPTButton_Click(object sender, EventArgs e)
         {
             Thread newThread = new Thread(new ThreadStart(SaveDialogThread));

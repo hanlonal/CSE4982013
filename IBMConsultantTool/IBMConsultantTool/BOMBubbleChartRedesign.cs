@@ -17,7 +17,7 @@ namespace IBMConsultantTool
         //private Initiative initiative;
         private string name;
         private float criticality = 0;
-        private float differentiation = 0;
+        private float differentiation =0;
         private float effectiveness = 0;
         //private DataEntryForm mainForm;
         private BOMRedesign mainForm;
@@ -26,7 +26,7 @@ namespace IBMConsultantTool
         //private string color[rowCount];
 
         //ShapeContainer canvas = new ShapeContainer();
-
+        
         private int circleCount = 0;
         private int MaxCount = 0;
         OvalShape[] circle = new OvalShape[1000];
@@ -44,7 +44,7 @@ namespace IBMConsultantTool
             {
                 circle[i] = new OvalShape();
             }
-
+            
             InitializeComponent();
             //GenerateText();
         }
@@ -124,7 +124,7 @@ namespace IBMConsultantTool
 
             ShapeContainer canvas = new ShapeContainer();
             canvas.Parent = this.panelChart;
-
+            
             if (mainForm == null)
             {
                 this.Hide();
@@ -143,7 +143,7 @@ namespace IBMConsultantTool
                         differentiation = mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation;
                         effectiveness = mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness;
 
-                        int effectivenessBig = (int)(effectiveness * 2);
+                        int effectivenessBig = (int) (effectiveness * 2);
                         int newCriticality = (int)(criticality * 20);
                         int newDifferentiation = (int)(differentiation * 30);
 
@@ -177,7 +177,7 @@ namespace IBMConsultantTool
             save.Filter = "Image files (*.jpeg)|*.jpeg| All Files (*.*)|*.*";
             if (save.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // this.initiativeChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
+               // this.initiativeChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }
 
@@ -192,7 +192,7 @@ namespace IBMConsultantTool
             for (int i = 0; i < circleCount; i++)
             {
                 System.Diagnostics.Trace.WriteLine("In For Loop Click " + i);
-
+                
                 ///
                 /// 
                 ///
@@ -203,8 +203,8 @@ namespace IBMConsultantTool
                     //circle[i].ToString(circle[i].Width, circle[i].Height, circle[i].Size);
 
                     //string width = circle[i].Width.ToString();
-                    circle[i].AccessibleDescription = circle[i].Name + "\n" + circle[i].AccessibleName + (circle[i].Size.Height / 2).ToString() + ")";
-
+                    circle[i].AccessibleDescription = circle[i].Name + "\n" + circle[i].AccessibleName + (circle[i].Size.Height/2).ToString() + ")";
+                
                     // Need to display the AccessibleDescription //
 
                     //MessageBox.Show(circle[i].AccessibleDescription);

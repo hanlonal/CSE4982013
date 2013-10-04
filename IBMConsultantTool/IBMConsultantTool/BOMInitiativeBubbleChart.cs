@@ -15,7 +15,7 @@ namespace IBMConsultantTool
         //private Initiative initiative;
         private string name;
         private float criticality = 0;
-        private float differentiation = 0;
+        private float differentiation =0;
         private float effectiveness = 0;
         //private DataEntryForm mainForm;
         private BOMRedesign mainForm;
@@ -47,7 +47,7 @@ namespace IBMConsultantTool
             //this.initiativeChart.
 
 
-
+            
             for (int i = 0; i < mainForm.CategoryCount; i++)
             {
                 rowCount++;
@@ -61,7 +61,7 @@ namespace IBMConsultantTool
                         differentiation = mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation;
                         effectiveness = mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness;
 
-
+                        
 
                         this.initiativeChart.Series.Add(name);
                         this.initiativeChart.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bubble;
