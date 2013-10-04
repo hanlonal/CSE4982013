@@ -288,6 +288,12 @@ namespace IBMConsultantTool
             }
         }
 
+        private void btnLoadChart_Click(object sender, EventArgs e)
+        {
+            BOMInitiativeBubbleChart chart = new BOMInitiativeBubbleChart(this);
+            chart.Show();
+        }
+
      /*   private void createPPTButton_Click(object sender, EventArgs e)
         {
             Thread newThread = new Thread(new ThreadStart(SaveDialogThread));

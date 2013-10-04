@@ -39,6 +39,7 @@
             this.CategoryLabel = new System.Windows.Forms.Label();
             this.ObjectiveLabel = new System.Windows.Forms.Label();
             this.InitiativeLabel = new System.Windows.Forms.Label();
+            this.btnLoadChart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // initiativeAddButton
@@ -148,11 +149,22 @@
             this.InitiativeLabel.TabIndex = 12;
             this.InitiativeLabel.Text = "Initiative";
             // 
+            // btnLoadChart
+            // 
+            this.btnLoadChart.Location = new System.Drawing.Point(778, 551);
+            this.btnLoadChart.Name = "btnLoadChart";
+            this.btnLoadChart.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadChart.TabIndex = 13;
+            this.btnLoadChart.Text = "btnLoadChart";
+            this.btnLoadChart.UseVisualStyleBackColor = true;
+            this.btnLoadChart.Click += new System.EventHandler(this.btnLoadChart_Click);
+            // 
             // BOMRedesign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 703);
+            this.Controls.Add(this.btnLoadChart);
             this.Controls.Add(this.InitiativeLabel);
             this.Controls.Add(this.ObjectiveLabel);
             this.Controls.Add(this.CategoryLabel);
@@ -184,6 +196,7 @@
         private System.Windows.Forms.Label CategoryLabel;
         private System.Windows.Forms.Label ObjectiveLabel;
         private System.Windows.Forms.Label InitiativeLabel;
+        private System.Windows.Forms.Button btnLoadChart;
 
 
     }

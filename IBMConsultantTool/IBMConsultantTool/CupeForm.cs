@@ -31,6 +31,8 @@ namespace IBMConsultantTool
         public CupeForm()
         {
             InitializeComponent();
+            personListBox.DrawItem +=
+                new System.Windows.Forms.DrawItemEventHandler(personListBox_DrawItem);
 
         }
 
@@ -163,7 +165,26 @@ namespace IBMConsultantTool
 
         private void UpdateCurrentPersonListBoxLabel()
         {
-           // if(currentPerson.
+            if (currentPerson.FutureCUPEScore - currentPerson.CurrentCUPEScore < 2)
+            {
+                //personListBox.ValueMember.
+            }
+        }
+
+        private void personListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            Brush myBrush = Brushes.Black;
+            Graphics g = e.Graphics;
+
+            g.FillRectangle(new SolidBrush(Color.Silver), e.Bounds);
+
+            // Print text
+            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+        e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+
+            e.DrawFocusRectangle();
+            //personListBox.Refresh();
         }
 
         public void MakeGraphData()
@@ -293,6 +314,7 @@ namespace IBMConsultantTool
             person.ID = persons.Count - 1;
             ResetQuestions();
             personListBox.Items.Add(person);
+            
             personListBox.MouseDown +=new MouseEventHandler(personListBox_MouseDown);
             personListBox.SelectedValueChanged += new EventHandler(personListBox_SelectedValueChanged);
             

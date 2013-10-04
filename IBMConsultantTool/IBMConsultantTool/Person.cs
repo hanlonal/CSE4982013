@@ -31,6 +31,10 @@ namespace IBMConsultantTool
         int totalFutureEnabler = 0;
         int id;
 
+        float CUPEFutureScore;
+        float CUPECurrentScore;
+
+
         public Person()
         {
            // PopulateQuestionData();
@@ -45,18 +49,39 @@ namespace IBMConsultantTool
 
         public void CalculateTotalFutureCupeScore()
         {
-
+            float score = 0;
             foreach (CupeQuestionData question in questionData)
             {
                 if (question.FutureValue == "a")
-                    return;
+                    score += 1;
+                if (question.FutureValue == "b")
+                    score += 2;
+                if (question.FutureValue == "c")
+                    score += 3;
+                if (question.FutureValue == "d")
+                    score += 4;
 
             }
+            CUPEFutureScore = score / owner.Questions.Count;
+
         }
 
        public void CalculateTotalCurrentCupeScore()
         {
+            float score = 0;
+            foreach (CupeQuestionData question in questionData)
+            {
+                if (question.CurrentValue == "a")
+                    score += 1;
+                if (question.CurrentValue == "b")
+                    score += 2;
+                if (question.CurrentValue == "c")
+                    score += 3;
+                if (question.CurrentValue == "d")
+                    score += 4;
 
+            }
+            CUPECurrentScore = score / owner.Questions.Count;
         }
 
         public void ClearFutureValues()
@@ -72,6 +97,21 @@ namespace IBMConsultantTool
             set
             {
                 owner = value;
+            }
+        }
+
+        public float FutureCUPEScore
+        {
+            get
+            {
+                return CUPEFutureScore;
+            }
+        }
+        public float CurrentCUPEScore
+        {
+            get
+            {
+                return CUPECurrentScore;
             }
         }
         public void PopulateQuestionData()
