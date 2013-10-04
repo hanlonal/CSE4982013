@@ -23,6 +23,11 @@ namespace IBMConsultantTool
         private float avgCurrentAll;
         private float avgFutureAll;
 
+        DataColumn colStudentID;
+        DataColumn colUsername;
+        DataTable tblStudents;
+        DataSet dsStudents;
+
         public CupeForm()
         {
             InitializeComponent();
@@ -42,6 +47,8 @@ namespace IBMConsultantTool
             //questionChart.Legends[0].CustomItems.Add(Color.Brown, "IT Current");
             //questionChart.Legends[0].CustomItems.Add(Color.Lavender, "Busi Future");
             //questionChart.Legends[0].CustomItems.Add(Color.Olive, "Busi Future");
+
+            
         }
 
         public void TextLabel_TextChanged(object sender, EventArgs e)
@@ -83,7 +90,34 @@ namespace IBMConsultantTool
                 if (file != null)
                     file.Close();
             }
+
+
+
+            
+                
         }
+
+        public void ReloadChart()
+        {
+            int comm = 0;
+            int util = 0;
+            int part = 0;
+            int enab = 0;
+
+            foreach (CupeQuestion question in mainQuestions)
+            {
+                enab += question.TotalNumberOfCurrentEnabAnswersAll;
+                part += question.TotalNumberOfCurrentPartAnswersAll;
+                util += question.TotalNumberOfCurrentUtilAnswersAll;
+                comm += question.TotalNumberOfCurrentCommAnswersAll;
+            }
+            cupeResponseChart.Series["cupeResponse"].Points[0].SetValueXY("oneee", enab);
+            cupeResponseChart.Series["cupeResponse"].Points[1].SetValueXY("twooo", part);
+            cupeResponseChart.Series["cupeResponse"].Points[2].SetValueXY("threee", util);
+            cupeResponseChart.Series["cupeResponse"].Points[3].SetValueXY("fourr", comm);
+
+            }
+
 
         public void TextLabel_Click(object sender, EventArgs e)
         {
@@ -96,6 +130,7 @@ namespace IBMConsultantTool
             questionChart.Series["Series1"].Points.Clear();
             questionNameLabel.Text = "Question # : " + (currentQuestion.ID + 1).ToString();
             CalculateTotals();
+            
         }
 
 
@@ -248,9 +283,23 @@ namespace IBMConsultantTool
             person.PopulateQuestionData();
             ResetQuestions();
             personListBox.Items.Add(person);
+            personListBox.MouseDown +=new MouseEventHandler(personListBox_MouseDown);
             personListBox.SelectedValueChanged += new EventHandler(personListBox_SelectedValueChanged);
             
         }
+
+        public void personListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int index = personListBox.IndexFromPoint(e.X, e.Y);
+                if (index > -1 && index < personListBox.Items.Count)
+                {
+                    Console.WriteLine(index.ToString());
+                }
+            }
+        }
+
         public void personListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             ListBox box = (ListBox)sender;
@@ -352,6 +401,11 @@ namespace IBMConsultantTool
                 return true;
             }
             else return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReloadChart();
         }
 
 
