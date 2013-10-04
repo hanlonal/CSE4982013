@@ -169,29 +169,31 @@ namespace IBMConsultantTool
            // personListBox.Items.Insert(0, "hello");
             //personListBox.Items.RemoveAt(1);
             personListBox.Refresh();
+
+
+            Color color = currentPerson.Color;
+            Console.WriteLine(color.ToString());
             
-            if (currentPerson.FutureCUPEScore - currentPerson.CurrentCUPEScore < 2)
-            {
-                //personListBox.ValueMember.
-            }
         }
 
         private void personListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
             Brush myBrush = Brushes.Black;
-            Color color = Color.Red;
+            Color color = Color.White;
             Graphics g = e.Graphics;
+            
 
+            //switch(((ListBox)sender).ValueMember.
             Console.WriteLine("getting called");
 
             g.FillRectangle(new SolidBrush(color), e.Bounds);
 
             // Print text
-            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+            g.DrawString(((ListBox)sender).Items[e.Index].ToString(),
         e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
 
-            e.DrawFocusRectangle();
+           // e.DrawFocusRectangle();
             //personListBox.Refresh();
         }
 

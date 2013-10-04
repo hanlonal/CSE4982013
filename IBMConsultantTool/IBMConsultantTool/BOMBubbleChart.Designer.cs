@@ -51,6 +51,7 @@
             this.BubbleChart.Size = new System.Drawing.Size(546, 455);
             this.BubbleChart.TabIndex = 0;
             this.BubbleChart.Text = "Bubble Chart";
+            this.BubbleChart.Click += new System.EventHandler(this.BubbleChart_Click);
             // 
             // BOMBubbleChart
             // 

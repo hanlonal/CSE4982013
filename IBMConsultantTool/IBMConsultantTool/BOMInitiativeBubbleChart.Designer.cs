@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.initiativeChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnLoadChart = new System.Windows.Forms.Button();
             this.btnSaveImage = new System.Windows.Forms.Button();
@@ -39,15 +39,16 @@
             // 
             // initiativeChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.initiativeChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.initiativeChart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.initiativeChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.initiativeChart.Legends.Add(legend1);
             this.initiativeChart.Location = new System.Drawing.Point(12, 12);
             this.initiativeChart.Name = "initiativeChart";
             this.initiativeChart.Size = new System.Drawing.Size(670, 362);
             this.initiativeChart.TabIndex = 0;
             this.initiativeChart.Text = "BOM Initiative Chart";
+            this.initiativeChart.Click += new System.EventHandler(this.initiativeChart_Click);
             // 
             // btnLoadChart
             // 

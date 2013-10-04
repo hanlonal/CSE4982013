@@ -95,5 +95,10 @@ namespace IBMConsultantTool
         {
             this.Hide();
         }
+
+        private void initiativeChart_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

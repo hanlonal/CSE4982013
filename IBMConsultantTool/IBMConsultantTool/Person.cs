@@ -51,6 +51,17 @@ namespace IBMConsultantTool
             totalUtility = 0;
         }
 
+        public Color Color
+        {
+            get
+            {
+                if (CUPEFutureScore - CUPECurrentScore < 2)
+                    return Color.Red;
+                else
+                    return Color.White;
+            }
+        }
+
         public void CalculateTotalFutureCupeScore()
         {
             float score = 0;
