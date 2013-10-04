@@ -37,6 +37,7 @@ namespace IBMConsultantTool
             oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing);
             oWord.Activate();
+            System.Threading.Thread.Sleep(1000);
            // oDoc.PageSetup.LeftMargin = 10.0F;
            // oDoc.PageSetup.RightMargin = 10.0F;
 
@@ -73,6 +74,7 @@ namespace IBMConsultantTool
             oTable.Cell(1, 6).Range.Text = "Competitive Differentiation";
 
             int r=2, c=1;
+            System.Threading.Thread.Sleep(1000);
             //Add the categories, objectives, imperatives
             for (int i = 0; i < BomCats.Count; i++)
             {

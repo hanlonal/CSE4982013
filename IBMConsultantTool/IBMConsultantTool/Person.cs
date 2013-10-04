@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace IBMConsultantTool
 {
@@ -30,6 +32,8 @@ namespace IBMConsultantTool
         int totalFutureUtility = 0;
         int totalFutureEnabler = 0;
         int id;
+
+        Color listBoxColor = Color.Red;
 
         float CUPEFutureScore;
         float CUPECurrentScore;

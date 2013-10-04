@@ -74,9 +74,10 @@ namespace IBMConsultantTool
                     q.ID = i;
                     q.TextLabel.Text = line;
                     q.QuestionText = line;
-                    q.FutureBox.Location = new Point(300, 30 * i);
-                    q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
                     q.CurrentBox.Location = new Point(250, 30 * i);
+                    q.FutureBox.Location = new Point(310, 30 * i);
+                    q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
+                    
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);
                     q.TextLabel.Click +=new EventHandler(TextLabel_Click);
@@ -165,6 +166,10 @@ namespace IBMConsultantTool
 
         private void UpdateCurrentPersonListBoxLabel()
         {
+           // personListBox.Items.Insert(0, "hello");
+            //personListBox.Items.RemoveAt(1);
+            personListBox.Refresh();
+            
             if (currentPerson.FutureCUPEScore - currentPerson.CurrentCUPEScore < 2)
             {
                 //personListBox.ValueMember.
@@ -175,9 +180,12 @@ namespace IBMConsultantTool
         {
             e.DrawBackground();
             Brush myBrush = Brushes.Black;
+            Color color = Color.Red;
             Graphics g = e.Graphics;
 
-            g.FillRectangle(new SolidBrush(Color.Silver), e.Bounds);
+            Console.WriteLine("getting called");
+
+            g.FillRectangle(new SolidBrush(color), e.Bounds);
 
             // Print text
             e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
@@ -391,7 +399,7 @@ namespace IBMConsultantTool
         private void ChangePerson()
         {
             personNameLabel.Text = currentPerson.Name;
-
+            personListBox.SelectedIndex = currentPerson.ID;
             foreach (CupeQuestion question in mainQuestions)
             {
                 question.CurrentBox.Text = currentPerson.Questions[question.ID].CurrentValue;
@@ -413,7 +421,7 @@ namespace IBMConsultantTool
             if (p.Next != null)
             {
                 currentPerson = p.Next.Value;
-
+                
                 ChangePerson();
             }
             else

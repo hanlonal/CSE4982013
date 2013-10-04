@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem9 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem10 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem11 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem12 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint9 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint10 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint11 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint12 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem2 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem3 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem4 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             this.panel1 = new System.Windows.Forms.Panel();
             this.personNameLabel = new System.Windows.Forms.Label();
             this.addPersonButton = new System.Windows.Forms.Button();
@@ -329,6 +329,7 @@
             // 
             // personListBox
             // 
+            this.personListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.personListBox.FormattingEnabled = true;
             this.personListBox.Location = new System.Drawing.Point(12, 81);
             this.personListBox.Name = "personListBox";
@@ -337,43 +338,43 @@
             // 
             // questionChart
             // 
-            chartArea5.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            chartArea5.Name = "ChartArea1";
-            this.questionChart.ChartAreas.Add(chartArea5);
-            legendItem9.Color = System.Drawing.Color.Red;
-            legendItem9.Name = "IT Future";
-            legendItem10.Color = System.Drawing.Color.Cyan;
-            legendItem10.Name = "IT Current";
-            legendItem11.Color = System.Drawing.Color.Yellow;
-            legendItem11.Name = "Busi Future";
-            legendItem12.Color = System.Drawing.Color.Fuchsia;
-            legendItem12.Name = "Busi Current";
-            legend5.CustomItems.Add(legendItem9);
-            legend5.CustomItems.Add(legendItem10);
-            legend5.CustomItems.Add(legendItem11);
-            legend5.CustomItems.Add(legendItem12);
-            legend5.Name = "One";
-            legend5.Title = "Legend";
-            legend5.TitleBackColor = System.Drawing.Color.White;
-            this.questionChart.Legends.Add(legend5);
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            chartArea1.Name = "ChartArea1";
+            this.questionChart.ChartAreas.Add(chartArea1);
+            legendItem1.Color = System.Drawing.Color.Red;
+            legendItem1.Name = "IT Future";
+            legendItem2.Color = System.Drawing.Color.Cyan;
+            legendItem2.Name = "IT Current";
+            legendItem3.Color = System.Drawing.Color.Yellow;
+            legendItem3.Name = "Busi Future";
+            legendItem4.Color = System.Drawing.Color.Fuchsia;
+            legendItem4.Name = "Busi Current";
+            legend1.CustomItems.Add(legendItem1);
+            legend1.CustomItems.Add(legendItem2);
+            legend1.CustomItems.Add(legendItem3);
+            legend1.CustomItems.Add(legendItem4);
+            legend1.Name = "One";
+            legend1.Title = "Legend";
+            legend1.TitleBackColor = System.Drawing.Color.White;
+            this.questionChart.Legends.Add(legend1);
             this.questionChart.Location = new System.Drawing.Point(729, 42);
             this.questionChart.Name = "questionChart";
             this.questionChart.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series5.BorderWidth = 5;
-            series5.ChartArea = "ChartArea1";
-            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            series5.Legend = "One";
-            series5.Name = "Series1";
-            series5.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            this.questionChart.Series.Add(series5);
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.BorderWidth = 5;
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            series1.Legend = "One";
+            series1.Name = "Series1";
+            series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            this.questionChart.Series.Add(series1);
             this.questionChart.Size = new System.Drawing.Size(300, 264);
             this.questionChart.TabIndex = 21;
             this.questionChart.Text = "questionChart";
-            title3.Name = "Title1";
-            title3.Text = "Question Chart";
-            this.questionChart.Titles.Add(title3);
+            title1.Name = "Title1";
+            title1.Text = "Question Chart";
+            this.questionChart.Titles.Add(title1);
             // 
             // sAMPLEEntitiesBindingSource
             // 
@@ -584,25 +585,25 @@
             // 
             // cupeResponseChart
             // 
-            chartArea6.Name = "ChartArea1";
-            this.cupeResponseChart.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.cupeResponseChart.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            this.cupeResponseChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.cupeResponseChart.Legends.Add(legend2);
             this.cupeResponseChart.Location = new System.Drawing.Point(424, 346);
             this.cupeResponseChart.Name = "cupeResponseChart";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.Legend = "Legend1";
-            series6.Name = "cupeResponse";
-            dataPoint9.Label = "Utility";
-            dataPoint10.Label = "Commodity";
-            dataPoint11.Label = "Partner";
-            dataPoint12.Label = "Enabler";
-            series6.Points.Add(dataPoint9);
-            series6.Points.Add(dataPoint10);
-            series6.Points.Add(dataPoint11);
-            series6.Points.Add(dataPoint12);
-            this.cupeResponseChart.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "cupeResponse";
+            dataPoint1.Label = "Utility";
+            dataPoint2.Label = "Commodity";
+            dataPoint3.Label = "Partner";
+            dataPoint4.Label = "Enabler";
+            series2.Points.Add(dataPoint1);
+            series2.Points.Add(dataPoint2);
+            series2.Points.Add(dataPoint3);
+            series2.Points.Add(dataPoint4);
+            this.cupeResponseChart.Series.Add(series2);
             this.cupeResponseChart.Size = new System.Drawing.Size(300, 300);
             this.cupeResponseChart.TabIndex = 46;
             this.cupeResponseChart.Text = "Cupe Response Chart";

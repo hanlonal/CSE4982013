@@ -120,12 +120,14 @@ namespace IBMConsultantTool
 
        public CupeQuestion()
        {
-           futureTextBox = new CustomBox(this);
            currentTextBox = new CustomBox(this);
+           futureTextBox = new CustomBox(this);
+           
            textLabel = new CustomLabel(this);
 
-           DefineFutureBox();
            DefineCurrentBox();
+           DefineFutureBox();
+           
            DefineTextLabel();
 
            
@@ -146,7 +148,7 @@ namespace IBMConsultantTool
                //Console.WriteLine(textLabel.Text + " texts reads" + current.ToString());
            }
        }
-       public string Future { get { return future; } set { future = value; Console.WriteLine(textLabel.Text + " texts reads" + future.ToString()); } }
+       public string Future { get { return future; } set { future = value;  } }
        public CustomLabel TextLabel { get { return textLabel; } }
        public TextBox FutureBox { get { return futureTextBox; } }
        public TextBox CurrentBox { get { return currentTextBox; } set { CurrentBox = value; } }
@@ -156,8 +158,9 @@ namespace IBMConsultantTool
            { 
                owner = value; 
                owner.Controls.Add(textLabel);
-               owner.Controls.Add(futureTextBox);
                owner.Controls.Add(currentTextBox);
+               owner.Controls.Add(futureTextBox);
+               
            } 
        }
 
