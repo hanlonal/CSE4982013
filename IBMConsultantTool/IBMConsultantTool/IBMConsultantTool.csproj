@@ -100,6 +100,12 @@
     <Compile Include="ChooseClient.Designer.cs">
       <DependentUpon>ChooseClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrossClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrossClientForm.designer.cs">
+      <DependentUpon>CrossClientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CUPEAnalytics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseClient.resx">
       <DependentUpon>ChooseClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrossClientForm.resx">
+      <DependentUpon>CrossClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CUPEAnalytics.resx">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>

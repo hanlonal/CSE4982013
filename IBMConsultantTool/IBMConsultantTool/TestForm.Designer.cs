@@ -83,6 +83,7 @@
             this.TrendAnalysisButton.Size = new System.Drawing.Size(120, 129);
             this.TrendAnalysisButton.TabIndex = 7;
             this.TrendAnalysisButton.TabStop = false;
+            this.TrendAnalysisButton.Click += new System.EventHandler(this.TrendAnalysisButton_Click);
             this.TrendAnalysisButton.MouseEnter += new System.EventHandler(this.TrendAnalysisButton_MouseEnter);
             this.TrendAnalysisButton.MouseLeave += new System.EventHandler(this.TrendAnalysisButton_MouseLeave);
             // 
