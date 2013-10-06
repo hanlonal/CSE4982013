@@ -85,7 +85,7 @@ namespace IBMConsultantTool
         {
             foreach (NewInitiative init in initiatives)
             {
-                init.BackColor = Color.Red;
+                init.ChangeColor("differentiation");
             }
         }
 
@@ -93,7 +93,7 @@ namespace IBMConsultantTool
         {
             foreach (NewInitiative init in initiatives)
             {
-                init.BackColor = Color.Blue;
+                init.ChangeColor("effectiveness");
             }
         }
 
@@ -101,7 +101,7 @@ namespace IBMConsultantTool
         {
             foreach (NewInitiative init in initiatives)
             {
-                init.BackColor = Color.Green;
+                init.ChangeColor("criticality");
             }
         }
 

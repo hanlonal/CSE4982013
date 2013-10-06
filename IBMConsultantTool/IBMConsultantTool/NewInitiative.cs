@@ -55,6 +55,38 @@ namespace IBMConsultantTool
         
         }
 
+        public void ChangeColor(string param)
+        {
+            if (param == "criticality")
+            {
+                if (criticality < 4)
+                    BackColor = Color.Red;
+                if (criticality > 4 && criticality <= 7)
+                    BackColor = Color.Yellow;
+                if (criticality > 7)
+                    BackColor = Color.Green;
+            }
+            if (param == "differentiation")
+            {
+                if(differentiation <4)
+                    BackColor = Color.Red;
+                if (differentiation > 4 && differentiation <= 7)
+                    BackColor = Color.Yellow;
+                if (differentiation > 7)
+                    BackColor = Color.Green;
+            }
+
+            if (param == "effectiveness")
+            {
+                if (effectiveness < 4)
+                    BackColor = Color.Red;
+                if (effectiveness > 4 && effectiveness <= 7)
+                    BackColor = Color.Yellow;
+                if (effectiveness > 7)
+                    BackColor = Color.Green;
+            }
+        }
+
         public float Criticality
         {
             get
