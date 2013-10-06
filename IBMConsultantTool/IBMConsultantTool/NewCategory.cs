@@ -11,7 +11,7 @@ namespace IBMConsultantTool
 
     public class NewCategory : TabPage
     {
-
+        NewObjective lastClicked;
         private BOMTool owner;
         List<NewObjective> objectives = new List<NewObjective>();
         private int ID;
@@ -30,6 +30,11 @@ namespace IBMConsultantTool
 
         }
 
+        public void AddInitiative(string name)
+        {
+            lastClicked.AddInitiative(name);
+        }
+
         public List<NewObjective> Objectives
         {
             get
@@ -43,6 +48,17 @@ namespace IBMConsultantTool
             get
             {
                 return owner.CategoryWorkspace.SelectedTab;
+            }
+        }
+        public NewObjective LastClicked
+        {
+            get
+            {
+                return lastClicked;
+            }
+            set
+            {
+                lastClicked = value;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,8 +12,8 @@ namespace IBMConsultantTool
 {
     public partial class ChooseClient : Form
     {
-        BOMRedesign bomForm;
-        public ChooseClient(BOMRedesign parentForm)
+        BOMTool bomForm;
+        public ChooseClient(BOMTool parentForm)
         {
             InitializeComponent();
 
@@ -37,15 +38,15 @@ namespace IBMConsultantTool
                 foreach (BOM bom in client.BOM)
                 {
                     catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
-                    Category category = bomForm.categories.Find(delegate(Category cat)
+                    NewCategory category = bomForm.Categories.Find(delegate(NewCategory cat)
                                     {
                                         return cat.Name == catName;
                                     });
                     if (category == null)
                     {
-                        category = new Category(bomForm, catName);
-                        bomForm.categories.Add(category);
-                        bomForm.categoryCount++;
+                        category = new NewCategory(bomForm, catName);
+                        bomForm.Categories.Add(category);
+                        //bomForm.categoryCount++;
                         category.Click += new EventHandler(bomForm.category_Click);
                     }
 
@@ -113,5 +114,42 @@ namespace IBMConsultantTool
                 MessageBox.Show("Client \"" + clientName + "\" already exists", "Error");
             }
         }
+
+        private void ChooseClient_Load(object sender, EventArgs e)
+        {
+
+        }
     }
+}
+*/
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+namespace IBMConsultantTool
+{
+    public partial class ChooseClient : Form
+    {
+
+
+        public void OpenBOMButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void ChooseClient_Load(object sender, EventArgs e)
+        {
+
+        }
+        public void NewBOMButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+    }
+   
 }

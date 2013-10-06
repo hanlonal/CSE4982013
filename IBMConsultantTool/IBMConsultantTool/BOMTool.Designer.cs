@@ -35,6 +35,7 @@
             this.newInitiativeButton = new System.Windows.Forms.Button();
             this.objNameTextBox = new System.Windows.Forms.TextBox();
             this.initNameTextBox = new System.Windows.Forms.TextBox();
+            this.dataInputButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // catWorkspace
@@ -80,6 +81,7 @@
             this.newInitiativeButton.TabIndex = 4;
             this.newInitiativeButton.Text = "New Initiative";
             this.newInitiativeButton.UseVisualStyleBackColor = true;
+            this.newInitiativeButton.Click += new System.EventHandler(this.newInitiativeButton_Click);
             // 
             // objNameTextBox
             // 
@@ -95,11 +97,22 @@
             this.initNameTextBox.Size = new System.Drawing.Size(100, 20);
             this.initNameTextBox.TabIndex = 6;
             // 
+            // dataInputButton
+            // 
+            this.dataInputButton.Location = new System.Drawing.Point(871, 400);
+            this.dataInputButton.Name = "dataInputButton";
+            this.dataInputButton.Size = new System.Drawing.Size(75, 23);
+            this.dataInputButton.TabIndex = 7;
+            this.dataInputButton.Text = "Input Data";
+            this.dataInputButton.UseVisualStyleBackColor = true;
+            this.dataInputButton.Click += new System.EventHandler(this.dataInputButton_Click);
+            // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(996, 577);
+            this.Controls.Add(this.dataInputButton);
             this.Controls.Add(this.initNameTextBox);
             this.Controls.Add(this.objNameTextBox);
             this.Controls.Add(this.newInitiativeButton);
@@ -123,6 +136,7 @@
         private System.Windows.Forms.Button newInitiativeButton;
         private System.Windows.Forms.TextBox objNameTextBox;
         private System.Windows.Forms.TextBox initNameTextBox;
+        private System.Windows.Forms.Button dataInputButton;
 
     }
 }

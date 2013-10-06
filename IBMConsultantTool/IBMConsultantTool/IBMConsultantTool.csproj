@@ -156,6 +156,9 @@
     <Compile Include="NewCategory.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="NewInitiative.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="NewObjective.cs">
       <SubType>Component</SubType>
     </Compile>

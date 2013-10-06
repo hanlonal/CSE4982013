@@ -12,12 +12,15 @@ namespace IBMConsultantTool
     {
 
         NewCategory owner;
+        
         int ID;
         string name;
         private int labelHeight = 20;
         private int labelWidth = 50;
         private int baseHeight = 70;
         private int baseWidth = 150;
+
+        List<NewInitiative> initiatives = new List<NewInitiative>();
 
         public NewObjective(NewCategory owner, string name)
         {
@@ -26,11 +29,26 @@ namespace IBMConsultantTool
             this.name = name;
             owner.Owner.Controls.Add(this);
             MakeLabel();
+            this.Click += new EventHandler(NewObjective_Click);
             this.BackColor = Color.Teal;
             this.Height = baseHeight;
             this.Width = baseWidth;
 
         }
+
+        public void NewObjective_Click(object sender, EventArgs e)
+        {
+            NewObjective obj = (NewObjective)sender;
+            Console.WriteLine(obj.name);
+            owner.LastClicked = obj;
+        }
+        public void AddInitiative(string name)
+        {
+            NewInitiative init = new NewInitiative(this, name);
+            initiatives.Add(init);
+           // init.Name = name;
+        }
+
 
 
         private Point FindLocation()
@@ -61,6 +79,22 @@ namespace IBMConsultantTool
             label.Location = new Point(0, 0);
             //label.BackColor = Color.Teal;
 
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+
+        public List<NewInitiative> Initiatives
+        {
+            get
+            {
+                return initiatives;
+            }
         }
     }
 }

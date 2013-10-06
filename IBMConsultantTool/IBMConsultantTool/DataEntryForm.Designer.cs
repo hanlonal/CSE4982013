@@ -107,6 +107,7 @@
             this.Controls.Add(this.dataGrid);
             this.Name = "DataEntryForm";
             this.Text = "DataEntryForm";
+            this.Load += new System.EventHandler(this.DataEntryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
 

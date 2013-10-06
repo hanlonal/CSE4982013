@@ -28,7 +28,7 @@ namespace IBMConsultantTool
 
             db = new DBManager();
 
-            new ChooseClient(this).ShowDialog();
+            //new ChooseClient(this).ShowDialog();
 
             categoryNames.Items.AddRange(db.GetCategoryNames());
         }
@@ -215,8 +215,8 @@ namespace IBMConsultantTool
 
         private void dataInputButton_Click(object sender, EventArgs e)
         {
-            DataEntryForm form = new DataEntryForm(this);
-            form.Show();
+            //DataEntryForm form = new DataEntryForm(this);
+            //form.Show();
         }
 
         public List<Category> Categories
@@ -298,6 +298,11 @@ namespace IBMConsultantTool
         {
             BOMBubbleChartRedesign chart = new BOMBubbleChartRedesign(this);
             chart.Show();
+        }
+
+        private void mainWorkspace_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
      /*   private void createPPTButton_Click(object sender, EventArgs e)
