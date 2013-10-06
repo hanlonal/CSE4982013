@@ -14,6 +14,7 @@ namespace IBMConsultantTool
             IT, 
             Business 
         }
+        
 
        // LinkedList<CupeQuestion> questions = new LinkedList<CupeQuestion>();
 
