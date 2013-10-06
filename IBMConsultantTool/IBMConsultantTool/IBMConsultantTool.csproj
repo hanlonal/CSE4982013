@@ -126,6 +126,12 @@
     </Compile>
     <Compile Include="CupeQuestion.cs" />
     <Compile Include="CupeQuestionData.cs" />
+    <Compile Include="CUPETool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUPETool.Designer.cs">
+      <DependentUpon>CUPETool.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CupeForm.resx">
       <DependentUpon>CupeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUPETool.resx">
+      <DependentUpon>CUPETool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataEntryForm.resx">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
