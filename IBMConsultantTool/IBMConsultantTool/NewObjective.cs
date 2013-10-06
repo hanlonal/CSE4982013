@@ -81,6 +81,30 @@ namespace IBMConsultantTool
 
         }
 
+        public void ColorByDifferentiation()
+        {
+            foreach (NewInitiative init in initiatives)
+            {
+                init.BackColor = Color.Red;
+            }
+        }
+
+        public void ColorByEffectiveness()
+        {
+            foreach (NewInitiative init in initiatives)
+            {
+                init.BackColor = Color.Blue;
+            }
+        }
+
+        public void ColorByCriticality()
+        {
+            foreach (NewInitiative init in initiatives)
+            {
+                init.BackColor = Color.Green;
+            }
+        }
+
         public string Name
         {
             get

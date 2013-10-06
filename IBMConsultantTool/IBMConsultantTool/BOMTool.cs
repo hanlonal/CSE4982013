@@ -80,5 +80,34 @@ namespace IBMConsultantTool
             DataEntryForm form = new DataEntryForm(this);
             form.Show();
         }
+
+        private void diffRadio_Click(object sender, EventArgs e)
+        {
+            foreach (NewObjective obj in categories[catWorkspace.SelectedIndex].Objectives)
+            {
+                obj.ColorByDifferentiation();
+            }
+        }
+
+        private void effectRadio_Click(object sender, EventArgs e)
+        {
+            foreach (NewObjective obj in categories[catWorkspace.SelectedIndex].Objectives)
+            {
+                obj.ColorByEffectiveness();
+            }
+        }
+
+        private void critRadio_Click(object sender, EventArgs e)
+        {
+            if (categories.Count > 0)
+            {
+                foreach (NewObjective obj in categories[catWorkspace.SelectedIndex].Objectives)
+                {
+                    obj.ColorByCriticality();
+                }
+            }
+        }
+
+
     } // end class
 }
