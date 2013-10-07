@@ -40,11 +40,15 @@ namespace IBMConsultantTool
             InitializeComponent();
             grids.Add(questionGridITCurrent);
             grids.Add(questionGridBusinessCurrent);
+            grids.Add(questionGridITFuture);
+            grids.Add(questionGridBusiFuture);
+            
             
         }
 
         private void CUPETool_Load(object sender, EventArgs e)
         {
+            
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
             foreach (DataGridView view in grids)
@@ -90,6 +94,21 @@ namespace IBMConsultantTool
             point4.SetValueY(25);
             busiCurrentGraph.Series["BusiCurrent"].Points.Add(point4);
             //busiCurrentGraph.Series["BusiCurrent"].Points[0].SetValueY(10);
+            CreateLabel();
+        }
+
+        private void CreateLabel()
+        {
+            //Console.WriteLine("yo");
+            Label label = new Label();
+            questionInfoPanel.Controls.Add(label);
+            label.Width = questionInfoPanel.Width;
+            label.BackColor = Color.DeepSkyBlue;
+            label.Location = new Point(0, 0);
+            label.BorderStyle = BorderStyle.FixedSingle;
+            label.Visible = true;
+            label.Text = "Question Info";
+            //Console.WriteLine(label.Text);
         }
 
         private void CreateStatsRows()
@@ -171,6 +190,7 @@ namespace IBMConsultantTool
             ChangeTotalsByRow(e.RowIndex);
             ChangeTotalsByColumn(e.ColumnIndex, e.RowIndex);
             LoadChartData();
+            UpdateCupeScore();
         }
 
         public void ChangeTotalsByRow(int index)
@@ -218,6 +238,23 @@ namespace IBMConsultantTool
 
             QuestionCellFormatting(index);
             
+        }
+
+        private void UpdateCupeScore()
+        {
+            int count = 0;
+            string total = "";
+            float num = 0;
+            for (int i = 0; i < 20; i++)
+            {
+                if (currentGrid.Rows[i].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value != null)
+                {
+                    total = currentGrid.Rows[i].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value.ToString();
+                    num += (float)Convert.ToDouble(total);
+                    count++;
+                }
+            }
+            cupeScoreLabel.Text = (num / count).ToString();
         }
 
         private void ChangeTotalsByColumn(int colIndex, int rowIndex)
@@ -327,7 +364,10 @@ namespace IBMConsultantTool
 
         private void itRadioButton_Click(object sender, EventArgs e)
         {
-            questionGridBusinessCurrent.Visible = false;
+            foreach (DataGridView view in grids)
+            {
+                view.Visible = false;
+            }
             questionGridITCurrent.Visible = true;
             currentGrid = questionGridITCurrent;
 
@@ -335,10 +375,50 @@ namespace IBMConsultantTool
 
         private void busiRadioButton_Click(object sender, EventArgs e)
         {
-            questionGridITCurrent.Visible = false;
+            foreach (DataGridView view in grids)
+            {
+                view.Visible = false;
+            }
+           
             questionGridBusinessCurrent.Visible = true;
             currentGrid = questionGridBusinessCurrent;
         }
+
+
+
+        private void cellClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hit = currentGrid.HitTest(e.X, e.Y);
+
+                Console.WriteLine((hit.ColumnIndex + "   " + hit.RowIndex).ToString());
+                
+            }
+            
+        }
+
+        private void busiFutureRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridView view in grids)
+            {
+                view.Visible = false;
+            }
+            questionGridBusiFuture.Visible = true;
+            currentGrid = questionGridBusiFuture;
+        }
+
+        private void itFutureRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridView view in grids)
+            {
+                view.Visible = false;
+            }
+            questionGridITFuture.Visible = true;
+            currentGrid = questionGridITFuture;
+        }
+
+
 
     }
 
