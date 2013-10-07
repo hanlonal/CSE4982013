@@ -135,6 +135,9 @@
     <Compile Include="CustomBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomLabel.cs">
       <SubType>Component</SubType>
     </Compile>

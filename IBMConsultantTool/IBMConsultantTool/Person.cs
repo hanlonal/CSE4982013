@@ -14,13 +14,14 @@ namespace IBMConsultantTool
             IT, 
             Business 
         }
+        EmployeeType type = new EmployeeType();
         
 
        // LinkedList<CupeQuestion> questions = new LinkedList<CupeQuestion>();
 
         private List<CupeQuestionData> questionData = new List<CupeQuestionData>();
 
-        EmployeeType type = new EmployeeType();
+        //EmployeeType type = new EmployeeType();
         string name;
         CupeForm owner;
         string clientName;
@@ -50,6 +51,17 @@ namespace IBMConsultantTool
             totalPartner = 0;
             totalEnabler = 0;
             totalUtility = 0;
+        }
+        public EmployeeType Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+            }
         }
 
         public Color Color
