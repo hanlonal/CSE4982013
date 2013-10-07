@@ -15,6 +15,7 @@ namespace IBMConsultantTool
         List<DataGridView> grids = new List<DataGridView>();
         List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
+       // DataGridView view = new DataGridView();
         Chart currentChart;
         int personCount = 0;
 
@@ -57,6 +58,7 @@ namespace IBMConsultantTool
             
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
+            
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;
@@ -80,6 +82,9 @@ namespace IBMConsultantTool
             CreateGraphs();
             CreateLabel();
         }
+
+   
+        
 
         private void CreateGraphs()
         {
@@ -490,17 +495,42 @@ namespace IBMConsultantTool
 
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                value = row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString();
-                float floatValue = (float)Convert.ToDouble(value);
-               // values.Add(Tuple<floatValue, row.Index>);
+                if (row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value != null)
+                {
+                    value = row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString();
+                    float floatValue = (float)Convert.ToDouble(value);
+                    values.Add(new Tuple<float, int>(floatValue, row.Index));
+                    //row.
+                }
             }
 
             values.Sort();
 
+            values.Reverse();
+
+           // DataGridView grid = new DataGridView();
+            
+            for (int i = 0; i < num; i++)
+            {
+                DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
+                //view.Rows.Add(row);
+            }
+            //currentGrid.Columns[0].cl
+
+            //questionInfoPanel.Controls.Add(view);
+           // view.Location = new Point(30, 30);
+            
+                //Console.WriteLine(tuple.Item1.ToString());
+           
 
    
 
 
+
+        }
+
+        private void questionGridITFuture_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
 

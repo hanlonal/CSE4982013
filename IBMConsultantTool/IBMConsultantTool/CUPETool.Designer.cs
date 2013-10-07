@@ -239,7 +239,7 @@
             // 
             this.busiCurrentRadioButton.AutoSize = true;
             this.busiCurrentRadioButton.Checked = true;
-            this.busiCurrentRadioButton.Location = new System.Drawing.Point(776, 493);
+            this.busiCurrentRadioButton.Location = new System.Drawing.Point(776, 477);
             this.busiCurrentRadioButton.Name = "busiCurrentRadioButton";
             this.busiCurrentRadioButton.Size = new System.Drawing.Size(89, 20);
             this.busiCurrentRadioButton.TabIndex = 2;
@@ -251,7 +251,7 @@
             // itCurrentRadioButton
             // 
             this.itCurrentRadioButton.AutoSize = true;
-            this.itCurrentRadioButton.Location = new System.Drawing.Point(776, 524);
+            this.itCurrentRadioButton.Location = new System.Drawing.Point(776, 508);
             this.itCurrentRadioButton.Name = "itCurrentRadioButton";
             this.itCurrentRadioButton.Size = new System.Drawing.Size(131, 20);
             this.itCurrentRadioButton.TabIndex = 3;
@@ -385,7 +385,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(776, 427);
+            this.label1.Location = new System.Drawing.Point(776, 411);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 20);
             this.label1.TabIndex = 6;
@@ -394,7 +394,7 @@
             // cupeScoreLabel
             // 
             this.cupeScoreLabel.AutoSize = true;
-            this.cupeScoreLabel.Location = new System.Drawing.Point(953, 427);
+            this.cupeScoreLabel.Location = new System.Drawing.Point(953, 411);
             this.cupeScoreLabel.Name = "cupeScoreLabel";
             this.cupeScoreLabel.Size = new System.Drawing.Size(0, 16);
             this.cupeScoreLabel.TabIndex = 7;
@@ -402,7 +402,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(773, 459);
+            this.label2.Location = new System.Drawing.Point(773, 443);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 8;
@@ -411,7 +411,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(992, 459);
+            this.label3.Location = new System.Drawing.Point(992, 443);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 16);
             this.label3.TabIndex = 9;
@@ -420,7 +420,7 @@
             // busiFutureRadioButton
             // 
             this.busiFutureRadioButton.AutoSize = true;
-            this.busiFutureRadioButton.Location = new System.Drawing.Point(995, 493);
+            this.busiFutureRadioButton.Location = new System.Drawing.Point(995, 477);
             this.busiFutureRadioButton.Name = "busiFutureRadioButton";
             this.busiFutureRadioButton.Size = new System.Drawing.Size(89, 20);
             this.busiFutureRadioButton.TabIndex = 4;
@@ -432,7 +432,7 @@
             // itFutureRadioButton
             // 
             this.itFutureRadioButton.AutoSize = true;
-            this.itFutureRadioButton.Location = new System.Drawing.Point(995, 524);
+            this.itFutureRadioButton.Location = new System.Drawing.Point(995, 508);
             this.itFutureRadioButton.Name = "itFutureRadioButton";
             this.itFutureRadioButton.Size = new System.Drawing.Size(131, 20);
             this.itFutureRadioButton.TabIndex = 5;
@@ -454,7 +454,7 @@
             this.questionInfoPanel.Controls.Add(this.label5);
             this.questionInfoPanel.Controls.Add(this.label4);
             this.questionInfoPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.questionInfoPanel.Location = new System.Drawing.Point(0, 551);
+            this.questionInfoPanel.Location = new System.Drawing.Point(0, 540);
             this.questionInfoPanel.Name = "questionInfoPanel";
             this.questionInfoPanel.Size = new System.Drawing.Size(1264, 209);
             this.questionInfoPanel.TabIndex = 10;
@@ -674,6 +674,7 @@
             this.questionGridITFuture.Size = new System.Drawing.Size(727, 494);
             this.questionGridITFuture.TabIndex = 12;
             this.questionGridITFuture.Visible = false;
+            this.questionGridITFuture.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridITFuture_CellContentClick);
             this.questionGridITFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn15
@@ -838,7 +839,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 760);
+            this.ClientSize = new System.Drawing.Size(1264, 749);
             this.Controls.Add(this.itFutureGraph);
             this.Controls.Add(this.itCurrentGraph);
             this.Controls.Add(this.busiFutureGraph);

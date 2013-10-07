@@ -305,6 +305,11 @@ namespace IBMConsultantTool
 
         }
 
+        private void BOMRedesign_Load(object sender, EventArgs e)
+        {
+
+        }
+
      /*   private void createPPTButton_Click(object sender, EventArgs e)
         {
             Thread newThread = new Thread(new ThreadStart(SaveDialogThread));

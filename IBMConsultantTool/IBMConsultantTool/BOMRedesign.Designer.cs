@@ -190,6 +190,7 @@
             this.Controls.Add(this.initiativeAddButton);
             this.Name = "BOMRedesign";
             this.Text = "BOMRedesign";
+            this.Load += new System.EventHandler(this.BOMRedesign_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
