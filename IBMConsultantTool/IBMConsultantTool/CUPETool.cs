@@ -13,7 +13,9 @@ namespace IBMConsultantTool
     public partial class CUPETool : Form
     {
         List<DataGridView> grids = new List<DataGridView>();
+        List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
+        Chart currentChart;
         int personCount = 0;
 
         int totalAIndex = 1;
@@ -42,6 +44,10 @@ namespace IBMConsultantTool
             grids.Add(questionGridBusinessCurrent);
             grids.Add(questionGridITFuture);
             grids.Add(questionGridBusiFuture);
+            charts.Add(busiCurrentGraph);
+            charts.Add(busiFutureGraph);
+            charts.Add(itCurrentGraph);
+            charts.Add(itFutureGraph);
             
             
         }
@@ -65,36 +71,51 @@ namespace IBMConsultantTool
                 CreateStatsRows();
             }
             currentGrid = questionGridBusinessCurrent;
-            DataPoint point = new DataPoint();
-            point.Color = Color.Fuchsia;
-            point.BackGradientStyle = GradientStyle.Center;
-            point.Name = "Commodity";
-            point.Label = "Commodity";
-            point.SetValueY(30);
-            busiCurrentGraph.Series["BusiCurrent"].Points.Add(point);
-            DataPoint point2 = new DataPoint();
-            point2.Color = Color.Blue;
-            point2.BackGradientStyle = GradientStyle.Center;
-            point2.Name = "Utility";
-            point2.Label = "Utility";
-            point2.SetValueY(10);
-            busiCurrentGraph.Series["BusiCurrent"].Points.Add(point2);
-            DataPoint point3 = new DataPoint();
-            point3.Color = Color.Orange;
-            point3.BackGradientStyle = GradientStyle.Center;
-            point3.Name = "Partner";
-            point3.Label = "Partner";
-            point3.SetValueY(5);
-            busiCurrentGraph.Series["BusiCurrent"].Points.Add(point3);
-            DataPoint point4 = new DataPoint();
-            point4.Color = Color.Green;
-            point4.BackGradientStyle = GradientStyle.Center;
-            point4.Name = "Enabler";
-            point4.Label = "Enabler";
-            point4.SetValueY(25);
-            busiCurrentGraph.Series["BusiCurrent"].Points.Add(point4);
-            //busiCurrentGraph.Series["BusiCurrent"].Points[0].SetValueY(10);
+            currentChart = busiCurrentGraph;
+            foreach (Chart chart in charts)
+            {
+                chart.Visible = false;
+            }
+            currentChart.Visible = true;
+            CreateGraphs();
             CreateLabel();
+        }
+
+        private void CreateGraphs()
+        {
+            foreach (Chart chart in charts)
+            {
+                currentChart = chart;
+                
+                DataPoint point = new DataPoint();
+                point.Color = Color.Fuchsia;
+                point.BackGradientStyle = GradientStyle.Center;
+                point.Name = "Commodity";
+                point.Label = "Commodity";
+                point.SetValueY(30);
+                currentChart.Series["BusiCurrent"].Points.Add(point);
+                DataPoint point2 = new DataPoint();
+                point2.Color = Color.Blue;
+                point2.BackGradientStyle = GradientStyle.Center;
+                point2.Name = "Utility";
+                point2.Label = "Utility";
+                point2.SetValueY(10);
+                currentChart.Series["BusiCurrent"].Points.Add(point2);
+                DataPoint point3 = new DataPoint();
+                point3.Color = Color.Orange;
+                point3.BackGradientStyle = GradientStyle.Center;
+                point3.Name = "Partner";
+                point3.Label = "Partner";
+                point3.SetValueY(5);
+                currentChart.Series["BusiCurrent"].Points.Add(point3);
+                DataPoint point4 = new DataPoint();
+                point4.Color = Color.Green;
+                point4.BackGradientStyle = GradientStyle.Center;
+                point4.Name = "Enabler";
+                point4.Label = "Enabler";
+                point4.SetValueY(25);
+                currentChart.Series["BusiCurrent"].Points.Add(point4);
+            }
         }
 
         private void CreateLabel()
@@ -254,7 +275,10 @@ namespace IBMConsultantTool
                     count++;
                 }
             }
-            cupeScoreLabel.Text = (num / count).ToString();
+            if (count > 0)
+                cupeScoreLabel.Text = (num / count).ToString();
+            else
+                cupeScoreLabel.Text = " ";
         }
 
         private void ChangeTotalsByColumn(int colIndex, int rowIndex)
@@ -337,10 +361,10 @@ namespace IBMConsultantTool
               // int temp = (int)Convert.ToInt32(totalComm);
               // num += temp;
             //Console.WriteLine(numA.ToString());
-            busiCurrentGraph.Series["BusiCurrent"].Points[0].SetValueXY("Commodity", numA);
-            busiCurrentGraph.Series["BusiCurrent"].Points[1].SetValueXY("Utility", numB);
-            busiCurrentGraph.Series["BusiCurrent"].Points[2].SetValueXY("Parter", numC);
-            busiCurrentGraph.Series["BusiCurrent"].Points[3].SetValueXY("Enabler", numD);
+            currentChart.Series["BusiCurrent"].Points[0].SetValueXY("Commodity", numA);
+            currentChart.Series["BusiCurrent"].Points[1].SetValueXY("Utility", numB);
+            currentChart.Series["BusiCurrent"].Points[2].SetValueXY("Parter", numC);
+            currentChart.Series["BusiCurrent"].Points[3].SetValueXY("Enabler", numD);
         }
 
         public void PersonCellFormatting(int index)
@@ -368,8 +392,15 @@ namespace IBMConsultantTool
             {
                 view.Visible = false;
             }
+            foreach (Chart chart in charts)
+            {
+                chart.Visible = false;
+            }
+            itCurrentGraph.Visible = true;
+            currentChart = itCurrentGraph;
             questionGridITCurrent.Visible = true;
             currentGrid = questionGridITCurrent;
+            UpdateCupeScore();
 
         }
 
@@ -379,9 +410,15 @@ namespace IBMConsultantTool
             {
                 view.Visible = false;
             }
-           
+            foreach (Chart chart in charts)
+            {
+                chart.Visible = false;
+            }
+            busiCurrentGraph.Visible = true;
+            currentChart = busiCurrentGraph;
             questionGridBusinessCurrent.Visible = true;
             currentGrid = questionGridBusinessCurrent;
+            UpdateCupeScore();
         }
 
 
@@ -404,8 +441,15 @@ namespace IBMConsultantTool
             {
                 view.Visible = false;
             }
+            foreach (Chart chart in charts)
+            {
+                chart.Visible = false;
+            }
+            busiFutureGraph.Visible = true;
+            currentChart = busiFutureGraph;
             questionGridBusiFuture.Visible = true;
             currentGrid = questionGridBusiFuture;
+            UpdateCupeScore();
         }
 
         private void itFutureRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -414,8 +458,50 @@ namespace IBMConsultantTool
             {
                 view.Visible = false;
             }
+            foreach (Chart chart in charts)
+            {
+                chart.Visible = false;
+            }
+            itFutureGraph.Visible = true;
+            currentChart = itFutureGraph;
             questionGridITFuture.Visible = true;
             currentGrid = questionGridITFuture;
+            UpdateCupeScore();
+        }
+
+        private void questionInfoPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void filterQuestionsGo_Click(object sender, EventArgs e)
+        {
+            if (questionFilter.Text == "Highest Cupe Score")
+            {
+                FilterQuestionByHighestCUPE(questionFilterAmount.Text);
+            }
+        }
+
+        public void FilterQuestionByHighestCUPE(string amount)
+        {
+            int num = Convert.ToInt32(amount);
+            List<Tuple<float, int>> values = new List<Tuple<float, int>>();
+            string value;
+
+            foreach (DataGridViewRow row in currentGrid.Rows)
+            {
+                value = row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString();
+                float floatValue = (float)Convert.ToDouble(value);
+               // values.Add(Tuple<floatValue, row.Index>);
+            }
+
+            values.Sort();
+
+
+   
+
+
+
         }
 
 
