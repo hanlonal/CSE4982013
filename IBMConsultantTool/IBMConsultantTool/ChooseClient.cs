@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,23 +35,24 @@ namespace IBMConsultantTool
                 string busName;
                 string iniName;
 
+                NewCategory category;
+                NewObjective objective;
+                NewInitiative initiative;
+
                 foreach (BOM bom in client.BOM)
                 {
                     catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
-                    NewCategory category = bomForm.Categories.Find(delegate(NewCategory cat)
+                    category = bomForm.Categories.Find(delegate(NewCategory cat)
                                     {
-                                        return cat.Name == catName;
+                                        return cat.name == catName;
                                     });
                     if (category == null)
                     {
-                        category = new NewCategory(bomForm, catName);
-                        bomForm.Categories.Add(category);
-                        //bomForm.categoryCount++;
-                        category.Click += new EventHandler(bomForm.category_Click);
+                        category = bomForm.AddCategory(catName);
                     }
 
                     busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
-                    BusinessObjective objective = category.Objectives.Find(delegate(BusinessObjective bus)
+                    objective = category.Objectives.Find(delegate(NewObjective bus)
                     {
                         return bus.Name == busName;
                     });
@@ -61,7 +62,7 @@ namespace IBMConsultantTool
                     }
 
                     iniName = bom.INITIATIVE.NAME.TrimEnd();
-                    Initiative initiative = objective.Initiatives.Find(delegate(Initiative ini)
+                    initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
                                                                        {
                                                                            return ini.Name == iniName;
                                                                        });
@@ -121,7 +122,7 @@ namespace IBMConsultantTool
         }
     }
 }
-*/
+/*
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -153,3 +154,4 @@ namespace IBMConsultantTool
     }
    
 }
+*/

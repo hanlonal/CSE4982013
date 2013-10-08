@@ -300,15 +300,6 @@ namespace IBMConsultantTool
             chart.Show();
         }
 
-        private void mainWorkspace_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void BOMRedesign_Load(object sender, EventArgs e)
-        {
-
-        }
 
      /*   private void createPPTButton_Click(object sender, EventArgs e)
         {

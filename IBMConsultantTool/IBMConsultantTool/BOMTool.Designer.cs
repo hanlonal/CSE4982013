@@ -29,16 +29,14 @@
         private void InitializeComponent()
         {
             this.catWorkspace = new System.Windows.Forms.TabControl();
-            this.newCategoryButton = new System.Windows.Forms.Button();
-            this.catNameTextBox = new System.Windows.Forms.TextBox();
-            this.newObjectiveButton = new System.Windows.Forms.Button();
-            this.newInitiativeButton = new System.Windows.Forms.Button();
-            this.objNameTextBox = new System.Windows.Forms.TextBox();
-            this.initNameTextBox = new System.Windows.Forms.TextBox();
             this.dataInputButton = new System.Windows.Forms.Button();
             this.critRadio = new System.Windows.Forms.RadioButton();
             this.effectRadio = new System.Windows.Forms.RadioButton();
             this.diffRadio = new System.Windows.Forms.RadioButton();
+            this.categoryNames = new System.Windows.Forms.ComboBox();
+            this.objectiveNames = new System.Windows.Forms.ComboBox();
+            this.initiativeNames = new System.Windows.Forms.ComboBox();
+            this.AddInitiativeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // catWorkspace
@@ -48,57 +46,6 @@
             this.catWorkspace.SelectedIndex = 0;
             this.catWorkspace.Size = new System.Drawing.Size(746, 392);
             this.catWorkspace.TabIndex = 0;
-            // 
-            // newCategoryButton
-            // 
-            this.newCategoryButton.Location = new System.Drawing.Point(871, 31);
-            this.newCategoryButton.Name = "newCategoryButton";
-            this.newCategoryButton.Size = new System.Drawing.Size(85, 23);
-            this.newCategoryButton.TabIndex = 1;
-            this.newCategoryButton.Text = "New Category";
-            this.newCategoryButton.UseVisualStyleBackColor = true;
-            this.newCategoryButton.Click += new System.EventHandler(this.newCategoryButton_Click);
-            // 
-            // catNameTextBox
-            // 
-            this.catNameTextBox.Location = new System.Drawing.Point(871, 79);
-            this.catNameTextBox.Name = "catNameTextBox";
-            this.catNameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.catNameTextBox.TabIndex = 2;
-            // 
-            // newObjectiveButton
-            // 
-            this.newObjectiveButton.Location = new System.Drawing.Point(871, 148);
-            this.newObjectiveButton.Name = "newObjectiveButton";
-            this.newObjectiveButton.Size = new System.Drawing.Size(85, 23);
-            this.newObjectiveButton.TabIndex = 3;
-            this.newObjectiveButton.Text = "Add Objective";
-            this.newObjectiveButton.UseVisualStyleBackColor = true;
-            this.newObjectiveButton.Click += new System.EventHandler(this.newObjectiveButton_Click);
-            // 
-            // newInitiativeButton
-            // 
-            this.newInitiativeButton.Location = new System.Drawing.Point(871, 281);
-            this.newInitiativeButton.Name = "newInitiativeButton";
-            this.newInitiativeButton.Size = new System.Drawing.Size(85, 23);
-            this.newInitiativeButton.TabIndex = 4;
-            this.newInitiativeButton.Text = "New Initiative";
-            this.newInitiativeButton.UseVisualStyleBackColor = true;
-            this.newInitiativeButton.Click += new System.EventHandler(this.newInitiativeButton_Click);
-            // 
-            // objNameTextBox
-            // 
-            this.objNameTextBox.Location = new System.Drawing.Point(871, 205);
-            this.objNameTextBox.Name = "objNameTextBox";
-            this.objNameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.objNameTextBox.TabIndex = 5;
-            // 
-            // initNameTextBox
-            // 
-            this.initNameTextBox.Location = new System.Drawing.Point(871, 347);
-            this.initNameTextBox.Name = "initNameTextBox";
-            this.initNameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.initNameTextBox.TabIndex = 6;
             // 
             // dataInputButton
             // 
@@ -113,7 +60,7 @@
             // critRadio
             // 
             this.critRadio.AutoSize = true;
-            this.critRadio.Location = new System.Drawing.Point(764, 64);
+            this.critRadio.Location = new System.Drawing.Point(764, 63);
             this.critRadio.Name = "critRadio";
             this.critRadio.Size = new System.Drawing.Size(92, 17);
             this.critRadio.TabIndex = 8;
@@ -125,7 +72,7 @@
             // effectRadio
             // 
             this.effectRadio.AutoSize = true;
-            this.effectRadio.Location = new System.Drawing.Point(764, 98);
+            this.effectRadio.Location = new System.Drawing.Point(764, 31);
             this.effectRadio.Name = "effectRadio";
             this.effectRadio.Size = new System.Drawing.Size(115, 17);
             this.effectRadio.TabIndex = 9;
@@ -137,30 +84,67 @@
             // diffRadio
             // 
             this.diffRadio.AutoSize = true;
-            this.diffRadio.Location = new System.Drawing.Point(764, 131);
+            this.diffRadio.Location = new System.Drawing.Point(763, 95);
             this.diffRadio.Name = "diffRadio";
-            this.diffRadio.Size = new System.Drawing.Size(112, 17);
+            this.diffRadio.Size = new System.Drawing.Size(116, 17);
             this.diffRadio.TabIndex = 10;
             this.diffRadio.TabStop = true;
-            this.diffRadio.Text = "viewDifferentiation";
+            this.diffRadio.Text = "View Differentiation";
             this.diffRadio.UseVisualStyleBackColor = true;
             this.diffRadio.Click += new System.EventHandler(this.diffRadio_Click);
+            // 
+            // categoryNames
+            // 
+            this.categoryNames.FormattingEnabled = true;
+            this.categoryNames.Location = new System.Drawing.Point(825, 193);
+            this.categoryNames.Name = "categoryNames";
+            this.categoryNames.Size = new System.Drawing.Size(121, 21);
+            this.categoryNames.TabIndex = 11;
+            this.categoryNames.Text = "<Select Category>";
+            this.categoryNames.SelectedIndexChanged += new System.EventHandler(this.categoryNames_SelectedIndexChanged);
+            this.categoryNames.LostFocus += new System.EventHandler(this.categoryNames_LostFocus);
+            // 
+            // objectiveNames
+            // 
+            this.objectiveNames.FormattingEnabled = true;
+            this.objectiveNames.Location = new System.Drawing.Point(825, 241);
+            this.objectiveNames.Name = "objectiveNames";
+            this.objectiveNames.Size = new System.Drawing.Size(121, 21);
+            this.objectiveNames.TabIndex = 12;
+            this.objectiveNames.SelectedIndexChanged += new System.EventHandler(this.objectiveNames_SelectedIndexChanged);
+            this.objectiveNames.LostFocus += new System.EventHandler(this.objectiveNames_LostFocus);
+            // 
+            // initiativeNames
+            // 
+            this.initiativeNames.FormattingEnabled = true;
+            this.initiativeNames.Location = new System.Drawing.Point(825, 290);
+            this.initiativeNames.Name = "initiativeNames";
+            this.initiativeNames.Size = new System.Drawing.Size(121, 21);
+            this.initiativeNames.TabIndex = 13;
+            // 
+            // AddInitiativeButton
+            // 
+            this.AddInitiativeButton.Location = new System.Drawing.Point(870, 349);
+            this.AddInitiativeButton.Name = "AddInitiativeButton";
+            this.AddInitiativeButton.Size = new System.Drawing.Size(75, 23);
+            this.AddInitiativeButton.TabIndex = 14;
+            this.AddInitiativeButton.Text = "Add Initiative";
+            this.AddInitiativeButton.UseVisualStyleBackColor = true;
+            this.AddInitiativeButton.Click += new System.EventHandler(this.AddInitiativeButton_Click);
             // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(996, 577);
+            this.Controls.Add(this.AddInitiativeButton);
+            this.Controls.Add(this.initiativeNames);
+            this.Controls.Add(this.objectiveNames);
+            this.Controls.Add(this.categoryNames);
             this.Controls.Add(this.diffRadio);
             this.Controls.Add(this.effectRadio);
             this.Controls.Add(this.critRadio);
             this.Controls.Add(this.dataInputButton);
-            this.Controls.Add(this.initNameTextBox);
-            this.Controls.Add(this.objNameTextBox);
-            this.Controls.Add(this.newInitiativeButton);
-            this.Controls.Add(this.newObjectiveButton);
-            this.Controls.Add(this.catNameTextBox);
-            this.Controls.Add(this.newCategoryButton);
             this.Controls.Add(this.catWorkspace);
             this.Name = "BOMTool";
             this.Text = "BOMTool";
@@ -172,16 +156,14 @@
         #endregion
 
         private System.Windows.Forms.TabControl catWorkspace;
-        private System.Windows.Forms.Button newCategoryButton;
-        private System.Windows.Forms.TextBox catNameTextBox;
-        private System.Windows.Forms.Button newObjectiveButton;
-        private System.Windows.Forms.Button newInitiativeButton;
-        private System.Windows.Forms.TextBox objNameTextBox;
-        private System.Windows.Forms.TextBox initNameTextBox;
         private System.Windows.Forms.Button dataInputButton;
         private System.Windows.Forms.RadioButton critRadio;
         private System.Windows.Forms.RadioButton effectRadio;
         private System.Windows.Forms.RadioButton diffRadio;
+        private System.Windows.Forms.ComboBox categoryNames;
+        private System.Windows.Forms.ComboBox objectiveNames;
+        private System.Windows.Forms.ComboBox initiativeNames;
+        private System.Windows.Forms.Button AddInitiativeButton;
 
     }
 }

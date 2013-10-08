@@ -49,9 +49,9 @@ namespace IBMConsultantTool
                    {
                        dataGrid.Rows.Add(1);
                        dataGrid.Rows[rowCount].Cells[2].Value = initiative.Name;
-                       dataGrid.Rows[rowCount].Cells[3].Value = initiative.Criticality;
-                       dataGrid.Rows[rowCount].Cells[4].Value = initiative.Differentiation;
-                       dataGrid.Rows[rowCount].Cells[5].Value = initiative.Effectiveness;
+                       dataGrid.Rows[rowCount].Cells[3].Value = initiative.Effectiveness;
+                       dataGrid.Rows[rowCount].Cells[4].Value = initiative.Criticality;
+                       dataGrid.Rows[rowCount].Cells[5].Value = initiative.Differentiation;
                        //test = (int)dataGrid.Rows[rowCount].Cells[5].Value;
                        rowCount++;
                        
@@ -77,9 +77,9 @@ namespace IBMConsultantTool
                     //for (int k = 0; k < mainForm.Categories[i].Objectives[j].InitiativesCount; k++)
                     foreach(NewInitiative initiative in objective.Initiatives)
                     {
-                        initiative.Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[3].Value);
-                        initiative.Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
-                        initiative.Effectiveness = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
+                        initiative.Effectiveness = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[3].Value);
+                        initiative.Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
+                        initiative.Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
 
                         //mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[3].Value);
                         //mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
@@ -90,17 +90,17 @@ namespace IBMConsultantTool
                         //mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness = (float)dataGrid.Rows[rowCount].Cells[5].Value;
                       
                         
-                        /*if (!mainForm.db.UpdateBOM(mainForm.client, initiative))
+                        if (!mainForm.db.UpdateBOM(mainForm.client, initiative))
                         {
                             MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
                             return;
-                        }*/
+                        }
 
                         rowCount++;
                     }
                 }
             }
-            /*
+            
             if (!mainForm.db.SaveChanges())
             {
                 MessageBox.Show("Could not save changes to database", "Error");
@@ -110,12 +110,7 @@ namespace IBMConsultantTool
             else
             {
                 MessageBox.Show("Changes saved successfully", "Success");
-            }*/
-        }
-
-        private void DataEntryForm_Load(object sender, EventArgs e)
-        {
-
+            }
         }
     }
 }

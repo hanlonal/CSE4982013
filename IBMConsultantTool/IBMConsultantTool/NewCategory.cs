@@ -15,19 +15,21 @@ namespace IBMConsultantTool
         private BOMTool owner;
         List<NewObjective> objectives = new List<NewObjective>();
         private int ID;
+        public string name;
 
-        public NewCategory(BOMTool owner, int id)
+        public NewCategory(BOMTool owner, int id, string name)
         {
             this.owner = owner;
             this.ID = id;
+            this.name = name;
 
         }
 
-        public void AddObjective(string name)
+        public NewObjective AddObjective(string name)
         {
             NewObjective objective = new NewObjective(this, name);
             objectives.Add(objective);
-
+            return objective;
         }
 
         public void AddInitiative(string name)

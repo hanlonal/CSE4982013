@@ -135,7 +135,7 @@ namespace IBMConsultantTool
                     select ent).ToList();
         }
 
-        public bool UpdateBOM(CLIENT client, Initiative ini)
+        public bool UpdateBOM(CLIENT client, NewInitiative ini)
         {
             try
             {

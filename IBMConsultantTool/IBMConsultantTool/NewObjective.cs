@@ -42,10 +42,11 @@ namespace IBMConsultantTool
             Console.WriteLine(obj.name);
             owner.LastClicked = obj;
         }
-        public void AddInitiative(string name)
+        public NewInitiative AddInitiative(string name)
         {
             NewInitiative init = new NewInitiative(this, name);
             initiatives.Add(init);
+            return init;
            // init.Name = name;
         }
 
