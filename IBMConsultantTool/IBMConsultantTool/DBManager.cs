@@ -409,7 +409,7 @@ namespace IBMConsultantTool
             }
 
 
-            UpdateXMLFile();
+            UpdateDataFile();
 
             return true;
         }
