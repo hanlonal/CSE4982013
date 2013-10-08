@@ -15,6 +15,7 @@ namespace IBMConsultantTool
         List<DataGridView> grids = new List<DataGridView>();
         List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
+        DataGridView toRemove;
        // DataGridView view = new DataGridView();
         Chart currentChart;
         int personCount = 0;
@@ -489,6 +490,8 @@ namespace IBMConsultantTool
 
         public void FilterQuestionByHighestCUPE(string amount)
         {
+            if(toRemove != null)
+                questionInfoPanel.Controls.Remove(toRemove);
             int num = Convert.ToInt32(amount);
             List<Tuple<float, int>> values = new List<Tuple<float, int>>();
             string value;
@@ -504,6 +507,15 @@ namespace IBMConsultantTool
                 }
             }
 
+            DataGridView view = new DataGridView();
+            toRemove = view;
+            foreach (DataGridViewColumn col in currentGrid.Columns)
+            {
+                view.Columns.Add((DataGridViewColumn)col.Clone());
+                //col.Width = 80;
+
+            }
+
             values.Sort();
 
             values.Reverse();
@@ -513,12 +525,19 @@ namespace IBMConsultantTool
             for (int i = 0; i < num; i++)
             {
                 DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
-                //view.Rows.Add(row);
+                for (int j = 0; j < currentGrid.ColumnCount; j++)
+                {
+                    row.Cells[j].Value = currentGrid.Rows[values[i].Item2].Cells[j].Value;
+                }
+                view.Rows.Add(row);
             }
             //currentGrid.Columns[0].cl
 
-            //questionInfoPanel.Controls.Add(view);
-           // view.Location = new Point(30, 30);
+            questionInfoPanel.Controls.Add(view);
+            view.Location = new Point(10, 70);
+            view.Width = 727;
+            view.Height = 120;
+            
             
                 //Console.WriteLine(tuple.Item1.ToString());
            
