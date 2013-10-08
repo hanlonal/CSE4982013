@@ -147,6 +147,7 @@
     <Compile Include="DataEntryForm.Designer.cs">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Initiative.cs">
       <SubType>Component</SubType>

@@ -12,7 +12,7 @@ namespace IBMConsultantTool
     public partial class BOMTool : Form
     {
 
-        public DBManager db;
+        public DataManager db;
         public CLIENT client;
         List<NewCategory> categories = new List<NewCategory>();
        // public DBManager db;
