@@ -484,11 +484,47 @@ namespace IBMConsultantTool
         {
             if (questionFilter.Text == "Highest Cupe Score")
             {
-                FilterQuestionByHighestCUPE(questionFilterAmount.Text);
+                FilterQuestionByHighestScore(questionFilterAmount.Text, averageIndex);
+            }
+            if (questionFilter.Text == "Lowest Cupe Score")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, averageIndex);
+            }
+            if (questionFilter.Text == "Most Commodity")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalAIndex);
+            }
+            if (questionFilter.Text == "Most Utility")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalBIndex);
+            }
+            if (questionFilter.Text == "Most Partner")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalCIndex);
+            }
+            if (questionFilter.Text == "Most Enabler")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalDIndex);
+            }
+            if (questionFilter.Text == "Least Commodity")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalAIndex);
+            }
+            if (questionFilter.Text == "Least Utility")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalBIndex);
+            }
+            if (questionFilter.Text == "Least Partner")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalCIndex);
+            }
+            if (questionFilter.Text == "Least Enabler")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalDIndex);
             }
         }
 
-        public void FilterQuestionByHighestCUPE(string amount)
+        public void FilterQuestionByHighestScore(string amount, int index)
         {
             if(toRemove != null)
                 questionInfoPanel.Controls.Remove(toRemove);
@@ -498,9 +534,9 @@ namespace IBMConsultantTool
 
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                if (row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value != null)
+                if (row.Cells[index + currentGrid.ColumnCount - 7].Value != null)
                 {
-                    value = row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString();
+                    value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
                     float floatValue = (float)Convert.ToDouble(value);
                     values.Add(new Tuple<float, int>(floatValue, row.Index));
                     //row.
@@ -537,25 +573,61 @@ namespace IBMConsultantTool
             view.Location = new Point(10, 70);
             view.Width = 727;
             view.Height = 120;
-            
-            
-                //Console.WriteLine(tuple.Item1.ToString());
-           
-
-   
-
-
 
         }
-
-        private void questionGridITFuture_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void FilterQuestionByLowestScore(string amount, int index)
         {
 
-        }
+            if(toRemove != null)
+                questionInfoPanel.Controls.Remove(toRemove);
+            int num = Convert.ToInt32(amount);
+            List<Tuple<float, int>> values = new List<Tuple<float, int>>();
+            string value;
 
+            foreach (DataGridViewRow row in currentGrid.Rows)
+            {
+                if (row.Cells[index + currentGrid.ColumnCount - 7].Value != null)
+                {
+                    value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
+                    float floatValue = (float)Convert.ToDouble(value);
+                    values.Add(new Tuple<float, int>(floatValue, row.Index));
+                    //row.
+                }
+            }
 
+            DataGridView view = new DataGridView();
+            toRemove = view;
+            foreach (DataGridViewColumn col in currentGrid.Columns)
+            {
+                view.Columns.Add((DataGridViewColumn)col.Clone());
+                //col.Width = 80;
 
-    }
+            }
+
+            values.Sort();
+
+           // values.Reverse();
+
+           // DataGridView grid = new DataGridView();
+            
+            for (int i = 0; i < num; i++)
+            {
+                DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
+                for (int j = 0; j < currentGrid.ColumnCount; j++)
+                {
+                    row.Cells[j].Value = currentGrid.Rows[values[i].Item2].Cells[j].Value;
+                }
+                view.Rows.Add(row);
+            }
+            //currentGrid.Columns[0].cl
+
+            questionInfoPanel.Controls.Add(view);
+            view.Location = new Point(10, 70);
+            view.Width = 727;
+            view.Height = 120;
+            
+         }
+    }// end class
 
 
 }
