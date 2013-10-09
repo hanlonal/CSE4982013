@@ -9,6 +9,7 @@ namespace IBMConsultantTool
     public class FileManager
     {
         public XElement dbo;
+        public List<string> changeLog;
 
         public FileManager()
         {
@@ -21,13 +22,11 @@ namespace IBMConsultantTool
             {
                 dbo = new XElement("root");
                 dbo.Add(new XElement("CLIENTS"));
-                dbo.Add(new XElement("GROUPS"));
                 dbo.Add(new XElement("CATEGORIES"));
-                dbo.Add(new XElement("BUSINESSOBJECTIVES"));
-                dbo.Add(new XElement("INITIATIVES"));
-                dbo.Add(new XElement("BOMS"));
                 dbo.Save("Data.xml");
             }
+
+            changeLog = new List<string>();
         }
 
         #region Client
@@ -96,6 +95,8 @@ namespace IBMConsultantTool
 
             dbo.Element("CLIENTS").Add(client);
 
+            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value);
+
             return true;
         }
         #endregion
@@ -139,13 +140,16 @@ namespace IBMConsultantTool
             }
 
             XElement grp = new XElement("GROUP");
-            grp.Add("NAME", grpName);
+            grp.Add(new XElement("NAME", grpName));
 
             grp.Add(new XElement("GROUPID", -1));
 
             grp.Add(new XElement("BOMS"));
 
             client.Element("GROUPS").Add(grp);
+
+            changeLog.Add("ADD GROUP " + grp.Element("NAME").Value + " " + 
+                            client.Element("NAME").Value);
 
             return true;
         }
@@ -171,6 +175,9 @@ namespace IBMConsultantTool
                 bom.Element("EFFECTIVENESS").Value = ini.Effectiveness.ToString();
                 bom.Element("CRITICALITY").Value = ini.Criticality.ToString();
                 bom.Element("DIFFERENTIAL").Value = ini.Differentiation.ToString();
+
+                changeLog.Add("UPDATE BOM " + client.Element("NAME").Value + " " + formattedName + " " +
+                                ini.Effectiveness + " " + ini.Criticality + " " + ini.Differentiation);
             }
 
             catch
@@ -184,28 +191,32 @@ namespace IBMConsultantTool
 
         public bool AddBOM(XElement bom, XElement client, string iniName, string busName, string catName)
         {
-            iniName = iniName.Replace(' ', '~');
-            busName = busName.Replace(' ', '~');
-            catName = catName.Replace(' ', '~');
+            string iniXML = iniName.Replace(' ', '~');
+            string busXML = busName.Replace(' ', '~');
+            string catXML = catName.Replace(' ', '~');
+
+            List<XElement> bomList = client.Element("BOMS").Elements("BOM").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
-            if ((from ent in client.Element("BOMS").Elements("BOM")
+            if ((from ent in bomList
                  where ent != null &&
                        ent.Element("INITIATIVE") != null &&
-                       ent.Element("INITIATIVE").Value == iniName
+                       ent.Element("INITIATIVE").Value == iniXML
                  select ent).Count() != 0)
             {
                 return false;
             }
 
             bom.Add(new XElement("BOMID", -1));
-            bom.Add(new XElement("INITIATIVE", iniName));
-            bom.Add(new XElement("BUSINESSOBJECTIVE", busName));
-            bom.Add(new XElement("CATEGORY", catName));
+            bom.Add(new XElement("INITIATIVE", iniXML));
+            bom.Add(new XElement("BUSINESSOBJECTIVE", busXML));
+            bom.Add(new XElement("CATEGORY", catXML));
             bom.Add(new XElement("EFFECTIVENESS", 0));
             bom.Add(new XElement("CRITICALITY", 0));
             bom.Add(new XElement("DIFFERENTIAL", 0));
 
             client.Element("BOMS").Add(bom);
+
+            changeLog.Add("ADD BOM " + client.Element("NAME").Value + " " + iniXML);
 
             return true;
         }
@@ -337,6 +348,8 @@ namespace IBMConsultantTool
 
             dbo.Element("CATEGORIES").Add(category);
 
+            changeLog.Add("ADD CATEGORY " + category.Element("NAME").Value);
+
             return true;
         }
         /*
@@ -404,6 +417,9 @@ namespace IBMConsultantTool
             objective.Add(new XElement("INITIATIVES"));
 
             category.Element("BUSINESSOBJECTIVES").Add(objective);
+
+            changeLog.Add("ADD BUSINESSOBJECTIVE " + objective.Element("NAME").Value + " " + 
+                            category.Element("NAME").Value);
 
             return true;
         }
@@ -482,6 +498,10 @@ namespace IBMConsultantTool
 
             objective.Element("INITIATIVES").Add(initiative);
 
+            changeLog.Add("ADD INITIATIVE " + initiative.Element("NAME").Value + " " +
+                            objective.Element("NAME").Value + " " +
+                            category.Element("NAME").Value);
+
             return true;
         }
         /*
@@ -494,6 +514,16 @@ namespace IBMConsultantTool
             try
             {
                 dbo.Save("Data.xml");
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Changes.log", true))
+                {
+                    foreach (string change in changeLog)
+                    {
+                        file.WriteLine(change);
+                    }
+                }
+
+                changeLog.Clear();
             }
             catch
             {
@@ -502,33 +532,7 @@ namespace IBMConsultantTool
 
             return true;
         }
-
-        //Used to create a unique ID for DB Entities
-        public int GetUniqueID(List<int> idList)
-        {
-            Random rnd = new Random();
-
-            int id = rnd.Next();
-
-            while (true)
-            {
-                var idQuery = from tmp in idList
-                              where tmp == id
-                              select tmp;
-
-                if (idQuery.Count() == 0)
-                {
-                    break;
-                }
-
-                else
-                {
-                    id = rnd.Next();
-                }
-            }
-
-            return id;
-        }/*
+        /*
 
         public void UpdateDataFile()
         {

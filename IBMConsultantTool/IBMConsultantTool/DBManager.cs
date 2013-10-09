@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -13,6 +14,7 @@ namespace IBMConsultantTool
         public DBManager()
         {
             dbo = new SAMPLEEntities();
+            CheckChangeLog();
             UpdateDataFile();
         }
 
@@ -113,7 +115,6 @@ namespace IBMConsultantTool
         }
         public bool AddGroup(string grpName, CLIENT client)
         {
-            //If Client points to 2 BOMs with same Initiative, return false
             if ((from ent in client.GROUP
                  where ent.NAME.TrimEnd() == grpName
                  select ent).Count() != 0)
@@ -141,6 +142,24 @@ namespace IBMConsultantTool
         {
             return (from ent in dbo.BOM
                     select ent).ToList();
+        }
+
+        public bool GetBOM(string iniName, CLIENT client, out BOM bom)
+        {
+            try
+            {
+                bom = (from ent in client.BOM
+                       where ent.INITIATIVE.NAME == iniName
+                       select ent).Single();
+            }
+
+            catch
+            {
+                bom = null;
+                return false;
+            }
+
+            return true;
         }
 
         public bool UpdateBOM(CLIENT client, NewInitiative ini)
@@ -590,6 +609,113 @@ namespace IBMConsultantTool
             root.Add(catElement);
 
             root.Save("Data.xml");
+        }
+        public void CheckChangeLog()
+        {
+            bool success = true;
+
+            string line;
+            string[] lineArray;
+
+            CLIENT client;
+            CATEGORY category;
+            BUSINESSOBJECTIVE objective;
+            INITIATIVE initiative;
+            BOM bom;
+
+            using (System.IO.StreamReader file = new System.IO.StreamReader("Changes.log"))
+            {
+                while ((line = file.ReadLine()) != null)
+                {
+                    lineArray = line.Split(' ');
+                    if (lineArray[0] == "ADD")
+                    {
+                        switch(lineArray[1])
+                        {
+                            case "CLIENT":
+                                client = new CLIENT();
+                                client.NAME = lineArray[2];
+                                AddClient(client);
+                                break;
+
+                            case "GROUP":
+                                if (GetClient(lineArray[3], out client))
+                                {
+                                    AddGroup(lineArray[2], client);
+                                }
+                                break;
+
+                            case "CATEGORY":
+                                category = new CATEGORY();
+                                category.NAME = lineArray[2];
+                                AddCategory(category);
+                                break;
+
+                            case "BUSINESSOBJECTIVE":
+                                if (GetCategory(lineArray[3], out category))
+                                {
+                                    objective = new BUSINESSOBJECTIVE();
+                                    objective.NAME = lineArray[2];
+                                    objective.CATEGORY = category;
+                                    AddObjective(objective);
+                                }
+                                break;
+
+                            case "INITIATIVE":
+                                if (GetObjective(lineArray[3], out objective))
+                                {
+                                    initiative = new INITIATIVE();
+                                    initiative.NAME = lineArray[2];
+                                    initiative.BUSINESSOBJECTIVE = objective;
+                                    AddInitiative(initiative);
+                                }
+                                break;
+
+                            case "BOM":
+                                if (GetClient(lineArray[2], out client))
+                                {
+                                    if (GetInitiative(lineArray[3], out initiative))
+                                    {
+                                        bom = new BOM();
+                                        bom.CLIENT = client;
+                                        bom.INITIATIVE = initiative;
+                                        AddBOM(bom);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+
+                    else if (lineArray[0] == "UPDATE")
+                    {
+                        switch (lineArray[1])
+                        {
+                            case "BOM":
+                                if (GetClient(lineArray[2], out client))
+                                {
+                                    if (GetBOM(lineArray[3], client, out bom))
+                                    {
+                                        bom.EFFECTIVENESS = Convert.ToSingle(lineArray[4]);
+                                        bom.CRITICALITY = Convert.ToSingle(lineArray[5]);
+                                        bom.DIFFERENTIAL = Convert.ToSingle(lineArray[6]);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+
+                    if (!SaveChanges())
+                    {
+                        success = false;
+                        break;
+                    }
+                }
+            }
+
+            if (success)
+            {
+                File.WriteAllText("Changes.log", string.Empty);
+            }
         }
         #endregion
     }

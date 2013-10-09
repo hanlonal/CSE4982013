@@ -85,6 +85,8 @@ namespace IBMConsultantTool
                         return;
                     }
 
+                    bomForm.dbclient = client;
+
                     this.Close();
                 }
                 else
@@ -115,6 +117,8 @@ namespace IBMConsultantTool
                         bomForm.fm = new FileManager();
                         return;
                     }
+
+                    bomForm.flclient = client;
 
                     this.Close();
                 }
