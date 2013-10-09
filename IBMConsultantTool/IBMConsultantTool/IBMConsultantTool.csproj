@@ -153,6 +153,12 @@
     <Compile Include="Initiative.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ITCapTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ITCapTool.Designer.cs">
+      <DependentUpon>ITCapTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataEntryForm.resx">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ITCapTool.resx">
+      <DependentUpon>ITCapTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewBOM.resx">
       <DependentUpon>NewBOM.cs</DependentUpon>

@@ -15,7 +15,7 @@ namespace IBMConsultantTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BOMTool());
+            Application.Run(new CUPETool());
         }
     }
 }

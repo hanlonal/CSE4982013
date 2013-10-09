@@ -15,6 +15,7 @@ namespace IBMConsultantTool
         List<DataGridView> grids = new List<DataGridView>();
         List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
+        DataGridView toRemove;
        // DataGridView view = new DataGridView();
         Chart currentChart;
         int personCount = 0;
@@ -483,25 +484,72 @@ namespace IBMConsultantTool
         {
             if (questionFilter.Text == "Highest Cupe Score")
             {
-                FilterQuestionByHighestCUPE(questionFilterAmount.Text);
+                FilterQuestionByHighestScore(questionFilterAmount.Text, averageIndex);
+            }
+            if (questionFilter.Text == "Lowest Cupe Score")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, averageIndex);
+            }
+            if (questionFilter.Text == "Most Commodity")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalAIndex);
+            }
+            if (questionFilter.Text == "Most Utility")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalBIndex);
+            }
+            if (questionFilter.Text == "Most Partner")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalCIndex);
+            }
+            if (questionFilter.Text == "Most Enabler")
+            {
+                FilterQuestionByHighestScore(questionFilterAmount.Text, totalDIndex);
+            }
+            if (questionFilter.Text == "Least Commodity")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalAIndex);
+            }
+            if (questionFilter.Text == "Least Utility")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalBIndex);
+            }
+            if (questionFilter.Text == "Least Partner")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalCIndex);
+            }
+            if (questionFilter.Text == "Least Enabler")
+            {
+                FilterQuestionByLowestScore(questionFilterAmount.Text, totalDIndex);
             }
         }
 
-        public void FilterQuestionByHighestCUPE(string amount)
+        public void FilterQuestionByHighestScore(string amount, int index)
         {
+            if(toRemove != null)
+                questionInfoPanel.Controls.Remove(toRemove);
             int num = Convert.ToInt32(amount);
             List<Tuple<float, int>> values = new List<Tuple<float, int>>();
             string value;
 
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                if (row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value != null)
+                if (row.Cells[index + currentGrid.ColumnCount - 7].Value != null)
                 {
-                    value = row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString();
+                    value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
                     float floatValue = (float)Convert.ToDouble(value);
                     values.Add(new Tuple<float, int>(floatValue, row.Index));
                     //row.
                 }
+            }
+
+            DataGridView view = new DataGridView();
+            toRemove = view;
+            foreach (DataGridViewColumn col in currentGrid.Columns)
+            {
+                view.Columns.Add((DataGridViewColumn)col.Clone());
+                //col.Width = 80;
+
             }
 
             values.Sort();
@@ -513,30 +561,175 @@ namespace IBMConsultantTool
             for (int i = 0; i < num; i++)
             {
                 DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
-                //view.Rows.Add(row);
+                for (int j = 0; j < currentGrid.ColumnCount; j++)
+                {
+                    row.Cells[j].Value = currentGrid.Rows[values[i].Item2].Cells[j].Value;
+                }
+                view.Rows.Add(row);
             }
             //currentGrid.Columns[0].cl
 
-            //questionInfoPanel.Controls.Add(view);
-           // view.Location = new Point(30, 30);
-            
-                //Console.WriteLine(tuple.Item1.ToString());
-           
-
-   
-
-
+            questionInfoPanel.Controls.Add(view);
+            view.Location = new Point(10, 70);
+            view.Width = 727;
+            view.Height = 120;
 
         }
+        public void FilterQuestionByLowestScore(string amount, int index)
+        {
 
-        private void questionGridITFuture_CellContentClick(object sender, DataGridViewCellEventArgs e)
+            if(toRemove != null)
+                questionInfoPanel.Controls.Remove(toRemove);
+            int num = Convert.ToInt32(amount);
+            List<Tuple<float, int>> values = new List<Tuple<float, int>>();
+            string value;
+
+            foreach (DataGridViewRow row in currentGrid.Rows)
+            {
+                if (row.Cells[index + currentGrid.ColumnCount - 7].Value != null)
+                {
+                    value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
+                    float floatValue = (float)Convert.ToDouble(value);
+                    values.Add(new Tuple<float, int>(floatValue, row.Index));
+                    //row.
+                }
+            }
+
+            DataGridView view = new DataGridView();
+            toRemove = view;
+            foreach (DataGridViewColumn col in currentGrid.Columns)
+            {
+                view.Columns.Add((DataGridViewColumn)col.Clone());
+                //col.Width = 80;
+
+            }
+
+            values.Sort();
+
+           // values.Reverse();
+
+           // DataGridView grid = new DataGridView();
+            
+            for (int i = 0; i < num; i++)
+            {
+                DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
+                for (int j = 0; j < currentGrid.ColumnCount; j++)
+                {
+                    row.Cells[j].Value = currentGrid.Rows[values[i].Item2].Cells[j].Value;
+                }
+                view.Rows.Add(row);
+            }
+            //currentGrid.Columns[0].cl
+
+            questionInfoPanel.Controls.Add(view);
+            view.Location = new Point(10, 70);
+            view.Width = 727;
+            view.Height = 120;
+            
+         }
+
+        private void iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> currentFloats = new List<float>();
+            List<float> futureFloats = new List<float>();
+            int count = 0;
+            foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
+            }
+            count = 0;
+            foreach(DataGridViewRow row in questionGridITFuture.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(currentFloats, futureFloats, "IT StakeHolders Current/Future Comparison");
+        }
+
+        public void CreateChart(List<float> current, List<float> future, string name)
         {
 
         }
 
+        private void businessLeadersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> currentFloats = new List<float>();
+            List<float> futureFloats = new List<float>();
+            int count = 0;
+            foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value.ToString()));
+            }
+            count = 0;
+            foreach(DataGridViewRow row in questionGridITFuture.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value.ToString()));
+            }
 
+            CreateChart(currentFloats, futureFloats, "Business Leaders Current/Future Comparison");
+        }
 
-    }
+        private void iTVsBusinessLeadersCurrentComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> currentBusinessFloats = new List<float>();
+            List<float> currentITFloats = new List<float>();
+            int count = 0;
+            foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                currentBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value.ToString()));
+            }
+            count = 0;
+            foreach(DataGridViewRow row in questionGridITCurrent.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                 currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(currentBusinessFloats, currentITFloats, "IT vs Business Leaders Current Comparison");
+        }
+
+        private void iTVsBusinessFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> futureBusinessFloats = new List<float>();
+            List<float> futureITFloats = new List<float>();
+            int count = 0;
+            foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value.ToString()));
+            }
+            count = 0;
+            foreach(DataGridViewRow row in questionGridITFuture.Rows)
+            {
+                if (count == 0)
+                    continue;
+                count++;
+                 futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
+        }
+
+    }// end class
 
 
 }

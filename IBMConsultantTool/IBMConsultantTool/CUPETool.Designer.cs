@@ -124,6 +124,17 @@
             this.busiFutureGraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.itCurrentGraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.itFutureGraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iTVsBusinessFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.busiCurrentGraph)).BeginInit();
@@ -134,6 +145,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.busiFutureGraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itCurrentGraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itFutureGraph)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // questionGridBusinessCurrent
@@ -151,7 +163,7 @@
             this.questionGridBusinessCurrent.Location = new System.Drawing.Point(13, 50);
             this.questionGridBusinessCurrent.Margin = new System.Windows.Forms.Padding(4);
             this.questionGridBusinessCurrent.Name = "questionGridBusinessCurrent";
-            this.questionGridBusinessCurrent.Size = new System.Drawing.Size(727, 494);
+            this.questionGridBusinessCurrent.Size = new System.Drawing.Size(727, 483);
             this.questionGridBusinessCurrent.TabIndex = 0;
             this.questionGridBusinessCurrent.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             this.questionGridBusinessCurrent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.cellClick);
@@ -274,7 +286,7 @@
             this.questionGridITCurrent.Location = new System.Drawing.Point(13, 50);
             this.questionGridITCurrent.Margin = new System.Windows.Forms.Padding(4);
             this.questionGridITCurrent.Name = "questionGridITCurrent";
-            this.questionGridITCurrent.Size = new System.Drawing.Size(727, 494);
+            this.questionGridITCurrent.Size = new System.Drawing.Size(727, 483);
             this.questionGridITCurrent.TabIndex = 4;
             this.questionGridITCurrent.Visible = false;
             this.questionGridITCurrent.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
@@ -376,10 +388,6 @@
             title1.Text = "Business CUPE Responses - Current";
             title1.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
             this.busiCurrentGraph.Titles.Add(title1);
-            // 
-            // sAMPLEEntitiesBindingSource
-            // 
-            this.sAMPLEEntitiesBindingSource.DataSource = typeof(IBMConsultantTool.SAMPLEEntities);
             // 
             // label1
             // 
@@ -494,11 +502,11 @@
             "8",
             "9",
             "10"});
-            this.personFilterAmount.Location = new System.Drawing.Point(855, 32);
+            this.personFilterAmount.Location = new System.Drawing.Point(839, 32);
             this.personFilterAmount.Name = "personFilterAmount";
-            this.personFilterAmount.Size = new System.Drawing.Size(121, 24);
+            this.personFilterAmount.Size = new System.Drawing.Size(137, 24);
             this.personFilterAmount.TabIndex = 7;
-            this.personFilterAmount.Text = "Select";
+            this.personFilterAmount.Text = "Select Number";
             // 
             // questionFilterAmount
             // 
@@ -515,40 +523,43 @@
             "8",
             "9",
             "10"});
-            this.questionFilterAmount.Location = new System.Drawing.Point(340, 27);
+            this.questionFilterAmount.Location = new System.Drawing.Point(317, 27);
             this.questionFilterAmount.Name = "questionFilterAmount";
-            this.questionFilterAmount.Size = new System.Drawing.Size(121, 24);
+            this.questionFilterAmount.Size = new System.Drawing.Size(144, 24);
             this.questionFilterAmount.TabIndex = 6;
-            this.questionFilterAmount.Text = "Select";
+            this.questionFilterAmount.Text = "Select Number";
             // 
             // personFilter
             // 
             this.personFilter.BackColor = System.Drawing.SystemColors.ControlLight;
             this.personFilter.FormattingEnabled = true;
-            this.personFilter.Location = new System.Drawing.Point(697, 32);
+            this.personFilter.Location = new System.Drawing.Point(667, 32);
             this.personFilter.Name = "personFilter";
-            this.personFilter.Size = new System.Drawing.Size(121, 24);
+            this.personFilter.Size = new System.Drawing.Size(151, 24);
             this.personFilter.TabIndex = 5;
-            this.personFilter.Text = "Select";
+            this.personFilter.Text = "Select Filter Type";
             // 
             // questionFilter
             // 
             this.questionFilter.BackColor = System.Drawing.SystemColors.ControlLight;
             this.questionFilter.FormattingEnabled = true;
             this.questionFilter.Items.AddRange(new object[] {
-            "Highest Std Dev",
             "Highest Cupe Score",
             "Lowest Cupe Score",
-            "Lowest Std Dev",
             "Most Commodity ",
             "Most Utility",
             "Most Partner",
-            "Most Enabler"});
-            this.questionFilter.Location = new System.Drawing.Point(182, 27);
+            "Most Enabler",
+            "Least Commodity",
+            "Least Utility",
+            "Least Partner",
+            "Least Enabler",
+            "Highest Std Dev",
+            "Lowest Std Dev"});
+            this.questionFilter.Location = new System.Drawing.Point(159, 27);
             this.questionFilter.Name = "questionFilter";
-            this.questionFilter.Size = new System.Drawing.Size(121, 24);
+            this.questionFilter.Size = new System.Drawing.Size(152, 24);
             this.questionFilter.TabIndex = 4;
-            this.questionFilter.Text = "Select";
             // 
             // label5
             // 
@@ -583,7 +594,7 @@
             this.questionGridBusiFuture.Location = new System.Drawing.Point(13, 50);
             this.questionGridBusiFuture.Margin = new System.Windows.Forms.Padding(4);
             this.questionGridBusiFuture.Name = "questionGridBusiFuture";
-            this.questionGridBusiFuture.Size = new System.Drawing.Size(727, 494);
+            this.questionGridBusiFuture.Size = new System.Drawing.Size(727, 478);
             this.questionGridBusiFuture.TabIndex = 11;
             this.questionGridBusiFuture.Visible = false;
             this.questionGridBusiFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
@@ -671,10 +682,9 @@
             this.questionGridITFuture.Margin = new System.Windows.Forms.Padding(4);
             this.questionGridITFuture.Name = "questionGridITFuture";
             this.questionGridITFuture.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.questionGridITFuture.Size = new System.Drawing.Size(727, 494);
+            this.questionGridITFuture.Size = new System.Drawing.Size(727, 483);
             this.questionGridITFuture.TabIndex = 12;
             this.questionGridITFuture.Visible = false;
-            this.questionGridITFuture.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridITFuture_CellContentClick);
             this.questionGridITFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn15
@@ -835,6 +845,91 @@
             title4.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
             this.itFutureGraph.Titles.Add(title4);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
+            this.menuStrip1.TabIndex = 16;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.preferencesToolStripMenuItem,
+            this.loadToolStripMenuItem,
+            this.preferencesToolStripMenuItem1,
+            this.preferencesToolStripMenuItem2});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Text = "New";
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.loadToolStripMenuItem.Text = "Save";
+            // 
+            // preferencesToolStripMenuItem1
+            // 
+            this.preferencesToolStripMenuItem1.Name = "preferencesToolStripMenuItem1";
+            this.preferencesToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem1.Text = "Load";
+            // 
+            // preferencesToolStripMenuItem2
+            // 
+            this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
+            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem2.Text = "Preferences";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem,
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem,
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem,
+            this.iTVsBusinessFutureComparisonToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // iTStakeHoldersCurrentFutureComparisonToolStripMenuItem
+            // 
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Name = "iTStakeHoldersCurrentFutureComparisonToolStripMenuItem";
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Text = "IT StakeHolders Current/Future Comparison";
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Click += new System.EventHandler(this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click);
+            // 
+            // businessLeadersCurrentFutureComparisonToolStripMenuItem
+            // 
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Name = "businessLeadersCurrentFutureComparisonToolStripMenuItem";
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Text = "Business Leaders Current/Future Comparison";
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Click += new System.EventHandler(this.businessLeadersCurrentFutureComparisonToolStripMenuItem_Click);
+            // 
+            // iTVsBusinessLeadersCurrentComparisonToolStripMenuItem
+            // 
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Name = "iTVsBusinessLeadersCurrentComparisonToolStripMenuItem";
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Text = "IT vs Business Leaders Current Comparison";
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Click += new System.EventHandler(this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem_Click);
+            // 
+            // iTVsBusinessFutureComparisonToolStripMenuItem
+            // 
+            this.iTVsBusinessFutureComparisonToolStripMenuItem.Name = "iTVsBusinessFutureComparisonToolStripMenuItem";
+            this.iTVsBusinessFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.iTVsBusinessFutureComparisonToolStripMenuItem.Text = "IT vs Business Future Comparison";
+            this.iTVsBusinessFutureComparisonToolStripMenuItem.Click += new System.EventHandler(this.iTVsBusinessFutureComparisonToolStripMenuItem_Click);
+            // 
             // CUPETool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -858,7 +953,9 @@
             this.Controls.Add(this.busiCurrentRadioButton);
             this.Controls.Add(this.addPersonButton);
             this.Controls.Add(this.questionGridBusinessCurrent);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CUPETool";
             this.Text = "CUPETool";
@@ -874,6 +971,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.busiFutureGraph)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itCurrentGraph)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itFutureGraph)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -936,5 +1035,16 @@
         private System.Windows.Forms.ComboBox personFilter;
         private System.Windows.Forms.Button filterPersonGo;
         private System.Windows.Forms.Button filterQuestionsGo;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iTStakeHoldersCurrentFutureComparisonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem businessLeadersCurrentFutureComparisonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iTVsBusinessLeadersCurrentComparisonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iTVsBusinessFutureComparisonToolStripMenuItem;
     }
 }
