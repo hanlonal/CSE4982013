@@ -627,6 +627,80 @@ namespace IBMConsultantTool
             view.Height = 120;
             
          }
+
+        private void iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> currentFloats = new List<float>();
+            List<float> futureFloats = new List<float>();
+            foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+            {
+                currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
+            }
+            foreach(DataGridViewRow row in questionGridITFuture.Rows)
+            {
+                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(currentFloats, futureFloats, "IT StakeHolders Current/Future Comparison");
+        }
+
+        public void CreateChart(List<float> current, List<float> future, string name)
+        {
+
+        }
+
+        private void businessLeadersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> currentFloats = new List<float>();
+            List<float> futureFloats = new List<float>();
+            foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+            {
+                currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value.ToString()));
+            }
+            foreach(DataGridViewRow row in questionGridITFuture.Rows)
+            {
+                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(currentFloats, futureFloats, "Business Leaders Current/Future Comparison");
+        }
+
+        private void iTVsBusinessLeadersCurrentComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> currentBusinessFloats = new List<float>();
+            List<float> currentITFloats = new List<float>();
+            foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
+            {
+                if (row.Index == 0)
+                    continue;
+                currentBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value.ToString()));
+            }
+            foreach(DataGridViewRow row in questionGridITCurrent.Rows)
+            {
+                if (row.Index == 0)
+                    continue;
+                 currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(currentBusinessFloats, currentITFloats, "IT vs Business Leaders Current Comparison");
+        }
+
+        private void iTVsBusinessFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> futureBusinessFloats = new List<float>();
+            List<float> futureITFloats = new List<float>();
+            foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
+            {
+                futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value.ToString()));
+            }
+            foreach(DataGridViewRow row in questionGridITFuture.Rows)
+            {
+                 futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
+            }
+
+            CreateChart(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
+        }
+
     }// end class
 
 
