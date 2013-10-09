@@ -632,12 +632,20 @@ namespace IBMConsultantTool
         {
             List<float> currentFloats = new List<float>();
             List<float> futureFloats = new List<float>();
+            int count = 0;
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
+                if (count == 0)
+                    continue;
+                count++;
                 currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
             }
+            count = 0;
             foreach(DataGridViewRow row in questionGridITFuture.Rows)
             {
+                if (count == 0)
+                    continue;
+                count++;
                  futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
             }
 
@@ -653,12 +661,20 @@ namespace IBMConsultantTool
         {
             List<float> currentFloats = new List<float>();
             List<float> futureFloats = new List<float>();
+            int count = 0;
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
+                if (count == 0)
+                    continue;
+                count++;
                 currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value.ToString()));
             }
+            count = 0;
             foreach(DataGridViewRow row in questionGridITFuture.Rows)
             {
+                if (count == 0)
+                    continue;
+                count++;
                  futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value.ToString()));
             }
 
@@ -669,16 +685,20 @@ namespace IBMConsultantTool
         {
             List<float> currentBusinessFloats = new List<float>();
             List<float> currentITFloats = new List<float>();
+            int count = 0;
             foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
             {
-                if (row.Index == 0)
+                if (count == 0)
                     continue;
+                count++;
                 currentBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value.ToString()));
             }
+            count = 0;
             foreach(DataGridViewRow row in questionGridITCurrent.Rows)
             {
-                if (row.Index == 0)
+                if (count == 0)
                     continue;
+                count++;
                  currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
             }
 
@@ -689,12 +709,20 @@ namespace IBMConsultantTool
         {
             List<float> futureBusinessFloats = new List<float>();
             List<float> futureITFloats = new List<float>();
+            int count = 0;
             foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
+                if (count == 0)
+                    continue;
+                count++;
                 futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value.ToString()));
             }
+            count = 0;
             foreach(DataGridViewRow row in questionGridITFuture.Rows)
             {
+                if (count == 0)
+                    continue;
+                count++;
                  futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
             }
 
