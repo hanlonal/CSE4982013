@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace IBMConsultantTool
 {
@@ -18,107 +19,110 @@ namespace IBMConsultantTool
             InitializeComponent();
 
             bomForm = parentForm;
-            ChooseClientComboBox.Items.AddRange(bomForm.db.GetClientNames());
+            if (bomForm.isOnline)
+            {
+                ChooseClientComboBox.Items.AddRange(bomForm.db.GetClientNames());
+            }
+
+            else
+            {
+                ChooseClientComboBox.Items.AddRange(bomForm.fm.GetClientNames());
+            }
             this.Focus();
         }
 
         private void OpenBOMButton_Click(object sender, EventArgs e)
         {
-            CLIENT client;
-            string clientName = ChooseClientComboBox.Text.Trim();
-
-            if (bomForm.db.GetClient(clientName, out client))
+            if (bomForm.isOnline)
             {
-                bomForm.client = client;
-
-                string catName;
-                string busName;
-                string iniName;
-
-                NewCategory category;
-                NewObjective objective;
-                NewInitiative initiative;
-
-                foreach (BOM bom in client.BOM)
+                if(bomForm.db.BuildBOMForm(bomForm, ChooseClientComboBox.Text.Trim()))
                 {
-                    catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
-                    category = bomForm.Categories.Find(delegate(NewCategory cat)
-                                    {
-                                        return cat.name == catName;
-                                    });
-                    if (category == null)
-                    {
-                        category = bomForm.AddCategory(catName);
-                    }
-
-                    busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
-                    objective = category.Objectives.Find(delegate(NewObjective bus)
-                    {
-                        return bus.Name == busName;
-                    });
-                    if (objective == null)
-                    {
-                        objective = category.AddObjective(busName);
-                    }
-
-                    iniName = bom.INITIATIVE.NAME.TrimEnd();
-                    initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
-                                                                       {
-                                                                           return ini.Name == iniName;
-                                                                       });
-                    if(initiative == null)
-                    {
-                        initiative = objective.AddInitiative(iniName);
-                        initiative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
-                        initiative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
-                        initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
-                    }
+                    this.Close();
                 }
 
-                this.Close();
+                else
+                {
+                    MessageBox.Show("Client \"" + ChooseClientComboBox.Text + "\" not found", "Error");
+                }
             }
 
             else
             {
-                MessageBox.Show("Client \"" + ChooseClientComboBox.Text + "\" not found", "Error");
+                if(bomForm.fm.BuildBOMForm(bomForm, ChooseClientComboBox.Text.Trim()))
+                {
+                    this.Close();
+                }
+
+                else
+                {
+                    MessageBox.Show("Client \"" + ChooseClientComboBox.Text + "\" not found", "Error");
+                }
             }
         }
 
         private void NewBOMButton_Click(object sender, EventArgs e)
         {
-            CLIENT client;
-            string clientName = NewClientTextBox.Text.Trim();
-            if (!bomForm.db.GetClient(clientName, out client))
+            if (bomForm.isOnline)
             {
-                client = new CLIENT();
-                client.NAME = NewClientTextBox.Text;
-                bomForm.db.AddClient(client);
-
-                if (!bomForm.db.AddGroup("Business", client) || !bomForm.db.AddGroup("IT", client))
+                CLIENT client;
+                string clientName = NewClientTextBox.Text.Trim();
+                if (!bomForm.db.GetClient(clientName, out client))
                 {
-                    MessageBox.Show("Cannot create groups for client", "Error");
-                    return;
-                }
+                    client = new CLIENT();
+                    client.NAME = NewClientTextBox.Text;
+                    bomForm.db.AddClient(client);
 
-                if (!bomForm.db.SaveChanges())
+                    if (!bomForm.db.AddGroup("Business", client) || !bomForm.db.AddGroup("IT", client))
+                    {
+                        MessageBox.Show("Cannot create groups for client", "Error");
+                        return;
+                    }
+
+                    if (!bomForm.db.SaveChanges())
+                    {
+                        MessageBox.Show("Could not create new Client", "Error");
+                        bomForm.db = new DBManager();
+                        return;
+                    }
+
+                    this.Close();
+                }
+                else
                 {
-                    MessageBox.Show("Could not create new Client", "Error");
-                    bomForm.db = new DBManager();
-                    return;
+                    MessageBox.Show("Client \"" + clientName + "\" already exists", "Error");
                 }
-                bomForm.client = client;
-
-                this.Close();
             }
+
             else
             {
-                MessageBox.Show("Client \"" + clientName + "\" already exists", "Error");
+                XElement client;
+                string clientName = NewClientTextBox.Text.Trim();
+                if (!bomForm.fm.GetClient(clientName, out client))
+                {
+                    client = new XElement("CLIENT");
+                    client.Add(new XElement("NAME", NewClientTextBox.Text));
+                    bomForm.fm.AddClient(client);
+
+                    if (!bomForm.fm.AddGroup("Business", client) || !bomForm.fm.AddGroup("IT", client))
+                    {
+                        MessageBox.Show("Cannot create groups for client", "Error");
+                        return;
+                    }
+
+                    if (!bomForm.fm.SaveChanges())
+                    {
+                        MessageBox.Show("Could not create new Client", "Error");
+                        bomForm.fm = new FileManager();
+                        return;
+                    }
+
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Client \"" + clientName + "\" already exists", "Error");
+                }
             }
-        }
-
-        private void ChooseClient_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

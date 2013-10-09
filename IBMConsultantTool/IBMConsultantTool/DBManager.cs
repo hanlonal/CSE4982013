@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace IBMConsultantTool
 {
-    public class DBManager : DataManager
+    public class DBManager
     {
         public SAMPLEEntities dbo;
 
@@ -17,19 +17,19 @@ namespace IBMConsultantTool
         }
 
         #region Client
-        public override List<CLIENT> GetClients()
+        public List<CLIENT> GetClients()
         {
             return (from ent in dbo.CLIENT
                     select ent).ToList();
         }
 
-        public override string[] GetClientNames()
+        public string[] GetClientNames()
         {
             return (from ent in dbo.CLIENT
                     select ent.NAME.TrimEnd()).ToArray();
         }
 
-        public override bool GetClient(string cntName, out CLIENT client)
+        public bool GetClient(string cntName, out CLIENT client)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool GetClient(int cntID, out CLIENT client)
+        public bool GetClient(int cntID, out CLIENT client)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddClient(CLIENT client)
+        public bool AddClient(CLIENT client)
         {
             //If already in DB, return false
             if ((from ent in dbo.CLIENT
@@ -88,13 +88,13 @@ namespace IBMConsultantTool
 
         #region Group
         //group is a keyword in C#
-        public override List<GROUP> GetGroups()
+        public List<GROUP> GetGroups()
         {
             return (from ent in dbo.GROUP
                     select ent).ToList();
         }
 
-        public override bool GetGroup(string grpName, CLIENT client, out GROUP grp)
+        public bool GetGroup(string grpName, CLIENT client, out GROUP grp)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public override bool AddGroup(string grpName, CLIENT client)
+        public bool AddGroup(string grpName, CLIENT client)
         {
             //If Client points to 2 BOMs with same Initiative, return false
             if ((from ent in client.GROUP
@@ -137,13 +137,13 @@ namespace IBMConsultantTool
         #endregion
 
         #region BOM
-        public override List<BOM> GetBOMs()
+        public List<BOM> GetBOMs()
         {
             return (from ent in dbo.BOM
                     select ent).ToList();
         }
 
-        public override bool UpdateBOM(CLIENT client, NewInitiative ini)
+        public bool UpdateBOM(CLIENT client, NewInitiative ini)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddBOM(BOM bom)
+        public bool AddBOM(BOM bom)
         {
             //If Client points to 2 BOMs with same Initiative, return false
             if ((from ent in bom.CLIENT.BOM
@@ -184,22 +184,83 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public bool BuildBOMForm(BOMTool bomForm, string clientName)
+        {
+            CLIENT client;
+
+            if (GetClient(clientName, out client))
+            {
+                bomForm.dbclient = client;
+
+                string catName;
+                string busName;
+                string iniName;
+
+                NewCategory category;
+                NewObjective objective;
+                NewInitiative initiative;
+
+                foreach (BOM bom in client.BOM)
+                {
+                    catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
+                    category = bomForm.Categories.Find(delegate(NewCategory cat)
+                    {
+                        return cat.name == catName;
+                    });
+                    if (category == null)
+                    {
+                        category = bomForm.AddCategory(catName);
+                    }
+
+                    busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                    objective = category.Objectives.Find(delegate(NewObjective bus)
+                    {
+                        return bus.Name == busName;
+                    });
+                    if (objective == null)
+                    {
+                        objective = category.AddObjective(busName);
+                    }
+
+                    iniName = bom.INITIATIVE.NAME.TrimEnd();
+                    initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
+                    {
+                        return ini.Name == iniName;
+                    });
+                    if (initiative == null)
+                    {
+                        initiative = objective.AddInitiative(iniName);
+                        initiative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
+                        initiative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
+                        initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
+                    }
+                }
+
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region Category
-        public override List<CATEGORY> GetCategories()
+        public List<CATEGORY> GetCategories()
         {
             return (from ent in dbo.CATEGORY
                     select ent).ToList();
         }
 
-        public override string[] GetCategoryNames()
+        public string[] GetCategoryNames()
         {
             return (from ent in dbo.CATEGORY
                     select ent.NAME.TrimEnd()).ToArray();
         }
 
-        public override bool GetCategory(int catID, out CATEGORY category)
+        public bool GetCategory(int catID, out CATEGORY category)
         {
             try
             {
@@ -217,7 +278,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool GetCategory(string catName, out CATEGORY category)
+        public bool GetCategory(string catName, out CATEGORY category)
         {
             try
             {
@@ -235,7 +296,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddCategory(CATEGORY category)
+        public bool AddCategory(CATEGORY category)
         {
             //If already in DB, return 1
             if ((from ent in dbo.CATEGORY
@@ -257,19 +318,19 @@ namespace IBMConsultantTool
         #endregion
 
         #region BusinessObjective
-        public override List<BUSINESSOBJECTIVE> GetObjectives()
+        public List<BUSINESSOBJECTIVE> GetObjectives()
         {
             return (from ent in dbo.BUSINESSOBJECTIVE
                     select ent).ToList();
         }
 
-        public override string[] GetObjectiveNames()
+        public string[] GetObjectiveNames()
         {
             return (from ent in dbo.BUSINESSOBJECTIVE
                     select ent.NAME.TrimEnd()).ToArray();
         }
 
-        public override bool GetObjective(int busID, out BUSINESSOBJECTIVE objective)
+        public bool GetObjective(int busID, out BUSINESSOBJECTIVE objective)
         {
             try
             {
@@ -287,7 +348,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool GetObjective(string busName, out BUSINESSOBJECTIVE objective)
+        public bool GetObjective(string busName, out BUSINESSOBJECTIVE objective)
         {
             try
             {
@@ -305,7 +366,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddObjective(BUSINESSOBJECTIVE objective)
+        public bool AddObjective(BUSINESSOBJECTIVE objective)
         {
             //If already in DB, return false
             if ((from ent in dbo.BUSINESSOBJECTIVE
@@ -327,19 +388,19 @@ namespace IBMConsultantTool
         #endregion
 
         #region Initiative
-        public override List<INITIATIVE> GetInitiatives()
+        public List<INITIATIVE> GetInitiatives()
         {
             return (from ent in dbo.INITIATIVE
                     select ent).ToList();
         }
 
-        public override string[] GetInitiativeNames()
+        public string[] GetInitiativeNames()
         {
             return (from ent in dbo.INITIATIVE
                     select ent.NAME.TrimEnd()).ToArray();
         }
 
-        public override bool GetInitiative(string iniName, out INITIATIVE Initiative)
+        public bool GetInitiative(string iniName, out INITIATIVE Initiative)
         {
             try
             {
@@ -357,7 +418,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool GetInitiative(int iniID, out INITIATIVE Initiative)
+        public bool GetInitiative(int iniID, out INITIATIVE Initiative)
         {
             try
             {
@@ -375,7 +436,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddInitiative(INITIATIVE initiative)
+        public bool AddInitiative(INITIATIVE initiative)
         {
             //If already in DB, return false
             if ((from ent in dbo.INITIATIVE
@@ -397,7 +458,7 @@ namespace IBMConsultantTool
         #endregion
 
         #region General
-        public override bool SaveChanges()
+        public bool SaveChanges()
         {
             try
             {
@@ -450,73 +511,83 @@ namespace IBMConsultantTool
             foreach (CLIENT client in clientList)
             {
                 XElement temp = new XElement("CLIENT");
-                temp.Add(new XElement("NAME", client.NAME.TrimEnd().Replace(' ', '_')));
+                temp.Add(new XElement("NAME", client.NAME.TrimEnd().Replace(' ', '~')));
                 temp.Add(new XElement("CLIENTID", client.CLIENTID));
+                XElement grpElement = new XElement("GROUPS");
+                foreach (GROUP grp in client.GROUP)
+                {
+                    XElement tempGrp = new XElement("GROUP");
+                    tempGrp.Add(new XElement("NAME", grp.NAME.TrimEnd().Replace(' ', '~')));
+                    tempGrp.Add(new XElement("GROUPID", grp.GROUPID));
+                    XElement bomGrpElement = new XElement("BOMS");
+                    foreach (BOM bom in grp.BOM)
+                    {
+                        XElement tempBom = new XElement("BOM");
+                        tempBom.Add(new XElement("BOMID", bom.BOMID));
+                        tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd().Replace(' ', '~')));
+                        tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
+                        tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd().Replace(' ', '~')));
+                        tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
+                        tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
+                        tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
+                        bomGrpElement.Add(tempBom);
+                    }
+                    tempGrp.Add(bomGrpElement);
+                    grpElement.Add(tempGrp);
+                }
+                temp.Add(grpElement);
+
+                XElement bomElement = new XElement("BOMS");
+                foreach (BOM bom in client.BOM)
+                {
+                    XElement tempBom = new XElement("BOM");
+                    tempBom.Add(new XElement("BOMID", bom.BOMID));
+                    tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd().Replace(' ', '~')));
+                    tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
+                    tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd().Replace(' ', '~')));
+                    tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
+                    tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
+                    tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
+                    bomElement.Add(tempBom);
+                }
+                temp.Add(bomElement);
+
                 clientElement.Add(temp);
             }
             root.Add(clientElement);
 
-            List<GROUP> grpList = GetGroups();
-            XElement grpElement = new XElement("GROUPS");
-            foreach (GROUP grp in grpList)
-            {
-                XElement temp = new XElement("GROUP");
-                temp.Add(new XElement("NAME", grp.NAME.TrimEnd().Replace(' ', '_')));
-                temp.Add(new XElement("GROUPID", grp.GROUPID));
-                grpElement.Add(temp);
-            }
-            root.Add(grpElement);
-
             List<CATEGORY> catList = GetCategories();
-            XElement catElement = new XElement("CATEGORYS");
+            XElement catElement = new XElement("CATEGORIES");
             foreach (CATEGORY category in catList)
             {
                 XElement temp = new XElement("CATEGORY");
-                temp.Add(new XElement("NAME", category.NAME.TrimEnd().Replace(' ', '_')));
+                temp.Add(new XElement("NAME", category.NAME.TrimEnd().Replace(' ', '~')));
                 temp.Add(new XElement("CATEGORYID", category.CATEGORYID));
+
+                XElement busElement = new XElement("BUSINESSOBJECTIVES");
+                foreach (BUSINESSOBJECTIVE objective in category.BUSINESSOBJECTIVE)
+                {
+                    XElement tempBus = new XElement("BUSINESSOBJECTIVE");
+                    tempBus.Add(new XElement("NAME", objective.NAME.TrimEnd().Replace(' ', '~')));
+                    tempBus.Add(new XElement("BUSINESSOBJECTIVEID", objective.BUSINESSOBJECTIVEID));
+
+                    XElement iniElement = new XElement("INITIATIVES");
+                    foreach (INITIATIVE initiative in objective.INITIATIVE)
+                    {
+                        XElement tempIni = new XElement("INITIATIVE");
+                        tempIni.Add(new XElement("NAME", initiative.NAME.TrimEnd().Replace(' ', '~')));
+                        tempIni.Add(new XElement("INITIATIVEID", initiative.INITIATIVEID));
+                        iniElement.Add(tempIni);
+                    }
+                    tempBus.Add(iniElement);
+
+                    busElement.Add(tempBus);
+                }
+                temp.Add(busElement);
+
                 catElement.Add(temp);
             }
             root.Add(catElement);
-
-            List<BUSINESSOBJECTIVE> busList = GetObjectives();
-            XElement busElement = new XElement("BUSINESSOBJECTIVES");
-            foreach (BUSINESSOBJECTIVE objective in busList)
-            {
-                XElement temp = new XElement("BUSINESSOBJECTIVE");
-                temp.Add(new XElement("NAME", objective.NAME.TrimEnd().Replace(' ', '_')));
-                temp.Add(new XElement("BUSINESSOBJECTIVEID", objective.BUSINESSOBJECTIVEID));
-                busElement.Add(temp);
-            }
-            root.Add(busElement);
-
-            List<INITIATIVE> iniList = GetInitiatives();
-            XElement iniElement = new XElement("INITIATIVES");
-            foreach (INITIATIVE initiative in iniList)
-            {
-                XElement temp = new XElement("INITIATIVE");
-                temp.Add(new XElement("NAME", initiative.NAME.TrimEnd().Replace(' ', '_')));
-                temp.Add(new XElement("INITIATIVEID", initiative.INITIATIVEID));
-                iniElement.Add(temp);
-            }
-            root.Add(iniElement);
-
-            List<BOM> bomList = GetBOMs();
-            XElement bomElement = new XElement("BOMS");
-            foreach (BOM bom in bomList)
-            {
-                XElement temp = new XElement("BOM");
-                temp.Add(new XElement("BOMID", bom.BOMID));
-                temp.Add(new XElement("CLIENT", bom.CLIENTReference.Value != null ? bom.CLIENT.CLIENTID : -1));
-                temp.Add(new XElement("GROUP", bom.GROUPReference.Value != null ? bom.GROUP.GROUPID : -1));
-                temp.Add(new XElement("INITIATIVE", bom.INITIATIVE.INITIATIVEID));
-                temp.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : -1));
-                temp.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : -1));
-                temp.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : -1));
-                bomElement.Add(temp);
-            }
-            root.Add(bomElement);
-
-
 
             root.Save("Data.xml");
         }

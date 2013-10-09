@@ -113,7 +113,6 @@
             this.Controls.Add(this.ChooseClientComboBox);
             this.Name = "ChooseClient";
             this.Text = "ChooseClient";
-            this.Load += new System.EventHandler(this.ChooseClient_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

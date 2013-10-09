@@ -88,28 +88,55 @@ namespace IBMConsultantTool
                         //mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality = (float)(dataGrid.Rows[rowCount].Cells[3].Value);
                         //mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation = (float)dataGrid.Rows[rowCount].Cells[4].Value;
                         //mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness = (float)dataGrid.Rows[rowCount].Cells[5].Value;
-                      
-                        
-                        if (!mainForm.db.UpdateBOM(mainForm.client, initiative))
+
+                        if (mainForm.isOnline)
                         {
-                            MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
-                            return;
+                            if (!mainForm.db.UpdateBOM(mainForm.dbclient, initiative))
+                            {
+                                MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
+                                return;
+                            }
+                        }
+
+                        else
+                        {
+                            if (!mainForm.fm.UpdateBOM(mainForm.flclient, initiative))
+                            {
+                                MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to File", "Error");
+                                return;
+                            }
                         }
 
                         rowCount++;
                     }
                 }
             }
-            
-            if (!mainForm.db.SaveChanges())
+            if(mainForm.isOnline)
             {
-                MessageBox.Show("Could not save changes to database", "Error");
-                return;
-            } 
+                if (!mainForm.db.SaveChanges())
+                {
+                    MessageBox.Show("Could not save changes to database", "Error");
+                    return;
+                } 
+
+                else
+                {
+                    MessageBox.Show("Changes saved successfully", "Success");
+                }
+            }
 
             else
             {
-                MessageBox.Show("Changes saved successfully", "Success");
+                if (!mainForm.fm.SaveChanges())
+                {
+                    MessageBox.Show("Could not save changes to File", "Error");
+                    return;
+                } 
+
+                else
+                {
+                    MessageBox.Show("Changes saved successfully", "Success");
+                }
             }
         }
     }

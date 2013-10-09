@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace IBMConsultantTool
 {
@@ -21,6 +22,12 @@ namespace IBMConsultantTool
         public abstract bool GetClient(int cntID, out CLIENT client);
 
         public abstract bool AddClient(CLIENT client);
+
+        public abstract bool GetClient(string cntName, out XElement client);
+
+        public abstract bool GetClient(int cntID, out XElement client);
+
+        public abstract bool AddClient(XElement client);
         #endregion
 
         #region Group
@@ -28,6 +35,9 @@ namespace IBMConsultantTool
         public abstract List<GROUP> GetGroups();
         public abstract bool GetGroup(string grpName, CLIENT client, out GROUP grp);
         public abstract bool AddGroup(string grpName, CLIENT client);
+
+        public abstract bool GetGroup(string grpName, XElement client, out XElement grp);
+        public abstract bool AddGroup(string grpName, XElement client);
         #endregion
 
         #region BOM
@@ -40,6 +50,7 @@ namespace IBMConsultantTool
 
         #region Category
         public abstract List<CATEGORY> GetCategories();
+        public abstract List<XElement> GetCategoriesXML();
 
         public abstract string[] GetCategoryNames();
 
@@ -48,6 +59,13 @@ namespace IBMConsultantTool
         public abstract bool GetCategory(string catName, out CATEGORY category);
 
         public abstract bool AddCategory(CATEGORY category);
+
+        public abstract bool GetCategory(int catID, out XElement category);
+
+        public abstract bool GetCategory(string catName, out XElement category);
+
+        public abstract bool AddCategory(XElement category);
+
         #endregion
 
         #region BusinessObjective
