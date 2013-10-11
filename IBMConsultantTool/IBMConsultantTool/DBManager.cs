@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace IBMConsultantTool
 {
-    public class DBManager
+    public class DBManager : DataManager
     {
         public SAMPLEEntities dbo;
 
@@ -25,7 +26,7 @@ namespace IBMConsultantTool
                     select ent).ToList();
         }
 
-        public string[] GetClientNames()
+        public override string[] GetClientNames()
         {
             return (from ent in dbo.CLIENT
                     select ent.NAME.TrimEnd()).ToArray();
@@ -149,7 +150,7 @@ namespace IBMConsultantTool
             try
             {
                 bom = (from ent in client.BOM
-                       where ent.INITIATIVE.NAME == iniName
+                       where ent.INITIATIVE.NAME.TrimEnd() == iniName
                        select ent).Single();
             }
 
@@ -162,8 +163,9 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public bool UpdateBOM(CLIENT client, NewInitiative ini)
+        public override bool UpdateBOM(object clientObj, NewInitiative ini)
         {
+            CLIENT client = clientObj as CLIENT;
             try
             {
                 BOM bom = (from ent in client.BOM
@@ -184,12 +186,15 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public bool AddBOM(BOM bom)
+        public override bool AddBOM(object bomObj, object clientObj)
         {
+            BOM bom = bomObj as BOM;
+            CLIENT client = clientObj as CLIENT;
+
             //If Client points to 2 BOMs with same Initiative, return false
-            if ((from ent in bom.CLIENT.BOM
+            if ((from ent in client.BOM
                  where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
-                 select ent).Count() != 1)
+                 select ent).Count() != 0)
             {
                 return false;
             }
@@ -198,19 +203,20 @@ namespace IBMConsultantTool
                                 select ent.BOMID).ToList();
 
             bom.BOMID = GetUniqueID(idList);
+            bom.CLIENT = client;
 
             dbo.AddToBOM(bom);
 
             return true;
         }
 
-        public bool BuildBOMForm(BOMTool bomForm, string clientName)
+        public override bool BuildBOMForm(BOMTool bomForm, string clientName)
         {
             CLIENT client;
 
             if (GetClient(clientName, out client))
             {
-                bomForm.dbclient = client;
+                bomForm.client = client;
 
                 string catName;
                 string busName;
@@ -264,6 +270,34 @@ namespace IBMConsultantTool
                 return false;
             }
         }
+        public override bool NewBOMForm(BOMTool bomForm, string clientName)
+        {
+            CLIENT client;
+            if (!GetClient(clientName, out client))
+            {
+                client = new CLIENT();
+                client.NAME = clientName;
+                AddClient(client);
+
+                if (!AddGroup("Business", client) || !AddGroup("IT", client))
+                {
+                    return false;
+                }
+
+                if (!SaveChanges())
+                {
+                    return false;
+                }
+
+                bomForm.client = client;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region Category
@@ -273,7 +307,7 @@ namespace IBMConsultantTool
                     select ent).ToList();
         }
 
-        public string[] GetCategoryNames()
+        public override string[] GetCategoryNames()
         {
             return (from ent in dbo.CATEGORY
                     select ent.NAME.TrimEnd()).ToArray();
@@ -334,6 +368,20 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override void ChangedCategory(BOMTool bomForm)
+        {
+            bomForm.objectiveNames.Items.Clear();
+            bomForm.objectiveNames.Text = "<Select Objective>";
+            bomForm.initiativeNames.Items.Clear();
+            bomForm.initiativeNames.Text = "";
+            CATEGORY category;
+            if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
+            {
+                bomForm.objectiveNames.Items.AddRange((from ent in category.BUSINESSOBJECTIVE
+                                               select ent.NAME.TrimEnd()).ToArray());
+            }
+        }
         #endregion
 
         #region BusinessObjective
@@ -341,12 +389,6 @@ namespace IBMConsultantTool
         {
             return (from ent in dbo.BUSINESSOBJECTIVE
                     select ent).ToList();
-        }
-
-        public string[] GetObjectiveNames()
-        {
-            return (from ent in dbo.BUSINESSOBJECTIVE
-                    select ent.NAME.TrimEnd()).ToArray();
         }
 
         public bool GetObjective(int busID, out BUSINESSOBJECTIVE objective)
@@ -403,6 +445,18 @@ namespace IBMConsultantTool
             dbo.AddToBUSINESSOBJECTIVE(objective);
 
             return true;
+        }
+
+        public override void ChangedObjective(BOMTool bomForm)
+        {
+            bomForm.initiativeNames.Items.Clear();
+            bomForm.initiativeNames.Text = "<Select Initiative>";
+            BUSINESSOBJECTIVE objective;
+            if (GetObjective(bomForm.objectiveNames.Text.Trim(), out objective))
+            {
+                bomForm.initiativeNames.Items.AddRange((from ent in objective.INITIATIVE
+                                                select ent.NAME.TrimEnd()).ToArray());
+            }
         }
         #endregion
 
@@ -474,10 +528,102 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        {
+            INITIATIVE initiative;
+            if (!GetInitiative(iniName, out initiative))
+            {
+                initiative = new INITIATIVE();
+                initiative.NAME = iniName;
+                BUSINESSOBJECTIVE objective;
+                if (!GetObjective(busName, out objective))
+                {
+                    objective = new BUSINESSOBJECTIVE();
+                    objective.NAME = busName;
+                    CATEGORY category;
+                    if (!GetCategory(catName, out category))
+                    {
+                        category = new CATEGORY();
+                        category.NAME = catName;
+                        if (!AddCategory(category))
+                        {
+                            MessageBox.Show("Failed to add Category to Database", "Error");
+                            return;
+                        }
+                    }
+
+                    objective.CATEGORY = category;
+                    if (!AddObjective(objective))
+                    {
+                        MessageBox.Show("Failed to add Objective to Database", "Error");
+                        return;
+                    }
+                }
+
+                initiative.BUSINESSOBJECTIVE = objective;
+                if (!AddInitiative(initiative))
+                {
+                    MessageBox.Show("Failed to add Initiative to Database", "Error");
+                    return;
+                }
+            }
+
+            BOM bom = new BOM();
+            bom.INITIATIVE = initiative;
+            if (!AddBOM(bom, bomForm.client))
+            {
+                MessageBox.Show("Failed to add Initiative to BOM", "Error");
+                return;
+            }
+            if (!SaveChanges())
+            {
+                MessageBox.Show("Failed to save changes to database", "Error");
+                return;
+            }
+
+            else
+            {
+                //Successfully added to database, update GUI
+                catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
+                NewCategory category = bomForm.Categories.Find(delegate(NewCategory cat)
+                {
+                    return cat.name == catName;
+                });
+                if (category == null)
+                {
+                    category = bomForm.AddCategory(catName);
+                }
+
+                busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
+                {
+                    return bus.Name == busName;
+                });
+                if (objective == null)
+                {
+                    objective = category.AddObjective(busName);
+                }
+
+                iniName = bom.INITIATIVE.NAME.TrimEnd();
+                NewInitiative initiativeObj = objective.Initiatives.Find(delegate(NewInitiative ini)
+                {
+                    return ini.Name == iniName;
+                });
+                if (initiativeObj == null)
+                {
+                    initiativeObj = objective.AddInitiative(iniName);
+                }
+                else
+                {
+                    MessageBox.Show("Initiative already exists in BOM", "Error");
+                }
+            }
+        }
         #endregion
 
         #region General
-        public bool SaveChanges()
+        public override bool SaveChanges()
         {
             try
             {
@@ -677,9 +823,8 @@ namespace IBMConsultantTool
                                     if (GetInitiative(lineArray[3], out initiative))
                                     {
                                         bom = new BOM();
-                                        bom.CLIENT = client;
                                         bom.INITIATIVE = initiative;
-                                        AddBOM(bom);
+                                        AddBOM(bom, client);
                                     }
                                 }
                                 break;

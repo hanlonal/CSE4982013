@@ -81,62 +81,25 @@ namespace IBMConsultantTool
                         initiative.Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
                         initiative.Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
 
-                        //mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[3].Value);
-                        //mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
-                        //mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
-
-                        //mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality = (float)(dataGrid.Rows[rowCount].Cells[3].Value);
-                        //mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation = (float)dataGrid.Rows[rowCount].Cells[4].Value;
-                        //mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness = (float)dataGrid.Rows[rowCount].Cells[5].Value;
-
-                        if (mainForm.isOnline)
+                        if (!mainForm.db.UpdateBOM(mainForm.client, initiative))
                         {
-                            if (!mainForm.db.UpdateBOM(mainForm.dbclient, initiative))
-                            {
-                                MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
-                                return;
-                            }
-                        }
-
-                        else
-                        {
-                            if (!mainForm.fm.UpdateBOM(mainForm.flclient, initiative))
-                            {
-                                MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to File", "Error");
-                                return;
-                            }
+                            MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
+                            return;
                         }
 
                         rowCount++;
                     }
                 }
             }
-            if(mainForm.isOnline)
+            if (!mainForm.db.SaveChanges())
             {
-                if (!mainForm.db.SaveChanges())
-                {
-                    MessageBox.Show("Could not save changes to database", "Error");
-                    return;
-                } 
-
-                else
-                {
-                    MessageBox.Show("Changes saved successfully", "Success");
-                }
-            }
+                MessageBox.Show("Could not save changes to database", "Error");
+                return;
+            } 
 
             else
             {
-                if (!mainForm.fm.SaveChanges())
-                {
-                    MessageBox.Show("Could not save changes to File", "Error");
-                    return;
-                } 
-
-                else
-                {
-                    MessageBox.Show("Changes saved successfully", "Success");
-                }
+                MessageBox.Show("Changes saved successfully", "Success");
             }
         }
     }

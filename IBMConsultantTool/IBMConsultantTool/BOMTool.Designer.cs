@@ -160,9 +160,9 @@
         private System.Windows.Forms.RadioButton critRadio;
         private System.Windows.Forms.RadioButton effectRadio;
         private System.Windows.Forms.RadioButton diffRadio;
-        private System.Windows.Forms.ComboBox categoryNames;
-        private System.Windows.Forms.ComboBox objectiveNames;
-        private System.Windows.Forms.ComboBox initiativeNames;
+        public System.Windows.Forms.ComboBox categoryNames;
+        public System.Windows.Forms.ComboBox objectiveNames;
+        public System.Windows.Forms.ComboBox initiativeNames;
         private System.Windows.Forms.Button AddInitiativeButton;
 
     }

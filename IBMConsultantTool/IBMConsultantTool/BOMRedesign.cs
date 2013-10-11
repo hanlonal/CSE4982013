@@ -102,9 +102,8 @@ namespace IBMConsultantTool
             }
 
             BOM bom = new BOM();
-            bom.CLIENT = client;
             bom.INITIATIVE = initiative;
-            if (!db.AddBOM(bom))
+            if (!db.AddBOM(bom, client))
             {
                 MessageBox.Show("Failed to add Initiative to BOM", "Error");
                 return;
@@ -112,7 +111,6 @@ namespace IBMConsultantTool
             if (!db.SaveChanges())
             {
                 MessageBox.Show("Failed to save changes to database", "Error");
-                db = new DBManager();
                 return;
             }
 
