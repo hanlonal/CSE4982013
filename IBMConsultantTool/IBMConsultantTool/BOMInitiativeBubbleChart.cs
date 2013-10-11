@@ -18,9 +18,9 @@ namespace IBMConsultantTool
         private float differentiation =0;
         private float effectiveness = 0;
         //private DataEntryForm mainForm;
-        private BOMRedesign mainForm;
+        private BOMTool mainForm;
 
-        public BOMInitiativeBubbleChart(BOMRedesign info)
+        public BOMInitiativeBubbleChart(BOMTool info)
         {
             mainForm = info;
             InitializeComponent();
@@ -48,13 +48,13 @@ namespace IBMConsultantTool
 
 
             
-            for (int i = 0; i < mainForm.CategoryCount; i++)
+            for (int i = 0; i < mainForm.Categories.Count; i++)
             {
                 rowCount++;
-                for (int j = 0; j < mainForm.Categories[i].BusinessObjectivesCount; j++)
+                for (int j = 0; j < mainForm.Categories[i].Objectives.Count; j++)
                 {
                     rowCount++;
-                    for (int k = 0; k < mainForm.Categories[i].Objectives[j].InitiativesCount; k++)
+                    for (int k = 0; k < mainForm.Categories[i].Objectives[j].Initiatives.Count; k++)
                     {
                         name = mainForm.Categories[i].Objectives[j].Initiatives[k].Name;
                         criticality = mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality;
