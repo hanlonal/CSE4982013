@@ -10,6 +10,7 @@ namespace IBMConsultantTool
         string databaseID;
         string toolID;
         string name;
+        bool defaultDomain = true;
 
         float averageAsIs = 0;
         float averageToBe = 0;
@@ -19,6 +20,7 @@ namespace IBMConsultantTool
         public Domain()
         {
             Console.WriteLine("new domain created");
+
         }
 
         public string Name
@@ -35,6 +37,11 @@ namespace IBMConsultantTool
         public override string ToString()
         {
             return name + " :: " + toolID;
+        }
+        public bool IsDefault
+        {
+            get { return defaultDomain; }
+            set { defaultDomain = value; }
         }
 
     }// end class

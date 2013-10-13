@@ -11,6 +11,18 @@ namespace IBMConsultantTool
        List<string> subFolders = new List<string>();
        string rootfoldername = @"c:\Consultant Tool";
        ITCapTool mainForm;
+       private int highestID = 0;
+
+       private int defaultinList = 1;
+       private int notdefault = 0;
+
+       string[] originalFileWrite = new string[5];
+
+
+       int idIndex = 0;
+       int defaultIndex = 1;
+       int startCapabilityIndex = 2;
+
 
        public ITCapFileManager(ITCapTool owner)
        {
@@ -19,6 +31,8 @@ namespace IBMConsultantTool
            subFolders.Add("ITCAP");
            this.mainForm = owner;
 
+           originalFileWrite[0] = highestID.ToString();
+           originalFileWrite[1] = "InDefaultList";
        }
 
 
@@ -41,7 +55,13 @@ namespace IBMConsultantTool
        {
            if (!System.IO.File.Exists(@"c:\Consultant Tool\ITCap\Domains\" + name))
            {
-               System.IO.File.Create((@"c:\Consultant Tool\ITCap\Domains\" + name));
+               FileStream createdFile = System.IO.File.Create(@"c:\Consultant Tool\ITCap\Domains\" + name);
+               createdFile.Close();
+               originalFileWrite[defaultIndex] = defaultinList.ToString();
+               IncreaseIDNumber();
+               System.IO.File.WriteAllLines(@"c:\Consultant Tool\ITCap\Domains\" + name, originalFileWrite);
+             
+
                return true;
            }
            else
@@ -57,11 +77,27 @@ namespace IBMConsultantTool
            
            foreach (string name in filenames)
            {
+               Console.WriteLine("here");
                string domainName = System.IO.Path.GetFileName(name);
                string[] test = System.IO.File.ReadAllLines(name);
-               Console.WriteLine(test[0]);
-               mainForm.CreateDomain(domainName, test[0]);
+               Console.WriteLine(name);
+               mainForm.CreateDomain(domainName, Convert.ToInt32(test[idIndex]));
            }
+       }
+       public int  GetHighestIDNumber()
+       {
+           string[] test = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Info.txt");
+           return Convert.ToInt32(test[idIndex]);
+       }
+       public void IncreaseIDNumber()
+       {
+           string[] fileContentsbyLine = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Info.txt");
+           int id = Convert.ToInt32(fileContentsbyLine[idIndex]);
+           id++;
+           highestID = id;
+           originalFileWrite[idIndex] = highestID.ToString();
+           fileContentsbyLine[idIndex] = id.ToString();
+           System.IO.File.WriteAllLines(@"c:\Consultant Tool\ITCap\Info.txt", fileContentsbyLine);
        }
 
     }// end class

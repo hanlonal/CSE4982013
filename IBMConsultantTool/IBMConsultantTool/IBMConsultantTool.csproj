@@ -139,6 +139,12 @@
     <Compile Include="DataManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Domain.cs" />
+    <Compile Include="EditCapabilities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCapabilities.Designer.cs">
+      <DependentUpon>EditCapabilities.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManager.cs" />
     <Compile Include="ITCapFileManager.cs" />
     <Compile Include="ITCapQuestion.cs" />
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataEntryForm.resx">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditCapabilities.resx">
+      <DependentUpon>EditCapabilities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ITCapTool.resx">
       <DependentUpon>ITCapTool.cs</DependentUpon>
