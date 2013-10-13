@@ -88,6 +88,7 @@
     <Compile Include="BOMTool.Designer.cs">
       <DependentUpon>BOMTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="Capability.cs" />
     <Compile Include="ChooseClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,7 +138,10 @@
     </Compile>
     <Compile Include="DataManager.cs" />
     <Compile Include="DBManager.cs" />
+    <Compile Include="Domain.cs" />
     <Compile Include="FileManager.cs" />
+    <Compile Include="ITCapFileManager.cs" />
+    <Compile Include="ITCapQuestion.cs" />
     <Compile Include="ITCapTool.cs">
       <SubType>Form</SubType>
     </Compile>
