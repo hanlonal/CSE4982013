@@ -42,7 +42,7 @@ namespace IBMConsultantTool
        //indexes for lines in info file
        private int domainCountIndex = 0;
        private int capabilityCountIndex = 1;
-       private int questionCountIndex = 2;
+       private int questionCountIndex = 2;//
        
 
 
