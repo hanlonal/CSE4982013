@@ -194,9 +194,26 @@ namespace IBMConsultantTool
             dom.NumCapabilities++;
         }
 
+        public void CreateQuestion(string name, int id, Capability cap)
+        {
+
+        }
+
         private void AddCapabilityToListBox(Capability cap)
         {
             listBox2.Items.Add(cap);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (fileManager.AddQuestionToSystem(textBox3.Text, currentSelectedCapability))
+            {
+                CreateQuestion(textBox3.Text, fileManager.GetHighestIDNumberCapability(), currentSelectedCapability);
+            }
+            else
+            {
+                Console.WriteLine("Capability already exists");
+            }
         }
 
 

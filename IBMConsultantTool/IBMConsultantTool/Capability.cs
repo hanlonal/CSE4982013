@@ -16,6 +16,10 @@ namespace IBMConsultantTool
 
         private bool isDefault = true;
 
+        int numQuestions = 0;
+
+
+
 
 
         string name;
@@ -62,6 +66,11 @@ namespace IBMConsultantTool
         {
             get { return isDefault; }
             set { isDefault = value; }
+        }
+        public int NumQuestions
+        {
+            get { return numQuestions; }
+            set { numQuestions = value; }
         }
 
     }
