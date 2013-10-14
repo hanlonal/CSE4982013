@@ -21,21 +21,21 @@ namespace IBMConsultantTool
        //string[] fileWriteCapability = new string[5];
 
        // file information for individual capabilities
-       List<string> capabilityFileContents = new List<string>();
+       string[] capabilityFileContents = new string[4096];
        private int capabilityIDIndex = 0;
        private int defaultInListIndexCap = 1;
 
        // file info for individual domains
-       List<string> domainFileContents = new List<string>();
+       string[] domainFileContents = new string[4096];
        int idDomainIndex = 0;
        int defaultInListIndexDomain = 1;
        int numberOfCapabilitiesOwnedIndex = 2;
        int startOfCapabilitiesOwnedIndex = 3;
- 
 
+       private string CapabilityFolderPath = @"c:\Consultant Tool\ITCap\Capabilities\";
 
        //file information for Info File
-       List<string> infoFileContents = new List<string>();
+       string[] infoFileContents = new string[4096];
        private int domainCount = 0;
        private int capabilityCount = 0;
        private int questionCount = 0;
@@ -53,24 +53,21 @@ namespace IBMConsultantTool
            subFolders.Add("CUPETool");
            subFolders.Add("ITCAP");
            this.mainForm = owner;
-           infoFileContents.Add(domainCount.ToString());
-           infoFileContents.Add(capabilityCount.ToString());
-           infoFileContents.Add(questionCount.ToString());
+               //lines to get written to main info file
+           infoFileContents[domainCountIndex] = domainCount.ToString();
+           infoFileContents[capabilityCountIndex] = capabilityCount.ToString();
+           infoFileContents[questionCountIndex] = questionCount.ToString();
+
+
            //lines in info file to count data
+           domainFileContents[idDomainIndex] = domainCount.ToString();
+           domainFileContents[defaultInListIndexDomain] = "InDefault List";
+           domainFileContents[numberOfCapabilitiesOwnedIndex] = "0";
 
-           domainFileContents.Add(domainCount.ToString());
-           domainFileContents.Add("In default List");
-           domainFileContents.Add("0");
-
-
-           
+                      
            //lines to get written to capability files
-           capabilityFileContents.Add(capabilityCount.ToString());
-           capabilityFileContents.Add("In default List");
-
-
-
-
+           capabilityFileContents[capabilityIDIndex] = capabilityCount.ToString();
+           capabilityFileContents[defaultInListIndexCap] = "In default list";
 
 
        }
@@ -90,7 +87,8 @@ namespace IBMConsultantTool
               System.IO.Directory.CreateDirectory(pathString3);
            }
 
-           CreateListOfDomains();
+
+           CreateListOfDomainsCapabilitiesAndQuestions();
            //CreateListOfCapabilities();
            //CreateListOfCapabilities();
 
@@ -106,7 +104,7 @@ namespace IBMConsultantTool
                //originalFileWriteDomain[defaultIndex] = defaultinList.ToString();
                IncreaseIDNumberDomain();
                System.IO.File.WriteAllLines(@"c:\Consultant Tool\ITCap\Domains\" + name, domainFileContents);
-             
+              
 
                return true;
            }
@@ -122,8 +120,12 @@ namespace IBMConsultantTool
            {
                FileStream createdFile = System.IO.File.Create(@"c:\Consultant Tool\ITCap\Capabilities\" + name);
                createdFile.Close();
-
+               //open domain file to add capability
+               string[] fileContents = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Domains\" +dom.Name);
+               fileContents[startOfCapabilitiesOwnedIndex + dom.NumCapabilities] = name;
+               fileContents[numberOfCapabilitiesOwnedIndex] = (dom.NumCapabilities +1).ToString();
                IncreaseIDNumberCapability();
+               System.IO.File.WriteAllLines(@"c:\Consultant Tool\ITCap\Domains\" + dom.Name, fileContents);
                System.IO.File.WriteAllLines(@"c:\Consultant Tool\ITCap\Capabilities\" + name, capabilityFileContents);
                return true;
            }
@@ -131,7 +133,7 @@ namespace IBMConsultantTool
            return true;
        }
 
-       private void CreateListOfDomains()
+       private void CreateListOfDomainsCapabilitiesAndQuestions()
        {
            string[] filenames = Directory.GetFiles(@"c:\Consultant Tool\ITCap\Domains\");
            filenames.ToList<String>();
@@ -141,24 +143,58 @@ namespace IBMConsultantTool
                //Console.WriteLine("here");
                string domainName = System.IO.Path.GetFileName(name);
                string[] test = System.IO.File.ReadAllLines(name);
-               Console.WriteLine(name);
-               mainForm.CreateDomain(domainName, Convert.ToInt32(test[idDomainIndex]));
+
+              Domain dom = mainForm.CreateDomain(domainName, Convert.ToInt32(test[idDomainIndex]));
+              for (int i = startOfCapabilitiesOwnedIndex; i < Convert.ToInt32(test[numberOfCapabilitiesOwnedIndex]) + startOfCapabilitiesOwnedIndex; i++)
+              {
+                  Console.WriteLine("ere");
+                  string[] capFileInfo =  GetFileInfo(test[i], "cap");
+                  mainForm.CreateCapability(test[i], Convert.ToInt32(capFileInfo[capabilityIDIndex]), dom);
+              }
+               
            }
        }
-       /*private void CreateListOfCapabilities()
+
+
+       public string[] GetFileInfo(string name, string type)
        {
-           string[] filenames = Directory.GetFiles(@"c:\Consultant Tool\ITCap\Capabilities\");
-           filenames.ToList<String>();
-
-           foreach (string name in filenames)
+           if (type == "cap")
            {
-               string capabilityName = System.IO.Path.GetFileName(name);
-               string[] contents = System.IO.File.ReadAllLines(name);
-               mainForm.CreateCapability(capabilityName, Convert.ToInt32(contents[capabilityIDIndex]));
+               string[] filecontents = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Capabilities\" + name);
+               return filecontents;
            }
-       }*/
 
-       public int  GetHighestIDNumberDomain()
+           return null;
+           
+       }
+
+       public List<string> GetChildren(Domain dom)
+       {
+           string[] filecontents = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Domains\" + dom.Name);
+           List<string> capsToMake = new List<string>();
+          for(int i = startOfCapabilitiesOwnedIndex;i < Convert.ToInt32(filecontents[startOfCapabilitiesOwnedIndex + dom.NumCapabilities ]); i++)
+          {
+              capsToMake.Add(filecontents[i]);
+          }
+          return capsToMake;
+       }
+
+
+
+       /* private void CreateListOfCapabilities()
+        {
+            string[] filenames = Directory.GetFiles(@"c:\Consultant Tool\ITCap\Capabilities\");
+            filenames.ToList<String>();
+
+            foreach (string name in filenames)
+            {
+                string capabilityName = System.IO.Path.GetFileName(name);
+                string[] contents = System.IO.File.ReadAllLines(name);
+                mainForm.CreateCapability(capabilityName, Convert.ToInt32(contents[capabilityIDIndex]));
+            }
+        }*/
+
+       public int GetHighestIDNumberDomain()
        {
            string[] test = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Info.txt");
            return Convert.ToInt32(test[idDomainIndex]);

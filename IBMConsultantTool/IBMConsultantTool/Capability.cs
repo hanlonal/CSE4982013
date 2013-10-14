@@ -14,6 +14,8 @@ namespace IBMConsultantTool
         private float toBeAverage;
         private Domain owner;
 
+        private bool isDefault = true;
+
 
 
         string name;
@@ -55,6 +57,11 @@ namespace IBMConsultantTool
         public override string ToString()
         {
             return name + "::" + toolID;
+        }
+        public bool IsDefault
+        {
+            get { return isDefault; }
+            set { isDefault = value; }
         }
 
     }

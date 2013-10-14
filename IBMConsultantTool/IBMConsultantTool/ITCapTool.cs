@@ -18,7 +18,9 @@ namespace IBMConsultantTool
         List<Domain> domains = new List<Domain>();
         List<Capability> capabilities = new List<Capability>();
         int highestID;
-        private Domain currentSelected;
+        private Domain currentSelectedDomain;
+        private Capability currentSelectedCapability;
+        private ITCapQuestion currentSelectedQuestion;
 
         public ITCapTool()
         {
@@ -46,15 +48,25 @@ namespace IBMConsultantTool
             }
         }
 
-        public void CreateDomain(string name, int id)
+        public Domain CreateDomain(string name, int id)
         {
             Domain dom = new Domain();
             dom.Name = name;
             dom.ToolID = id.ToString();
             dom.Index = domains.Count;
+            dom.Owner = this;
             domains.Add(dom);
+
             AddDomainToListBox(dom);
-            //fileManager.IncreaseIDNumber();
+
+            return dom;
+           /* List<string> capstoMake = fileManager.GetChildren(dom);
+            if(capstoMake !=null)
+                dom.BuildCapabilitiesList(capstoMake);*/
+        }
+        public string[] GetFileInfo(string name, string type)
+        {
+           return fileManager.GetFileInfo(name, type);
         }
 
         private void AddDomainToListBox(Domain dom)
@@ -67,14 +79,21 @@ namespace IBMConsultantTool
             {
                 if (dom.IsDefault)
                 {
-                    DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
-                    row.Cells[0].Value = dom.Name;
-                    row.Cells[1].Value = dom.ToolID;
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-                    dataGridView1.Rows.Add(row);
+                    BuildRow(dom.Name, dom.ToolID, Color.DarkOrange);
+
+                    BuildGridViewWithCapabilities(dom);
+
                 }
             }
 
+        }
+        private void BuildRow(string name, string id, Color color)
+        {
+            DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
+            row.Cells[0].Value = name;
+            row.Cells[1].Value = id;
+            row.DefaultCellStyle.BackColor = color;
+            dataGridView1.Rows.Add(row);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -93,10 +112,27 @@ namespace IBMConsultantTool
             }
         }
 
+        private void BuildGridViewWithCapabilities(Domain dom)
+        {
+            foreach (Capability cap in dom.Capabilities)
+            {
+                if (cap.IsDefault)
+                {
+                    BuildRow(cap.Name, cap.ToolID, Color.Yellow);
+                    BuildGridViewWithQuestions(cap);
+                }
+            }
+        }
+
+        private void BuildGridViewWithQuestions(Capability cap)
+        {
+
+        }
+
         private void view_SelectedValueChanged(object sender, EventArgs e)
         {
             ListBox box = (ListBox)sender;
-            currentSelected = (Domain)box.SelectedItem;
+            currentSelectedDomain = (Domain)box.SelectedItem;
            // Console.WriteLine(currentSelected.ToString());
         }
 
@@ -115,17 +151,28 @@ namespace IBMConsultantTool
             {
                 if (dom.Name == name)
                 {
-                    currentSelected = dom;
-                    Console.WriteLine(currentSelected.ToString());
+                    currentSelectedDomain = dom;
+                    Console.WriteLine(currentSelectedDomain.ToString());
+                    return;
                 }
             }
+            foreach (Capability cap in capabilities)
+            {
+                if (cap.Name == name)
+                {
+                    currentSelectedCapability = cap;
+                    currentSelectedDomain = cap.Owner;
+                    Console.WriteLine(currentSelectedCapability.ToString());
+                }
+            }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (fileManager.AddCapabilityToSystem(textBox2.Text, currentSelected))
+            if (fileManager.AddCapabilityToSystem(textBox2.Text, currentSelectedDomain))
             {
-                CreateCapability(textBox2.Text, fileManager.GetHighestIDNumberCapability(), currentSelected);
+                CreateCapability(textBox2.Text, fileManager.GetHighestIDNumberCapability(), currentSelectedDomain);
             }
             else
             {
@@ -144,6 +191,7 @@ namespace IBMConsultantTool
             capabilities.Add(cap);
             AddCapabilityToListBox(cap);
             dom.AddCapabilitytoList(cap);
+            dom.NumCapabilities++;
         }
 
         private void AddCapabilityToListBox(Capability cap)

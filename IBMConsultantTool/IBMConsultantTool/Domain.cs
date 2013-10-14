@@ -13,6 +13,9 @@ namespace IBMConsultantTool
         bool defaultDomain = true;
         int numCapabilities = 0;
 
+        ITCapTool owner;
+
+
         int indexInList;
 
         float averageAsIs = 0;
@@ -20,10 +23,21 @@ namespace IBMConsultantTool
 
         private List<Capability> capabilities = new List<Capability>();
 
+
+
         public Domain()
         {
             Console.WriteLine("new domain created");
 
+        }
+
+        public void BuildCapabilitiesList(List<string> toMake)
+        {
+            foreach (string cap in toMake)
+            {
+                string[] fileInfoForCap = owner.GetFileInfo(cap, "cap");
+                 //owner.CreateCapability(
+            }
         }
 
         public void AddCapabilitytoList(Capability cap)
@@ -55,6 +69,22 @@ namespace IBMConsultantTool
         {
             get { return indexInList; }
             set { indexInList = value; }
+        }
+        public int NumCapabilities
+        {
+            get { return numCapabilities; }
+            set { numCapabilities = value; }
+        }
+        public List<Capability> Capabilities
+        {
+            get { return capabilities; }
+            set { capabilities = value; }
+        }
+
+        public ITCapTool Owner
+        {
+            get { return owner; }
+            set { owner = value; }
         }
 
     }// end class
