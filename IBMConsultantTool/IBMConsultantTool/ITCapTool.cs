@@ -16,6 +16,7 @@ namespace IBMConsultantTool
     {
         ITCapFileManager fileManager;
         List<Domain> domains = new List<Domain>();
+        List<Capability> capabilities = new List<Capability>();
         int highestID;
         private Domain currentSelected;
 
@@ -37,7 +38,7 @@ namespace IBMConsultantTool
         {
             if (fileManager.AddDomainToSystem(textBox1.Text))
             {
-                CreateDomain(textBox1.Text, fileManager.GetHighestIDNumber());
+                CreateDomain(textBox1.Text, fileManager.GetHighestIDNumberDomain());
             }
             else
             {
@@ -50,6 +51,7 @@ namespace IBMConsultantTool
             Domain dom = new Domain();
             dom.Name = name;
             dom.ToolID = id.ToString();
+            dom.Index = domains.Count;
             domains.Add(dom);
             AddDomainToListBox(dom);
             //fileManager.IncreaseIDNumber();
@@ -95,7 +97,7 @@ namespace IBMConsultantTool
         {
             ListBox box = (ListBox)sender;
             currentSelected = (Domain)box.SelectedItem;
-            Console.WriteLine(currentSelected);
+           // Console.WriteLine(currentSelected.ToString());
         }
 
         private void vieToolStripMenuItem_Click(object sender, EventArgs e)
@@ -103,11 +105,52 @@ namespace IBMConsultantTool
 
         }
 
-        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView view = (DataGridView)sender;
-            
+            int rowIndex = e.RowIndex;
+            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+            string name =  row.Cells[0].Value.ToString();
+
+            foreach (Domain dom in domains)
+            {
+                if (dom.Name == name)
+                {
+                    currentSelected = dom;
+                    Console.WriteLine(currentSelected.ToString());
+                }
+            }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (fileManager.AddCapabilityToSystem(textBox2.Text, currentSelected))
+            {
+                CreateCapability(textBox2.Text, fileManager.GetHighestIDNumberCapability(), currentSelected);
+            }
+            else
+            {
+                Console.WriteLine("Capability already exists");
+            }
+
+           
+        }
+
+        public void CreateCapability(string name, int id, Domain dom)
+        {
+            Capability cap = new Capability();
+            cap.Name = name;
+            cap.ToolID = id.ToString();
+            cap.Owner = dom;
+            capabilities.Add(cap);
+            AddCapabilityToListBox(cap);
+            dom.AddCapabilitytoList(cap);
+        }
+
+        private void AddCapabilityToListBox(Capability cap)
+        {
+            listBox2.Items.Add(cap);
+        }
+
 
 
 

@@ -11,16 +11,24 @@ namespace IBMConsultantTool
         string toolID;
         string name;
         bool defaultDomain = true;
+        int numCapabilities = 0;
+
+        int indexInList;
 
         float averageAsIs = 0;
         float averageToBe = 0;
 
-        private LinkedList<Capability> capabilities = new LinkedList<Capability>();
+        private List<Capability> capabilities = new List<Capability>();
 
         public Domain()
         {
             Console.WriteLine("new domain created");
 
+        }
+
+        public void AddCapabilitytoList(Capability cap)
+        {
+            capabilities.Add(cap);
         }
 
         public string Name
@@ -42,6 +50,11 @@ namespace IBMConsultantTool
         {
             get { return defaultDomain; }
             set { defaultDomain = value; }
+        }
+        public int Index
+        {
+            get { return indexInList; }
+            set { indexInList = value; }
         }
 
     }// end class

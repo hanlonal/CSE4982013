@@ -5,7 +5,57 @@ using System.Text;
 
 namespace IBMConsultantTool
 {
-    class Capability
+    
+
+    public class Capability
     {
+        private List<ITCapQuestion> questions = new List<ITCapQuestion>();
+        private float asIsAverage;
+        private float toBeAverage;
+        private Domain owner;
+
+
+
+        string name;
+
+
+
+
+        string toolID;
+
+
+
+        string listIndex;
+
+        public Capability()
+        {
+            Console.WriteLine("capability created");
+        }
+
+
+
+
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public string ToolID
+        {
+            get { return toolID; }
+            set { toolID = value; }
+        }
+        public Domain Owner
+        {
+            get { return owner; }
+            set { owner = value; }
+        }
+
+        public override string ToString()
+        {
+            return name + "::" + toolID;
+        }
+
     }
 }

@@ -7,5 +7,7 @@ namespace IBMConsultantTool
 {
     class ITCapQuestion
     {
+
+
     }
 }
