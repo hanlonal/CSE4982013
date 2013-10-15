@@ -139,7 +139,10 @@ namespace IBMConsultantTool
             row.Cells[2].Value = id;
             row.Cells[3].Value = CheckState.Checked;
             row.DefaultCellStyle.BackColor = color;
-            dataGridView1.Rows.Insert(index -1, row);
+            if (index == dataGridView1.Rows.Count +1)
+                dataGridView1.Rows.Insert(dataGridView1.Rows.Count -1, row);
+            else
+                dataGridView1.Rows.Insert(index -1, row);
         }
 
         private void button2_Click(object sender, EventArgs e)
