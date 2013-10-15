@@ -76,6 +76,7 @@ namespace IBMConsultantTool
            //lines to get written to capability files
            capabilityFileContents[capabilityIDIndex] = capabilityCount.ToString();
            capabilityFileContents[defaultInListIndexCap] = "In default list";
+           capabilityFileContents[numberOfQuestionsOwnedIndex] = "0";
 
            //lines to get written to question files
            questionFileContents[idQuestionIndex] = questionCount.ToString();
@@ -173,12 +174,21 @@ namespace IBMConsultantTool
                string domainName = System.IO.Path.GetFileName(name);
                string[] test = System.IO.File.ReadAllLines(name);
 
-              Domain dom = mainForm.CreateDomain(domainName, Convert.ToInt32(test[idDomainIndex]));
+              Domain dom = mainForm.CreateDomain(domainName);
               for (int i = startOfCapabilitiesOwnedIndex; i < Convert.ToInt32(test[numberOfCapabilitiesOwnedIndex]) + startOfCapabilitiesOwnedIndex; i++)
               {
                   Console.WriteLine("ere");
                   string[] capFileInfo =  GetFileInfo(test[i], "cap");
-                  mainForm.CreateCapability(test[i], Convert.ToInt32(capFileInfo[capabilityIDIndex]), dom);
+                  Capability cap = mainForm.CreateCapability(test[i],  dom);
+                  for (int j = startOfQuestionsOwnedIndex; j < Convert.ToInt32(capFileInfo[numberOfQuestionsOwnedIndex]) + startOfQuestionsOwnedIndex; j++)
+                  {
+                      Console.WriteLine("creating questions");
+                      string[] questionFileInfo = GetFileInfo(capFileInfo[j], "question");
+                      mainForm.CreateQuestion(capFileInfo[j], cap);
+                     // mainForm.CreateQuestion(capFileInfo[j], Convert.ToInt32(idQuestionIndex)
+
+                  }
+
               }
                
            }
@@ -190,6 +200,11 @@ namespace IBMConsultantTool
            if (type == "cap")
            {
                string[] filecontents = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Capabilities\" + name);
+               return filecontents;
+           }
+           if (type == "question")
+           {
+               string[] filecontents = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Questions\" + name);
                return filecontents;
            }
 
@@ -237,11 +252,11 @@ namespace IBMConsultantTool
        public void IncreaseIDNumberQuestion()
        {
            string[] fileContentsbyLine = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Info.txt");
-           int id = Convert.ToInt32(fileContentsbyLine[idQuestionIndex]);
+           int id = Convert.ToInt32(fileContentsbyLine[questionCountIndex]);
            id++;
            questionCount = id;
-           fileContentsbyLine[questionCountIndex] = domainCount.ToString();
-           capabilityFileContents[idQuestionIndex] = id.ToString();
+           fileContentsbyLine[questionCountIndex] = questionCount.ToString();
+           questionFileContents[idQuestionIndex] = id.ToString();
            System.IO.File.WriteAllLines(@"c:\Consultant Tool\ITCap\Info.txt", fileContentsbyLine);
 
        }

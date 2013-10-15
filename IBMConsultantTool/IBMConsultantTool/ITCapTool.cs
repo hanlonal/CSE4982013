@@ -17,6 +17,7 @@ namespace IBMConsultantTool
         ITCapFileManager fileManager;
         List<Domain> domains = new List<Domain>();
         List<Capability> capabilities = new List<Capability>();
+        List<ITCapQuestion> questions = new List<ITCapQuestion>();
         int highestID;
         private Domain currentSelectedDomain;
         private Capability currentSelectedCapability;
@@ -25,45 +26,82 @@ namespace IBMConsultantTool
         public ITCapTool()
         {
             InitializeComponent();
-            fileManager = new ITCapFileManager(this);
+           // fileManager = new ITCapFileManager(this);
         }
 
         private void ITCapTool_Load(object sender, EventArgs e)
         {
 
-            fileManager.CheckFileSystem();
-            BuildGridView();
+            //fileManager.CheckFileSystem();
+           // BuildGridView();
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (fileManager.AddDomainToSystem(textBox1.Text))
+            foreach(Domain dom in domains)
             {
-                CreateDomain(textBox1.Text, fileManager.GetHighestIDNumberDomain());
+                if(dom.Name == textBox1.Text)
+                {
+                    Console.WriteLine("Domain Already exists");
+                    return;
+                }
             }
-            else
-            {
-                Console.WriteLine("File already exists");
-            }
+            
+            CreateDomain(textBox1.Text);
+            
+
         }
 
-        public Domain CreateDomain(string name, int id)
+        public Domain CreateDomain(string name)
         {
             Domain dom = new Domain();
             dom.Name = name;
-            dom.ToolID = id.ToString();
-            dom.Index = domains.Count;
-            dom.Owner = this;
             domains.Add(dom);
+            dom.ToolID = domains.Count.ToString();
+            //dom.Index = domains.Count;
 
+            dom.Owner = this;
+            
+            dom.IndexInDataGrid = FindIndexofDomain();
+            AddToGrid(dom);
             AddDomainToListBox(dom);
 
             return dom;
-           /* List<string> capstoMake = fileManager.GetChildren(dom);
-            if(capstoMake !=null)
-                dom.BuildCapabilitiesList(capstoMake);*/
+
         }
+
+        public Capability CreateCapability(string name, Domain dom)
+        {
+            Capability cap = new Capability();
+            dom.NumCapabilities++;
+            cap.Name = name;
+            cap.ToolID = dom.ToolID + "." + dom.NumCapabilities;
+            cap.Owner = dom;
+            cap.IndexInDataGrid = dom.IndexInDataGrid + dom.NumCapabilities + 1;
+            AddToGrid(cap);
+            capabilities.Add(cap);
+           // AddCapabilityToListBox(cap);
+            dom.AddCapabilitytoList(cap);
+            
+            return cap;
+        }
+
+        public void CreateQuestion(string name, Capability cap)
+        {
+            ITCapQuestion question = new ITCapQuestion();
+            cap.NumQuestions++;
+            question.QuestionText = name;
+            question.ToolId = cap.ToolID + "." + cap.NumQuestions;
+            question.Owner = cap;
+            question.IndexInGrid = cap.IndexInDataGrid + cap.NumQuestions + 1;
+            AddToGrid(question);
+            questions.Add(question);
+            cap.AddQuestionToList(question);
+
+        }
+
+
         public string[] GetFileInfo(string name, string type)
         {
            return fileManager.GetFileInfo(name, type);
@@ -79,7 +117,7 @@ namespace IBMConsultantTool
             {
                 if (dom.IsDefault)
                 {
-                    BuildRow(dom.Name, dom.ToolID, Color.DarkOrange);
+                    //BuildRow(dom.Name, dom.ToolID, Color.DarkOrange);
 
                     BuildGridViewWithCapabilities(dom);
 
@@ -87,13 +125,21 @@ namespace IBMConsultantTool
             }
 
         }
-        private void BuildRow(string name, string id, Color color)
+
+        private int FindIndexofDomain()
+        {
+            int index = domains.Count + capabilities.Count + questions.Count;
+            return index;
+        }
+        private void BuildRow(string name, string id, Color color, int index, string type)
         {
             DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
-            row.Cells[0].Value = name;
-            row.Cells[1].Value = id;
+            row.Cells[0].Value = type;
+            row.Cells[1].Value = name;
+            row.Cells[2].Value = id;
+            row.Cells[3].Value = CheckState.Checked;
             row.DefaultCellStyle.BackColor = color;
-            dataGridView1.Rows.Add(row);
+            dataGridView1.Rows.Insert(index -1, row);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -118,15 +164,42 @@ namespace IBMConsultantTool
             {
                 if (cap.IsDefault)
                 {
-                    BuildRow(cap.Name, cap.ToolID, Color.Yellow);
+                    //BuildRow(cap.Name, cap.ToolID, Color.Yellow);
                     BuildGridViewWithQuestions(cap);
                 }
             }
         }
 
+        public void AddToGrid(object sender)
+        {
+            if (sender.GetType() == typeof(Domain))
+            {
+                Domain dom = (Domain)sender;
+                
+                BuildRow(dom.Name, dom.ToolID, Color.DarkOrange, dom.IndexInDataGrid, "domain");
+            }
+            if (sender.GetType() == typeof(Capability))
+            {
+                Capability cap = (Capability)sender;
+                BuildRow(cap.Name, cap.ToolID, Color.Yellow, cap.IndexInDataGrid, "capability");
+                
+            }
+            if (sender.GetType() == typeof(ITCapQuestion))
+            {
+                ITCapQuestion question = (ITCapQuestion)sender;
+                BuildRow(question.QuestionText, question.ToolId, Color.Green, question.IndexInGrid, "question");
+            }
+        }
+
         private void BuildGridViewWithQuestions(Capability cap)
         {
-
+            foreach (ITCapQuestion question in cap.Questions)
+            {
+                if (question.IsDefault)
+                {
+                   // BuildRow(question.QuestionText, question.ToolId, Color.Green);
+                }
+            }
         }
 
         private void view_SelectedValueChanged(object sender, EventArgs e)
@@ -145,59 +218,57 @@ namespace IBMConsultantTool
         {
             int rowIndex = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[rowIndex];
-            string name =  row.Cells[0].Value.ToString();
+            if ((string)row.Cells[0].Value == "domain")
+            {
 
-            foreach (Domain dom in domains)
-            {
-                if (dom.Name == name)
+                foreach (Domain dom in domains)
                 {
-                    currentSelectedDomain = dom;
-                    Console.WriteLine(currentSelectedDomain.ToString());
-                    return;
+                    if (dom.Name == (string)row.Cells[1].Value)
+                    {
+                        currentSelectedDomain = dom;
+                        currentSelectedDomain.IndexInDataGrid = rowIndex;
+                        Console.WriteLine(currentSelectedDomain.IndexInDataGrid);
+                        return;
+                    }
                 }
             }
-            foreach (Capability cap in capabilities)
+            if ((string)row.Cells[0].Value == "capability")
             {
-                if (cap.Name == name)
+                foreach (Capability cap in capabilities)
                 {
-                    currentSelectedCapability = cap;
-                    currentSelectedDomain = cap.Owner;
-                    Console.WriteLine(currentSelectedCapability.ToString());
+                    if (cap.Name == (string)row.Cells[1].Value)
+                    {
+                        currentSelectedDomain = cap.Owner;
+                        currentSelectedCapability = cap;
+                        currentSelectedCapability.IndexInDataGrid = rowIndex;
+                        Console.WriteLine(currentSelectedCapability.IndexInDataGrid);
+                        return;
+                    }
                 }
             }
+
             
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (fileManager.AddCapabilityToSystem(textBox2.Text, currentSelectedDomain))
+            foreach (Capability cap in capabilities)
             {
-                CreateCapability(textBox2.Text, fileManager.GetHighestIDNumberCapability(), currentSelectedDomain);
+                if (cap.Name == textBox2.Text)
+                {
+                    Console.WriteLine("Capability Already exists");
+                    return;
+                }
             }
-            else
-            {
-                Console.WriteLine("Capability already exists");
-            }
+
+            CreateCapability(textBox2.Text, currentSelectedDomain);
 
            
         }
 
-        public void CreateCapability(string name, int id, Domain dom)
-        {
-            Capability cap = new Capability();
-            cap.Name = name;
-            cap.ToolID = id.ToString();
-            cap.Owner = dom;
-            capabilities.Add(cap);
-            AddCapabilityToListBox(cap);
-            dom.AddCapabilitytoList(cap);
-            dom.NumCapabilities++;
-        }
 
-        public void CreateQuestion(string name, int id, Capability cap)
-        {
 
-        }
+
 
         private void AddCapabilityToListBox(Capability cap)
         {
@@ -206,14 +277,40 @@ namespace IBMConsultantTool
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (fileManager.AddQuestionToSystem(textBox3.Text, currentSelectedCapability))
+            foreach (ITCapQuestion question in questions)
             {
-                CreateQuestion(textBox3.Text, fileManager.GetHighestIDNumberCapability(), currentSelectedCapability);
+                if (question.QuestionText == textBox3.Text)
+                {
+                    Console.WriteLine("Question Already exists");
+                    return;
+                }
             }
-            else
+
+            CreateQuestion(textBox3.Text, currentSelectedCapability);
+        }
+
+        private void changeDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
             {
-                Console.WriteLine("Capability already exists");
+                dataGridView1.EndEdit();
+                if (Convert.ToBoolean(dataGridView1.CurrentCell.Value) == true)
+                {
+                    Console.WriteLine("changed to true");
+                }
+                else
+                    Console.WriteLine("changed to false");
             }
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 

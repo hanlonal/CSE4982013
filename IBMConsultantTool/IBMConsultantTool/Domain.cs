@@ -14,6 +14,8 @@ namespace IBMConsultantTool
         int numCapabilities = 0;
 
         ITCapTool owner;
+        int indexInDataGrid = 0;
+
 
 
         int indexInList;
@@ -85,6 +87,11 @@ namespace IBMConsultantTool
         {
             get { return owner; }
             set { owner = value; }
+        }
+        public int IndexInDataGrid
+        {
+            get { return indexInDataGrid; }
+            set { indexInDataGrid = value; }
         }
 
     }// end class

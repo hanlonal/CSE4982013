@@ -10,6 +10,8 @@ namespace IBMConsultantTool
     public class Capability
     {
         private List<ITCapQuestion> questions = new List<ITCapQuestion>();
+
+
         private float asIsAverage;
         private float toBeAverage;
         private Domain owner;
@@ -29,6 +31,8 @@ namespace IBMConsultantTool
 
         string toolID;
 
+        int indexInDataGrid = 0;
+
 
 
         string listIndex;
@@ -39,7 +43,11 @@ namespace IBMConsultantTool
         }
 
 
-
+        public void AddQuestionToList(ITCapQuestion question)
+        {
+            questions.Add(question);
+            numQuestions++;
+        }
 
 
         public string Name
@@ -71,6 +79,16 @@ namespace IBMConsultantTool
         {
             get { return numQuestions; }
             set { numQuestions = value; }
+        }
+        public List<ITCapQuestion> Questions
+        {
+            get { return questions; }
+            set { questions = value; }
+        }
+        public int IndexInDataGrid
+        {
+            get { return indexInDataGrid; }
+            set { indexInDataGrid = value; }
         }
 
     }
