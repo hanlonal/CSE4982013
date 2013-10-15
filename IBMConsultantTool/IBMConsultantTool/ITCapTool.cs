@@ -74,15 +74,15 @@ namespace IBMConsultantTool
         public Capability CreateCapability(string name, Domain dom)
         {
             Capability cap = new Capability();
-            dom.NumCapabilities++;
+            dom.AddCapabilitytoList(cap);
             cap.Name = name;
-            cap.ToolID = dom.ToolID + "." + dom.NumCapabilities;
+            cap.ToolID = dom.ToolID + "." + dom.Capabilities.Count.ToString();
             cap.Owner = dom;
-            cap.IndexInDataGrid = dom.IndexInDataGrid + dom.NumCapabilities + 1;
+            cap.IndexInDataGrid = dom.IndexInDataGrid + dom.Capabilities.Count + 1;
             AddToGrid(cap);
             capabilities.Add(cap);
            // AddCapabilityToListBox(cap);
-            dom.AddCapabilitytoList(cap);
+            
             
             return cap;
         }
@@ -90,14 +90,14 @@ namespace IBMConsultantTool
         public void CreateQuestion(string name, Capability cap)
         {
             ITCapQuestion question = new ITCapQuestion();
-            cap.NumQuestions++;
+            cap.AddQuestionToList(question);
             question.QuestionText = name;
-            question.ToolId = cap.ToolID + "." + cap.NumQuestions;
+            question.ToolId = cap.ToolID + "." + cap.Questions.Count.ToString();
             question.Owner = cap;
-            question.IndexInGrid = cap.IndexInDataGrid + cap.NumQuestions + 1;
+            question.IndexInGrid = cap.IndexInDataGrid + cap.Questions.Count + 1;
             AddToGrid(question);
             questions.Add(question);
-            cap.AddQuestionToList(question);
+            //cap.AddQuestionToList(question);
 
         }
 
