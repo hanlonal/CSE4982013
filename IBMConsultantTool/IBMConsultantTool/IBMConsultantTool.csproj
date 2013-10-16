@@ -95,6 +95,7 @@
     <Compile Include="ChooseClient.Designer.cs">
       <DependentUpon>ChooseClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClientDataControl.cs" />
     <Compile Include="CrossClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +145,12 @@
     </Compile>
     <Compile Include="EditCapabilities.Designer.cs">
       <DependentUpon>EditCapabilities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditParticipants.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditParticipants.Designer.cs">
+      <DependentUpon>EditParticipants.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManager.cs" />
     <Compile Include="ITCapFileManager.cs" />
@@ -234,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditCapabilities.resx">
       <DependentUpon>EditCapabilities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditParticipants.resx">
+      <DependentUpon>EditParticipants.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ITCapTool.resx">
       <DependentUpon>ITCapTool.cs</DependentUpon>

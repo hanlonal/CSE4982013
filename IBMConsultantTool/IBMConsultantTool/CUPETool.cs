@@ -729,6 +729,16 @@ namespace IBMConsultantTool
             CreateChart(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
         }
 
+        private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var FD = new EditParticipants();
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+        }
+
     }// end class
 
 

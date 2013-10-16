@@ -220,5 +220,14 @@ namespace IBMConsultantTool
             SurveyReader.ReadSurvey(FD.FileName, this.categories);
         }
 
+        private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var FD = new EditParticipants();
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+        }
+
     } // end class
 }

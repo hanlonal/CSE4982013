@@ -21,6 +21,11 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
 
+            if(!ClientDataControl.LoadDatabase())
+            {
+                MessageBox.Show("Could not reach database: Offline mode set", "Error");
+            }
+
         }
 
         private void TestForm_Load(object sender, EventArgs e)
@@ -66,10 +71,9 @@ namespace IBMConsultantTool
         }
 
 
-        //asdfjsdkldfjlksadjf
         public static void ThreadProcMainForm()
         {
-            Application.Run(new MainForm());
+            Application.Run(new CUPETool());
         }
 
         private void TrendAnalysisButton_Click(object sender, EventArgs e)
@@ -83,7 +87,7 @@ namespace IBMConsultantTool
 
         public static void ThreadProcCrossClientForm()
         {
-            Application.Run(new CrossClientForm());
+            Application.Run(new CUPETool());
         }
 
  
