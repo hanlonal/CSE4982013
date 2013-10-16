@@ -219,6 +219,8 @@ namespace IBMConsultantTool
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
+
             int rowIndex = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[rowIndex];
             if ((string)row.Cells[0].Value == "domain")
@@ -245,6 +247,21 @@ namespace IBMConsultantTool
                         currentSelectedCapability = cap;
                         currentSelectedCapability.IndexInDataGrid = rowIndex;
                         Console.WriteLine(currentSelectedCapability.IndexInDataGrid);
+                        return;
+                    }
+                }
+            }
+            if ((string)row.Cells[0].Value == "question")
+            {
+                foreach (ITCapQuestion question in questions)
+                {
+                    if(question.QuestionText == (string)row.Cells[1].Value)
+                    {
+                        currentSelectedDomain = question.Owner.Owner;
+                        currentSelectedCapability =question.Owner;
+                        currentSelectedQuestion = question;
+                        currentSelectedQuestion.IndexInGrid = rowIndex;
+                        Console.WriteLine(currentSelectedQuestion.IndexInGrid);
                         return;
                     }
                 }
@@ -312,6 +329,11 @@ namespace IBMConsultantTool
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
         }
