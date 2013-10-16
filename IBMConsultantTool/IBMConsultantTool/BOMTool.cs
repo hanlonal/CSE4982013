@@ -229,5 +229,13 @@ namespace IBMConsultantTool
             }
         }
 
+        private void BOMTool_Load(object sender, EventArgs e)
+        {
+            if (client == null)
+            {
+                this.Close();
+            }
+        }
+
     } // end class
 }

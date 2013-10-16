@@ -136,6 +136,75 @@ namespace IBMConsultantTool
 
             return true;
         }
+        public bool AddGroups(string[] grpNames, CLIENT client)
+        {
+            List<int> idList = (from ent in dbo.GROUP
+                                select ent.GROUPID).ToList();
+            foreach (string grpName in grpNames)
+            {
+                if ((from ent in client.GROUP
+                     where ent.NAME.TrimEnd() == grpName
+                     select ent).Count() != 0)
+                {
+                    return false;
+                }
+
+                GROUP grp = new GROUP();
+                grp.NAME = grpName;
+                grp.CLIENT = client;
+
+                int uniqueID = GetUniqueID(idList);
+                grp.GROUPID = uniqueID;
+                idList.Add(uniqueID);
+
+                dbo.AddToGROUP(grp);
+            }
+
+            return true;
+        }
+        #endregion
+
+        #region Contact
+
+        public bool GetContact(string contactName, GROUP grp, out CONTACT contact)
+        {
+            try
+            {
+                contact = (from ent in grp.CONTACT
+                       where ent.NAME.TrimEnd() == contactName
+                       select ent).Single();
+            }
+
+            catch
+            {
+                contact = null;
+                return false;
+            }
+
+            return true;
+        }
+        public bool AddContact(string contactName, GROUP grp)
+        {
+            if ((from ent in grp.CONTACT
+                 where ent.NAME.TrimEnd() == contactName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            CONTACT contact = new CONTACT();
+            contact.NAME = contactName;
+            contact.GROUP = grp;
+
+            List<int> idList = (from ent in dbo.CONTACT
+                                select ent.CONTACTID).ToList();
+
+            contact.CONTACTID = GetUniqueID(idList);
+
+            dbo.AddToCONTACT(contact);
+
+            return true;
+        }
         #endregion
 
         #region BOM
@@ -210,6 +279,54 @@ namespace IBMConsultantTool
             return true;
         }
 
+        public override bool AddBOMToGroup(object bomObj, object groupObj)
+        {
+            BOM bom = bomObj as BOM;
+            GROUP grp = groupObj as GROUP;
+
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in grp.BOM
+                 where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.BOM
+                                select ent.BOMID).ToList();
+
+            bom.BOMID = GetUniqueID(idList);
+            bom.GROUP = grp;
+
+            dbo.AddToBOM(bom);
+
+            return true;
+        }
+
+        public override bool AddBOMToContact(object bomObj, object contactObj)
+        {
+            BOM bom = bomObj as BOM;
+            CONTACT contact = contactObj as CONTACT;
+
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in contact.BOM
+                 where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.BOM
+                                select ent.BOMID).ToList();
+
+            bom.BOMID = GetUniqueID(idList);
+            bom.CONTACT = contact;
+
+            dbo.AddToBOM(bom);
+
+            return true;
+        }
+
         public override bool BuildBOMForm(BOMTool bomForm, string clientName)
         {
             CLIENT client;
@@ -267,6 +384,7 @@ namespace IBMConsultantTool
 
             else
             {
+                MessageBox.Show("Client could not be found", "Error");
                 return false;
             }
         }
@@ -277,15 +395,23 @@ namespace IBMConsultantTool
             {
                 client = new CLIENT();
                 client.NAME = clientName;
-                AddClient(client);
-
-                if (!AddGroup("Business", client) || !AddGroup("IT", client))
+                if (!AddClient(client))
                 {
+                    MessageBox.Show("Failed to add client", "Error");
+                    return false;
+                }
+
+                string[] groupNamesArray = {"Business", "IT"};
+
+                if (!AddGroups(groupNamesArray, client))
+                {
+                    MessageBox.Show("Failed to add groups to client", "Error");
                     return false;
                 }
 
                 if (!SaveChanges())
                 {
+                    MessageBox.Show("Failed to save changes to database", "Error");
                     return false;
                 }
 
@@ -295,6 +421,7 @@ namespace IBMConsultantTool
             }
             else
             {
+                MessageBox.Show("Client already exists", "Error");
                 return false;
             }
         }
@@ -764,6 +891,8 @@ namespace IBMConsultantTool
             string[] lineArray;
 
             CLIENT client;
+            GROUP grp;
+            CONTACT contact;
             CATEGORY category;
             BUSINESSOBJECTIVE objective;
             INITIATIVE initiative;
@@ -818,13 +947,50 @@ namespace IBMConsultantTool
                                 break;
 
                             case "BOM":
-                                if (GetClient(lineArray[2], out client))
+                                if (lineArray[2] == "CLIENT")
                                 {
-                                    if (GetInitiative(lineArray[3], out initiative))
+                                    if (GetClient(lineArray[3], out client))
                                     {
-                                        bom = new BOM();
-                                        bom.INITIATIVE = initiative;
-                                        AddBOM(bom, client);
+                                        if (GetInitiative(lineArray[4], out initiative))
+                                        {
+                                            bom = new BOM();
+                                            bom.INITIATIVE = initiative;
+                                            AddBOM(bom, client);
+                                        }
+                                    }
+                                }
+                                else if (lineArray[2] == "GROUP")
+                                {
+                                    if (GetClient(lineArray[3], out client))
+                                    {
+                                        if (GetGroup(lineArray[4], client, out grp))
+                                        {
+                                            if (GetInitiative(lineArray[5], out initiative))
+                                            {
+                                                bom = new BOM();
+                                                bom.INITIATIVE = initiative;
+                                                AddBOM(bom, grp);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                else if (lineArray[2] == "CONTACT")
+                                {
+                                    if (GetClient(lineArray[3], out client))
+                                    {
+                                        if (GetGroup(lineArray[4], client, out grp))
+                                        {
+                                            if (GetContact(lineArray[5], grp, out contact))
+                                            {
+                                                if (GetInitiative(lineArray[6], out initiative))
+                                                {
+                                                    bom = new BOM();
+                                                    bom.INITIATIVE = initiative;
+                                                    AddBOM(bom, contact);
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                                 break;

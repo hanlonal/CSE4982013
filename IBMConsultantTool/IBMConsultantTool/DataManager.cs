@@ -20,10 +20,15 @@ namespace IBMConsultantTool
         //group is a keyword in C#
         #endregion
 
+        #region Contact
+        #endregion
+
         #region BOM
         public abstract bool UpdateBOM(object clientObj, NewInitiative ini);
 
         public abstract bool AddBOM(object bom, object client);
+        public abstract bool AddBOMToGroup(object bom, object group);
+        public abstract bool AddBOMToContact(object bom, object contact);
 
         public abstract bool BuildBOMForm(BOMTool bomForm, string clientName);
 

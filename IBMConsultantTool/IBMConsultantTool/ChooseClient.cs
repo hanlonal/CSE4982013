@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,14 +24,9 @@ namespace IBMConsultantTool
 
         private void OpenBOMButton_Click(object sender, EventArgs e)
         {
-            if(bomForm.db.BuildBOMForm(bomForm, ChooseClientComboBox.Text.Trim()))
+            if (bomForm.db.BuildBOMForm(bomForm, ChooseClientComboBox.Text.Trim()))
             {
                 this.Close();
-            }
-
-            else
-            {
-                MessageBox.Show("Client \"" + ChooseClientComboBox.Text + "\" not found", "Error");
             }
         }
 
@@ -41,10 +35,6 @@ namespace IBMConsultantTool
             if (bomForm.db.NewBOMForm(bomForm, NewClientTextBox.Text.Trim()))
             {
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Client \"" + NewClientTextBox.Text.Trim() + "\" could not be added", "Error");
             }
         }
     }

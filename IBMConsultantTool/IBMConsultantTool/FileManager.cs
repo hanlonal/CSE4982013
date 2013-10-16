@@ -45,7 +45,7 @@ namespace IBMConsultantTool
 
         public bool GetClient(string cntName, out XElement client)
         {
-            cntName = cntName.Replace(' ', '~'); 
+            cntName = cntName.Replace(' ', '~');
             try
             {
                 client = (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
@@ -125,7 +125,7 @@ namespace IBMConsultantTool
 
             client.Element("GROUPS").Add(grp);
 
-            changeLog.Add("ADD GROUP " + grp.Element("NAME").Value + " " + 
+            changeLog.Add("ADD GROUP " + grp.Element("NAME").Value + " " +
                             client.Element("NAME").Value);
 
             return true;
@@ -186,7 +186,77 @@ namespace IBMConsultantTool
 
             client.Element("BOMS").Add(bom);
 
-            changeLog.Add("ADD BOM " + client.Element("NAME").Value + " " + iniXML);
+            changeLog.Add("ADD BOM CLIENT " + client.Element("NAME").Value + " " + iniXML);
+
+            return true;
+        }
+
+        public override bool AddBOMToGroup(object bomObj, object groupObj)
+        {
+            XElement bom = bomObj as XElement;
+            XElement grp = groupObj as XElement;
+            string iniXML = bom.Element("INITIATIVE").Value.Replace(' ', '~');
+            string busXML = bom.Element("BUSINESSOBJECTIVE").Value.Replace(' ', '~');
+            string catXML = bom.Element("CATEGORY").Value.Replace(' ', '~');
+
+            List<XElement> bomList = grp.Element("BOMS").Elements("BOM").ToList();
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in bomList
+                 where ent != null &&
+                       ent.Element("INITIATIVE") != null &&
+                       ent.Element("INITIATIVE").Value == iniXML
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            bom.Add(new XElement("BOMID", -1));
+            bom.Add(new XElement("EFFECTIVENESS", 0));
+            bom.Add(new XElement("CRITICALITY", 0));
+            bom.Add(new XElement("DIFFERENTIAL", 0));
+
+            grp.Element("BOMS").Add(bom);
+
+            XElement client = grp.Parent.Parent;
+
+            changeLog.Add("ADD BOM GROUP " + grp.Element("NAME").Value + " " +
+                          client.Element("NAME").Value + " " + iniXML);
+
+            return true;
+        }
+
+        public override bool AddBOMToContact(object bomObj, object contactObj)
+        {
+            XElement bom = bomObj as XElement;
+            XElement contact = contactObj as XElement;
+            string iniXML = bom.Element("INITIATIVE").Value.Replace(' ', '~');
+            string busXML = bom.Element("BUSINESSOBJECTIVE").Value.Replace(' ', '~');
+            string catXML = bom.Element("CATEGORY").Value.Replace(' ', '~');
+
+            List<XElement> bomList = contact.Element("BOMS").Elements("BOM").ToList();
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in bomList
+                 where ent != null &&
+                       ent.Element("INITIATIVE") != null &&
+                       ent.Element("INITIATIVE").Value == iniXML
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            bom.Add(new XElement("BOMID", -1));
+            bom.Add(new XElement("EFFECTIVENESS", 0));
+            bom.Add(new XElement("CRITICALITY", 0));
+            bom.Add(new XElement("DIFFERENTIAL", 0));
+
+            contact.Element("BOMS").Add(bom);
+
+            XElement grp = contact.Parent.Parent;
+            XElement client = grp.Parent.Parent;
+
+            changeLog.Add("ADD BOM CONTACT " + contact.Element("NAME").Value + " " +
+                          grp.Element("NAME").Value + " " +
+                          client.Element("NAME").Value + " " + iniXML);
 
             return true;
         }
@@ -248,6 +318,7 @@ namespace IBMConsultantTool
 
             else
             {
+                MessageBox.Show("Client could not be found", "Error");
                 return false;
             }
         }
@@ -258,15 +329,21 @@ namespace IBMConsultantTool
             {
                 client = new XElement("CLIENT");
                 client.Add(new XElement("NAME", clientName));
-                AddClient(client);
+                if (!AddClient(client))
+                {
+                    MessageBox.Show("Failed to add client", "Error");
+                    return false;
+                }
 
                 if (!AddGroup("Business", client) || !AddGroup("IT", client))
                 {
+                    MessageBox.Show("Failed to add groups to client", "Error");
                     return false;
                 }
 
                 if (!SaveChanges())
                 {
+                    MessageBox.Show("Failed to save changes to filesystem", "Error");
                     return false;
                 }
 
@@ -276,6 +353,7 @@ namespace IBMConsultantTool
             }
             else
             {
+                MessageBox.Show("Client already exists", "Error");
                 return false;
             }
         }
@@ -330,7 +408,7 @@ namespace IBMConsultantTool
 
             return true;
         }
-        
+
         public bool AddCategory(XElement category)
         {
             //If already in DB, return 1
@@ -361,7 +439,7 @@ namespace IBMConsultantTool
             if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
             {
                 bomForm.objectiveNames.Items.AddRange((from ent in category.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
-                                               select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
         }
         #endregion
@@ -406,7 +484,7 @@ namespace IBMConsultantTool
 
             return true;
         }
-        
+
         public bool AddObjective(XElement objective, XElement category)
         {
             //If already in DB, return 1
@@ -424,7 +502,7 @@ namespace IBMConsultantTool
 
             category.Element("BUSINESSOBJECTIVES").Add(objective);
 
-            changeLog.Add("ADD BUSINESSOBJECTIVE " + objective.Element("NAME").Value + " " + 
+            changeLog.Add("ADD BUSINESSOBJECTIVE " + objective.Element("NAME").Value + " " +
                             category.Element("NAME").Value);
 
             return true;
@@ -438,7 +516,7 @@ namespace IBMConsultantTool
             if (GetObjective(bomForm.objectiveNames.Text.Trim(), out objective))
             {
                 bomForm.initiativeNames.Items.AddRange((from ent in objective.Element("INITIATIVES").Elements("INITIATIVE")
-                                                select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
         }
 
@@ -485,7 +563,7 @@ namespace IBMConsultantTool
 
             return true;
         }
-        
+
         public bool AddInitiative(XElement initiative, XElement objective, XElement category)
         {
             //If already in DB, return 1
@@ -602,7 +680,7 @@ namespace IBMConsultantTool
                 }
             }
         }
-        
+
         #endregion
 
         #region General
@@ -634,4 +712,3 @@ namespace IBMConsultantTool
         #endregion
     }
 }
-
