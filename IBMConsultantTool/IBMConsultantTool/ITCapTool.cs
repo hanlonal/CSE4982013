@@ -22,6 +22,10 @@ namespace IBMConsultantTool
         FormStates states;
         private List<Control> surverymakercontrols = new List<Control>();
         private List<Control> liveDataEntryControls = new List<Control>();
+        private List<Control> prioritizationControls = new List<Control>();
+
+        //only used for testing
+        private int numBoms = 3;
 
         //Functions just used for testing until we have save and load
 
@@ -101,6 +105,7 @@ namespace IBMConsultantTool
 
             liveDataEntryControls.Add(liveDataEntryGrid);
 
+            prioritizationControls.Add(prioritizationGrid);
             
 
 
@@ -133,16 +138,20 @@ namespace IBMConsultantTool
                     LoadDefaultChartSurvey();
                     ToggleControlsVisible(surverymakercontrols, true);
                     ToggleControlsVisible(liveDataEntryControls, false);
+                    ToggleControlsVisible(prioritizationControls, false);
                     break;
                 case FormStates.LiveDataEntry:
                     //probablly onlt used for testing
                     CopyGrid();
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, true);
+                    ToggleControlsVisible(prioritizationControls, false);
                     break;
                 case FormStates.Prioritization:
+                    MakePrioritizationGrid();
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, false);
+                    ToggleControlsVisible(prioritizationControls, true);
                     break;
             }
         }
@@ -154,12 +163,36 @@ namespace IBMConsultantTool
                 DataGridViewRow rowCopy = (DataGridViewRow)liveDataEntryGrid.Rows[0].Clone();
                 rowCopy.Cells[0].Value = row.Cells[0].Value;
                 rowCopy.Cells[1].Value = row.Cells[1].Value;
+                rowCopy.Cells[6].Value = row.Cells[4].Value;
                 
                 //rowCopy.Cells[5]
                 rowCopy.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor;
                 rowCopy.ReadOnly = row.ReadOnly;
                 liveDataEntryGrid.Rows.Add(rowCopy);
             }
+        }
+
+        private void MakePrioritizationGrid()
+        {
+            for(int i=0;i <numBoms; i++)
+            {
+                DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                
+                prioritizationGrid.Columns.Add(col);
+            }
+            foreach (DataGridViewRow row in liveDataEntryGrid.Rows)
+            {
+                if ((string)row.Cells[6].Value == "domain" || (string)row.Cells[6].Value == "capability")
+                {
+                    DataGridViewRow rowCopy = (DataGridViewRow)prioritizationGrid.Rows[0].Clone();
+                    rowCopy.Cells[0].Value = row.Cells[1].Value;
+                    rowCopy.Cells[1].Value = row.Cells[2].Value;
+                    rowCopy.Cells[2].Value = row.Cells[3].Value;
+                    prioritizationGrid.Rows.Add(rowCopy);
+                }
+            }
+
         }
 
         private void ToggleControlsVisible(List<Control> controls, bool value)
@@ -409,6 +442,8 @@ namespace IBMConsultantTool
         {
 
         }
+
+
 
 
 
