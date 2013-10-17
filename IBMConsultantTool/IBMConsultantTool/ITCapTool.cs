@@ -32,8 +32,12 @@ namespace IBMConsultantTool
         private void ITCapTool_Load(object sender, EventArgs e)
         {
 
-            //fileManager.CheckFileSystem();
-           // BuildGridView();
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridView1.ColumnHeadersHeight = 70;
+
+            dataGridView1.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Empty;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Blue;
+;
 
         }
 
@@ -75,6 +79,7 @@ namespace IBMConsultantTool
         {
             Capability cap = new Capability();
             dom.AddCapabilitytoList(cap);
+            dom.TotalChildren++;
             cap.Name = name;
             cap.ToolID = dom.ToolID + "." + dom.Capabilities.Count.ToString();
             cap.Owner = dom;
@@ -91,6 +96,8 @@ namespace IBMConsultantTool
         {
             ITCapQuestion question = new ITCapQuestion();
             cap.AddQuestionToList(question);
+            cap.Owner.TotalChildren++;
+            cap.TotalChildren++;
             question.QuestionText = name;
             question.ToolId = cap.ToolID + "." + cap.Questions.Count.ToString();
             question.Owner = cap;
@@ -128,7 +135,7 @@ namespace IBMConsultantTool
 
         private int FindIndexofDomain()
         {
-            int index = domains.Count + capabilities.Count + questions.Count;
+            int index = dataGridView1.Rows.Count;
             return index;
         }
         private void BuildRow(string name, string id, Color color, int index, string type)
@@ -137,7 +144,7 @@ namespace IBMConsultantTool
             row.Cells[0].Value = type;
             row.Cells[1].Value = name;
             row.Cells[2].Value = id;
-            row.Cells[3].Value = CheckState.Checked;
+            row.Cells[6].Value = CheckState.Checked;
             row.DefaultCellStyle.BackColor = color;
             if (index == dataGridView1.Rows.Count +1)
                 dataGridView1.Rows.Insert(dataGridView1.Rows.Count -1, row);
@@ -219,50 +226,52 @@ namespace IBMConsultantTool
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
 
-            int rowIndex = e.RowIndex;
-            DataGridViewRow row = dataGridView1.Rows[rowIndex];
-            if ((string)row.Cells[0].Value == "domain")
+            if (e.RowIndex >= 0)
             {
-
-                foreach (Domain dom in domains)
+                int rowIndex = e.RowIndex;
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                if ((string)row.Cells[0].Value == "domain")
                 {
-                    if (dom.Name == (string)row.Cells[1].Value)
+
+                    foreach (Domain dom in domains)
                     {
-                        currentSelectedDomain = dom;
-                        currentSelectedDomain.IndexInDataGrid = rowIndex;
-                        Console.WriteLine(currentSelectedDomain.IndexInDataGrid);
-                        return;
+                        if (dom.Name == (string)row.Cells[1].Value)
+                        {
+                            currentSelectedDomain = dom;
+                            currentSelectedDomain.IndexInDataGrid = rowIndex;
+                            Console.WriteLine(currentSelectedDomain.IndexInDataGrid);
+                            return;
+                        }
                     }
                 }
-            }
-            if ((string)row.Cells[0].Value == "capability")
-            {
-                foreach (Capability cap in capabilities)
+                if ((string)row.Cells[0].Value == "capability")
                 {
-                    if (cap.Name == (string)row.Cells[1].Value)
+                    foreach (Capability cap in capabilities)
                     {
-                        currentSelectedDomain = cap.Owner;
-                        currentSelectedCapability = cap;
-                        currentSelectedCapability.IndexInDataGrid = rowIndex;
-                        Console.WriteLine(currentSelectedCapability.IndexInDataGrid);
-                        return;
+                        if (cap.Name == (string)row.Cells[1].Value)
+                        {
+                            currentSelectedDomain = cap.Owner;
+                            currentSelectedCapability = cap;
+                            currentSelectedCapability.IndexInDataGrid = rowIndex;
+                            Console.WriteLine(currentSelectedCapability.IndexInDataGrid);
+                            return;
+                        }
                     }
                 }
-            }
-            if ((string)row.Cells[0].Value == "question")
-            {
-                foreach (ITCapQuestion question in questions)
+                if ((string)row.Cells[0].Value == "question")
                 {
-                    if(question.QuestionText == (string)row.Cells[1].Value)
+                    foreach (ITCapQuestion question in questions)
                     {
-                        currentSelectedDomain = question.Owner.Owner;
-                        currentSelectedCapability =question.Owner;
-                        currentSelectedQuestion = question;
-                        currentSelectedQuestion.IndexInGrid = rowIndex;
-                        Console.WriteLine(currentSelectedQuestion.IndexInGrid);
-                        return;
+                        if (question.QuestionText == (string)row.Cells[1].Value)
+                        {
+                            currentSelectedDomain = question.Owner.Owner;
+                            currentSelectedCapability = question.Owner;
+                            currentSelectedQuestion = question;
+                            currentSelectedQuestion.IndexInGrid = rowIndex;
+                            Console.WriteLine(currentSelectedQuestion.IndexInGrid);
+                            return;
+                        }
                     }
                 }
             }
@@ -316,7 +325,7 @@ namespace IBMConsultantTool
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 2)
+            if (e.ColumnIndex == 6)
             {
                 dataGridView1.EndEdit();
                 if (Convert.ToBoolean(dataGridView1.CurrentCell.Value) == true)
@@ -336,6 +345,39 @@ namespace IBMConsultantTool
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int index =  dataGridView1.CurrentRow.Index;
+            if ((string)dataGridView1.Rows[index].Cells[0].Value == "domain")
+            {
+                Domain dom = FindDomainByIndex(index);
+                for (int i = index; i < dom.TotalChildren + index; i++)
+                {
+                    dataGridView1.Rows.RemoveAt(i);
+                }
+            }
+
+            dataGridView1.Rows.RemoveAt(index);
+
+            
+        }
+        public Domain FindDomainByIndex(int index)
+        {
+            foreach(Domain dom in domains)
+            {
+                if (dom.IndexInDataGrid == index)
+                {
+                    return dom;
+                }
+            }
+            return null;
+        }
+
+        public void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            return;
         }
 
 

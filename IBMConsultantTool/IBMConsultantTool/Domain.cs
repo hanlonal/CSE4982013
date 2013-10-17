@@ -15,6 +15,9 @@ namespace IBMConsultantTool
 
         ITCapTool owner;
         int indexInDataGrid = 0;
+        int totalChildren = 0;
+
+
 
 
 
@@ -92,6 +95,11 @@ namespace IBMConsultantTool
         {
             get { return indexInDataGrid; }
             set { indexInDataGrid = value; }
+        }
+        public int TotalChildren
+        {
+            get { return totalChildren; }
+            set { totalChildren = value; }
         }
 
     }// end class

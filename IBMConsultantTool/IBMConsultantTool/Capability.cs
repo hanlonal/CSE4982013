@@ -19,6 +19,8 @@ namespace IBMConsultantTool
         private bool isDefault = true;
 
         int numQuestions = 0;
+        int totalChildren = 0;
+
 
 
 
@@ -89,6 +91,11 @@ namespace IBMConsultantTool
         {
             get { return indexInDataGrid; }
             set { indexInDataGrid = value; }
+        }
+        public int TotalChildren
+        {
+            get { return totalChildren; }
+            set { totalChildren = value; }
         }
 
     }
