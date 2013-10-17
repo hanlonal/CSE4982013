@@ -4,99 +4,83 @@ using System.Linq;
 using System.Text;
 
 namespace IBMConsultantTool
-{
-    
-
-    public class Capability
+{    
+    public class Capability : ScoringEntity
     {
-        private List<ITCapQuestion> questions = new List<ITCapQuestion>();
+        private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
 
 
-        private float asIsAverage;
-        private float toBeAverage;
         private Domain owner;
-
-        private bool isDefault = true;
-
-        int numQuestions = 0;
-        int totalChildren = 0;
-
-
-
-
-
-
-        string name;
-
-
-
-
-        string toolID;
-
-        int indexInDataGrid = 0;
-
-
-
-        string listIndex;
 
         public Capability()
         {
             Console.WriteLine("capability created");
         }
 
-
-        public void AddQuestionToList(ITCapQuestion question)
+        public override void UpdateIndexDecrease(int index)
         {
-            questions.Add(question);
-            numQuestions++;
+            foreach (ITCapQuestion question in questionsOwned)
+            {
+                if (question.IsInGrid && question.IndexInGrid > index)
+                    question.IndexInGrid--;
+            }
+        }
+
+        public override float CalculateAsIsAverage()
+        {
+            float total = 0;
+            float activeQuestionCount = 0;
+            foreach (ITCapQuestion question in questionsOwned)
+            {
+                if (question.AsIsScore != 0 )
+                {
+                    total += question.AsIsScore;
+                    activeQuestionCount++;
+                }
+            }
+            asIsScore = total / activeQuestionCount;
+            
+            return asIsScore;
+        }
+
+        public override float CalculateToBeAverage()
+        {
+            float total = 0;
+            float activeQuestionCount = 0;
+            foreach (ITCapQuestion question in questionsOwned)
+            {
+                if (question.ToBeScore != 0)
+                {
+                    total += question.ToBeScore;
+                    activeQuestionCount++;
+                }
+            }
+            toBeScore = total / activeQuestionCount;
+
+            return toBeScore;
         }
 
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string ToolID
-        {
-            get { return toolID; }
-            set { toolID = value; }
-        }
+
+
         public Domain Owner
         {
             get { return owner; }
             set { owner = value; }
         }
-
-        public override string ToString()
+        public List<ITCapQuestion> QuestionsOwned
         {
-            return name + "::" + toolID;
+            get { return questionsOwned; }
+            set { questionsOwned = value; }
         }
-        public bool IsDefault
+        public string ID
         {
-            get { return isDefault; }
-            set { isDefault = value; }
+            get { return id; }
+            set 
+            {
+                string a = value;
+                id = owner.ID + "." + a; 
+            }
         }
-        public int NumQuestions
-        {
-            get { return numQuestions; }
-            set { numQuestions = value; }
-        }
-        public List<ITCapQuestion> Questions
-        {
-            get { return questions; }
-            set { questions = value; }
-        }
-        public int IndexInDataGrid
-        {
-            get { return indexInDataGrid; }
-            set { indexInDataGrid = value; }
-        }
-        public int TotalChildren
-        {
-            get { return totalChildren; }
-            set { totalChildren = value; }
-        }
-
     }
 }

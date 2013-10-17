@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -89,6 +90,12 @@
       <DependentUpon>BOMTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Capability.cs" />
+    <Compile Include="CapabilityGapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapabilityGapForm.Designer.cs">
+      <DependentUpon>CapabilityGapForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChooseClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +195,10 @@
       <DependentUpon>OpenBOM.cs</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />
+    <Compile Include="RoundedRectangle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScoringEntity.cs" />
     <Compile Include="SurveyGenerator.cs" />
     <Compile Include="SurveyReader.cs" />
     <Compile Include="TestForm.cs">
@@ -220,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BOMTool.resx">
       <DependentUpon>BOMTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapabilityGapForm.resx">
+      <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseClient.resx">
       <DependentUpon>ChooseClient.cs</DependentUpon>

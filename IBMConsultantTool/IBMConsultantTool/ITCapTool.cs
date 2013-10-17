@@ -14,374 +14,406 @@ namespace IBMConsultantTool
 
     public partial class ITCapTool : Form
     {
-        ITCapFileManager fileManager;
-        List<Domain> domains = new List<Domain>();
-        List<Capability> capabilities = new List<Capability>();
-        List<ITCapQuestion> questions = new List<ITCapQuestion>();
-        int highestID;
-        private Domain currentSelectedDomain;
-        private Capability currentSelectedCapability;
-        private ITCapQuestion currentSelectedQuestion;
+        private List<Domain> domains = new List<Domain>();
+        private List<Capability> capabilities = new List<Capability>();
+        private List<ScoringEntity> entities = new List<ScoringEntity>();
+        private ITCapQuestion[] questionsArray = new ITCapQuestion[1024];
+        enum FormStates { SurveryMaker, LiveDataEntry, Prioritization, Open };
+        FormStates states;
+        private List<Control> surverymakercontrols = new List<Control>();
+        private List<Control> liveDataEntryControls = new List<Control>();
+
+        //Functions just used for testing until we have save and load
+
+        private void LoadDomains()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Domain dom = new Domain();
+                dom.Name = "Domain " + i.ToString();
+                if (i % 2 == 0)
+                {
+                    dom.IsDefault = true;
+                }
+                dom.ID = (i +1).ToString();
+                LoadCapabilities(dom);
+                domains.Add(dom);
+                domainList.Items.Add(dom);
+                entities.Add(dom);
+            }
+        }
+
+        private void LoadCapabilities(Domain dom)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Capability cap = new Capability();
+                cap.Name = "Capability " + i.ToString() + " Owned By " + dom.ToString();
+                if (i %2 == 0)
+                {
+                    cap.IsDefault = true;
+                }                
+                dom.CapabilitiesOwned.Add(cap);
+                dom.TotalChildren++;
+                capabilities.Add(cap);
+                cap.Owner = dom;
+                cap.ID = (i +1).ToString();
+                LoadQuestions(cap);
+                capabilitiesList.Items.Add(cap);
+                entities.Add(cap);
+
+            }
+        }
+
+        private void LoadQuestions(Capability cap)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                ITCapQuestion question = new ITCapQuestion();
+                question.Name = "Question " + i.ToString() + " Owned By " + cap.ToString();
+                if (i %2 == 0)
+                {
+                    question.IsDefault = true;
+                }
+                cap.Owner.TotalChildren++;
+                cap.QuestionsOwned.Add(question);
+                question.Owner = cap;
+                question.ID = (i +1).ToString();
+                questionList.Items.Add(question);
+                entities.Add(question);
+            }
+        }
 
         public ITCapTool()
         {
             InitializeComponent();
-           // fileManager = new ITCapFileManager(this);
+            states = FormStates.Open;
+            surverymakercontrols.Add(domainNameTextBox);
+            surverymakercontrols.Add(capabilityNameTextBox);
+            surverymakercontrols.Add(addCapabilityButton);
+            surverymakercontrols.Add(addDomainButton);
+            surverymakercontrols.Add(addQuestionButton);
+            surverymakercontrols.Add(questionNameTextBox);
+            surverymakercontrols.Add(capabilitiesList);
+            surverymakercontrols.Add(domainList);
+            surverymakercontrols.Add(questionList);
+            surverymakercontrols.Add(surveryMakerGrid);
+
+            liveDataEntryControls.Add(liveDataEntryGrid);
+
+            
+
+
         }
 
         private void ITCapTool_Load(object sender, EventArgs e)
         {
-
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridView1.ColumnHeadersHeight = 70;
-
-            dataGridView1.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Empty;
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Blue;
-;
-
+            LoadDomains();
+            //LoadCapabilities();
+           // LoadQuestions();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            foreach(Domain dom in domains)
-            {
-                if(dom.Name == textBox1.Text)
-                {
-                    Console.WriteLine("Domain Already exists");
-                    return;
-                }
-            }
-            
-            CreateDomain(textBox1.Text);
-            
-
-        }
-
-        public Domain CreateDomain(string name)
+        private void addDomainButton_Click(object sender, EventArgs e)
         {
             Domain dom = new Domain();
-            dom.Name = name;
-            domains.Add(dom);
-            dom.ToolID = domains.Count.ToString();
-            //dom.Index = domains.Count;
-
-            dom.Owner = this;
-            
-            dom.IndexInDataGrid = FindIndexofDomain();
-            AddToGrid(dom);
-            AddDomainToListBox(dom);
-
-            return dom;
-
         }
 
-        public Capability CreateCapability(string name, Domain dom)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Capability cap = new Capability();
-            dom.AddCapabilitytoList(cap);
-            dom.TotalChildren++;
-            cap.Name = name;
-            cap.ToolID = dom.ToolID + "." + dom.Capabilities.Count.ToString();
-            cap.Owner = dom;
-            cap.IndexInDataGrid = dom.IndexInDataGrid + dom.Capabilities.Count + 1;
-            AddToGrid(cap);
-            capabilities.Add(cap);
-           // AddCapabilityToListBox(cap);
-            
-            
-            return cap;
+            ChangeStates(FormStates.SurveryMaker);
+
         }
 
-        public void CreateQuestion(string name, Capability cap)
+        private void ChangeStates(FormStates stateToGoInto)
         {
-            ITCapQuestion question = new ITCapQuestion();
-            cap.AddQuestionToList(question);
-            cap.Owner.TotalChildren++;
-            cap.TotalChildren++;
-            question.QuestionText = name;
-            question.ToolId = cap.ToolID + "." + cap.Questions.Count.ToString();
-            question.Owner = cap;
-            question.IndexInGrid = cap.IndexInDataGrid + cap.Questions.Count + 1;
-            AddToGrid(question);
-            questions.Add(question);
-            //cap.AddQuestionToList(question);
-
+            states = stateToGoInto;
+            switch (states)
+            {
+                case FormStates.SurveryMaker:
+                    LoadDefaultChartSurvey();
+                    ToggleControlsVisible(surverymakercontrols, true);
+                    ToggleControlsVisible(liveDataEntryControls, false);
+                    break;
+                case FormStates.LiveDataEntry:
+                    //probablly onlt used for testing
+                    CopyGrid();
+                    ToggleControlsVisible(surverymakercontrols, false);
+                    ToggleControlsVisible(liveDataEntryControls, true);
+                    break;
+                case FormStates.Prioritization:
+                    ToggleControlsVisible(surverymakercontrols, false);
+                    ToggleControlsVisible(liveDataEntryControls, false);
+                    break;
+            }
         }
 
-
-        public string[] GetFileInfo(string name, string type)
+        private void CopyGrid()
         {
-           return fileManager.GetFileInfo(name, type);
+            foreach (DataGridViewRow row in surveryMakerGrid.Rows)
+            {
+                DataGridViewRow rowCopy = (DataGridViewRow)liveDataEntryGrid.Rows[0].Clone();
+                rowCopy.Cells[0].Value = row.Cells[0].Value;
+                rowCopy.Cells[1].Value = row.Cells[1].Value;
+                
+                //rowCopy.Cells[5]
+                rowCopy.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor;
+                rowCopy.ReadOnly = row.ReadOnly;
+                liveDataEntryGrid.Rows.Add(rowCopy);
+            }
         }
 
-        private void AddDomainToListBox(Domain dom)
+        private void ToggleControlsVisible(List<Control> controls, bool value)
         {
-            listBox1.Items.Add(dom);
+            foreach(Control con in controls)
+            {
+                con.Visible = value;
+            }
         }
-        private void BuildGridView()
+
+        private void LoadDefaultChartSurvey()
         {
             foreach (Domain dom in domains)
             {
                 if (dom.IsDefault)
                 {
-                    //BuildRow(dom.Name, dom.ToolID, Color.DarkOrange);
+                    Console.WriteLine("default");
+                    DataGridViewRow row = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+                    row.Cells[1].Value = dom.ToString();
+                    row.Cells[0].Value = dom.ID;
+                    row.Cells[4].Value = "domain";
+                   // row.Cells[4].
+                   // row.DefaultCellStyle.Font = new Font(surveryMakerGrid.Font.FontFamily,surveryMakerGrid.Font.Size,  row.FontStyle.Bold);
+                    row.ReadOnly = true;
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                    surveryMakerGrid.Rows.Add(row);
+                    dom.IndexInGrid = surveryMakerGrid.Rows.Count -2;
+                    Console.WriteLine(dom.Name + "index in list is " + dom.IndexInGrid.ToString());
+                    dom.IsInGrid = true;
+                    foreach (Capability cap in dom.CapabilitiesOwned)
+                    {
+                        if (cap.IsDefault)
+                        {
+                            DataGridViewRow caprow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+                            caprow.Cells[1].Value = cap.ToString();
+                            caprow.Cells[0].Value = cap.ID;
+                            caprow.Cells[4].Value = "capability";
+                            caprow.ReadOnly = true;
+                            caprow.DefaultCellStyle.BackColor = Color.Yellow;
+                            surveryMakerGrid.Rows.Add(caprow);
+                            cap.IndexInGrid = surveryMakerGrid.Rows.Count -2;
+                            cap.IsInGrid = true;
 
-                    BuildGridViewWithCapabilities(dom);
+                            foreach (ITCapQuestion question in cap.QuestionsOwned)
+                            {
+                                DataGridViewRow qrow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+                                qrow.Cells[1].Value = question.ToString();
+                                qrow.Cells[0].Value = question.ID;
+                                qrow.ReadOnly = false;
+                                qrow.DefaultCellStyle.BackColor = Color.LawnGreen;
+                                surveryMakerGrid.Rows.Add(qrow);
+                                question.IndexInGrid = surveryMakerGrid.Rows.Count -2;
+                                question.IsInGrid = true;
+                                questionsArray[question.IndexInGrid] = question;
+                            }
+                        }
 
+                    }
+                    
                 }
             }
-
         }
 
-        private int FindIndexofDomain()
+        private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int index = dataGridView1.Rows.Count;
-            return index;
-        }
-        private void BuildRow(string name, string id, Color color, int index, string type)
-        {
-            DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
-            row.Cells[0].Value = type;
-            row.Cells[1].Value = name;
-            row.Cells[2].Value = id;
-            row.Cells[6].Value = CheckState.Checked;
-            row.DefaultCellStyle.BackColor = color;
-            if (index == dataGridView1.Rows.Count +1)
-                dataGridView1.Rows.Insert(dataGridView1.Rows.Count -1, row);
-            else
-                dataGridView1.Rows.Insert(index -1, row);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Form form = new Form();
-            form.Show();
-            ListBox view = new ListBox();
-            form.Controls.Add(view);
-            view.Visible = true;
-            view.Location = new Point(10, 10);
-            view.SelectedValueChanged += new EventHandler(view_SelectedValueChanged);
-            foreach (Domain dom in domains)
+            if (e.ColumnIndex == 2)
             {
-                view.Items.Add(dom);
-                
-            }
-        }
-
-        private void BuildGridViewWithCapabilities(Domain dom)
-        {
-            foreach (Capability cap in dom.Capabilities)
-            {
-                if (cap.IsDefault)
+                if ((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "1" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "2" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "3" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "4" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "5")
                 {
-                    //BuildRow(cap.Name, cap.ToolID, Color.Yellow);
-                    BuildGridViewWithQuestions(cap);
+                    questionsArray[e.RowIndex].AsIsScore = (float)Convert.ToDouble((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                    float value = questionsArray[e.RowIndex].Owner.CalculateAsIsAverage();
+                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.IndexInGrid].Cells[2].Value = value;
+                    value = questionsArray[e.RowIndex].Owner.Owner.CalculateAsIsAverage();
+                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.Owner.IndexInGrid].Cells[2].Value = value;
                 }
-            }
-        }
-
-        public void AddToGrid(object sender)
-        {
-            if (sender.GetType() == typeof(Domain))
-            {
-                Domain dom = (Domain)sender;
-                
-                BuildRow(dom.Name, dom.ToolID, Color.DarkOrange, dom.IndexInDataGrid, "domain");
-            }
-            if (sender.GetType() == typeof(Capability))
-            {
-                Capability cap = (Capability)sender;
-                BuildRow(cap.Name, cap.ToolID, Color.Yellow, cap.IndexInDataGrid, "capability");
-                
-            }
-            if (sender.GetType() == typeof(ITCapQuestion))
-            {
-                ITCapQuestion question = (ITCapQuestion)sender;
-                BuildRow(question.QuestionText, question.ToolId, Color.Green, question.IndexInGrid, "question");
-            }
-        }
-
-        private void BuildGridViewWithQuestions(Capability cap)
-        {
-            foreach (ITCapQuestion question in cap.Questions)
-            {
-                if (question.IsDefault)
+                else
                 {
-                   // BuildRow(question.QuestionText, question.ToolId, Color.Green);
+                    liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "0";
+                }
+                
+            }
+            if (e.ColumnIndex == 3)
+            {
+                if ((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "1" || 
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "2" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "3" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "4" ||
+                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "5" )
+
+                {
+                    questionsArray[e.RowIndex].ToBeScore = (float)Convert.ToDouble((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                    float value = questionsArray[e.RowIndex].Owner.CalculateToBeAverage();
+                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.IndexInGrid].Cells[3].Value = value;
+                    value = questionsArray[e.RowIndex].Owner.Owner.CalculateToBeAverage();
+                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.Owner.IndexInGrid].Cells[3].Value = value;
+                }
+                else
+                {
+                    liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "0";
                 }
             }
-        }
-
-        private void view_SelectedValueChanged(object sender, EventArgs e)
-        {
-            ListBox box = (ListBox)sender;
-            currentSelectedDomain = (Domain)box.SelectedItem;
-           // Console.WriteLine(currentSelected.ToString());
-        }
-
-        private void vieToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            Console.WriteLine(e.RowIndex.ToString());
+        }
 
-            if (e.RowIndex >= 0)
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
             {
-                int rowIndex = e.RowIndex;
-                DataGridViewRow row = dataGridView1.Rows[rowIndex];
-                if ((string)row.Cells[0].Value == "domain")
+                DataGridView.HitTestInfo hit = surveryMakerGrid.HitTest(e.X, e.Y);
+                    Console.WriteLine(hit.RowIndex.ToString());
+                surveryMakerGrid.Rows[hit.RowIndex].Selected = true;
+                if ((string)surveryMakerGrid.Rows[hit.RowIndex].Cells[4].Value == "domain")
                 {
+                    ContextMenuStrip strip = new ContextMenuStrip();
+                    ToolStripMenuItem deleteDomain = new ToolStripMenuItem();
+                    deleteDomain.Click += new EventHandler(deleteDomain_Click);
+                    deleteDomain.Text = "Delete Domain";
+                    strip.Items.Add(deleteDomain);
+                    strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                }
+                if ((string)surveryMakerGrid.Rows[hit.RowIndex].Cells[4].Value == "capability")
+                {
+                    ContextMenuStrip strip = new ContextMenuStrip();
+                    ToolStripMenuItem deletecapability = new ToolStripMenuItem();
+                    deletecapability.Click += new EventHandler(deleteCapability_Click);
+                    deletecapability.Text = "Delete Capability";
+                    strip.Items.Add(deletecapability);
+                    strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                }
+                
+               
+                Console.WriteLine(hit.ToString());
+            }
+        }
 
-                    foreach (Domain dom in domains)
+        private void deleteDomain_Click(object sender, EventArgs e)
+        {
+            //Console.WriteLine("Domain would be deleted");
+            int index = surveryMakerGrid.SelectedRows[0].Index;
+           // Console.WriteLine(index.ToString());
+            Domain dom = FindDomainByIndex(index);
+            //Console.WriteLine(dom.IndexInGrid.ToString() + " is index");
+            foreach (Capability cap in dom.CapabilitiesOwned)
+            {
+                if (cap.IsInGrid)
+                {
+                    foreach (ITCapQuestion question in cap.QuestionsOwned)
                     {
-                        if (dom.Name == (string)row.Cells[1].Value)
+                        if (question.IsInGrid)
                         {
-                            currentSelectedDomain = dom;
-                            currentSelectedDomain.IndexInDataGrid = rowIndex;
-                            Console.WriteLine(currentSelectedDomain.IndexInDataGrid);
-                            return;
+                            question.IsInGrid = false;
+                            surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
                         }
                     }
-                }
-                if ((string)row.Cells[0].Value == "capability")
-                {
-                    foreach (Capability cap in capabilities)
-                    {
-                        if (cap.Name == (string)row.Cells[1].Value)
-                        {
-                            currentSelectedDomain = cap.Owner;
-                            currentSelectedCapability = cap;
-                            currentSelectedCapability.IndexInDataGrid = rowIndex;
-                            Console.WriteLine(currentSelectedCapability.IndexInDataGrid);
-                            return;
-                        }
-                    }
-                }
-                if ((string)row.Cells[0].Value == "question")
-                {
-                    foreach (ITCapQuestion question in questions)
-                    {
-                        if (question.QuestionText == (string)row.Cells[1].Value)
-                        {
-                            currentSelectedDomain = question.Owner.Owner;
-                            currentSelectedCapability = question.Owner;
-                            currentSelectedQuestion = question;
-                            currentSelectedQuestion.IndexInGrid = rowIndex;
-                            Console.WriteLine(currentSelectedQuestion.IndexInGrid);
-                            return;
-                        }
-                    }
+                    cap.IsInGrid = false;
+                    surveryMakerGrid.Rows.RemoveAt(cap.IndexInGrid);
                 }
             }
-
-            
+            dom.IsInGrid = false;
+            surveryMakerGrid.Rows.RemoveAt(dom.IndexInGrid);                        
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void deleteCapability_Click(object sender, EventArgs e)
         {
-            foreach (Capability cap in capabilities)
+            int index = surveryMakerGrid.SelectedRows[0].Index;
+            Capability cap = FindCapabilityByIndex(index);
+            foreach (ITCapQuestion question in cap.QuestionsOwned)
             {
-                if (cap.Name == textBox2.Text)
+                if (question.IsInGrid)
                 {
-                    Console.WriteLine("Capability Already exists");
-                    return;
+                    question.IsInGrid = false;
+                    surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
                 }
             }
-
-            CreateCapability(textBox2.Text, currentSelectedDomain);
-
-           
+            cap.IsInGrid = false;
+            surveryMakerGrid.Rows.RemoveAt(cap.IndexInGrid);
         }
 
 
-
-
-
-        private void AddCapabilityToListBox(Capability cap)
+        private Domain FindDomainByIndex(int index)
         {
-            listBox2.Items.Add(cap);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            foreach (ITCapQuestion question in questions)
+            foreach (Domain dom in domains)
             {
-                if (question.QuestionText == textBox3.Text)
-                {
-                    Console.WriteLine("Question Already exists");
-                    return;
-                }
-            }
-
-            CreateQuestion(textBox3.Text, currentSelectedCapability);
-        }
-
-        private void changeDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 6)
-            {
-                dataGridView1.EndEdit();
-                if (Convert.ToBoolean(dataGridView1.CurrentCell.Value) == true)
-                {
-                    Console.WriteLine("changed to true");
-                }
-                else
-                    Console.WriteLine("changed to false");
-            }
-        }
-
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            int index =  dataGridView1.CurrentRow.Index;
-            if ((string)dataGridView1.Rows[index].Cells[0].Value == "domain")
-            {
-                Domain dom = FindDomainByIndex(index);
-                for (int i = index; i < dom.TotalChildren + index; i++)
-                {
-                    dataGridView1.Rows.RemoveAt(i);
-                }
-            }
-
-            dataGridView1.Rows.RemoveAt(index);
-
-            
-        }
-        public Domain FindDomainByIndex(int index)
-        {
-            foreach(Domain dom in domains)
-            {
-                if (dom.IndexInDataGrid == index)
+                if (dom.IndexInGrid == index)
                 {
                     return dom;
                 }
             }
             return null;
         }
-
-        public void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private Capability FindCapabilityByIndex(int index)
         {
-            return;
+            foreach (Capability cap in capabilities)
+            {
+                if (cap.IndexInGrid == index)
+                {
+                    return cap;
+                }
+            }
+            return null;
+        }
+
+        private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            foreach (ScoringEntity entity in entities)
+            {
+                if (entity.IsInGrid && entity.IndexInGrid >= e.RowIndex)
+                    entity.IndexInGrid--;
+            }
+        }
+
+        private void LiveDataEntry_Click(object sender, EventArgs e)
+        {
+            ChangeStates(FormStates.LiveDataEntry);
+        }
+
+        private void SurveryMaker_Click(object sender, EventArgs e)
+        {
+            ChangeStates(FormStates.SurveryMaker);
+        }
+
+        private void liveDataEntryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+            {
+                DataGridViewComboBoxCell col = liveDataEntryGrid.Rows[e.RowIndex].Cells[4] as DataGridViewComboBoxCell;
+
+                
+                
+            }
+        }
+
+        private void Prioritization_Click(object sender, EventArgs e)
+        {
+            ChangeStates(FormStates.Prioritization);
+        }
+
+        private void capabilityGapHeatmapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
 
 
 
-    }
+
+
+    }// end class
 }

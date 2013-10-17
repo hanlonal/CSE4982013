@@ -28,171 +28,248 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.addDomainButton = new System.Windows.Forms.Button();
+            this.surveryMakerGrid = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capability = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AsIs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToBe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addCapabilityButton = new System.Windows.Forms.Button();
+            this.addQuestionButton = new System.Windows.Forms.Button();
+            this.domainNameTextBox = new System.Windows.Forms.TextBox();
+            this.mainMenuToolBar = new System.Windows.Forms.MenuStrip();
+            this.File = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.View = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.capabilityGapHeatmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.prioritizedCapabilityGapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Insert = new System.Windows.Forms.ToolStripMenuItem();
             this.domainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeDefaults = new System.Windows.Forms.ToolStripMenuItem();
             this.changeDefaultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capability = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AsIs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ToBe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Comments = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deafult = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.button5 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
+            this.Workshop = new System.Windows.Forms.ToolStripMenuItem();
+            this.LiveDataEntry = new System.Windows.Forms.ToolStripMenuItem();
+            this.Prioritization = new System.Windows.Forms.ToolStripMenuItem();
+            this.SurveryMaker = new System.Windows.Forms.ToolStripMenuItem();
+            this.capabilityNameTextBox = new System.Windows.Forms.TextBox();
+            this.questionNameTextBox = new System.Windows.Forms.TextBox();
+            this.removeEntityButton = new System.Windows.Forms.Button();
+            this.domainList = new System.Windows.Forms.ComboBox();
+            this.capabilitiesList = new System.Windows.Forms.ComboBox();
+            this.questionList = new System.Windows.Forms.ComboBox();
+            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.liveDataEntryGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
+            this.mainMenuToolBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // addDomainButton
             // 
-            this.button1.Location = new System.Drawing.Point(975, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.addDomainButton.Location = new System.Drawing.Point(975, 57);
+            this.addDomainButton.Name = "addDomainButton";
+            this.addDomainButton.Size = new System.Drawing.Size(75, 23);
+            this.addDomainButton.TabIndex = 0;
+            this.addDomainButton.Text = "+ Domain";
+            this.addDomainButton.UseVisualStyleBackColor = true;
+            this.addDomainButton.Visible = false;
+            this.addDomainButton.Click += new System.EventHandler(this.addDomainButton_Click);
             // 
-            // listBox1
+            // surveryMakerGrid
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(726, 269);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(324, 95);
-            this.listBox1.TabIndex = 2;
-            // 
-            // dataGridView1
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DataType,
-            this.Capability,
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.surveryMakerGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.surveryMakerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.surveryMakerGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
+            this.Capability,
             this.AsIs,
             this.ToBe,
-            this.Comments,
-            this.Deafult});
-            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
-            this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Size = new System.Drawing.Size(708, 488);
-            this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
+            this.Type});
+            this.surveryMakerGrid.EnableHeadersVisualStyles = false;
+            this.surveryMakerGrid.Location = new System.Drawing.Point(151, 27);
+            this.surveryMakerGrid.MultiSelect = false;
+            this.surveryMakerGrid.Name = "surveryMakerGrid";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.surveryMakerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.surveryMakerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.surveryMakerGrid.Size = new System.Drawing.Size(464, 488);
+            this.surveryMakerGrid.TabIndex = 3;
+            this.surveryMakerGrid.Visible = false;
+            this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.surveryMakerGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
+            this.surveryMakerGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
-            // button2
+            // ID
             // 
-            this.button2.Location = new System.Drawing.Point(865, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "+Dom";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 40;
             // 
-            // button3
+            // Capability
             // 
-            this.button3.Location = new System.Drawing.Point(975, 121);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "+Cap";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.Capability.HeaderText = "Capability";
+            this.Capability.Name = "Capability";
+            this.Capability.ReadOnly = true;
+            this.Capability.Width = 300;
             // 
-            // button4
+            // AsIs
             // 
-            this.button4.Location = new System.Drawing.Point(975, 186);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "+Question";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.AsIs.HeaderText = "As Is";
+            this.AsIs.Name = "AsIs";
+            this.AsIs.Visible = false;
             // 
-            // textBox1
+            // ToBe
             // 
-            this.textBox1.Location = new System.Drawing.Point(950, 86);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.ToBe.HeaderText = "To Be";
+            this.ToBe.Name = "ToBe";
+            this.ToBe.Visible = false;
             // 
-            // menuStrip1
+            // Type
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.vieToolStripMenuItem,
-            this.insertToolStripMenuItem,
-            this.changeDefaultsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1062, 24);
-            this.menuStrip1.TabIndex = 8;
-            this.menuStrip1.Text = "menuStrip1";
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.Visible = false;
             // 
-            // fileToolStripMenuItem
+            // addCapabilityButton
             // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.addCapabilityButton.Location = new System.Drawing.Point(975, 121);
+            this.addCapabilityButton.Name = "addCapabilityButton";
+            this.addCapabilityButton.Size = new System.Drawing.Size(75, 23);
+            this.addCapabilityButton.TabIndex = 5;
+            this.addCapabilityButton.Text = "+Cap";
+            this.addCapabilityButton.UseVisualStyleBackColor = true;
+            this.addCapabilityButton.Visible = false;
             // 
-            // vieToolStripMenuItem
+            // addQuestionButton
             // 
-            this.vieToolStripMenuItem.Name = "vieToolStripMenuItem";
-            this.vieToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.vieToolStripMenuItem.Text = "View";
-            this.vieToolStripMenuItem.Click += new System.EventHandler(this.vieToolStripMenuItem_Click);
+            this.addQuestionButton.Location = new System.Drawing.Point(975, 186);
+            this.addQuestionButton.Name = "addQuestionButton";
+            this.addQuestionButton.Size = new System.Drawing.Size(75, 23);
+            this.addQuestionButton.TabIndex = 6;
+            this.addQuestionButton.Text = "+Question";
+            this.addQuestionButton.UseVisualStyleBackColor = true;
+            this.addQuestionButton.Visible = false;
             // 
-            // insertToolStripMenuItem
+            // domainNameTextBox
             // 
-            this.insertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.domainNameTextBox.Location = new System.Drawing.Point(950, 86);
+            this.domainNameTextBox.Name = "domainNameTextBox";
+            this.domainNameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.domainNameTextBox.TabIndex = 7;
+            this.domainNameTextBox.Visible = false;
+            // 
+            // mainMenuToolBar
+            // 
+            this.mainMenuToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.File,
+            this.View,
+            this.Insert,
+            this.ChangeDefaults,
+            this.Workshop});
+            this.mainMenuToolBar.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuToolBar.Name = "mainMenuToolBar";
+            this.mainMenuToolBar.Size = new System.Drawing.Size(1062, 24);
+            this.mainMenuToolBar.TabIndex = 8;
+            this.mainMenuToolBar.Text = "menuStrip1";
+            // 
+            // File
+            // 
+            this.File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem});
+            this.File.Name = "File";
+            this.File.Size = new System.Drawing.Size(37, 20);
+            this.File.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.newToolStripMenuItem.Text = "New Survey";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // View
+            // 
+            this.View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem,
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem,
+            this.capabilityGapHeatmapToolStripMenuItem,
+            this.prioritizedCapabilityGapsToolStripMenuItem});
+            this.View.Name = "View";
+            this.View.Size = new System.Drawing.Size(44, 20);
+            this.View.Text = "View";
+            // 
+            // systemsAgendaCapabilityAssesmentResultsToolStripMenuItem
+            // 
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Name = "systemsAgendaCapabilityAssesmentResultsToolStripMenuItem";
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Text = "Systems Agenda Capability Assesment Results";
+            // 
+            // capabilityAssesmentSummaryScoresToolStripMenuItem
+            // 
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem.Name = "capabilityAssesmentSummaryScoresToolStripMenuItem";
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem.Text = "Capability Assesment Summary Scores";
+            // 
+            // capabilityGapHeatmapToolStripMenuItem
+            // 
+            this.capabilityGapHeatmapToolStripMenuItem.Name = "capabilityGapHeatmapToolStripMenuItem";
+            this.capabilityGapHeatmapToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.capabilityGapHeatmapToolStripMenuItem.Text = "Capability Gap Heatmap";
+            this.capabilityGapHeatmapToolStripMenuItem.Click += new System.EventHandler(this.capabilityGapHeatmapToolStripMenuItem_Click);
+            // 
+            // prioritizedCapabilityGapsToolStripMenuItem
+            // 
+            this.prioritizedCapabilityGapsToolStripMenuItem.Name = "prioritizedCapabilityGapsToolStripMenuItem";
+            this.prioritizedCapabilityGapsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.prioritizedCapabilityGapsToolStripMenuItem.Text = "Prioritized Capability Gaps";
+            // 
+            // Insert
+            // 
+            this.Insert.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.domainToolStripMenuItem,
             this.capabilityToolStripMenuItem,
             this.questionToolStripMenuItem});
-            this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
-            this.insertToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.insertToolStripMenuItem.Text = "Insert";
+            this.Insert.Name = "Insert";
+            this.Insert.Size = new System.Drawing.Size(48, 20);
+            this.Insert.Text = "Insert";
             // 
             // domainToolStripMenuItem
             // 
@@ -212,134 +289,226 @@
             this.questionToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.questionToolStripMenuItem.Text = "Question";
             // 
+            // ChangeDefaults
+            // 
+            this.ChangeDefaults.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeDefaultsToolStripMenuItem});
+            this.ChangeDefaults.Name = "ChangeDefaults";
+            this.ChangeDefaults.Size = new System.Drawing.Size(61, 20);
+            this.ChangeDefaults.Text = "Settings";
+            // 
             // changeDefaultsToolStripMenuItem
             // 
             this.changeDefaultsToolStripMenuItem.Name = "changeDefaultsToolStripMenuItem";
-            this.changeDefaultsToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.changeDefaultsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.changeDefaultsToolStripMenuItem.Text = "ChangeDefaults";
-            this.changeDefaultsToolStripMenuItem.Click += new System.EventHandler(this.changeDefaultsToolStripMenuItem_Click);
             // 
-            // textBox2
+            // Workshop
             // 
-            this.textBox2.Location = new System.Drawing.Point(950, 160);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 9;
+            this.Workshop.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LiveDataEntry,
+            this.Prioritization,
+            this.SurveryMaker});
+            this.Workshop.Name = "Workshop";
+            this.Workshop.Size = new System.Drawing.Size(73, 20);
+            this.Workshop.Text = "Workshop";
             // 
-            // listBox2
+            // LiveDataEntry
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(726, 388);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(324, 95);
-            this.listBox2.TabIndex = 10;
+            this.LiveDataEntry.Name = "LiveDataEntry";
+            this.LiveDataEntry.Size = new System.Drawing.Size(152, 22);
+            this.LiveDataEntry.Text = "Live Data Entry";
+            this.LiveDataEntry.Click += new System.EventHandler(this.LiveDataEntry_Click);
             // 
-            // textBox3
+            // Prioritization
             // 
-            this.textBox3.Location = new System.Drawing.Point(950, 225);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 11;
+            this.Prioritization.Name = "Prioritization";
+            this.Prioritization.Size = new System.Drawing.Size(152, 22);
+            this.Prioritization.Text = "Prioritization";
+            this.Prioritization.Click += new System.EventHandler(this.Prioritization_Click);
             // 
-            // contextMenuStrip1
+            // SurveryMaker
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(120, 48);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.SurveryMaker.Name = "SurveryMaker";
+            this.SurveryMaker.Size = new System.Drawing.Size(152, 22);
+            this.SurveryMaker.Text = "Survery Maker";
+            this.SurveryMaker.Click += new System.EventHandler(this.SurveryMaker_Click);
             // 
-            // toolStripMenuItem1
+            // capabilityNameTextBox
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
-            this.toolStripMenuItem1.Text = "Testing";
+            this.capabilityNameTextBox.Location = new System.Drawing.Point(950, 160);
+            this.capabilityNameTextBox.Name = "capabilityNameTextBox";
+            this.capabilityNameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.capabilityNameTextBox.TabIndex = 9;
+            this.capabilityNameTextBox.Visible = false;
             // 
-            // toolStripMenuItem2
+            // questionNameTextBox
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(119, 22);
-            this.toolStripMenuItem2.Text = "Testing2";
+            this.questionNameTextBox.Location = new System.Drawing.Point(950, 225);
+            this.questionNameTextBox.Name = "questionNameTextBox";
+            this.questionNameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.questionNameTextBox.TabIndex = 11;
+            this.questionNameTextBox.Visible = false;
             // 
-            // DataType
+            // removeEntityButton
             // 
-            this.DataType.HeaderText = "DataType";
-            this.DataType.Name = "DataType";
-            this.DataType.Visible = false;
+            this.removeEntityButton.Location = new System.Drawing.Point(841, 202);
+            this.removeEntityButton.Name = "removeEntityButton";
+            this.removeEntityButton.Size = new System.Drawing.Size(75, 23);
+            this.removeEntityButton.TabIndex = 13;
+            this.removeEntityButton.Text = "Remove";
+            this.removeEntityButton.UseVisualStyleBackColor = true;
+            this.removeEntityButton.Visible = false;
             // 
-            // Capability
+            // domainList
             // 
-            this.Capability.HeaderText = "Capability";
-            this.Capability.Name = "Capability";
-            this.Capability.ReadOnly = true;
-            this.Capability.Width = 170;
+            this.domainList.FormattingEnabled = true;
+            this.domainList.Location = new System.Drawing.Point(726, 59);
+            this.domainList.Name = "domainList";
+            this.domainList.Size = new System.Drawing.Size(170, 21);
+            this.domainList.TabIndex = 14;
+            this.domainList.Text = "Domains";
+            this.domainList.Visible = false;
             // 
-            // ID
+            // capabilitiesList
             // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 40;
+            this.capabilitiesList.FormattingEnabled = true;
+            this.capabilitiesList.Location = new System.Drawing.Point(726, 102);
+            this.capabilitiesList.Name = "capabilitiesList";
+            this.capabilitiesList.Size = new System.Drawing.Size(170, 21);
+            this.capabilitiesList.TabIndex = 15;
+            this.capabilitiesList.Text = "Capabilities";
+            this.capabilitiesList.Visible = false;
             // 
-            // AsIs
+            // questionList
             // 
-            this.AsIs.HeaderText = "As Is";
-            this.AsIs.Name = "AsIs";
+            this.questionList.FormattingEnabled = true;
+            this.questionList.Location = new System.Drawing.Point(726, 143);
+            this.questionList.Name = "questionList";
+            this.questionList.Size = new System.Drawing.Size(170, 21);
+            this.questionList.TabIndex = 16;
+            this.questionList.Text = "Questions";
+            this.questionList.Visible = false;
             // 
-            // ToBe
+            // directorySearcher1
             // 
-            this.ToBe.HeaderText = "To Be";
-            this.ToBe.Name = "ToBe";
+            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            // 
+            // liveDataEntryGrid
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.liveDataEntryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.liveDataEntryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.liveDataEntryGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.Comments,
+            this.AddComment,
+            this.dataGridViewTextBoxColumn5});
+            this.liveDataEntryGrid.EnableHeadersVisualStyles = false;
+            this.liveDataEntryGrid.Location = new System.Drawing.Point(12, 27);
+            this.liveDataEntryGrid.MultiSelect = false;
+            this.liveDataEntryGrid.Name = "liveDataEntryGrid";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.liveDataEntryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.liveDataEntryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.liveDataEntryGrid.Size = new System.Drawing.Size(904, 488);
+            this.liveDataEntryGrid.TabIndex = 17;
+            this.liveDataEntryGrid.Visible = false;
+            this.liveDataEntryGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellContentClick);
+            this.liveDataEntryGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellEndEdit);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Capability";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn2.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "As Is";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "To Be";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Comments
             // 
+            this.Comments.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.Comments.HeaderText = "Comments";
             this.Comments.Name = "Comments";
-            this.Comments.Width = 200;
+            this.Comments.Width = 250;
             // 
-            // Deafult
+            // AddComment
             // 
-            this.Deafult.HeaderText = "Default";
-            this.Deafult.Name = "Deafult";
-            this.Deafult.Width = 40;
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
             // 
-            // button5
+            // dataGridViewTextBoxColumn5
             // 
-            this.button5.Location = new System.Drawing.Point(841, 202);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 13;
-            this.button5.Text = "Remove";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.dataGridViewTextBoxColumn5.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Visible = false;
             // 
             // ITCapTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 517);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.liveDataEntryGrid);
+            this.Controls.Add(this.questionList);
+            this.Controls.Add(this.capabilitiesList);
+            this.Controls.Add(this.domainList);
+            this.Controls.Add(this.removeEntityButton);
+            this.Controls.Add(this.questionNameTextBox);
+            this.Controls.Add(this.capabilityNameTextBox);
+            this.Controls.Add(this.domainNameTextBox);
+            this.Controls.Add(this.addQuestionButton);
+            this.Controls.Add(this.addCapabilityButton);
+            this.Controls.Add(this.surveryMakerGrid);
+            this.Controls.Add(this.addDomainButton);
+            this.Controls.Add(this.mainMenuToolBar);
+            this.MainMenuStrip = this.mainMenuToolBar;
             this.Name = "ITCapTool";
             this.Text = "ITCapTool";
             this.Load += new System.EventHandler(this.ITCapTool_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).EndInit();
+            this.mainMenuToolBar.ResumeLayout(false);
+            this.mainMenuToolBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,35 +516,50 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem vieToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem;
+        private System.Windows.Forms.Button addDomainButton;
+        private System.Windows.Forms.DataGridView surveryMakerGrid;
+        private System.Windows.Forms.Button addCapabilityButton;
+        private System.Windows.Forms.Button addQuestionButton;
+        private System.Windows.Forms.TextBox domainNameTextBox;
+        private System.Windows.Forms.MenuStrip mainMenuToolBar;
+        private System.Windows.Forms.ToolStripMenuItem File;
+        private System.Windows.Forms.ToolStripMenuItem View;
+        private System.Windows.Forms.ToolStripMenuItem Insert;
         private System.Windows.Forms.ToolStripMenuItem domainToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem capabilityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questionToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox capabilityNameTextBox;
+        private System.Windows.Forms.TextBox questionNameTextBox;
+        private System.Windows.Forms.ToolStripMenuItem ChangeDefaults;
+        private System.Windows.Forms.Button removeEntityButton;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ComboBox domainList;
+        private System.Windows.Forms.ComboBox capabilitiesList;
+        private System.Windows.Forms.ComboBox questionList;
+        private System.Windows.Forms.ToolStripMenuItem systemsAgendaCapabilityAssesmentResultsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem capabilityAssesmentSummaryScoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem capabilityGapHeatmapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem prioritizedCapabilityGapsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Workshop;
+        private System.Windows.Forms.ToolStripMenuItem LiveDataEntry;
+        private System.Windows.Forms.ToolStripMenuItem Prioritization;
+        private System.Windows.Forms.ToolStripMenuItem SurveryMaker;
+        private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.ToolStripMenuItem changeDefaultsToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Capability;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Capability;
         private System.Windows.Forms.DataGridViewTextBoxColumn AsIs;
         private System.Windows.Forms.DataGridViewTextBoxColumn ToBe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Comments;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Deafult;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridView liveDataEntryGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Comments;
+        private System.Windows.Forms.DataGridViewButtonColumn AddComment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
 
        
     }

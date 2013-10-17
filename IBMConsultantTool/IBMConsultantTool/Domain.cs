@@ -5,102 +5,77 @@ using System.Text;
 
 namespace IBMConsultantTool
 {
-    public class Domain
+    public class Domain : ScoringEntity
     {
-        string databaseID;
-        string toolID;
-        string name;
-        bool defaultDomain = true;
-        int numCapabilities = 0;
-
-        ITCapTool owner;
-        int indexInDataGrid = 0;
-        int totalChildren = 0;
-
-
-
-
-
-        int indexInList;
-
-        float averageAsIs = 0;
-        float averageToBe = 0;
-
-        private List<Capability> capabilities = new List<Capability>();
+        private List<Capability> capabilitiesOwned = new List<Capability>();
+        private int totalChildren = 0;
 
 
 
         public Domain()
         {
-            Console.WriteLine("new domain created");
-
+            
+            Console.WriteLine("domain created");
+            
         }
 
-        public void BuildCapabilitiesList(List<string> toMake)
+        public override void UpdateIndexDecrease(int index)
         {
-            foreach (string cap in toMake)
+            foreach (Capability cap in capabilitiesOwned)
             {
-                string[] fileInfoForCap = owner.GetFileInfo(cap, "cap");
-                 //owner.CreateCapability(
+                if (cap.IsInGrid && cap.IndexInGrid > index)
+                    cap.IndexInGrid--;
             }
         }
 
-        public void AddCapabilitytoList(Capability cap)
+        public override float CalculateAsIsAverage()
         {
-            capabilities.Add(cap);
+            float total = 0;
+            float activeCaps = 0;
+            foreach (Capability cap in capabilitiesOwned)
+            {
+                if (cap.AsIsScore != 0)
+                {
+                    total += cap.AsIsScore;
+                    activeCaps++;
+                }
+            }
+            asIsScore = total / activeCaps;
+            return asIsScore;
         }
 
-        public string Name
+        public override float CalculateToBeAverage()
         {
-            get { return name; }
-            set { name = value; } 
-        }
-        public string ToolID
-        {
-            get { return toolID; }
-            set { toolID = value; }
-        }
-
-        public override string ToString()
-        {
-            return name + " :: " + toolID;
-        }
-        public bool IsDefault
-        {
-            get { return defaultDomain; }
-            set { defaultDomain = value; }
-        }
-        public int Index
-        {
-            get { return indexInList; }
-            set { indexInList = value; }
-        }
-        public int NumCapabilities
-        {
-            get { return numCapabilities; }
-            set { numCapabilities = value; }
-        }
-        public List<Capability> Capabilities
-        {
-            get { return capabilities; }
-            set { capabilities = value; }
+            float total = 0;
+            float activeCaps = 0;
+            foreach (Capability cap in capabilitiesOwned)
+            {
+                if (cap.ToBeScore != 0)
+                {
+                    total += cap.ToBeScore;
+                    activeCaps++;
+                }
+            }
+            toBeScore = total / activeCaps;
+            return toBeScore;
         }
 
-        public ITCapTool Owner
+        public List<Capability> CapabilitiesOwned
         {
-            get { return owner; }
-            set { owner = value; }
+            get { return capabilitiesOwned; }
+            set { capabilitiesOwned = value; }
         }
-        public int IndexInDataGrid
+        public string ID
         {
-            get { return indexInDataGrid; }
-            set { indexInDataGrid = value; }
+            get { return id; }
+            set { id = value; }
         }
         public int TotalChildren
         {
             get { return totalChildren; }
             set { totalChildren = value; }
         }
+
 
     }// end class
 }

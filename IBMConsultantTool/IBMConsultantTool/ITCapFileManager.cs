@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -237,7 +237,7 @@ namespace IBMConsultantTool
                 mainForm.CreateCapability(capabilityName, Convert.ToInt32(contents[capabilityIDIndex]));
             }
         }*/
-
+/*
        public int GetHighestIDNumberDomain()
        {
            string[] test = System.IO.File.ReadAllLines(@"c:\Consultant Tool\ITCap\Info.txt");
@@ -287,4 +287,4 @@ namespace IBMConsultantTool
        }
 
     }// end class
-}
+}*/
