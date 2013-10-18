@@ -115,6 +115,7 @@
     <Compile Include="CUPEAnalytics.Designer.cs">
       <DependentUpon>CUPEAnalytics.cs</DependentUpon>
     </Compile>
+    <Compile Include="CUPEData.cs" />
     <Compile Include="CupeForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -26,6 +26,10 @@ namespace IBMConsultantTool
         CupeForm owner;
         string clientName;
         string email;
+        CupeData
+
+
+
         int totalCommodity = 0;
         int totalPartner = 0;
         int totalEnabler = 0;
