@@ -39,7 +39,7 @@ namespace IBMConsultantTool
 
             categoryNames.Items.AddRange(db.GetCategoryNames());
 
-            new ChooseClient(this).ShowDialog();
+            new ChooseBOMClient(this).ShowDialog();
         }
 
         public NewCategory AddCategory(string name)

@@ -14,6 +14,10 @@ namespace IBMConsultantTool
 
     public partial class ITCapTool : Form
     {
+        public DataManager db;
+        public bool isOnline;
+        public object client;
+
         private List<Domain> domains = new List<Domain>();
         private List<Capability> capabilities = new List<Capability>();
         private List<ScoringEntity> entities = new List<ScoringEntity>();
@@ -31,66 +35,81 @@ namespace IBMConsultantTool
 
         private void LoadDomains()
         {
-            for (int i = 0; i < 5; i++)
+            string[] domainInfoArray = db.GetDomainNamesAndDefault();
+            int domCount = 1;
+            foreach (string domainInfo in domainInfoArray)
             {
                 Domain dom = new Domain();
-                dom.Name = "Domain " + i.ToString();
-                if (i % 2 == 0)
-                {
-                    dom.IsDefault = true;
-                }
-                dom.ID = (i +1).ToString();
+                dom.Name = domainInfo.Substring(0, domainInfo.Length - 1);
+                dom.IsDefault = domainInfo.Last() == 'Y';
+                dom.ID = domCount.ToString();
                 LoadCapabilities(dom);
                 domains.Add(dom);
                 domainList.Items.Add(dom);
                 entities.Add(dom);
+                domCount++;
             }
         }
 
         private void LoadCapabilities(Domain dom)
         {
-            for (int i = 0; i < 3; i++)
+            string[] capabilityInfoArray = db.GetCapabilityNamesAndDefault(dom.Name);
+
+            int capCount = 1;
+            foreach (string capabilityInfo in capabilityInfoArray)
             {
                 Capability cap = new Capability();
-                cap.Name = "Capability " + i.ToString() + " Owned By " + dom.ToString();
-                if (i %2 == 0)
-                {
-                    cap.IsDefault = true;
-                }                
+                cap.Name = capabilityInfo.Substring(0, capabilityInfo.Length - 1);
+                cap.IsDefault = capabilityInfo.Last() == 'Y';
                 dom.CapabilitiesOwned.Add(cap);
                 dom.TotalChildren++;
                 capabilities.Add(cap);
                 cap.Owner = dom;
-                cap.ID = (i +1).ToString();
+                cap.ID = capCount.ToString();
                 LoadQuestions(cap);
                 capabilitiesList.Items.Add(cap);
                 entities.Add(cap);
-
+                capCount++;
             }
         }
 
         private void LoadQuestions(Capability cap)
         {
-            for (int i = 0; i < 4; i++)
+            string[] questionInfoArray = db.GetITCAPQuestionNamesAndDefault(cap.Name, cap.Owner.Name);
+
+            int questionCount = 1;
+            foreach (string questionInfo in questionInfoArray)
             {
                 ITCapQuestion question = new ITCapQuestion();
-                question.Name = "Question " + i.ToString() + " Owned By " + cap.ToString();
-                if (i %2 == 0)
-                {
-                    question.IsDefault = true;
-                }
+                question.Name = questionInfo.Substring(0, questionInfo.Length - 1);
+                question.IsDefault = questionInfo.Last() == 'Y';
                 cap.Owner.TotalChildren++;
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
-                question.ID = (i +1).ToString();
+                question.ID = questionCount.ToString();
                 questionList.Items.Add(question);
                 entities.Add(question);
+                questionCount++;
             }
         }
 
         public ITCapTool()
         {
             InitializeComponent();
+
+            try
+            {
+                db = new DBManager();
+                isOnline = true;
+            }
+
+            catch
+            {
+                db = new FileManager();
+                isOnline = false;
+                MessageBox.Show("Could not reach database: Offline mode set", "Error");
+            }
+
             states = FormStates.Open;
             surverymakercontrols.Add(domainNameTextBox);
             surverymakercontrols.Add(capabilityNameTextBox);
@@ -109,11 +128,16 @@ namespace IBMConsultantTool
 
             questionsArray.ToList();
 
-
+            new ChooseITCAPClient(this).ShowDialog();
         }
 
         private void ITCapTool_Load(object sender, EventArgs e)
         {
+            if (client == null)
+            {
+                this.Close();
+            }
+
             LoadDomains();
             //LoadCapabilities();
            // LoadQuestions();
