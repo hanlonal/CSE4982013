@@ -77,12 +77,6 @@
     <Compile Include="BOMBubbleChartRedesign.Designer.cs">
       <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
     </Compile>
-    <Compile Include="BOMInitiativeBubbleChart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BOMInitiativeBubbleChart.Designer.cs">
-      <DependentUpon>BOMInitiativeBubbleChart.cs</DependentUpon>
-    </Compile>
     <Compile Include="BOMTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,9 +220,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BOMBubbleChartRedesign.resx">
       <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BOMInitiativeBubbleChart.resx">
-      <DependentUpon>BOMInitiativeBubbleChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BOMTool.resx">
       <DependentUpon>BOMTool.cs</DependentUpon>

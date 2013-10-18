@@ -237,5 +237,11 @@ namespace IBMConsultantTool
             }
         }
 
+        private void btnLoadChart_Click(object sender, EventArgs e)
+        {
+            BOMBubbleChartRedesign chart = new BOMBubbleChartRedesign(this);
+            chart.Show();
+        }
+
     } // end class
 }
