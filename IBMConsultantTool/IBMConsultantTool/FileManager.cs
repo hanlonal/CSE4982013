@@ -815,6 +815,7 @@ namespace IBMConsultantTool
 
         public override string[] GetCapabilityNames(string domName)
         {
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -823,6 +824,7 @@ namespace IBMConsultantTool
 
         public override string[] GetCapabilityNamesAndDefault(string domName)
         {
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -876,6 +878,8 @@ namespace IBMConsultantTool
 
         public override string[] GetITCAPQuestionNames(string capName, string domName)
         {
+            capName = capName.Replace(' ', '~');
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -886,6 +890,8 @@ namespace IBMConsultantTool
 
         public override string[] GetITCAPQuestionNamesAndDefault(string capName, string domName)
         {
+            capName = capName.Replace(' ', '~');
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")

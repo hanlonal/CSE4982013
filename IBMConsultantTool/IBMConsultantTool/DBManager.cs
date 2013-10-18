@@ -1041,6 +1041,7 @@ namespace IBMConsultantTool
             {
                 XElement temp = new XElement("DOMAIN");
                 temp.Add(new XElement("NAME", domain.NAME.TrimEnd().Replace(' ', '~')));
+                temp.Add(new XElement("DEFAULT", domain.DEFAULT));
                 temp.Add(new XElement("DOMAINID", domain.DOMAINID));
 
                 XElement capElement = new XElement("CAPABILITIES");
@@ -1048,6 +1049,7 @@ namespace IBMConsultantTool
                 {
                     XElement tempCap = new XElement("CAPABILITY");
                     tempCap.Add(new XElement("NAME", capability.NAME.TrimEnd().Replace(' ', '~')));
+                    tempCap.Add(new XElement("DEFAULT", capability.DEFAULT));
                     tempCap.Add(new XElement("CAPABILITYID", capability.CAPABILITYID));
 
                     XElement questionElement = new XElement("ITCAPQUESTIONS");
@@ -1055,6 +1057,7 @@ namespace IBMConsultantTool
                     {
                         XElement tempItcq = new XElement("ITCAPQUESTION");
                         tempItcq.Add(new XElement("NAME", itcapQuestion.NAME.TrimEnd().Replace(' ', '~')));
+                        tempItcq.Add(new XElement("DEFAULT", itcapQuestion.DEFAULT));
                         tempItcq.Add(new XElement("ITCAPQUESTIONID", itcapQuestion.ITCAPQUESTIONID));
                         questionElement.Add(tempItcq);
                     }
