@@ -675,7 +675,7 @@
             this.questionGridITFuture.Size = new System.Drawing.Size(727, 483);
             this.questionGridITFuture.TabIndex = 12;
             this.questionGridITFuture.Visible = false;
-            this.questionGridITFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
+
             // 
             // dataGridViewTextBoxColumn15
             // 
@@ -861,26 +861,26 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.preferencesToolStripMenuItem.Text = "New";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // preferencesToolStripMenuItem2
             // 
             this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
-            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(175, 24);
+            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(154, 24);
             this.preferencesToolStripMenuItem2.Text = "Preferences";
             // 
             // editToolStripMenuItem
