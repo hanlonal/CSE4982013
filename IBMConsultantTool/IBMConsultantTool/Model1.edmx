@@ -119,6 +119,7 @@
           </Key>
           <Property Name="CAPABILITYID" Type="integer" Nullable="false" />
           <Property Name="NAME" Type="character" Nullable="false" MaxLength="50" />
+          <Property Name="DEFAULT" Type="character" />
           <Property Name="DOMAINID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="CATEGORY">
@@ -174,6 +175,7 @@
           </Key>
           <Property Name="DOMAINID" Type="integer" Nullable="false" />
           <Property Name="NAME" Type="character" Nullable="false" MaxLength="50" />
+          <Property Name="DEFAULT" Type="character" />
         </EntityType>
         <EntityType Name="GROUP">
           <Key>
@@ -201,13 +203,14 @@
           <Property Name="CONTACTID" Type="integer" />
           <Property Name="ASIS" Type="integer" Nullable="false" />
           <Property Name="TOBE" Type="integer" Nullable="false" />
+          <Property Name="COMMENT" Type="character" MaxLength="150" />
           <Property Name="ITCAPQUESTIONID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="ITCAPQUESTION">
           <Key>
             <PropertyRef Name="ITCAPQUESTIONID" />
           </Key>
-          <Property Name="QUESTION" Type="character" Nullable="false" MaxLength="150" />
+          <Property Name="NAME" Type="character" Nullable="false" MaxLength="150" />
           <Property Name="ITCAPQUESTIONID" Type="integer" Nullable="false" />
           <Property Name="DEFAULT" Type="character" Nullable="false" />
           <Property Name="CAPABILITYID" Type="integer" Nullable="false" />
@@ -584,6 +587,7 @@
           </Key>
           <Property Name="CAPABILITYID" Type="Int32" Nullable="false" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="true" />
+          <Property Name="DEFAULT" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="DOMAIN" Relationship="SAMPLEModel.CAPABILIT_DOMAI_FK" FromRole="CAPABILITY" ToRole="DOMAIN" />
           <NavigationProperty Name="ITCAPQUESTION" Relationship="SAMPLEModel.ITCAPQUE_CAPAB_FK" FromRole="CAPABILITY" ToRole="ITCAPQUESTION" />
         </EntityType>
@@ -649,6 +653,7 @@
           </Key>
           <Property Name="DOMAINID" Type="Int32" Nullable="false" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="true" />
+          <Property Name="DEFAULT" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CAPABILITY" Relationship="SAMPLEModel.CAPABILIT_DOMAI_FK" FromRole="DOMAIN" ToRole="CAPABILITY" />
         </EntityType>
         <EntityType Name="GROUP">
@@ -679,6 +684,7 @@
           <Property Name="ITCAPID" Type="Int32" Nullable="false" />
           <Property Name="ASIS" Type="Int32" Nullable="false" />
           <Property Name="TOBE" Type="Int32" Nullable="false" />
+          <Property Name="COMMENT" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CLIENT" Relationship="SAMPLEModel.ITCAP_CLIENT_FK" FromRole="ITCAP" ToRole="CLIENT" />
           <NavigationProperty Name="CONTACT" Relationship="SAMPLEModel.ITCAP_CONTACT_FK" FromRole="ITCAP" ToRole="CONTACT" />
           <NavigationProperty Name="GROUP" Relationship="SAMPLEModel.ITCAP_GROUP_FK" FromRole="ITCAP" ToRole="GROUP" />
@@ -688,7 +694,7 @@
           <Key>
             <PropertyRef Name="ITCAPQUESTIONID" />
           </Key>
-          <Property Name="QUESTION" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="true" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="true" />
           <Property Name="ITCAPQUESTIONID" Type="Int32" Nullable="false" />
           <Property Name="DEFAULT" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CAPABILITY" Relationship="SAMPLEModel.ITCAPQUE_CAPAB_FK" FromRole="ITCAPQUESTION" ToRole="CAPABILITY" />
@@ -821,6 +827,7 @@
           <EntitySetMapping Name="CAPABILITY"><EntityTypeMapping TypeName="SAMPLEModel.CAPABILITY"><MappingFragment StoreEntitySet="CAPABILITY">
             <ScalarProperty Name="CAPABILITYID" ColumnName="CAPABILITYID" />
             <ScalarProperty Name="NAME" ColumnName="NAME" />
+            <ScalarProperty Name="DEFAULT" ColumnName="DEFAULT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CATEGORY"><EntityTypeMapping TypeName="SAMPLEModel.CATEGORY"><MappingFragment StoreEntitySet="CATEGORY">
             <ScalarProperty Name="CATEGORYID" ColumnName="CATEGORYID" />
@@ -852,6 +859,7 @@
           <EntitySetMapping Name="DOMAIN"><EntityTypeMapping TypeName="SAMPLEModel.DOMAIN"><MappingFragment StoreEntitySet="DOMAIN">
             <ScalarProperty Name="DOMAINID" ColumnName="DOMAINID" />
             <ScalarProperty Name="NAME" ColumnName="NAME" />
+            <ScalarProperty Name="DEFAULT" ColumnName="DEFAULT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="GROUP"><EntityTypeMapping TypeName="SAMPLEModel.GROUP"><MappingFragment StoreEntitySet="GROUP">
             <ScalarProperty Name="GROUPID" ColumnName="GROUPID" />
@@ -865,9 +873,10 @@
             <ScalarProperty Name="ITCAPID" ColumnName="ITCAPID" />
             <ScalarProperty Name="ASIS" ColumnName="ASIS" />
             <ScalarProperty Name="TOBE" ColumnName="TOBE" />
+            <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="ITCAPQUESTION"><EntityTypeMapping TypeName="SAMPLEModel.ITCAPQUESTION"><MappingFragment StoreEntitySet="ITCAPQUESTION">
-            <ScalarProperty Name="QUESTION" ColumnName="QUESTION" />
+            <ScalarProperty Name="NAME" ColumnName="NAME" />
             <ScalarProperty Name="ITCAPQUESTIONID" ColumnName="ITCAPQUESTIONID" />
             <ScalarProperty Name="DEFAULT" ColumnName="DEFAULT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -1048,16 +1057,16 @@
       <Diagram Name="Model1">
         <EntityTypeShape EntityType="SAMPLEModel.BOM" Width="1.5" PointX="7.5" PointY="7.75" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="3" PointY="8.125" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.CAPABILITY" Width="1.5" PointX="3" PointY="15.125" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.CAPABILITY" Width="1.5" PointX="3" PointY="15.125" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CATEGORY" Width="1.5" PointX="0.75" PointY="8.25" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CLIENT" Width="1.5" PointX="0.75" PointY="4.625" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CONTACT" Width="1.5" PointX="5.25" PointY="10.875" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CUPE" Width="1.5" PointX="10.5" PointY="7.875" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.CUPEQUESTION" Width="1.5" PointX="8.25" PointY="3.875" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.DOMAIN" Width="1.5" PointX="0.75" PointY="15.25" Height="1.5956835937500014" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.DOMAIN" Width="1.5" PointX="0.75" PointY="15.125" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.GROUP" Width="1.5" PointX="3" PointY="11" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.INITIATIVE" Width="1.5" PointX="5.25" PointY="8.125" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SAMPLEModel.ITCAP" Width="1.5" PointX="7.5" PointY="11.875" Height="2.3648893229166745" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMPLEModel.ITCAP" Width="1.5" PointX="7.5" PointY="11.75" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="SAMPLEModel.ITCAPQUESTION" Width="1.5" PointX="5.25" PointY="15.125" Height="1.9802864583333388" IsExpanded="true" />
         <AssociationConnector Association="SAMPLEModel.BOM_CLIENT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="6.5499886067708335" />
@@ -1100,12 +1109,12 @@
           <ConnectorPoint PointX="5.25" PointY="9.0189925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CAPABILIT_DOMAI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="16.047841796875" />
-          <ConnectorPoint PointX="3" PointY="16.047841796875" />
+          <ConnectorPoint PointX="2.25" PointY="16.018992513020834" />
+          <ConnectorPoint PointX="3" PointY="16.018992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCAPQUE_CAPAB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="16.018992513020834" />
-          <ConnectorPoint PointX="5.25" PointY="16.018992513020834" />
+          <ConnectorPoint PointX="4.5" PointY="16.115143229166666" />
+          <ConnectorPoint PointX="5.25" PointY="16.115143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CLIENT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="6.7050407486979173" />
@@ -1126,8 +1135,8 @@
           <ConnectorPoint PointX="2.25" PointY="6.7722022752403843" />
           <ConnectorPoint PointX="2.6503856153846153" PointY="7.172587890625" />
           <ConnectorPoint PointX="7.25" PointY="7.172587890625" />
-          <ConnectorPoint PointX="7.25" PointY="11.623847153846153" />
-          <ConnectorPoint PointX="7.5011528461538459" PointY="11.875" />
+          <ConnectorPoint PointX="7.25" PointY="11.498847153846153" />
+          <ConnectorPoint PointX="7.5011528461538459" PointY="11.75" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CONTACT_GROUP_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="11.528722330729167" />
@@ -1136,15 +1145,15 @@
           <ConnectorPoint PointX="5.25" PointY="11.528722330729167" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="11.375578923076924" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="11.375578923076924" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="11.375578923076924" />
-          <ConnectorPoint PointX="11.25" PointY="11.375578923076924" />
+          <ConnectorPoint PointX="6.75" PointY="11.313078923076924" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="11.313078923076924" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="11.313078923076924" />
+          <ConnectorPoint PointX="11.25" PointY="11.313078923076924" />
           <ConnectorPoint PointX="11.25" PointY="10.239889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCAP_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="12.653595377604166" />
-          <ConnectorPoint PointX="7.5" PointY="12.653595377604166" />
+          <ConnectorPoint PointX="6.75" PointY="12.591095377604166" />
+          <ConnectorPoint PointX="7.5" PointY="12.591095377604166" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.CUPE_CUPEQUESTI_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="9.75" PointY="5.0574446614583337" />
@@ -1166,13 +1175,13 @@
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCAP_GROUP_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="3.75" PointY="13.364889322916667" />
-          <ConnectorPoint PointX="3.75" PointY="13.867290039062503" />
-          <ConnectorPoint PointX="7.5" PointY="13.867290039062503" />
+          <ConnectorPoint PointX="3.75" PointY="13.900940755208332" />
+          <ConnectorPoint PointX="7.5" PointY="13.900940755208332" />
         </AssociationConnector>
         <AssociationConnector Association="SAMPLEModel.ITCA_ITCAPQUEST_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="16.115143229166669" />
           <ConnectorPoint PointX="8.25" PointY="16.115143229166669" />
-          <ConnectorPoint PointX="8.25" PointY="14.239889322916675" />
+          <ConnectorPoint PointX="8.25" PointY="14.307190755208332" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

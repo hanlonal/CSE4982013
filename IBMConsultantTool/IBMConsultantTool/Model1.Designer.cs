@@ -912,6 +912,30 @@ namespace IBMConsultantTool
         private global::System.String _NAME;
         partial void OnNAMEChanging(global::System.String value);
         partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DEFAULT
+        {
+            get
+            {
+                return _DEFAULT;
+            }
+            set
+            {
+                OnDEFAULTChanging(value);
+                ReportPropertyChanging("DEFAULT");
+                _DEFAULT = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DEFAULT");
+                OnDEFAULTChanged();
+            }
+        }
+        private global::System.String _DEFAULT;
+        partial void OnDEFAULTChanging(global::System.String value);
+        partial void OnDEFAULTChanged();
 
         #endregion
     
@@ -2026,6 +2050,30 @@ namespace IBMConsultantTool
         private global::System.String _NAME;
         partial void OnNAMEChanging(global::System.String value);
         partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DEFAULT
+        {
+            get
+            {
+                return _DEFAULT;
+            }
+            set
+            {
+                OnDEFAULTChanging(value);
+                ReportPropertyChanging("DEFAULT");
+                _DEFAULT = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DEFAULT");
+                OnDEFAULTChanged();
+            }
+        }
+        private global::System.String _DEFAULT;
+        partial void OnDEFAULTChanging(global::System.String value);
+        partial void OnDEFAULTChanged();
 
         #endregion
     
@@ -2512,6 +2560,30 @@ namespace IBMConsultantTool
         private global::System.Int32 _TOBE;
         partial void OnTOBEChanging(global::System.Int32 value);
         partial void OnTOBEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String COMMENT
+        {
+            get
+            {
+                return _COMMENT;
+            }
+            set
+            {
+                OnCOMMENTChanging(value);
+                ReportPropertyChanging("COMMENT");
+                _COMMENT = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("COMMENT");
+                OnCOMMENTChanged();
+            }
+        }
+        private global::System.String _COMMENT;
+        partial void OnCOMMENTChanging(global::System.String value);
+        partial void OnCOMMENTChanged();
 
         #endregion
     
@@ -2685,13 +2757,13 @@ namespace IBMConsultantTool
         /// <summary>
         /// Create a new ITCAPQUESTION object.
         /// </summary>
-        /// <param name="qUESTION">Initial value of the QUESTION property.</param>
+        /// <param name="nAME">Initial value of the NAME property.</param>
         /// <param name="iTCAPQUESTIONID">Initial value of the ITCAPQUESTIONID property.</param>
         /// <param name="dEFAULT">Initial value of the DEFAULT property.</param>
-        public static ITCAPQUESTION CreateITCAPQUESTION(global::System.String qUESTION, global::System.Int32 iTCAPQUESTIONID, global::System.String dEFAULT)
+        public static ITCAPQUESTION CreateITCAPQUESTION(global::System.String nAME, global::System.Int32 iTCAPQUESTIONID, global::System.String dEFAULT)
         {
             ITCAPQUESTION iTCAPQUESTION = new ITCAPQUESTION();
-            iTCAPQUESTION.QUESTION = qUESTION;
+            iTCAPQUESTION.NAME = nAME;
             iTCAPQUESTION.ITCAPQUESTIONID = iTCAPQUESTIONID;
             iTCAPQUESTION.DEFAULT = dEFAULT;
             return iTCAPQUESTION;
@@ -2705,24 +2777,24 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String QUESTION
+        public global::System.String NAME
         {
             get
             {
-                return _QUESTION;
+                return _NAME;
             }
             set
             {
-                OnQUESTIONChanging(value);
-                ReportPropertyChanging("QUESTION");
-                _QUESTION = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("QUESTION");
-                OnQUESTIONChanged();
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
             }
         }
-        private global::System.String _QUESTION;
-        partial void OnQUESTIONChanging(global::System.String value);
-        partial void OnQUESTIONChanged();
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

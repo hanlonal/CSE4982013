@@ -359,6 +359,67 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region ITCAP
+        public override bool BuildITCAPForm(ITCapTool itcapForm, string clientName)
+        {
+            XElement client;
+
+            if (GetClient(clientName, out client))
+            {
+                itcapForm.client = client;
+
+                return true;
+            }
+
+            else
+            {
+                MessageBox.Show("Client could not be found", "Error");
+                return false;
+            }
+        }
+        public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
+        {
+            XElement client;
+            if (!GetClient(clientName, out client))
+            {
+                client = new XElement("CLIENT");
+                client.Add(new XElement("NAME", clientName));
+                if (!AddClient(client))
+                {
+                    MessageBox.Show("Failed to add client", "Error");
+                    return false;
+                }
+
+                if (!AddGroup("Business", client) || !AddGroup("IT", client))
+                {
+                    MessageBox.Show("Failed to add groups to client", "Error");
+                    return false;
+                }
+
+                if (!SaveChanges())
+                {
+                    MessageBox.Show("Failed to save changes to filesystem", "Error");
+                    return false;
+                }
+
+                itcapForm.client = client;
+
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Client already exists", "Error");
+                return false;
+            }
+        }
+
+        public override bool OpenITCAP(ITCapTool itcapForm)
+        {
+            //throw new NotImplementedException();
+            return false;
+        }
+        #endregion
+
         #region Category
         public List<XElement> GetCategoriesXML()
         {
@@ -450,7 +511,7 @@ namespace IBMConsultantTool
         {
             try
             {
-                objective = (from cnt in dbo.Element("CLIENTS").Elements("CLIENT")
+                objective = (from cnt in dbo.Element("CATEGORIES").Elements("CATEGORY")
                              from ent in cnt.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
                              where ent.Element("BUSINESSOBJECTIVEID").Value == busID.ToString()
                              select ent).Single();
@@ -680,6 +741,295 @@ namespace IBMConsultantTool
                 }
             }
         }
+
+        #endregion
+
+        #region Domain
+        public override string[] GetDomainNames()
+        {
+            return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+        }
+
+        public override string[] GetDomainNamesAndDefault()
+        {
+            return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+        }
+
+        public bool GetDomain(string domName, out XElement domain)
+        {
+            domName = domName.Replace(' ', '~');
+            try
+            {
+                domain = (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
+                            where ent.Element("NAME").Value == domName
+                            select ent).Single();
+            }
+
+            catch
+            {
+                domain = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddDomain(XElement domain)
+        {
+            //If already in DB, return 1
+            if ((from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
+                 where ent.Element("NAME").Value == domain.Element("NAME").Value
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            domain.Add(new XElement("DOMAINID", -1));
+            domain.Add(new XElement("CAPABILITIES"));
+
+            dbo.Element("DOMAINS").Add(domain);
+
+            changeLog.Add("ADD DOMAIN " + domain.Element("NAME").Value);
+
+            return true;
+        }
+
+        /*public override void ChangedCategory(BOMTool bomForm)
+        {
+            bomForm.objectiveNames.Items.Clear();
+            bomForm.objectiveNames.Text = "<Select Objective>";
+            bomForm.initiativeNames.Items.Clear();
+            bomForm.initiativeNames.Text = "";
+            XElement category;
+            if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
+            {
+                bomForm.objectiveNames.Items.AddRange((from ent in category.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
+                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+            }
+        }*/
+        #endregion
+
+        #region Capability
+
+        public override string[] GetCapabilityNames(string domName)
+        {
+            return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where dom.Element("NAME").Value == domName
+                    from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+        }
+
+        public override string[] GetCapabilityNamesAndDefault(string domName)
+        {
+            return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where dom.Element("NAME").Value == domName
+                    from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                    select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+        }
+        public bool GetCapability(string capName, out XElement capability)
+        {
+            capName = capName.Replace(' ', '~');
+            try
+            {
+                capability = (from cnt in dbo.Element("DOMAINS").Elements("DOMAIN")
+                             from ent in cnt.Element("CAPABILITIES").Elements("CAPABILITY")
+                             where ent.Element("NAME").Value == capName
+                             select ent).Single();
+            }
+
+            catch
+            {
+                capability = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddCapability(XElement capability, XElement domain)
+        {
+            //If already in DB, return 1
+            if ((from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                 where dom.Element("NAME").Value == domain.Element("NAME").Value
+                 from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                 where ent.Element("NAME").Value == capability.Element("NAME").Value
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            capability.Add(new XElement("CAPABILITYID", -1));
+            capability.Add(new XElement("ITCAPQUESTIONS"));
+
+            domain.Element("CAPABILITIES").Add(capability);
+
+            changeLog.Add("ADD CAPABILITY " + capability.Element("NAME").Value + " " +
+                            domain.Element("NAME").Value);
+
+            return true;
+        }
+        #endregion
+
+        #region ITCAPQuestion
+
+        public override string[] GetITCAPQuestionNames(string capName, string domName)
+        {
+            return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where dom.Element("NAME").Value == domName
+                    from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                    where cap.Element("NAME").Value == capName
+                    from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+        }
+
+        public override string[] GetITCAPQuestionNamesAndDefault(string capName, string domName)
+        {
+            return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where dom.Element("NAME").Value == domName
+                    from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                    where cap.Element("NAME").Value == capName
+                    from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                    select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+        }
+        public bool GetITCAPQuestion(string itcapName, out XElement itcapQuestion)
+        {
+            itcapName = itcapName.Replace(' ', '~');
+            try
+            {
+                itcapQuestion = (from cat in dbo.Element("DOMAINS").Elements("DOMAIN")
+                              from bus in cat.Element("CAPABILITIES").Elements("CAPABILITY")
+                              from ent in bus.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                              where ent.Element("NAME").Value == itcapName
+                              select ent).Single();
+            }
+
+            catch
+            {
+                itcapQuestion = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddITCAPQuestion(XElement itcapQuestion, XElement capability, XElement domain)
+        {
+            //If already in DB, return 1
+            if ((from cat in dbo.Element("DOMAINS").Elements("DOMAIN")
+                 where cat.Element("NAME").Value == domain.Element("NAME").Value
+                 from bus in cat.Element("CAPABILITIES").Elements("CAPABILITY")
+                 where bus.Element("NAME").Value == capability.Element("NAME").Value
+                 from ent in bus.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                 where ent.Element("NAME").Value == itcapQuestion.Element("NAME").Value
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            itcapQuestion.Add(new XElement("ITCAPQUESTIONID", -1));
+
+            capability.Element("ITCAPQUESTIONS").Add(itcapQuestion);
+
+            changeLog.Add("ADD ITCAPQUESTION " + itcapQuestion.Element("NAME").Value + " " +
+                            capability.Element("NAME").Value + " " +
+                            domain.Element("NAME").Value);
+
+            return true;
+        }
+
+        /*public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        {
+            XElement categoryXML;
+            if (!GetCategory(catName, out categoryXML))
+            {
+                categoryXML = new XElement("CATEGORY");
+                categoryXML.Add(new XElement("NAME", catName.Replace(' ', '~')));
+                if (!AddCategory(categoryXML))
+                {
+                    MessageBox.Show("Failed to add Category to File", "Error");
+                    return;
+                }
+            }
+
+            XElement objectiveXML;
+            if (!GetObjective(busName, out objectiveXML))
+            {
+                objectiveXML = new XElement("BUSINESSOBJECTIVE");
+                objectiveXML.Add(new XElement("NAME", busName.Replace(' ', '~')));
+                if (!AddObjective(objectiveXML, categoryXML))
+                {
+                    MessageBox.Show("Failed to add Objective to File", "Error");
+                    return;
+                }
+            }
+
+            XElement initiativeXML;
+            if (!GetInitiative(iniName, out initiativeXML))
+            {
+                initiativeXML = new XElement("INITIATIVE");
+                initiativeXML.Add(new XElement("NAME", iniName.Replace(' ', '~')));
+                if (!AddInitiative(initiativeXML, objectiveXML, categoryXML))
+                {
+                    MessageBox.Show("Failed to add Initiative to File", "Error");
+                    return;
+                }
+            }
+
+            XElement bom = new XElement("BOM");
+            bom.Add(new XElement("INITIATIVE", initiativeXML.Element("NAME").Value));
+            bom.Add(new XElement("BUSINESSOBJECTIVE", objectiveXML.Element("NAME").Value));
+            bom.Add(new XElement("CATEGORY", categoryXML.Element("NAME").Value));
+
+
+            if (!AddBOM(bom, bomForm.client))
+            {
+                MessageBox.Show("Failed to add Initiative to BOM", "Error");
+                return;
+            }
+
+            if (!SaveChanges())
+            {
+                MessageBox.Show("Failed to save changes to File", "Error");
+                return;
+            }
+
+            else
+            {
+                //Successfully added to database, update GUI
+                NewCategory category = bomForm.Categories.Find(delegate(NewCategory cat)
+                {
+                    return cat.name == catName;
+                });
+                if (category == null)
+                {
+                    category = bomForm.AddCategory(catName);
+                }
+
+                NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
+                {
+                    return bus.Name == busName;
+                });
+                if (objective == null)
+                {
+                    objective = category.AddObjective(busName);
+                }
+
+                NewInitiative initiativeObj = objective.Initiatives.Find(delegate(NewInitiative ini)
+                {
+                    return ini.Name == iniName;
+                });
+                if (initiativeObj == null)
+                {
+                    initiativeObj = objective.AddInitiative(iniName);
+                }
+                else
+                {
+                    MessageBox.Show("Initiative already exists in BOM", "Error");
+                }
+            }
+        }*/
 
         #endregion
 

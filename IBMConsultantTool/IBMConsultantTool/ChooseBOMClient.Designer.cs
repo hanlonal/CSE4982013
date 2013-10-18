@@ -1,6 +1,6 @@
 ﻿namespace IBMConsultantTool
 {
-    partial class ChooseClient
+    partial class ChooseBOMClient
     {
         /// <summary>
         /// Required designer variable.

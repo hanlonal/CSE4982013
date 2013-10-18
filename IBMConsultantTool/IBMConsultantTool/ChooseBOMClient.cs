@@ -10,10 +10,10 @@ using System.Xml.Linq;
 
 namespace IBMConsultantTool
 {
-    public partial class ChooseClient : Form
+    public partial class ChooseBOMClient : Form
     {
         BOMTool bomForm;
-        public ChooseClient(BOMTool parentForm)
+        public ChooseBOMClient(BOMTool parentForm)
         {
             InitializeComponent();
 

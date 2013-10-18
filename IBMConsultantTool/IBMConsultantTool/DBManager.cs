@@ -427,6 +427,69 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region ITCAP
+        public override bool BuildITCAPForm(ITCapTool itcapForm, string clientName)
+        {
+            CLIENT client;
+
+            if (GetClient(clientName, out client))
+            {
+                itcapForm.client = client;
+
+                return true;
+            }
+
+            else
+            {
+                MessageBox.Show("Client could not be found", "Error");
+                return false;
+            }
+        }
+        public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
+        {
+            CLIENT client;
+            if (!GetClient(clientName, out client))
+            {
+                client = new CLIENT();
+                client.NAME = clientName;
+                if (!AddClient(client))
+                {
+                    MessageBox.Show("Failed to add client", "Error");
+                    return false;
+                }
+
+                string[] groupNamesArray = { "Business", "IT" };
+
+                if (!AddGroups(groupNamesArray, client))
+                {
+                    MessageBox.Show("Failed to add groups to client", "Error");
+                    return false;
+                }
+
+                if (!SaveChanges())
+                {
+                    MessageBox.Show("Failed to save changes to database", "Error");
+                    return false;
+                }
+
+                itcapForm.client = client;
+
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Client already exists", "Error");
+                return false;
+            }
+        }
+
+        public override bool OpenITCAP(ITCapTool itcapForm)
+        {
+            //throw new NotImplementedException();
+            return false;
+        }
+        #endregion
+
         #region Category
         public List<CATEGORY> GetCategories()
         {
@@ -749,6 +812,67 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region Domain
+
+        public List<DOMAIN> GetDomains()
+        {
+            return (from ent in dbo.DOMAIN
+                    select ent).ToList();
+        }
+
+        public override string[] GetDomainNames()
+        {
+            return (from ent in dbo.DOMAIN
+                    select ent.NAME.TrimEnd()).ToArray();
+        }
+
+        public override string[] GetDomainNamesAndDefault()
+        {
+            return (from ent in dbo.DOMAIN
+                    select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
+        }
+        #endregion
+
+        #region Capability
+        public override string[] GetCapabilityNames(string domName)
+        {
+            return (from dom in dbo.DOMAIN
+                    where dom.NAME == domName
+                    from ent in dom.CAPABILITY
+                    select ent.NAME.TrimEnd()).ToArray();
+        }
+
+        public override string[] GetCapabilityNamesAndDefault(string domName)
+        {
+            return (from dom in dbo.DOMAIN
+                    where dom.NAME == domName
+                    from ent in dom.CAPABILITY
+                    select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
+        }
+        #endregion
+
+        #region ITCAPQuestion
+        public override string[] GetITCAPQuestionNames(string capName, string domName)
+        {
+            return (from dom in dbo.DOMAIN
+                    where dom.NAME == domName
+                    from cap in dom.CAPABILITY
+                    where cap.NAME == capName
+                    from ent in cap.ITCAPQUESTION
+                    select ent.NAME.TrimEnd()).ToArray();
+        }
+
+        public override string[] GetITCAPQuestionNamesAndDefault(string capName, string domName)
+        {
+            return (from dom in dbo.DOMAIN
+                    where dom.NAME == domName
+                    from cap in dom.CAPABILITY
+                    where cap.NAME == capName
+                    from ent in cap.ITCAPQUESTION
+                    select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
+        }
+        #endregion
+
         #region General
         public override bool SaveChanges()
         {
@@ -811,6 +935,34 @@ namespace IBMConsultantTool
                     XElement tempGrp = new XElement("GROUP");
                     tempGrp.Add(new XElement("NAME", grp.NAME.TrimEnd().Replace(' ', '~')));
                     tempGrp.Add(new XElement("GROUPID", grp.GROUPID));
+
+                    XElement conElement = new XElement("CONTACTS");
+                    foreach (CONTACT contact in grp.CONTACT)
+                    {
+                        XElement tempCon = new XElement("CONTACT");
+                        tempCon.Add(new XElement("NAME", contact.NAME.TrimEnd().Replace(' ', '~')));
+                        tempCon.Add(new XElement("CONTACTID", contact.CONTACTID));
+
+                        XElement bomConElement = new XElement("BOMS");
+                        foreach (BOM bom in contact.BOM)
+                        {
+                            XElement tempBom = new XElement("BOM");
+                            tempBom.Add(new XElement("BOMID", bom.BOMID));
+                            tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd().Replace(' ', '~')));
+                            tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
+                            tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd().Replace(' ', '~')));
+                            tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
+                            tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
+                            tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
+                            bomConElement.Add(tempBom);
+                        }
+
+                        tempCon.Add(bomConElement);
+                        conElement.Add(tempCon);
+                    }
+
+                    tempGrp.Add(conElement);
+
                     XElement bomGrpElement = new XElement("BOMS");
                     foreach (BOM bom in grp.BOM)
                     {
@@ -824,7 +976,9 @@ namespace IBMConsultantTool
                         tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
                         bomGrpElement.Add(tempBom);
                     }
+
                     tempGrp.Add(bomGrpElement);
+
                     grpElement.Add(tempGrp);
                 }
                 temp.Add(grpElement);
@@ -881,6 +1035,39 @@ namespace IBMConsultantTool
             }
             root.Add(catElement);
 
+            List<DOMAIN> domList = GetDomains();
+            XElement domElement = new XElement("DOMAINS");
+            foreach (DOMAIN domain in domList)
+            {
+                XElement temp = new XElement("DOMAIN");
+                temp.Add(new XElement("NAME", domain.NAME.TrimEnd().Replace(' ', '~')));
+                temp.Add(new XElement("DOMAINID", domain.DOMAINID));
+
+                XElement capElement = new XElement("CAPABILITIES");
+                foreach (CAPABILITY capability in domain.CAPABILITY)
+                {
+                    XElement tempCap = new XElement("CAPABILITY");
+                    tempCap.Add(new XElement("NAME", capability.NAME.TrimEnd().Replace(' ', '~')));
+                    tempCap.Add(new XElement("CAPABILITYID", capability.CAPABILITYID));
+
+                    XElement questionElement = new XElement("ITCAPQUESTIONS");
+                    foreach (ITCAPQUESTION itcapQuestion in capability.ITCAPQUESTION)
+                    {
+                        XElement tempItcq = new XElement("ITCAPQUESTION");
+                        tempItcq.Add(new XElement("NAME", itcapQuestion.NAME.TrimEnd().Replace(' ', '~')));
+                        tempItcq.Add(new XElement("ITCAPQUESTIONID", itcapQuestion.ITCAPQUESTIONID));
+                        questionElement.Add(tempItcq);
+                    }
+                    tempCap.Add(questionElement);
+
+                    capElement.Add(tempCap);
+                }
+                temp.Add(capElement);
+
+                domElement.Add(temp);
+            }
+            root.Add(domElement);
+
             root.Save("Data.xml");
         }
         public void CheckChangeLog()
@@ -898,6 +1085,11 @@ namespace IBMConsultantTool
             INITIATIVE initiative;
             BOM bom;
 
+            if (!File.Exists("Changes.log"))
+            {
+                File.Create("Changes.log");
+            }
+
             using (System.IO.StreamReader file = new System.IO.StreamReader("Changes.log"))
             {
                 while ((line = file.ReadLine()) != null)
@@ -909,38 +1101,38 @@ namespace IBMConsultantTool
                         {
                             case "CLIENT":
                                 client = new CLIENT();
-                                client.NAME = lineArray[2];
+                                client.NAME = lineArray[2].Replace('~', ' ');
                                 AddClient(client);
                                 break;
 
                             case "GROUP":
-                                if (GetClient(lineArray[3], out client))
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                 {
-                                    AddGroup(lineArray[2], client);
+                                    AddGroup(lineArray[2].Replace('~', ' '), client);
                                 }
                                 break;
 
                             case "CATEGORY":
                                 category = new CATEGORY();
-                                category.NAME = lineArray[2];
+                                category.NAME = lineArray[2].Replace('~', ' ');
                                 AddCategory(category);
                                 break;
 
                             case "BUSINESSOBJECTIVE":
-                                if (GetCategory(lineArray[3], out category))
+                                if (GetCategory(lineArray[3].Replace('~', ' '), out category))
                                 {
                                     objective = new BUSINESSOBJECTIVE();
-                                    objective.NAME = lineArray[2];
+                                    objective.NAME = lineArray[2].Replace('~', ' ');
                                     objective.CATEGORY = category;
                                     AddObjective(objective);
                                 }
                                 break;
 
                             case "INITIATIVE":
-                                if (GetObjective(lineArray[3], out objective))
+                                if (GetObjective(lineArray[3].Replace('~', ' '), out objective))
                                 {
                                     initiative = new INITIATIVE();
-                                    initiative.NAME = lineArray[2];
+                                    initiative.NAME = lineArray[2].Replace('~', ' ');
                                     initiative.BUSINESSOBJECTIVE = objective;
                                     AddInitiative(initiative);
                                 }
@@ -949,9 +1141,9 @@ namespace IBMConsultantTool
                             case "BOM":
                                 if (lineArray[2] == "CLIENT")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetInitiative(lineArray[4], out initiative))
+                                        if (GetInitiative(lineArray[4].Replace('~', ' '), out initiative))
                                         {
                                             bom = new BOM();
                                             bom.INITIATIVE = initiative;
@@ -961,11 +1153,11 @@ namespace IBMConsultantTool
                                 }
                                 else if (lineArray[2] == "GROUP")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetGroup(lineArray[4], client, out grp))
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                         {
-                                            if (GetInitiative(lineArray[5], out initiative))
+                                            if (GetInitiative(lineArray[5].Replace('~', ' '), out initiative))
                                             {
                                                 bom = new BOM();
                                                 bom.INITIATIVE = initiative;
@@ -977,13 +1169,13 @@ namespace IBMConsultantTool
 
                                 else if (lineArray[2] == "CONTACT")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetGroup(lineArray[4], client, out grp))
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                         {
-                                            if (GetContact(lineArray[5], grp, out contact))
+                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
                                             {
-                                                if (GetInitiative(lineArray[6], out initiative))
+                                                if (GetInitiative(lineArray[6].Replace('~', ' '), out initiative))
                                                 {
                                                     bom = new BOM();
                                                     bom.INITIATIVE = initiative;
@@ -1002,9 +1194,9 @@ namespace IBMConsultantTool
                         switch (lineArray[1])
                         {
                             case "BOM":
-                                if (GetClient(lineArray[2], out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetBOM(lineArray[3], client, out bom))
+                                    if (GetBOM(lineArray[3].Replace('~', ' '), client, out bom))
                                     {
                                         bom.EFFECTIVENESS = Convert.ToSingle(lineArray[4]);
                                         bom.CRITICALITY = Convert.ToSingle(lineArray[5]);
@@ -1015,8 +1207,15 @@ namespace IBMConsultantTool
                         }
                     }
 
+                    else
+                    {
+                        MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                        success = false;
+                    }
+
                     if (!SaveChanges())
                     {
+                        MessageBox.Show("Instruction failed to execute: \n" + line, "Error");
                         success = false;
                         break;
                     }
