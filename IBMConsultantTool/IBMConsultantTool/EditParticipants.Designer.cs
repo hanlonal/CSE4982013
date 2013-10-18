@@ -32,7 +32,8 @@
             this.SaveParticipantButton = new System.Windows.Forms.Button();
             this.ParticipantName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ParticipantEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ParticipantType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeBusiness = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.TypeIT = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ParticipantReceiveEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.participantsGrid)).BeginInit();
@@ -45,7 +46,8 @@
             this.participantsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ParticipantName,
             this.ParticipantEmail,
-            this.ParticipantType,
+            this.TypeBusiness,
+            this.TypeIT,
             this.ParticipantReceiveEmail,
             this.Id});
             this.participantsGrid.Location = new System.Drawing.Point(13, 13);
@@ -78,11 +80,25 @@
             this.ParticipantEmail.Name = "ParticipantEmail";
             this.ParticipantEmail.Width = 150;
             // 
-            // ParticipantType
+            // TypeBusiness
             // 
-            this.ParticipantType.HeaderText = "Type";
-            this.ParticipantType.Name = "ParticipantType";
-            this.ParticipantType.Width = 50;
+            this.TypeBusiness.FalseValue = "False";
+            this.TypeBusiness.HeaderText = "is Business?";
+            this.TypeBusiness.IndeterminateValue = "False";
+            this.TypeBusiness.Name = "TypeBusiness";
+            this.TypeBusiness.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TypeBusiness.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TypeBusiness.TrueValue = "True";
+            // 
+            // TypeIT
+            // 
+            this.TypeIT.FalseValue = "False";
+            this.TypeIT.HeaderText = "is IT?";
+            this.TypeIT.IndeterminateValue = "False";
+            this.TypeIT.Name = "TypeIT";
+            this.TypeIT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TypeIT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TypeIT.TrueValue = "True";
             // 
             // ParticipantReceiveEmail
             // 
@@ -93,7 +109,6 @@
             // 
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
-            this.Id.Visible = false;
             // 
             // EditParticipants
             // 
@@ -115,7 +130,8 @@
         private System.Windows.Forms.Button SaveParticipantButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantType;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn TypeBusiness;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn TypeIT;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantReceiveEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
     }

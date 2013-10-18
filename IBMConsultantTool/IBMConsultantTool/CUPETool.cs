@@ -734,8 +734,71 @@ namespace IBMConsultantTool
             var FD = new EditParticipants();
             if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
+                removePersonColumns();
+                loadColumnNames();
                 return;
             }
+
+        }
+
+        private void loadColumnNames()
+        {
+
+            //grids.Add(questionGridITCurrent);
+            //grids.Add(questionGridBusinessCurrent);
+            //grids.Add(questionGridITFuture);
+            //grids.Add(questionGridBusiFuture);
+
+            
+            foreach(Person person in ClientDataControl.GetParticipants())
+            {
+                DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+                col.HeaderText =  person.Name;                   
+                col.Name = person.Name;
+                col.Width = 100;
+
+                DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
+                col2.HeaderText = person.Name;
+                col2.Name = person.Name;
+                col2.Width = 100;
+
+
+                if (person.Type == Person.EmployeeType.IT)
+                {
+                    questionGridITCurrent.Columns.Insert(questionGridITCurrent.ColumnCount - 6, col);
+                    questionGridITFuture.Columns.Insert(questionGridITFuture.ColumnCount - 6, col2);
+                }
+                if (person.Type == Person.EmployeeType.Business)
+                {
+                    questionGridBusinessCurrent.Columns.Insert(questionGridBusinessCurrent.ColumnCount - 6, col);
+                    questionGridBusiFuture.Columns.Insert(questionGridBusiFuture.ColumnCount - 6, col2);
+                }
+            }
+        }
+
+        private void removePersonColumns()
+        {
+            for( int i=1; i<= questionGridITCurrent.ColumnCount - 7; i++)
+            {
+                questionGridITCurrent.Columns.RemoveAt(i);
+            }
+            for (int i = 1; i <= questionGridITFuture.ColumnCount - 7; i++)
+            {
+                questionGridITFuture.Columns.RemoveAt(i);
+            }
+            for (int i = 1; i <= questionGridBusinessCurrent.ColumnCount - 7; i++)
+            {
+                questionGridBusinessCurrent.Columns.RemoveAt(i);
+            }
+            for (int i = 1; i <= questionGridBusiFuture.ColumnCount - 7; i++)
+            {
+                questionGridBusiFuture.Columns.RemoveAt(i);
+            }
+
+        }
+
+        private void loadAnswers()
+        {
 
         }
 
@@ -743,6 +806,7 @@ namespace IBMConsultantTool
         {
 
         }
+
 
     }// end class
 

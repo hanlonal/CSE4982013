@@ -27,12 +27,40 @@ namespace IBMConsultantTool
                 int i = 0;
                 foreach (Person person in ClientDataControl.GetParticipants())
                 {
-                    participantsGrid.Rows[i].SetValues(person.Name,
-                        person.Email,
-                        person.Type,
-                        true,
-                        person.ID
-                        );
+
+                    if(person.Type == Person.EmployeeType.IT)
+                    {
+                        participantsGrid.Rows[i].SetValues(person.Name,
+                            person.Email,
+                            false,
+                            true,
+                            true,
+                            person.ID
+                            );
+                    }
+                    else if (person.Type == Person.EmployeeType.Business)
+                    {
+                        participantsGrid.Rows[i].SetValues(person.Name,
+                            person.Email,
+                            true,
+                            false,
+                            true,
+                            person.ID
+                            );
+                    }
+                    else
+                    {
+                        if (person.Type == Person.EmployeeType.IT)
+                        {
+                            participantsGrid.Rows[i].SetValues(person.Name,
+                                person.Email,
+                                false,
+                                false,
+                                true,
+                                person.ID
+                                );
+                        }
+                    }
                     i++;
                 }
 
@@ -44,12 +72,12 @@ namespace IBMConsultantTool
 
             if (participantsGrid.Rows.Count == 1)
             {
-                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[4].Value = 0;
+                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[5].Value = 0;
             }
             else
             {
-                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[4].Value =
-                    Convert.ToInt32(participantsGrid.Rows[participantsGrid.Rows.Count - 2].Cells[4].Value) + 1;
+                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[5].Value =
+                    Convert.ToInt32(participantsGrid.Rows[participantsGrid.Rows.Count - 2].Cells[5].Value) + 1;
             }
            
         }
@@ -70,19 +98,17 @@ namespace IBMConsultantTool
                         tempPerson.Email = row.Cells[1].Value.ToString();
                     }
 
-                    tempPerson.ID = Convert.ToInt32(row.Cells[4].Value.ToString());
+                    tempPerson.ID = Convert.ToInt32(row.Cells[5].Value.ToString());
 
-                    if (row.Cells[2].Value != null)
+                    if (Convert.ToBoolean( row.Cells[3].Value) == true)
                     {
-                        if (row.Cells[2].Value.ToString() == "IT")
-                        {
-                            tempPerson.Type = Person.EmployeeType.IT;
-                        }
-                        else if (row.Cells[2].Value.ToString() == "Business")
-                        {
-                            tempPerson.Type = Person.EmployeeType.IT;
-                        }
+                       tempPerson.Type = Person.EmployeeType.IT;
                     }
+                   if ( Convert.ToBoolean( row.Cells[2].Value) == true )
+                    {
+                       tempPerson.Type = Person.EmployeeType.Business;
+                    }
+
 
                     tempList.Add(tempPerson);
                 }
@@ -102,12 +128,12 @@ namespace IBMConsultantTool
         {
             if(e.RowIndex != 0)
             {
-                participantsGrid.Rows[e.RowIndex].Cells[4].Value = 
-                    Convert.ToInt32(participantsGrid.Rows[e.RowIndex - 1].Cells[4].Value) + 1;
+                participantsGrid.Rows[e.RowIndex].Cells[5].Value = 
+                    Convert.ToInt32(participantsGrid.Rows[e.RowIndex - 1].Cells[5].Value) + 1;
             }
             else
             {
-                participantsGrid.Rows[e.RowIndex].Cells[4].Value = e.RowIndex;
+                participantsGrid.Rows[e.RowIndex].Cells[5].Value = e.RowIndex;
             }
         }
     }
