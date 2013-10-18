@@ -106,7 +106,8 @@ namespace IBMConsultantTool
             liveDataEntryControls.Add(liveDataEntryGrid);
 
             prioritizationControls.Add(prioritizationGrid);
-            
+
+            questionsArray.ToList();
 
 
         }
@@ -189,10 +190,42 @@ namespace IBMConsultantTool
                     rowCopy.Cells[0].Value = row.Cells[1].Value;
                     rowCopy.Cells[1].Value = row.Cells[2].Value;
                     rowCopy.Cells[2].Value = row.Cells[3].Value;
+                    if ((string)row.Cells[6].Value == "domain")
+                        rowCopy.DefaultCellStyle.BackColor = Color.Orange;
+                    else
+                        rowCopy.DefaultCellStyle.BackColor = Color.GhostWhite;
+
                     prioritizationGrid.Rows.Add(rowCopy);
                 }
             }
+            foreach (DataGridViewRow newrow in prioritizationGrid.Rows)
+            {
+                if(newrow.Cells[0].Value != null)
+                    UpdateGapColumns(newrow.Index);
+            }
 
+        }
+
+        private void UpdateGapColumns(int rowindex)
+        {
+            DataGridViewRow row = prioritizationGrid.Rows[rowindex];
+            float gap = (float)Convert.ToDouble(row.Cells[2].Value.ToString()) - (float)Convert.ToDouble(row.Cells[1].Value.ToString());
+
+            if (gap > 1.5 || gap < 3)
+            {
+                row.Cells[3].Style.BackColor = Color.Yellow;
+                row.Cells[3].Value = "Medium Gap";
+            }
+            if (gap >= 3)
+            {
+                row.Cells[3].Style.BackColor = Color.IndianRed;
+                row.Cells[3].Value = "Large Gap";
+            }
+            if (gap <= 1.5)
+            {
+                row.Cells[3].Style.BackColor = Color.LawnGreen;
+                row.Cells[3].Value = "Small Gap";
+            }
         }
 
         private void ToggleControlsVisible(List<Control> controls, bool value)
@@ -305,7 +338,7 @@ namespace IBMConsultantTool
             Console.WriteLine(e.RowIndex.ToString());
         }
 
-        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        private void surveyMakerGrid_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -408,7 +441,14 @@ namespace IBMConsultantTool
             foreach (ScoringEntity entity in entities)
             {
                 if (entity.IsInGrid && entity.IndexInGrid >= e.RowIndex)
+                {
                     entity.IndexInGrid--;
+
+                    if (entity.GetType() == typeof(ITCapQuestion))
+                    {
+                        questionsArray[entity.IndexInGrid - 1] = questionsArray[entity.IndexInGrid];
+                    }
+                }
             }
         }
 
@@ -442,6 +482,9 @@ namespace IBMConsultantTool
         {
 
         }
+
+
+
 
 
 
