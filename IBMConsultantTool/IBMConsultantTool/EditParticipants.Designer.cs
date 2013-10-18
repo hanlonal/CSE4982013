@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.participantsGrid = new System.Windows.Forms.DataGridView();
+            this.SaveParticipantButton = new System.Windows.Forms.Button();
             this.ParticipantName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ParticipantEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ParticipantType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ParticipantReceiveEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SaveParticipantButton = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.participantsGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,13 +46,25 @@
             this.ParticipantName,
             this.ParticipantEmail,
             this.ParticipantType,
-            this.ParticipantReceiveEmail});
+            this.ParticipantReceiveEmail,
+            this.Id});
             this.participantsGrid.Location = new System.Drawing.Point(13, 13);
             this.participantsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.participantsGrid.Name = "participantsGrid";
             this.participantsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.participantsGrid.Size = new System.Drawing.Size(847, 405);
             this.participantsGrid.TabIndex = 13;
+            this.participantsGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.participantsGrid_RowsAdded);
+            // 
+            // SaveParticipantButton
+            // 
+            this.SaveParticipantButton.Location = new System.Drawing.Point(737, 425);
+            this.SaveParticipantButton.Name = "SaveParticipantButton";
+            this.SaveParticipantButton.Size = new System.Drawing.Size(123, 34);
+            this.SaveParticipantButton.TabIndex = 14;
+            this.SaveParticipantButton.Text = "Save Changes";
+            this.SaveParticipantButton.UseVisualStyleBackColor = true;
+            this.SaveParticipantButton.Click += new System.EventHandler(this.SaveParticipantButton_Click);
             // 
             // ParticipantName
             // 
@@ -76,15 +89,11 @@
             this.ParticipantReceiveEmail.HeaderText = "Include In Email";
             this.ParticipantReceiveEmail.Name = "ParticipantReceiveEmail";
             // 
-            // SaveParticipantButton
+            // Id
             // 
-            this.SaveParticipantButton.Location = new System.Drawing.Point(737, 425);
-            this.SaveParticipantButton.Name = "SaveParticipantButton";
-            this.SaveParticipantButton.Size = new System.Drawing.Size(123, 34);
-            this.SaveParticipantButton.TabIndex = 14;
-            this.SaveParticipantButton.Text = "Save Changes";
-            this.SaveParticipantButton.UseVisualStyleBackColor = true;
-            this.SaveParticipantButton.Click += new System.EventHandler(this.SaveParticipantButton_Click);
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
             // 
             // EditParticipants
             // 
@@ -103,10 +112,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView participantsGrid;
+        private System.Windows.Forms.Button SaveParticipantButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantType;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParticipantReceiveEmail;
-        private System.Windows.Forms.Button SaveParticipantButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
     }
 }

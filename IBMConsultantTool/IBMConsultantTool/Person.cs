@@ -26,6 +26,9 @@ namespace IBMConsultantTool
         CupeForm owner;
         string clientName;
         string email;
+        int id;
+
+
         int totalCommodity = 0;
         int totalPartner = 0;
         int totalEnabler = 0;
@@ -34,7 +37,6 @@ namespace IBMConsultantTool
         int totalFuturePartner = 0;
         int totalFutureUtility = 0;
         int totalFutureEnabler = 0;
-        int id;
         
         Color listBoxColor = Color.Red;
 
