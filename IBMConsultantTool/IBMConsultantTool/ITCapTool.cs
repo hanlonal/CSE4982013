@@ -364,6 +364,7 @@ namespace IBMConsultantTool
 
         private void surveyMakerGrid_MouseDown(object sender, MouseEventArgs e)
         {
+            
             if (e.Button == MouseButtons.Right)
             {
                 DataGridView.HitTestInfo hit = surveryMakerGrid.HitTest(e.X, e.Y);
@@ -464,7 +465,7 @@ namespace IBMConsultantTool
         {
             foreach (ScoringEntity entity in entities)
             {
-                if (entity.IsInGrid && entity.IndexInGrid >= e.RowIndex)
+                if (entity.IsInGrid && entity.IndexInGrid > e.RowIndex)
                 {
                     entity.IndexInGrid--;
 
@@ -505,6 +506,11 @@ namespace IBMConsultantTool
         private void capabilityGapHeatmapToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void surveryMakerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Console.WriteLine(e.RowIndex.ToString());
         }
 
 
