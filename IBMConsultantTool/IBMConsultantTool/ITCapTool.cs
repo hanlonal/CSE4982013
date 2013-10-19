@@ -96,7 +96,7 @@ namespace IBMConsultantTool
         public ITCapTool()
         {
             InitializeComponent();
-
+            
             try
             {
                 db = new DBManager();
@@ -506,6 +506,7 @@ namespace IBMConsultantTool
         {
 
         }
+
 
 
 
