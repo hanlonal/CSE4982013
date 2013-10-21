@@ -485,8 +485,91 @@ namespace IBMConsultantTool
 
         public override bool OpenITCAP(ITCapTool itcapForm)
         {
-            //throw new NotImplementedException();
-            return false;
+            if (itcapForm.client == null)
+            {
+                MessageBox.Show("Must choose client before opening ITCAP", "Error");
+                return false;
+            }
+
+            List<ITCAP> itcapList = (itcapForm.client as CLIENT).ITCAP.ToList();
+
+            ITCAPQUESTION itcqEnt;
+            CAPABILITY capEnt;
+            DOMAIN domEnt;
+
+            string itcqName;
+            string capName;
+            string domName;
+
+            int domCount = 0;
+            int capCount = 0;
+            int itcqCount = 0;
+
+            foreach (ITCAP itcap in itcapList)
+            {
+                itcqEnt = itcap.ITCAPQUESTION;
+                capEnt = itcqEnt.CAPABILITY;
+                domEnt = capEnt.DOMAIN;
+
+                itcqName = itcqEnt.NAME.TrimEnd();
+                capName = capEnt.NAME.TrimEnd();
+                domName = domEnt.NAME.TrimEnd();
+
+                Domain domain;
+                Capability capability;
+                ITCapQuestion itcapQuestion;
+
+                domain = itcapForm.domains.Find(delegate(Domain dom)
+                                                {
+                                                    return dom.Name == domName;
+                                                });
+                if (domain == null)
+                {
+                    domCount++;
+                    domain = new Domain();
+                    domain.Name = domName;
+                    domain.IsDefault = domEnt.DEFAULT == "Y";
+                    domain.ID = domCount.ToString();
+                    //itcapForm.LoadCapabilities(dom);
+                    itcapForm.domains.Add(domain);
+                    itcapForm.domainList.Items.Add(domain);
+                    itcapForm.entities.Add(domain);
+                }
+
+                capability = itcapForm.capabilities.Find(delegate(Capability cap)
+                                                         {
+                                                             return cap.Name == capName;
+                                                         });
+                if (capability == null)
+                {
+                    capCount++;
+                    capability = new Capability();
+                    capability.Name = capName;
+                    capability.IsDefault = capEnt.DEFAULT == "Y";
+                    domain.CapabilitiesOwned.Add(capability);
+                    domain.TotalChildren++;
+                    itcapForm.capabilities.Add(capability);
+                    capability.Owner = domain;
+                    capability.ID = capCount.ToString();
+                    //LoadQuestions(cap);
+                    itcapForm.capabilitiesList.Items.Add(capability);
+                    itcapForm.entities.Add(capability);
+                }
+
+                itcqCount++;
+                itcapQuestion = new ITCapQuestion();
+                itcapQuestion.Name = itcqName;
+                itcapQuestion.IsDefault = itcqEnt.DEFAULT == "Y";
+                itcapQuestion.AsIsScore = itcap.ASIS;
+                itcapQuestion.ToBeScore = itcap.TOBE;
+                capability.Owner.TotalChildren++;
+                capability.QuestionsOwned.Add(itcapQuestion);
+                itcapQuestion.Owner = capability;
+                itcapQuestion.ID = itcqCount.ToString();
+                itcapForm.questionList.Items.Add(itcapQuestion);
+                itcapForm.entities.Add(itcapQuestion);
+            }
+            return true;
         }
         #endregion
 
@@ -830,6 +913,24 @@ namespace IBMConsultantTool
         {
             return (from ent in dbo.DOMAIN
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
+        }
+
+        public bool GetDomain(string domName, out DOMAIN domain)
+        {
+            try
+            {
+                domain = (from ent in dbo.DOMAIN
+                          where ent.NAME.TrimEnd() == domName
+                          select ent).Single();
+            }
+
+            catch
+            {
+                domain = null;
+                return false;
+            }
+
+            return true;
         }
         #endregion
 

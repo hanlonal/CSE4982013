@@ -646,9 +646,9 @@
         private System.Windows.Forms.Button removeEntityButton;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ComboBox domainList;
-        private System.Windows.Forms.ComboBox capabilitiesList;
-        private System.Windows.Forms.ComboBox questionList;
+        public System.Windows.Forms.ComboBox domainList;
+        public System.Windows.Forms.ComboBox capabilitiesList;
+        public System.Windows.Forms.ComboBox questionList;
         private System.Windows.Forms.ToolStripMenuItem systemsAgendaCapabilityAssesmentResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem capabilityAssesmentSummaryScoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem capabilityGapHeatmapToolStripMenuItem;
