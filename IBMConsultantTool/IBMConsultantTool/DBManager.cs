@@ -551,8 +551,8 @@ namespace IBMConsultantTool
                 itcapQuestion = new ITCapQuestion();
                 itcapQuestion.Name = itcqName;
                 itcapQuestion.IsDefault = itcqEnt.DEFAULT == "Y";
-                itcapQuestion.AsIsScore = itcap.ASIS;
-                itcapQuestion.ToBeScore = itcap.TOBE;
+                itcapQuestion.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
+                itcapQuestion.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
