@@ -526,7 +526,6 @@ namespace IBMConsultantTool
                     domain.IsDefault = domEnt.DEFAULT == "Y";
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
-                    itcapForm.domainList.Items.Add(domain);
                     itcapForm.entities.Add(domain);
                     domain.ID = itcapForm.domains.Count.ToString();
                 }
@@ -546,7 +545,6 @@ namespace IBMConsultantTool
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
-                    itcapForm.capabilitiesList.Items.Add(capability);
                     itcapForm.entities.Add(capability);
                 }
 
@@ -559,7 +557,6 @@ namespace IBMConsultantTool
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
                 itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
-                itcapForm.questionList.Items.Add(itcapQuestion);
                 itcapForm.entities.Add(itcapQuestion);
             }
             return true;
@@ -925,6 +922,20 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override void ChangedDomain(ITCapTool itcapForm)
+        {
+            itcapForm.capabilitiesList.Items.Clear();
+            itcapForm.capabilitiesList.Text = "<Select Objective>";
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "";
+            DOMAIN domain;
+            if (GetDomain(itcapForm.domainList.Text.Trim(), out domain))
+            {
+                itcapForm.capabilitiesList.Items.AddRange((from ent in domain.CAPABILITY
+                                                       select ent.NAME.TrimEnd()).ToArray());
+            }
+        }
         #endregion
 
         #region Capability
@@ -964,6 +975,37 @@ namespace IBMConsultantTool
                     where cap.NAME == capName
                     from ent in cap.ITCAPQUESTION
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
+        }
+
+        public bool GetCapability(string capName, out CAPABILITY capability)
+        {
+            try
+            {
+                capability = (from ent in dbo.CAPABILITY
+                              where ent.NAME.TrimEnd() == capName
+                              select ent).Single();
+            }
+
+            catch
+            {
+                capability = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        public override void ChangedCapability(ITCapTool itcapForm)
+        {
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "<Select Initiative>";
+            CAPABILITY capability;
+
+            if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
+            {
+                itcapForm.questionList.Items.AddRange((from ent in capability.ITCAPQUESTION
+                                                        select ent.NAME.TrimEnd()).ToArray());
+            }
         }
         #endregion
 

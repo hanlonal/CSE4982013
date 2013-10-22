@@ -56,11 +56,15 @@ namespace IBMConsultantTool
         #region Domain
         public abstract string[] GetDomainNames();
         public abstract string[] GetDomainNamesAndDefault();
+
+        public abstract void ChangedDomain(ITCapTool itcapForm);
         #endregion
 
         #region Capability
         public abstract string[] GetCapabilityNames(string domName);
         public abstract string[] GetCapabilityNamesAndDefault(string domName);
+
+        public abstract void ChangedCapability(ITCapTool itcapForm);
         #endregion
 
         #region ITCAPQuestion

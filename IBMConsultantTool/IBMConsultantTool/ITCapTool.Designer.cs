@@ -232,14 +232,14 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.newToolStripMenuItem.Text = "New Survey";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -395,8 +395,10 @@
             this.domainList.Name = "domainList";
             this.domainList.Size = new System.Drawing.Size(253, 28);
             this.domainList.TabIndex = 14;
-            this.domainList.Text = "Domains";
+            this.domainList.Text = "<Select Domain>";
             this.domainList.Visible = false;
+            this.domainList.SelectedIndexChanged += new System.EventHandler(this.domainList_SelectedIndexChanged);
+            this.domainList.LostFocus += new System.EventHandler(this.domainList_LostFocus);
             // 
             // capabilitiesList
             // 
@@ -406,8 +408,9 @@
             this.capabilitiesList.Name = "capabilitiesList";
             this.capabilitiesList.Size = new System.Drawing.Size(253, 28);
             this.capabilitiesList.TabIndex = 15;
-            this.capabilitiesList.Text = "Capabilities";
             this.capabilitiesList.Visible = false;
+            this.capabilitiesList.SelectedIndexChanged += new System.EventHandler(this.capabilitiesList_SelectedIndexChanged);
+            this.capabilitiesList.LostFocus += new System.EventHandler(this.capabilitiesList_LostFocus);
             // 
             // questionList
             // 
@@ -417,7 +420,6 @@
             this.questionList.Name = "questionList";
             this.questionList.Size = new System.Drawing.Size(253, 28);
             this.questionList.TabIndex = 16;
-            this.questionList.Text = "Questions";
             this.questionList.Visible = false;
             // 
             // directorySearcher1

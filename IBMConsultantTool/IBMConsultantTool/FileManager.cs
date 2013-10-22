@@ -456,7 +456,6 @@ namespace IBMConsultantTool
                     domain.IsDefault = domEnt.Element("DEFAULT").Value == "Y";
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
-                    itcapForm.domainList.Items.Add(domain);
                     itcapForm.entities.Add(domain);
                     domain.ID = itcapForm.domains.Count.ToString();
                 }
@@ -480,7 +479,6 @@ namespace IBMConsultantTool
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
-                    itcapForm.capabilitiesList.Items.Add(capability);
                     itcapForm.entities.Add(capability);
                 }
 
@@ -497,7 +495,6 @@ namespace IBMConsultantTool
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
                 itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
-                itcapForm.questionList.Items.Add(itcapQuestion);
                 itcapForm.entities.Add(itcapQuestion);
             }
             return true;
@@ -880,19 +877,20 @@ namespace IBMConsultantTool
             return true;
         }
 
-        /*public override void ChangedCategory(BOMTool bomForm)
+        public override void ChangedDomain(ITCapTool itcapForm)
         {
-            bomForm.objectiveNames.Items.Clear();
-            bomForm.objectiveNames.Text = "<Select Objective>";
-            bomForm.initiativeNames.Items.Clear();
-            bomForm.initiativeNames.Text = "";
-            XElement category;
-            if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
+            itcapForm.capabilitiesList.Items.Clear();
+            itcapForm.capabilitiesList.Text = "<Select Capability>";
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "";
+            XElement domain;
+
+            if (GetDomain(itcapForm.domainList.Text.Trim(), out domain))
             {
-                bomForm.objectiveNames.Items.AddRange((from ent in category.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
+                itcapForm.capabilitiesList.Items.AddRange((from ent in domain.Element("CAPABILITIES").Elements("CAPABILITY")
                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
-        }*/
+        }
         #endregion
 
         #region Capability
@@ -955,6 +953,19 @@ namespace IBMConsultantTool
                             domain.Element("NAME").Value);
 
             return true;
+        }
+
+        public override void ChangedCapability(ITCapTool itcapForm)
+        {
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "<Select Initiative>";
+            XElement capability;
+
+            if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
+            {
+                itcapForm.questionList.Items.AddRange((from ent in capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+            }
         }
         #endregion
 

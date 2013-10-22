@@ -45,7 +45,6 @@ namespace IBMConsultantTool
                 dom.ID = domCount.ToString();
                 LoadCapabilities(dom);
                 domains.Add(dom);
-                domainList.Items.Add(dom);
                 entities.Add(dom);
                 domCount++;
             }
@@ -67,7 +66,6 @@ namespace IBMConsultantTool
                 cap.Owner = dom;
                 cap.ID = capCount.ToString();
                 LoadQuestions(cap);
-                capabilitiesList.Items.Add(cap);
                 entities.Add(cap);
                 capCount++;
             }
@@ -87,7 +85,6 @@ namespace IBMConsultantTool
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
                 question.ID = questionCount.ToString();
-                questionList.Items.Add(question);
                 entities.Add(question);
                 questionCount++;
             }
@@ -99,6 +96,8 @@ namespace IBMConsultantTool
             
             try
             {
+                //---Force offline mode for testing---
+                throw new System.Exception();
                 db = new DBManager();
                 isOnline = true;
             }
@@ -137,6 +136,8 @@ namespace IBMConsultantTool
             {
                 this.Close();
             }
+
+            domainList.Items.AddRange(db.GetDomainNames());
 
             //LoadDomains();
             //LoadCapabilities();
@@ -516,11 +517,27 @@ namespace IBMConsultantTool
             domains.Clear();
             capabilities.Clear();
             entities.Clear();
-            domainList.Items.Clear();
-            capabilitiesList.Items.Clear();
-            questionList.Items.Clear();
             surveryMakerGrid.Rows.Clear();
         }
 
+        private void domainList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            db.ChangedDomain(this);
+        }
+
+        private void domainList_LostFocus(object sender, EventArgs e)
+        {
+            db.ChangedDomain(this);
+        }
+
+        private void capabilitiesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            db.ChangedCapability(this);
+        }
+
+        private void capabilitiesList_LostFocus(object sender, EventArgs e)
+        {
+            db.ChangedCapability(this);
+        }
     }// end class
 }
