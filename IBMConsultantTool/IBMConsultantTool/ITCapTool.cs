@@ -97,7 +97,7 @@ namespace IBMConsultantTool
             try
             {
                 //---Force offline mode for testing---
-                throw new System.Exception();
+                //throw new System.Exception();
                 db = new DBManager();
                 isOnline = true;
             }
