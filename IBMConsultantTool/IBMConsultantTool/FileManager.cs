@@ -415,8 +415,92 @@ namespace IBMConsultantTool
 
         public override bool OpenITCAP(ITCapTool itcapForm)
         {
-            //throw new NotImplementedException();
-            return false;
+            if (itcapForm.client == null)
+            {
+                MessageBox.Show("Must choose client before opening ITCAP", "Error");
+                return false;
+            }
+
+            List<XElement> itcapList = (itcapForm.client as XElement).Element("ITCAPS").Elements("ITCAP").ToList();
+
+            XElement itcqEnt;
+            XElement capEnt;
+            XElement domEnt;
+
+            string itcqName;
+            string capName;
+            string domName;
+
+            foreach (XElement itcap in itcapList)
+            {
+                itcqName = itcap.Element("ITCAPQUESTION").Value.Replace('~', ' ');
+                capName = itcap.Element("CAPABILITY").Value.Replace('~', ' ');
+                domName = itcap.Element("DOMAIN").Value.Replace('~', ' ');
+
+                Domain domain;
+                Capability capability;
+                ITCapQuestion itcapQuestion;
+
+                domain = itcapForm.domains.Find(delegate(Domain dom)
+                {
+                    return dom.Name == domName;
+                });
+                if (domain == null)
+                {
+                    domain = new Domain();
+                    domain.Name = domName;
+                    if (!GetDomain(domName, out domEnt))
+                    {
+                        break;
+                    }
+                    domain.IsDefault = domEnt.Element("DEFAULT").Value == "Y";
+                    //itcapForm.LoadCapabilities(dom);
+                    itcapForm.domains.Add(domain);
+                    itcapForm.domainList.Items.Add(domain);
+                    itcapForm.entities.Add(domain);
+                    domain.ID = itcapForm.domains.Count.ToString();
+                }
+
+                capability = itcapForm.capabilities.Find(delegate(Capability cap)
+                {
+                    return cap.Name == capName;
+                });
+                if (capability == null)
+                {
+                    capability = new Capability();
+                    capability.Name = capName;
+                    if(!GetCapability(capName, out capEnt))
+                    {
+                        break;
+                    }
+                    capability.IsDefault = capEnt.Element("DEFAULT").Value == "Y";
+                    domain.CapabilitiesOwned.Add(capability);
+                    domain.TotalChildren++;
+                    itcapForm.capabilities.Add(capability);
+                    capability.Owner = domain;
+                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
+                    //LoadQuestions(cap);
+                    itcapForm.capabilitiesList.Items.Add(capability);
+                    itcapForm.entities.Add(capability);
+                }
+
+                itcapQuestion = new ITCapQuestion();
+                itcapQuestion.Name = itcqName;
+                if (!GetITCAPQuestion(itcqName, out itcqEnt))
+                {
+                    break;
+                }
+                itcapQuestion.IsDefault = itcqEnt.Element("DEFAULT").Value == "Y";
+                itcapQuestion.AsIsScore = Convert.ToSingle(itcap.Element("ASIS").Value);
+                itcapQuestion.ToBeScore = Convert.ToSingle(itcap.Element("TOBE").Value);
+                capability.Owner.TotalChildren++;
+                capability.QuestionsOwned.Add(itcapQuestion);
+                itcapQuestion.Owner = capability;
+                itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
+                itcapForm.questionList.Items.Add(itcapQuestion);
+                itcapForm.entities.Add(itcapQuestion);
+            }
+            return true;
         }
         #endregion
 

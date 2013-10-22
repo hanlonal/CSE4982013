@@ -501,10 +501,6 @@ namespace IBMConsultantTool
             string capName;
             string domName;
 
-            int domCount = 0;
-            int capCount = 0;
-            int itcqCount = 0;
-
             foreach (ITCAP itcap in itcapList)
             {
                 itcqEnt = itcap.ITCAPQUESTION;
@@ -525,15 +521,14 @@ namespace IBMConsultantTool
                                                 });
                 if (domain == null)
                 {
-                    domCount++;
                     domain = new Domain();
                     domain.Name = domName;
                     domain.IsDefault = domEnt.DEFAULT == "Y";
-                    domain.ID = domCount.ToString();
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
                     itcapForm.domainList.Items.Add(domain);
                     itcapForm.entities.Add(domain);
+                    domain.ID = itcapForm.domains.Count.ToString();
                 }
 
                 capability = itcapForm.capabilities.Find(delegate(Capability cap)
@@ -542,7 +537,6 @@ namespace IBMConsultantTool
                                                          });
                 if (capability == null)
                 {
-                    capCount++;
                     capability = new Capability();
                     capability.Name = capName;
                     capability.IsDefault = capEnt.DEFAULT == "Y";
@@ -550,13 +544,12 @@ namespace IBMConsultantTool
                     domain.TotalChildren++;
                     itcapForm.capabilities.Add(capability);
                     capability.Owner = domain;
-                    capability.ID = capCount.ToString();
+                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
                     itcapForm.capabilitiesList.Items.Add(capability);
                     itcapForm.entities.Add(capability);
                 }
 
-                itcqCount++;
                 itcapQuestion = new ITCapQuestion();
                 itcapQuestion.Name = itcqName;
                 itcapQuestion.IsDefault = itcqEnt.DEFAULT == "Y";
@@ -565,7 +558,7 @@ namespace IBMConsultantTool
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
-                itcapQuestion.ID = itcqCount.ToString();
+                itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
                 itcapForm.questionList.Items.Add(itcapQuestion);
                 itcapForm.entities.Add(itcapQuestion);
             }
@@ -1057,8 +1050,23 @@ namespace IBMConsultantTool
                             tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
                             bomConElement.Add(tempBom);
                         }
-
                         tempCon.Add(bomConElement);
+
+                        XElement itcapConElement = new XElement("ITCAPS");
+                        foreach (ITCAP itcap in contact.ITCAP)
+                        {
+                            XElement tempItcap = new XElement("ITCAP");
+                            tempItcap.Add(new XElement("ITCAPID", itcap.ITCAPID));
+                            tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd().Replace(' ', '~')));
+                            tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
+                            tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd().Replace(' ', '~')));
+                            tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
+                            tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
+                            tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                            itcapConElement.Add(tempItcap);
+                        }
+                        temp.Add(itcapConElement);
+
                         conElement.Add(tempCon);
                     }
 
@@ -1077,8 +1085,22 @@ namespace IBMConsultantTool
                         tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
                         bomGrpElement.Add(tempBom);
                     }
-
                     tempGrp.Add(bomGrpElement);
+
+                    XElement itcapGrpElement = new XElement("ITCAPS");
+                    foreach (ITCAP itcap in grp.ITCAP)
+                    {
+                        XElement tempItcap = new XElement("ITCAP");
+                        tempItcap.Add(new XElement("ITCAPID", itcap.ITCAPID));
+                        tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd().Replace(' ', '~')));
+                        tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
+                        tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd().Replace(' ', '~')));
+                        tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
+                        tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
+                        tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                        itcapGrpElement.Add(tempItcap);
+                    }
+                    tempGrp.Add(itcapGrpElement);
 
                     grpElement.Add(tempGrp);
                 }
@@ -1098,6 +1120,21 @@ namespace IBMConsultantTool
                     bomElement.Add(tempBom);
                 }
                 temp.Add(bomElement);
+
+                XElement itcapElement = new XElement("ITCAPS");
+                foreach (ITCAP itcap in client.ITCAP)
+                {
+                    XElement tempItcap = new XElement("ITCAP");
+                    tempItcap.Add(new XElement("ITCAPID", itcap.ITCAPID));
+                    tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd().Replace(' ', '~')));
+                    tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
+                    tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd().Replace(' ', '~')));
+                    tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
+                    tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
+                    tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                    itcapElement.Add(tempItcap);
+                }
+                temp.Add(itcapElement);
 
                 clientElement.Add(temp);
             }

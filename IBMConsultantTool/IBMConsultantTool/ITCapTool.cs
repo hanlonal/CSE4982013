@@ -522,16 +522,5 @@ namespace IBMConsultantTool
             surveryMakerGrid.Rows.Clear();
         }
 
-
-
-
-
-
-
-
-
-
-
-
     }// end class
 }
