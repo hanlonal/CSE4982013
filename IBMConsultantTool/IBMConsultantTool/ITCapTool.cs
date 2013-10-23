@@ -40,7 +40,7 @@ namespace IBMConsultantTool
             foreach (string domainInfo in domainInfoArray)
             {  
                 Domain dom = new Domain();
-                dom.Name = domainInfo.Substring(0, domainInfo.Length - 1);
+                dom.Name = domainInfo;
                 dom.IsDefault = true;
                 dom.ID = domCount.ToString();
                 LoadCapabilities(dom);
@@ -58,7 +58,7 @@ namespace IBMConsultantTool
             foreach (string capabilityInfo in capabilityInfoArray)
             {
                 Capability cap = new Capability();
-                cap.Name = capabilityInfo.Substring(0, capabilityInfo.Length - 1);
+                cap.Name = capabilityInfo;
                 cap.IsDefault = true;
                 dom.CapabilitiesOwned.Add(cap);
                 dom.TotalChildren++;
@@ -79,7 +79,7 @@ namespace IBMConsultantTool
             foreach (string questionInfo in questionInfoArray)
             {
                 ITCapQuestion question = new ITCapQuestion();
-                question.Name = questionInfo.Substring(0, questionInfo.Length - 1);
+                question.Name = questionInfo;
                 question.IsDefault = questionInfo.Last() == 'Y';
                 question.comment = "";
                 cap.Owner.TotalChildren++;
