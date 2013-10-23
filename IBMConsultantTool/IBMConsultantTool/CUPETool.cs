@@ -633,12 +633,15 @@ namespace IBMConsultantTool
             List<float> currentFloats = new List<float>();
             List<float> futureFloats = new List<float>();
             int count = 0;
+            System.Diagnostics.Trace.WriteLine("count: " + questionGridITCurrent.Rows);
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
+                //currentFloats.Add((float)row.Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value);
                 if (count == 0)
                     continue;
                 count++;
-                currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value.ToString()));
+                currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value.ToString()));
+                //System.Diagnostics.Trace.WriteLine("count: " + count.ToString());
             }
             count = 0;
             foreach(DataGridViewRow row in questionGridITFuture.Rows)
@@ -654,7 +657,52 @@ namespace IBMConsultantTool
 
         public void CreateChart(List<float> current, List<float> future, string name)
         {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
 
+            formChart.Show();
+            Chart newChart = new Chart();
+
+            formChart.Text = name;
+            newChart.Parent = formChart;
+
+            newChart.Visible = true;
+            newChart.Text = name;
+            newChart.ChartAreas.Add("chart1");
+            newChart.Palette = ChartColorPalette.Excel;
+
+            newChart.ChartAreas["chart1"].Visible = true;
+            //newChart.ChartAreas["chart1"].
+            newChart.Series.Add("As-Is");
+            newChart.Series["As-Is"].ChartArea = "chart1";
+            newChart.Series["As-Is"].ChartType = SeriesChartType.Bar;
+            newChart.Series["As-Is"].IsValueShownAsLabel = true;
+            newChart.Series["As-Is"].IsVisibleInLegend = true;
+            newChart.Series.Add("To-Be");
+            newChart.Series["To-Be"].ChartArea = "chart1";
+            newChart.Series["To-Be"].ChartType = SeriesChartType.Bar;
+            newChart.Series["To-Be"].IsValueShownAsLabel = true;
+            newChart.Series["To-Be"].IsVisibleInLegend = true;
+
+            int currentCount = current.Count;
+            int futureCount = future.Count;
+
+            System.Diagnostics.Trace.WriteLine("current: " + currentCount.ToString() + "  future: " + futureCount.ToString());
+
+            for (int i = 0; i < currentCount; i++)
+            {
+                newChart.Series["As-Is"].Points.AddXY("Question " + i.ToString(), current[i]);
+
+            }
+
+            for (int i = 0; i < futureCount; i++)
+            {
+                newChart.Series["To-Be"].Points.AddXY("Question " + i.ToString(), current[i]);
+            }
+            /*foreach (DataGridView row in questionGridITCurrent.Rows)
+            {
+
+            }*/
         }
 
         private void businessLeadersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -723,7 +771,7 @@ namespace IBMConsultantTool
                 if (count == 0)
                     continue;
                 count++;
-                 futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
+                futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value.ToString()));
             }
 
             CreateChart(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
