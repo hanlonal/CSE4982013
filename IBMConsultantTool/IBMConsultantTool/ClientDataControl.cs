@@ -12,6 +12,7 @@ namespace IBMConsultantTool
         private static bool isOnline;
         private static List<Person> participants = new List<Person>();
         private static List<CupeData> cupeAnswers = new List<CupeData>();
+        private static List<NewCategory> bomCategories = new List<NewCategory>();
 
         private ClientDataControl() { }
 
@@ -62,6 +63,16 @@ namespace IBMConsultantTool
 
         }
 
+        public static bool AddCategory(NewCategory cat)
+        {
+            bomCategories.Add(cat);
+            return true;
+        }
 
+        public static bool ResetCategories()
+        {
+            bomCategories = new List<NewCategory>();
+            return true;
+        }
     }
 }

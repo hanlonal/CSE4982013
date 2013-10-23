@@ -25,6 +25,13 @@ namespace IBMConsultantTool
 
         }
 
+        public NewCategory(int id, string name)
+        {
+            this.ID = id;
+            this.name = name;
+
+        }
+
         public NewObjective AddObjective(string name)
         {
             NewObjective objective = new NewObjective(this, name);

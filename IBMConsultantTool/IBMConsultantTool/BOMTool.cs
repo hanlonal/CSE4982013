@@ -204,22 +204,27 @@ namespace IBMConsultantTool
 
         private void OpenSurvey_Clicked(object sender, EventArgs e)
         {
-            var FD = new System.Windows.Forms.OpenFileDialog();
-            FD.Title = "Select File to Add as an Attachment";
-            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-            {
-                return;
-            }
-
-            string fileToOpen = FD.FileName;
-
-            System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
-
             var SurveyReader = new SurveyReader();
 
-            SurveyReader.ReadSurvey(FD.FileName, this.categories);
+            ResetValues();
+            SurveyReader.ReadSurvey( this.categories);
         }
 
+        public void ResetValues()
+        {
+            foreach (NewCategory cat in Categories)
+            {
+                foreach (NewObjective obj in cat.Objectives)
+                {
+                    foreach (NewInitiative ini in obj.Initiatives)
+                    {
+                        ini.Differentiation = 0;
+                        ini.Criticality = 0;
+                        ini.Effectiveness = 0;
+                    }
+                }
+            }
+        }
         private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var FD = new EditParticipants();
