@@ -24,7 +24,8 @@ namespace IBMConsultantTool
         public BOMTool()
         {
             InitializeComponent();
-
+            detailInfoPanel.Controls.Add(seperatorLabel);
+            seperatorLabel.Width = detailInfoPanel.Width;
             try
             {
                 db = new DBManager();
@@ -50,7 +51,7 @@ namespace IBMConsultantTool
             categories.Add(category);
 
             //catWorkspace.TabPages[name].Controls.Add(category.);
-            catWorkspace.TabPages[name].BackColor = Color.LightGray;
+            catWorkspace.TabPages[name].BackColor = Color.GhostWhite;
 
             return category;
         }
@@ -246,6 +247,11 @@ namespace IBMConsultantTool
         {
             BOMBubbleChartRedesign chart = new BOMBubbleChartRedesign(this);
             chart.Show();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
 
     } // end class
