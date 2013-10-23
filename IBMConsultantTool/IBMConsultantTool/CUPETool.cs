@@ -875,6 +875,20 @@ namespace IBMConsultantTool
             SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
         }
 
+        private void iTCapabilityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RunITCap));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RunITCap()
+        {
+            Application.Run(new ITCapTool());
+        }
+
 
     }// end class
 

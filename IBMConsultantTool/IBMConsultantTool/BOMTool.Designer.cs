@@ -48,6 +48,8 @@
             this.btnLoadChart = new System.Windows.Forms.Button();
             this.detailInfoPanel = new System.Windows.Forms.Panel();
             this.seperatorLabel = new System.Windows.Forms.Label();
+            this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -186,7 +188,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.vieToolStripMenuItem});
+            this.vieToolStripMenuItem,
+            this.workshopToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
@@ -264,6 +267,21 @@
             this.seperatorLabel.TabIndex = 0;
             this.seperatorLabel.Text = "Details";
             // 
+            // workshopToolStripMenuItem
+            // 
+            this.workshopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cUPEToolStripMenuItem});
+            this.workshopToolStripMenuItem.Name = "workshopToolStripMenuItem";
+            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(73, 19);
+            this.workshopToolStripMenuItem.Text = "Workshop";
+            // 
+            // cUPEToolStripMenuItem
+            // 
+            this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cUPEToolStripMenuItem.Text = "CUPE";
+            this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
+            // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -319,6 +337,8 @@
         private System.Windows.Forms.Button btnLoadChart;
         private System.Windows.Forms.Panel detailInfoPanel;
         private System.Windows.Forms.Label seperatorLabel;
+        private System.Windows.Forms.ToolStripMenuItem workshopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cUPEToolStripMenuItem;
 
     }
 }
