@@ -12,6 +12,7 @@ namespace IBMConsultantTool
         string futureValue = "";
         int questionID;
         Person owner;
+        int ownerId;
 
 
 
@@ -61,6 +62,17 @@ namespace IBMConsultantTool
             }
         }
 
+        public int OwnerId
+        {
+            get
+            {
+                return ownerId;
+            }
+            set
+            {
+                ownerId = value;
+            }
+        }
     }
 
 
