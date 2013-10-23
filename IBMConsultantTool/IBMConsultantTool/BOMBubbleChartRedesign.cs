@@ -424,7 +424,7 @@ namespace IBMConsultantTool
                 categoryLabel[i].AutoSize = true;
                 categoryLabel[i].Font = new Font("Arial", 12, FontStyle.Bold);
                 categoryLabel[i].BackColor = Color.Orange;
-                y += i * 24 + objCount * 24;
+                y += i * 24; // objCount * 24;//i * 24;// +objCount * 24;
                 categoryLabel[i].Location = new Point(x, y);
                 for (int j = 0; j < mainForm.Categories[i].Objectives.Count; j++)
                 {
@@ -433,14 +433,15 @@ namespace IBMConsultantTool
                     System.Diagnostics.Trace.WriteLine(mainForm.Categories[i].Objectives[j].Name);
                     objectivesCheckBox[objCount].Text = mainForm.Categories[i].Objectives[j].Name;
                     objectivesCheckBox[objCount].Name = objectivesCheckBox[j].Text;
-                    y += j * 24;
-                    objectivesCheckBox[objCount].Location = new Point((x + 10), (y+24));
+                    y += 24;
+                    objectivesCheckBox[objCount].Location = new Point((x + 10), y);
                     objectivesCheckBox[objCount].Font = new Font("Arial", 12);
                     objectivesCheckBox[objCount].AutoSize = true;
                     objectivesCheckBox[objCount].BackColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
                     //objectivesCheckBox[objCount].CheckedChanged += new EventHandler(BOMBubbleChartRedesign_CheckedChanged);
                     objCount++;
                 }
+                y += 10;
             }
         }
 
