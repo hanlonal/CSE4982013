@@ -16,6 +16,10 @@ namespace IBMConsultantTool
         private float criticality = 0;
         private float differentiation = 0;
         private float effectiveness = 0;
+
+        private int criticalAmount = 4;
+        private int averageAmount = 7;
+       // private int goodAmount = 10;
         
 
         public NewInitiative(NewObjective owner, string name)
@@ -29,6 +33,7 @@ namespace IBMConsultantTool
             this.Height = baseHeight;
             this.BackColor = Color.White;
             this.Width = owner.Width;
+            this.BorderStyle = BorderStyle.FixedSingle;
         }
 
         public string Name
@@ -49,7 +54,7 @@ namespace IBMConsultantTool
             Point p = new Point();
 
             p.X = 20;
-            p.Y = 20 +(owner.Initiatives.Count) * 20;
+            p.Y = 30 +(owner.Initiatives.Count) * 30;
             owner.UpdateHeight();
             return p;
             
@@ -60,31 +65,31 @@ namespace IBMConsultantTool
         {
             if (param == "criticality")
             {
-                if (criticality < 4)
-                    BackColor = Color.Red;
-                if (criticality >= 4 && criticality <= 7)
+                if (criticality < criticalAmount)
+                    BackColor = Color.IndianRed;
+                if (criticality >= criticalAmount && criticality <= averageAmount)
                     BackColor = Color.Yellow;
-                if (criticality > 7)
-                    BackColor = Color.Green;
+                if (criticality > averageAmount)
+                    BackColor = Color.ForestGreen;
             }
             if (param == "differentiation")
             {
-                if(differentiation < 4)
-                    BackColor = Color.Red;
-                if (differentiation >= 4 && differentiation <= 7)
+                if(differentiation < criticalAmount)
+                    BackColor = Color.IndianRed;
+                if (differentiation >= criticalAmount && differentiation <= averageAmount)
                     BackColor = Color.Yellow;
-                if (differentiation > 7)
-                    BackColor = Color.Green;
+                if (differentiation > averageAmount)
+                    BackColor = Color.ForestGreen;
             }
 
             if (param == "effectiveness")
             {
-                if (effectiveness < 4)
-                    BackColor = Color.Red;
-                if (effectiveness >= 4 && effectiveness <= 7)
+                if (effectiveness < criticalAmount)
+                    BackColor = Color.IndianRed;
+                if (effectiveness >= criticalAmount && effectiveness <= averageAmount)
                     BackColor = Color.Yellow;
-                if (effectiveness > 7)
-                    BackColor = Color.Green;
+                if (effectiveness > averageAmount)
+                    BackColor = Color.ForestGreen;
             }
         }
 

@@ -107,6 +107,55 @@ namespace IBMConsultantTool
 
         }
 
+        public void ReadSurveyCUPE(List<Person> people)
+        {
+            var FD = new System.Windows.Forms.FolderBrowserDialog();
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            var files = Directory.EnumerateFiles(FD.SelectedPath);
+            var badFiles = 0;
+            foreach (var file in files)
+            {
+
+                if (file.Contains("~$"))
+                {
+                    badFiles++;
+                    continue;
+                }
+                //Start Word and open the word document.
+                Word._Application oWord;
+                Word._Document oDoc;
+                oWord = new Word.Application();
+                oWord.Visible = false;
+
+
+                oDoc = oWord.Documents.Open(file, Type.Missing, Type.Missing, Type.Missing,
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                    Type.Missing, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //oWord.Activate();
+
+                var tempType = "strang";
+                Person personTemp;
+                foreach (Word.FormField form in oDoc.FormFields)
+                {
+                    //Find the person and their type
+                    if(form.Name == "Name")
+                    {
+                        var nameForm = people.Where(x => x.Name == "Name");
+                        
+
+
+                    }
+
+                    var value = form.Result;
+                }
+                oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+            }
+
+        }
 
 
 

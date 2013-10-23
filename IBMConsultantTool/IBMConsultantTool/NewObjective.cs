@@ -14,10 +14,10 @@ namespace IBMConsultantTool
         
         int ID;
         string name;
-        private int labelHeight = 20;
+        private int labelHeight = 30;
         private int labelWidth = 50;
-        private int baseHeight = 70;
-        private int baseWidth = 150;
+        private int baseHeight = 90;
+        private int baseWidth = 200;
 
         List<NewInitiative> initiatives = new List<NewInitiative>();
 

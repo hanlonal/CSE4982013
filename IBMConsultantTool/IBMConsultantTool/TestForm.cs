@@ -73,7 +73,7 @@ namespace IBMConsultantTool
 
         public static void ThreadProcMainForm()
         {
-            Application.Run(new CUPETool());
+            Application.Run(new BOMTool());
         }
 
         private void TrendAnalysisButton_Click(object sender, EventArgs e)

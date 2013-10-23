@@ -24,7 +24,8 @@ namespace IBMConsultantTool
         public BOMTool()
         {
             InitializeComponent();
-
+            detailInfoPanel.Controls.Add(seperatorLabel);
+            seperatorLabel.Width = detailInfoPanel.Width;
             try
             {
                 db = new DBManager();
@@ -50,7 +51,7 @@ namespace IBMConsultantTool
             categories.Add(category);
 
             //catWorkspace.TabPages[name].Controls.Add(category.);
-            catWorkspace.TabPages[name].BackColor = Color.LightGray;
+            catWorkspace.TabPages[name].BackColor = Color.GhostWhite;
 
             return category;
         }
@@ -246,6 +247,25 @@ namespace IBMConsultantTool
         {
             BOMBubbleChartRedesign chart = new BOMBubbleChartRedesign(this);
             chart.Show();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RUNCUPE()
+        {
+            Application.Run(new CUPETool());
         }
 
     } // end class
