@@ -77,6 +77,9 @@
     <Compile Include="BOMBubbleChartRedesign.Designer.cs">
       <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
     </Compile>
+    <Compile Include="BOMChartInfoPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BOMTool.cs">
       <SubType>Form</SubType>
     </Compile>
