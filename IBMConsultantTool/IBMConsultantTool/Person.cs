@@ -19,7 +19,7 @@ namespace IBMConsultantTool
 
        // LinkedList<CupeQuestion> questions = new LinkedList<CupeQuestion>();
 
-        private List<CupeQuestionData> questionData = new List<CupeQuestionData>();
+        public List<CupeQuestionData> questionData = new List<CupeQuestionData>();
 
         //EmployeeType type = new EmployeeType();
         string name;

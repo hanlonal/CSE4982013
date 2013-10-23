@@ -868,6 +868,13 @@ namespace IBMConsultantTool
             generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions);
         }
 
+        private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var SurveyReader = new SurveyReader();
+
+            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
+        }
+
 
     }// end class
 
