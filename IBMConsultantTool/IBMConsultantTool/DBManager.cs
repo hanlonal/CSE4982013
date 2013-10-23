@@ -359,6 +359,8 @@ namespace IBMConsultantTool
                         category = bomForm.AddCategory(catName);
                     }
 
+                    bomForm.CategoryWorkspace.SelectTab(category.name);
+
                     busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                     objective = category.Objectives.Find(delegate(NewObjective bus)
                     {
@@ -914,6 +916,8 @@ namespace IBMConsultantTool
                 {
                     category = bomForm.AddCategory(catName);
                 }
+
+                bomForm.CategoryWorkspace.SelectTab(category.name);
 
                 busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                 NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
