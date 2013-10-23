@@ -675,7 +675,7 @@
             this.questionGridITFuture.Size = new System.Drawing.Size(727, 483);
             this.questionGridITFuture.TabIndex = 12;
             this.questionGridITFuture.Visible = false;
-
+            this.questionGridITFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn15
             // 

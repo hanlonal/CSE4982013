@@ -377,6 +377,37 @@ namespace IBMConsultantTool
                 return false;
             }
         }
+
+        public override bool AddITCAP(object itcapObj, object clientObj)
+        {
+            XElement itcap = itcapObj as XElement;
+            XElement client = clientObj as XElement;
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
+            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
+            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+
+            List<XElement> itcapList = client.Element("ITCAPS").Elements("ITCAP").ToList();
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in itcapList
+                 where ent != null &&
+                       ent.Element("ITCAPQUESTION") != null &&
+                       ent.Element("ITCAPQUESTION").Value == itcqXML
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            itcap.Add(new XElement("ITCAPID", -1));
+            itcap.Add(new XElement("ASIS", 0));
+            itcap.Add(new XElement("TOBE", 0));
+            itcap.Add(new XElement("COMMENT", ""));
+
+            client.Element("ITCAPS").Add(itcap);
+
+            changeLog.Add("ADD ITCAP CLIENT " + client.Element("NAME").Value + " " + itcqXML);
+
+            return true;
+        }
         public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
         {
             XElement client;
@@ -415,8 +446,89 @@ namespace IBMConsultantTool
 
         public override bool OpenITCAP(ITCapTool itcapForm)
         {
-            //throw new NotImplementedException();
-            return false;
+            if (itcapForm.client == null)
+            {
+                MessageBox.Show("Must choose client before opening ITCAP", "Error");
+                return false;
+            }
+
+            List<XElement> itcapList = (itcapForm.client as XElement).Element("ITCAPS").Elements("ITCAP").ToList();
+
+            XElement itcqEnt;
+            XElement capEnt;
+            XElement domEnt;
+
+            string itcqName;
+            string capName;
+            string domName;
+
+            foreach (XElement itcap in itcapList)
+            {
+                itcqName = itcap.Element("ITCAPQUESTION").Value.Replace('~', ' ');
+                capName = itcap.Element("CAPABILITY").Value.Replace('~', ' ');
+                domName = itcap.Element("DOMAIN").Value.Replace('~', ' ');
+
+                Domain domain;
+                Capability capability;
+                ITCapQuestion itcapQuestion;
+
+                domain = itcapForm.domains.Find(delegate(Domain dom)
+                {
+                    return dom.Name == domName;
+                });
+                if (domain == null)
+                {
+                    domain = new Domain();
+                    domain.Name = domName;
+                    if (!GetDomain(domName, out domEnt))
+                    {
+                        break;
+                    }
+                    domain.IsDefault = domEnt.Element("DEFAULT").Value == "Y";
+                    //itcapForm.LoadCapabilities(dom);
+                    itcapForm.domains.Add(domain);
+                    itcapForm.entities.Add(domain);
+                    domain.ID = itcapForm.domains.Count.ToString();
+                }
+
+                capability = itcapForm.capabilities.Find(delegate(Capability cap)
+                {
+                    return cap.Name == capName;
+                });
+                if (capability == null)
+                {
+                    capability = new Capability();
+                    capability.Name = capName;
+                    if(!GetCapability(capName, out capEnt))
+                    {
+                        break;
+                    }
+                    capability.IsDefault = capEnt.Element("DEFAULT").Value == "Y";
+                    domain.CapabilitiesOwned.Add(capability);
+                    domain.TotalChildren++;
+                    itcapForm.capabilities.Add(capability);
+                    capability.Owner = domain;
+                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
+                    //LoadQuestions(cap);
+                    itcapForm.entities.Add(capability);
+                }
+
+                itcapQuestion = new ITCapQuestion();
+                itcapQuestion.Name = itcqName;
+                if (!GetITCAPQuestion(itcqName, out itcqEnt))
+                {
+                    break;
+                }
+                itcapQuestion.IsDefault = itcqEnt.Element("DEFAULT").Value == "Y";
+                itcapQuestion.AsIsScore = Convert.ToSingle(itcap.Element("ASIS").Value);
+                itcapQuestion.ToBeScore = Convert.ToSingle(itcap.Element("TOBE").Value);
+                capability.Owner.TotalChildren++;
+                capability.QuestionsOwned.Add(itcapQuestion);
+                itcapQuestion.Owner = capability;
+                itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
+                itcapForm.entities.Add(itcapQuestion);
+            }
+            return true;
         }
         #endregion
 
@@ -796,25 +908,27 @@ namespace IBMConsultantTool
             return true;
         }
 
-        /*public override void ChangedCategory(BOMTool bomForm)
+        public override void ChangedDomain(ITCapTool itcapForm)
         {
-            bomForm.objectiveNames.Items.Clear();
-            bomForm.objectiveNames.Text = "<Select Objective>";
-            bomForm.initiativeNames.Items.Clear();
-            bomForm.initiativeNames.Text = "";
-            XElement category;
-            if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
+            itcapForm.capabilitiesList.Items.Clear();
+            itcapForm.capabilitiesList.Text = "<Select Capability>";
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "";
+            XElement domain;
+
+            if (GetDomain(itcapForm.domainList.Text.Trim(), out domain))
             {
-                bomForm.objectiveNames.Items.AddRange((from ent in category.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
+                itcapForm.capabilitiesList.Items.AddRange((from ent in domain.Element("CAPABILITIES").Elements("CAPABILITY")
                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
-        }*/
+        }
         #endregion
 
         #region Capability
 
         public override string[] GetCapabilityNames(string domName)
         {
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -823,6 +937,7 @@ namespace IBMConsultantTool
 
         public override string[] GetCapabilityNamesAndDefault(string domName)
         {
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -870,12 +985,27 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override void ChangedCapability(ITCapTool itcapForm)
+        {
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "<Select Initiative>";
+            XElement capability;
+
+            if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
+            {
+                itcapForm.questionList.Items.AddRange((from ent in capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+            }
+        }
         #endregion
 
         #region ITCAPQuestion
 
         public override string[] GetITCAPQuestionNames(string capName, string domName)
         {
+            capName = capName.Replace(' ', '~');
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -886,6 +1016,8 @@ namespace IBMConsultantTool
 
         public override string[] GetITCAPQuestionNamesAndDefault(string capName, string domName)
         {
+            capName = capName.Replace(' ', '~');
+            domName = domName.Replace(' ', '~');
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -939,8 +1071,10 @@ namespace IBMConsultantTool
             return true;
         }
 
-        /*public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override void AddQuestionToITCAP(string itcq, string capName, string domName, ITCapTool itcapForm)
         {
+            return;
+            /*
             XElement categoryXML;
             if (!GetCategory(catName, out categoryXML))
             {
@@ -1028,8 +1162,8 @@ namespace IBMConsultantTool
                 {
                     MessageBox.Show("Initiative already exists in BOM", "Error");
                 }
-            }
-        }*/
+            }*/
+        }
 
         #endregion
 

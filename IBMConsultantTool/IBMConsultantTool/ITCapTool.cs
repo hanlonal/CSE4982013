@@ -18,10 +18,10 @@ namespace IBMConsultantTool
         public bool isOnline;
         public object client;
 
-        private List<Domain> domains = new List<Domain>();
-        private List<Capability> capabilities = new List<Capability>();
-        private List<ScoringEntity> entities = new List<ScoringEntity>();
-        private ITCapQuestion[] questionsArray = new ITCapQuestion[1024];
+        public List<Domain> domains = new List<Domain>();
+        public List<Capability> capabilities = new List<Capability>();
+        public List<ScoringEntity> entities = new List<ScoringEntity>();
+        public ITCapQuestion[] questionsArray = new ITCapQuestion[1024];
         enum FormStates { SurveryMaker, LiveDataEntry, Prioritization, Open };
         FormStates states;
         private List<Control> surverymakercontrols = new List<Control>();
@@ -45,7 +45,6 @@ namespace IBMConsultantTool
                 dom.ID = domCount.ToString();
                 LoadCapabilities(dom);
                 domains.Add(dom);
-                domainList.Items.Add(dom);
                 entities.Add(dom);
                 domCount++;
             }
@@ -67,7 +66,6 @@ namespace IBMConsultantTool
                 cap.Owner = dom;
                 cap.ID = capCount.ToString();
                 LoadQuestions(cap);
-                capabilitiesList.Items.Add(cap);
                 entities.Add(cap);
                 capCount++;
             }
@@ -87,7 +85,6 @@ namespace IBMConsultantTool
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
                 question.ID = questionCount.ToString();
-                questionList.Items.Add(question);
                 entities.Add(question);
                 questionCount++;
             }
@@ -96,9 +93,11 @@ namespace IBMConsultantTool
         public ITCapTool()
         {
             InitializeComponent();
-
+            
             try
             {
+                //---Force offline mode for testing---
+                //throw new System.Exception();
                 db = new DBManager();
                 isOnline = true;
             }
@@ -138,7 +137,9 @@ namespace IBMConsultantTool
                 this.Close();
             }
 
-            LoadDomains();
+            domainList.Items.AddRange(db.GetDomainNames());
+
+            //LoadDomains();
             //LoadCapabilities();
            // LoadQuestions();
         }
@@ -150,8 +151,9 @@ namespace IBMConsultantTool
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ResetSurveyGrid();
+            LoadDomains();
             ChangeStates(FormStates.SurveryMaker);
-
         }
 
         private void ChangeStates(FormStates stateToGoInto)
@@ -262,6 +264,7 @@ namespace IBMConsultantTool
 
         private void LoadDefaultChartSurvey()
         {
+            surveryMakerGrid.Rows.Clear();
             foreach (Domain dom in domains)
             {
                 if (dom.IsDefault)
@@ -306,9 +309,7 @@ namespace IBMConsultantTool
                                 questionsArray[question.IndexInGrid] = question;
                             }
                         }
-
                     }
-                    
                 }
             }
         }
@@ -464,7 +465,7 @@ namespace IBMConsultantTool
         {
             foreach (ScoringEntity entity in entities)
             {
-                if (entity.IsInGrid && entity.IndexInGrid >= e.RowIndex)
+                if (entity.IsInGrid && entity.IndexInGrid > e.RowIndex)
                 {
                     entity.IndexInGrid--;
 
@@ -491,9 +492,6 @@ namespace IBMConsultantTool
             if (e.ColumnIndex == 5)
             {
                 DataGridViewComboBoxCell col = liveDataEntryGrid.Rows[e.RowIndex].Cells[4] as DataGridViewComboBoxCell;
-
-                
-                
             }
         }
 
@@ -502,20 +500,49 @@ namespace IBMConsultantTool
             ChangeStates(FormStates.Prioritization);
         }
 
-        private void capabilityGapHeatmapToolStripMenuItem_Click(object sender, EventArgs e)
+        private void surveryMakerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            Console.WriteLine(e.RowIndex.ToString());
         }
 
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetSurveyGrid();
+            db.OpenITCAP(this);
+            ChangeStates(FormStates.SurveryMaker);
+        }
 
+        public void ResetSurveyGrid()
+        {
+            domains.Clear();
+            capabilities.Clear();
+            entities.Clear();
+            surveryMakerGrid.Rows.Clear();
+        }
 
+        private void domainList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            db.ChangedDomain(this);
+        }
 
+        private void domainList_LostFocus(object sender, EventArgs e)
+        {
+            db.ChangedDomain(this);
+        }
 
+        private void capabilitiesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            db.ChangedCapability(this);
+        }
 
+        private void capabilitiesList_LostFocus(object sender, EventArgs e)
+        {
+            db.ChangedCapability(this);
+        }
 
-
-
-
-
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
+        }
     }// end class
 }

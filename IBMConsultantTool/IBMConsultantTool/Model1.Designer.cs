@@ -2472,14 +2472,10 @@ namespace IBMConsultantTool
         /// Create a new ITCAP object.
         /// </summary>
         /// <param name="iTCAPID">Initial value of the ITCAPID property.</param>
-        /// <param name="aSIS">Initial value of the ASIS property.</param>
-        /// <param name="tOBE">Initial value of the TOBE property.</param>
-        public static ITCAP CreateITCAP(global::System.Int32 iTCAPID, global::System.Int32 aSIS, global::System.Int32 tOBE)
+        public static ITCAP CreateITCAP(global::System.Int32 iTCAPID)
         {
             ITCAP iTCAP = new ITCAP();
             iTCAP.ITCAPID = iTCAPID;
-            iTCAP.ASIS = aSIS;
-            iTCAP.TOBE = tOBE;
             return iTCAP;
         }
 
@@ -2516,9 +2512,9 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 ASIS
+        public Nullable<global::System.Single> ASIS
         {
             get
             {
@@ -2533,16 +2529,16 @@ namespace IBMConsultantTool
                 OnASISChanged();
             }
         }
-        private global::System.Int32 _ASIS;
-        partial void OnASISChanging(global::System.Int32 value);
+        private Nullable<global::System.Single> _ASIS;
+        partial void OnASISChanging(Nullable<global::System.Single> value);
         partial void OnASISChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 TOBE
+        public Nullable<global::System.Single> TOBE
         {
             get
             {
@@ -2557,8 +2553,8 @@ namespace IBMConsultantTool
                 OnTOBEChanged();
             }
         }
-        private global::System.Int32 _TOBE;
-        partial void OnTOBEChanging(global::System.Int32 value);
+        private Nullable<global::System.Single> _TOBE;
+        partial void OnTOBEChanging(Nullable<global::System.Single> value);
         partial void OnTOBEChanged();
     
         /// <summary>

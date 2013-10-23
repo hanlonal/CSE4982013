@@ -36,6 +36,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addDomainButton = new System.Windows.Forms.Button();
             this.surveryMakerGrid = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capability = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AsIs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToBe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addCapabilityButton = new System.Windows.Forms.Button();
             this.addQuestionButton = new System.Windows.Forms.Button();
             this.domainNameTextBox = new System.Windows.Forms.TextBox();
@@ -75,17 +80,13 @@
             this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capability = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AsIs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ToBe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CapabilityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -122,7 +123,7 @@
             this.ToBe,
             this.Type});
             this.surveryMakerGrid.EnableHeadersVisualStyles = false;
-            this.surveryMakerGrid.Location = new System.Drawing.Point(120, 30);
+            this.surveryMakerGrid.Location = new System.Drawing.Point(13, 87);
             this.surveryMakerGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.surveryMakerGrid.MultiSelect = false;
             this.surveryMakerGrid.Name = "surveryMakerGrid";
@@ -135,11 +136,44 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.surveryMakerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.surveryMakerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.surveryMakerGrid.Size = new System.Drawing.Size(717, 685);
+            this.surveryMakerGrid.Size = new System.Drawing.Size(717, 567);
             this.surveryMakerGrid.TabIndex = 3;
             this.surveryMakerGrid.Visible = false;
+            this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
             this.surveryMakerGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
             this.surveryMakerGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.surveyMakerGrid_MouseDown);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 60;
+            // 
+            // Capability
+            // 
+            this.Capability.HeaderText = "Capability";
+            this.Capability.Name = "Capability";
+            this.Capability.ReadOnly = true;
+            this.Capability.Width = 400;
+            // 
+            // AsIs
+            // 
+            this.AsIs.HeaderText = "As Is";
+            this.AsIs.Name = "AsIs";
+            this.AsIs.Visible = false;
+            // 
+            // ToBe
+            // 
+            this.ToBe.HeaderText = "To Be";
+            this.ToBe.Name = "ToBe";
+            this.ToBe.Visible = false;
+            // 
+            // Type
+            // 
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.Visible = false;
             // 
             // addCapabilityButton
             // 
@@ -208,6 +242,7 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // View
             // 
@@ -237,7 +272,6 @@
             this.capabilityGapHeatmapToolStripMenuItem.Name = "capabilityGapHeatmapToolStripMenuItem";
             this.capabilityGapHeatmapToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.capabilityGapHeatmapToolStripMenuItem.Text = "Capability Gap Heatmap";
-            this.capabilityGapHeatmapToolStripMenuItem.Click += new System.EventHandler(this.capabilityGapHeatmapToolStripMenuItem_Click);
             // 
             // prioritizedCapabilityGapsToolStripMenuItem
             // 
@@ -362,8 +396,10 @@
             this.domainList.Name = "domainList";
             this.domainList.Size = new System.Drawing.Size(253, 28);
             this.domainList.TabIndex = 14;
-            this.domainList.Text = "Domains";
+            this.domainList.Text = "<Select Domain>";
             this.domainList.Visible = false;
+            this.domainList.SelectedIndexChanged += new System.EventHandler(this.domainList_SelectedIndexChanged);
+            this.domainList.LostFocus += new System.EventHandler(this.domainList_LostFocus);
             // 
             // capabilitiesList
             // 
@@ -373,8 +409,9 @@
             this.capabilitiesList.Name = "capabilitiesList";
             this.capabilitiesList.Size = new System.Drawing.Size(253, 28);
             this.capabilitiesList.TabIndex = 15;
-            this.capabilitiesList.Text = "Capabilities";
             this.capabilitiesList.Visible = false;
+            this.capabilitiesList.SelectedIndexChanged += new System.EventHandler(this.capabilitiesList_SelectedIndexChanged);
+            this.capabilitiesList.LostFocus += new System.EventHandler(this.capabilitiesList_LostFocus);
             // 
             // questionList
             // 
@@ -384,7 +421,6 @@
             this.questionList.Name = "questionList";
             this.questionList.Size = new System.Drawing.Size(253, 28);
             this.questionList.TabIndex = 16;
-            this.questionList.Text = "Questions";
             this.questionList.Visible = false;
             // 
             // directorySearcher1
@@ -413,7 +449,7 @@
             this.AddComment,
             this.dataGridViewTextBoxColumn5});
             this.liveDataEntryGrid.EnableHeadersVisualStyles = false;
-            this.liveDataEntryGrid.Location = new System.Drawing.Point(85, 71);
+            this.liveDataEntryGrid.Location = new System.Drawing.Point(13, 51);
             this.liveDataEntryGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.liveDataEntryGrid.MultiSelect = false;
             this.liveDataEntryGrid.Name = "liveDataEntryGrid";
@@ -425,8 +461,9 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.liveDataEntryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.liveDataEntryGrid.RowHeadersVisible = false;
             this.liveDataEntryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.liveDataEntryGrid.Size = new System.Drawing.Size(1271, 680);
+            this.liveDataEntryGrid.Size = new System.Drawing.Size(1031, 567);
             this.liveDataEntryGrid.TabIndex = 17;
             this.liveDataEntryGrid.Visible = false;
             this.liveDataEntryGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellContentClick);
@@ -501,7 +538,7 @@
             this.PriorityGap,
             this.dataGridViewTextBoxColumn10});
             this.prioritizationGrid.EnableHeadersVisualStyles = false;
-            this.prioritizationGrid.Location = new System.Drawing.Point(33, 66);
+            this.prioritizationGrid.Location = new System.Drawing.Point(0, 122);
             this.prioritizationGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prioritizationGrid.MultiSelect = false;
             this.prioritizationGrid.Name = "prioritizationGrid";
@@ -513,42 +550,11 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.prioritizationGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.prioritizationGrid.RowHeadersVisible = false;
             this.prioritizationGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.prioritizationGrid.Size = new System.Drawing.Size(1240, 685);
+            this.prioritizationGrid.Size = new System.Drawing.Size(1031, 567);
             this.prioritizationGrid.TabIndex = 18;
             this.prioritizationGrid.Visible = false;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 60;
-            // 
-            // Capability
-            // 
-            this.Capability.HeaderText = "Capability";
-            this.Capability.Name = "Capability";
-            this.Capability.ReadOnly = true;
-            this.Capability.Width = 400;
-            // 
-            // AsIs
-            // 
-            this.AsIs.HeaderText = "As Is";
-            this.AsIs.Name = "AsIs";
-            this.AsIs.Visible = false;
-            // 
-            // ToBe
-            // 
-            this.ToBe.HeaderText = "To Be";
-            this.ToBe.Name = "ToBe";
-            this.ToBe.Visible = false;
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.Visible = false;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -588,11 +594,24 @@
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.Visible = false;
             // 
+            // AddButton
+            // 
+            this.AddButton.Location = new System.Drawing.Point(1262, 376);
+            this.AddButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(112, 35);
+            this.AddButton.TabIndex = 19;
+            this.AddButton.Text = "Add";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Visible = false;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
             // ITCapTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.AddButton);
             this.Controls.Add(this.prioritizationGrid);
             this.Controls.Add(this.liveDataEntryGrid);
             this.Controls.Add(this.questionList);
@@ -643,9 +662,9 @@
         private System.Windows.Forms.Button removeEntityButton;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ComboBox domainList;
-        private System.Windows.Forms.ComboBox capabilitiesList;
-        private System.Windows.Forms.ComboBox questionList;
+        public System.Windows.Forms.ComboBox domainList;
+        public System.Windows.Forms.ComboBox capabilitiesList;
+        public System.Windows.Forms.ComboBox questionList;
         private System.Windows.Forms.ToolStripMenuItem systemsAgendaCapabilityAssesmentResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem capabilityAssesmentSummaryScoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem capabilityGapHeatmapToolStripMenuItem;
@@ -657,13 +676,6 @@
         private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.ToolStripMenuItem changeDefaultsToolStripMenuItem;
         private System.Windows.Forms.DataGridView liveDataEntryGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Comments;
-        private System.Windows.Forms.DataGridViewButtonColumn AddComment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridView prioritizationGrid;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
@@ -677,6 +689,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CapabilityGap;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityGap;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Comments;
+        private System.Windows.Forms.DataGridViewButtonColumn AddComment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Button AddButton;
 
        
     }

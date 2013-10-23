@@ -201,8 +201,8 @@
           <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUP" Type="integer" />
           <Property Name="CONTACTID" Type="integer" />
-          <Property Name="ASIS" Type="integer" Nullable="false" />
-          <Property Name="TOBE" Type="integer" Nullable="false" />
+          <Property Name="ASIS" Type="real" />
+          <Property Name="TOBE" Type="real" />
           <Property Name="COMMENT" Type="character" MaxLength="150" />
           <Property Name="ITCAPQUESTIONID" Type="integer" Nullable="false" />
         </EntityType>
@@ -682,8 +682,8 @@
             <PropertyRef Name="ITCAPID" />
           </Key>
           <Property Name="ITCAPID" Type="Int32" Nullable="false" />
-          <Property Name="ASIS" Type="Int32" Nullable="false" />
-          <Property Name="TOBE" Type="Int32" Nullable="false" />
+          <Property Name="ASIS" Type="Single" />
+          <Property Name="TOBE" Type="Single" />
           <Property Name="COMMENT" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CLIENT" Relationship="SAMPLEModel.ITCAP_CLIENT_FK" FromRole="ITCAP" ToRole="CLIENT" />
           <NavigationProperty Name="CONTACT" Relationship="SAMPLEModel.ITCAP_CONTACT_FK" FromRole="ITCAP" ToRole="CONTACT" />
