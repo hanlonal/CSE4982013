@@ -789,7 +789,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
         {
             XElement categoryXML;
             if (!GetCategory(catName, out categoryXML))
@@ -799,7 +799,7 @@ namespace IBMConsultantTool
                 if (!AddCategory(categoryXML))
                 {
                     MessageBox.Show("Failed to add Category to File", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -811,7 +811,7 @@ namespace IBMConsultantTool
                 if (!AddObjective(objectiveXML, categoryXML))
                 {
                     MessageBox.Show("Failed to add Objective to File", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -823,7 +823,7 @@ namespace IBMConsultantTool
                 if (!AddInitiative(initiativeXML, objectiveXML, categoryXML))
                 {
                     MessageBox.Show("Failed to add Initiative to File", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -836,13 +836,13 @@ namespace IBMConsultantTool
             if (!AddBOM(bom, bomForm.client))
             {
                 MessageBox.Show("Failed to add Initiative to BOM", "Error");
-                return;
+                return false;
             }
 
             if (!SaveChanges())
             {
                 MessageBox.Show("Failed to save changes to File", "Error");
-                return;
+                return false;
             }
 
             else
@@ -879,6 +879,8 @@ namespace IBMConsultantTool
                     MessageBox.Show("Initiative already exists in BOM", "Error");
                 }
             }
+
+            return true;
         }
 
         #endregion

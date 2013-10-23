@@ -53,7 +53,7 @@ namespace IBMConsultantTool
         #endregion
 
         #region Initiative
-        public abstract void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm);
+        public abstract bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm);
         #endregion
 
         #region Domain

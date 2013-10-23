@@ -75,6 +75,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == client.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(client);
                 return false;
             }
 
@@ -265,6 +266,7 @@ namespace IBMConsultantTool
                  where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(bom);
                 return false;
             }
 
@@ -289,6 +291,7 @@ namespace IBMConsultantTool
                  where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(bom);
                 return false;
             }
 
@@ -313,6 +316,7 @@ namespace IBMConsultantTool
                  where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(bom);
                 return false;
             }
 
@@ -479,6 +483,7 @@ namespace IBMConsultantTool
                  where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(itcqObject);
                 return false;
             }
 
@@ -668,6 +673,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == category.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(category);
                 return false;
             }
 
@@ -746,6 +752,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == objective.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(objective);
                 return false;
             }
 
@@ -828,6 +835,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == initiative.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(initiative);
                 return false;
             }
 
@@ -841,7 +849,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
         {
             INITIATIVE initiative;
             if (!GetInitiative(iniName, out initiative))
@@ -861,7 +869,7 @@ namespace IBMConsultantTool
                         if (!AddCategory(category))
                         {
                             MessageBox.Show("Failed to add Category to Database", "Error");
-                            return;
+                            return false;
                         }
                     }
 
@@ -869,7 +877,7 @@ namespace IBMConsultantTool
                     if (!AddObjective(objective))
                     {
                         MessageBox.Show("Failed to add Objective to Database", "Error");
-                        return;
+                        return false;
                     }
                 }
 
@@ -877,7 +885,7 @@ namespace IBMConsultantTool
                 if (!AddInitiative(initiative))
                 {
                     MessageBox.Show("Failed to add Initiative to Database", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -886,12 +894,12 @@ namespace IBMConsultantTool
             if (!AddBOM(bom, bomForm.client))
             {
                 MessageBox.Show("Failed to add Initiative to BOM", "Error");
-                return;
+                return false;
             }
             if (!SaveChanges())
             {
                 MessageBox.Show("Failed to save changes to database", "Error");
-                return;
+                return false;
             }
 
             else
@@ -931,6 +939,8 @@ namespace IBMConsultantTool
                     MessageBox.Show("Initiative already exists in BOM", "Error");
                 }
             }
+
+            return true;
         }
         #endregion
 
@@ -986,6 +996,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == domain.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(domain);
                 return false;
             }
 
@@ -1065,6 +1076,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == capability.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(capability);
                 return false;
             }
 
@@ -1149,6 +1161,7 @@ namespace IBMConsultantTool
                  where ent.NAME.TrimEnd() == itcapQuestion.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
+                dbo.Detach(itcapQuestion);
                 return false;
             }
 
