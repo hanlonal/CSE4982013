@@ -130,6 +130,7 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,7 +138,8 @@
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTVsBusinessFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iTCapabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.busiCurrentGraph)).BeginInit();
@@ -245,7 +247,7 @@
             this.busiCurrentRadioButton.Checked = true;
             this.busiCurrentRadioButton.Location = new System.Drawing.Point(776, 477);
             this.busiCurrentRadioButton.Name = "busiCurrentRadioButton";
-            this.busiCurrentRadioButton.Size = new System.Drawing.Size(108, 24);
+            this.busiCurrentRadioButton.Size = new System.Drawing.Size(89, 20);
             this.busiCurrentRadioButton.TabIndex = 2;
             this.busiCurrentRadioButton.TabStop = true;
             this.busiCurrentRadioButton.Text = "Business";
@@ -257,7 +259,7 @@
             this.itCurrentRadioButton.AutoSize = true;
             this.itCurrentRadioButton.Location = new System.Drawing.Point(776, 508);
             this.itCurrentRadioButton.Name = "itCurrentRadioButton";
-            this.itCurrentRadioButton.Size = new System.Drawing.Size(157, 24);
+            this.itCurrentRadioButton.Size = new System.Drawing.Size(131, 20);
             this.itCurrentRadioButton.TabIndex = 3;
             this.itCurrentRadioButton.Text = "IT Professional";
             this.itCurrentRadioButton.UseVisualStyleBackColor = true;
@@ -387,7 +389,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(776, 411);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(141, 25);
+            this.label1.Size = new System.Drawing.Size(114, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "CUPE Score:";
             // 
@@ -396,7 +398,7 @@
             this.cupeScoreLabel.AutoSize = true;
             this.cupeScoreLabel.Location = new System.Drawing.Point(953, 411);
             this.cupeScoreLabel.Name = "cupeScoreLabel";
-            this.cupeScoreLabel.Size = new System.Drawing.Size(0, 20);
+            this.cupeScoreLabel.Size = new System.Drawing.Size(0, 16);
             this.cupeScoreLabel.TabIndex = 7;
             // 
             // label2
@@ -404,7 +406,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(773, 443);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 20);
+            this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 8;
             this.label2.Text = "Current";
             // 
@@ -413,7 +415,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(992, 443);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 20);
+            this.label3.Size = new System.Drawing.Size(51, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Future";
             // 
@@ -422,7 +424,7 @@
             this.busiFutureRadioButton.AutoSize = true;
             this.busiFutureRadioButton.Location = new System.Drawing.Point(995, 477);
             this.busiFutureRadioButton.Name = "busiFutureRadioButton";
-            this.busiFutureRadioButton.Size = new System.Drawing.Size(108, 24);
+            this.busiFutureRadioButton.Size = new System.Drawing.Size(89, 20);
             this.busiFutureRadioButton.TabIndex = 4;
             this.busiFutureRadioButton.TabStop = true;
             this.busiFutureRadioButton.Text = "Business";
@@ -434,7 +436,7 @@
             this.itFutureRadioButton.AutoSize = true;
             this.itFutureRadioButton.Location = new System.Drawing.Point(995, 508);
             this.itFutureRadioButton.Name = "itFutureRadioButton";
-            this.itFutureRadioButton.Size = new System.Drawing.Size(157, 24);
+            this.itFutureRadioButton.Size = new System.Drawing.Size(131, 20);
             this.itFutureRadioButton.TabIndex = 5;
             this.itFutureRadioButton.TabStop = true;
             this.itFutureRadioButton.Text = "IT Professional";
@@ -496,7 +498,7 @@
             "10"});
             this.personFilterAmount.Location = new System.Drawing.Point(839, 32);
             this.personFilterAmount.Name = "personFilterAmount";
-            this.personFilterAmount.Size = new System.Drawing.Size(137, 28);
+            this.personFilterAmount.Size = new System.Drawing.Size(137, 24);
             this.personFilterAmount.TabIndex = 7;
             this.personFilterAmount.Text = "Select Number";
             // 
@@ -517,7 +519,7 @@
             "10"});
             this.questionFilterAmount.Location = new System.Drawing.Point(317, 27);
             this.questionFilterAmount.Name = "questionFilterAmount";
-            this.questionFilterAmount.Size = new System.Drawing.Size(144, 28);
+            this.questionFilterAmount.Size = new System.Drawing.Size(144, 24);
             this.questionFilterAmount.TabIndex = 6;
             this.questionFilterAmount.Text = "Select Number";
             // 
@@ -527,7 +529,7 @@
             this.personFilter.FormattingEnabled = true;
             this.personFilter.Location = new System.Drawing.Point(667, 32);
             this.personFilter.Name = "personFilter";
-            this.personFilter.Size = new System.Drawing.Size(151, 28);
+            this.personFilter.Size = new System.Drawing.Size(151, 24);
             this.personFilter.TabIndex = 5;
             this.personFilter.Text = "Select Filter Type";
             // 
@@ -550,7 +552,7 @@
             "Lowest Std Dev"});
             this.questionFilter.Location = new System.Drawing.Point(159, 27);
             this.questionFilter.Name = "questionFilter";
-            this.questionFilter.Size = new System.Drawing.Size(152, 28);
+            this.questionFilter.Size = new System.Drawing.Size(152, 24);
             this.questionFilter.TabIndex = 4;
             // 
             // label5
@@ -558,7 +560,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(531, 35);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(162, 20);
+            this.label5.Size = new System.Drawing.Size(130, 16);
             this.label5.TabIndex = 1;
             this.label5.Text = "Filter Persons By:";
             // 
@@ -567,7 +569,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(11, 35);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(178, 20);
+            this.label4.Size = new System.Drawing.Size(142, 16);
             this.label4.TabIndex = 0;
             this.label4.Text = "Filter Questions By:";
             // 
@@ -842,10 +844,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.viewToolStripMenuItem});
+            this.viewToolStripMenuItem,
+            this.workshopToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1264, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -859,53 +862,60 @@
             this.createSurveyToolStripMenuItem,
             this.openSurveysToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.preferencesToolStripMenuItem.Text = "New";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // preferencesToolStripMenuItem2
             // 
             this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
-            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(175, 24);
+            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(146, 22);
             this.preferencesToolStripMenuItem2.Text = "Preferences";
             // 
             // createSurveyToolStripMenuItem
             // 
             this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
-            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.createSurveyToolStripMenuItem.Text = "Create Survey";
             this.createSurveyToolStripMenuItem.Click += new System.EventHandler(this.createSurveyToolStripMenuItem_Click);
+            // 
+            // openSurveysToolStripMenuItem
+            // 
+            this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
+            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openSurveysToolStripMenuItem.Text = "Open Surveys";
+            this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.openSurveysToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.participantsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // participantsToolStripMenuItem
             // 
             this.participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
+            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.participantsToolStripMenuItem.Text = "Participants";
             this.participantsToolStripMenuItem.Click += new System.EventHandler(this.participantsToolStripMenuItem_Click);
             // 
@@ -917,47 +927,55 @@
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem,
             this.iTVsBusinessFutureComparisonToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // iTStakeHoldersCurrentFutureComparisonToolStripMenuItem
             // 
             this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Name = "iTStakeHoldersCurrentFutureComparisonToolStripMenuItem";
-            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
+            this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Text = "IT StakeHolders Current/Future Comparison";
             this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem.Click += new System.EventHandler(this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click);
             // 
             // businessLeadersCurrentFutureComparisonToolStripMenuItem
             // 
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Name = "businessLeadersCurrentFutureComparisonToolStripMenuItem";
-            this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
+            this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Text = "Business Leaders Current/Future Comparison";
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem.Click += new System.EventHandler(this.businessLeadersCurrentFutureComparisonToolStripMenuItem_Click);
             // 
             // iTVsBusinessLeadersCurrentComparisonToolStripMenuItem
             // 
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Name = "iTVsBusinessLeadersCurrentComparisonToolStripMenuItem";
-            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
+            this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Text = "IT vs Business Leaders Current Comparison";
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem.Click += new System.EventHandler(this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem_Click);
             // 
             // iTVsBusinessFutureComparisonToolStripMenuItem
             // 
             this.iTVsBusinessFutureComparisonToolStripMenuItem.Name = "iTVsBusinessFutureComparisonToolStripMenuItem";
-            this.iTVsBusinessFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
+            this.iTVsBusinessFutureComparisonToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.iTVsBusinessFutureComparisonToolStripMenuItem.Text = "IT vs Business Future Comparison";
             this.iTVsBusinessFutureComparisonToolStripMenuItem.Click += new System.EventHandler(this.iTVsBusinessFutureComparisonToolStripMenuItem_Click);
             // 
-            // openSurveysToolStripMenuItem
+            // workshopToolStripMenuItem
             // 
-            this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
-            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
-            this.openSurveysToolStripMenuItem.Text = "Open Surveys";
-            this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.openSurveysToolStripMenuItem_Click);
+            this.workshopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iTCapabilityToolStripMenuItem});
+            this.workshopToolStripMenuItem.Name = "workshopToolStripMenuItem";
+            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.workshopToolStripMenuItem.Text = "Workshop";
+            // 
+            // iTCapabilityToolStripMenuItem
+            // 
+            this.iTCapabilityToolStripMenuItem.Name = "iTCapabilityToolStripMenuItem";
+            this.iTCapabilityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iTCapabilityToolStripMenuItem.Text = "IT Capability";
+            this.iTCapabilityToolStripMenuItem.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem_Click);
             // 
             // CUPETool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 733);
             this.Controls.Add(this.itFutureGraph);
@@ -1073,5 +1091,7 @@
         private System.Windows.Forms.ToolStripMenuItem participantsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createSurveyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openSurveysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem workshopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iTCapabilityToolStripMenuItem;
     }
 }
