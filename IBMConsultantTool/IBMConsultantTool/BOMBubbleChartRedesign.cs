@@ -36,19 +36,35 @@ namespace IBMConsultantTool
         Label labelDescription = new Label();
         private int objCount = 0;
         Label[] categoryLabel = new Label[1000];
-
+        //Color[] color = "Color.AliceBlue;
+        
         private bool mouseDown = false;
         private bool[] labelHide = new bool[1000];
 
         public BOMBubbleChartRedesign(BOMTool info)
         {
+            /*Size max = SystemInformation.MaxWindowTrackSize;
+
+            if (height > max.Height)
+                height = max.Height;
+            if (width > max.Width)
+                width = max.Width;*/
+
+            if (this.WindowState == FormWindowState.Normal && (base.Height != this.Height || base.Width != this.Width))
+            {
+                Size maxWindowTrackSize = SystemInformation.MaxWindowTrackSize;
+                if (this.Height > maxWindowTrackSize.Height)
+                    this.Height = maxWindowTrackSize.Height;
+                if (this.Width > maxWindowTrackSize.Width)
+                    this.Width = maxWindowTrackSize.Width;
+            }
             mainForm = info;
             //canvas.Parent = this.panelChart;
             //CreateMyLabel();
             //VerticalLabel_SizeChanged(
             //GenerateText();
             MaxCount = Count();
-
+            
             for (int i = 0; i < MaxCount; i++)
             {
                 circle[i] = new OvalShape();
@@ -107,7 +123,7 @@ namespace IBMConsultantTool
             int objectivesCount = 0;
             mouseDown = false;
             
-            /*System.Diagnostics.Trace.WriteLine("Load chart: " + labelCount.ToString());
+            //System.Diagnostics.Trace.WriteLine("Load chart: " + labelCount.ToString());
 
             //labelDescription.ResetText();
             for (int i=0; i<circleCount; i++)
@@ -123,7 +139,7 @@ namespace IBMConsultantTool
                     circle[i].Hide();
                     circle[i] = new OvalShape();
                 }
-            }*/
+            }
             //Initialize();
             circleCount = 0;
             labelCount = 0;
@@ -170,8 +186,10 @@ namespace IBMConsultantTool
                             circle[cirCount].Parent = canvas;
 
                             circle[cirCount].FillStyle = FillStyle.Solid;
-
-                            circle[cirCount].FillColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
+                            
+                            //circle[cirCount].FillColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
+                            //circle[cirCount].FillColor = mainForm.Categories[i].Objectives[j].BackColor;
+                            circle[cirCount].FillColor = objectivesCheckBox[objectivesCount].BackColor;
 
                             circle[cirCount].Name = (i + 1).ToString() + "." + (j + 1).ToString() + "." + (k + 1).ToString() + " " + name;
 
@@ -181,6 +199,7 @@ namespace IBMConsultantTool
                             circle[cirCount].Location = new System.Drawing.Point((60 + (int)(newDifferentiation) - (int)effectivenessBig / 2), (850 - (int)(newCriticality) - (int)(effectivenessBig / 2)));
                             circle[cirCount].Size = new System.Drawing.Size(effectivenessBig, effectivenessBig);
                             //circle[cirCount].SendToBack();
+                            //circle[cirCount].Enabled = false;
 
                             circle[cirCount].MouseClick += new MouseEventHandler(circle_MouseClick);
                             circle[cirCount].MouseDown +=new MouseEventHandler(circle_MouseDown);
@@ -234,7 +253,7 @@ namespace IBMConsultantTool
         private void circle_MouseClick(object sender, MouseEventArgs e)
         {
             //System.Diagnostics.Trace.WriteLine("Click " + circleCount.ToString());
-            for (int i = 0; i < circleCount; i++)
+            /*for (int i = 0; i < circleCount; i++)
             {
                 //System.Diagnostics.Trace.WriteLine("In For Loop Click " + i);
                 
@@ -283,7 +302,7 @@ namespace IBMConsultantTool
                         labelHide[i] = false;
                     }
                     else*/ 
-                    if (labelInfo[i].Text == circle[i].AccessibleDescription)
+                    /*if (labelInfo[i].Text == circle[i].AccessibleDescription)
                     {
                         System.Diagnostics.Trace.WriteLine("Hello! reset text! ");
                         System.Diagnostics.Trace.WriteLine("Label: " + labelInfo[i].Text);
@@ -313,6 +332,42 @@ namespace IBMConsultantTool
                     return;
                     //System.Diagnostics.Trace.WriteLine("In HitTest: " + labelCount.ToString());
                 }
+            }*/
+            circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+
+            if (labelInfo[currentCircle].Text == circle[currentCircle].AccessibleDescription)
+            {
+                /*System.Diagnostics.Trace.WriteLine("Hello! reset text! ");
+                System.Diagnostics.Trace.WriteLine("Label: " + labelInfo[i].Text);
+                System.Diagnostics.Trace.WriteLine("Circle: " + circle[i].AccessibleDescription);*/
+                labelInfo[currentCircle].ResetText();
+                //System.Diagnostics.Trace.WriteLine("After reset Label: " + labelInfo[i].Text);
+                //labelInfo[i].Hide();
+                //labelHide[i] = true;
+            }
+            else
+            {
+                labelInfo[currentCircle].Parent = this.panelChart;
+
+                labelInfo[currentCircle].AutoSize = true;
+                labelInfo[currentCircle].Text = circle[currentCircle].AccessibleDescription;
+                //labelInfo[i].Location = new Point(circle[i].Location.X, circle[i].Location.Y);
+                if (circle[currentCircle].Location.X > 510)
+                {
+                    if (circle[currentCircle].Location.Y < 450)
+                        labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X - circle[currentCircle].Height/2, circle[currentCircle].Location.Y + circle[currentCircle].Height);
+                    else
+                        labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X, circle[currentCircle].Location.Y - circle[currentCircle].Height/ 2);
+                }
+                else
+                    labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X + circle[currentCircle].Height, circle[currentCircle].Location.Y + circle[currentCircle].Height / 2);
+                labelInfo[currentCircle].Name = circle[currentCircle].Name;
+                labelInfo[currentCircle].Visible = true;
+                labelInfo[currentCircle].Font = new Font("Arial", 12);
+                labelInfo[currentCircle].BackColor = circle[currentCircle].BackColor;
+                //labelInfo[i].
+
+                labelCount++;
             }
         }
 
@@ -350,107 +405,19 @@ namespace IBMConsultantTool
                     objectivesCheckBox[objCount].Location = new Point((x + 10), (y+24));
                     objectivesCheckBox[objCount].Font = new Font("Arial", 12);
                     objectivesCheckBox[objCount].AutoSize = true;
+                    objectivesCheckBox[objCount].BackColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
                     //objectivesCheckBox[objCount].CheckedChanged += new EventHandler(BOMBubbleChartRedesign_CheckedChanged);
                     objCount++;
                 }
             }
         }
 
-
-        private void objectivesCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            //System.Diagnostics.Trace.WriteLine("CheckedChanged");
-            //btnLoadChart_Click(sender, e);
-            /*int rowCount = 0;
-            int cirCount = 0;
-            int objectivesCount = 0;
-
-            System.Diagnostics.Trace.WriteLine("Load chart: " + labelCount.ToString());
-
-            //labelDescription.ResetText();
-            for (int i = 0; i < circleCount; i++)
-            {
-                if (labelInfo[i] != null)
-                    labelInfo[i].ResetText();
-            }
-
-            for (int i = 0; i < circleCount; i++)
-            {
-                if (circle[i] != null)
-                    circle[i].Hide();
-            }
-            circleCount = 0;
-            labelCount = 0;
-
-            //this.panelChart.
-
-            ShapeContainer canvas = new ShapeContainer();
-            canvas.Parent = this.panelChart;
-
-            if (mainForm == null)
-            {
-                this.Hide();
-            }
-
-            for (int i = 0; i < mainForm.CategoryCount; i++)
-            {
-                rowCount++;
-                for (int j = 0; j < mainForm.Categories[i].BusinessObjectivesCount; j++)
-                {
-                    rowCount++;
-                    if (objectivesCheckBox[objectivesCount].Checked)
-                    {
-                        for (int k = 0; k < mainForm.Categories[i].Objectives[j].InitiativesCount; k++)
-                        {
-                            name = mainForm.Categories[i].Objectives[j].Initiatives[k].Name;
-                            criticality = mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality;
-                            differentiation = mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation;
-                            effectiveness = mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness;
-
-                            int effectivenessBig = (int)(effectiveness * 20);
-                            int newCriticality = (int)(criticality * 80);
-                            int newDifferentiation = (int)(differentiation * 80);
-
-                            circle[cirCount].Parent = canvas;
-
-                            circle[cirCount].FillStyle = FillStyle.Solid;
-
-                            circle[cirCount].FillColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
-
-                            circle[cirCount].Name = (i + 1).ToString() + "." + (j + 1).ToString() + "." + (k + 1).ToString() + " " + name;
-
-                            circle[cirCount].AccessibleName = "(" + differentiation.ToString() + "," + criticality.ToString() + "," + effectiveness.ToString() + ")";
-
-                            circle[cirCount].Visible = true;
-                            circle[cirCount].Location = new System.Drawing.Point((60 + (int)(newDifferentiation) - (int)effectivenessBig / 2), (850 - (int)(newCriticality) - (int)(effectivenessBig / 2)));
-                            circle[cirCount].Size = new System.Drawing.Size(effectivenessBig, effectivenessBig);
-
-                            circle[cirCount].MouseClick += new MouseEventHandler(circle_MouseClick);
-                            circle[cirCount].MouseDown += new MouseEventHandler(circle_MouseDown);
-                            circle[cirCount].MouseMove += new MouseEventHandler(circle_MouseMove);
-                            circle[cirCount].MouseUp += new MouseEventHandler(circle_MouseUp);
-                            //System.Diagnostics.Trace.WriteLine("Load chart after mouse click event: " + labelCount.ToString());
-                            //circle[cirCount].MouseMove += new MouseEventHandler(circle_MouseMove);
-                            rowCount++;
-                            circleCount++;
-                            cirCount++;
-                            System.Diagnostics.Trace.WriteLine("circle count: " + circleCount.ToString());
-
-                        }
-                    }
-                    objectivesCount++;
-                }
-            }*/
-        }
-
+        private int currentCircle;
+        private bool mouseMove = false;
         private void circle_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-        }
-
-        private void circle_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (mouseDown)
+            if (!mouseMove)
             {
                 for (int i = 0; i < circleCount; i++)
                 {
@@ -478,7 +445,208 @@ namespace IBMConsultantTool
                         }
 
                         //System.Diagnostics.Trace.WriteLine("e.X: " + e.X.ToString() + ",   e.Y: " + e.Y.ToString());
+                        //circle[i].Enabled = true;
+                        //circle[i].E
+                        for (int k = 0; k < circleCount; k++)
+                        {
+                            if (k == i)
+                                circle[k].Enabled = true;
+                            else
+                                circle[k].Enabled = false;
+                        }
+                        currentCircle = i;
+                        circle[i].BringToFront();
+                        break;
+                    }
+                }
+            }
+        }
 
+        private void circle_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                mouseMove = true;
+                int newX = circle[currentCircle].Left + e.X;
+                int newY = circle[currentCircle].Top + e.Y;
+
+                System.Diagnostics.Trace.WriteLine("newX: " + newX.ToString() + ",   newY: " + newY.ToString());
+
+                if ((newX >= 60 && newX <= 960) && (newY >= 50 && newY <= 850))
+                {
+                    //System.Diagnostics.Trace.WriteLine("Congratulation!");
+
+                    // Change the values to think move it x-axis 9, and y-axis 8
+                    circle[currentCircle].Left += e.X - circle[currentCircle].Height / 2;
+                    circle[currentCircle].Top += e.Y - circle[currentCircle].Height / 2;
+
+                    //circle[i].Left = circle[i].Left 
+                    System.Diagnostics.Trace.WriteLine("left: " + circle[currentCircle].Left.ToString() + ",    top: " + circle[currentCircle].Top.ToString());
+                    double newDifferentiation = (double)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (double)90;
+                    float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
+                    float newEffectiveness = (float)circle[currentCircle].Height / 20;
+
+                    //System.Diagnostics.Trace.WriteLine("circle height: " + circle[i].Height.ToString());
+
+                    circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
+
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                }
+                else if (newX < 60)
+                {
+                    System.Diagnostics.Trace.WriteLine("X value less");
+                    circle[currentCircle].Left = 60;
+                    circle[currentCircle].Left -= circle[currentCircle].Height / 2;
+                    //circle[i].Left += 60 - circle[i].Height / 2;
+                    if ((newY >= 50 && newY <= 850))
+                    {
+                        circle[currentCircle].Top += e.Y - circle[currentCircle].Height / 2;
+                    }
+                    else if (newY < 50)
+                    {
+                        circle[currentCircle].Top = 50;
+                        circle[currentCircle].Top -= circle[currentCircle].Height / 2;
+                        //circle[i].Top += 50 - circle[i].Height / 2;
+                    }
+                    else
+                    {
+                        //System.Diagnostics.Trace.WriteLine("Y less");
+                        circle[currentCircle].Top = 850;
+                        circle[currentCircle].Top -= circle[currentCircle].Height / 2;
+                        //System.Diagnostics.Trace.WriteLine("new circle: " + circle[i].Top.ToString());
+
+                    }
+                    float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
+                    float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
+                    float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
+
+                    circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
+
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                }
+                else if (newX > 960)
+                {
+                    System.Diagnostics.Trace.WriteLine("X value more!");
+                    circle[currentCircle].Left = 960;
+                    circle[currentCircle].Left -= circle[currentCircle].Height / 2;
+                    //circle[i].Left += 860 - circle[i].Height / 2;
+                    if ((newY >= 50 && newY <= 850))
+                    {
+                        circle[currentCircle].Top += e.Y - circle[currentCircle].Height / 2;
+                    }
+                    else if (newY < 50)
+                    {
+                        circle[currentCircle].Top = 50;
+                        circle[currentCircle].Top -= circle[currentCircle].Height / 2;
+                        //circle[i].Top += 50 - circle[i].Height / 2;
+                    }
+                    else
+                    {
+                        circle[currentCircle].Top = 850;
+                        circle[currentCircle].Top -= circle[currentCircle].Height / 2;
+                        //circle[i].Top += 850 - circle[i].Height / 2;
+                    }
+                    float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
+                    float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
+                    float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
+
+                    circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
+
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                }
+
+                else if (newY > 850)
+                {
+                    circle[currentCircle].Top = 850;
+                    circle[currentCircle].Top -= circle[currentCircle].Height / 2;
+                    //circle[i].Top += 860 - circle[i].Height / 2;
+                    if ((newX >= 60 && newX <= 860))
+                    {
+                        circle[currentCircle].Left += e.X - circle[currentCircle].Height / 2;
+                    }
+                    else if (newX < 60)
+                    {
+                        circle[currentCircle].Left = 60;
+                        circle[currentCircle].Left -= circle[currentCircle].Height / 2;
+                    }
+                    else
+                    {
+                        circle[currentCircle].Left = 860;
+                        circle[currentCircle].Left -= circle[currentCircle].Height / 2;
+                    }
+                    float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
+                    float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
+                    float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
+
+                    circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
+
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                }
+
+                else if (newY < 50)
+                {
+                    circle[currentCircle].Top = 50;
+                    circle[currentCircle].Top -= circle[currentCircle].Height / 2;
+                    //circle[i].Top += 860 - circle[i].Height / 2;
+                    if ((newX >= 60 && newX <= 860))
+                    {
+                        circle[currentCircle].Left += e.X - circle[currentCircle].Height / 2;
+                    }
+                    else if (newX < 60)
+                    {
+                        circle[currentCircle].Left = 60;
+                        circle[currentCircle].Left -= circle[currentCircle].Height / 2;
+                    }
+                    else
+                    {
+                        circle[currentCircle].Left = 960;
+                        circle[currentCircle].Left -= circle[currentCircle].Height / 2;
+                    }
+                    float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
+                    float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
+                    float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
+
+                    circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
+
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                }
+                /*for (int i = 0; i < circleCount; i++)
+                {
+                    if (circle[i].HitTest(MousePosition.X, MousePosition.Y))
+                    {
+                        //System.Diagnostics.Trace.WriteLine("click circle!!");
+                        //circle[i].AccessibleName = circle[i].Name;
+                        //circle[i].ToString(circle[i].Width, circle[i].Height, circle[i].Size);
+
+                        //int new_count = 0;
+
+                        //string width = circle[i].Width.ToString();
+                        /*for (int j = (i + 1); j < circleCount; j++)
+                        {
+                            //System.Diagnostics.Trace.WriteLine("Second for loop and j is: " + j.ToString());
+                            if (circle[j].HitTest(MousePosition.X, MousePosition.Y))
+                            {
+                                if (circle[i].Height > circle[j].Height)
+                                {
+                                    i = j;
+                                    break;
+                                }
+                                //if (new_count > 0 )
+                            }
+                        }
+
+                        //System.Diagnostics.Trace.WriteLine("e.X: " + e.X.ToString() + ",   e.Y: " + e.Y.ToString());
+                        //circle[i].Enabled = true;
+                        //circle[i].E
+                        for (int k = 0; k < circleCount; k++)
+                        {
+                            if (k == i)
+                                circle[k].Enabled = true;
+                            else
+                                circle[k].Enabled = false;
+                        }
+
+                        System.Diagnostics.Trace.WriteLine("Enable true now ");
                         int newX = circle[i].Left + e.X;
                         int newY = circle[i].Top + e.Y;
 
@@ -623,13 +791,19 @@ namespace IBMConsultantTool
                             circle[i].AccessibleDescription = circle[i].Name + "\n" + circle[i].AccessibleName;
                         }
                     }
-                }
+                }*/
+            }
+            mouseMove = false;
+            for (int i = 0; i < circleCount; i++)
+            {
+                circle[i].Enabled = true;
             }
         }
 
         private void circle_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
+            mouseMove = false;
         }
 
         private void panelList_Paint(object sender, PaintEventArgs e)
@@ -645,6 +819,92 @@ namespace IBMConsultantTool
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void objectivesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            //System.Diagnostics.Trace.WriteLine("CheckedChanged");
+            //btnLoadChart_Click(sender, e);
+            /*int rowCount = 0;
+            int cirCount = 0;
+            int objectivesCount = 0;
+
+            System.Diagnostics.Trace.WriteLine("Load chart: " + labelCount.ToString());
+
+            //labelDescription.ResetText();
+            for (int i = 0; i < circleCount; i++)
+            {
+                if (labelInfo[i] != null)
+                    labelInfo[i].ResetText();
+            }
+
+            for (int i = 0; i < circleCount; i++)
+            {
+                if (circle[i] != null)
+                    circle[i].Hide();
+            }
+            circleCount = 0;
+            labelCount = 0;
+
+            //this.panelChart.
+
+            ShapeContainer canvas = new ShapeContainer();
+            canvas.Parent = this.panelChart;
+
+            if (mainForm == null)
+            {
+                this.Hide();
+            }
+
+            for (int i = 0; i < mainForm.CategoryCount; i++)
+            {
+                rowCount++;
+                for (int j = 0; j < mainForm.Categories[i].BusinessObjectivesCount; j++)
+                {
+                    rowCount++;
+                    if (objectivesCheckBox[objectivesCount].Checked)
+                    {
+                        for (int k = 0; k < mainForm.Categories[i].Objectives[j].InitiativesCount; k++)
+                        {
+                            name = mainForm.Categories[i].Objectives[j].Initiatives[k].Name;
+                            criticality = mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality;
+                            differentiation = mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation;
+                            effectiveness = mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness;
+
+                            int effectivenessBig = (int)(effectiveness * 20);
+                            int newCriticality = (int)(criticality * 80);
+                            int newDifferentiation = (int)(differentiation * 80);
+
+                            circle[cirCount].Parent = canvas;
+
+                            circle[cirCount].FillStyle = FillStyle.Solid;
+
+                            circle[cirCount].FillColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
+
+                            circle[cirCount].Name = (i + 1).ToString() + "." + (j + 1).ToString() + "." + (k + 1).ToString() + " " + name;
+
+                            circle[cirCount].AccessibleName = "(" + differentiation.ToString() + "," + criticality.ToString() + "," + effectiveness.ToString() + ")";
+
+                            circle[cirCount].Visible = true;
+                            circle[cirCount].Location = new System.Drawing.Point((60 + (int)(newDifferentiation) - (int)effectivenessBig / 2), (850 - (int)(newCriticality) - (int)(effectivenessBig / 2)));
+                            circle[cirCount].Size = new System.Drawing.Size(effectivenessBig, effectivenessBig);
+
+                            circle[cirCount].MouseClick += new MouseEventHandler(circle_MouseClick);
+                            circle[cirCount].MouseDown += new MouseEventHandler(circle_MouseDown);
+                            circle[cirCount].MouseMove += new MouseEventHandler(circle_MouseMove);
+                            circle[cirCount].MouseUp += new MouseEventHandler(circle_MouseUp);
+                            //System.Diagnostics.Trace.WriteLine("Load chart after mouse click event: " + labelCount.ToString());
+                            //circle[cirCount].MouseMove += new MouseEventHandler(circle_MouseMove);
+                            rowCount++;
+                            circleCount++;
+                            cirCount++;
+                            System.Diagnostics.Trace.WriteLine("circle count: " + circleCount.ToString());
+
+                        }
+                    }
+                    objectivesCount++;
+                }
+            }*/
         }
 
         private void BOMBubbleChartRedesign_CheckedChanged(object sender, EventArgs e)
@@ -667,7 +927,9 @@ namespace IBMConsultantTool
             for (int i = 0; i < circleCount; i++)
             {
                 if (circle[i] != null)
+                {
                     circle[i].Hide();
+                }
             }
             circleCount = 0;
             labelCount = 0;
