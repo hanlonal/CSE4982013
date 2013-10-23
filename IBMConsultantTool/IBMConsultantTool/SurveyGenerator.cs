@@ -220,6 +220,17 @@ namespace IBMConsultantTool
             oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
             oPara1.Range.InsertParagraphAfter();
 
+            
+
+
+            Word.Paragraph oPara2;
+            oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            
+            oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormTextInput);
+            oPara2.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara2.Range.InsertBefore("Name: ");
+            oPara2.Range.InsertParagraphAfter();
+
 
             Word.Table oTable;
             Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
@@ -270,9 +281,19 @@ namespace IBMConsultantTool
 
 
             oDoc.Protect(Word.WdProtectionType.wdAllowOnlyFormFields, false, string.Empty, false, false);
+
+
+
             c = 0;
+            r = 0;
             foreach (Word.FormField form in oDoc.FormFields)
             {
+                if ( r==0)
+                {
+                    form.Name = "Name";
+                    r++;
+                    continue;
+                }
                 //form.Name = FormNames[c].ToString();
                 string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
 
