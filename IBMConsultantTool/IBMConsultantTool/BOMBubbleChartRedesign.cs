@@ -21,7 +21,7 @@ namespace IBMConsultantTool
         private float effectiveness = 0;
         //private DataEntryForm mainForm;
         private BOMTool mainForm;
-        private BOMChartInfoPanel panel;
+        //private BOMChartInfoPanel panel;
 
         private Random random = new Random();
         //private string color[rowCount];
@@ -44,7 +44,7 @@ namespace IBMConsultantTool
 
         public BOMBubbleChartRedesign(BOMTool info)
         {
-            panel = new BOMChartInfoPanel();
+            //panel = new BOMChartInfoPanel();
             /*Size max = SystemInformation.MaxWindowTrackSize;
 
             if (height > max.Height)
@@ -198,10 +198,10 @@ namespace IBMConsultantTool
                             circle[cirCount].AccessibleName = "Differentiation: " + differentiation.ToString() + "\nCriticality: " + criticality.ToString() + "\nEffectiveness: " + effectiveness.ToString();
                             //circle[cirCount].AccessibleName = "(" + differentiation.ToString() + "," + criticality.ToString() + "," + effectiveness.ToString() + ")";
 
-                            panel.Parent = this.panelChart;
+                            /*panel.Parent = this.panelChart;
                             panel.SetDiffValue = differentiation.ToString();
                             panel.SetCritValue = criticality.ToString();
-                            panel.SetEffectValue = effectiveness.ToString();
+                            panel.SetEffectValue = effectiveness.ToString();*/
 
                             circle[cirCount].Visible = true;
                             circle[cirCount].Location = new System.Drawing.Point((60 + (int)(newDifferentiation) - (int)effectivenessBig / 2), (850 - (int)(newCriticality) - (int)(effectivenessBig / 2)));
@@ -520,7 +520,8 @@ namespace IBMConsultantTool
 
                     //System.Diagnostics.Trace.WriteLine("circle height: " + circle[i].Height.ToString());
 
-                    circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: " 
+                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
 
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
@@ -553,8 +554,10 @@ namespace IBMConsultantTool
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
                     //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() 
-                        + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    /*circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() 
+                        + "\nNew Effectiveness: " + newEffectiveness.ToString();*/
+                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
+                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
                 else if (newX > 960)
@@ -584,8 +587,9 @@ namespace IBMConsultantTool
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
                     //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() 
-                        + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    //circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
+                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
 
@@ -613,8 +617,10 @@ namespace IBMConsultantTool
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
                     //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString()
-                        + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    //circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString()
+                    //    + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
+                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
 
@@ -642,8 +648,10 @@ namespace IBMConsultantTool
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
                     //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString()
-                        + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    //circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString()
+                    //    + "\nNew Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
+                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
                 /*for (int i = 0; i < circleCount; i++)
