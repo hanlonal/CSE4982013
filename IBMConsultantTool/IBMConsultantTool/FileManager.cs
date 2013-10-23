@@ -360,6 +360,33 @@ namespace IBMConsultantTool
         #endregion
 
         #region ITCAP
+
+        public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
+        {
+            XElement client = clientObj as XElement;
+            string formattedName = itcapQuestion.Name.Replace(' ', '~');
+            try
+            {
+                XElement itcap = (from ent in client.Element("ITCAPS").Elements("ITCAP")
+                                where ent.Element("ITCAPQUESTION").Value == formattedName
+                                select ent).Single();
+
+                itcap.Element("ASIS").Value = itcapQuestion.AsIsScore.ToString();
+                itcap.Element("TOBE").Value = itcapQuestion.ToBeScore.ToString();
+
+                changeLog.Add("UPDATE ITCAP " + client.Element("NAME").Value + " " + formattedName + " " +
+                                itcapQuestion.AsIsScore + " " + itcapQuestion.ToBeScore);
+            }
+
+            catch
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
         public override bool BuildITCAPForm(ITCapTool itcapForm, string clientName)
         {
             XElement client;
@@ -762,7 +789,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
         {
             XElement categoryXML;
             if (!GetCategory(catName, out categoryXML))
@@ -772,7 +799,7 @@ namespace IBMConsultantTool
                 if (!AddCategory(categoryXML))
                 {
                     MessageBox.Show("Failed to add Category to File", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -784,7 +811,7 @@ namespace IBMConsultantTool
                 if (!AddObjective(objectiveXML, categoryXML))
                 {
                     MessageBox.Show("Failed to add Objective to File", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -796,7 +823,7 @@ namespace IBMConsultantTool
                 if (!AddInitiative(initiativeXML, objectiveXML, categoryXML))
                 {
                     MessageBox.Show("Failed to add Initiative to File", "Error");
-                    return;
+                    return false;
                 }
             }
 
@@ -809,13 +836,13 @@ namespace IBMConsultantTool
             if (!AddBOM(bom, bomForm.client))
             {
                 MessageBox.Show("Failed to add Initiative to BOM", "Error");
-                return;
+                return false;
             }
 
             if (!SaveChanges())
             {
                 MessageBox.Show("Failed to save changes to File", "Error");
-                return;
+                return false;
             }
 
             else
@@ -852,6 +879,8 @@ namespace IBMConsultantTool
                     MessageBox.Show("Initiative already exists in BOM", "Error");
                 }
             }
+
+            return true;
         }
 
         #endregion
@@ -867,6 +896,13 @@ namespace IBMConsultantTool
         {
             return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
                     select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+        }
+
+        public override string[] GetDefaultDomainNames()
+        {
+            return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where ent.Element("DEFAULT").Value == "Y"
+                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
         }
 
         public bool GetDomain(string domName, out XElement domain)
@@ -943,6 +979,17 @@ namespace IBMConsultantTool
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
                     select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
         }
+
+        public override string[] GetDefaultCapabilityNames(string domName)
+        {
+            domName = domName.Replace(' ', '~');
+            return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where dom.Element("NAME").Value == domName
+                    from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                    where ent.Element("DEFAULT").Value == "Y"
+                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+        }
+
         public bool GetCapability(string capName, out XElement capability)
         {
             capName = capName.Replace(' ', '~');
@@ -1025,6 +1072,20 @@ namespace IBMConsultantTool
                     from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
                     select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
         }
+
+        public override string[] GetDefaultITCAPQuestionNames(string capName, string domName)
+        {
+            capName = capName.Replace(' ', '~');
+            domName = domName.Replace(' ', '~');
+            return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
+                    where dom.Element("NAME").Value == domName
+                    from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
+                    where cap.Element("NAME").Value == capName
+                    from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
+                    where ent.Element("DEFAULT").Value == "Y"
+                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+        }
+
         public bool GetITCAPQuestion(string itcapName, out XElement itcapQuestion)
         {
             itcapName = itcapName.Replace(' ', '~');
@@ -1071,55 +1132,54 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override void AddQuestionToITCAP(string itcq, string capName, string domName, ITCapTool itcapForm)
+        public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm)
         {
-            return;
-            /*
-            XElement categoryXML;
-            if (!GetCategory(catName, out categoryXML))
+            XElement domainXML;
+            if (!GetDomain(domName, out domainXML))
             {
-                categoryXML = new XElement("CATEGORY");
-                categoryXML.Add(new XElement("NAME", catName.Replace(' ', '~')));
-                if (!AddCategory(categoryXML))
+                domainXML = new XElement("DOMAIN");
+                domainXML.Add(new XElement("NAME", domName.Replace(' ', '~')));
+                domainXML.Add(new XElement("DEFAULT", 'N'));
+                if (!AddDomain(domainXML))
                 {
-                    MessageBox.Show("Failed to add Category to File", "Error");
+                    MessageBox.Show("Failed to add Domain to File", "Error");
                     return;
                 }
             }
 
-            XElement objectiveXML;
-            if (!GetObjective(busName, out objectiveXML))
+            XElement capabilityXML;
+            if (!GetCapability(capName, out capabilityXML))
             {
-                objectiveXML = new XElement("BUSINESSOBJECTIVE");
-                objectiveXML.Add(new XElement("NAME", busName.Replace(' ', '~')));
-                if (!AddObjective(objectiveXML, categoryXML))
+                capabilityXML = new XElement("CAPABILITY");
+                capabilityXML.Add(new XElement("NAME", capName.Replace(' ', '~')));
+                if (!AddCapability(capabilityXML, domainXML))
                 {
-                    MessageBox.Show("Failed to add Objective to File", "Error");
+                    MessageBox.Show("Failed to add Capability to File", "Error");
                     return;
                 }
             }
 
-            XElement initiativeXML;
-            if (!GetInitiative(iniName, out initiativeXML))
+            XElement itcapQuestionXML;
+            if (!GetITCAPQuestion(itcqName, out itcapQuestionXML))
             {
-                initiativeXML = new XElement("INITIATIVE");
-                initiativeXML.Add(new XElement("NAME", iniName.Replace(' ', '~')));
-                if (!AddInitiative(initiativeXML, objectiveXML, categoryXML))
+                itcapQuestionXML = new XElement("ITCAPQUESTION");
+                itcapQuestionXML.Add(new XElement("NAME", itcqName.Replace(' ', '~')));
+                if (!AddITCAPQuestion(itcapQuestionXML, capabilityXML, domainXML))
                 {
-                    MessageBox.Show("Failed to add Initiative to File", "Error");
+                    MessageBox.Show("Failed to add ITCAPQuestion to File", "Error");
                     return;
                 }
             }
 
-            XElement bom = new XElement("BOM");
-            bom.Add(new XElement("INITIATIVE", initiativeXML.Element("NAME").Value));
-            bom.Add(new XElement("BUSINESSOBJECTIVE", objectiveXML.Element("NAME").Value));
-            bom.Add(new XElement("CATEGORY", categoryXML.Element("NAME").Value));
+            XElement itcap = new XElement("ITCAP");
+            itcap.Add(new XElement("ITCAPQUESTION", itcapQuestionXML.Element("NAME").Value));
+            itcap.Add(new XElement("CAPABILITY", capabilityXML.Element("NAME").Value));
+            itcap.Add(new XElement("DOMAIN", domainXML.Element("NAME").Value));
 
 
-            if (!AddBOM(bom, bomForm.client))
+            if (!AddITCAP(itcap, itcapForm.client))
             {
-                MessageBox.Show("Failed to add Initiative to BOM", "Error");
+                MessageBox.Show("Failed to add ITCAPQuestion to ITCAP", "Error");
                 return;
             }
 
@@ -1132,37 +1192,63 @@ namespace IBMConsultantTool
             else
             {
                 //Successfully added to database, update GUI
-                NewCategory category = bomForm.Categories.Find(delegate(NewCategory cat)
+                Domain domain = itcapForm.domains.Find(delegate(Domain dom)
                 {
-                    return cat.name == catName;
+                    return dom.Name == domName;
                 });
-                if (category == null)
+                if (domain == null)
                 {
-                    category = bomForm.AddCategory(catName);
+                    domain = new Domain();
+                    domain.Name = domName;
+                    domain.IsDefault = false;
+                    domain.ID = itcapForm.domains.Count.ToString();
+                    itcapForm.domains.Add(domain);
+                    itcapForm.entities.Add(domain);
+                    itcapForm.domainList.Items.Add(domain);
                 }
 
-                NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
+                Capability capability = domain.CapabilitiesOwned.Find(delegate(Capability cap)
                 {
-                    return bus.Name == busName;
+                    return cap.Name == capName;
                 });
-                if (objective == null)
+                if (capability == null)
                 {
-                    objective = category.AddObjective(busName);
+                    capability = new Capability();
+                    capability.Name = capName;
+                    capability.IsDefault = false;
+                    domain.CapabilitiesOwned.Add(capability);
+                    domain.TotalChildren++;
+                    itcapForm.capabilities.Add(capability);
+                    capability.Owner = domain;
+                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
+                    //LoadQuestions(cap);
+                    itcapForm.entities.Add(capability);
+                    itcapForm.capabilitiesList.Items.Add(capability);
                 }
 
-                NewInitiative initiativeObj = objective.Initiatives.Find(delegate(NewInitiative ini)
+                ITCapQuestion itcqObject = capability.QuestionsOwned.Find(delegate(ITCapQuestion itcq)
                 {
-                    return ini.Name == iniName;
+                    return itcq.Name == itcqName;
                 });
-                if (initiativeObj == null)
+                if (itcqObject == null)
                 {
-                    initiativeObj = objective.AddInitiative(iniName);
+                    itcqObject = new ITCapQuestion();
+                    itcqObject.Name = itcqName;
+                    itcqObject.IsDefault = false;
+                    itcqObject.AsIsScore = 0;
+                    itcqObject.ToBeScore = 0;
+                    capability.Owner.TotalChildren++;
+                    capability.QuestionsOwned.Add(itcqObject);
+                    itcqObject.Owner = capability;
+                    itcqObject.ID = capability.QuestionsOwned.Count.ToString();
+                    itcapForm.entities.Add(itcqObject);
+                    itcapForm.questionList.Items.Add(itcqObject);
                 }
                 else
                 {
-                    MessageBox.Show("Initiative already exists in BOM", "Error");
+                    MessageBox.Show("ITCAPQuestion already exists in ITCAP", "Error");
                 }
-            }*/
+            }
         }
 
         #endregion

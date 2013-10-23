@@ -38,6 +38,7 @@ namespace IBMConsultantTool
         int averageRowIndex = 26;
         int totalAnswerRowIndex = 25;
 
+        List<string> questions = new List<string>();
 
         public CUPETool()
         {
@@ -70,6 +71,11 @@ namespace IBMConsultantTool
                     row.Visible = true;
                     currentGrid.Rows.Add(row);
 
+                    //Change this if the number of questions changes
+                    if(questions.Count < 20)
+                    {
+                        questions.Add(row.Cells[0].Value.ToString());
+                    }
                 }
                 CreateStatsRows();
             }
@@ -82,6 +88,7 @@ namespace IBMConsultantTool
             currentChart.Visible = true;
             CreateGraphs();
             CreateLabel();
+
         }
 
    
@@ -853,6 +860,12 @@ namespace IBMConsultantTool
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SurveyGenerator generator = new SurveyGenerator();
+            generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions);
         }
 
 

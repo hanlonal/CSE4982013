@@ -29,7 +29,7 @@ namespace IBMConsultantTool
             owner.Owner.Controls.Add(this);
             MakeLabel();
             this.Click += new EventHandler(NewObjective_Click);
-            this.BackColor = Color.Teal;
+            this.BackColor = Color.LightBlue;
             this.Height = baseHeight;
             this.Width = baseWidth;
 
@@ -49,7 +49,10 @@ namespace IBMConsultantTool
            // init.Name = name;
         }
 
-
+        public void UpdateHeight()
+        {
+            this.Height = baseHeight + 20*initiatives.Count;
+        }
 
         private Point FindLocation()
         {
@@ -58,7 +61,7 @@ namespace IBMConsultantTool
 
             p.X = baseWidth * (owner.Objectives.Count % 4);
             if (owner.Objectives.Count > 3)
-                p.Y = owner.Objectives[owner.Objectives.Count - 4].Location.Y + baseHeight;
+                p.Y = owner.Objectives[owner.Objectives.Count - 4].Location.Y + owner.Objectives[owner.Objectives.Count -4].Height;
             else
                 p.Y = 0;
 
@@ -70,7 +73,7 @@ namespace IBMConsultantTool
         {
             Label label = new Label();
             label.Text = name;
-            label.BackColor = Color.Pink;
+            label.BackColor = Color.LightGray;
             label.ForeColor = Color.Black;
             label.Height = labelHeight;
             this.Controls.Add(label);

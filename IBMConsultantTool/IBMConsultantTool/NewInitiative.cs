@@ -23,11 +23,11 @@ namespace IBMConsultantTool
             this.owner = owner;
             this.Text = name;
             this.name = name;
-            Console.WriteLine(name + "belongs to " + owner.Name);
+            //Console.WriteLine(name + "belongs to " + owner.Name);
             owner.Controls.Add(this);
             this.Location = FindLocation();
             this.Height = baseHeight;
-            this.BackColor = Color.Azure;
+            this.BackColor = Color.White;
             this.Width = owner.Width;
         }
 
@@ -50,6 +50,7 @@ namespace IBMConsultantTool
 
             p.X = 20;
             p.Y = 20 +(owner.Initiatives.Count) * 20;
+            owner.UpdateHeight();
             return p;
             
         
