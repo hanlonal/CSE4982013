@@ -35,6 +35,8 @@ namespace IBMConsultantTool
         #endregion
 
         #region ITCAP
+        public abstract bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion);
+
         public abstract bool BuildITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool NewITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool OpenITCAP(ITCapTool itcapForm);
@@ -57,6 +59,7 @@ namespace IBMConsultantTool
         #region Domain
         public abstract string[] GetDomainNames();
         public abstract string[] GetDomainNamesAndDefault();
+        public abstract string[] GetDefaultDomainNames();
 
         public abstract void ChangedDomain(ITCapTool itcapForm);
         #endregion
@@ -64,6 +67,7 @@ namespace IBMConsultantTool
         #region Capability
         public abstract string[] GetCapabilityNames(string domName);
         public abstract string[] GetCapabilityNamesAndDefault(string domName);
+        public abstract string[] GetDefaultCapabilityNames(string domName);
 
         public abstract void ChangedCapability(ITCapTool itcapForm);
         #endregion
@@ -71,6 +75,8 @@ namespace IBMConsultantTool
         #region ITCAPQuestion
         public abstract string[] GetITCAPQuestionNames(string capName, string domName);
         public abstract string[] GetITCAPQuestionNamesAndDefault(string capName, string domName);
+        public abstract string[] GetDefaultITCAPQuestionNames(string capName, string domName);
+
         public abstract void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm);
         #endregion
 

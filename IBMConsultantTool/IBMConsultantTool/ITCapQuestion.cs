@@ -8,6 +8,7 @@ namespace IBMConsultantTool
     public class ITCapQuestion : ScoringEntity
     {
         private Capability owner;
+        public string comment;
 
         public ITCapQuestion()
         {

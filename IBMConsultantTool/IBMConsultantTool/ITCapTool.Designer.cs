@@ -86,7 +86,8 @@
             this.CapabilityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AddButton = new System.Windows.Forms.Button();
+            this.addEntityButton = new System.Windows.Forms.Button();
+            this.SaveITCAPButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -141,7 +142,7 @@
             this.surveryMakerGrid.Visible = false;
             this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
             this.surveryMakerGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
-            this.surveryMakerGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.surveyMakerGrid_MouseDown);
+            this.surveryMakerGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.surveryMakerGrid_MouseDown);
             // 
             // ID
             // 
@@ -379,7 +380,7 @@
             // 
             // removeEntityButton
             // 
-            this.removeEntityButton.Location = new System.Drawing.Point(1262, 311);
+            this.removeEntityButton.Location = new System.Drawing.Point(1089, 308);
             this.removeEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.removeEntityButton.Name = "removeEntityButton";
             this.removeEntityButton.Size = new System.Drawing.Size(112, 35);
@@ -594,24 +595,37 @@
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.Visible = false;
             // 
-            // AddButton
+            // addEntityButton
             // 
-            this.AddButton.Location = new System.Drawing.Point(1262, 376);
-            this.AddButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(112, 35);
-            this.AddButton.TabIndex = 19;
-            this.AddButton.Text = "Add";
-            this.AddButton.UseVisualStyleBackColor = true;
-            this.AddButton.Visible = false;
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            this.addEntityButton.Location = new System.Drawing.Point(1089, 375);
+            this.addEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addEntityButton.Name = "addEntityButton";
+            this.addEntityButton.Size = new System.Drawing.Size(112, 35);
+            this.addEntityButton.TabIndex = 19;
+            this.addEntityButton.Text = "Add";
+            this.addEntityButton.UseVisualStyleBackColor = true;
+            this.addEntityButton.Visible = false;
+            this.addEntityButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // SaveITCAPButton
+            // 
+            this.SaveITCAPButton.Location = new System.Drawing.Point(1089, 420);
+            this.SaveITCAPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.SaveITCAPButton.Name = "SaveITCAPButton";
+            this.SaveITCAPButton.Size = new System.Drawing.Size(112, 35);
+            this.SaveITCAPButton.TabIndex = 20;
+            this.SaveITCAPButton.Text = "Save";
+            this.SaveITCAPButton.UseVisualStyleBackColor = true;
+            this.SaveITCAPButton.Visible = false;
+            this.SaveITCAPButton.Click += new System.EventHandler(this.SaveITCAPButton_Click);
             // 
             // ITCapTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
-            this.Controls.Add(this.AddButton);
+            this.Controls.Add(this.SaveITCAPButton);
+            this.Controls.Add(this.addEntityButton);
             this.Controls.Add(this.prioritizationGrid);
             this.Controls.Add(this.liveDataEntryGrid);
             this.Controls.Add(this.questionList);
@@ -696,7 +710,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Comments;
         private System.Windows.Forms.DataGridViewButtonColumn AddComment;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.Button addEntityButton;
+        private System.Windows.Forms.Button SaveITCAPButton;
 
        
     }

@@ -35,13 +35,13 @@ namespace IBMConsultantTool
 
         private void LoadDomains()
         {
-            string[] domainInfoArray = db.GetDomainNamesAndDefault();
+            string[] domainInfoArray = db.GetDefaultDomainNames();
             int domCount = 1;
             foreach (string domainInfo in domainInfoArray)
-            {
+            {  
                 Domain dom = new Domain();
                 dom.Name = domainInfo.Substring(0, domainInfo.Length - 1);
-                dom.IsDefault = domainInfo.Last() == 'Y';
+                dom.IsDefault = true;
                 dom.ID = domCount.ToString();
                 LoadCapabilities(dom);
                 domains.Add(dom);
@@ -52,14 +52,14 @@ namespace IBMConsultantTool
 
         private void LoadCapabilities(Domain dom)
         {
-            string[] capabilityInfoArray = db.GetCapabilityNamesAndDefault(dom.Name);
+            string[] capabilityInfoArray = db.GetDefaultCapabilityNames(dom.Name);
 
             int capCount = 1;
             foreach (string capabilityInfo in capabilityInfoArray)
             {
                 Capability cap = new Capability();
                 cap.Name = capabilityInfo.Substring(0, capabilityInfo.Length - 1);
-                cap.IsDefault = capabilityInfo.Last() == 'Y';
+                cap.IsDefault = true;
                 dom.CapabilitiesOwned.Add(cap);
                 dom.TotalChildren++;
                 capabilities.Add(cap);
@@ -73,7 +73,7 @@ namespace IBMConsultantTool
 
         private void LoadQuestions(Capability cap)
         {
-            string[] questionInfoArray = db.GetITCAPQuestionNamesAndDefault(cap.Name, cap.Owner.Name);
+            string[] questionInfoArray = db.GetDefaultITCAPQuestionNames(cap.Name, cap.Owner.Name);
 
             int questionCount = 1;
             foreach (string questionInfo in questionInfoArray)
@@ -81,6 +81,7 @@ namespace IBMConsultantTool
                 ITCapQuestion question = new ITCapQuestion();
                 question.Name = questionInfo.Substring(0, questionInfo.Length - 1);
                 question.IsDefault = questionInfo.Last() == 'Y';
+                question.comment = "";
                 cap.Owner.TotalChildren++;
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
@@ -120,12 +121,13 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(domainList);
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
+            surverymakercontrols.Add(removeEntityButton);
+            surverymakercontrols.Add(addEntityButton);
 
             liveDataEntryControls.Add(liveDataEntryGrid);
+            liveDataEntryControls.Add(SaveITCAPButton);
 
             prioritizationControls.Add(prioritizationGrid);
-
-            questionsArray.ToList();
 
             new ChooseITCAPClient(this).ShowDialog();
         }
@@ -185,17 +187,51 @@ namespace IBMConsultantTool
 
         private void CopyGrid()
         {
-            foreach (DataGridViewRow row in surveryMakerGrid.Rows)
+            liveDataEntryGrid.Rows.Clear();
+            foreach (Domain dom in domains)
             {
-                DataGridViewRow rowCopy = (DataGridViewRow)liveDataEntryGrid.Rows[0].Clone();
-                rowCopy.Cells[0].Value = row.Cells[0].Value;
-                rowCopy.Cells[1].Value = row.Cells[1].Value;
-                rowCopy.Cells[6].Value = row.Cells[4].Value;
-                
-                //rowCopy.Cells[5]
-                rowCopy.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor;
-                rowCopy.ReadOnly = row.ReadOnly;
-                liveDataEntryGrid.Rows.Add(rowCopy);
+                DataGridViewRow row = (DataGridViewRow)liveDataEntryGrid.Rows[0].Clone();
+                row.Cells[1].Value = dom.ToString();
+                row.Cells[0].Value = dom.ID;
+                row.Cells[6].Value = "domain";
+                row.ReadOnly = true;
+                row.DefaultCellStyle.BackColor = Color.Orange;
+                liveDataEntryGrid.Rows.Add(row);
+                dom.IndexInGrid = liveDataEntryGrid.Rows.Count - 2;
+                Console.WriteLine(dom.Name + "index in list is " + dom.IndexInGrid.ToString());
+                dom.IsInGrid = true;
+                foreach (Capability cap in dom.CapabilitiesOwned)
+                {
+                    DataGridViewRow caprow = (DataGridViewRow)liveDataEntryGrid.Rows[0].Clone();
+                    caprow.Cells[1].Value = cap.ToString();
+                    caprow.Cells[0].Value = cap.ID;
+                    caprow.Cells[6].Value = "capability";
+                    caprow.ReadOnly = true;
+                    caprow.DefaultCellStyle.BackColor = Color.Yellow;
+                    liveDataEntryGrid.Rows.Add(caprow);
+                    cap.IndexInGrid = liveDataEntryGrid.Rows.Count - 2;
+                    cap.IsInGrid = true;
+
+                    foreach (ITCapQuestion question in cap.QuestionsOwned)
+                    {
+                        DataGridViewRow qrow = (DataGridViewRow)liveDataEntryGrid.Rows[0].Clone();
+                        qrow.Cells[1].Value = question.ToString();
+                        qrow.Cells[0].Value = question.ID;
+                        qrow.Cells[2].Value = question.AsIsScore.ToString();
+                        qrow.Cells[3].Value = question.ToBeScore.ToString();
+                        if(question.comment != null) (qrow.Cells[4] as DataGridViewComboBoxCell).Items.Add(question.comment);
+                        qrow.ReadOnly = false;
+                        qrow.DefaultCellStyle.BackColor = Color.LawnGreen;
+                        liveDataEntryGrid.Rows.Add(qrow);
+                        question.IndexInGrid = liveDataEntryGrid.Rows.Count - 2;
+                        question.IsInGrid = true;
+                        questionsArray[question.IndexInGrid] = question;
+                    }
+                    liveDataEntryGrid.Rows[cap.IndexInGrid].Cells[2].Value = cap.CalculateAsIsAverage();
+                    liveDataEntryGrid.Rows[cap.IndexInGrid].Cells[3].Value = cap.CalculateToBeAverage();
+                }
+                liveDataEntryGrid.Rows[dom.IndexInGrid].Cells[2].Value = dom.CalculateAsIsAverage();
+                liveDataEntryGrid.Rows[dom.IndexInGrid].Cells[3].Value = dom.CalculateToBeAverage();
             }
         }
 
@@ -235,7 +271,9 @@ namespace IBMConsultantTool
         private void UpdateGapColumns(int rowindex)
         {
             DataGridViewRow row = prioritizationGrid.Rows[rowindex];
-            float gap = (float)Convert.ToDouble(row.Cells[2].Value.ToString()) - (float)Convert.ToDouble(row.Cells[1].Value.ToString());
+            float asis = row.Cells[1].Value != null ? (float)Convert.ToDouble(row.Cells[1].Value.ToString()) : 0;
+            float tobe = row.Cells[2].Value != null ? (float)Convert.ToDouble(row.Cells[2].Value.ToString()) : 0;
+            float gap = tobe - asis;
 
             if (gap > 1.5 || gap < 3)
             {
@@ -267,48 +305,41 @@ namespace IBMConsultantTool
             surveryMakerGrid.Rows.Clear();
             foreach (Domain dom in domains)
             {
-                if (dom.IsDefault)
+                DataGridViewRow row = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+                row.Cells[1].Value = dom.ToString();
+                row.Cells[0].Value = dom.ID;
+                row.Cells[4].Value = "domain";
+                // row.Cells[4].
+                // row.DefaultCellStyle.Font = new Font(surveryMakerGrid.Font.FontFamily,surveryMakerGrid.Font.Size,  row.FontStyle.Bold);
+                row.ReadOnly = true;
+                row.DefaultCellStyle.BackColor = Color.Orange;
+                surveryMakerGrid.Rows.Add(row);
+                dom.IndexInGrid = surveryMakerGrid.Rows.Count -2;
+                Console.WriteLine(dom.Name + "index in list is " + dom.IndexInGrid.ToString());
+                dom.IsInGrid = true;
+                foreach (Capability cap in dom.CapabilitiesOwned)
                 {
-                    Console.WriteLine("default");
-                    DataGridViewRow row = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
-                    row.Cells[1].Value = dom.ToString();
-                    row.Cells[0].Value = dom.ID;
-                    row.Cells[4].Value = "domain";
-                   // row.Cells[4].
-                   // row.DefaultCellStyle.Font = new Font(surveryMakerGrid.Font.FontFamily,surveryMakerGrid.Font.Size,  row.FontStyle.Bold);
-                    row.ReadOnly = true;
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-                    surveryMakerGrid.Rows.Add(row);
-                    dom.IndexInGrid = surveryMakerGrid.Rows.Count -2;
-                    Console.WriteLine(dom.Name + "index in list is " + dom.IndexInGrid.ToString());
-                    dom.IsInGrid = true;
-                    foreach (Capability cap in dom.CapabilitiesOwned)
-                    {
-                        if (cap.IsDefault)
-                        {
-                            DataGridViewRow caprow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
-                            caprow.Cells[1].Value = cap.ToString();
-                            caprow.Cells[0].Value = cap.ID;
-                            caprow.Cells[4].Value = "capability";
-                            caprow.ReadOnly = true;
-                            caprow.DefaultCellStyle.BackColor = Color.Yellow;
-                            surveryMakerGrid.Rows.Add(caprow);
-                            cap.IndexInGrid = surveryMakerGrid.Rows.Count -2;
-                            cap.IsInGrid = true;
+                    DataGridViewRow caprow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+                    caprow.Cells[1].Value = cap.ToString();
+                    caprow.Cells[0].Value = cap.ID;
+                    caprow.Cells[4].Value = "capability";
+                    caprow.ReadOnly = true;
+                    caprow.DefaultCellStyle.BackColor = Color.Yellow;
+                    surveryMakerGrid.Rows.Add(caprow);
+                    cap.IndexInGrid = surveryMakerGrid.Rows.Count -2;
+                    cap.IsInGrid = true;
 
-                            foreach (ITCapQuestion question in cap.QuestionsOwned)
-                            {
-                                DataGridViewRow qrow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
-                                qrow.Cells[1].Value = question.ToString();
-                                qrow.Cells[0].Value = question.ID;
-                                qrow.ReadOnly = false;
-                                qrow.DefaultCellStyle.BackColor = Color.LawnGreen;
-                                surveryMakerGrid.Rows.Add(qrow);
-                                question.IndexInGrid = surveryMakerGrid.Rows.Count -2;
-                                question.IsInGrid = true;
-                                questionsArray[question.IndexInGrid] = question;
-                            }
-                        }
+                    foreach (ITCapQuestion question in cap.QuestionsOwned)
+                    {
+                        DataGridViewRow qrow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+                        qrow.Cells[1].Value = question.ToString();
+                        qrow.Cells[0].Value = question.ID;
+                        qrow.ReadOnly = false;
+                        qrow.DefaultCellStyle.BackColor = Color.LawnGreen;
+                        surveryMakerGrid.Rows.Add(qrow);
+                        question.IndexInGrid = surveryMakerGrid.Rows.Count -2;
+                        question.IsInGrid = true;
+                        questionsArray[question.IndexInGrid] = question;
                     }
                 }
             }
@@ -363,7 +394,7 @@ namespace IBMConsultantTool
             Console.WriteLine(e.RowIndex.ToString());
         }
 
-        private void surveyMakerGrid_MouseDown(object sender, MouseEventArgs e)
+        private void surveryMakerGrid_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -509,7 +540,7 @@ namespace IBMConsultantTool
         {
             ResetSurveyGrid();
             db.OpenITCAP(this);
-            ChangeStates(FormStates.SurveryMaker);
+            ChangeStates(FormStates.LiveDataEntry);
         }
 
         public void ResetSurveyGrid()
@@ -543,6 +574,32 @@ namespace IBMConsultantTool
         private void AddButton_Click(object sender, EventArgs e)
         {
             db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
+        }
+
+        private void SaveITCAPButton_Click(object sender, EventArgs e)
+        {
+            bool success = true;
+            foreach (ITCapQuestion question in questionsArray)
+            {
+                if (question != null)
+                {
+                    if (!db.UpdateITCAP(client, question))
+                    {
+                        success = false;
+                        break;
+                    }
+                }
+            }
+
+            if (success && db.SaveChanges())
+            {
+                MessageBox.Show("Saved Changes Successfully", "Success");
+            }
+
+            else
+            {
+                MessageBox.Show("Failed to save changes", "Error");
+            }
         }
     }// end class
 }

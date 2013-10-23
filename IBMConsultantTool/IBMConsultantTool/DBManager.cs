@@ -428,6 +428,29 @@ namespace IBMConsultantTool
         #endregion
 
         #region ITCAP
+
+        public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
+        {
+            CLIENT client = clientObj as CLIENT;
+            try
+            {
+                ITCAP itcap = (from ent in client.ITCAP
+                           where ent.ITCAPQUESTION.NAME.TrimEnd() == itcapQuestion.Name
+                           select ent).Single();
+
+                itcap.ASIS = itcapQuestion.AsIsScore;
+                itcap.TOBE = itcapQuestion.ToBeScore;
+            }
+
+            catch
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
         public override bool BuildITCAPForm(ITCapTool itcapForm, string clientName)
         {
             CLIENT client;
@@ -578,6 +601,7 @@ namespace IBMConsultantTool
                 itcapQuestion.IsDefault = itcqEnt.DEFAULT == "Y";
                 itcapQuestion.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
                 itcapQuestion.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
+                itcapQuestion.comment = itcap.COMMENT;
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
@@ -930,6 +954,13 @@ namespace IBMConsultantTool
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
         }
 
+        public override string[] GetDefaultDomainNames()
+        {
+            return (from ent in dbo.DOMAIN
+                    where ent.DEFAULT == "Y"
+                    select ent.NAME.TrimEnd()).ToArray();
+        }
+
         public bool GetDomain(string domName, out DOMAIN domain)
         {
             try
@@ -998,6 +1029,15 @@ namespace IBMConsultantTool
                     where dom.NAME == domName
                     from ent in dom.CAPABILITY
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
+        }
+
+        public override string[] GetDefaultCapabilityNames(string domName)
+        {
+            return (from dom in dbo.DOMAIN
+                    where dom.NAME == domName
+                    from ent in dom.CAPABILITY
+                    where ent.DEFAULT == "Y"
+                    select ent.NAME.TrimEnd()).ToArray();
         }
 
         public bool GetCapability(string capName, out CAPABILITY capability)
@@ -1073,6 +1113,17 @@ namespace IBMConsultantTool
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
         }
 
+        public override string[] GetDefaultITCAPQuestionNames(string capName, string domName)
+        {
+            return (from dom in dbo.DOMAIN
+                    where dom.NAME == domName
+                    from cap in dom.CAPABILITY
+                    where cap.NAME == capName
+                    from ent in cap.ITCAPQUESTION
+                    where ent.DEFAULT == "Y"
+                    select ent.NAME.TrimEnd()).ToArray();
+        }
+
         public bool GetITCAPQuestion(string itcqName, out ITCAPQUESTION itcapQuestion)
         {
             try
@@ -1118,16 +1169,19 @@ namespace IBMConsultantTool
             {
                 itcapQuestion = new ITCAPQUESTION();
                 itcapQuestion.NAME = itcqName;
+                itcapQuestion.DEFAULT = "N";
                 CAPABILITY capability;
                 if (!GetCapability(capName, out capability))
                 {
                     capability = new CAPABILITY();
                     capability.NAME = capName;
+                    capability.DEFAULT = "N";
                     DOMAIN domain;
                     if (!GetDomain(domName, out domain))
                     {
                         domain = new DOMAIN();
                         domain.NAME = domName;
+                        domain.DEFAULT = "N";
                         if (!AddDomain(domain))
                         {
                             MessageBox.Show("Failed to add Domain to Database", "Error");
@@ -1167,7 +1221,6 @@ namespace IBMConsultantTool
             else
             {
                 //Successfully added to database, update GUI
-                domName = itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd();
                 Domain domain = itcapForm.domains.Find(delegate(Domain dom)
                 {
                     return dom.Name == domName;
@@ -1183,7 +1236,6 @@ namespace IBMConsultantTool
                     itcapForm.domainList.Items.Add(domain);
                 }
 
-                capName = itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd();
                 Capability capability = domain.CapabilitiesOwned.Find(delegate(Capability cap)
                 {
                     return cap.Name == capName;
@@ -1203,7 +1255,6 @@ namespace IBMConsultantTool
                     itcapForm.capabilitiesList.Items.Add(capability);
                 }
 
-                itcqName = itcap.ITCAPQUESTION.NAME.TrimEnd();
                 ITCapQuestion itcqObject = capability.QuestionsOwned.Find(delegate(ITCapQuestion itcq)
                 {
                     return itcq.Name == itcqName;
