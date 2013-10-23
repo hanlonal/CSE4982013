@@ -86,6 +86,7 @@
             this.CapabilityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -593,11 +594,24 @@
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.Visible = false;
             // 
+            // AddButton
+            // 
+            this.AddButton.Location = new System.Drawing.Point(1262, 376);
+            this.AddButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(112, 35);
+            this.AddButton.TabIndex = 19;
+            this.AddButton.Text = "Add";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Visible = false;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
             // ITCapTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.AddButton);
             this.Controls.Add(this.prioritizationGrid);
             this.Controls.Add(this.liveDataEntryGrid);
             this.Controls.Add(this.questionList);
@@ -682,6 +696,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Comments;
         private System.Windows.Forms.DataGridViewButtonColumn AddComment;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Button AddButton;
 
        
     }

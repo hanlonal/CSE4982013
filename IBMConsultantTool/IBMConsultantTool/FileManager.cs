@@ -377,6 +377,37 @@ namespace IBMConsultantTool
                 return false;
             }
         }
+
+        public override bool AddITCAP(object itcapObj, object clientObj)
+        {
+            XElement itcap = itcapObj as XElement;
+            XElement client = clientObj as XElement;
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
+            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
+            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+
+            List<XElement> itcapList = client.Element("ITCAPS").Elements("ITCAP").ToList();
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in itcapList
+                 where ent != null &&
+                       ent.Element("ITCAPQUESTION") != null &&
+                       ent.Element("ITCAPQUESTION").Value == itcqXML
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            itcap.Add(new XElement("ITCAPID", -1));
+            itcap.Add(new XElement("ASIS", 0));
+            itcap.Add(new XElement("TOBE", 0));
+            itcap.Add(new XElement("COMMENT", ""));
+
+            client.Element("ITCAPS").Add(itcap);
+
+            changeLog.Add("ADD ITCAP CLIENT " + client.Element("NAME").Value + " " + itcqXML);
+
+            return true;
+        }
         public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
         {
             XElement client;
@@ -1040,8 +1071,10 @@ namespace IBMConsultantTool
             return true;
         }
 
-        /*public override void AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override void AddQuestionToITCAP(string itcq, string capName, string domName, ITCapTool itcapForm)
         {
+            return;
+            /*
             XElement categoryXML;
             if (!GetCategory(catName, out categoryXML))
             {
@@ -1129,8 +1162,8 @@ namespace IBMConsultantTool
                 {
                     MessageBox.Show("Initiative already exists in BOM", "Error");
                 }
-            }
-        }*/
+            }*/
+        }
 
         #endregion
 

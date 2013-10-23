@@ -38,6 +38,7 @@ namespace IBMConsultantTool
         public abstract bool BuildITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool NewITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool OpenITCAP(ITCapTool itcapForm);
+        public abstract bool AddITCAP(object itcap, object client);
         #endregion
 
         #region Category
@@ -70,6 +71,7 @@ namespace IBMConsultantTool
         #region ITCAPQuestion
         public abstract string[] GetITCAPQuestionNames(string capName, string domName);
         public abstract string[] GetITCAPQuestionNamesAndDefault(string capName, string domName);
+        public abstract void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm);
         #endregion
 
         #region General

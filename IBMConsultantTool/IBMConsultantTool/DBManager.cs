@@ -445,6 +445,31 @@ namespace IBMConsultantTool
                 return false;
             }
         }
+
+        public override bool AddITCAP(object itcqObject, object clientObj)
+        {
+            ITCAP itcap = itcqObject as ITCAP;
+            CLIENT client = clientObj as CLIENT;
+
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in client.ITCAP
+                 where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.ITCAP
+                                select ent.ITCAPID).ToList();
+
+            itcap.ITCAPID = GetUniqueID(idList);
+            itcap.CLIENT = client;
+
+            dbo.AddToITCAP(itcap);
+
+            return true;
+        }
+
         public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
         {
             CLIENT client;
@@ -923,6 +948,26 @@ namespace IBMConsultantTool
             return true;
         }
 
+        public bool AddDomain(DOMAIN domain)
+        {
+            //If already in DB, return 1
+            if ((from ent in dbo.DOMAIN
+                 where ent.NAME.TrimEnd() == domain.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.DOMAIN
+                                select ent.DOMAINID).ToList();
+
+            domain.DOMAINID = GetUniqueID(idList);
+
+            dbo.AddToDOMAIN(domain);
+
+            return true;
+        }
+
         public override void ChangedDomain(ITCapTool itcapForm)
         {
             itcapForm.capabilitiesList.Items.Clear();
@@ -954,6 +999,57 @@ namespace IBMConsultantTool
                     from ent in dom.CAPABILITY
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
         }
+
+        public bool GetCapability(string capName, out CAPABILITY capability)
+        {
+            try
+            {
+                capability = (from ent in dbo.CAPABILITY
+                              where ent.NAME.TrimEnd() == capName
+                              select ent).Single();
+            }
+
+            catch
+            {
+                capability = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddCapability(CAPABILITY capability)
+        {
+            //If already in DB, return false
+            if ((from ent in dbo.CAPABILITY
+                 where ent.NAME.TrimEnd() == capability.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.CAPABILITY
+                                select ent.CAPABILITYID).ToList();
+
+            capability.CAPABILITYID = GetUniqueID(idList);
+
+            dbo.AddToCAPABILITY(capability);
+
+            return true;
+        }
+
+        public override void ChangedCapability(ITCapTool itcapForm)
+        {
+            itcapForm.questionList.Items.Clear();
+            itcapForm.questionList.Text = "<Select Initiative>";
+            CAPABILITY capability;
+
+            if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
+            {
+                itcapForm.questionList.Items.AddRange((from ent in capability.ITCAPQUESTION
+                                                       select ent.NAME.TrimEnd()).ToArray());
+            }
+        }
         #endregion
 
         #region ITCAPQuestion
@@ -977,34 +1073,159 @@ namespace IBMConsultantTool
                     select ent.NAME.TrimEnd() + ent.DEFAULT).ToArray();
         }
 
-        public bool GetCapability(string capName, out CAPABILITY capability)
+        public bool GetITCAPQuestion(string itcqName, out ITCAPQUESTION itcapQuestion)
         {
             try
             {
-                capability = (from ent in dbo.CAPABILITY
-                              where ent.NAME.TrimEnd() == capName
-                              select ent).Single();
+                itcapQuestion = (from ent in dbo.ITCAPQUESTION
+                                 where ent.NAME.TrimEnd() == itcqName
+                                 select ent).Single();
             }
 
             catch
             {
-                capability = null;
+                itcapQuestion = null;
                 return false;
             }
 
             return true;
         }
 
-        public override void ChangedCapability(ITCapTool itcapForm)
+        public bool AddITCAPQuestion(ITCAPQUESTION itcapQuestion)
         {
-            itcapForm.questionList.Items.Clear();
-            itcapForm.questionList.Text = "<Select Initiative>";
-            CAPABILITY capability;
-
-            if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
+            //If already in DB, return false
+            if ((from ent in dbo.ITCAPQUESTION
+                 where ent.NAME.TrimEnd() == itcapQuestion.NAME.TrimEnd()
+                 select ent).Count() != 0)
             {
-                itcapForm.questionList.Items.AddRange((from ent in capability.ITCAPQUESTION
-                                                        select ent.NAME.TrimEnd()).ToArray());
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.ITCAPQUESTION
+                                select ent.ITCAPQUESTIONID).ToList();
+
+            itcapQuestion.ITCAPQUESTIONID = GetUniqueID(idList);
+
+            dbo.AddToITCAPQUESTION(itcapQuestion);
+
+            return true;
+        }
+
+        public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm)
+        {
+            ITCAPQUESTION itcapQuestion;
+            if (!GetITCAPQuestion(itcqName, out itcapQuestion))
+            {
+                itcapQuestion = new ITCAPQUESTION();
+                itcapQuestion.NAME = itcqName;
+                CAPABILITY capability;
+                if (!GetCapability(capName, out capability))
+                {
+                    capability = new CAPABILITY();
+                    capability.NAME = capName;
+                    DOMAIN domain;
+                    if (!GetDomain(domName, out domain))
+                    {
+                        domain = new DOMAIN();
+                        domain.NAME = domName;
+                        if (!AddDomain(domain))
+                        {
+                            MessageBox.Show("Failed to add Domain to Database", "Error");
+                            return;
+                        }
+                    }
+
+                    capability.DOMAIN = domain;
+                    if (!AddCapability(capability))
+                    {
+                        MessageBox.Show("Failed to add Capability to Database", "Error");
+                        return;
+                    }
+                }
+
+                itcapQuestion.CAPABILITY = capability;
+                if (!AddITCAPQuestion(itcapQuestion))
+                {
+                    MessageBox.Show("Failed to add ITCAPQuestion to Database", "Error");
+                    return;
+                }
+            }
+
+            ITCAP itcap = new ITCAP();
+            itcap.ITCAPQUESTION = itcapQuestion;
+            if (!AddITCAP(itcap, itcapForm.client))
+            {
+                MessageBox.Show("Failed to add ITCAPQuestion to ITCAP", "Error");
+                return;
+            }
+            if (!SaveChanges())
+            {
+                MessageBox.Show("Failed to save changes to database", "Error");
+                return;
+            }
+
+            else
+            {
+                //Successfully added to database, update GUI
+                domName = itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd();
+                Domain domain = itcapForm.domains.Find(delegate(Domain dom)
+                {
+                    return dom.Name == domName;
+                });
+                if (domain == null)
+                {
+                    domain = new Domain();
+                    domain.Name = domName;
+                    domain.IsDefault = false;
+                    domain.ID = itcapForm.domains.Count.ToString();
+                    itcapForm.domains.Add(domain);
+                    itcapForm.entities.Add(domain);
+                    itcapForm.domainList.Items.Add(domain);
+                }
+
+                capName = itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd();
+                Capability capability = domain.CapabilitiesOwned.Find(delegate(Capability cap)
+                {
+                    return cap.Name == capName;
+                });
+                if (capability == null)
+                {
+                    capability = new Capability();
+                    capability.Name = capName;
+                    capability.IsDefault = false;
+                    domain.CapabilitiesOwned.Add(capability);
+                    domain.TotalChildren++;
+                    itcapForm.capabilities.Add(capability);
+                    capability.Owner = domain;
+                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
+                    //LoadQuestions(cap);
+                    itcapForm.entities.Add(capability);
+                    itcapForm.capabilitiesList.Items.Add(capability);
+                }
+
+                itcqName = itcap.ITCAPQUESTION.NAME.TrimEnd();
+                ITCapQuestion itcqObject = capability.QuestionsOwned.Find(delegate(ITCapQuestion itcq)
+                {
+                    return itcq.Name == itcqName;
+                });
+                if (itcqObject == null)
+                {
+                    itcqObject = new ITCapQuestion();
+                    itcqObject.Name = itcqName;
+                    itcqObject.IsDefault = false;
+                    itcqObject.AsIsScore = 0;
+                    itcqObject.ToBeScore = 0;
+                    capability.Owner.TotalChildren++;
+                    capability.QuestionsOwned.Add(itcqObject);
+                    itcqObject.Owner = capability;
+                    itcqObject.ID = capability.QuestionsOwned.Count.ToString();
+                    itcapForm.entities.Add(itcqObject);
+                    itcapForm.questionList.Items.Add(itcqObject);
+                }
+                else
+                {
+                    MessageBox.Show("ITCAPQuestion already exists in ITCAP", "Error");
+                }
             }
         }
         #endregion

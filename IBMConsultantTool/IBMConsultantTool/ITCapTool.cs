@@ -539,5 +539,10 @@ namespace IBMConsultantTool
         {
             db.ChangedCapability(this);
         }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
+        }
     }// end class
 }

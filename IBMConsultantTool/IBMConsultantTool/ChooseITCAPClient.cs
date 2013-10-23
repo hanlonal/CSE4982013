@@ -32,7 +32,7 @@ namespace IBMConsultantTool
 
         private void NewITCAPButton_Click(object sender, EventArgs e)
         {
-            if (itcapForm.db.NewITCAPForm(itcapForm, ChooseClientComboBox.Text.Trim()))
+            if (itcapForm.db.NewITCAPForm(itcapForm, NewClientTextBox.Text.Trim()))
             {
                 this.Close();
             }
