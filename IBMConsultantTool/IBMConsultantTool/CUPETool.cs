@@ -279,7 +279,7 @@ namespace IBMConsultantTool
             int count = 0;
             string total = "";
             float num = 0;
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 if (currentGrid.Rows[i].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value != null)
                 {
@@ -858,11 +858,11 @@ namespace IBMConsultantTool
                     currentPerson.cupeDataHolder.CurrentAnswers.Clear();
                     foreach (DataGridViewRow row in questionGridITCurrent.Rows)
                     {
-                        if(row.HeaderCell.ToString() != null)
+                        if(row.Cells[0].Value != null)
                         {
                             currentPerson.cupeDataHolder.CurrentAnswers.Add(
-                                row.HeaderCell.ToString(), 
-                                Convert.ToChar( row.Cells[column.Index].ToString()));
+                                row.Cells[0].Value.ToString(), 
+                                 row.Cells[column.Index].Value.ToString()[0]);
                         }
                         else
                         {
