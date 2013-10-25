@@ -494,7 +494,7 @@ namespace IBMConsultantTool
             if (otherIDList != null) idList.AddRange(otherIDList);
 
             itcap.ITCAPID = GetUniqueID(idList);
-            otherIDList.Add(itcap.ITCAPID);
+            if(otherIDList != null) otherIDList.Add(itcap.ITCAPID);
             itcap.CLIENT = client;
 
             dbo.AddToITCAP(itcap);
@@ -1065,7 +1065,7 @@ namespace IBMConsultantTool
         public override void ChangedDomain(ITCapTool itcapForm)
         {
             itcapForm.capabilitiesList.Items.Clear();
-            itcapForm.capabilitiesList.Text = "<Select Objective>";
+            itcapForm.capabilitiesList.Text = "<Select Capability>";
             itcapForm.questionList.Items.Clear();
             itcapForm.questionList.Text = "";
             DOMAIN domain;
@@ -1145,7 +1145,7 @@ namespace IBMConsultantTool
         public override void ChangedCapability(ITCapTool itcapForm)
         {
             itcapForm.questionList.Items.Clear();
-            itcapForm.questionList.Text = "<Select Initiative>";
+            itcapForm.questionList.Text = "<Select ITCAPQuestion>";
             CAPABILITY capability;
 
             if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
@@ -1295,7 +1295,7 @@ namespace IBMConsultantTool
                     domain = new Domain();
                     domain.Name = domName;
                     domain.IsDefault = false;
-                    domain.ID = itcapForm.domains.Count.ToString();
+                    domain.ID = (itcapForm.domains.Count+1).ToString();
                     itcapForm.domains.Add(domain);
                     itcapForm.entities.Add(domain);
                     itcapForm.domainList.Items.Add(domain);
@@ -1314,7 +1314,7 @@ namespace IBMConsultantTool
                     domain.TotalChildren++;
                     itcapForm.capabilities.Add(capability);
                     capability.Owner = domain;
-                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
+                    capability.ID = (domain.CapabilitiesOwned.Count+1).ToString();
                     //LoadQuestions(cap);
                     itcapForm.entities.Add(capability);
                     itcapForm.capabilitiesList.Items.Add(capability);
@@ -1334,7 +1334,7 @@ namespace IBMConsultantTool
                     capability.Owner.TotalChildren++;
                     capability.QuestionsOwned.Add(itcqObject);
                     itcqObject.Owner = capability;
-                    itcqObject.ID = capability.QuestionsOwned.Count.ToString();
+                    itcqObject.ID = (capability.QuestionsOwned.Count+1).ToString();
                     itcapForm.entities.Add(itcqObject);
                     itcapForm.questionList.Items.Add(itcqObject);
                 }

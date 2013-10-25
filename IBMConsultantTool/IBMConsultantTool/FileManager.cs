@@ -1076,7 +1076,7 @@ namespace IBMConsultantTool
         public override void ChangedCapability(ITCapTool itcapForm)
         {
             itcapForm.questionList.Items.Clear();
-            itcapForm.questionList.Text = "<Select Initiative>";
+            itcapForm.questionList.Text = "<Select ITCAPQuestion>";
             XElement capability;
 
             if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))

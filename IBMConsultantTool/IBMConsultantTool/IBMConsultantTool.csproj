@@ -93,6 +93,12 @@
     <Compile Include="CapabilityGapForm.Designer.cs">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeITCAPDefaults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeITCAPDefaults.Designer.cs">
+      <DependentUpon>ChangeITCAPDefaults.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChooseBOMClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CapabilityGapForm.resx">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeITCAPDefaults.resx">
+      <DependentUpon>ChangeITCAPDefaults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseBOMClient.resx">
       <DependentUpon>ChooseBOMClient.cs</DependentUpon>

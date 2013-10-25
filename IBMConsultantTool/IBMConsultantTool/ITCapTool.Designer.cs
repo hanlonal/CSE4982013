@@ -66,7 +66,6 @@
             this.SurveryMaker = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityNameTextBox = new System.Windows.Forms.TextBox();
             this.questionNameTextBox = new System.Windows.Forms.TextBox();
-            this.removeEntityButton = new System.Windows.Forms.Button();
             this.domainList = new System.Windows.Forms.ComboBox();
             this.capabilitiesList = new System.Windows.Forms.ComboBox();
             this.questionList = new System.Windows.Forms.ComboBox();
@@ -234,14 +233,14 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.newToolStripMenuItem.Text = "New Survey";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -322,6 +321,7 @@
             this.changeDefaultsToolStripMenuItem.Name = "changeDefaultsToolStripMenuItem";
             this.changeDefaultsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.changeDefaultsToolStripMenuItem.Text = "ChangeDefaults";
+            this.changeDefaultsToolStripMenuItem.Click += new System.EventHandler(this.changeDefaultsToolStripMenuItem_Click);
             // 
             // preferencesToolStripMenuItem
             // 
@@ -377,17 +377,6 @@
             this.questionNameTextBox.Size = new System.Drawing.Size(148, 26);
             this.questionNameTextBox.TabIndex = 11;
             this.questionNameTextBox.Visible = false;
-            // 
-            // removeEntityButton
-            // 
-            this.removeEntityButton.Location = new System.Drawing.Point(1089, 308);
-            this.removeEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.removeEntityButton.Name = "removeEntityButton";
-            this.removeEntityButton.Size = new System.Drawing.Size(112, 35);
-            this.removeEntityButton.TabIndex = 13;
-            this.removeEntityButton.Text = "Remove";
-            this.removeEntityButton.UseVisualStyleBackColor = true;
-            this.removeEntityButton.Visible = false;
             // 
             // domainList
             // 
@@ -597,7 +586,7 @@
             // 
             // addEntityButton
             // 
-            this.addEntityButton.Location = new System.Drawing.Point(1089, 375);
+            this.addEntityButton.Location = new System.Drawing.Point(1089, 293);
             this.addEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addEntityButton.Name = "addEntityButton";
             this.addEntityButton.Size = new System.Drawing.Size(112, 35);
@@ -631,7 +620,6 @@
             this.Controls.Add(this.questionList);
             this.Controls.Add(this.capabilitiesList);
             this.Controls.Add(this.domainList);
-            this.Controls.Add(this.removeEntityButton);
             this.Controls.Add(this.questionNameTextBox);
             this.Controls.Add(this.capabilityNameTextBox);
             this.Controls.Add(this.domainNameTextBox);
@@ -673,7 +661,6 @@
         private System.Windows.Forms.TextBox capabilityNameTextBox;
         private System.Windows.Forms.TextBox questionNameTextBox;
         private System.Windows.Forms.ToolStripMenuItem ChangeDefaults;
-        private System.Windows.Forms.Button removeEntityButton;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         public System.Windows.Forms.ComboBox domainList;

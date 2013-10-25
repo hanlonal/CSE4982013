@@ -121,7 +121,6 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(domainList);
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
-            surverymakercontrols.Add(removeEntityButton);
             surverymakercontrols.Add(addEntityButton);
 
             liveDataEntryControls.Add(liveDataEntryGrid);
@@ -607,6 +606,11 @@ namespace IBMConsultantTool
             {
                 MessageBox.Show("Failed to save changes", "Error");
             }
+        }
+
+        private void changeDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ChangeITCAPDefaults(this).ShowDialog();
         }
     }// end class
 }
