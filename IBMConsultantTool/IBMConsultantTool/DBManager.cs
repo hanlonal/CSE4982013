@@ -475,7 +475,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public override bool AddITCAP(object itcqObject, object clientObj)
+        public override bool AddITCAP(object itcqObject, object clientObj, List<int> otherIDList = null)
         {
             ITCAP itcap = itcqObject as ITCAP;
             CLIENT client = clientObj as CLIENT;
@@ -491,8 +491,10 @@ namespace IBMConsultantTool
 
             List<int> idList = (from ent in dbo.ITCAP
                                 select ent.ITCAPID).ToList();
+            if (otherIDList != null) idList.AddRange(otherIDList);
 
             itcap.ITCAPID = GetUniqueID(idList);
+            otherIDList.Add(itcap.ITCAPID);
             itcap.CLIENT = client;
 
             dbo.AddToITCAP(itcap);
@@ -616,6 +618,52 @@ namespace IBMConsultantTool
                 itcapForm.entities.Add(itcapQuestion);
             }
             return true;
+        }
+
+        public override bool RewriteITCAP(ITCapTool itcapForm)
+        {
+            CLIENT client = itcapForm.client as CLIENT;
+            List<ITCAP> itcapList = client.ITCAP.ToList();
+            foreach (ITCAP itcap in itcapList)
+            {
+                dbo.DeleteObject(itcap);
+            }
+
+            ITCAP itcapEnt;
+            ITCAPQUESTION itcqEnt;
+            List<int> idList = new List<int>();
+            foreach (Domain domain in itcapForm.domains)
+            {
+                foreach(Capability capability in domain.CapabilitiesOwned)
+                {
+                    foreach(ITCapQuestion itcapQuestion in capability.QuestionsOwned)
+                    {
+                        if (GetITCAPQuestion(itcapQuestion.Name, out itcqEnt))
+                        {
+                            itcapEnt = new ITCAP();
+                            itcapEnt.ITCAPQUESTION = itcqEnt;
+                            itcapEnt.ASIS = 0;
+                            itcapEnt.TOBE = 0;
+                            itcapEnt.COMMENT = "";
+                            if (!AddITCAP(itcapEnt, client, idList))
+                            {
+                                MessageBox.Show("Failed to add ITCAPQuestion: " + itcapEnt.ITCAPQUESTION.NAME);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (SaveChanges())
+            {
+                return true;
+            }
+
+            else
+            {
+                MessageBox.Show("Failed to rewrite ITCAP", "Error");
+                return false;
+            }
         }
         #endregion
 

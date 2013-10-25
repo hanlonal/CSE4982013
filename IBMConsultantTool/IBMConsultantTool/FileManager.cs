@@ -405,7 +405,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public override bool AddITCAP(object itcapObj, object clientObj)
+        public override bool AddITCAP(object itcapObj, object clientObj, List<int> otherIDList = null)
         {
             XElement itcap = itcapObj as XElement;
             XElement client = clientObj as XElement;
@@ -556,6 +556,46 @@ namespace IBMConsultantTool
                 itcapForm.entities.Add(itcapQuestion);
             }
             return true;
+        }
+
+        public override bool RewriteITCAP(ITCapTool itcapForm)
+        {
+            XElement client = itcapForm.client as XElement;
+            List<XElement> itcapList = client.Element("ITCAPS").Elements("ITCAP").ToList();
+            foreach (XElement itcap in itcapList)
+            {
+                itcap.RemoveAll();
+            }
+
+            XElement itcapEnt = new XElement("ITCAP");
+            XElement itcqEnt;
+            foreach (Domain domain in itcapForm.domains)
+            {
+                foreach (Capability capability in domain.CapabilitiesOwned)
+                {
+                    foreach (ITCapQuestion itcapQuestion in capability.QuestionsOwned)
+                    {
+                        if (GetITCAPQuestion(itcapQuestion.Name, out itcqEnt))
+                        {
+                            itcapEnt.Add(new XElement("ITCAPQUESTION", itcqEnt.Name));
+                            if (!AddITCAP(itcapEnt, client))
+                            {
+                                MessageBox.Show("Failed to add ITCAPQuestion: " + itcapEnt.Element("ITCAPQUESTION").Value, "Error");
+                            }
+                        }
+                    }
+                }
+            }
+            if (SaveChanges())
+            {
+                return true;
+            }
+
+            else
+            {
+                MessageBox.Show("Failed to rewrite ITCAP", "Error");
+                return false;
+            }
         }
         #endregion
 

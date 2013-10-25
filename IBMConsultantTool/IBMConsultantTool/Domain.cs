@@ -40,7 +40,7 @@ namespace IBMConsultantTool
                     activeCaps++;
                 }
             }
-            asIsScore = total / activeCaps;
+            asIsScore = activeCaps == 0 ? 0 : total / activeCaps;
             return asIsScore;
         }
 
@@ -56,7 +56,7 @@ namespace IBMConsultantTool
                     activeCaps++;
                 }
             }
-            toBeScore = total / activeCaps;
+            toBeScore = activeCaps == 0 ? 0 : total / activeCaps;
             return toBeScore;
         }
 

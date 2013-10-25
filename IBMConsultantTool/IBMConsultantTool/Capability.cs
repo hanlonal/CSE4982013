@@ -38,7 +38,7 @@ namespace IBMConsultantTool
                     activeQuestionCount++;
                 }
             }
-            asIsScore = total / activeQuestionCount;
+            asIsScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
             
             return asIsScore;
         }
@@ -55,7 +55,7 @@ namespace IBMConsultantTool
                     activeQuestionCount++;
                 }
             }
-            toBeScore = total / activeQuestionCount;
+            toBeScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
 
             return toBeScore;
         }

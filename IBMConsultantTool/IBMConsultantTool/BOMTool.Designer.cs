@@ -79,10 +79,10 @@
             // 
             this.critRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.critRadio.AutoSize = true;
-            this.critRadio.Location = new System.Drawing.Point(852, 84);
+            this.critRadio.Location = new System.Drawing.Point(884, 84);
             this.critRadio.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.critRadio.Name = "critRadio";
-            this.critRadio.Size = new System.Drawing.Size(159, 29);
+            this.critRadio.Size = new System.Drawing.Size(127, 24);
             this.critRadio.TabIndex = 8;
             this.critRadio.TabStop = true;
             this.critRadio.Text = "View Criticality";
@@ -93,10 +93,10 @@
             // 
             this.effectRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.effectRadio.AutoSize = true;
-            this.effectRadio.Location = new System.Drawing.Point(852, 52);
+            this.effectRadio.Location = new System.Drawing.Point(888, 52);
             this.effectRadio.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.effectRadio.Name = "effectRadio";
-            this.effectRadio.Size = new System.Drawing.Size(197, 29);
+            this.effectRadio.Size = new System.Drawing.Size(161, 24);
             this.effectRadio.TabIndex = 9;
             this.effectRadio.TabStop = true;
             this.effectRadio.Text = "View Effectiveness";
@@ -108,10 +108,10 @@
             this.diffRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.diffRadio.AutoSize = true;
             this.diffRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.diffRadio.Location = new System.Drawing.Point(853, 118);
+            this.diffRadio.Location = new System.Drawing.Point(887, 118);
             this.diffRadio.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.diffRadio.Name = "diffRadio";
-            this.diffRadio.Size = new System.Drawing.Size(199, 29);
+            this.diffRadio.Size = new System.Drawing.Size(165, 24);
             this.diffRadio.TabIndex = 10;
             this.diffRadio.TabStop = true;
             this.diffRadio.Text = "View Differentiation";
@@ -126,7 +126,7 @@
             this.categoryNames.Location = new System.Drawing.Point(857, 165);
             this.categoryNames.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.categoryNames.Name = "categoryNames";
-            this.categoryNames.Size = new System.Drawing.Size(182, 28);
+            this.categoryNames.Size = new System.Drawing.Size(182, 24);
             this.categoryNames.TabIndex = 11;
             this.categoryNames.Text = "<Select Category>";
             this.categoryNames.SelectedIndexChanged += new System.EventHandler(this.categoryNames_SelectedIndexChanged);
@@ -140,7 +140,7 @@
             this.objectiveNames.Location = new System.Drawing.Point(854, 220);
             this.objectiveNames.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.objectiveNames.Name = "objectiveNames";
-            this.objectiveNames.Size = new System.Drawing.Size(182, 28);
+            this.objectiveNames.Size = new System.Drawing.Size(182, 24);
             this.objectiveNames.TabIndex = 12;
             this.objectiveNames.SelectedIndexChanged += new System.EventHandler(this.objectiveNames_SelectedIndexChanged);
             this.objectiveNames.LostFocus += new System.EventHandler(this.objectiveNames_LostFocus);
@@ -153,7 +153,7 @@
             this.initiativeNames.Location = new System.Drawing.Point(854, 275);
             this.initiativeNames.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.initiativeNames.Name = "initiativeNames";
-            this.initiativeNames.Size = new System.Drawing.Size(182, 28);
+            this.initiativeNames.Size = new System.Drawing.Size(182, 24);
             this.initiativeNames.TabIndex = 13;
             // 
             // AddInitiativeButton
@@ -173,7 +173,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(991, 465);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(120, 35);
             this.button1.TabIndex = 15;
@@ -185,7 +185,7 @@
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(854, 528);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(120, 38);
             this.button3.TabIndex = 17;
@@ -203,7 +203,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1116, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1116, 24);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -213,13 +213,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sendEmailToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // sendEmailToolStripMenuItem
             // 
             this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.sendEmailToolStripMenuItem.Text = "Send Email";
             this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.SendEmailButton_Click);
             // 
@@ -228,21 +228,21 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.participantsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // participantsToolStripMenuItem
             // 
             this.participantsToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
+            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.participantsToolStripMenuItem.Text = "Participants";
             this.participantsToolStripMenuItem.Click += new System.EventHandler(this.participantsToolStripMenuItem_Click);
             // 
             // vieToolStripMenuItem
             // 
             this.vieToolStripMenuItem.Name = "vieToolStripMenuItem";
-            this.vieToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.vieToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.vieToolStripMenuItem.Text = "View";
             // 
             // workshopToolStripMenuItem
@@ -250,13 +250,13 @@
             this.workshopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cUPEToolStripMenuItem});
             this.workshopToolStripMenuItem.Name = "workshopToolStripMenuItem";
-            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
+            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.workshopToolStripMenuItem.Text = "Workshop";
             // 
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
             // 
@@ -264,7 +264,7 @@
             // 
             this.btnLoadChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoadChart.Location = new System.Drawing.Point(854, 462);
-            this.btnLoadChart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadChart.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadChart.Name = "btnLoadChart";
             this.btnLoadChart.Size = new System.Drawing.Size(120, 38);
             this.btnLoadChart.TabIndex = 19;
@@ -279,7 +279,7 @@
             this.detailInfoPanel.Controls.Add(this.seperatorLabel);
             this.detailInfoPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.detailInfoPanel.Location = new System.Drawing.Point(0, 570);
-            this.detailInfoPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.detailInfoPanel.Margin = new System.Windows.Forms.Padding(2);
             this.detailInfoPanel.Name = "detailInfoPanel";
             this.detailInfoPanel.Size = new System.Drawing.Size(1116, 162);
             this.detailInfoPanel.TabIndex = 20;
@@ -292,13 +292,13 @@
             this.seperatorLabel.Location = new System.Drawing.Point(0, 0);
             this.seperatorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.seperatorLabel.Name = "seperatorLabel";
-            this.seperatorLabel.Size = new System.Drawing.Size(71, 25);
+            this.seperatorLabel.Size = new System.Drawing.Size(58, 20);
             this.seperatorLabel.TabIndex = 0;
             this.seperatorLabel.Text = "Details";
             // 
             // BOMTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 732);
             this.Controls.Add(this.detailInfoPanel);
