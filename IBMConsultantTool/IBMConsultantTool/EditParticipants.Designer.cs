@@ -104,6 +104,7 @@
             // 
             this.ParticipantReceiveEmail.HeaderText = "Include In Email";
             this.ParticipantReceiveEmail.Name = "ParticipantReceiveEmail";
+            this.ParticipantReceiveEmail.Visible = false;
             // 
             // Id
             // 

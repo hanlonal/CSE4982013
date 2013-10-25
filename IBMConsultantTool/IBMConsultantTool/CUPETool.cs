@@ -791,6 +791,7 @@ namespace IBMConsultantTool
             {
                 removePersonColumns();
                 loadColumnNames();
+                loadCupeDataValues();
                 return;
             }
 
@@ -830,7 +831,48 @@ namespace IBMConsultantTool
                 }
             }
         }
+        
+        //Save and load the data in the cupe Charts to the ClientDataControl
+        private void loadCupeDataValues()
+        {
 
+
+        }
+
+        private void saveCupeDataValues()
+        {
+            foreach( DataGridViewColumn column in questionGridITCurrent.Columns)
+            {
+                Person currentPerson = null;
+                try
+                {
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                }
+                catch
+                {
+
+                }
+                
+                if( currentPerson != null)
+                {
+                    currentPerson.cupeDataHolder.CurrentAnswers.Clear();
+                    foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+                    {
+                        if(row.HeaderCell.ToString() != null)
+                        {
+                            currentPerson.cupeDataHolder.CurrentAnswers.Add(
+                                row.HeaderCell.ToString(), 
+                                Convert.ToChar( row.Cells[column.Index].ToString()));
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
         private void removePersonColumns()
         {
             for( int i=1; i<= questionGridITCurrent.ColumnCount - 7; i++)
@@ -852,14 +894,11 @@ namespace IBMConsultantTool
 
         }
 
-        private void loadAnswers()
-        {
 
-        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            saveCupeDataValues();
         }
 
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)

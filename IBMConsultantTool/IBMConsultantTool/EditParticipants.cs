@@ -90,6 +90,7 @@ namespace IBMConsultantTool
             {
                 try
                 {
+                    //Create the new person
                     Person tempPerson = new Person();
                     tempPerson.Name = row.Cells[0].Value.ToString();
 
@@ -108,6 +109,27 @@ namespace IBMConsultantTool
                     {
                        tempPerson.Type = Person.EmployeeType.Business;
                     }
+                   //See if there are answers for the current person
+
+                   CupeData data = null;
+                   try
+                   {
+                       data = ClientDataControl.GetCupeAnswers().Where(x => x.ParticipantId == tempPerson.ID).Single();
+                   }
+                   catch
+                   {
+
+                   }
+                   if (data != null)
+                   {
+                       tempPerson.cupeDataHolder = data;
+                   }
+                   //If not create new cupedata object
+                   else
+                   {
+                       tempPerson.cupeDataHolder = new CupeData(tempPerson.ID);
+                   }
+
 
 
                     tempList.Add(tempPerson);

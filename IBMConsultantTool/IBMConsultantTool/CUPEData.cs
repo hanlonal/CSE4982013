@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IBMConsultantTool
 {
+    //This is what is actually used. Disregard other CUPE data classes
     class CupeData
     {
         public Dictionary<string, char> CurrentAnswers;
@@ -14,8 +15,8 @@ namespace IBMConsultantTool
 
         public CupeData(int Id)
         {
-            Dictionary<string, char> CurrentAnswers = new Dictionary<string, char>();
-            Dictionary<string, char> FutureAnswers = new Dictionary<string, char>();
+            CurrentAnswers = new Dictionary<string, char>();
+            FutureAnswers = new Dictionary<string, char>();
             ParticipantId = Id;
         }
 
