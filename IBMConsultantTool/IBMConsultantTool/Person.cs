@@ -21,6 +21,8 @@ namespace IBMConsultantTool
 
         public List<CupeQuestionData> questionData = new List<CupeQuestionData>();
 
+        public CupeData cupeDataHolder;
+
         //EmployeeType type = new EmployeeType();
         string name;
         CupeForm owner;

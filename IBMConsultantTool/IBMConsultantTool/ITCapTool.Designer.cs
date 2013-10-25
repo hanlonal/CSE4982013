@@ -66,7 +66,6 @@
             this.SurveryMaker = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityNameTextBox = new System.Windows.Forms.TextBox();
             this.questionNameTextBox = new System.Windows.Forms.TextBox();
-            this.removeEntityButton = new System.Windows.Forms.Button();
             this.domainList = new System.Windows.Forms.ComboBox();
             this.capabilitiesList = new System.Windows.Forms.ComboBox();
             this.questionList = new System.Windows.Forms.ComboBox();
@@ -87,7 +86,7 @@
             this.PriorityGap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addEntityButton = new System.Windows.Forms.Button();
-            this.SaveITCAPButton = new System.Windows.Forms.Button();
+            this.LiveDataSaveITCAPButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -322,6 +321,7 @@
             this.changeDefaultsToolStripMenuItem.Name = "changeDefaultsToolStripMenuItem";
             this.changeDefaultsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.changeDefaultsToolStripMenuItem.Text = "ChangeDefaults";
+            this.changeDefaultsToolStripMenuItem.Click += new System.EventHandler(this.changeDefaultsToolStripMenuItem_Click);
             // 
             // preferencesToolStripMenuItem
             // 
@@ -377,17 +377,6 @@
             this.questionNameTextBox.Size = new System.Drawing.Size(148, 26);
             this.questionNameTextBox.TabIndex = 11;
             this.questionNameTextBox.Visible = false;
-            // 
-            // removeEntityButton
-            // 
-            this.removeEntityButton.Location = new System.Drawing.Point(1089, 308);
-            this.removeEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.removeEntityButton.Name = "removeEntityButton";
-            this.removeEntityButton.Size = new System.Drawing.Size(112, 35);
-            this.removeEntityButton.TabIndex = 13;
-            this.removeEntityButton.Text = "Remove";
-            this.removeEntityButton.UseVisualStyleBackColor = true;
-            this.removeEntityButton.Visible = false;
             // 
             // domainList
             // 
@@ -597,7 +586,7 @@
             // 
             // addEntityButton
             // 
-            this.addEntityButton.Location = new System.Drawing.Point(1089, 375);
+            this.addEntityButton.Location = new System.Drawing.Point(1089, 293);
             this.addEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addEntityButton.Name = "addEntityButton";
             this.addEntityButton.Size = new System.Drawing.Size(112, 35);
@@ -607,31 +596,30 @@
             this.addEntityButton.Visible = false;
             this.addEntityButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // SaveITCAPButton
+            // LiveDataSaveITCAPButton
             // 
-            this.SaveITCAPButton.Location = new System.Drawing.Point(1089, 420);
-            this.SaveITCAPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.SaveITCAPButton.Name = "SaveITCAPButton";
-            this.SaveITCAPButton.Size = new System.Drawing.Size(112, 35);
-            this.SaveITCAPButton.TabIndex = 20;
-            this.SaveITCAPButton.Text = "Save";
-            this.SaveITCAPButton.UseVisualStyleBackColor = true;
-            this.SaveITCAPButton.Visible = false;
-            this.SaveITCAPButton.Click += new System.EventHandler(this.SaveITCAPButton_Click);
+            this.LiveDataSaveITCAPButton.Location = new System.Drawing.Point(1089, 420);
+            this.LiveDataSaveITCAPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LiveDataSaveITCAPButton.Name = "LiveDataSaveITCAPButton";
+            this.LiveDataSaveITCAPButton.Size = new System.Drawing.Size(112, 35);
+            this.LiveDataSaveITCAPButton.TabIndex = 20;
+            this.LiveDataSaveITCAPButton.Text = "Save";
+            this.LiveDataSaveITCAPButton.UseVisualStyleBackColor = true;
+            this.LiveDataSaveITCAPButton.Visible = false;
+            this.LiveDataSaveITCAPButton.Click += new System.EventHandler(this.SaveITCAPButton_Click);
             // 
             // ITCapTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
-            this.Controls.Add(this.SaveITCAPButton);
+            this.Controls.Add(this.LiveDataSaveITCAPButton);
             this.Controls.Add(this.addEntityButton);
             this.Controls.Add(this.prioritizationGrid);
             this.Controls.Add(this.liveDataEntryGrid);
             this.Controls.Add(this.questionList);
             this.Controls.Add(this.capabilitiesList);
             this.Controls.Add(this.domainList);
-            this.Controls.Add(this.removeEntityButton);
             this.Controls.Add(this.questionNameTextBox);
             this.Controls.Add(this.capabilityNameTextBox);
             this.Controls.Add(this.domainNameTextBox);
@@ -673,7 +661,6 @@
         private System.Windows.Forms.TextBox capabilityNameTextBox;
         private System.Windows.Forms.TextBox questionNameTextBox;
         private System.Windows.Forms.ToolStripMenuItem ChangeDefaults;
-        private System.Windows.Forms.Button removeEntityButton;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         public System.Windows.Forms.ComboBox domainList;
@@ -711,7 +698,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn AddComment;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.Button addEntityButton;
-        private System.Windows.Forms.Button SaveITCAPButton;
+        private System.Windows.Forms.Button LiveDataSaveITCAPButton;
 
        
     }

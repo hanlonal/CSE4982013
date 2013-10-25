@@ -32,6 +32,7 @@ namespace IBMConsultantTool
                 return;
             }
 
+
             var files = Directory.EnumerateFiles(FD.SelectedPath);
             var badFiles = 0;
             foreach (var file in files)
@@ -144,7 +145,7 @@ namespace IBMConsultantTool
                     //Find the person and their type
                     if(form.Name == "Name")
                     {
-                        var nameForm = people.Where(x => x.Name == "Name");
+                        var nameForm = people.Where(x => x.Name == form.Result.ToString());
                         
 
 

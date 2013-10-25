@@ -40,7 +40,9 @@ namespace IBMConsultantTool
         public abstract bool BuildITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool NewITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool OpenITCAP(ITCapTool itcapForm);
-        public abstract bool AddITCAP(object itcap, object client);
+        public abstract bool AddITCAP(object itcap, object client, List<int> otherIDList = null);
+
+        public abstract bool RewriteITCAP(ITCapTool itcapForm);
         #endregion
 
         #region Category

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
+using System.Net.Mail;
 
 namespace IBMConsultantTool
 {
@@ -55,6 +57,25 @@ namespace IBMConsultantTool
             return participants;
         }
 
+        public static List<CupeData> GetCupeAnswers()
+        {
+            return cupeAnswers;
+        }
+
+        public static bool SetCupeAnswers(List<CupeData> data)
+        {
+            cupeAnswers = data;
+
+            return true;
+        }
+
+        public static bool AddCupeAnswers(CupeData data)
+        {
+            cupeAnswers.Add(data);
+
+            return true;
+        }
+
         public static bool SetParticipants(List<Person> people)
         {
             participants = people;
@@ -74,5 +95,56 @@ namespace IBMConsultantTool
             bomCategories = new List<NewCategory>();
             return true;
         }
+
+
+        public static void SendEmailButton_Click()
+        {
+            var FD = new System.Windows.Forms.OpenFileDialog();
+            FD.Title = "Select File to Add as an Attachment";
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            string fileToOpen = FD.FileName;
+
+            System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
+
+            var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
+            var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");
+            const string fromPassword = "CSE498-38734";
+            const string subject = "IBM Survey Request";
+            const string body = "Please download attatchment, fill out the form, and submit. Thank you!\n\n\n\n\nTeam IBM";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            foreach (var person in GetParticipants())
+            {
+                if (person.Email != null)
+                {
+                    toAddress = new MailAddress(person.Email.ToString(), "Survey Participant");
+                    using (var message = new MailMessage(fromAddress, toAddress)
+                    {
+                        Subject = subject,
+                        Body = body
+                    })
+                    {
+                        System.Net.Mail.Attachment attachment;
+                        attachment = new System.Net.Mail.Attachment(FD.FileName);
+                        message.Attachments.Add(attachment);
+                        smtp.Send(message);
+                    }
+                }
+            }
+
+        }
+
     }
 }

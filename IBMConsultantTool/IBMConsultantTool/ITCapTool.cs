@@ -121,11 +121,10 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(domainList);
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
-            surverymakercontrols.Add(removeEntityButton);
             surverymakercontrols.Add(addEntityButton);
 
             liveDataEntryControls.Add(liveDataEntryGrid);
-            liveDataEntryControls.Add(SaveITCAPButton);
+            liveDataEntryControls.Add(LiveDataSaveITCAPButton);
 
             prioritizationControls.Add(prioritizationGrid);
 
@@ -153,9 +152,15 @@ namespace IBMConsultantTool
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ResetSurveyGrid();
-            LoadDomains();
-            ChangeStates(FormStates.SurveryMaker);
+            if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                ResetSurveyGrid();
+                LoadDomains();
+                if (db.RewriteITCAP(this))
+                {
+                    ChangeStates(FormStates.SurveryMaker);
+                }
+            }
         }
 
         private void ChangeStates(FormStates stateToGoInto)
@@ -574,6 +579,7 @@ namespace IBMConsultantTool
         private void AddButton_Click(object sender, EventArgs e)
         {
             db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
+            LoadDefaultChartSurvey();
         }
 
         private void SaveITCAPButton_Click(object sender, EventArgs e)
@@ -600,6 +606,11 @@ namespace IBMConsultantTool
             {
                 MessageBox.Show("Failed to save changes", "Error");
             }
+        }
+
+        private void changeDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ChangeITCAPDefaults(this).ShowDialog();
         }
     }// end class
 }

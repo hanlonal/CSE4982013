@@ -164,43 +164,8 @@ namespace IBMConsultantTool
 
         private void SendEmailButton_Click(object sender, EventArgs e)
         {
-            var FD = new System.Windows.Forms.OpenFileDialog();
-            FD.Title = "Select File to Add as an Attachment";
-            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-            {
-                return;
-            }
 
-            string fileToOpen = FD.FileName;
-
-            System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
-
-            var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
-            var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");
-            const string fromPassword = "CSE498-38734";
-            const string subject = "IBM BOM Survey Request";
-            const string body = "Please download attatchment, fill out the form, and submit. Thank you!\n\n\n\n\nTeam IBM";
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-                System.Net.Mail.Attachment attachment;
-                attachment = new System.Net.Mail.Attachment(FD.FileName);
-                message.Attachments.Add(attachment);
-                smtp.Send(message);
-            }
+            ClientDataControl.SendEmailButton_Click();
 
         }
 
