@@ -35,8 +35,18 @@ namespace IBMConsultantTool
         public NewObjective AddObjective(string name)
         {
             NewObjective objective = new NewObjective(this, name);
+            objective.Click +=new EventHandler(objective_Click);
             objectives.Add(objective);
             return objective;
+            
+        }
+
+        public void objective_Click(object sender, EventArgs e)
+        {
+            NewObjective obj = (NewObjective)sender;
+            //Console.WriteLine(obj.name);
+            lastClicked = obj;
+            owner.ObjectiveClicked(obj);
         }
 
         public void AddInitiative(string name)

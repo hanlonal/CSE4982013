@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.saveDataButton = new System.Windows.Forms.Button();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Objective = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Initiative = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Effectiveness = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Criticality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Differentiality = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.saveDataButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,16 +54,6 @@
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(628, 150);
             this.dataGrid.TabIndex = 0;
-            // 
-            // saveDataButton
-            // 
-            this.saveDataButton.Location = new System.Drawing.Point(503, 246);
-            this.saveDataButton.Name = "saveDataButton";
-            this.saveDataButton.Size = new System.Drawing.Size(75, 23);
-            this.saveDataButton.TabIndex = 1;
-            this.saveDataButton.Text = "Save Data";
-            this.saveDataButton.UseVisualStyleBackColor = true;
-            this.saveDataButton.Click += new System.EventHandler(this.saveDataButton_Click);
             // 
             // Category
             // 
@@ -98,6 +88,16 @@
             this.Differentiality.HeaderText = "Differentiality";
             this.Differentiality.Name = "Differentiality";
             // 
+            // saveDataButton
+            // 
+            this.saveDataButton.Location = new System.Drawing.Point(503, 246);
+            this.saveDataButton.Name = "saveDataButton";
+            this.saveDataButton.Size = new System.Drawing.Size(75, 23);
+            this.saveDataButton.TabIndex = 1;
+            this.saveDataButton.Text = "Save Data";
+            this.saveDataButton.UseVisualStyleBackColor = true;
+            this.saveDataButton.Click += new System.EventHandler(this.saveDataButton_Click);
+            // 
             // DataEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,6 +107,7 @@
             this.Controls.Add(this.dataGrid);
             this.Name = "DataEntryForm";
             this.Text = "DataEntryForm";
+            this.Load += new System.EventHandler(this.DataEntryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
 

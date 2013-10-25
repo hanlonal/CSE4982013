@@ -32,14 +32,16 @@ namespace IBMConsultantTool
             this.BackColor = Color.LightBlue;
             this.Height = baseHeight;
             this.Width = baseWidth;
+            this.BorderStyle = BorderStyle.FixedSingle;
 
         }
 
         public void NewObjective_Click(object sender, EventArgs e)
         {
             NewObjective obj = (NewObjective)sender;
-            Console.WriteLine(obj.name);
+            //Console.WriteLine(obj.name);
             owner.LastClicked = obj;
+            //owner.ObjectiveClicked(obj);
         }
         public NewInitiative AddInitiative(string name)
         {

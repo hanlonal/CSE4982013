@@ -19,6 +19,7 @@ namespace IBMConsultantTool
         public DataManager db;
         public object client;
         public bool isOnline;
+        List<Control> removableControls = new List<Control>();
         List<NewCategory> categories = new List<NewCategory>();
 
         public BOMTool()
@@ -41,6 +42,23 @@ namespace IBMConsultantTool
             categoryNames.Items.AddRange(db.GetCategoryNames());
 
             new ChooseBOMClient(this).ShowDialog();
+            
+        }
+
+        public void ObjectiveClicked(NewObjective obj)
+        {
+            int heightBetween = 30;
+            ClearDetailPanel();
+            for (int i = 0; i < obj.Initiatives.Count; i++)
+            {
+                NewInitiative init = obj.Initiatives[i];
+                CreateDataLabels(55 + (i * heightBetween), init);
+            }
+        }
+
+        private void ClearDetailPanel()
+        {
+
         }
 
         public NewCategory AddCategory(string name)
@@ -51,11 +69,41 @@ namespace IBMConsultantTool
             categories.Add(category);
 
             //catWorkspace.TabPages[name].Controls.Add(category.);
-            catWorkspace.TabPages[name].BackColor = Color.GhostWhite;
+            //catWorkspace.TabPages[name].BackColor = Color.DimGray; ;
 
             return category;
         }
 
+        private void CreateDataLabels(int yValue, NewInitiative init)
+        {
+            int nameXValue = 25;
+            int effectivenessXValue = 351;
+            int critXValue = 509;
+            int diffXValue = 624;
+            int totalXValue = 791;
+
+            Label nameLabel = new Label();
+            detailInfoPanel.Controls.Add(nameLabel);
+            nameLabel.AutoEllipsis = true;
+            nameLabel.Width = 200;
+            //removableControls.Add(nameLabel);
+            nameLabel.Text = init.Name;
+            nameLabel.Location = new Point(nameXValue, yValue);
+            Label totalScoreLabel = new Label();
+            //removableControls.Add(totalScoreLabel);
+            
+            detailInfoPanel.Controls.Add(totalScoreLabel);
+            TextBox effectbox = new TextBox();
+            
+            effectbox.Location = new Point(effectivenessXValue, yValue);
+            detailInfoPanel.Controls.Add(effectbox);
+            TextBox critBox = new TextBox();
+            critBox.Location = new Point(critXValue, yValue);
+            detailInfoPanel.Controls.Add(critBox);
+            TextBox diffBox = new TextBox();
+            diffBox.Location = new Point(diffXValue, yValue);
+            detailInfoPanel.Controls.Add(diffBox);
+        }
 
         public TabControl CategoryWorkspace
         {
@@ -84,47 +132,6 @@ namespace IBMConsultantTool
             form.Show();
         }
 
-        private void diffRadio_Click(object sender, EventArgs e)
-        {
-            if (categories.Count > 0)
-            {
-                foreach (NewCategory cat in categories)
-                {
-                    foreach (NewObjective obj in cat.Objectives)
-                    {
-                        obj.ColorByDifferentiation();
-                    }
-                }
-            }
-        }
-
-        private void effectRadio_Click(object sender, EventArgs e)
-        {
-            if (categories.Count > 0)
-            {
-                foreach (NewCategory cat in categories)
-                {
-                    foreach (NewObjective obj in cat.Objectives)
-                    {
-                        obj.ColorByEffectiveness();
-                    }
-                }
-            }
-        }
-
-        private void critRadio_Click(object sender, EventArgs e)
-        {
-            if (categories.Count > 0)
-            {
-                foreach (NewCategory cat in categories)
-                {
-                    foreach (NewObjective obj in cat.Objectives)
-                    {
-                        obj.ColorByCriticality();
-                    }
-                }
-            }
-        }
 
         private void categoryNames_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -267,6 +274,49 @@ namespace IBMConsultantTool
         {
             Application.Run(new CUPETool());
         }
+
+        private void effectivenessToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (categories.Count > 0)
+            {
+                foreach (NewCategory cat in categories)
+                {
+                    foreach (NewObjective obj in cat.Objectives)
+                    {
+                        obj.ColorByEffectiveness();
+                    }
+                }
+            }
+        }
+
+        private void criticalityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (categories.Count > 0)
+            {
+                foreach (NewCategory cat in categories)
+                {
+                    foreach (NewObjective obj in cat.Objectives)
+                    {
+                        obj.ColorByCriticality();
+                    }
+                }
+            }
+        }
+
+        private void differentiationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (categories.Count > 0)
+            {
+                foreach (NewCategory cat in categories)
+                {
+                    foreach (NewObjective obj in cat.Objectives)
+                    {
+                        obj.ColorByDifferentiation();
+                    }
+                }
+            }
+        }
+
 
     } // end class
 }

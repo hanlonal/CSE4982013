@@ -102,5 +102,10 @@ namespace IBMConsultantTool
                 MessageBox.Show("Changes saved successfully", "Success");
             }
         }
+
+        private void DataEntryForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
