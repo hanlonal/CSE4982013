@@ -1056,15 +1056,24 @@ namespace IBMConsultantTool
    save it in the mySelectedNode variable. */
 
         TreeNode mySelectedNode;
+        int indexCurrentQuestionNode;
+
         private void QuestionView_MouseDown(object sender,
   System.Windows.Forms.MouseEventArgs e)
         {
-            mySelectedNode = QuestionView.GetNodeAt(e.X, e.Y);
-            QuestionView.SelectedNode = mySelectedNode;
-            QuestionView.LabelEdit = true;
-            if (!mySelectedNode.IsEditing)
+            try
             {
-                mySelectedNode.BeginEdit();
+                mySelectedNode = QuestionView.GetNodeAt(e.X, e.Y);
+                QuestionView.SelectedNode = mySelectedNode;
+                QuestionView.LabelEdit = true;
+                if (!mySelectedNode.IsEditing)
+                {
+                    mySelectedNode.BeginEdit();
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -1080,6 +1089,31 @@ namespace IBMConsultantTool
                     {
                         // Stop editing without canceling the label change.
                         e.Node.EndEdit(false);
+
+                        CupeQuestionStringData data = new CupeQuestionStringData();
+
+                        if ( ClientDataControl.cupeQuestions[indexCurrentQuestionNode].QuestionText == e.Node.Text)
+                        {
+                            ClientDataControl.cupeQuestions[indexCurrentQuestionNode].QuestionText = e.Label;
+                        }
+                        else if (ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceA == e.Node.Text )
+                        {
+                            ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceA = e.Label;
+                        }
+                        else if (ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceB == e.Node.Text)
+                        {
+                            ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceB = e.Label;
+                        }
+                        else if (ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceC == e.Node.Text)
+                        {
+                            ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceC = e.Label;
+                        }
+                        else if (ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceD == e.Node.Text)
+                        {
+                            ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceD = e.Label;
+                        }
+
+
                     }
                     else
                     {
@@ -1101,6 +1135,7 @@ namespace IBMConsultantTool
                        "Node Label Edit");
                     e.Node.BeginEdit();
                 }
+
             }
         }
 
@@ -1157,6 +1192,8 @@ namespace IBMConsultantTool
             if (RowName.Contains("Question"))
             {
                 var index = e.RowIndex;
+                indexCurrentQuestionNode = index;
+
                 TreeNode node = new TreeNode();
                 node.Text = ClientDataControl.GetCupeQuestions()[index].QuestionText;
 
@@ -1181,6 +1218,11 @@ namespace IBMConsultantTool
 
 
             }
+        }
+
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClientDataControl.SendEmailButton_Click();
         }
     }// end class
 
