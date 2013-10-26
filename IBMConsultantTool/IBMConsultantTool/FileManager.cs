@@ -1004,6 +1004,19 @@ namespace IBMConsultantTool
                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
         }
+
+        public override bool ChangeDomainDefault(string domName, bool isDefault)
+        {
+            XElement domain;
+            if (GetDomain(domName, out domain))
+            {
+                domain.Element("DEFAULT").Value = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Domain: " + domName, "Error");
+            return false;
+        }
         #endregion
 
         #region Capability
@@ -1090,6 +1103,19 @@ namespace IBMConsultantTool
                 itcapForm.questionList.Items.AddRange((from ent in capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
+        }
+
+        public override bool ChangeCapabilityDefault(string capName, bool isDefault)
+        {
+            XElement capability;
+            if (GetCapability(capName, out capability))
+            {
+                capability.Element("DEFAULT").Value = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Capability: " + capName, "Error");
+            return false;
         }
         #endregion
 
@@ -1300,6 +1326,21 @@ namespace IBMConsultantTool
         {
             throw new NotImplementedException();
         }
+
+        public override bool ChangeITCAPQuestionDefault(string itcqName, bool isDefault)
+        {
+            XElement itcapQuestion;
+            if (GetITCAPQuestion(itcqName, out itcapQuestion))
+            {
+                itcapQuestion.Element("DEFAULT").Value = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find ITCAPQuestion: " + itcqName, "Error");
+            return false;
+        }
+
+
 
         #endregion
 

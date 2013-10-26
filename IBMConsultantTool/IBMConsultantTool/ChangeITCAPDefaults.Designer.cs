@@ -45,7 +45,7 @@
             this.ITCAPQuestionDataGridView.Name = "ITCAPQuestionDataGridView";
             this.ITCAPQuestionDataGridView.Size = new System.Drawing.Size(767, 399);
             this.ITCAPQuestionDataGridView.TabIndex = 0;
-            this.ITCAPQuestionDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ITCAPQuestionDataGridView_CellValueChanged);
+            this.ITCAPQuestionDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ITCAPQuestionDataGridView_CellContentClick);
             // 
             // SaveChangesButton
             // 
@@ -55,7 +55,7 @@
             this.SaveChangesButton.TabIndex = 1;
             this.SaveChangesButton.Text = "Save Changes";
             this.SaveChangesButton.UseVisualStyleBackColor = true;
-            this.SaveChangesButton.Click += new System.EventHandler(this.button1_Click);
+            this.SaveChangesButton.Click += new System.EventHandler(this.SaveChangesButton_Click);
             // 
             // ITCAPQuestion
             // 

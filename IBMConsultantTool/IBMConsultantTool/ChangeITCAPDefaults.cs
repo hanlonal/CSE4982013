@@ -60,14 +60,158 @@ namespace IBMConsultantTool
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SaveChangesButton_Click(object sender, EventArgs e)
         {
+            string domName;
+            string capName;
+            string itcqName;
 
+            foreach (DataGridViewRow row in ITCAPQuestionDataGridView.Rows)
+            {
+                if (row.DefaultCellStyle.BackColor == Color.LawnGreen)
+                {
+                    itcqName = (string)row.Cells[0].Value;
+                    if (!itcapForm.db.ChangeITCAPQuestionDefault(itcqName, (bool)row.Cells[1].Value))
+                    {
+                        MessageBox.Show("ITCAPQuestion \"" + itcqName + "\" Not Found", "Error");
+                        return;
+                    }
+                }
+
+                else if (row.DefaultCellStyle.BackColor == Color.Yellow)
+                {
+                    capName = (string)row.Cells[0].Value;
+                    if (!itcapForm.db.ChangeCapabilityDefault(capName, (bool)row.Cells[1].Value))
+                    {
+                        MessageBox.Show("Capability \"" + capName + "\" Not Found", "Error");
+                        return;
+                    }
+                }
+
+                else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                {
+                    domName = (string)row.Cells[0].Value;
+                    if (!itcapForm.db.ChangeDomainDefault(domName, (bool)row.Cells[1].Value))
+                    {
+                        MessageBox.Show("Domain \"" + domName + "\" Not Found", "Error");
+                        return;
+                    }
+                }
+            }
+
+            if (!itcapForm.db.SaveChanges())
+            {
+                MessageBox.Show("Failed to Save Changes", "Error");
+            }
+
+            else
+            {
+                MessageBox.Show("Changes Saved Successfully", "Success");
+            }
         }
 
-        private void ITCAPQuestionDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void ITCAPQuestionDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           // if(!((sender as DataGridViewCheckBoxCell).Value as bool))
+            if (e.RowIndex < 0) return;
+            DataGridViewCheckBoxCell senderCell = ITCAPQuestionDataGridView.Rows[e.RowIndex].Cells[1] as DataGridViewCheckBoxCell;
+            bool capabilityIsDefault = false; //becomes true if we find another attribute that is default
+            bool hitCapability = false;
+            bool domainIsDefault = false; //becomes true if we find another capability that is default
+            DataGridViewRow row;
+            //MessageBox.Show(e.RowIndex.ToString() + " " + ((bool)senderCell.EditedFormattedValue).ToString());
+            if (((bool)senderCell.EditedFormattedValue) == true)
+            {
+                if (senderCell.OwningRow.DefaultCellStyle.BackColor == Color.LawnGreen)
+                {
+                    for (int i = senderCell.OwningRow.Index; ; i--)
+                    {
+                        //MessageBox.Show(i.ToString());
+                        if (i < 0)
+                        {
+                            MessageBox.Show("Error Encountered: Did not find parent domain");
+                            break;
+                        }
+                        row = ITCAPQuestionDataGridView.Rows[i];
+                        if (!hitCapability && row.DefaultCellStyle.BackColor == Color.Yellow)
+                        {
+                            row.Cells[1].Value = true;
+                            hitCapability = true;
+                        }
+                        else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                        {
+                            row.Cells[1].Value = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                if (senderCell.OwningRow.DefaultCellStyle.BackColor == Color.LawnGreen)
+                {
+                    for (int i = senderCell.OwningRow.Index+1; ; i++)
+                    {
+                        //MessageBox.Show(i.ToString());
+                        if (i > ITCAPQuestionDataGridView.Rows.Count)
+                        {
+                            break;
+                        }
+                        row = ITCAPQuestionDataGridView.Rows[i];
+                        if (!hitCapability && row.DefaultCellStyle.BackColor == Color.LawnGreen && (bool)(row.Cells[1].EditedFormattedValue))
+                        {
+                            capabilityIsDefault = true;
+                        }
+                        if (row.DefaultCellStyle.BackColor == Color.Yellow && (bool)(row.Cells[1].EditedFormattedValue))
+                        {
+                            hitCapability = true;
+                            domainIsDefault = true;
+                        }
+                        else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                        {
+                            break;
+                        }
+                    }
+
+                    hitCapability = false;
+                    for (int i = senderCell.OwningRow.Index-1; ; i--)
+                    {
+                        if (i < 0)
+                        {
+                            MessageBox.Show("Error Encountered: Did not find parent domain");
+                            break;
+                        }
+                        //MessageBox.Show(i.ToString());
+                        row = ITCAPQuestionDataGridView.Rows[i];
+                        if (row.DefaultCellStyle.BackColor == Color.LawnGreen && (bool)(row.Cells[1].Value))
+                        {
+                            capabilityIsDefault = true;
+                        }
+                        if (row.DefaultCellStyle.BackColor == Color.Yellow)
+                        {
+                            if (!hitCapability)
+                            {
+                                if (capabilityIsDefault)
+                                {
+                                    row.Cells[1].Value = true;
+                                    domainIsDefault = true;
+                                }
+
+                                else
+                                {
+                                    row.Cells[1].Value = false;
+                                }
+                                hitCapability = true;
+                            }
+                        }
+                        else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                        {
+                            row.Cells[1].Value = domainIsDefault;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
