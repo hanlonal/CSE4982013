@@ -15,7 +15,10 @@ namespace IBMConsultantTool
 {
     public partial class BOMTool : Form
     {
+        
 
+
+        TabPage clickedPage;
         public DataManager db;
         public object client;
         public bool isOnline;
@@ -102,19 +105,22 @@ namespace IBMConsultantTool
             
             detailInfoPanel.Controls.Add(totalScoreLabel);
             TextBox effectbox = new TextBox();
-            effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
-            effectbox.DataBindings.Add("Text", init, "Effectiveness");
+           // effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
+            effectbox.DataBindings.Add(new Binding("Text", init, "Effectiveness"));
             effectbox.Location = new Point(effectivenessXValue, yValue);
+            //effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
             detailInfoPanel.Controls.Add(effectbox);
             TextBox critBox = new TextBox();
-            critBox.DataBindings.Add("Text", init, "Criticality");            
+            critBox.DataBindings.Add(new Binding("Text", init, "Criticality"));            
             critBox.Location = new Point(critXValue, yValue);
             detailInfoPanel.Controls.Add(critBox);
             TextBox diffBox = new TextBox();
-            diffBox.DataBindings.Add("Text", init, "Differentiation");
+            diffBox.DataBindings.Add(new Binding("Text", init, "Differentiation"));
             diffBox.Location = new Point(diffXValue, yValue);
             detailInfoPanel.Controls.Add(diffBox);
         }
+
+
 
         private void effectbox_TextChanged(object sender, EventArgs e)
         {
@@ -327,6 +333,35 @@ namespace IBMConsultantTool
                 }
             }
         }
+
+        private void catWorkspace_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                foreach (TabPage item in this.catWorkspace.TabPages)
+                {
+                    Rectangle r = this.catWorkspace.GetTabRect(catWorkspace.TabPages.IndexOf(item));
+                    if (r.X < e.Location.X && e.Location.X < r.X + r.Width && r.Y < e.Location.Y && e.Location.Y < r.Y + r.Height)
+                    {
+                        clickedPage = item;
+                        foreach (NewCategory cat in categories)
+                        {
+                            if (cat.name == clickedPage.Text)
+                            {
+                                categories.Remove(cat);
+                                break;
+                            }
+                        }
+                        this.catWorkspace.TabPages.Remove(clickedPage);
+                    }
+                }
+
+            }
+        }
+
+
+
+
 
 
     } // end class

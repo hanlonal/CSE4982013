@@ -13,9 +13,12 @@ namespace IBMConsultantTool
         private string name;
         private int baseHeight = 20;
 
-        private float criticality = 0;
-        private float differentiation = 0;
-        private float effectiveness = 0;
+        private float criticality = 1;
+        private float differentiation = 3;
+        private float effectiveness = 2;
+        private float totalBOMScore = 0;
+
+
 
         private int criticalAmount = 4;
         private int averageAmount = 7;
@@ -61,6 +64,12 @@ namespace IBMConsultantTool
             
         
         }
+        public void CalculateTotalBOMScore()
+        {
+            if (criticality == 0 || differentiation == 0 || effectiveness == 0)
+                return;
+            totalBOMScore = ((11-effectiveness)*criticality*.5f)/10 +differentiation*.5f;
+        }
 
         public void ChangeColor(string param)
         {
@@ -103,6 +112,7 @@ namespace IBMConsultantTool
             set
             {
                 criticality = value;
+                CalculateTotalBOMScore();
 
             }
         }
@@ -116,6 +126,7 @@ namespace IBMConsultantTool
             set
             {
                 effectiveness = value;
+                CalculateTotalBOMScore();
             }
         }
 
@@ -129,7 +140,15 @@ namespace IBMConsultantTool
             {
 
                 differentiation = value;
+                CalculateTotalBOMScore();
+
             }
+        }
+
+        public float TotalBOMScore
+        {
+            get { return totalBOMScore; }
+            set { totalBOMScore = value; }
         }
     
     }// end class

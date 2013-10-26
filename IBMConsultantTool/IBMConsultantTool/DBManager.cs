@@ -236,15 +236,17 @@ namespace IBMConsultantTool
         public override bool UpdateBOM(object clientObj, NewInitiative ini)
         {
             CLIENT client = clientObj as CLIENT;
+            Console.WriteLine(ini.Effectiveness.ToString());
             try
             {
                 BOM bom = (from ent in client.BOM
                            where ent.INITIATIVE.NAME.TrimEnd() == ini.Name
                            select ent).Single();
 
-                bom.EFFECTIVENESS = ini.Effectiveness;
-                bom.CRITICALITY = ini.Criticality;
-                bom.DIFFERENTIAL = ini.Differentiation;
+                bom.EFFECTIVENESS = (float)Convert.ToDouble(ini.Effectiveness.ToString());
+                
+                bom.CRITICALITY = (float)Convert.ToDouble(ini.Criticality.ToString());
+                bom.DIFFERENTIAL = (float)Convert.ToDouble(ini.Differentiation.ToString());
             }
 
             catch

@@ -11,6 +11,7 @@ namespace IBMConsultantTool
 
     public class NewCategory : TabPage
     {
+        float[] heights = new float[4];
         NewObjective lastClicked;
         private BOMTool owner;
         List<NewObjective> objectives = new List<NewObjective>();
@@ -79,6 +80,12 @@ namespace IBMConsultantTool
             {
                 lastClicked = value;
             }
+        }
+
+        public float[] Heights
+        {
+            get { return heights; }
+            set { heights = value; }
         }
 
 

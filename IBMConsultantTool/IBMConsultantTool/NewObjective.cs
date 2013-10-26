@@ -60,12 +60,19 @@ namespace IBMConsultantTool
         {
             Point p = new Point();
             // Console.WriteLine(owner.Width.ToString());
-
+            int index = (owner.Objectives.Count % 4);
             p.X = baseWidth * (owner.Objectives.Count % 4);
             if (owner.Objectives.Count > 3)
-                p.Y = owner.Objectives[owner.Objectives.Count - 4].Location.Y + owner.Objectives[owner.Objectives.Count -4].Height;
+            {
+                owner.Heights[index] = owner.Objectives[owner.Objectives.Count - 4].Location.Y + owner.Objectives[owner.Objectives.Count - 4].Height;
+                p.Y = (int)owner.Heights[index];
+            }
             else
+            {
                 p.Y = 0;
+                owner.Heights[index] = baseHeight;
+            }
+
 
             return p;
         }
