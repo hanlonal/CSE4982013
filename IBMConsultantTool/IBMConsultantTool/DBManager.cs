@@ -437,6 +437,24 @@ namespace IBMConsultantTool
 
         #region ITCAP
 
+        public bool GetITCAP(string itcqName, CLIENT client, out ITCAP itcap)
+        {
+            try
+            {
+                itcap = (from ent in client.ITCAP
+                         where ent.ITCAPQUESTION.NAME == itcqName
+                         select ent).Single();
+            }
+
+            catch
+            {
+                itcap = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
         {
             CLIENT client = clientObj as CLIENT;
@@ -503,27 +521,16 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public override bool RemoveITCAP(string name, object client)
+        public override bool RemoveITCAP(string itcqName, object clientObj)
         {
-            int id;
-            CLIENT itclient = client as CLIENT;
-            foreach (ITCAPQUESTION question in dbo.ITCAPQUESTION)
+            ITCAP itcap;
+            CLIENT client = clientObj as CLIENT;
+            
+            if(GetITCAP(itcqName, client, out itcap))
             {
-                if (question.NAME == name)
-                {
-                    id = question.ITCAPQUESTIONID;
-                }
-
+                dbo.RemoveITCAPQUESTION(itcap);
+                return true;
             }
-
-            //int id = itclient.CLIENTID;
-            
-
-           // Console.WriteLine(id.ToString());
-
-           // dbo.RemoveITCAPQUESTION(new ITCAP());
-
-            
             
             return true;
         }
@@ -611,7 +618,6 @@ namespace IBMConsultantTool
                     domain.Visible = true;
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
-                    itcapForm.entities.Add(domain);
                     domain.ID = itcapForm.domains.Count.ToString();
                 }
 
@@ -631,7 +637,6 @@ namespace IBMConsultantTool
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
-                    itcapForm.entities.Add(capability);
                 }
 
                 itcapQuestion = new ITCapQuestion();
@@ -645,7 +650,19 @@ namespace IBMConsultantTool
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
                 itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
-                itcapForm.entities.Add(itcapQuestion);
+            }
+
+            foreach (Domain domain in itcapForm.domains)
+            {
+                itcapForm.entities.Add(domain);
+                foreach (Capability capability in domain.CapabilitiesOwned)
+                {
+                    itcapForm.entities.Add(capability);
+                    foreach (ITCapQuestion itcapQuestion in capability.QuestionsOwned)
+                    {
+                        itcapForm.entities.Add(itcapQuestion);
+                    }
+                }
             }
             return true;
         }

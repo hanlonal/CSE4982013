@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="CupeQuestion.cs" />
     <Compile Include="CupeQuestionData.cs" />
+    <Compile Include="CupeQuestionStringData.cs" />
     <Compile Include="CUPETool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -465,7 +466,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Questions.txt" />
+    <None Include="Resources\Questions.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Notes.txt" />
