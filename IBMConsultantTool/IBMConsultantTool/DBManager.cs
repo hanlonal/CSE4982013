@@ -611,7 +611,6 @@ namespace IBMConsultantTool
                     domain.Visible = true;
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
-                    itcapForm.entities.Add(domain);
                     domain.ID = itcapForm.domains.Count.ToString();
                 }
 
@@ -631,7 +630,6 @@ namespace IBMConsultantTool
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
-                    itcapForm.entities.Add(capability);
                 }
 
                 itcapQuestion = new ITCapQuestion();
@@ -645,7 +643,19 @@ namespace IBMConsultantTool
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
                 itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
-                itcapForm.entities.Add(itcapQuestion);
+            }
+
+            foreach (Domain domain in itcapForm.domains)
+            {
+                itcapForm.entities.Add(domain);
+                foreach (Capability capability in domain.CapabilitiesOwned)
+                {
+                    itcapForm.entities.Add(capability);
+                    foreach (ITCapQuestion itcapQuestion in capability.QuestionsOwned)
+                    {
+                        itcapForm.entities.Add(itcapQuestion);
+                    }
+                }
             }
             return true;
         }
