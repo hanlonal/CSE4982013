@@ -1760,12 +1760,17 @@ namespace IBMConsultantTool
             ITCAPQUESTION itcapQuestion;
             ITCAP itcap;
 
-            if (!File.Exists("Changes.log"))
+            if (!Directory.Exists("Resources"))
             {
-                File.Create("Changes.log");
+                Directory.CreateDirectory("Resources");
             }
 
-            using (System.IO.StreamReader file = new System.IO.StreamReader("Changes.log"))
+            else if (!File.Exists("Resources/Changes.log"))
+            {
+                File.Create("Resources/Changes.log");
+            }
+
+            using (System.IO.StreamReader file = new System.IO.StreamReader("Resources/Changes.log"))
             {
                 while ((line = file.ReadLine()) != null)
                 {

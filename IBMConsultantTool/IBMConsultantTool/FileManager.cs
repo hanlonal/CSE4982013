@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -16,7 +17,7 @@ namespace IBMConsultantTool
         {
             try
             {
-                dbo = XElement.Load("Data.xml");
+                dbo = XElement.Load("Resources/Data.xml");
             }
 
             catch
@@ -24,7 +25,12 @@ namespace IBMConsultantTool
                 dbo = new XElement("root");
                 dbo.Add(new XElement("CLIENTS"));
                 dbo.Add(new XElement("CATEGORIES"));
-                dbo.Save("Data.xml");
+                if (!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
+
+                dbo.Save("Resources/Data.xml");
             }
 
             changeLog = new List<string>();
@@ -1460,9 +1466,19 @@ namespace IBMConsultantTool
         {
             try
             {
-                dbo.Save("Data.xml");
+                if(!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Changes.log", true))
+                dbo.Save("Resources/Data.xml");
+
+                if (!File.Exists("Resources/Changes.log"))
+                {
+                    File.Create("Resources/Changes.log");
+                }
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Resources/Changes.log", true))
                 {
                     foreach (string change in changeLog)
                     {
