@@ -691,8 +691,12 @@ namespace IBMConsultantTool
             {
                 ent.Owner.CalculateToBeAverage();                
             }
-            if (ent.CapabilityGap >= 1)
+            if (ent.CapabilityGap >= 1.5)
                 currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
+            else if (ent.CapabilityGap < 1.5 && ent.CapabilityGap >= 1)
+                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
+            else 
+                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
             currentGrid.Refresh();
             
             
