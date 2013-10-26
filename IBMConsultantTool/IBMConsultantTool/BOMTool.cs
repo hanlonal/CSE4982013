@@ -58,7 +58,12 @@ namespace IBMConsultantTool
 
         private void ClearDetailPanel()
         {
+            for (int i = detailInfoPanel.Controls.Count-1; i >= 0; i--)
+            {
+                if ((string)detailInfoPanel.Controls[i].Tag != "permanent")
+                    detailInfoPanel.Controls.RemoveAt(i);
 
+            }
         }
 
         public NewCategory AddCategory(string name)
@@ -85,24 +90,37 @@ namespace IBMConsultantTool
             Label nameLabel = new Label();
             detailInfoPanel.Controls.Add(nameLabel);
             nameLabel.AutoEllipsis = true;
-            nameLabel.Width = 200;
+            nameLabel.Width = 270;
             //removableControls.Add(nameLabel);
             nameLabel.Text = init.Name;
             nameLabel.Location = new Point(nameXValue, yValue);
             Label totalScoreLabel = new Label();
+            totalScoreLabel.Location = new Point(totalXValue, yValue);
+            totalScoreLabel.BackColor = Color.White;
+            totalScoreLabel.Text = "0";
             //removableControls.Add(totalScoreLabel);
             
             detailInfoPanel.Controls.Add(totalScoreLabel);
             TextBox effectbox = new TextBox();
-            
+            effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
+            effectbox.DataBindings.Add("Text", init, "Effectiveness");
             effectbox.Location = new Point(effectivenessXValue, yValue);
             detailInfoPanel.Controls.Add(effectbox);
             TextBox critBox = new TextBox();
+            critBox.DataBindings.Add("Text", init, "Criticality");            
             critBox.Location = new Point(critXValue, yValue);
             detailInfoPanel.Controls.Add(critBox);
             TextBox diffBox = new TextBox();
+            diffBox.DataBindings.Add("Text", init, "Differentiation");
             diffBox.Location = new Point(diffXValue, yValue);
             detailInfoPanel.Controls.Add(diffBox);
+        }
+
+        private void effectbox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox sendingTextBox = (TextBox)sender;
+
+
         }
 
         public TabControl CategoryWorkspace
@@ -277,6 +295,34 @@ namespace IBMConsultantTool
                     foreach (NewObjective obj in cat.Objectives)
                     {
                         obj.ColorByDifferentiation();
+                    }
+                }
+            }
+        }
+
+        private void catWorkspace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveData();
+        }
+
+        private void SaveData()
+        {
+            foreach (NewCategory cat in categories)
+            {
+                foreach (NewObjective obj in cat.Objectives)
+                {
+                    foreach (NewInitiative init in obj.Initiatives)
+                    {
+                        if (!db.UpdateBOM(this, init))
+                        {
+                            MessageBox.Show("BOM \"" + init.Name + "\" could not be saved to database", "Error");
+                            return;
+                        }
                     }
                 }
             }

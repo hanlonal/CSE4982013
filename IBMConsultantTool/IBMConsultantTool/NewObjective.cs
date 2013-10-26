@@ -53,7 +53,7 @@ namespace IBMConsultantTool
 
         public void UpdateHeight()
         {
-            this.Height = baseHeight + 20*initiatives.Count;
+            this.Height = baseHeight + 30*initiatives.Count;
         }
 
         private Point FindLocation()

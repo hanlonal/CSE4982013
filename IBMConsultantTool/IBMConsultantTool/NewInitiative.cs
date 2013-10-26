@@ -32,6 +32,7 @@ namespace IBMConsultantTool
             this.Location = FindLocation();
             this.Height = baseHeight;
             this.BackColor = Color.White;
+            
             this.Width = owner.Width;
             this.BorderStyle = BorderStyle.FixedSingle;
         }
@@ -53,7 +54,7 @@ namespace IBMConsultantTool
 
             Point p = new Point();
 
-            p.X = 20;
+            p.X = 10;
             p.Y = 30 +(owner.Initiatives.Count) * 30;
             owner.UpdateHeight();
             return p;
