@@ -437,6 +437,24 @@ namespace IBMConsultantTool
 
         #region ITCAP
 
+        public bool GetITCAP(string itcqName, CLIENT client, out ITCAP itcap)
+        {
+            try
+            {
+                itcap = (from ent in client.ITCAP
+                         where ent.ITCAPQUESTION.NAME == itcqName
+                         select ent).Single();
+            }
+
+            catch
+            {
+                itcap = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
         {
             CLIENT client = clientObj as CLIENT;
@@ -503,27 +521,16 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public override bool RemoveITCAP(string name, object client)
+        public override bool RemoveITCAP(string itcqName, object clientObj)
         {
-            int id;
-            CLIENT itclient = client as CLIENT;
-            foreach (ITCAPQUESTION question in dbo.ITCAPQUESTION)
+            ITCAP itcap;
+            CLIENT client = clientObj as CLIENT;
+            
+            if(GetITCAP(itcqName, client, out itcap))
             {
-                if (question.NAME == name)
-                {
-                    id = question.ITCAPQUESTIONID;
-                }
-
+                dbo.RemoveITCAPQUESTION(itcap);
+                return true;
             }
-
-            //int id = itclient.CLIENTID;
-            
-
-           // Console.WriteLine(id.ToString());
-
-           // dbo.RemoveITCAPQUESTION(new ITCAP());
-
-            
             
             return true;
         }

@@ -46,6 +46,7 @@
             this.effectivenessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.criticalityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.differentiationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bOMScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.bOMScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.staticMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dynamicMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ratingThresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -204,7 +208,9 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.participantsToolStripMenuItem});
+            this.participantsToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.ratingThresholdsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(48, 25);
             this.editToolStripMenuItem.Text = "Edit";
@@ -213,7 +219,7 @@
             // 
             this.participantsToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
             this.participantsToolStripMenuItem.Text = "Participants";
             this.participantsToolStripMenuItem.Click += new System.EventHandler(this.participantsToolStripMenuItem_Click);
             // 
@@ -249,6 +255,13 @@
             this.differentiationToolStripMenuItem.Text = "Differentiation";
             this.differentiationToolStripMenuItem.Click += new System.EventHandler(this.differentiationToolStripMenuItem_Click);
             // 
+            // bOMScoreToolStripMenuItem
+            // 
+            this.bOMScoreToolStripMenuItem.Name = "bOMScoreToolStripMenuItem";
+            this.bOMScoreToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.bOMScoreToolStripMenuItem.Text = "BOM Score";
+            this.bOMScoreToolStripMenuItem.Click += new System.EventHandler(this.bOMScoreToolStripMenuItem_Click);
+            // 
             // workshopToolStripMenuItem
             // 
             this.workshopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -262,20 +275,20 @@
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
             // 
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
             this.bOMToolStripMenuItem.Text = "BOM";
             // 
             // iTCapToolStripMenuItem
             // 
             this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
-            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
             this.iTCapToolStripMenuItem.Text = "ITCap";
             // 
             // btnLoadChart
@@ -377,12 +390,35 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
             // 
-            // bOMScoreToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.bOMScoreToolStripMenuItem.Name = "bOMScoreToolStripMenuItem";
-            this.bOMScoreToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.bOMScoreToolStripMenuItem.Text = "BOM Score";
-            this.bOMScoreToolStripMenuItem.Click += new System.EventHandler(this.bOMScoreToolStripMenuItem_Click);
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.staticMenuItem,
+            this.dynamicMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 26);
+            this.toolStripMenuItem1.Text = "Rating Type";
+            // 
+            // staticMenuItem
+            // 
+            this.staticMenuItem.Checked = true;
+            this.staticMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.staticMenuItem.Name = "staticMenuItem";
+            this.staticMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.staticMenuItem.Text = "Static";
+            // 
+            // dynamicMenuItem
+            // 
+            this.dynamicMenuItem.Name = "dynamicMenuItem";
+            this.dynamicMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.dynamicMenuItem.Text = "Dynamic";
+            // 
+            // ratingThresholdsToolStripMenuItem
+            // 
+            this.ratingThresholdsToolStripMenuItem.Name = "ratingThresholdsToolStripMenuItem";
+            this.ratingThresholdsToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
+            this.ratingThresholdsToolStripMenuItem.Text = "Rating Thresholds";
+            this.ratingThresholdsToolStripMenuItem.Click += new System.EventHandler(this.ratingThresholdsToolStripMenuItem_Click);
             // 
             // BOMTool
             // 
@@ -446,6 +482,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMScoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem staticMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem dynamicMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ratingThresholdsToolStripMenuItem;
 
     }
 }

@@ -121,11 +121,10 @@ namespace IBMConsultantTool
             }
 
             states = FormStates.Open;
-            surverymakercontrols.Add(domainNameTextBox);
+
             surverymakercontrols.Add(capabilityNameTextBox);
-            surverymakercontrols.Add(addCapabilityButton);
-            surverymakercontrols.Add(addDomainButton);
-            surverymakercontrols.Add(addQuestionButton);
+
+
             surverymakercontrols.Add(questionNameTextBox);
             surverymakercontrols.Add(capabilitiesList);
             surverymakercontrols.Add(domainList);
@@ -648,6 +647,8 @@ namespace IBMConsultantTool
                 }
                 else if (ent.Type == "attribute")
                 {
+                    if (states == FormStates.SurveryMaker)
+                        row.ReadOnly = true;
                     row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
                     if (states == FormStates.Open)
                         row.Visible = false;
@@ -660,8 +661,8 @@ namespace IBMConsultantTool
                 surveryMakerGrid.Columns["tobeStandardDeviation"].Visible = false;
                 surveryMakerGrid.Columns["asisStandardDeviation"].Visible = false;
                 surveryMakerGrid.Columns["ToBeScore"].Visible = false;
-                surveryMakerGrid.Columns["CapabilityGap"].Visible = false;
-                surveryMakerGrid.Columns["PrioritizedCapabilityGap"].Visible = false;
+                surveryMakerGrid.Columns["CapabilityGapText"].Visible = false;
+                surveryMakerGrid.Columns["PrioritizedGap"].Visible = false;
                 
             }
             if (states == FormStates.Open)
@@ -757,6 +758,24 @@ namespace IBMConsultantTool
         private void loadSurveyFromDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void addCapabilityButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void otherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                ResetSurveyGrid();
+                LoadDomains();
+                if (db.RewriteITCAP(this))
+                {
+                    ChangeStates(FormStates.SurveryMaker);
+                }
+            }
         }
     }// end class
 }
