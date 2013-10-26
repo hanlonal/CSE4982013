@@ -402,9 +402,9 @@ namespace IBMConsultantTool
             base.AddObject("ITCAPQUESTION", iTCAPQUESTION);
         }
 
-        public void RemoveITCAPQUESTION(ITCAP itCAPQUESTION)
+        public void RemoveITCAPQUESTION(ITCAP iTCAPQUESTION)
         {
-            base.DeleteObject(itCAPQUESTION);
+            base.DeleteObject(iTCAPQUESTION);
             
         }
         

@@ -361,9 +361,18 @@ namespace IBMConsultantTool
 
         #region ITCAP
 
-        public override bool RemoveITCAP(string name, object client)
+        public override bool RemoveITCAP(string itcqName, object clientObj)
         {
-            throw new NotImplementedException();
+            XElement itcap;
+            XElement client = clientObj as XElement;
+
+            if (GetITCAP(itcqName, client, out itcap))
+            {
+                itcap.RemoveAll();
+                return true;
+            }
+
+            return true;
         }
 
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
@@ -1137,6 +1146,24 @@ namespace IBMConsultantTool
         #endregion
 
         #region ITCAPQuestion
+
+        public bool GetITCAP(string itcqName, XElement client, out XElement itcap)
+        {
+            try
+            {
+                itcap = (from ent in client.Element("ITCAPS").Elements("ITCAP")
+                         where ent.Element("ITCAPQUESTION").Value == itcqName
+                         select ent).Single();
+            }
+
+            catch
+            {
+                itcap = null;
+                return false;
+            }
+
+            return true;
+        }
 
         public override string[] GetITCAPQuestionNames(string capName, string domName)
         {
