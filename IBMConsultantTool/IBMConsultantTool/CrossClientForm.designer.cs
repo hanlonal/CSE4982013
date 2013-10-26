@@ -70,6 +70,7 @@
             this.Controls.Add(this.InitiativeComboBox);
             this.Name = "CrossClientForm";
             this.Text = "CrossClient";
+            this.Load += new System.EventHandler(this.CrossClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

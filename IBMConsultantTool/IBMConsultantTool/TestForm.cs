@@ -21,11 +21,7 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
 
-            if(!ClientDataControl.LoadDatabase())
-            {
-                MessageBox.Show("Could not reach database: Offline mode set", "Error");
-            }
-
+            ClientDataControl.LoadDatabase();
         }
 
         private void TestForm_Load(object sender, EventArgs e)

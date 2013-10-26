@@ -1506,8 +1506,9 @@ namespace IBMConsultantTool
             {
                 dbo.SaveChanges();
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show("Save Changes Failed:\n\n" + e.Message + e.InnerException, "Error");
                 return false;
             }
 
