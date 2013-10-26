@@ -460,6 +460,20 @@ namespace IBMConsultantTool
             butt.Parent.Hide();
         }
 
+        private void iTCapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCap));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RUNITCap()
+        {
+            Application.Run(new ITCapTool());
+        }
+
 
 
 
