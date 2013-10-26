@@ -103,7 +103,7 @@ namespace IBMConsultantTool
         public ITCapTool()
         {
             InitializeComponent();
-
+            currentGrid = surveryMakerGrid;
             
             try
             {
@@ -204,6 +204,10 @@ namespace IBMConsultantTool
                     loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.Open:
+                    ToggleControlsVisible(surverymakercontrols, false);
+                    ToggleControlsVisible(liveDataEntryControls, false);
+                    ToggleControlsVisible(prioritizationControls, false);
+                    loadSurveyFromDataGrid.Visible = false;
                     currentGrid = loadSurveyFromDataGrid;
                     LoadChartSurvey();
                     
@@ -558,10 +562,11 @@ namespace IBMConsultantTool
 
         public void ResetSurveyGrid()
         {
+            currentGrid.DataSource = null;
             domains.Clear();
             capabilities.Clear();
             entities.Clear();
-            surveryMakerGrid.Rows.Clear();
+            
         }
 
         private void domainList_SelectedIndexChanged(object sender, EventArgs e)

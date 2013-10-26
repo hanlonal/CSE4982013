@@ -42,6 +42,10 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.staticMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dynamicMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ratingThresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectivenessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.criticalityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,17 +63,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.staticMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dynamicMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ratingThresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // catWorkspace
             // 
-            this.catWorkspace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.catWorkspace.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.catWorkspace.Location = new System.Drawing.Point(11, 34);
             this.catWorkspace.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
@@ -219,9 +218,39 @@
             // 
             this.participantsToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
+            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
             this.participantsToolStripMenuItem.Text = "Participants";
             this.participantsToolStripMenuItem.Click += new System.EventHandler(this.participantsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.staticMenuItem,
+            this.dynamicMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(205, 26);
+            this.toolStripMenuItem1.Text = "Rating Type";
+            // 
+            // staticMenuItem
+            // 
+            this.staticMenuItem.Checked = true;
+            this.staticMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.staticMenuItem.Name = "staticMenuItem";
+            this.staticMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.staticMenuItem.Text = "Static";
+            // 
+            // dynamicMenuItem
+            // 
+            this.dynamicMenuItem.Name = "dynamicMenuItem";
+            this.dynamicMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.dynamicMenuItem.Text = "Dynamic";
+            // 
+            // ratingThresholdsToolStripMenuItem
+            // 
+            this.ratingThresholdsToolStripMenuItem.Name = "ratingThresholdsToolStripMenuItem";
+            this.ratingThresholdsToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
+            this.ratingThresholdsToolStripMenuItem.Text = "Rating Thresholds";
+            this.ratingThresholdsToolStripMenuItem.Click += new System.EventHandler(this.ratingThresholdsToolStripMenuItem_Click);
             // 
             // vieToolStripMenuItem
             // 
@@ -306,6 +335,9 @@
             // 
             // detailInfoPanel
             // 
+            this.detailInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.detailInfoPanel.AutoScroll = true;
             this.detailInfoPanel.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.detailInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -315,7 +347,6 @@
             this.detailInfoPanel.Controls.Add(this.label2);
             this.detailInfoPanel.Controls.Add(this.label1);
             this.detailInfoPanel.Controls.Add(this.seperatorLabel);
-            this.detailInfoPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.detailInfoPanel.Location = new System.Drawing.Point(0, 556);
             this.detailInfoPanel.Margin = new System.Windows.Forms.Padding(2);
             this.detailInfoPanel.Name = "detailInfoPanel";
@@ -389,36 +420,6 @@
             this.seperatorLabel.TabIndex = 0;
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.staticMenuItem,
-            this.dynamicMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 26);
-            this.toolStripMenuItem1.Text = "Rating Type";
-            // 
-            // staticMenuItem
-            // 
-            this.staticMenuItem.Checked = true;
-            this.staticMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.staticMenuItem.Name = "staticMenuItem";
-            this.staticMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.staticMenuItem.Text = "Static";
-            // 
-            // dynamicMenuItem
-            // 
-            this.dynamicMenuItem.Name = "dynamicMenuItem";
-            this.dynamicMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.dynamicMenuItem.Text = "Dynamic";
-            // 
-            // ratingThresholdsToolStripMenuItem
-            // 
-            this.ratingThresholdsToolStripMenuItem.Name = "ratingThresholdsToolStripMenuItem";
-            this.ratingThresholdsToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
-            this.ratingThresholdsToolStripMenuItem.Text = "Rating Thresholds";
-            this.ratingThresholdsToolStripMenuItem.Click += new System.EventHandler(this.ratingThresholdsToolStripMenuItem_Click);
             // 
             // BOMTool
             // 
