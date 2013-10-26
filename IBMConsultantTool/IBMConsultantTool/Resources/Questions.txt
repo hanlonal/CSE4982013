@@ -1,2 +1,120 @@
-How are you doing on this day?
+The corporate view of IT is:
+A. A provider of technical services
+B. A facilitator of organizational efficiency
+C. An organization strategicall aligned with the business goals and objectives of the enterprise
+D. A critical enabler of the corporate vision
+
+IT customer satisfaction measurement is:
+A. Less important than achieving cost targets
+B. Focused on the success of process automation activities, e.g. increased productivity and/or decrease in product cycle time
+C. Measured by external customer satisfaction with business products or services
+D. Measured by the ability of IT to provide a strategic competitive advantage to the overall goals and initiavie of the business
+
+The enterprise approach toward the IT organization is:
+A. As an expense center
+B. As a service center
+C. As a profit contributor
+D. As a variable cost, on-demand value center
+
+IT value is measured by the IT organization's ability to:
+A. Meet service delivery commitments at lower costs than the competition
+B. Supply "best-of-breed" services, even if IT rates might be higher than the competition, though cost is still a concern
+C. Apply technology, skills, platforms, and services to IT projects
+D. Provide measurable value to the business' strategic initiatives
+
+Which of the following is true about IT participation in planning? IT is:
+A. Not expected to be involved in tactical or strategic planning activities of the business
+B. Expected to participate in tactical or strategic planning only to the extent of improving the corporate decision-making process
+C. Expected to participate in the business' tactical and developmental planning and to support the business goals and objectives
+D. Not only expected to participate in strategic planning, but also to recommend and implement technology to enhance the overall strategic objectives
+
+The IT services that are provided to the business:
+A. Are standard, basic IT services that will 'keep the lights on', with nothing unique or industry specific
+B. Are those expected by most businesses within the same industry
+C. Support standard business processes relevant to the industry, with a few initiatives that offer competitive advantage
+D. Are aimed directly at enabling the business to have a competitive advantage based on the usage of IT
+
+IT services and solutions are provided to the business at the lowest feasible cost:
+A. With minimal consideration for value add
+B. With equal consideration for quality of service
+C. With significant value add services
+D. With the ability to enable business strategies on-demand at variable cost
+
+Which of the following is true about reductions in service level quality:
+A. Reductions will be tolerated if accompanied by reater reductions in price
+B. Reductions may cause the IT organization to take corrective action to improve quality consistent with service level agreements
+C. Reductions may cause immediate action out of concern for the impact to the business
+D. Reductions will not be tolerated
+
+Which of the following applies to IT's participation in planning business initiatives:
+A. IT is rarely involved in business decision
+B. It begins after the business initiative has passed the concept stage, or a package has been selected, and it's time to consider what technology is required to automate the new business process
+C. It begins after the business initiative has passed the concept stage, and it's time to consider how IT can support the new business process
+D. It begins when the business initiative is conceived. In some cases, new IT capability begins the process to develop a new business capability
+
+IT services are:
+A. Primarily focused on applications to improve productivity of administrative functions, and are reactive, with the business demanding services from IT
+B. Primarily focused on productivity enhancements, but IT has a moderate understanding of customer requirements, including an awareness of customer satisfaction levels
+C. A balance of business-driven projects that are enabled by IT and are visible to customers of the enterprise, with internal productivity services
+D. A mixture of externall visible services, services for gaining significant competitive advantage, and internal productivity initiatives
+
+The IT organization's approach to new technologies is:
+A. Extremely cautious, rarely implements leading edge technology
+B. Very cautious, must conform to a confirmed industry best practice
+C. Cautious, but willing to consider new technologies with a high probability of success
+D. Aggressive, willing to experiment with new technologies which can potentially provide a competitive advantage
+
+The projects within the IT plan are:
+A. Focused primarily on business automation (cost reduction) initiatives, with some projects addressing service quality
+B. Balanced between cost reduction and service quality improvements with some resources directed towards enhanced capability
+C. Focused on service quality improvements and enhanced capabilities, with some prjoects focused on cost reduction
+D. Focused primarily on enhanced capabilities and service quality improvements, with significant resources directed towards a few 'big plays' exploring advanced technologies
+
+The business organizations within the enterprise:
+A. Know little, if anything, about IT plans
+B. Become aware of IT plans when new capability is introduced
+C. Participate in the IT prioritization and planning process
+D. Engage at the same level as for business planning
+
+Procuremet of IT capability is:
+A. Centralized to ensure lower costs
+B. Centralized to reduce risk to business objective and ensure consistency of technology selected
+C. Centralized to ensure highest quality
+D. Decentralized to ensure the greatest business applicability
+
+The most senior IT position reports to:
+A. Someone within the finance organization
+B. The CFO
+C. The CEO or senior executive in charge of business transformation
+D. The CEO or COO as a member of the senior leadership team
+
+Communications between IT and a business unit executives occur:
+A. Quarterly or less, with a focus on IT cost
+B. Monthly, with a focus on IT service quality
+C. Weekly, with a blance between service quality and business results
+D. Daily, with a focus on business results and expectations
+
+The corporate perception of IT's contribution to the business is:
+A. The technology it provides and manages
+B. The services it provides to the business units
+C. As a strategicc asset
+D. As a core competency providing a compettive advantage
+
+The IT organization's attitude toward risk is:
+A. Extremely risk averse
+B. Risk averse
+C. Willing to accept some risk if the potential return is large enough
+D. Embraces risk as a means to gain competitive advantage
+
+The head of this enterprise:
+A. Is not aware of new IT capabilites as they become available
+B. Is aware of new IT capabilites
+C. Participates in discussions regarding new IT capabilities and how they might be applied to competitive advantage
+D. Leads discussions about new technologies and the business capabilities they might enable
+
+This enterprise is:
+A. Not aware of how their competitors use technology
+B. Is aware of their competitors' use of technology, but does not react based on that knowledge
+C. Watches closely how their competitors use technology, and responds when necessary
+D. Attempts to anticipate how their competitors will use technology, and develops alternative strategies
 

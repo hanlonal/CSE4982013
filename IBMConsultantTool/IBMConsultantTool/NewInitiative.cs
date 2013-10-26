@@ -22,6 +22,8 @@ namespace IBMConsultantTool
 
         public static int criticalAmount = 4;
         public static int averageAmount = 7;
+        enum RatingsState { Dynamic, Static };
+        static RatingsState state = RatingsState.Static;
        // private int goodAmount = 10;
         
 
@@ -73,44 +75,74 @@ namespace IBMConsultantTool
 
         public void ChangeColor(string param)
         {
-            if (param == "criticality")
+            if (state == RatingsState.Static)
             {
-                if (criticality < criticalAmount)
-                    BackColor = Color.IndianRed;
-                if (criticality >= criticalAmount && criticality <= averageAmount)
-                    BackColor = Color.Yellow;
-                if (criticality > averageAmount)
-                    BackColor = Color.ForestGreen;
-            }
-            if (param == "differentiation")
-            {
-                if(differentiation < criticalAmount)
-                    BackColor = Color.IndianRed;
-                if (differentiation >= criticalAmount && differentiation <= averageAmount)
-                    BackColor = Color.Yellow;
-                if (differentiation > averageAmount)
-                    BackColor = Color.ForestGreen;
+                if (param == "criticality")
+                {
+                    if (criticality == 0)
+                    {
+                        BackColor = Color.LightSlateGray;
+                        return;
+                    }
+                    if (criticality < criticalAmount)
+                        BackColor = Color.IndianRed;
+                    if (criticality >= criticalAmount && criticality <= averageAmount)
+                        BackColor = Color.Yellow;
+                    if (criticality > averageAmount)
+                        BackColor = Color.LawnGreen;
+                }
+                if (param == "differentiation")
+                {
+                    if (differentiation == 0)
+                    {
+                        BackColor = Color.LightSlateGray;
+                        return;
+                    }
+                    if (differentiation < criticalAmount)
+                        BackColor = Color.IndianRed;
+                    if (differentiation >= criticalAmount && differentiation <= averageAmount)
+                        BackColor = Color.Yellow;
+                    if (differentiation > averageAmount)
+                        BackColor = Color.LawnGreen;
+                }
+
+                if (param == "effectiveness")
+                {
+                    if (effectiveness == 0)
+                    {
+                        BackColor = Color.LightSlateGray;
+                        return;
+                    }
+                    if (effectiveness < criticalAmount)
+                        BackColor = Color.IndianRed;
+                    if (effectiveness >= criticalAmount && effectiveness <= averageAmount)
+                        BackColor = Color.Yellow;
+                    if (effectiveness > averageAmount)
+                        BackColor = Color.LawnGreen;
+                }
+
+                if (param == "bomscore")
+                {
+                    if (totalBOMScore == 0)
+                    {
+                        BackColor = Color.LightSlateGray;
+                        return;
+                    }
+                    if (totalBOMScore < criticalAmount)
+                        BackColor = Color.IndianRed;
+                    if (totalBOMScore >= criticalAmount && totalBOMScore <= averageAmount)
+                        BackColor = Color.Yellow;
+                    if (totalBOMScore > averageAmount)
+                        BackColor = Color.LawnGreen;
+                }
             }
 
-            if (param == "effectiveness")
+            if (state == RatingsState.Dynamic)
             {
-                if (effectiveness < criticalAmount)
-                    BackColor = Color.IndianRed;
-                if (effectiveness >= criticalAmount && effectiveness <= averageAmount)
-                    BackColor = Color.Yellow;
-                if (effectiveness > averageAmount)
-                    BackColor = Color.ForestGreen;
+                
+
             }
 
-            if(param == "bomscore")
-            {
-                if (totalBOMScore < criticalAmount)
-                    BackColor = Color.IndianRed;
-                if (totalBOMScore >= criticalAmount && totalBOMScore <= averageAmount)
-                    BackColor = Color.Yellow;
-                if (totalBOMScore > averageAmount)
-                    BackColor = Color.ForestGreen;
-            }
         }
 
         public float Criticality
