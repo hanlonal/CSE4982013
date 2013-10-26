@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Mail;
+using System.Windows.Forms;
 
 namespace IBMConsultantTool
 {
@@ -15,7 +16,7 @@ namespace IBMConsultantTool
         private static List<Person> participants = new List<Person>();
         private static List<CupeData> cupeAnswers = new List<CupeData>();
         private static List<NewCategory> bomCategories = new List<NewCategory>();
-        private static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
+        public static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
 
         private ClientDataControl() { }
 
@@ -157,6 +158,7 @@ namespace IBMConsultantTool
                 }
             }
 
+            MessageBox.Show("Email Succesfully Sent");
         }
 
     }
