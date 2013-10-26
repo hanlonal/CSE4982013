@@ -786,5 +786,33 @@ namespace IBMConsultantTool
                 }
             }
         }
+
+        private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RUNCUPE()
+        {
+            Application.Run(new CUPETool());
+        }
+
+        private void bOMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RUNBOM()
+        {
+            Application.Run(new BOMTool());
+        }
     }// end class
 }
