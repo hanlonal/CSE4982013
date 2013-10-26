@@ -521,6 +521,61 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override bool AddITCAPToGroup(object itcqObject, object groupObj, List<int> otherIDList = null)
+        {
+            ITCAP itcap = itcqObject as ITCAP;
+            GROUP grp = groupObj as GROUP;
+
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in grp.ITCAP
+                 where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                dbo.Detach(itcqObject);
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.ITCAP
+                                select ent.ITCAPID).ToList();
+            if (otherIDList != null) idList.AddRange(otherIDList);
+
+            itcap.ITCAPID = GetUniqueID(idList);
+            if (otherIDList != null) otherIDList.Add(itcap.ITCAPID);
+            itcap.GROUP = grp;
+
+            dbo.AddToITCAP(itcap);
+
+            return true;
+        }
+
+        public override bool AddITCAPToContact(object itcqObject, object contactObj, List<int> otherIDList = null)
+        {
+            ITCAP itcap = itcqObject as ITCAP;
+            CONTACT contact = contactObj as CONTACT;
+
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in contact.ITCAP
+                 where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                dbo.Detach(itcqObject);
+                return false;
+            }
+
+            List<int> idList = (from ent in dbo.ITCAP
+                                select ent.ITCAPID).ToList();
+            if (otherIDList != null) idList.AddRange(otherIDList);
+
+            itcap.ITCAPID = GetUniqueID(idList);
+            if (otherIDList != null) otherIDList.Add(itcap.ITCAPID);
+            itcap.CONTACT = contact;
+
+            dbo.AddToITCAP(itcap);
+
+            return true;
+        }
+
         public override bool RemoveITCAP(string itcqName, object clientObj)
         {
             ITCAP itcap;
@@ -1700,6 +1755,10 @@ namespace IBMConsultantTool
             BUSINESSOBJECTIVE objective;
             INITIATIVE initiative;
             BOM bom;
+            DOMAIN domain;
+            CAPABILITY capability;
+            ITCAPQUESTION itcapQuestion;
+            ITCAP itcap;
 
             if (!File.Exists("Changes.log"))
             {
@@ -1801,6 +1860,98 @@ namespace IBMConsultantTool
                                         }
                                     }
                                 }
+                                else
+                                {
+                                    MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                    success = false;
+                                }
+                                break;
+
+                            case "DOMAIN":
+                                domain = new DOMAIN();
+                                domain.NAME = lineArray[2].Replace('~', ' ');
+                                domain.DEFAULT = "N";
+                                AddDomain(domain);
+                                break;
+
+                            case "CAPABILITY":
+                                if (GetDomain(lineArray[3].Replace('~', ' '), out domain))
+                                {
+                                    capability = new CAPABILITY();
+                                    capability.NAME = lineArray[2].Replace('~', ' ');
+                                    capability.DEFAULT = "N";
+                                    capability.DOMAIN = domain;
+                                    AddCapability(capability);
+                                }
+                                break;
+
+                            case "ITCAPQUESTION":
+                                if (GetCapability(lineArray[3].Replace('~', ' '), out capability))
+                                {
+                                    itcapQuestion = new ITCAPQUESTION();
+                                    itcapQuestion.NAME = lineArray[2].Replace('~', ' ');
+                                    itcapQuestion.DEFAULT = "N";
+                                    itcapQuestion.CAPABILITY = capability;
+                                    AddITCAPQuestion(itcapQuestion);
+                                }
+                                break;
+
+                            case "ITCAP":
+                                if (lineArray[2] == "CLIENT")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetITCAPQuestion(lineArray[4].Replace('~', ' '), out itcapQuestion))
+                                        {
+                                            itcap = new ITCAP();
+                                            itcap.ITCAPQUESTION = itcapQuestion;
+                                            AddITCAP(itcap, client);
+                                        }
+                                    }
+                                }
+                                else if (lineArray[2] == "GROUP")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                        {
+                                            if (GetITCAPQuestion(lineArray[4].Replace('~', ' '), out itcapQuestion))
+                                            {
+                                                itcap = new ITCAP();
+                                                itcap.ITCAPQUESTION = itcapQuestion;
+                                                AddITCAPToGroup(itcap, grp);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                else if (lineArray[2] == "CONTACT")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                        {
+                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
+                                            {
+                                                if (GetITCAPQuestion(lineArray[4].Replace('~', ' '), out itcapQuestion))
+                                                {
+                                                    itcap = new ITCAP();
+                                                    itcap.ITCAPQUESTION = itcapQuestion;
+                                                    AddITCAPToContact(itcap, contact);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                    success = false;
+                                }
+                                break;
+                            default:
+                                MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                success = false;
                                 break;
                         }
                     }
@@ -1819,6 +1970,21 @@ namespace IBMConsultantTool
                                         bom.DIFFERENTIAL = Convert.ToSingle(lineArray[6]);
                                     }
                                 }
+                                break;
+                           case "ITCAP":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    if (GetITCAP(lineArray[3].Replace('~', ' '), client, out itcap))
+                                    {
+                                        itcap.ASIS = Convert.ToSingle(lineArray[4]);
+                                        itcap.TOBE = Convert.ToSingle(lineArray[5]);
+                                        itcap.COMMENT = lineArray[6];
+                                    }
+                                }
+                                break;
+                            default:
+                                MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                success = false;
                                 break;
                         }
                     }
