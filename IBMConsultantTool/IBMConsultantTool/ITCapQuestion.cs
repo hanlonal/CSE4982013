@@ -9,6 +9,10 @@ namespace IBMConsultantTool
     {
         private Capability owner;
         public string comment;
+        private List<float> AsIsanswersToAttributes = new List<float>();
+        private List<float> ToBeanswersToAttributes = new List<float>();
+
+
 
         public ITCapQuestion()
         {
@@ -18,6 +22,15 @@ namespace IBMConsultantTool
         public override void UpdateIndexDecrease(int index)
         {
 
+        }
+
+        public void AddAsIsAnswer(float answer)
+        {
+            AsIsanswersToAttributes.Add(answer);
+        }
+        public void AddToBeAnswer(float answer)
+        {
+            ToBeanswersToAttributes.Add(answer);
         }
 
         public override float CalculateAsIsAverage()

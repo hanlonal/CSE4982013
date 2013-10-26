@@ -19,6 +19,8 @@ namespace IBMConsultantTool
         public object client;
         private ITCapQuestion activequestion;
 
+
+
         public List<Domain> domains = new List<Domain>();
         public List<Capability> capabilities = new List<Capability>();
         public List<ScoringEntity> entities = new List<ScoringEntity>();
@@ -101,6 +103,7 @@ namespace IBMConsultantTool
         public ITCapTool()
         {
             InitializeComponent();
+
             
             try
             {
@@ -724,6 +727,22 @@ namespace IBMConsultantTool
             changeTextButton.Enabled = false;
             surveryMakerGrid.Refresh();
 
+        }
+
+        private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataLoader();
+        }
+
+        private void DataLoader()
+        {
+            foreach(ScoringEntity ent in entities)
+            {
+                if (ent.Type == "attribute")
+                {
+
+                }
+            }
         }
     }// end class
 }
