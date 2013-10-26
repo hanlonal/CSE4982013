@@ -731,6 +731,8 @@ namespace IBMConsultantTool
                 dbo.DeleteObject(itcap);
             }
 
+            SaveChanges();
+
             ITCAP itcapEnt;
             ITCAPQUESTION itcqEnt;
             List<int> idList = new List<int>();
@@ -1739,7 +1741,12 @@ namespace IBMConsultantTool
             }
             root.Add(domElement);
 
-            root.Save("Data.xml");
+            if (!Directory.Exists("Resources"))
+            {
+                Directory.CreateDirectory("Resources");
+            }
+
+            root.Save("Resources/Data.xml");
         }
         public void CheckChangeLog()
         {
