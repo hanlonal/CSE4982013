@@ -28,7 +28,12 @@ namespace IBMConsultantTool
         private LineShape lineX = new LineShape();
         private LineShape lineY = new LineShape();
         private Label diffLabel = new Label();
-        private Label criticLabel = new Label();
+        //private Label criticLabel = new Label();
+        private Label origin = new Label();
+        private Label endX = new Label();
+        private Label endY = new Label();
+        private LineShape endXLine = new LineShape();
+        private LineShape endYLine = new LineShape();
 
         private PictureBox picBox = new PictureBox();
         private Button btnClose = new Button();
@@ -137,7 +142,12 @@ namespace IBMConsultantTool
             lineX.Parent = canvas;
             lineY.Parent = canvas;
             diffLabel.Parent = panelChart;
-            criticLabel.Parent = panelChart;
+            origin.Parent = panelChart;
+            endX.Parent = panelChart;
+            endY.Parent = panelChart;
+            endXLine.Parent = canvas;
+            endYLine.Parent = canvas;
+            //criticLabel.Parent = panelChart;
 
             panelChart.Width = 550;
             panelChart.Height = 550;
@@ -150,6 +160,18 @@ namespace IBMConsultantTool
             diffLabel.AutoSize = true;
             diffLabel.Text = "Differentiation";
             diffLabel.Font = new Font("Arial", 14, FontStyle.Bold);
+
+            origin.AutoSize = true;
+            origin.Text = "0";
+            origin.Font = new Font("Arial", 12);
+
+            endX.AutoSize = true;
+            endX.Text = "10";
+            endX.Font = new Font("Arial", 12);
+
+            endY.AutoSize = true;
+            endY.Text = "10";
+            endY.Font = new Font("Arial", 12);
 
             //criticLabel.AutoSize = true;
             //criticLabel.Text = "Criticality";
@@ -186,6 +208,20 @@ namespace IBMConsultantTool
             lineY.X2 = 30;
             lineY.Y1 = 20;
             lineY.Y2 = panelChart.Height - 30;
+
+            endXLine.X1 = lineX.X2;
+            endXLine.X2 = lineX.X2;
+            endXLine.Y1 = lineX.Y1;
+            endXLine.Y2 = lineX.Y1 + 5;
+
+            endYLine.X1 = lineY.X1 - 5;
+            endYLine.X2 = lineY.X1;
+            endYLine.Y1 = lineY.Y1;
+            endYLine.Y2 = lineY.Y1;
+
+            origin.Location = new Point(lineX.X1 - origin.Size.Width, lineX.Y1);
+            endX.Location = new Point(endXLine.X2 - endX.Size.Width / 2, endXLine.Y2);
+            endY.Location = new Point(endYLine.X1 - endY.Size.Width, endYLine.Y1);
 
             this.SizeChanged += new EventHandler(BOMChartDynamically_SizeChanged);
             SizeChanged += new EventHandler(panelChart_SizeChanged);
@@ -429,6 +465,20 @@ namespace IBMConsultantTool
             lineY.Y1 = 20;
             lineY.Y2 = panelChart.Height - 30;
 
+            endXLine.X1 = lineX.X2;
+            endXLine.X2 = lineX.X2;
+            endXLine.Y1 = lineX.Y1;
+            endXLine.Y2 = lineX.Y1 + 5;
+
+            endYLine.X1 = lineY.X1 - 5;
+            endYLine.X2 = lineY.X1;
+            endYLine.Y1 = lineY.Y1;
+            endYLine.Y2 = lineY.Y1;
+
+            origin.Location = new Point(lineX.X1 - origin.Size.Width, lineX.Y1);
+            endX.Location = new Point(endXLine.X2 - endX.Size.Width / 2, endXLine.Y2);
+            endY.Location = new Point(endYLine.X1 - endY.Size.Width, endYLine.Y1 - endY.Size.Height / 2);
+
             diffLabel.Location = new Point(panelChart.Width / 2 - diffLabel.Width / 2, panelChart.Height - diffLabel.Height - 5);
 
             for (int cnt = 0; cnt < circleCount; cnt++)
@@ -627,8 +677,14 @@ namespace IBMConsultantTool
                     float newCriticality = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
                     float newEffectiveness = (float)circle[currentCircle].Height / 20;
 
-                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
-                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
+                    decimal diff = Convert.ToDecimal(newDifferentiation);
+                    diff = Math.Round(diff, 2);
+
+                    decimal crit = Convert.ToDecimal(newCriticality);
+                    crit = Math.Round(crit, 2);
+
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
+                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
 
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
@@ -662,19 +718,20 @@ namespace IBMConsultantTool
                     //float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
-                    //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    /*circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() 
-                        + "\nNew Effectiveness: " + newEffectiveness.ToString();*/
-                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
-                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
+                    decimal diff = Convert.ToDecimal(newDifferentiation);
+                    diff = Math.Round(diff, 2);
+
+                    decimal crit = Convert.ToDecimal(newCriticality);
+                    crit = Math.Round(crit, 2);
+
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
+                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
                 else if (newX > lineX.X2)
                 {
-                    System.Diagnostics.Trace.WriteLine("X value more!");
                     circle[currentCircle].Left = lineX.X2;
                     circle[currentCircle].Left -= circle[currentCircle].Height / 2;
-                    //circle[i].Left += 860 - circle[i].Height / 2;
                     if ((newY >= lineY.Y1 && newY <= lineY.Y2))
                     {
                         circle[currentCircle].Top += e.Y - circle[currentCircle].Height / 2;
@@ -683,24 +740,24 @@ namespace IBMConsultantTool
                     {
                         circle[currentCircle].Top = lineY.Y1;
                         circle[currentCircle].Top -= circle[currentCircle].Height / 2;
-                        //circle[i].Top += 50 - circle[i].Height / 2;
                     }
                     else
                     {
                         circle[currentCircle].Top = lineY.Y2;
                         circle[currentCircle].Top -= circle[currentCircle].Height / 2;
-                        //circle[i].Top += 850 - circle[i].Height / 2;
                     }
                     double newDifferentiation = (double)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (double)((lineX.X2 - lineX.X1) / 10);
                     float newCriticality = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
-                    //float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
-                    //float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
-                    //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    //circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString() + "\nNew Effectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
-                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
+                    decimal diff = Convert.ToDecimal(newDifferentiation);
+                    diff = Math.Round(diff, 2);
+
+                    decimal crit = Convert.ToDecimal(newCriticality);
+                    crit = Math.Round(crit, 2);
+
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
+                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
 
@@ -708,7 +765,7 @@ namespace IBMConsultantTool
                 {
                     circle[currentCircle].Top = lineY.Y2;
                     circle[currentCircle].Top -= circle[currentCircle].Height / 2;
-                    //circle[i].Top += 860 - circle[i].Height / 2;
+
                     if ((newX >= lineX.X1 && newX <= lineX.X2))
                     {
                         circle[currentCircle].Left += e.X - circle[currentCircle].Height / 2;
@@ -726,17 +783,16 @@ namespace IBMConsultantTool
 
                     double newDifferentiation = (double)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (double)((lineX.X2 - lineX.X1) / 10);
                     float newCriticality = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
-                    //double newDifferentiation = (double)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (double)((lineX.X2 - lineX.X1) / 10);
-                    //float newCriticality = (float)(panelChart.Height - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
-                    //float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
-                    //float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
-                    //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    //circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString()
-                    //    + "\nNew Effectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
-                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
+                    decimal diff = Convert.ToDecimal(newDifferentiation);
+                    diff = Math.Round(diff, 2);
+
+                    decimal crit = Convert.ToDecimal(newCriticality);
+                    crit = Math.Round(crit, 2);
+
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
+                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
 
@@ -761,15 +817,16 @@ namespace IBMConsultantTool
                     }
                     double newDifferentiation = (double)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (double)((lineX.X2 - lineX.X1) / 10);
                     float newCriticality = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
-                    //float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 60) / (float)90;
-                    //float newCriticality = (float)(850 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)80;
                     float newEffectiveness = (float)circle[currentCircle].Height / (float)20;
 
-                    //circle[currentCircle].AccessibleName = "(" + newDifferentiation.ToString() + "," + newCriticality.ToString() + "," + newEffectiveness.ToString() + ")";
-                    //circle[currentCircle].AccessibleName = "New Differentiation: " + newDifferentiation.ToString() + "\nNew Criticality: " + newCriticality.ToString()
-                    //    + "\nNew Effectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleName = "Differentiation: " + newDifferentiation.ToString() + "\nCriticality: "
-                        + newCriticality.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
+                    decimal diff = Convert.ToDecimal(newDifferentiation);
+                    diff = Math.Round(diff, 2);
+
+                    decimal crit = Convert.ToDecimal(newCriticality);
+                    crit = Math.Round(crit, 2);
+
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
+                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
                     circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
                 }
             }
@@ -790,8 +847,16 @@ namespace IBMConsultantTool
             access1[current, count[current]] = circle[current].Name;
             access2[current, count[current]] = circle[current].AccessibleName;
 
-            difArray[current, count[current]] = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (float)((lineX.X2 - lineX.X1) / 10);
-            criArray[current, count[current]] = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
+            float newDifferentiation = (float)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (float)((lineX.X2 - lineX.X1) / 10);
+            decimal diff = Convert.ToDecimal(newDifferentiation);
+            diff = Math.Round(diff, 2);
+
+            float newCriticality = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);
+            decimal crit = Convert.ToDecimal(newCriticality);
+            crit = Math.Round(crit, 2);
+
+            difArray[current, count[current]] = (float)diff;
+            criArray[current, count[current]] = (float)crit;
 
             mouseDown = false;
             mouseMove = false;
@@ -850,12 +915,16 @@ namespace IBMConsultantTool
 
             for (int i = 0; i < circleCount; i++)
             {
+                //circle[i].
                 if (circle[i] != null)
                 {
                     circle[i].Hide();
                     circle[i] = new OvalShape();
                 }
             }
+
+            lineX.BringToFront();
+            lineY.BringToFront();
 
             circleCount = 0;
             labelCount = 0;
