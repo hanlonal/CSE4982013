@@ -44,6 +44,8 @@ namespace IBMConsultantTool
         public override void CalculateCapabilityGap()
         {
             base.CalculateCapabilityGap();
+            if (capabilityGap >= 1)
+                CapabilityGapText = "High Gap";
             
         }
 

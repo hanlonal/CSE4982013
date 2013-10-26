@@ -21,12 +21,19 @@ namespace IBMConsultantTool
        protected float tobeStandardDeviation = 0;
        private bool visible = false;
 
+       private string capabilityGapText;
+
+
+       private string prioritizedGap;
 
 
 
 
 
-       private float capabilityGap = 0;
+
+
+
+       protected float capabilityGap = 0;
 
 
        public event PropertyChangedEventHandler PropertyChanged;
@@ -119,11 +126,23 @@ namespace IBMConsultantTool
            get { return type; }
            set { type = value; }
        }
+       [Browsable(false)]
        public float CapabilityGap
        {
            get { return capabilityGap; }
-           set { capabilityGap = value; this.NotifyPropertyChanged("CapabilityGap"); }
+           set { capabilityGap = value;/* this.NotifyPropertyChanged("CapabilityGap");*/ }
        }
+       public string CapabilityGapText
+       {
+           get { return capabilityGapText; }
+           set { capabilityGapText = value; this.NotifyPropertyChanged("CapabilityGapText"); }
+       }
+       public string PrioritizedGap
+       {
+           get { return prioritizedGap; }
+           set { prioritizedGap = value; this.NotifyPropertyChanged("PrioritizedGap"); }
+       }
+       [Browsable(false)]
        public float PrioritizedCapabilityGap
        {
            get { return prioritizedCapabilityGap; }

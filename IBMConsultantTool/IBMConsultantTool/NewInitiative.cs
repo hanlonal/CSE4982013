@@ -16,9 +16,12 @@ namespace IBMConsultantTool
         private float criticality = 0;
         private float differentiation = 0;
         private float effectiveness = 0;
+        private float totalBOMScore = 0;
 
-        private int criticalAmount = 4;
-        private int averageAmount = 7;
+
+
+        public static int criticalAmount = 4;
+        public static int averageAmount = 7;
        // private int goodAmount = 10;
         
 
@@ -61,6 +64,12 @@ namespace IBMConsultantTool
             
         
         }
+        public void CalculateTotalBOMScore()
+        {
+            if (criticality == 0 || differentiation == 0 || effectiveness == 0)
+                return;
+            totalBOMScore = ((11-effectiveness)*criticality*.5f)/10 +differentiation*.5f;
+        }
 
         public void ChangeColor(string param)
         {
@@ -92,6 +101,16 @@ namespace IBMConsultantTool
                 if (effectiveness > averageAmount)
                     BackColor = Color.ForestGreen;
             }
+
+            if(param == "bomscore")
+            {
+                if (totalBOMScore < criticalAmount)
+                    BackColor = Color.IndianRed;
+                if (totalBOMScore >= criticalAmount && totalBOMScore <= averageAmount)
+                    BackColor = Color.Yellow;
+                if (totalBOMScore > averageAmount)
+                    BackColor = Color.ForestGreen;
+            }
         }
 
         public float Criticality
@@ -103,6 +122,8 @@ namespace IBMConsultantTool
             set
             {
                 criticality = value;
+                Console.WriteLine("here");
+                CalculateTotalBOMScore();
 
             }
         }
@@ -116,6 +137,8 @@ namespace IBMConsultantTool
             set
             {
                 effectiveness = value;
+                Console.WriteLine("here");
+                CalculateTotalBOMScore();
             }
         }
 
@@ -129,7 +152,16 @@ namespace IBMConsultantTool
             {
 
                 differentiation = value;
+                Console.WriteLine("here");
+                CalculateTotalBOMScore();
+
             }
+        }
+
+        public float TotalBOMScore
+        {
+            get { return totalBOMScore; }
+            set { totalBOMScore = value; }
         }
     
     }// end class

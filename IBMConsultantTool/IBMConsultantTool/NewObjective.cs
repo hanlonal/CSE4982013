@@ -60,12 +60,19 @@ namespace IBMConsultantTool
         {
             Point p = new Point();
             // Console.WriteLine(owner.Width.ToString());
-
+            int index = (owner.Objectives.Count % 4);
             p.X = baseWidth * (owner.Objectives.Count % 4);
             if (owner.Objectives.Count > 3)
-                p.Y = owner.Objectives[owner.Objectives.Count - 4].Location.Y + owner.Objectives[owner.Objectives.Count -4].Height;
+            {
+                owner.Heights[index] = owner.Objectives[owner.Objectives.Count - 4].Location.Y + owner.Objectives[owner.Objectives.Count - 4].Height;
+                p.Y = (int)owner.Heights[index];
+            }
             else
+            {
                 p.Y = 0;
+                owner.Heights[index] = baseHeight;
+            }
+
 
             return p;
         }
@@ -74,17 +81,41 @@ namespace IBMConsultantTool
         private void MakeLabel()
         {
             Label label = new Label();
+            label.MouseDown +=new MouseEventHandler(label_MouseDown);
             label.Text = name;
             label.BackColor = Color.LightGray;
             label.ForeColor = Color.Black;
             label.Height = labelHeight;
             this.Controls.Add(label);
-            label.Width = Parent.Width;
+            label.Width = label.Parent.Width;
             label.BorderStyle = BorderStyle.Fixed3D;
             label.Location = new Point(0, 0);
             //label.BackColor = Color.Teal;
+            
 
         }
+
+    private void label_MouseDown(object sender, MouseEventArgs e)           
+    {
+        if (e.Button == MouseButtons.Right)
+        {
+            ContextMenuStrip strip = new ContextMenuStrip();
+            ToolStripMenuItem deleteObj = new ToolStripMenuItem();
+            deleteObj.Click += new EventHandler(deleteObj_Click);
+            deleteObj.Text = "Remove Objective";
+            strip.Items.Add(deleteObj);
+            strip.Show(this, e.Location, ToolStripDropDownDirection.BelowRight);
+        }
+    }
+
+    private void deleteObj_Click(object sender, EventArgs e)
+    {
+        initiatives.Clear();
+        this.Controls.Clear();
+        owner.RemoveObjective(this);
+        
+        
+    }
 
         public void ColorByDifferentiation()
         {
@@ -107,6 +138,14 @@ namespace IBMConsultantTool
             foreach (NewInitiative init in initiatives)
             {
                 init.ChangeColor("criticality");
+            }
+        }
+
+        public void ColorByBOMScore()
+        {
+            foreach (NewInitiative init in initiatives)
+            {
+                init.ChangeColor("bomscore");
             }
         }
 

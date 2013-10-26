@@ -15,7 +15,10 @@ namespace IBMConsultantTool
 {
     public partial class BOMTool : Form
     {
+        
 
+
+        TabPage clickedPage;
         public DataManager db;
         public object client;
         public bool isOnline;
@@ -95,6 +98,7 @@ namespace IBMConsultantTool
             nameLabel.Text = init.Name;
             nameLabel.Location = new Point(nameXValue, yValue);
             Label totalScoreLabel = new Label();
+            totalScoreLabel.DataBindings.Add(new Binding("Text", init, "TotalBOMScore"));
             totalScoreLabel.Location = new Point(totalXValue, yValue);
             totalScoreLabel.BackColor = Color.White;
             totalScoreLabel.Text = "0";
@@ -102,19 +106,22 @@ namespace IBMConsultantTool
             
             detailInfoPanel.Controls.Add(totalScoreLabel);
             TextBox effectbox = new TextBox();
-            effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
-            effectbox.DataBindings.Add("Text", init, "Effectiveness");
+           // effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
+            effectbox.DataBindings.Add(new Binding("Text", init, "Effectiveness"));
             effectbox.Location = new Point(effectivenessXValue, yValue);
+            //effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
             detailInfoPanel.Controls.Add(effectbox);
             TextBox critBox = new TextBox();
-            critBox.DataBindings.Add("Text", init, "Criticality");            
+            critBox.DataBindings.Add(new Binding("Text", init, "Criticality"));            
             critBox.Location = new Point(critXValue, yValue);
             detailInfoPanel.Controls.Add(critBox);
             TextBox diffBox = new TextBox();
-            diffBox.DataBindings.Add("Text", init, "Differentiation");
+            diffBox.DataBindings.Add(new Binding("Text", init, "Differentiation"));
             diffBox.Location = new Point(diffXValue, yValue);
             detailInfoPanel.Controls.Add(diffBox);
         }
+
+
 
         private void effectbox_TextChanged(object sender, EventArgs e)
         {
@@ -201,6 +208,14 @@ namespace IBMConsultantTool
             SurveyReader.ReadSurvey( this.categories);
         }
 
+        public void RemoveObjective(NewObjective obj)
+        {
+            Controls.RemoveByKey(obj.Name);
+            obj.Visible = false;
+            
+            Refresh();
+        }
+
         public void ResetValues()
         {
             foreach (NewCategory cat in Categories)
@@ -235,7 +250,7 @@ namespace IBMConsultantTool
 
         private void btnLoadChart_Click(object sender, EventArgs e)
         {
-            BOMBubbleChartRedesign chart = new BOMBubbleChartRedesign(this);
+            BOMChartDynamically chart = new BOMChartDynamically(this);
             chart.Show();
         }
 
@@ -318,15 +333,62 @@ namespace IBMConsultantTool
                 {
                     foreach (NewInitiative init in obj.Initiatives)
                     {
-                        if (!db.UpdateBOM(this, init))
+                        if (!db.UpdateBOM(this.client, init))
                         {
                             MessageBox.Show("BOM \"" + init.Name + "\" could not be saved to database", "Error");
                             return;
                         }
                     }
+                    if (db.SaveChanges()) { MessageBox.Show("Saved Changes Successfully", "Success"); }
+
+                    else { MessageBox.Show("Failed to save changes", "Error"); }
                 }
             }
         }
+
+        private void catWorkspace_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                foreach (TabPage item in this.catWorkspace.TabPages)
+                {
+                    Rectangle r = this.catWorkspace.GetTabRect(catWorkspace.TabPages.IndexOf(item));
+                    if (r.X < e.Location.X && e.Location.X < r.X + r.Width && r.Y < e.Location.Y && e.Location.Y < r.Y + r.Height)
+                    {
+                        clickedPage = item;
+                        foreach (NewCategory cat in categories)
+                        {
+                            if (cat.name == clickedPage.Text)
+                            {
+                                categories.Remove(cat);
+                                break;
+                            }
+                        }                        
+                        this.catWorkspace.TabPages.Remove(clickedPage);
+                        db.SaveChanges();
+                    }
+                }
+
+            }
+        }
+
+        private void bOMScoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (categories.Count > 0)
+            {
+                foreach (NewCategory cat in categories)
+                {
+                    foreach (NewObjective obj in cat.Objectives)
+                    {
+                        obj.ColorByBOMScore();
+                    }
+                }
+            }
+        }
+
+
+
+
 
 
     } // end class

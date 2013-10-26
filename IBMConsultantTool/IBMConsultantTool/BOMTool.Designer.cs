@@ -38,6 +38,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +48,8 @@
             this.differentiationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iTCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLoadChart = new System.Windows.Forms.Button();
             this.detailInfoPanel = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,10 +58,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iTCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bOMScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +74,7 @@
             this.catWorkspace.Size = new System.Drawing.Size(814, 515);
             this.catWorkspace.TabIndex = 0;
             this.catWorkspace.SelectedIndexChanged += new System.EventHandler(this.catWorkspace_SelectedIndexChanged);
+            this.catWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.catWorkspace_MouseClick);
             // 
             // categoryNames
             // 
@@ -186,6 +188,19 @@
             this.sendEmailToolStripMenuItem.Text = "Send Email";
             this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.SendEmailButton_Click);
             // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.loadToolStripMenuItem.Text = "Load";
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -207,7 +222,8 @@
             this.vieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.effectivenessToolStripMenuItem,
             this.criticalityToolStripMenuItem,
-            this.differentiationToolStripMenuItem});
+            this.differentiationToolStripMenuItem,
+            this.bOMScoreToolStripMenuItem});
             this.vieToolStripMenuItem.Name = "vieToolStripMenuItem";
             this.vieToolStripMenuItem.Size = new System.Drawing.Size(56, 25);
             this.vieToolStripMenuItem.Text = "View";
@@ -249,6 +265,18 @@
             this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
+            // 
+            // bOMToolStripMenuItem
+            // 
+            this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.bOMToolStripMenuItem.Text = "BOM";
+            // 
+            // iTCapToolStripMenuItem
+            // 
+            this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
+            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.iTCapToolStripMenuItem.Text = "ITCap";
             // 
             // btnLoadChart
             // 
@@ -349,30 +377,12 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
             // 
-            // bOMToolStripMenuItem
+            // bOMScoreToolStripMenuItem
             // 
-            this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.bOMToolStripMenuItem.Text = "BOM";
-            // 
-            // iTCapToolStripMenuItem
-            // 
-            this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
-            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.iTCapToolStripMenuItem.Text = "ITCap";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            this.loadToolStripMenuItem.Text = "Load";
+            this.bOMScoreToolStripMenuItem.Name = "bOMScoreToolStripMenuItem";
+            this.bOMScoreToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.bOMScoreToolStripMenuItem.Text = "BOM Score";
+            this.bOMScoreToolStripMenuItem.Click += new System.EventHandler(this.bOMScoreToolStripMenuItem_Click);
             // 
             // BOMTool
             // 
@@ -435,6 +445,7 @@
         private System.Windows.Forms.ToolStripMenuItem iTCapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bOMScoreToolStripMenuItem;
 
     }
 }

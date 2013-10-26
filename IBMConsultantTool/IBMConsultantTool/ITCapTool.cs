@@ -666,7 +666,7 @@ namespace IBMConsultantTool
             }
             if (states == FormStates.Open)
             {
-                
+                //db.GetBOMS();
 
             }
            currentGrid.Columns["Name"].Width = 450;
@@ -677,14 +677,17 @@ namespace IBMConsultantTool
         {
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
             ent.CalculateCapabilityGap();
-            if (e.ColumnIndex == 1)
-            {
-                ent.Owner.CalculateAsIsAverage();
-            }
             if (e.ColumnIndex == 2)
             {
-                ent.Owner.CalculateToBeAverage();
+                ent.Owner.CalculateAsIsAverage();                
             }
+            if (e.ColumnIndex == 3)
+            {
+                ent.Owner.CalculateToBeAverage();                
+            }
+            if (ent.CapabilityGap >= 1)
+                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
+            currentGrid.Refresh();
             
             
         }
@@ -743,6 +746,17 @@ namespace IBMConsultantTool
 
                 }
             }
+        }
+
+        private void loadSurveyFromDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+        
+                
+        }
+
+        private void loadSurveyFromDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }// end class
 }
