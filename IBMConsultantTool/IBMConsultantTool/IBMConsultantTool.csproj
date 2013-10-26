@@ -466,11 +466,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Questions.txt">
+    <Content Include="Resources\Data.xml" />
+    <Content Include="Resources\Questions.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Changes.log" />
     <None Include="Resources\Notes.txt" />
   </ItemGroup>
   <ItemGroup>

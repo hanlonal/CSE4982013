@@ -298,8 +298,8 @@
             this.bOMToolStripMenuItem,
             this.iTCapToolStripMenuItem});
             this.workshopToolStripMenuItem.Name = "workshopToolStripMenuItem";
-            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(94, 25);
-            this.workshopToolStripMenuItem.Text = "Workshop";
+            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(59, 25);
+            this.workshopToolStripMenuItem.Text = "Tools";
             // 
             // cUPEToolStripMenuItem
             // 
@@ -317,8 +317,9 @@
             // iTCapToolStripMenuItem
             // 
             this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
-            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
+            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.iTCapToolStripMenuItem.Text = "ITCap";
+            this.iTCapToolStripMenuItem.Click += new System.EventHandler(this.iTCapToolStripMenuItem_Click);
             // 
             // btnLoadChart
             // 
