@@ -361,6 +361,11 @@ namespace IBMConsultantTool
 
         #region ITCAP
 
+        public override bool RemoveITCAP(string name, object client)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
         {
             XElement client = clientObj as XElement;
@@ -386,6 +391,7 @@ namespace IBMConsultantTool
 
             return true;
         }
+
 
         public override bool BuildITCAPForm(ITCapTool itcapForm, string clientName)
         {
@@ -1289,6 +1295,10 @@ namespace IBMConsultantTool
                     MessageBox.Show("ITCAPQuestion already exists in ITCAP", "Error");
                 }
             }
+        }
+        public override void RemoveQuestionToITCAP(string itcqName)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

@@ -17,6 +17,7 @@ namespace IBMConsultantTool
         public DataManager db;
         public bool isOnline;
         public object client;
+        private ITCapQuestion activequestion;
 
         public List<Domain> domains = new List<Domain>();
         public List<Capability> capabilities = new List<Capability>();
@@ -27,6 +28,7 @@ namespace IBMConsultantTool
         private List<Control> surverymakercontrols = new List<Control>();
         private List<Control> liveDataEntryControls = new List<Control>();
         private List<Control> prioritizationControls = new List<Control>();
+        DataGridView currentGrid;
 
         //only used for testing
         private int numBoms = 3;
@@ -127,6 +129,8 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
             surverymakercontrols.Add(addEntityButton);
+            surverymakercontrols.Add(editQuestionTextbox);
+            surverymakercontrols.Add(changeTextButton);
 
             liveDataEntryControls.Add(liveDataEntryGrid);
             liveDataEntryControls.Add(LiveDataSaveITCAPButton);
@@ -174,23 +178,34 @@ namespace IBMConsultantTool
             switch (states)
             {
                 case FormStates.SurveryMaker:
-                    LoadDefaultChartSurvey();
+                    currentGrid = surveryMakerGrid;
+                    LoadChartSurvey();
+                    Console.WriteLine("here");
                     ToggleControlsVisible(surverymakercontrols, true);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, false);
+                    loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.LiveDataEntry:
                     //probablly onlt used for testing
-                    CopyGrid();
+                    LoadChartSurvey();
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, true);
                     ToggleControlsVisible(prioritizationControls, false);
+                    loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.Prioritization:
                     MakePrioritizationGrid();
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, true);
+                    loadSurveyFromDataGrid.Visible = false;
+                    break;
+                case FormStates.Open:
+                    currentGrid = loadSurveyFromDataGrid;
+                    LoadChartSurvey();
+                    
+                    loadSurveyFromDataGrid.Visible = true;
                     break;
             }
         }
@@ -310,51 +325,10 @@ namespace IBMConsultantTool
             }
         }
 
-        private void LoadDefaultChartSurvey()
+        private void LoadChartSurvey()
         {
-            surveryMakerGrid.DataSource = entities;
-            /*
-            surveryMakerGrid.Rows.Clear();
-            foreach (Domain dom in domains)
-            {
-                DataGridViewRow row = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
-                row.Cells[1].Value = dom.ToString();
-                row.Cells[0].Value = dom.ID;
-                row.Cells[4].Value = "domain";
-                // row.Cells[4].
-                // row.DefaultCellStyle.Font = new Font(surveryMakerGrid.Font.FontFamily,surveryMakerGrid.Font.Size,  row.FontStyle.Bold);
-                row.ReadOnly = true;
-                row.DefaultCellStyle.BackColor = Color.Orange;
-                surveryMakerGrid.Rows.Add(row);
-                dom.IndexInGrid = surveryMakerGrid.Rows.Count -2;
-                Console.WriteLine(dom.Name + "index in list is " + dom.IndexInGrid.ToString());
-                dom.IsInGrid = true;
-                foreach (Capability cap in dom.CapabilitiesOwned)
-                {
-                    DataGridViewRow caprow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
-                    caprow.Cells[1].Value = cap.ToString();
-                    caprow.Cells[0].Value = cap.ID;
-                    caprow.Cells[4].Value = "capability";
-                    caprow.ReadOnly = true;
-                    caprow.DefaultCellStyle.BackColor = Color.Yellow;
-                    surveryMakerGrid.Rows.Add(caprow);
-                    cap.IndexInGrid = surveryMakerGrid.Rows.Count -2;
-                    cap.IsInGrid = true;
-
-                    foreach (ITCapQuestion question in cap.QuestionsOwned)
-                    {
-                        DataGridViewRow qrow = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
-                        qrow.Cells[1].Value = question.ToString();
-                        qrow.Cells[0].Value = question.ID;
-                        qrow.ReadOnly = false;
-                        qrow.DefaultCellStyle.BackColor = Color.LawnGreen;
-                        surveryMakerGrid.Rows.Add(qrow);
-                        question.IndexInGrid = surveryMakerGrid.Rows.Count -2;
-                        question.IsInGrid = true;
-                        questionsArray[question.IndexInGrid] = question;
-                    }
-                }
-            }*/
+            currentGrid.DataSource = entities;
+            
         }
 
         private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -411,9 +385,10 @@ namespace IBMConsultantTool
             if (e.Button == MouseButtons.Right)
             {
                 DataGridView.HitTestInfo hit = surveryMakerGrid.HitTest(e.X, e.Y);
-                    Console.WriteLine(hit.RowIndex.ToString());
+                //Console.WriteLine(hit.RowIndex.ToString());
                 surveryMakerGrid.Rows[hit.RowIndex].Selected = true;
-                if ((string)surveryMakerGrid.Rows[hit.RowIndex].Cells[4].Value == "domain")
+                ScoringEntity ent = surveryMakerGrid.SelectedRows[0].DataBoundItem as ScoringEntity;
+                if (ent.Type == "domain")
                 {
                     ContextMenuStrip strip = new ContextMenuStrip();
                     ToolStripMenuItem deleteDomain = new ToolStripMenuItem();
@@ -422,7 +397,7 @@ namespace IBMConsultantTool
                     strip.Items.Add(deleteDomain);
                     strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                 }
-                if ((string)surveryMakerGrid.Rows[hit.RowIndex].Cells[4].Value == "capability")
+                if (ent.Type == "capability")
                 {
                     ContextMenuStrip strip = new ContextMenuStrip();
                     ToolStripMenuItem deletecapability = new ToolStripMenuItem();
@@ -431,37 +406,52 @@ namespace IBMConsultantTool
                     strip.Items.Add(deletecapability);
                     strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                 }
+                if (ent.Type == "attribute")
+                {
+                    activequestion = (ITCapQuestion)ent;
+                    ContextMenuStrip strip = new ContextMenuStrip();
+                    ToolStripMenuItem deletecapability = new ToolStripMenuItem();
+                    ToolStripMenuItem editQuestionText = new ToolStripMenuItem();
+                    editQuestionText.Click +=new EventHandler(editQuestionText_Click);
+                    deletecapability.Click += new EventHandler(deleteAttribute_Click);
+                    deletecapability.Text = "Delete Attribute";
+                    editQuestionText.Text = "Edit Question Text";
+                    strip.Items.Add(deletecapability);
+                    strip.Items.Add(editQuestionText);
+                    strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                }
                 
                
                 Console.WriteLine(hit.ToString());
             }
         }
 
+        private void editQuestionText_Click(object sender, EventArgs e)
+        {
+            ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
+            editQuestionTextbox.Enabled = true;
+            editQuestionTextbox.Text = question.Name;
+            changeTextButton.Enabled = true;
+
+        }
+
         private void deleteDomain_Click(object sender, EventArgs e)
         {
             //Console.WriteLine("Domain would be deleted");
-            int index = surveryMakerGrid.SelectedRows[0].Index;
-           // Console.WriteLine(index.ToString());
-            Domain dom = FindDomainByIndex(index);
-            //Console.WriteLine(dom.IndexInGrid.ToString() + " is index");
+            Domain dom =  surveryMakerGrid.SelectedRows[0].DataBoundItem as Domain;
+
             foreach (Capability cap in dom.CapabilitiesOwned)
             {
-                if (cap.IsInGrid)
+                foreach (ITCapQuestion question in cap.QuestionsOwned)
                 {
-                    foreach (ITCapQuestion question in cap.QuestionsOwned)
-                    {
-                        if (question.IsInGrid)
-                        {
-                            question.IsInGrid = false;
-                            surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
-                        }
-                    }
-                    cap.IsInGrid = false;
-                    surveryMakerGrid.Rows.RemoveAt(cap.IndexInGrid);
+                    if (entities.Contains(question))
+                        entities.Remove(question);
                 }
+                if (entities.Contains(cap))
+                    entities.Remove(cap);
+                
             }
-            dom.IsInGrid = false;
-            surveryMakerGrid.Rows.RemoveAt(dom.IndexInGrid);                        
+            surveryMakerGrid.Refresh();
         }
 
         private void deleteCapability_Click(object sender, EventArgs e)
@@ -478,6 +468,15 @@ namespace IBMConsultantTool
             }
             cap.IsInGrid = false;
             surveryMakerGrid.Rows.RemoveAt(cap.IndexInGrid);
+        }
+
+        private void deleteAttribute_Click(object sender, EventArgs e)
+        {
+            ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
+            
+            db.RemoveITCAP(question.Name, client);
+            
+
         }
 
 
@@ -552,7 +551,7 @@ namespace IBMConsultantTool
         {
             ResetSurveyGrid();
             db.OpenITCAP(this);
-            ChangeStates(FormStates.LiveDataEntry);
+            ChangeStates(FormStates.Open);
         }
 
         public void ResetSurveyGrid()
@@ -586,7 +585,7 @@ namespace IBMConsultantTool
         private void AddButton_Click(object sender, EventArgs e)
         {
             db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
-            LoadDefaultChartSurvey();
+            LoadChartSurvey();
         }
 
         private void SaveITCAPButton_Click(object sender, EventArgs e)
@@ -625,36 +624,106 @@ namespace IBMConsultantTool
 
         }
 
-        private void surveryMakerGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void currentGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            foreach (DataGridViewRow row in surveryMakerGrid.Rows)
+            foreach (DataGridViewRow row in currentGrid.Rows)
             {
                 ScoringEntity ent = row.DataBoundItem as ScoringEntity;
                 if (ent.Type == "domain")
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
                     row.ReadOnly = true;
+                    
+
                 }
                 else if (ent.Type == "capability")
                 {
-                    row.DefaultCellStyle.BackColor = Color.LightGray;
+                    row.DefaultCellStyle.BackColor = Color.DimGray;
                     row.ReadOnly = true;
+                    if (states == FormStates.Open)
+                        row.Visible = false;
                 }
                 else if (ent.Type == "attribute")
+                {
                     row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                    if (states == FormStates.Open)
+                        row.Visible = false;
+                }
                 
             }
+            if (states == FormStates.SurveryMaker)
+            {
+                surveryMakerGrid.Columns["AsIsScore"].Visible = false;
+                surveryMakerGrid.Columns["tobeStandardDeviation"].Visible = false;
+                surveryMakerGrid.Columns["asisStandardDeviation"].Visible = false;
+                surveryMakerGrid.Columns["ToBeScore"].Visible = false;
+                surveryMakerGrid.Columns["CapabilityGap"].Visible = false;
+                surveryMakerGrid.Columns["PrioritizedCapabilityGap"].Visible = false;
+                
+            }
+            if (states == FormStates.Open)
+            {
+                
 
-           // surveryMakerGrid.Columns["Type"].Visible = false;
-            //surveryMakerGrid.Columns["IsDefault"].Visible = false;
-            //surveryMakerGrid.Columns["IsInGrid"].Visible = false;
-            surveryMakerGrid.Refresh();
+            }
+           currentGrid.Columns["Name"].Width = 450;
+           currentGrid.Refresh();
         }
 
-        private void surveryMakerGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void currentGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            ScoringEntity ent = surveryMakerGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
+            ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
             ent.CalculateCapabilityGap();
+            if (e.ColumnIndex == 1)
+            {
+                ent.Owner.CalculateAsIsAverage();
+            }
+            if (e.ColumnIndex == 2)
+            {
+                ent.Owner.CalculateToBeAverage();
+            }
+            
+            
+        }
+
+        private void loadSurveyFromDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                DataGridViewButtonCell cell = (DataGridViewButtonCell)loadSurveyFromDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.UseColumnTextForButtonValue = false;
+                if ((string)cell.Value == "-")
+                    cell.Value = "+";
+                else
+                    cell.Value = "-";
+
+                ScoringEntity ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ScoringEntity;
+                ent.ChangeChildrenVisibility();
+                ChangeGridVisibility();
+
+            }
+        }
+
+        private void ChangeGridVisibility()
+        {
+            foreach (DataGridViewRow row in currentGrid.Rows)
+            {
+                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
+                if (ent.Visible == true)
+                    row.Visible = true;
+                else
+                    row.Visible = false;
+            }
+        }
+
+        private void changeTextButton_Click(object sender, EventArgs e)
+        {
+            activequestion.Name = editQuestionTextbox.Text;
+            editQuestionTextbox.Text = "";
+            editQuestionTextbox.Enabled = false;
+            changeTextButton.Enabled = false;
+            surveryMakerGrid.Refresh();
+
         }
     }// end class
 }

@@ -57,7 +57,17 @@ namespace IBMConsultantTool
                 }
             }
             toBeScore = activeCaps == 0 ? 0 : total / activeCaps;
+
             return toBeScore;
+        }
+
+        public override void ChangeChildrenVisibility()
+        {
+            foreach (Capability cap in capabilitiesOwned)
+            {
+                cap.Visible = !cap.Visible;
+            }
+            base.ChangeChildrenVisibility();
         }
 
         public List<Capability> CapabilitiesOwned

@@ -39,8 +39,16 @@ namespace IBMConsultantTool
                 }
             }
             asIsScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
-            
+            owner.CalculateAsIsAverage();
             return asIsScore;
+        }
+        public override void ChangeChildrenVisibility()
+        {
+            foreach (ITCapQuestion ques in questionsOwned)
+            {
+                ques.Visible = !ques.Visible;
+            }
+            base.ChangeChildrenVisibility();
         }
 
         public override float CalculateToBeAverage()
@@ -56,7 +64,7 @@ namespace IBMConsultantTool
                 }
             }
             toBeScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
-
+            owner.CalculateToBeAverage();
             return toBeScore;
         }
 

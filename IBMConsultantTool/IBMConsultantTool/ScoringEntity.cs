@@ -17,6 +17,13 @@ namespace IBMConsultantTool
        private bool isInGrid = false;
        protected string type;
        private float prioritizedCapabilityGap = 0;
+       protected float asisStandardDeviation = 0;
+       protected float tobeStandardDeviation = 0;
+       private bool visible = false;
+
+
+
+
 
 
        private float capabilityGap = 0;
@@ -32,6 +39,10 @@ namespace IBMConsultantTool
        public virtual void CalculatePrioritizedCapabilityGap()
        {
 
+       }
+       public virtual void ChangeChildrenVisibility()
+       {
+           return;
        }
 
        public ScoringEntity()
@@ -117,6 +128,22 @@ namespace IBMConsultantTool
        {
            get { return prioritizedCapabilityGap; }
            set { prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); }
+       }
+       public float TobeStandardDeviation
+       {
+           get { return tobeStandardDeviation; }
+           set { tobeStandardDeviation = value; }
+       }
+       public float AsisStandardDeviation
+       {
+           get { return asisStandardDeviation; }
+           set { asisStandardDeviation = value; }
+       }
+       [Browsable(false)]
+       public bool Visible
+       {
+           get { return visible; }
+           set { visible = value; }
        }
 
 

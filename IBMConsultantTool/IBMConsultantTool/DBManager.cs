@@ -501,6 +501,30 @@ namespace IBMConsultantTool
 
             return true;
         }
+        public override bool RemoveITCAP(string name, object client)
+        {
+            int id;
+            CLIENT itclient = client as CLIENT;
+            foreach (ITCAPQUESTION question in dbo.ITCAPQUESTION)
+            {
+                if (question.NAME == name)
+                {
+                    id = question.ITCAPQUESTIONID;
+                }
+
+            }
+
+            //int id = itclient.CLIENTID;
+            
+
+           // Console.WriteLine(id.ToString());
+
+           // dbo.RemoveITCAPQUESTION(new ITCAP());
+
+            
+            
+            return true;
+        }
 
         public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
         {
@@ -581,6 +605,8 @@ namespace IBMConsultantTool
                     domain = new Domain();
                     domain.Name = domName;
                     domain.IsDefault = domEnt.DEFAULT == "Y";
+                    domain.Type = "domain";
+                    domain.Visible = true;
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
                     itcapForm.entities.Add(domain);
@@ -598,6 +624,7 @@ namespace IBMConsultantTool
                     capability.IsDefault = capEnt.DEFAULT == "Y";
                     domain.CapabilitiesOwned.Add(capability);
                     domain.TotalChildren++;
+                    capability.Type = "capability";
                     itcapForm.capabilities.Add(capability);
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
@@ -611,6 +638,7 @@ namespace IBMConsultantTool
                 itcapQuestion.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
                 itcapQuestion.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
                 itcapQuestion.comment = itcap.COMMENT;
+                itcapQuestion.Type = "attribute";
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
@@ -1343,6 +1371,16 @@ namespace IBMConsultantTool
                     MessageBox.Show("ITCAPQuestion already exists in ITCAP", "Error");
                 }
             }
+        }
+
+        public override void RemoveQuestionToITCAP(string itcqName)
+        {
+            /*ITCAP itcapQuestion;
+            if (GetITCAP(itcqName, out itcapQuestion))
+            {
+                dbo.RemoveITCAPQUESTION(itcapQuestion);
+                dbo.SaveChanges();
+            }*/
         }
         #endregion
 
