@@ -41,6 +41,8 @@ namespace IBMConsultantTool
         public abstract bool NewITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool OpenITCAP(ITCapTool itcapForm);
         public abstract bool AddITCAP(object itcap, object client, List<int> otherIDList = null);
+        public abstract bool AddITCAPToGroup(object itcap, object grp, List<int> otherIDList = null);
+        public abstract bool AddITCAPToContact(object itcap, object contact, List<int> otherIDList = null);
         public abstract bool RemoveITCAP(string name, object client);
 
         public abstract bool RewriteITCAP(ITCapTool itcapForm);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -16,7 +17,7 @@ namespace IBMConsultantTool
         {
             try
             {
-                dbo = XElement.Load("Data.xml");
+                dbo = XElement.Load("Resources/Data.xml");
             }
 
             catch
@@ -24,7 +25,12 @@ namespace IBMConsultantTool
                 dbo = new XElement("root");
                 dbo.Add(new XElement("CLIENTS"));
                 dbo.Add(new XElement("CATEGORIES"));
-                dbo.Save("Data.xml");
+                if (!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
+
+                dbo.Save("Resources/Data.xml");
             }
 
             changeLog = new List<string>();
@@ -450,6 +456,69 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override bool AddITCAPToGroup(object itcapObj, object groupObj, List<int> otherIDList = null)
+        {
+            XElement itcap = itcapObj as XElement;
+            XElement grp = groupObj as XElement;
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
+            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
+            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+
+            List<XElement> itcapList = grp.Element("ITCAPS").Elements("ITCAP").ToList();
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in itcapList
+                 where ent != null &&
+                       ent.Element("ITCAPQUESTION") != null &&
+                       ent.Element("ITCAPQUESTION").Value == itcqXML
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            itcap.Add(new XElement("ITCAPID", -1));
+            itcap.Add(new XElement("ASIS", 0));
+            itcap.Add(new XElement("TOBE", 0));
+            itcap.Add(new XElement("COMMENT", ""));
+
+            grp.Element("ITCAPS").Add(itcap);
+
+            changeLog.Add("ADD ITCAP GROUP " + grp.Element("NAME").Value + " " + itcqXML);
+
+            return true;
+        }
+
+        public override bool AddITCAPToContact(object itcapObj, object contactObj, List<int> otherIDList = null)
+        {
+            XElement itcap = itcapObj as XElement;
+            XElement contact = contactObj as XElement;
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
+            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
+            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+
+            List<XElement> itcapList = contact.Element("ITCAPS").Elements("ITCAP").ToList();
+            //If Client points to 2 BOMs with same Initiative, return false
+            if ((from ent in itcapList
+                 where ent != null &&
+                       ent.Element("ITCAPQUESTION") != null &&
+                       ent.Element("ITCAPQUESTION").Value == itcqXML
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            itcap.Add(new XElement("ITCAPID", -1));
+            itcap.Add(new XElement("ASIS", 0));
+            itcap.Add(new XElement("TOBE", 0));
+            itcap.Add(new XElement("COMMENT", ""));
+
+            contact.Element("ITCAPS").Add(itcap);
+
+            changeLog.Add("ADD ITCAP CONTACT " + contact.Element("NAME").Value + " " + itcqXML);
+
+            return true;
+        }
+
         public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
         {
             XElement client;
@@ -1007,6 +1076,7 @@ namespace IBMConsultantTool
             }
 
             domain.Add(new XElement("DOMAINID", -1));
+            domain.Add(new XElement("DEFAULT", "N"));
             domain.Add(new XElement("CAPABILITIES"));
 
             dbo.Element("DOMAINS").Add(domain);
@@ -1108,6 +1178,7 @@ namespace IBMConsultantTool
             }
 
             capability.Add(new XElement("CAPABILITYID", -1));
+            capability.Add(new XElement("DEFAULT", "N"));
             capability.Add(new XElement("ITCAPQUESTIONS"));
 
             domain.Element("CAPABILITIES").Add(capability);
@@ -1238,6 +1309,7 @@ namespace IBMConsultantTool
             }
 
             itcapQuestion.Add(new XElement("ITCAPQUESTIONID", -1));
+            itcapQuestion.Add(new XElement("DEFAULT", "N"));
 
             capability.Element("ITCAPQUESTIONS").Add(itcapQuestion);
 
@@ -1394,9 +1466,19 @@ namespace IBMConsultantTool
         {
             try
             {
-                dbo.Save("Data.xml");
+                if(!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Changes.log", true))
+                dbo.Save("Resources/Data.xml");
+
+                if (!File.Exists("Resources/Changes.log"))
+                {
+                    File.Create("Resources/Changes.log");
+                }
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Resources/Changes.log", true))
                 {
                     foreach (string change in changeLog)
                     {

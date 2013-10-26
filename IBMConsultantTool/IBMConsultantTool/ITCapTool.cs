@@ -103,7 +103,7 @@ namespace IBMConsultantTool
         public ITCapTool()
         {
             InitializeComponent();
-
+            currentGrid = surveryMakerGrid;
             
             try
             {
@@ -204,6 +204,10 @@ namespace IBMConsultantTool
                     loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.Open:
+                    ToggleControlsVisible(surverymakercontrols, false);
+                    ToggleControlsVisible(liveDataEntryControls, false);
+                    ToggleControlsVisible(prioritizationControls, false);
+                    loadSurveyFromDataGrid.Visible = false;
                     currentGrid = loadSurveyFromDataGrid;
                     LoadChartSurvey();
                     
@@ -558,10 +562,11 @@ namespace IBMConsultantTool
 
         public void ResetSurveyGrid()
         {
+            currentGrid.DataSource = null;
             domains.Clear();
             capabilities.Clear();
             entities.Clear();
-            surveryMakerGrid.Rows.Clear();
+            
         }
 
         private void domainList_SelectedIndexChanged(object sender, EventArgs e)
@@ -686,8 +691,12 @@ namespace IBMConsultantTool
             {
                 ent.Owner.CalculateToBeAverage();                
             }
-            if (ent.CapabilityGap >= 1)
+            if (ent.CapabilityGap >= 1.5)
                 currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
+            else if (ent.CapabilityGap < 1.5 && ent.CapabilityGap >= 1)
+                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
+            else 
+                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
             currentGrid.Refresh();
             
             
