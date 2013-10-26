@@ -1105,6 +1105,19 @@ namespace IBMConsultantTool
                                                        select ent.NAME.TrimEnd()).ToArray());
             }
         }
+
+        public override bool ChangeDomainDefault(string domName, bool isDefault)
+        {
+            DOMAIN domain;
+            if (GetDomain(domName, out domain))
+            {
+                domain.DEFAULT = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Domain: " + domName, "Error");
+            return false;
+        }
         #endregion
 
         #region Capability
@@ -1183,6 +1196,19 @@ namespace IBMConsultantTool
                 itcapForm.questionList.Items.AddRange((from ent in capability.ITCAPQUESTION
                                                        select ent.NAME.TrimEnd()).ToArray());
             }
+        }
+
+        public override bool ChangeCapabilityDefault(string capName, bool isDefault)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                capability.DEFAULT = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Capability: " + capName, "Error");
+            return false;
         }
         #endregion
 
@@ -1383,6 +1409,19 @@ namespace IBMConsultantTool
                 dbo.RemoveITCAPQUESTION(itcapQuestion);
                 dbo.SaveChanges();
             }*/
+        }
+
+        public override bool ChangeITCAPQuestionDefault(string itcqName, bool isDefault)
+        {
+            ITCAPQUESTION itcapQuestion;
+            if (GetITCAPQuestion(itcqName, out itcapQuestion))
+            {
+                itcapQuestion.DEFAULT = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find ITCAPQuestion: " + itcqName, "Error");
+            return false;
         }
         #endregion
 

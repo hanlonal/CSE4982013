@@ -58,6 +58,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
+            this.bOMScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -221,7 +222,8 @@
             this.vieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.effectivenessToolStripMenuItem,
             this.criticalityToolStripMenuItem,
-            this.differentiationToolStripMenuItem});
+            this.differentiationToolStripMenuItem,
+            this.bOMScoreToolStripMenuItem});
             this.vieToolStripMenuItem.Name = "vieToolStripMenuItem";
             this.vieToolStripMenuItem.Size = new System.Drawing.Size(56, 25);
             this.vieToolStripMenuItem.Text = "View";
@@ -260,20 +262,20 @@
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
             // 
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.bOMToolStripMenuItem.Text = "BOM";
             // 
             // iTCapToolStripMenuItem
             // 
             this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
-            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
+            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.iTCapToolStripMenuItem.Text = "ITCap";
             // 
             // btnLoadChart
@@ -375,6 +377,13 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
             // 
+            // bOMScoreToolStripMenuItem
+            // 
+            this.bOMScoreToolStripMenuItem.Name = "bOMScoreToolStripMenuItem";
+            this.bOMScoreToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.bOMScoreToolStripMenuItem.Text = "BOM Score";
+            this.bOMScoreToolStripMenuItem.Click += new System.EventHandler(this.bOMScoreToolStripMenuItem_Click);
+            // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -436,6 +445,7 @@
         private System.Windows.Forms.ToolStripMenuItem iTCapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bOMScoreToolStripMenuItem;
 
     }
 }
