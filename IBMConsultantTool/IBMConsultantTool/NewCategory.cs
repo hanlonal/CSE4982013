@@ -41,6 +41,16 @@ namespace IBMConsultantTool
             return objective;
             
         }
+        public void RemoveObjective(NewObjective obj)
+        {
+           // Controls.RemoveByKey(obj.Name);
+            objectives.Remove(obj);
+            lastClicked = null;
+            //obj.Controls.Clear();
+            
+            owner.RemoveObjective(obj);
+            Refresh();
+        }
 
         public void objective_Click(object sender, EventArgs e)
         {

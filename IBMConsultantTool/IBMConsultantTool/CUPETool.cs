@@ -7,9 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.IO;
 
 namespace IBMConsultantTool
 {
+    //TODO: Save changes to questions in the question view
+    //TODO: Load survey data
+    //TODO: Load any user data when tool starts up
+
     public partial class CUPETool : Form
     {
         List<DataGridView> grids = new List<DataGridView>();
@@ -87,7 +92,8 @@ namespace IBMConsultantTool
             }
             currentChart.Visible = true;
             CreateGraphs();
-            CreateLabel();
+            LoadCupeQuestionsFromDocument();
+            //CreateLabel();
 
         }
 
@@ -489,45 +495,52 @@ namespace IBMConsultantTool
 
         private void filterQuestionsGo_Click(object sender, EventArgs e)
         {
-            if (questionFilter.Text == "Highest Cupe Score")
+            try
             {
-                FilterQuestionByHighestScore(questionFilterAmount.Text, averageIndex);
+
+                if (questionFilter.Text == "Highest Cupe Score")
+                {
+                    FilterQuestionByHighestScore(questionFilterAmount.Text, averageIndex);
+                }
+                if (questionFilter.Text == "Lowest Cupe Score")
+                {
+                    FilterQuestionByLowestScore(questionFilterAmount.Text, averageIndex);
+                }
+                if (questionFilter.Text == "Most Commodity")
+                {
+                    FilterQuestionByHighestScore(questionFilterAmount.Text, totalAIndex);
+                }
+                if (questionFilter.Text == "Most Utility")
+                {
+                    FilterQuestionByHighestScore(questionFilterAmount.Text, totalBIndex);
+                }
+                if (questionFilter.Text == "Most Partner")
+                {
+                    FilterQuestionByHighestScore(questionFilterAmount.Text, totalCIndex);
+                }
+                if (questionFilter.Text == "Most Enabler")
+                {
+                    FilterQuestionByHighestScore(questionFilterAmount.Text, totalDIndex);
+                }
+                if (questionFilter.Text == "Least Commodity")
+                {
+                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalAIndex);
+                }
+                if (questionFilter.Text == "Least Utility")
+                {
+                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalBIndex);
+                }
+                if (questionFilter.Text == "Least Partner")
+                {
+                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalCIndex);
+                }
+                if (questionFilter.Text == "Least Enabler")
+                {
+                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalDIndex);
+                }
             }
-            if (questionFilter.Text == "Lowest Cupe Score")
+            catch
             {
-                FilterQuestionByLowestScore(questionFilterAmount.Text, averageIndex);
-            }
-            if (questionFilter.Text == "Most Commodity")
-            {
-                FilterQuestionByHighestScore(questionFilterAmount.Text, totalAIndex);
-            }
-            if (questionFilter.Text == "Most Utility")
-            {
-                FilterQuestionByHighestScore(questionFilterAmount.Text, totalBIndex);
-            }
-            if (questionFilter.Text == "Most Partner")
-            {
-                FilterQuestionByHighestScore(questionFilterAmount.Text, totalCIndex);
-            }
-            if (questionFilter.Text == "Most Enabler")
-            {
-                FilterQuestionByHighestScore(questionFilterAmount.Text, totalDIndex);
-            }
-            if (questionFilter.Text == "Least Commodity")
-            {
-                FilterQuestionByLowestScore(questionFilterAmount.Text, totalAIndex);
-            }
-            if (questionFilter.Text == "Least Utility")
-            {
-                FilterQuestionByLowestScore(questionFilterAmount.Text, totalBIndex);
-            }
-            if (questionFilter.Text == "Least Partner")
-            {
-                FilterQuestionByLowestScore(questionFilterAmount.Text, totalCIndex);
-            }
-            if (questionFilter.Text == "Least Enabler")
-            {
-                FilterQuestionByLowestScore(questionFilterAmount.Text, totalDIndex);
             }
         }
 
@@ -555,7 +568,7 @@ namespace IBMConsultantTool
             foreach (DataGridViewColumn col in currentGrid.Columns)
             {
                 view.Columns.Add((DataGridViewColumn)col.Clone());
-                //col.Width = 80;
+                //col.Width = 50;
 
             }
 
@@ -576,10 +589,12 @@ namespace IBMConsultantTool
             }
             //currentGrid.Columns[0].cl
 
+            
             questionInfoPanel.Controls.Add(view);
-            view.Location = new Point(10, 70);
-            view.Width = 727;
-            view.Height = 120;
+            view.Location = new Point(10, 35);
+            view.Width = 550;
+            view.Height = 130;
+            
 
         }
         public void FilterQuestionByLowestScore(string amount, int index)
@@ -629,9 +644,9 @@ namespace IBMConsultantTool
             //currentGrid.Columns[0].cl
 
             questionInfoPanel.Controls.Add(view);
-            view.Location = new Point(10, 70);
-            view.Width = 727;
-            view.Height = 120;
+            view.Location = new Point(10, 35);
+            view.Width = 550;
+            view.Height = 130;
             
          }
 
@@ -832,15 +847,18 @@ namespace IBMConsultantTool
             }
         }
         
-        //Save and load the data in the cupe Charts to the ClientDataControl
+        //load the data in the cupe Charts to the ClientDataControl
         private void loadCupeDataValues()
         {
 
 
         }
 
+        //Saves the table values to the clientdatacontrol
         private void saveCupeDataValues()
         {
+
+            //ITCurrent
             foreach( DataGridViewColumn column in questionGridITCurrent.Columns)
             {
                 Person currentPerson = null;
@@ -858,13 +876,108 @@ namespace IBMConsultantTool
                     currentPerson.cupeDataHolder.CurrentAnswers.Clear();
                     foreach (DataGridViewRow row in questionGridITCurrent.Rows)
                     {
-                        if(row.Cells[0].Value != null)
+                        if (row.Cells[0].Value != null && row.Cells[column.Index].Value != null)
                         {
                             currentPerson.cupeDataHolder.CurrentAnswers.Add(
                                 row.Cells[0].Value.ToString(), 
                                  row.Cells[column.Index].Value.ToString()[0]);
                         }
-                        else
+                        else if (row.Cells[0].Value == null)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //ITFuture
+            foreach (DataGridViewColumn column in questionGridITFuture.Columns)
+            {
+                Person currentPerson = null;
+                try
+                {
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                }
+                catch
+                {
+
+                }
+
+                if (currentPerson != null)
+                {
+                    currentPerson.cupeDataHolder.FutureAnswers.Clear();
+                    foreach (DataGridViewRow row in questionGridITFuture.Rows)
+                    {
+                        if (row.Cells[0].Value != null && row.Cells[column.Index].Value != null)
+                        {
+                            currentPerson.cupeDataHolder.FutureAnswers.Add(
+                                row.Cells[0].Value.ToString(),
+                                 row.Cells[column.Index].Value.ToString()[0]);
+                        }
+                        else if (row.Cells[0].Value == null)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //BusiCurrent
+            foreach (DataGridViewColumn column in questionGridBusinessCurrent.Columns)
+            {
+                Person currentPerson = null;
+                try
+                {
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                }
+                catch
+                {
+
+                }
+
+                if (currentPerson != null)
+                {
+                    currentPerson.cupeDataHolder.CurrentAnswers.Clear();
+                    foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
+                    {
+                        if (row.Cells[0].Value != null && row.Cells[column.Index].Value != null)
+                        {
+                            currentPerson.cupeDataHolder.CurrentAnswers.Add(
+                                row.Cells[0].Value.ToString(),
+                                 row.Cells[column.Index].Value.ToString()[0]);
+                        }
+                        else if (row.Cells[0].Value == null)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            //BusiFuture
+            foreach (DataGridViewColumn column in questionGridBusiFuture.Columns)
+            {
+                Person currentPerson = null;
+                try
+                {
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                }
+                catch
+                {
+
+                }
+
+                if (currentPerson != null)
+                {
+                    currentPerson.cupeDataHolder.FutureAnswers.Clear();
+                    foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
+                    {
+                        if (row.Cells[0].Value != null && row.Cells[column.Index].Value != null)
+                        {
+                            currentPerson.cupeDataHolder.FutureAnswers.Add(
+                                row.Cells[0].Value.ToString(),
+                                 row.Cells[column.Index].Value.ToString()[0]);
+                        }
+                        else if (row.Cells[0].Value == null)
                         {
                             break;
                         }
@@ -894,11 +1007,21 @@ namespace IBMConsultantTool
 
         }
 
-
+        private void saveCupeAnswersToClientDataControl()
+        {
+            ClientDataControl.SetCupeAnswers(new List<CupeData>());
+            foreach ( Person currentPerson in ClientDataControl.GetParticipants())
+            {
+                ClientDataControl.AddCupeAnswers(currentPerson.cupeDataHolder);
+            }
+        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Store the cupe answeres in each person's cupe data holder
             saveCupeDataValues();
+            //Store everyone's answers in the clientdatacontroller
+            saveCupeAnswersToClientDataControl();
         }
 
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -929,6 +1052,136 @@ namespace IBMConsultantTool
         }
 
 
+        /* Get the tree node under the mouse pointer and 
+   save it in the mySelectedNode variable. */
+
+        TreeNode mySelectedNode;
+        private void QuestionView_MouseDown(object sender,
+  System.Windows.Forms.MouseEventArgs e)
+        {
+            mySelectedNode = QuestionView.GetNodeAt(e.X, e.Y);
+            QuestionView.SelectedNode = mySelectedNode;
+            QuestionView.LabelEdit = true;
+            if (!mySelectedNode.IsEditing)
+            {
+                mySelectedNode.BeginEdit();
+            }
+        }
+
+
+        private void QuestionView_AfterLabelEdit(object sender,
+         System.Windows.Forms.NodeLabelEditEventArgs e)
+        {
+            if (e.Label != null)
+            {
+                if (e.Label.Length > 0)
+                {
+                    if (e.Label.IndexOfAny(new char[] { '@' }) == -1)
+                    {
+                        // Stop editing without canceling the label change.
+                        e.Node.EndEdit(false);
+                    }
+                    else
+                    {
+                        /* Cancel the label edit action, inform the user, and 
+                           place the node in edit mode again. */
+                        e.CancelEdit = true;
+                        MessageBox.Show("Invalid multiple choice label.\n" +
+                           "The invalid characters are: '@',",
+                           "Node Label Edit");
+                        e.Node.BeginEdit();
+                    }
+                }
+                else
+                {
+                    /* Cancel the label edit action, inform the user, and 
+                       place the node in edit mode again. */
+                    e.CancelEdit = true;
+                    MessageBox.Show("Invalid multiple choice label.\nThe label cannot be blank",
+                       "Node Label Edit");
+                    e.Node.BeginEdit();
+                }
+            }
+        }
+
+        private void LoadCupeQuestionsFromDocument()
+        {
+            CupeQuestionStringData data = new CupeQuestionStringData();
+            foreach (string line in File.ReadLines(@"Resources/Questions.txt"))
+            {
+                if (!String.IsNullOrEmpty(line))
+                {
+                    if (line[0] == 'A' && line[1] == '.')
+                    {
+                        data.ChoiceA = line;
+                    }
+                    else if (line[0] == 'B' && line[1] == '.')
+                    {
+                        data.ChoiceB = line;
+                    }
+                    else if (line[0] == 'C' && line[1] == '.')
+                    {
+                        data.ChoiceC = line;
+                    }
+                    else if (line[0] == 'D' && line[1] == '.')
+                    {
+                        data.ChoiceD = line;
+                    }
+                    else
+                    {
+                        data.QuestionText = line;
+                    }
+                }
+                else if (String.IsNullOrEmpty(line))
+                {
+                    ClientDataControl.AddCupeQuestion(data);
+                    data = new CupeQuestionStringData();
+                }
+            }
+
+        }
+
+        private void questionGridBusinessCurrent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string RowName = "";
+            try
+            {
+                RowName = this.currentGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            }
+            catch
+            {
+
+            }
+            QuestionView.Nodes.Clear();
+            var questionsText = ClientDataControl.GetCupeQuestions();
+            if (RowName.Contains("Question"))
+            {
+                var index = e.RowIndex;
+                TreeNode node = new TreeNode();
+                node.Text = ClientDataControl.GetCupeQuestions()[index].QuestionText;
+
+                TreeNode nodeA = new TreeNode();
+                nodeA.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceA;
+                
+                TreeNode nodeB = new TreeNode();
+                nodeB.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceB;
+
+                TreeNode nodeC = new TreeNode();
+                nodeC.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceC;
+
+                TreeNode nodeD = new TreeNode();
+                nodeD.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceD;
+
+                node.Nodes.Add(nodeA);
+                node.Nodes.Add(nodeB);
+                node.Nodes.Add(nodeC);
+                node.Nodes.Add(nodeD);
+                QuestionView.Nodes.Add(node);
+                QuestionView.ExpandAll();
+
+
+            }
+        }
     }// end class
 
 

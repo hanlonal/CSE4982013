@@ -13,15 +13,15 @@ namespace IBMConsultantTool
         private string name;
         private int baseHeight = 20;
 
-        private float criticality = 1;
-        private float differentiation = 3;
-        private float effectiveness = 2;
+        private float criticality = 0;
+        private float differentiation = 0;
+        private float effectiveness = 0;
         private float totalBOMScore = 0;
 
 
 
-        private int criticalAmount = 4;
-        private int averageAmount = 7;
+        public static int criticalAmount = 4;
+        public static int averageAmount = 7;
        // private int goodAmount = 10;
         
 
@@ -101,6 +101,16 @@ namespace IBMConsultantTool
                 if (effectiveness > averageAmount)
                     BackColor = Color.ForestGreen;
             }
+
+            if(param == "bomscore")
+            {
+                if (totalBOMScore < criticalAmount)
+                    BackColor = Color.IndianRed;
+                if (totalBOMScore >= criticalAmount && totalBOMScore <= averageAmount)
+                    BackColor = Color.Yellow;
+                if (totalBOMScore > averageAmount)
+                    BackColor = Color.ForestGreen;
+            }
         }
 
         public float Criticality
@@ -112,6 +122,7 @@ namespace IBMConsultantTool
             set
             {
                 criticality = value;
+                Console.WriteLine("here");
                 CalculateTotalBOMScore();
 
             }
@@ -126,6 +137,7 @@ namespace IBMConsultantTool
             set
             {
                 effectiveness = value;
+                Console.WriteLine("here");
                 CalculateTotalBOMScore();
             }
         }
@@ -140,6 +152,7 @@ namespace IBMConsultantTool
             {
 
                 differentiation = value;
+                Console.WriteLine("here");
                 CalculateTotalBOMScore();
 
             }

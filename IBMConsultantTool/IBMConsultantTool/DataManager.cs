@@ -65,6 +65,7 @@ namespace IBMConsultantTool
         public abstract string[] GetDefaultDomainNames();
 
         public abstract void ChangedDomain(ITCapTool itcapForm);
+        public abstract bool ChangeDomainDefault(string domName, bool isDefault);
         #endregion
 
         #region Capability
@@ -73,6 +74,7 @@ namespace IBMConsultantTool
         public abstract string[] GetDefaultCapabilityNames(string domName);
 
         public abstract void ChangedCapability(ITCapTool itcapForm);
+        public abstract bool ChangeCapabilityDefault(string capName, bool isDefault);
         #endregion
 
         #region ITCAPQuestion
@@ -83,6 +85,7 @@ namespace IBMConsultantTool
        // public abstract bool RemoveITCAP(object itcqObject, object clientObj);
 
         public abstract void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm);
+        public abstract bool ChangeITCAPQuestionDefault(string itcq, bool isDefault);
         #endregion
 
         #region General

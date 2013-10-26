@@ -15,6 +15,7 @@ namespace IBMConsultantTool
         private static List<Person> participants = new List<Person>();
         private static List<CupeData> cupeAnswers = new List<CupeData>();
         private static List<NewCategory> bomCategories = new List<NewCategory>();
+        private static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
 
         private ClientDataControl() { }
 
@@ -74,6 +75,18 @@ namespace IBMConsultantTool
             cupeAnswers.Add(data);
 
             return true;
+        }
+
+        public static bool AddCupeQuestion(CupeQuestionStringData data)
+        {
+            cupeQuestions.Add(data);
+
+            return true;
+        }
+
+        public static List<CupeQuestionStringData> GetCupeQuestions()
+        {
+            return cupeQuestions;
         }
 
         public static bool SetParticipants(List<Person> people)

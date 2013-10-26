@@ -515,12 +515,13 @@ namespace IBMConsultantTool
                     domain.Name = domName;
                     if (!GetDomain(domName, out domEnt))
                     {
+                        MessageBox.Show("Error: Could not find domain related to this ITCAP Entry", "Error");
                         break;
                     }
                     domain.IsDefault = domEnt.Element("DEFAULT").Value == "Y";
-                    //itcapForm.LoadCapabilities(dom);
+                    domain.Type = "domain";
+                    domain.Visible = true;
                     itcapForm.domains.Add(domain);
-                    itcapForm.entities.Add(domain);
                     domain.ID = itcapForm.domains.Count.ToString();
                 }
 
@@ -534,32 +535,48 @@ namespace IBMConsultantTool
                     capability.Name = capName;
                     if(!GetCapability(capName, out capEnt))
                     {
+                        MessageBox.Show("Error: Could not find capability related to this ITCAP Entry", "Error");
                         break;
                     }
                     capability.IsDefault = capEnt.Element("DEFAULT").Value == "Y";
                     domain.CapabilitiesOwned.Add(capability);
                     domain.TotalChildren++;
+                    capability.Type = "capability";
                     itcapForm.capabilities.Add(capability);
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
-                    itcapForm.entities.Add(capability);
                 }
 
                 itcapQuestion = new ITCapQuestion();
                 itcapQuestion.Name = itcqName;
                 if (!GetITCAPQuestion(itcqName, out itcqEnt))
                 {
+                    MessageBox.Show("Error: Could not find question related to this ITCAP Entry", "Error");
                     break;
                 }
                 itcapQuestion.IsDefault = itcqEnt.Element("DEFAULT").Value == "Y";
                 itcapQuestion.AsIsScore = Convert.ToSingle(itcap.Element("ASIS").Value);
                 itcapQuestion.ToBeScore = Convert.ToSingle(itcap.Element("TOBE").Value);
                 capability.Owner.TotalChildren++;
+                itcapQuestion.Type = "attribute";
+                capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
                 itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
-                itcapForm.entities.Add(itcapQuestion);
+            }
+
+            foreach (Domain domain in itcapForm.domains)
+            {
+                itcapForm.entities.Add(domain);
+                foreach (Capability capability in domain.CapabilitiesOwned)
+                {
+                    itcapForm.entities.Add(capability);
+                    foreach (ITCapQuestion itcapQuestion in capability.QuestionsOwned)
+                    {
+                        itcapForm.entities.Add(itcapQuestion);
+                    }
+                }
             }
             return true;
         }
@@ -1004,6 +1021,19 @@ namespace IBMConsultantTool
                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
         }
+
+        public override bool ChangeDomainDefault(string domName, bool isDefault)
+        {
+            XElement domain;
+            if (GetDomain(domName, out domain))
+            {
+                domain.Element("DEFAULT").Value = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Domain: " + domName, "Error");
+            return false;
+        }
         #endregion
 
         #region Capability
@@ -1090,6 +1120,19 @@ namespace IBMConsultantTool
                 itcapForm.questionList.Items.AddRange((from ent in capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
             }
+        }
+
+        public override bool ChangeCapabilityDefault(string capName, bool isDefault)
+        {
+            XElement capability;
+            if (GetCapability(capName, out capability))
+            {
+                capability.Element("DEFAULT").Value = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Capability: " + capName, "Error");
+            return false;
         }
         #endregion
 
@@ -1300,6 +1343,21 @@ namespace IBMConsultantTool
         {
             throw new NotImplementedException();
         }
+
+        public override bool ChangeITCAPQuestionDefault(string itcqName, bool isDefault)
+        {
+            XElement itcapQuestion;
+            if (GetITCAPQuestion(itcqName, out itcapQuestion))
+            {
+                itcapQuestion.Element("DEFAULT").Value = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find ITCAPQuestion: " + itcqName, "Error");
+            return false;
+        }
+
+
 
         #endregion
 

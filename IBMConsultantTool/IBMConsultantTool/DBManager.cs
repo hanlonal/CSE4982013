@@ -243,10 +243,10 @@ namespace IBMConsultantTool
                            where ent.INITIATIVE.NAME.TrimEnd() == ini.Name
                            select ent).Single();
 
-                bom.EFFECTIVENESS = (float)Convert.ToDouble(ini.Effectiveness.ToString());
+                bom.EFFECTIVENESS = (float)ini.Effectiveness;
                 
-                bom.CRITICALITY = (float)Convert.ToDouble(ini.Criticality.ToString());
-                bom.DIFFERENTIAL = (float)Convert.ToDouble(ini.Differentiation.ToString());
+                bom.CRITICALITY = (float)ini.Criticality;
+                bom.DIFFERENTIAL = (float)ini.Differentiation;
             }
 
             catch
@@ -611,7 +611,6 @@ namespace IBMConsultantTool
                     domain.Visible = true;
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
-                    itcapForm.entities.Add(domain);
                     domain.ID = itcapForm.domains.Count.ToString();
                 }
 
@@ -631,7 +630,6 @@ namespace IBMConsultantTool
                     capability.Owner = domain;
                     capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
-                    itcapForm.entities.Add(capability);
                 }
 
                 itcapQuestion = new ITCapQuestion();
@@ -645,7 +643,19 @@ namespace IBMConsultantTool
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
                 itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
-                itcapForm.entities.Add(itcapQuestion);
+            }
+
+            foreach (Domain domain in itcapForm.domains)
+            {
+                itcapForm.entities.Add(domain);
+                foreach (Capability capability in domain.CapabilitiesOwned)
+                {
+                    itcapForm.entities.Add(capability);
+                    foreach (ITCapQuestion itcapQuestion in capability.QuestionsOwned)
+                    {
+                        itcapForm.entities.Add(itcapQuestion);
+                    }
+                }
             }
             return true;
         }
@@ -1105,6 +1115,19 @@ namespace IBMConsultantTool
                                                        select ent.NAME.TrimEnd()).ToArray());
             }
         }
+
+        public override bool ChangeDomainDefault(string domName, bool isDefault)
+        {
+            DOMAIN domain;
+            if (GetDomain(domName, out domain))
+            {
+                domain.DEFAULT = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Domain: " + domName, "Error");
+            return false;
+        }
         #endregion
 
         #region Capability
@@ -1183,6 +1206,19 @@ namespace IBMConsultantTool
                 itcapForm.questionList.Items.AddRange((from ent in capability.ITCAPQUESTION
                                                        select ent.NAME.TrimEnd()).ToArray());
             }
+        }
+
+        public override bool ChangeCapabilityDefault(string capName, bool isDefault)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                capability.DEFAULT = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find Capability: " + capName, "Error");
+            return false;
         }
         #endregion
 
@@ -1383,6 +1419,19 @@ namespace IBMConsultantTool
                 dbo.RemoveITCAPQUESTION(itcapQuestion);
                 dbo.SaveChanges();
             }*/
+        }
+
+        public override bool ChangeITCAPQuestionDefault(string itcqName, bool isDefault)
+        {
+            ITCAPQUESTION itcapQuestion;
+            if (GetITCAPQuestion(itcqName, out itcapQuestion))
+            {
+                itcapQuestion.DEFAULT = isDefault ? "Y" : "N";
+                return true;
+            }
+
+            MessageBox.Show("Could Not Find ITCAPQuestion: " + itcqName, "Error");
+            return false;
         }
         #endregion
 

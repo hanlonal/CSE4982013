@@ -77,6 +77,12 @@
     <Compile Include="BOMBubbleChartRedesign.Designer.cs">
       <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
     </Compile>
+    <Compile Include="BOMChartDynamically.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BOMChartDynamically.designer.cs">
+      <DependentUpon>BOMChartDynamically.cs</DependentUpon>
+    </Compile>
     <Compile Include="BOMChartInfoPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -133,6 +139,7 @@
     </Compile>
     <Compile Include="CupeQuestion.cs" />
     <Compile Include="CupeQuestionData.cs" />
+    <Compile Include="CupeQuestionStringData.cs" />
     <Compile Include="CUPETool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BOMBubbleChartRedesign.resx">
       <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BOMChartDynamically.resx">
+      <DependentUpon>BOMChartDynamically.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BOMTool.resx">
       <DependentUpon>BOMTool.cs</DependentUpon>
@@ -456,7 +466,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Questions.txt" />
+    <None Include="Resources\Questions.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Notes.txt" />
