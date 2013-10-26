@@ -51,6 +51,7 @@ namespace IBMConsultantTool
         public void ObjectiveClicked(NewObjective obj)
         {
             int heightBetween = 30;
+            seperatorLabel.Text = "View Data: " + obj.Name;
             ClearDetailPanel();
             for (int i = 0; i < obj.Initiatives.Count; i++)
             {
@@ -384,6 +385,79 @@ namespace IBMConsultantTool
                     }
                 }
             }
+        }
+
+        private void ratingThresholdsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form thresholdsForm = new Form();
+            thresholdsForm.Location = new Point(100, 100);
+            thresholdsForm.Width = 400;
+            thresholdsForm.Height = 350;
+            Font font = new Font("Times New Roman", 14.0f);
+            thresholdsForm.Font = font;
+            TextBox lowerBoundBox = new TextBox();
+            lowerBoundBox.Name = "LowerBox";
+            TextBox upperBoundBox = new TextBox();
+            upperBoundBox.Name = "UpperBox";
+            thresholdsForm.Controls.Add(lowerBoundBox);
+            thresholdsForm.Controls.Add(upperBoundBox);
+            upperBoundBox.Text = NewInitiative.criticalAmount.ToString();
+            lowerBoundBox.Text = NewInitiative.averageAmount.ToString();
+
+            Label heading = new Label();
+            heading.AutoSize = true;
+            heading.Text = "Set the thresholds for viewing most critical metrics.";
+            thresholdsForm.Controls.Add(heading);
+            heading.Location = new Point(5, 20);
+            upperBoundBox.Location = new Point(260, 100);
+            upperBoundBox.Width = 50;
+            lowerBoundBox.Width = 50;
+            lowerBoundBox.Location = new Point(260, 200);
+            Label criticalState = new Label();
+            criticalState.Text = "Lower Bound: ";
+            criticalState.AutoSize = true;
+            criticalState.Location = new Point(50, 200);
+            Label upperBound = new Label();
+            upperBound.Text = "Upper Bound: ";
+            upperBound.AutoSize = true;
+            upperBound.Location = new Point(50, 100);
+            thresholdsForm.Controls.Add(upperBound);
+            thresholdsForm.Controls.Add(criticalState);
+
+            Button okButton = new Button();
+            Button cancelButton = new Button();
+            thresholdsForm.Controls.Add(okButton);
+            thresholdsForm.Controls.Add(cancelButton);
+            okButton.Location = new Point(100, 280);
+            okButton.Text = "OK";
+            okButton.Height = 30;
+            okButton.Click +=new EventHandler(okButton_Click);
+            cancelButton.Height = 30;
+            cancelButton.Location = new Point(200, 280);
+            cancelButton.Text = "Cancel";
+            cancelButton.Click +=new EventHandler(cancelButton_Click);
+            thresholdsForm.Show();
+
+
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            Button butt = (Button)sender;
+            Control[] text = butt.Parent.Controls.Find("UpperBox", true);
+            TextBox box = (TextBox)text[0];
+
+            Control[] text2 = butt.Parent.Controls.Find("LowerBox", true);
+            TextBox box2 = (TextBox)text2[0];
+
+            NewInitiative.averageAmount = Convert.ToInt32(box.Text);
+            NewInitiative.criticalAmount = Convert.ToInt32(box2.Text);
+            butt.Parent.Hide();
+        }
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            Button butt = (Button)sender;
+            butt.Parent.Hide();
         }
 
 
