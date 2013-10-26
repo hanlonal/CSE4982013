@@ -45,6 +45,7 @@
             this.File = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.View = new System.Windows.Forms.ToolStripMenuItem();
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityAssesmentSummaryScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +89,6 @@
             this.Collapse = new System.Windows.Forms.DataGridViewButtonColumn();
             this.editQuestionTextbox = new System.Windows.Forms.RichTextBox();
             this.changeTextButton = new System.Windows.Forms.Button();
-            this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -201,16 +201,23 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.newToolStripMenuItem.Text = "New Survey";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // loadDataToolStripMenuItem
+            // 
+            this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
+            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.loadDataToolStripMenuItem.Text = "Load Data";
+            this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // View
             // 
@@ -609,6 +616,7 @@
             this.loadSurveyFromDataGrid.TabIndex = 21;
             this.loadSurveyFromDataGrid.Visible = false;
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
+            this.loadSurveyFromDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellContentClick);
             this.loadSurveyFromDataGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
             this.loadSurveyFromDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellValueChanged);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
@@ -642,13 +650,6 @@
             this.changeTextButton.UseVisualStyleBackColor = true;
             this.changeTextButton.Visible = false;
             this.changeTextButton.Click += new System.EventHandler(this.changeTextButton_Click);
-            // 
-            // loadDataToolStripMenuItem
-            // 
-            this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadDataToolStripMenuItem.Text = "Load Data";
-            this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // ITCapTool
             // 
