@@ -243,10 +243,10 @@ namespace IBMConsultantTool
                            where ent.INITIATIVE.NAME.TrimEnd() == ini.Name
                            select ent).Single();
 
-                bom.EFFECTIVENESS = (float)Convert.ToDouble(ini.Effectiveness.ToString());
+                bom.EFFECTIVENESS = (float)ini.Effectiveness;
                 
-                bom.CRITICALITY = (float)Convert.ToDouble(ini.Criticality.ToString());
-                bom.DIFFERENTIAL = (float)Convert.ToDouble(ini.Differentiation.ToString());
+                bom.CRITICALITY = (float)ini.Criticality;
+                bom.DIFFERENTIAL = (float)ini.Differentiation;
             }
 
             catch

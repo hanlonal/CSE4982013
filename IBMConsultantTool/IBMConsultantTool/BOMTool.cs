@@ -98,6 +98,7 @@ namespace IBMConsultantTool
             nameLabel.Text = init.Name;
             nameLabel.Location = new Point(nameXValue, yValue);
             Label totalScoreLabel = new Label();
+            totalScoreLabel.DataBindings.Add(new Binding("Text", init, "TotalBOMScore"));
             totalScoreLabel.Location = new Point(totalXValue, yValue);
             totalScoreLabel.BackColor = Color.White;
             totalScoreLabel.Text = "0";

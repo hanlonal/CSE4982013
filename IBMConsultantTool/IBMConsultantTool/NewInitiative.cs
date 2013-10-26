@@ -112,6 +112,7 @@ namespace IBMConsultantTool
             set
             {
                 criticality = value;
+                Console.WriteLine("here");
                 CalculateTotalBOMScore();
 
             }
@@ -126,6 +127,7 @@ namespace IBMConsultantTool
             set
             {
                 effectiveness = value;
+                Console.WriteLine("here");
                 CalculateTotalBOMScore();
             }
         }
@@ -140,6 +142,7 @@ namespace IBMConsultantTool
             {
 
                 differentiation = value;
+                Console.WriteLine("here");
                 CalculateTotalBOMScore();
 
             }
