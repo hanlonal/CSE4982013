@@ -43,9 +43,11 @@ namespace IBMConsultantTool
                 dom.Name = domainInfo;
                 dom.IsDefault = true;
                 dom.ID = domCount.ToString();
+                dom.Type = "domain";
+                entities.Add(dom);
                 LoadCapabilities(dom);
                 domains.Add(dom);
-                entities.Add(dom);
+                
                 domCount++;
             }
         }
@@ -64,9 +66,11 @@ namespace IBMConsultantTool
                 dom.TotalChildren++;
                 capabilities.Add(cap);
                 cap.Owner = dom;
+                cap.Type = "capability";
                 cap.ID = capCount.ToString();
-                LoadQuestions(cap);
                 entities.Add(cap);
+                LoadQuestions(cap);
+                
                 capCount++;
             }
         }
@@ -85,6 +89,7 @@ namespace IBMConsultantTool
                 cap.Owner.TotalChildren++;
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
+                question.Type = "attribute";
                 question.ID = questionCount.ToString();
                 entities.Add(question);
                 questionCount++;
@@ -307,6 +312,8 @@ namespace IBMConsultantTool
 
         private void LoadDefaultChartSurvey()
         {
+            surveryMakerGrid.DataSource = entities;
+            /*
             surveryMakerGrid.Rows.Clear();
             foreach (Domain dom in domains)
             {
@@ -347,7 +354,7 @@ namespace IBMConsultantTool
                         questionsArray[question.IndexInGrid] = question;
                     }
                 }
-            }
+            }*/
         }
 
         private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -611,6 +618,43 @@ namespace IBMConsultantTool
         private void changeDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ChangeITCAPDefaults(this).ShowDialog();
+        }
+
+        private void prioritizationGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void surveryMakerGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in surveryMakerGrid.Rows)
+            {
+                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
+                if (ent.Type == "domain")
+                {
+                    row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
+                    row.ReadOnly = true;
+                }
+                else if (ent.Type == "capability")
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGray;
+                    row.ReadOnly = true;
+                }
+                else if (ent.Type == "attribute")
+                    row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                
+            }
+
+           // surveryMakerGrid.Columns["Type"].Visible = false;
+            //surveryMakerGrid.Columns["IsDefault"].Visible = false;
+            //surveryMakerGrid.Columns["IsInGrid"].Visible = false;
+            surveryMakerGrid.Refresh();
+        }
+
+        private void surveryMakerGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            ScoringEntity ent = surveryMakerGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
+            ent.CalculateCapabilityGap();
         }
     }// end class
 }

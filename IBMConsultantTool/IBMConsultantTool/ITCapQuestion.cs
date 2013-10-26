@@ -28,6 +28,11 @@ namespace IBMConsultantTool
         {
             return 0;
         }
+        public override void CalculateCapabilityGap()
+        {
+            base.CalculateCapabilityGap();
+            
+        }
 
         public Capability Owner
         {

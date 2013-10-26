@@ -36,11 +36,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addDomainButton = new System.Windows.Forms.Button();
             this.surveryMakerGrid = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capability = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AsIs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ToBe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addCapabilityButton = new System.Windows.Forms.Button();
             this.addQuestionButton = new System.Windows.Forms.Button();
             this.domainNameTextBox = new System.Windows.Forms.TextBox();
@@ -116,14 +111,8 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.surveryMakerGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.surveryMakerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.surveryMakerGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.Capability,
-            this.AsIs,
-            this.ToBe,
-            this.Type});
             this.surveryMakerGrid.EnableHeadersVisualStyles = false;
-            this.surveryMakerGrid.Location = new System.Drawing.Point(13, 87);
+            this.surveryMakerGrid.Location = new System.Drawing.Point(13, 30);
             this.surveryMakerGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.surveryMakerGrid.MultiSelect = false;
             this.surveryMakerGrid.Name = "surveryMakerGrid";
@@ -140,40 +129,10 @@
             this.surveryMakerGrid.TabIndex = 3;
             this.surveryMakerGrid.Visible = false;
             this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
+            this.surveryMakerGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellEndEdit);
+            this.surveryMakerGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.surveryMakerGrid_DataBindingComplete);
             this.surveryMakerGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
             this.surveryMakerGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.surveryMakerGrid_MouseDown);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 60;
-            // 
-            // Capability
-            // 
-            this.Capability.HeaderText = "Capability";
-            this.Capability.Name = "Capability";
-            this.Capability.ReadOnly = true;
-            this.Capability.Width = 400;
-            // 
-            // AsIs
-            // 
-            this.AsIs.HeaderText = "As Is";
-            this.AsIs.Name = "AsIs";
-            this.AsIs.Visible = false;
-            // 
-            // ToBe
-            // 
-            this.ToBe.HeaderText = "To Be";
-            this.ToBe.Name = "ToBe";
-            this.ToBe.Visible = false;
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.Visible = false;
             // 
             // addCapabilityButton
             // 
@@ -217,7 +176,7 @@
             this.mainMenuToolBar.Location = new System.Drawing.Point(0, 0);
             this.mainMenuToolBar.Name = "mainMenuToolBar";
             this.mainMenuToolBar.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.mainMenuToolBar.Size = new System.Drawing.Size(1370, 25);
+            this.mainMenuToolBar.Size = new System.Drawing.Size(1008, 25);
             this.mainMenuToolBar.TabIndex = 8;
             this.mainMenuToolBar.Text = "menuStrip1";
             // 
@@ -439,7 +398,7 @@
             this.AddComment,
             this.dataGridViewTextBoxColumn5});
             this.liveDataEntryGrid.EnableHeadersVisualStyles = false;
-            this.liveDataEntryGrid.Location = new System.Drawing.Point(13, 51);
+            this.liveDataEntryGrid.Location = new System.Drawing.Point(13, 30);
             this.liveDataEntryGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.liveDataEntryGrid.MultiSelect = false;
             this.liveDataEntryGrid.Name = "liveDataEntryGrid";
@@ -453,7 +412,7 @@
             this.liveDataEntryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.liveDataEntryGrid.RowHeadersVisible = false;
             this.liveDataEntryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.liveDataEntryGrid.Size = new System.Drawing.Size(1031, 567);
+            this.liveDataEntryGrid.Size = new System.Drawing.Size(925, 567);
             this.liveDataEntryGrid.TabIndex = 17;
             this.liveDataEntryGrid.Visible = false;
             this.liveDataEntryGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellContentClick);
@@ -528,7 +487,7 @@
             this.PriorityGap,
             this.dataGridViewTextBoxColumn10});
             this.prioritizationGrid.EnableHeadersVisualStyles = false;
-            this.prioritizationGrid.Location = new System.Drawing.Point(0, 122);
+            this.prioritizationGrid.Location = new System.Drawing.Point(13, 30);
             this.prioritizationGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prioritizationGrid.MultiSelect = false;
             this.prioritizationGrid.Name = "prioritizationGrid";
@@ -542,9 +501,10 @@
             this.prioritizationGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.prioritizationGrid.RowHeadersVisible = false;
             this.prioritizationGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.prioritizationGrid.Size = new System.Drawing.Size(1031, 567);
+            this.prioritizationGrid.Size = new System.Drawing.Size(938, 567);
             this.prioritizationGrid.TabIndex = 18;
             this.prioritizationGrid.Visible = false;
+            this.prioritizationGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.prioritizationGrid_CellContentClick);
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -612,7 +572,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.ClientSize = new System.Drawing.Size(1008, 730);
             this.Controls.Add(this.LiveDataSaveITCAPButton);
             this.Controls.Add(this.addEntityButton);
             this.Controls.Add(this.prioritizationGrid);
@@ -679,11 +639,6 @@
         private System.Windows.Forms.DataGridView liveDataEntryGrid;
         private System.Windows.Forms.DataGridView prioritizationGrid;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Capability;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AsIs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ToBe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
