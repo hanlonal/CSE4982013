@@ -25,6 +25,7 @@ namespace IBMConsultantTool
                 dbo = new XElement("root");
                 dbo.Add(new XElement("CLIENTS"));
                 dbo.Add(new XElement("CATEGORIES"));
+                dbo.Add(new XElement("DOMAINS"));
                 if (!Directory.Exists("Resources"))
                 {
                     Directory.CreateDirectory("Resources");
