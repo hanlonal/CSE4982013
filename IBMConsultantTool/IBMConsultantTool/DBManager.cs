@@ -2019,7 +2019,7 @@ namespace IBMConsultantTool
 
             if (success)
             {
-                File.WriteAllText("Changes.log", string.Empty);
+                File.WriteAllText("Resources/Changes.log", string.Empty);
             }
         }
         #endregion
