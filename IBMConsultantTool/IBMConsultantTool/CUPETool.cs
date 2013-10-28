@@ -661,20 +661,28 @@ namespace IBMConsultantTool
             {
                 //currentFloats.Add((float)row.Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value);
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value));
                 count++;
-                System.Diagnostics.Trace.WriteLine("count: " + count.ToString());
+                
             }
             count = 0;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                
+                if (row.Cells[0].Value == null)
+                {
+                    System.Diagnostics.Trace.WriteLine("NULL!!!!!");
                     break;
+                }
+                    //break;
                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value));
                 count++;
+                //System.Diagnostics.Trace.WriteLine("count: " + count.ToString());
             }
 
             CreateChart(currentFloats, futureFloats, "IT StakeHolders Current/Future Comparison");
@@ -711,10 +719,10 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].Visible = true;
             newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisX.Title = "Question";
-            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 10);
+            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
             newChart.ChartAreas["chart1"].AxisY.Title = "Score";
-            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 10);
+            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisY.Maximum = 4;
             //newChart.ChartAreas["chart1"].AxisY.
 
@@ -766,7 +774,8 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 count++;
                 currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value));
@@ -775,7 +784,8 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 count++;
                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value));
@@ -792,7 +802,8 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 count++;
                 currentBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value));
@@ -801,7 +812,8 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 count++;
                 currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value));
@@ -818,7 +830,8 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 count++;
                 futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value));
@@ -826,7 +839,8 @@ namespace IBMConsultantTool
             count = 0;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
-                if (count >= 20)
+                //if (count >= 20)
+                if (row.Cells[0].Value == null)
                     //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
                     break;
                 count++;
@@ -868,10 +882,10 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].Visible = true;
             newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisX.Title = "Question";
-            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 10);
+            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
             newChart.ChartAreas["chart1"].AxisY.Title = "Score";
-            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 10);
+            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisY.Maximum = 4;
             //newChart.ChartAreas["chart1"].AxisY.
 
@@ -1375,6 +1389,7 @@ namespace IBMConsultantTool
             int countB = 0;
             int countC = 0;
             int countD = 0;
+            int count = 0;
 
             List<float> futureBusinessFloats = new List<float>();
             List<float> futureITFloats = new List<float>();
@@ -1386,38 +1401,47 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (countA >= 20)
+                //if (countA >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 countA++;
                 futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value));
             }
-            //count = 0;
+            count = countA;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (countB >= 20)
+                //if (countB >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 countB++;
                 futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value));
             }
-            //count = 0;
+            if (count < countB)
+                count = countB;
             foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (countC >= 20)
+                //if (countC >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 countC++;
                 currentBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value));
             }
-            //count = 0;
+            if (count < countC)
+                count = countC;
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                if (countD >= 20)
+                //if (countD >= 20)
+                if (row.Cells[0].Value == null)
                     break;
                 countD++;
                 currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value));
             }
+            if (count < countD)
+                count = countD;
+
             choose = false;
 
             if (questionGridBusiFuture.ColumnCount == 7 && questionGridBusinessCurrent.ColumnCount == 7 &&
@@ -1428,7 +1452,20 @@ namespace IBMConsultantTool
                 countC = 0;
                 countD = 0;
             }
-            Question(countA, countB, countC, countD, futureBusinessFloats, currentBusinessFloats, futureITFloats, currentITFloats);
+
+            else if (questionGridBusiFuture.ColumnCount == 7 && questionGridBusinessCurrent.ColumnCount == 7)
+            {
+                countA = 0;
+                countB = 0;
+            }
+
+            else if (questionGridITCurrent.ColumnCount == 7 && questionGridITFuture.ColumnCount == 7)
+            {
+                countC = 0;
+                countD = 0;
+            }
+
+            Question(countA, countB, countC, countD, count, futureBusinessFloats, currentBusinessFloats, futureITFloats, currentITFloats);
 
 
             //QuestionsChart(futureBusinessFloats, currentBusinessFloats, futureITFloats, currentITFloats, numberYouChoose);
@@ -1444,21 +1481,28 @@ namespace IBMConsultantTool
         List<float> CBF = new List<float>();
         List<float> CITF = new List<float>();
 
-        public void Question(int a, int b, int c, int d, List<float> fuBusiness, List<float> curBusiness, List<float> fuIT, List<float> curIT)
+        public void Question(int a, int b, int c, int d, int cnt, List<float> fuBusiness, List<float> curBusiness, List<float> fuIT, List<float> curIT)
         {
             //System.Diagnostics.Trace.WriteLine("hello");
             
-            var list = new List<int>() { a, b, c, d };
+            var list = new List<int>() { a, b, c, d, cnt };
             var count = list.Max();
 
-            if (count == 0)
+
+            if (a == 0 && b == 0 && c == 0 && d == 0)
             {
                 MessageBox.Show("There is not any participants");
             }
             else
             {
-                form.Size = new Size(300, 100);
+                if (a == 0 && b == 0)
+                    MessageBox.Show("There is not any Business participants");
+                else if (c == 0 && d == 0)
+                    MessageBox.Show("There is not any IT participants");
+
+                form.Size = new Size(250, 100);
                 form.AutoSize = true;
+                form.Text = "CUPE Question";
 
                 form.Show();
 
@@ -1476,6 +1520,7 @@ namespace IBMConsultantTool
 
                 //combo.DropDownStyle = ComboBoxStyle.Simple;
                 combo.Parent = form;
+                combo.Size = new Size(50, la.Height);
                 //combo.MaxLength = 10;
                 combo.Location = new Point(form.Width - combo.Width - 30, 10);
                 for (int i = 0; i < count; i++)
@@ -1502,9 +1547,9 @@ namespace IBMConsultantTool
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine("open clicked");
+            //System.Diagnostics.Trace.WriteLine("open clicked");
             numberYouChoose = (int)Convert.ToInt32(combo.SelectedItem);
-            System.Diagnostics.Trace.WriteLine("num: " + numberYouChoose.ToString());
+            //System.Diagnostics.Trace.WriteLine("num: " + numberYouChoose.ToString());
             choose = true;
             ChartCall();
         }
@@ -1580,10 +1625,7 @@ namespace IBMConsultantTool
             newChart.Series["Business Current"].Points.AddY(curBusiness[index]);
             newChart.Series["IT Future"].Points.AddY(fuIT[index]);
             newChart.Series["IT Current"].Points.AddY(curIT[index]);
-
         }
-
-
 
     }// end class
 

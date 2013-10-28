@@ -65,6 +65,11 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.standardDeviationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asIsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toBeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityNameTextBox = new System.Windows.Forms.TextBox();
             this.questionNameTextBox = new System.Windows.Forms.TextBox();
             this.domainList = new System.Windows.Forms.ComboBox();
@@ -77,6 +82,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,17 +98,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.standardDeviationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.asIsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toBeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -241,6 +241,7 @@
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Name = "systemsAgendaCapabilityAssesmentResultsToolStripMenuItem";
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Text = "Systems Agenda Capability Assesment Results";
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Click += new System.EventHandler(this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem_Click);
             // 
             // capabilityAssesmentSummaryScoresToolStripMenuItem
             // 
@@ -363,6 +364,44 @@
             this.bOMToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
+            // 
+            // gridToolStripMenuItem
+            // 
+            this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showHideToolStripMenuItem});
+            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 19);
+            this.gridToolStripMenuItem.Text = "Grid";
+            // 
+            // showHideToolStripMenuItem
+            // 
+            this.showHideToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.standardDeviationToolStripMenuItem});
+            this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.showHideToolStripMenuItem.Text = "Show/Hide";
+            // 
+            // standardDeviationToolStripMenuItem
+            // 
+            this.standardDeviationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.asIsToolStripMenuItem,
+            this.toBeToolStripMenuItem});
+            this.standardDeviationToolStripMenuItem.Name = "standardDeviationToolStripMenuItem";
+            this.standardDeviationToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.standardDeviationToolStripMenuItem.Text = "Standard Deviation";
+            this.standardDeviationToolStripMenuItem.Click += new System.EventHandler(this.standardDeviationToolStripMenuItem_Click);
+            // 
+            // asIsToolStripMenuItem
+            // 
+            this.asIsToolStripMenuItem.Name = "asIsToolStripMenuItem";
+            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.asIsToolStripMenuItem.Text = "As Is";
+            // 
+            // toBeToolStripMenuItem
+            // 
+            this.toBeToolStripMenuItem.Name = "toBeToolStripMenuItem";
+            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.toBeToolStripMenuItem.Text = "To Be";
             // 
             // capabilityNameTextBox
             // 
@@ -498,6 +537,14 @@
             this.Comments.HeaderText = "Comments";
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
+            // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -658,44 +705,6 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "Business Objective Mapping";
             // 
-            // gridToolStripMenuItem
-            // 
-            this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showHideToolStripMenuItem});
-            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 19);
-            this.gridToolStripMenuItem.Text = "Grid";
-            // 
-            // showHideToolStripMenuItem
-            // 
-            this.showHideToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.standardDeviationToolStripMenuItem});
-            this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.showHideToolStripMenuItem.Text = "Show/Hide";
-            // 
-            // standardDeviationToolStripMenuItem
-            // 
-            this.standardDeviationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.asIsToolStripMenuItem,
-            this.toBeToolStripMenuItem});
-            this.standardDeviationToolStripMenuItem.Name = "standardDeviationToolStripMenuItem";
-            this.standardDeviationToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.standardDeviationToolStripMenuItem.Text = "Standard Deviation";
-            this.standardDeviationToolStripMenuItem.Click += new System.EventHandler(this.standardDeviationToolStripMenuItem_Click);
-            // 
-            // asIsToolStripMenuItem
-            // 
-            this.asIsToolStripMenuItem.Name = "asIsToolStripMenuItem";
-            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.asIsToolStripMenuItem.Text = "As Is";
-            // 
-            // toBeToolStripMenuItem
-            // 
-            this.toBeToolStripMenuItem.Name = "toBeToolStripMenuItem";
-            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.toBeToolStripMenuItem.Text = "To Be";
-            // 
             // dataGridViewButtonColumn1
             // 
             this.dataGridViewButtonColumn1.HeaderText = "";
@@ -742,22 +751,6 @@
             this.loadSurveyFromDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellValueChanged);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
             // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
-            // 
-            // dataGridViewButtonColumn2
-            // 
-            this.dataGridViewButtonColumn2.HeaderText = "";
-            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
-            this.dataGridViewButtonColumn2.Text = "+";
-            this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn2.Width = 30;
-            // 
             // Collapse
             // 
             this.Collapse.HeaderText = "";
@@ -774,6 +767,14 @@
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
             this.Flags.Width = 50;
+            // 
+            // dataGridViewButtonColumn2
+            // 
+            this.dataGridViewButtonColumn2.HeaderText = "";
+            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
+            this.dataGridViewButtonColumn2.Text = "+";
+            this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn2.Width = 30;
             // 
             // ITCapTool
             // 

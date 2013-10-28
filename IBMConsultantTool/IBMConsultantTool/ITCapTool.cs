@@ -909,6 +909,11 @@ namespace IBMConsultantTool
             currentGrid.Columns["TobeStandardDeviation"].Visible = !currentGrid.Columns["TobeStandardDeviation"].Visible;
         }
 
+        private void systemsAgendaCapabilityAssesmentResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }// end class
 }
