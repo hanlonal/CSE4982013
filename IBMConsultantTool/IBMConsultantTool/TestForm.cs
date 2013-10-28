@@ -30,13 +30,7 @@ namespace IBMConsultantTool
 
         private void TestForm_Load(object sender, EventArgs e)
         {
-            reader = new StreamReader("names.txt");
 
-
-            while ((textLine = reader.ReadLine()) != null)
-            {
-                Debug.Print(textLine);
-            }
         }
 
 
