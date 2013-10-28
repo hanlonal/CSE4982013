@@ -23,7 +23,7 @@ namespace IBMConsultantTool
 
         public ITCapQuestion()
         {
-            Console.WriteLine("question created");
+            Console.WriteLine("question created"); 
             type = SortTpe.Dynamic;
         }
 

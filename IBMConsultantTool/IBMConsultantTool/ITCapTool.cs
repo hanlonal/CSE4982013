@@ -557,7 +557,7 @@ namespace IBMConsultantTool
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResetSurveyGrid();
-            //Some kind of function like this is needed
+            //Some kind of function like this is needed 
             //db.GetClientObjectives();
 
             
