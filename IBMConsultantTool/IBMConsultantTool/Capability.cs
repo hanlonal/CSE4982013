@@ -8,6 +8,28 @@ namespace IBMConsultantTool
     public class Capability : ScoringEntity
     {
         private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
+        private static List<ObjectiveToTrack> priorityForObjective = new List<ObjectiveToTrack>();
+// ignore for now ********************************************************************
+        public static List<ObjectiveToTrack> PriorityForObjective
+        {
+            get { return priorityForObjective; }
+            set { priorityForObjective = value; }
+        }
+        public class ObjectiveToTrack
+        {
+            private string name;
+            public ObjectiveToTrack()
+            {
+            }
+
+            public string Name
+            {
+                get { return name; }
+                set { name = value; }
+            }        
+        }
+        
+//**************************************************************************************************
 
 
         private Domain owner;
@@ -24,6 +46,14 @@ namespace IBMConsultantTool
                 if (question.IsInGrid && question.IndexInGrid > index)
                     question.IndexInGrid--;
             }
+        }
+
+        public static void AddObjectiveToTrack( string name)
+        {
+            ObjectiveToTrack track = new ObjectiveToTrack();
+            track.Name = name;
+            
+            Capability.priorityForObjective.Add(track);
         }
 
         public override float CalculateAsIsAverage()

@@ -11,27 +11,65 @@ namespace IBMConsultantTool
         public string comment;
         private List<float> AsIsanswersToAttributes = new List<float>();
         private List<float> ToBeanswersToAttributes = new List<float>();
-
+        private List<float> asIsAnswers = new List<float>();
+        private List<float> toBeAnswers = new List<float>();
+        
+        static private float staticThreshold = 1;
+        enum SortTpe { Static, Dynamic };
+        static SortTpe type;
+        static private float percentToCategorizeAsHigh = .33f;
+        static private float percentToCategorizeAsLow = .33f;
 
 
         public ITCapQuestion()
         {
             Console.WriteLine("question created");
+            type = SortTpe.Dynamic;
         }
 
         public override void UpdateIndexDecrease(int index)
         {
 
         }
+        public void AddAsIsAnswer(float num)
+        {
+            asIsAnswers.Add(num);
+            asIsScore = asIsAnswers.Average();
+            StandardAsIsDeviation();
+            owner.CalculateAsIsAverage();            
+        }
+        public void AddToBeAnswer(float num)
+        {
+            toBeAnswers.Add(num);
+            toBeScore = toBeAnswers.Average();
+            StandardToBeDeviation();
+            owner.CalculateToBeAverage(); 
+        }
 
-        public void AddAsIsAnswer(float answer)
+        private void StandardAsIsDeviation()
         {
-            AsIsanswersToAttributes.Add(answer);
+            float dev = 0;
+            if (asIsAnswers.Count > 0)
+            {
+                float sum = (float)asIsAnswers.Sum(d => Math.Pow(d - asIsScore, 2));
+
+                dev = (float)Math.Sqrt((sum) / (asIsAnswers.Count -1));
+            }
+            asisStandardDeviation = dev;
         }
-        public void AddToBeAnswer(float answer)
+
+        private void StandardToBeDeviation()
         {
-            ToBeanswersToAttributes.Add(answer);
+            float dev = 0;
+            if (toBeAnswers.Count > 0)
+            {
+                float sum = (float)toBeAnswers.Sum(d => Math.Pow(d - toBeScore, 2));
+
+                dev = (float)Math.Sqrt((sum) / (toBeAnswers.Count - 1));
+            }
+            tobeStandardDeviation = dev;
         }
+
 
         public override float CalculateAsIsAverage()
         {
@@ -63,6 +101,7 @@ namespace IBMConsultantTool
             get { return id; }
             set { id = owner.ID + "." + (string)value; }
         }
+
 
     }
 }

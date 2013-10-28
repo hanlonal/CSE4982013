@@ -161,6 +161,8 @@
     <Compile Include="DataEntryForm.Designer.cs">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGridViewDisableButtonCell .cs" />
+    <Compile Include="DataGridViewDisableButtonColumn .cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Domain.cs" />
@@ -212,6 +214,9 @@
       <DependentUpon>OpenBOM.cs</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />
+    <Compile Include="PropertyBag.cs" />
+    <Compile Include="PropertyBagList.cs" />
+    <Compile Include="PropertyBagPropertyDescriptor.cs" />
     <Compile Include="RoundedRectangle.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -467,9 +472,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Data.xml" />
+    <None Include="Resources\ExclamationPoint_main_Full_answer_1_small.jpeg" />
     <Content Include="Resources\Questions.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\yellow-warning-sign.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Changes.log" />
