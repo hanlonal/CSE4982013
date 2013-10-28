@@ -1381,6 +1381,8 @@ namespace IBMConsultantTool
             List<float> currentBusinessFloats = new List<float>();
             List<float> currentITFloats = new List<float>();
 
+            
+
             foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
                 //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
@@ -1417,6 +1419,15 @@ namespace IBMConsultantTool
                 currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value));
             }
             choose = false;
+
+            if (questionGridBusiFuture.ColumnCount == 7 && questionGridBusinessCurrent.ColumnCount == 7 &&
+                questionGridITCurrent.ColumnCount == 7 && questionGridITFuture.ColumnCount == 7)
+            {
+                countA = 0;
+                countB = 0;
+                countC = 0;
+                countD = 0;
+            }
             Question(countA, countB, countC, countD, futureBusinessFloats, currentBusinessFloats, futureITFloats, currentITFloats);
 
 
@@ -1435,40 +1446,49 @@ namespace IBMConsultantTool
 
         public void Question(int a, int b, int c, int d, List<float> fuBusiness, List<float> curBusiness, List<float> fuIT, List<float> curIT)
         {
-            System.Diagnostics.Trace.WriteLine("hello");
-            form.Size = new Size(300, 100);
-            form.AutoSize = true;
-
-            form.Show();
+            //System.Diagnostics.Trace.WriteLine("hello");
+            
             var list = new List<int>() { a, b, c, d };
             var count = list.Max();
 
-            la.Parent = form;
-            la.Text = "Question";
-            la.AutoSize = true;
-            la.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold);
-            la.Location = new Point(10, 10);
-
-            btnOpen.Parent = form;
-            btnOpen.Text = "Open";
-            btnOpen.AutoSize = true;
-            btnOpen.Font = new Font("Microsoft Sans Serif", 12);
-            btnOpen.Location = new Point(form.Size.Width / 2 - btnOpen.Width / 2, form.Size.Height / 2 - 10);
-
-            //combo.DropDownStyle = ComboBoxStyle.Simple;
-            combo.Parent = form;
-            //combo.MaxLength = 10;
-            combo.Location = new Point(form.Width - combo.Width - 30, 10);
-            for (int i = 0; i < count; i++)
+            if (count == 0)
             {
-                combo.Items.Add((i + 1).ToString());
+                MessageBox.Show("There is not any participants");
             }
+            else
+            {
+                form.Size = new Size(300, 100);
+                form.AutoSize = true;
 
-            btnOpen.Click += new EventHandler(btnOpen_Click);
-            FBF = fuBusiness;
-            CBF = curBusiness;
-            FITF = fuIT;
-            CITF = curIT;
+                form.Show();
+
+                la.Parent = form;
+                la.Text = "Question";
+                la.AutoSize = true;
+                la.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold);
+                la.Location = new Point(10, 10);
+
+                btnOpen.Parent = form;
+                btnOpen.Text = "Open";
+                btnOpen.AutoSize = true;
+                btnOpen.Font = new Font("Microsoft Sans Serif", 12);
+                btnOpen.Location = new Point(form.Size.Width / 2 - btnOpen.Width / 2, form.Size.Height / 2 - 10);
+
+                //combo.DropDownStyle = ComboBoxStyle.Simple;
+                combo.Parent = form;
+                //combo.MaxLength = 10;
+                combo.Location = new Point(form.Width - combo.Width - 30, 10);
+                for (int i = 0; i < count; i++)
+                {
+                    combo.Items.Add((i + 1).ToString());
+                }
+
+                btnOpen.Click += new EventHandler(btnOpen_Click);
+                FBF = fuBusiness;
+                CBF = curBusiness;
+                FITF = fuIT;
+                CITF = curIT;
+            }
         }
 
         public void ChartCall()
@@ -1510,7 +1530,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisX.Title = "Question";
             newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
             //newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
-            newChart.ChartAreas["chart1"].AxisY.Title = "Score";
+            newChart.ChartAreas["chart1"].AxisY.Title = "CUPE Profile Score";
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisY.Maximum = 4;
             //newChart.ChartAreas["chart1"].AxisY.
