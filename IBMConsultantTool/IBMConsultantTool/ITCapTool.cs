@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Resources;
+using System.Windows.Forms.VisualStyles;
 
 namespace IBMConsultantTool
 {
@@ -104,21 +105,19 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
             currentGrid = surveryMakerGrid;
-            
+
             try
             {
-                //---Force offline mode for testing---
-                //throw new System.Exception();
                 db = new DBManager();
                 isOnline = true;
             }
-
-            catch
+            catch (Exception e)
             {
                 db = new FileManager();
                 isOnline = false;
-                MessageBox.Show("Could not reach database: Offline mode set", "Error");
+                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
             }
+
 
             states = FormStates.Open;
 
@@ -138,6 +137,8 @@ namespace IBMConsultantTool
             liveDataEntryControls.Add(LiveDataSaveITCAPButton);
 
             prioritizationControls.Add(prioritizationGrid);
+
+            //loadSurveyFromDataGrid.Columns["Collapse"] = new DataGridViewDisableButtonColumn();
 
             new ChooseITCAPClient(this).ShowDialog();
         }
@@ -182,7 +183,7 @@ namespace IBMConsultantTool
                 case FormStates.SurveryMaker:
                     currentGrid = surveryMakerGrid;
                     LoadChartSurvey();
-                    Console.WriteLine("here");
+                    //Console.WriteLine("here");
                     ToggleControlsVisible(surverymakercontrols, true);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, false);
@@ -556,8 +557,60 @@ namespace IBMConsultantTool
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResetSurveyGrid();
+            //Some kind of function like this is needed
+            //db.GetClientObjectives();
+
+            
             db.OpenITCAP(this);
+            GetAnswers();
             ChangeStates(FormStates.Open);
+            GetClientObjectives();
+            
+        }
+
+        private void GetAnswers()
+        {
+            Random rand = new Random();
+            
+            foreach (ScoringEntity ent in entities)
+            {
+                if (ent.GetType() == typeof(ITCapQuestion))
+                {
+                    ITCapQuestion ques = (ITCapQuestion)ent;
+                    ques.AddAsIsAnswer((float)rand.NextDouble() * 2);
+                    ques.AddAsIsAnswer((float)rand.NextDouble() * 2);
+                    ques.AddAsIsAnswer((float)rand.NextDouble() * 2);
+                    ques.AddAsIsAnswer((float)rand.NextDouble() * 2);
+
+
+                    ques.AddToBeAnswer((float)rand.NextDouble() * 5);
+                    ques.AddToBeAnswer((float)rand.NextDouble() * 5);
+                    ques.AddToBeAnswer((float)rand.NextDouble() * 5);
+                    ques.AddToBeAnswer((float)rand.NextDouble() * 5);
+                }
+            }
+        }
+
+        private void GetClientObjectives()
+        {
+            int numObjs = 3;
+            for (int i = 0; i < numObjs; i++)
+            {
+                Capability.AddObjectiveToTrack("Objective");                
+            }
+
+            PropertyBagList list = new PropertyBagList();
+            list.Columns.Add("Hello");
+            list.Columns.Add("World");
+            list.Add("abc", "def");
+            list.Add("123", "456");
+
+            objectiveMappingGrid.DataSource = list;
+
+
+            
+
+            
         }
 
         public void ResetSurveyGrid()
@@ -636,6 +689,14 @@ namespace IBMConsultantTool
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
                 ScoringEntity ent = row.DataBoundItem as ScoringEntity;
+
+                if (ent.CapabilityGap >= 1.5)
+                    row.Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
+                else if (ent.CapabilityGap < 1.5 && ent.CapabilityGap >= 1)
+                    row.Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
+                else
+                    row.Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
+
                 if (ent.Type == "domain")
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
@@ -656,18 +717,30 @@ namespace IBMConsultantTool
                         row.ReadOnly = true;
                     row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
                     if (states == FormStates.Open)
+                    {
                         row.Visible = false;
+                        DataGridViewDisableButtonCell cell = (DataGridViewDisableButtonCell)row.Cells["Collapse"];
+                        cell.Enabled = false;
+                        
+
+                    }
+
+                    if (ent.AsisStandardDeviation > .6)
+                        row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
+                    if (ent.AsisStandardDeviation <= .6)
+                        row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
                 }
                 
             }
             if (states == FormStates.SurveryMaker)
             {
                 surveryMakerGrid.Columns["AsIsScore"].Visible = false;
-                surveryMakerGrid.Columns["tobeStandardDeviation"].Visible = false;
-                surveryMakerGrid.Columns["asisStandardDeviation"].Visible = false;
+                surveryMakerGrid.Columns["TobeStandardDeviation"].Visible = false;
+                surveryMakerGrid.Columns["AsisStandardDeviation"].Visible = false;
                 surveryMakerGrid.Columns["ToBeScore"].Visible = false;
                 surveryMakerGrid.Columns["CapabilityGapText"].Visible = false;
                 surveryMakerGrid.Columns["PrioritizedGap"].Visible = false;
+                //surveryMakerGrid.Columns["Flags"].Visible = false;
                 
             }
             if (states == FormStates.Open)
@@ -697,6 +770,12 @@ namespace IBMConsultantTool
                 currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
             else 
                 currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
+
+            if (ent.AsisStandardDeviation > .6)
+                currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
+            if (ent.AsisStandardDeviation <= .6)
+                currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
+
             currentGrid.Refresh();
             
             
@@ -751,10 +830,7 @@ namespace IBMConsultantTool
         {
             foreach(ScoringEntity ent in entities)
             {
-                if (ent.Type == "attribute")
-                {
 
-                }
             }
         }
 
@@ -814,5 +890,25 @@ namespace IBMConsultantTool
         {
             Application.Run(new BOMTool());
         }
+
+        private void surveryMakerGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void standardDeviationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentGrid == loadSurveyFromDataGrid)
+            {
+                HideDeviations();
+            }
+        }
+        private void HideDeviations()
+        {
+            currentGrid.Columns["AsisStandardDeviation"].Visible = !currentGrid.Columns["AsisStandardDeviation"].Visible;
+            currentGrid.Columns["TobeStandardDeviation"].Visible = !currentGrid.Columns["TobeStandardDeviation"].Visible;
+        }
+
+
     }// end class
 }

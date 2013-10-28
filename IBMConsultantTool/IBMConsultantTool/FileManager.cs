@@ -25,6 +25,7 @@ namespace IBMConsultantTool
                 dbo = new XElement("root");
                 dbo.Add(new XElement("CLIENTS"));
                 dbo.Add(new XElement("CATEGORIES"));
+                dbo.Add(new XElement("DOMAINS"));
                 if (!Directory.Exists("Resources"))
                 {
                     Directory.CreateDirectory("Resources");
@@ -1488,8 +1489,9 @@ namespace IBMConsultantTool
 
                 changeLog.Clear();
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show("Save Changes Failed:\n\n" + e.Message + e.InnerException, "Error");
                 return false;
             }
 

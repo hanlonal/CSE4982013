@@ -1506,8 +1506,9 @@ namespace IBMConsultantTool
             {
                 dbo.SaveChanges();
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show("Save Changes Failed:\n\n" + e.Message + e.InnerException, "Error");
                 return false;
             }
 
@@ -2018,7 +2019,7 @@ namespace IBMConsultantTool
 
             if (success)
             {
-                File.WriteAllText("Changes.log", string.Empty);
+                File.WriteAllText("Resources/Changes.log", string.Empty);
             }
         }
         #endregion

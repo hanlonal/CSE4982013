@@ -45,7 +45,7 @@ namespace IBMConsultantTool
        }
        public virtual void CalculatePrioritizedCapabilityGap()
        {
-
+            
        }
        public virtual void ChangeChildrenVisibility()
        {
@@ -94,12 +94,24 @@ namespace IBMConsultantTool
                
            }
        }
+       public float TobeStandardDeviation
+       {
+           get { return tobeStandardDeviation; }
+           set { tobeStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+       }
+       public float AsisStandardDeviation
+       {
+           get { return asisStandardDeviation; }
+           set { asisStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+       }
+
        public float AsIsScore
        {
            get { return asIsScore; }
            set 
            { 
                asIsScore = value;
+               
                this.NotifyPropertyChanged("AsIsScore");
            }
        }
@@ -148,16 +160,7 @@ namespace IBMConsultantTool
            get { return prioritizedCapabilityGap; }
            set { prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); }
        }
-       public float TobeStandardDeviation
-       {
-           get { return tobeStandardDeviation; }
-           set { tobeStandardDeviation = value; }
-       }
-       public float AsisStandardDeviation
-       {
-           get { return asisStandardDeviation; }
-           set { asisStandardDeviation = value; }
-       }
+
        [Browsable(false)]
        public bool Visible
        {

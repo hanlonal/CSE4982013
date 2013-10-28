@@ -35,11 +35,11 @@ namespace IBMConsultantTool
                 db = new DBManager();
                 isOnline = true;
             }
-            catch
+            catch (Exception e)
             {
                 db = new FileManager();
                 isOnline = false;
-                
+                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
             }
 
 

@@ -16,10 +16,6 @@ namespace IBMConsultantTool
         public CrossClientForm()
         {
             InitializeComponent();
-
-            db = new DBManager();
-
-            InitiativeComboBox.Items.AddRange(db.GetInitiativeNames());
         }
 
         private void AnalyzeInitiativeButton_Click(object sender, EventArgs e)
@@ -60,6 +56,20 @@ namespace IBMConsultantTool
             MessageBox.Show("Effectiveness: " + effectiveness/eCount + "\n" + 
                             "Criticality: " + criticality/cCount + "\n" + 
                             "Differential: " + differential/dCount);
+        }
+
+        private void CrossClientForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                db = new DBManager();
+                InitiativeComboBox.Items.AddRange(db.GetInitiativeNames());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not reach database\n\n" + ex.Message + "\n\n" + "Cannot perform trend analysis", "Error");
+                this.Close();
+            }
         }
     }
 }
