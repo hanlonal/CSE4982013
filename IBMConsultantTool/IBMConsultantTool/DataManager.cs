@@ -77,6 +77,7 @@ namespace IBMConsultantTool
 
         public abstract void ChangedCapability(ITCapTool itcapForm);
         public abstract bool ChangeCapabilityDefault(string capName, bool isDefault);
+
         #endregion
 
         #region ITCAPQuestion
@@ -88,6 +89,12 @@ namespace IBMConsultantTool
 
         public abstract void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm);
         public abstract bool ChangeITCAPQuestionDefault(string itcq, bool isDefault);
+        #endregion
+
+        #region ITCAPOBJMAP
+        public abstract bool GetITCAPOBJMAPScore(object clientObj, string capName, string busName, out int score);
+        public abstract bool AddITCAPOBJMAP(object clientObj, string capName, string busName);
+        public abstract bool UpdateITCAPOBJMAPScore(object clientObj, string capName, string busName, int score);
         #endregion
 
         #region General
