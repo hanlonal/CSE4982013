@@ -1423,8 +1423,106 @@ namespace IBMConsultantTool
             return false;
         }
 
+        #endregion
 
+        #region ITCAPOBJMAP
+        public override bool GetITCAPOBJMAPScore(object clientObj, string capName, string busName, out int score)
+        {
+            XElement client = clientObj as XElement;
+            capName = capName.Replace(' ', '~');
+            busName = busName.Replace(' ', '~');
+            try
+            {
+                score = Convert.ToInt32((from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
+                                         where ent.Element("CAPABILITY").Value == capName &&
+                                         ent.Element("BUSINESSOBJECTIVE").Value == busName
+                                         select ent.Element("SCORE").Value).Single());
+            }
 
+            catch
+            {
+                score = -1;
+                return false;
+            }
+            return true;
+        }
+
+        public override bool AddITCAPOBJMAP(object clientObj, string capName, string busName)
+        {
+            XElement client = clientObj as XElement;
+            capName = capName.Replace(' ', '~');
+            busName = busName.Replace(' ', '~');
+
+            if ((from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
+                 where ent.Element("CAPABILITY").Value == capName &&
+                       ent.Element("BUSINESSOBJECTIVE").Value == busName
+                 select ent).Count() == 0)
+            {
+                XElement itcapObjMap = new XElement("ITCAPOBJMAP");
+                XElement capability;
+                XElement objective;
+
+                if (!GetCapability(capName, out capability))
+                {
+                    MessageBox.Show("Could not create mapping: Capability not found", "Error");
+                    return false;
+                }
+
+                itcapObjMap.Add(new XElement("CAPABILITY", capName));
+
+                if (!GetObjective(busName, out objective))
+                {
+                    MessageBox.Show("Could not create mapping: Objective not found", "Error");
+                    return false;
+                }
+
+                itcapObjMap.Add(new XElement("BUSINESSOBJECTIVE", busName));
+
+                itcapObjMap.Add(new XElement("SCORE", 0));
+
+                client.Add(itcapObjMap);
+
+                changeLog.Add("ADD ITCAPOBJMAP " + client.Element("NAME").Value + " " +
+                               capName + " " + busName);
+            }
+
+            else
+            {
+                MessageBox.Show("Could not create mapping: Mapping already exists", "Error");
+                return false;
+            }
+
+            return true;
+        }
+
+        public override bool UpdateITCAPOBJMAPScore(object clientObj, string capName, string busName, int score)
+        {
+            XElement client = clientObj as XElement;
+            capName = capName.Replace(' ', '~');
+            busName = busName.Replace(' ', '~');
+
+            XElement itcapObjMap;
+            try
+            {
+                itcapObjMap = (from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
+                               where ent.Element("CAPABILITY").Value == capName &&
+                                     ent.Element("BUSINESSOBJECTIVE").Value == busName
+                               select ent).Single();
+
+                itcapObjMap.Element("SCORE").Value = score.ToString();
+
+                changeLog.Add("UPDATE ITCAPOBJMAP " + client.Element("NAME").Value + " " +
+                              capName + " " + busName + " " + score.ToString());
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Could not add Capability/Objective Mapping\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            return true;
+        }
         #endregion
 
         #region General

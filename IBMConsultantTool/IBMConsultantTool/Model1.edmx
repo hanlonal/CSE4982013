@@ -226,11 +226,11 @@
           <Key>
             <PropertyRef Name="ITCAPOBJMAPID" />
           </Key>
-          <Property Name="SCORE" Type="smallint" />
+          <Property Name="SCORE" Type="integer" Nullable="false" />
           <Property Name="ITCAPOBJMAPID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="BUSINESSOBJECTIVEID" Type="integer" />
-          <Property Name="CAPABILITYID" Type="integer" />
-          <Property Name="CLIENTID" Type="integer" />
+          <Property Name="BUSINESSOBJECTIVEID" Type="integer" Nullable="false" />
+          <Property Name="CAPABILITYID" Type="integer" Nullable="false" />
+          <Property Name="CLIENTID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="ITCAPQUESTION">
           <Key>
@@ -424,7 +424,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ITCA_BUSINESSOB_FK">
-          <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.Store.BUSINESSOBJECTIVE" Multiplicity="0..1">
+          <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.Store.BUSINESSOBJECTIVE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.Store.ITCAPOBJMAP" Multiplicity="*" />
@@ -494,7 +494,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ITCAPOB_CAPABI_FK">
-          <End Role="CAPABILITY" Type="CAPSTONEModel.Store.CAPABILITY" Multiplicity="0..1">
+          <End Role="CAPABILITY" Type="CAPSTONEModel.Store.CAPABILITY" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.Store.ITCAPOBJMAP" Multiplicity="*" />
@@ -508,7 +508,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ITCAPOBJM_CLIE_FK">
-          <End Role="CLIENT" Type="CAPSTONEModel.Store.CLIENT" Multiplicity="0..1">
+          <End Role="CLIENT" Type="CAPSTONEModel.Store.CLIENT" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.Store.ITCAPOBJMAP" Multiplicity="*" />
@@ -781,7 +781,7 @@
           <Key>
             <PropertyRef Name="ITCAPOBJMAPID" />
           </Key>
-          <Property Name="SCORE" Type="Int16" />
+          <Property Name="SCORE" Type="Int32" Nullable="false" />
           <Property Name="ITCAPOBJMAPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="BUSINESSOBJECTIVE" Relationship="CAPSTONEModel.ITCA_BUSINESSOB_FK" FromRole="ITCAPOBJMAP" ToRole="BUSINESSOBJECTIVE" />
           <NavigationProperty Name="CAPABILITY" Relationship="CAPSTONEModel.ITCAPOB_CAPABI_FK" FromRole="ITCAPOBJMAP" ToRole="CAPABILITY" />
@@ -834,7 +834,7 @@
           <End Role="INITIATIVE" Type="CAPSTONEModel.INITIATIVE" Multiplicity="*" />
         </Association>
         <Association Name="ITCA_BUSINESSOB_FK">
-          <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.BUSINESSOBJECTIVE" Multiplicity="0..1">
+          <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.BUSINESSOBJECTIVE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.ITCAPOBJMAP" Multiplicity="*" />
@@ -846,7 +846,7 @@
           <End Role="CAPABILITY" Type="CAPSTONEModel.CAPABILITY" Multiplicity="*" />
         </Association>
         <Association Name="ITCAPOB_CAPABI_FK">
-          <End Role="CAPABILITY" Type="CAPSTONEModel.CAPABILITY" Multiplicity="0..1">
+          <End Role="CAPABILITY" Type="CAPSTONEModel.CAPABILITY" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.ITCAPOBJMAP" Multiplicity="*" />
@@ -876,7 +876,7 @@
           <End Role="ITCAP" Type="CAPSTONEModel.ITCAP" Multiplicity="*" />
         </Association>
         <Association Name="ITCAPOBJM_CLIE_FK">
-          <End Role="CLIENT" Type="CAPSTONEModel.CLIENT" Multiplicity="0..1">
+          <End Role="CLIENT" Type="CAPSTONEModel.CLIENT" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.ITCAPOBJMAP" Multiplicity="*" />
@@ -1060,7 +1060,6 @@
             <EndProperty Name="ITCAPOBJMAP">
               <ScalarProperty Name="ITCAPOBJMAPID" ColumnName="ITCAPOBJMAPID" />
             </EndProperty>
-            <Condition ColumnName="BUSINESSOBJECTIVEID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="CAPABILIT_DOMAI_FK" TypeName="CAPSTONEModel.CAPABILIT_DOMAI_FK" StoreEntitySet="CAPABILITY">
             <EndProperty Name="DOMAIN">
@@ -1077,7 +1076,6 @@
             <EndProperty Name="ITCAPOBJMAP">
               <ScalarProperty Name="ITCAPOBJMAPID" ColumnName="ITCAPOBJMAPID" />
             </EndProperty>
-            <Condition ColumnName="CAPABILITYID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="ITCAPQUE_CAPAB_FK" TypeName="CAPSTONEModel.ITCAPQUE_CAPAB_FK" StoreEntitySet="ITCAPQUESTION">
             <EndProperty Name="CAPABILITY">
@@ -1120,7 +1118,6 @@
             <EndProperty Name="ITCAPOBJMAP">
               <ScalarProperty Name="ITCAPOBJMAPID" ColumnName="ITCAPOBJMAPID" />
             </EndProperty>
-            <Condition ColumnName="CLIENTID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="CONTACT_GROUP_FK" TypeName="CAPSTONEModel.CONTACT_GROUP_FK" StoreEntitySet="CONTACT">
             <EndProperty Name="GROUP">

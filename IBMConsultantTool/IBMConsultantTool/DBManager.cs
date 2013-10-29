@@ -1345,6 +1345,115 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region ITCAPOBJMAP
+
+        private bool GetITCAPOBJMAP(object clientObj, string capName, string busName, out ITCAPOBJMAP itcapObjMap)
+        {
+            CLIENT client = clientObj as CLIENT;
+            try
+            {
+                itcapObjMap = (from ent in client.ITCAPOBJMAP
+                               where ent.CAPABILITY.NAME.TrimEnd() == capName &&
+                                     ent.BUSINESSOBJECTIVE.NAME.TrimEnd() == busName
+                               select ent).Single();
+            }
+
+            catch
+            {
+                itcapObjMap = null;
+                return false;
+            }
+            return true;
+        }
+
+        public override bool GetITCAPOBJMAPScore(object clientObj, string capName, string busName, out int score)
+        {
+            CLIENT client = clientObj as CLIENT;
+            try
+            {
+                score = (from ent in client.ITCAPOBJMAP
+                         where ent.CAPABILITY.NAME.TrimEnd() == capName &&
+                               ent.BUSINESSOBJECTIVE.NAME.TrimEnd() == busName
+                         select ent.SCORE).Single();
+            }
+
+            catch 
+            {
+                score = -1;
+                return false;
+            }
+            return true;
+        }
+
+        public override bool AddITCAPOBJMAP(object clientObj, string capName, string busName)
+        {
+            CLIENT client = clientObj as CLIENT;
+            if((from ent in client.ITCAPOBJMAP
+                               where ent.CAPABILITY.NAME.TrimEnd() == capName &&
+                                     ent.BUSINESSOBJECTIVE.NAME.TrimEnd() == busName
+                               select ent).Count() == 0)
+            {
+                ITCAPOBJMAP itcapObjMap = new ITCAPOBJMAP();
+                CAPABILITY capability;
+                BUSINESSOBJECTIVE objective;
+
+                itcapObjMap.CLIENT = client;
+
+                if (!GetCapability(capName, out capability))
+                {
+                    MessageBox.Show("Could not create mapping: Capability not found", "Error");
+                    dbo.DeleteObject(itcapObjMap);
+                    return false;
+                }
+
+                itcapObjMap.CAPABILITY = capability;
+
+                if (!GetObjective(busName, out objective))
+                {
+                    MessageBox.Show("Could not create mapping: Objective not found", "Error");
+                    dbo.DeleteObject(itcapObjMap);
+                    return false;
+                }
+
+                itcapObjMap.BUSINESSOBJECTIVE = objective;
+                itcapObjMap.SCORE = 0;
+
+                dbo.AddToITCAPOBJMAP(itcapObjMap);
+            }
+
+            else
+            {
+                MessageBox.Show("Could not create mapping: Mapping already exists", "Error");
+                return false;
+            }
+
+            return true;
+        }
+
+        public override bool UpdateITCAPOBJMAPScore(object clientObj, string capName, string busName, int score)
+        {
+            CLIENT client = clientObj as CLIENT;
+            ITCAPOBJMAP itcapObjMap;
+            try
+            {
+                itcapObjMap = (from ent in client.ITCAPOBJMAP
+                               where ent.CAPABILITY.NAME.TrimEnd() == capName &&
+                                     ent.BUSINESSOBJECTIVE.NAME.TrimEnd() == busName
+                               select ent).Single();
+
+                itcapObjMap.SCORE = score;
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Could not add Capability/Objective Mapping\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
+
         #region General
         public override bool SaveChanges()
         {
@@ -1479,6 +1588,17 @@ namespace IBMConsultantTool
                 }
                 temp.Add(itcapElement);
 
+                XElement itcapObjMapElement = new XElement("ITCAPOBJMAPS");
+                foreach (ITCAPOBJMAP itcapObjMap in client.ITCAPOBJMAP)
+                {
+                    XElement tempITCAPObjMap = new XElement("ITCAPOBJMAP");
+                    tempITCAPObjMap.Add(new XElement("CAPABILITY", itcapObjMap.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
+                    tempITCAPObjMap.Add(new XElement("BUSINESSOBJECTIVE", itcapObjMap.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
+                    tempITCAPObjMap.Add(new XElement("SCORE", itcapObjMap.SCORE));
+                    itcapObjMapElement.Add(tempITCAPObjMap);
+                }
+                temp.Add(itcapObjMapElement);
+
                 clientElement.Add(temp);
             }
             root.Add(clientElement);
@@ -1571,6 +1691,7 @@ namespace IBMConsultantTool
             CAPABILITY capability;
             ITCAPQUESTION itcapQuestion;
             ITCAP itcap;
+            ITCAPOBJMAP itcapObjMap;
 
             if (!Directory.Exists("Resources"))
             {
@@ -1766,6 +1887,34 @@ namespace IBMConsultantTool
                                     success = false;
                                 }
                                 break;
+
+                            case "ITCAPOBJMAP":
+                                if(GetClient(lineArray[3], out client))
+                                {
+                                    int temp;
+                                    if(!GetITCAPOBJMAPScore(client, lineArray[4], lineArray[5], out temp))
+                                    {
+                                        if(!GetCapability(lineArray[4], out capability))
+                                        {
+                                            MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                            success = false;
+                                        }
+
+                                        if(!GetObjective(lineArray[5], out objective))
+                                        {
+                                            MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                            success = false;
+                                        }
+
+                                        itcapObjMap = new ITCAPOBJMAP();
+                                        itcapObjMap.CLIENT = client;
+                                        itcapObjMap.CAPABILITY = capability;
+                                        itcapObjMap.BUSINESSOBJECTIVE = objective;
+                                        itcapObjMap.SCORE = 0;
+
+                                    }
+                                }
+                                break;
                             default:
                                 MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
                                 success = false;
@@ -1796,6 +1945,15 @@ namespace IBMConsultantTool
                                         itcap.ASIS = Convert.ToSingle(lineArray[4]);
                                         itcap.TOBE = Convert.ToSingle(lineArray[5]);
                                         itcap.COMMENT = lineArray[6];
+                                    }
+                                }
+                                break;
+                            case "ITCAPOBJMAP":
+                                if(GetClient(lineArray[3], out client))
+                                {
+                                    if(GetITCAPOBJMAP(client, lineArray[4], lineArray[5], out itcapObjMap))
+                                    {
+                                        itcapObjMap.SCORE = Convert.ToInt32(lineArray[6]);
                                     }
                                 }
                                 break;

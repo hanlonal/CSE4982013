@@ -24,14 +24,14 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BOM_INITIATIVE_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.INITIATIVE), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BUSINESSOB_CATE_FK", "CATEGORY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CATEGORY), "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BUSINESSOBJECTIVE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCA_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCA_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILIT_DOMAI_FK", "DOMAIN", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.DOMAIN), "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITY))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOB_CAPABI_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CAPABILITY), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOB_CAPABI_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPQUE_CAPAB_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPQUESTION))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOBJM_CLIE_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOBJM_CLIE_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CONTACT_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CONTACT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
@@ -2918,10 +2918,12 @@ namespace IBMConsultantTool
         /// <summary>
         /// Create a new ITCAPOBJMAP object.
         /// </summary>
+        /// <param name="sCORE">Initial value of the SCORE property.</param>
         /// <param name="iTCAPOBJMAPID">Initial value of the ITCAPOBJMAPID property.</param>
-        public static ITCAPOBJMAP CreateITCAPOBJMAP(global::System.Int32 iTCAPOBJMAPID)
+        public static ITCAPOBJMAP CreateITCAPOBJMAP(global::System.Int32 sCORE, global::System.Int32 iTCAPOBJMAPID)
         {
             ITCAPOBJMAP iTCAPOBJMAP = new ITCAPOBJMAP();
+            iTCAPOBJMAP.SCORE = sCORE;
             iTCAPOBJMAP.ITCAPOBJMAPID = iTCAPOBJMAPID;
             return iTCAPOBJMAP;
         }
@@ -2932,9 +2934,9 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int16> SCORE
+        public global::System.Int32 SCORE
         {
             get
             {
@@ -2949,8 +2951,8 @@ namespace IBMConsultantTool
                 OnSCOREChanged();
             }
         }
-        private Nullable<global::System.Int16> _SCORE;
-        partial void OnSCOREChanging(Nullable<global::System.Int16> value);
+        private global::System.Int32 _SCORE;
+        partial void OnSCOREChanging(global::System.Int32 value);
         partial void OnSCOREChanged();
     
         /// <summary>
