@@ -82,7 +82,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,6 +101,7 @@
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
@@ -248,6 +248,7 @@
             this.capabilityAssesmentSummaryScoresToolStripMenuItem.Name = "capabilityAssesmentSummaryScoresToolStripMenuItem";
             this.capabilityAssesmentSummaryScoresToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.capabilityAssesmentSummaryScoresToolStripMenuItem.Text = "Capability Assesment Summary Scores";
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem.Click += new System.EventHandler(this.capabilityAssesmentSummaryScoresToolStripMenuItem_Click);
             // 
             // capabilityGapHeatmapToolStripMenuItem
             // 
@@ -538,14 +539,6 @@
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
             // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
-            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Type";
@@ -767,6 +760,14 @@
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
             this.Flags.Width = 50;
+            // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
             // 
             // dataGridViewButtonColumn2
             // 

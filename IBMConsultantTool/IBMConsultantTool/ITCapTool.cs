@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Resources;
 using System.Windows.Forms.VisualStyles;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace IBMConsultantTool
 {
@@ -911,9 +912,203 @@ namespace IBMConsultantTool
 
         private void systemsAgendaCapabilityAssesmentResultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            List<float> domAsIs = new List<float>();
+            List<float> domToBe = new List<float>();
+            List<string> domName = new List<string>();
 
+            foreach (Domain dom in domains)
+            {
+                domAsIs.Add(dom.AsIsScore);
+                domToBe.Add(dom.ToBeScore);
+                domName.Add(dom.Name);
+            }
+
+            CreateChartAgenda(domName, domAsIs, domToBe);
         }
 
+        public void CreateChartAgenda(List<string> name, List<float> current, List<float> future)
+        {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
+            formChart.AutoScroll = true;
+
+            formChart.Show();
+            Chart newChart = new Chart();
+
+            formChart.Text = "Capability Assessment Summary Score";
+            newChart.Parent = formChart;
+
+            int maxQuestion = 0;
+
+            if (current.Count < future.Count)
+            {
+                maxQuestion = future.Count;
+            }
+            else
+            {
+                maxQuestion = current.Count;
+            }
+
+            newChart.Size = new Size(800, 800);
+            newChart.Visible = true;
+            newChart.Text = "System Agenda Capability Assessment Results";
+            newChart.ChartAreas.Add("chart1");
+            newChart.Palette = ChartColorPalette.BrightPastel;
+
+            newChart.ChartAreas["chart1"].Visible = true;
+            newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
+            newChart.ChartAreas["chart1"].AxisY.MajorGrid.Enabled = false;
+            newChart.ChartAreas["chart1"].AxisY.Title = "Average Capability Score";
+            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
+            
+            /*newChart.ChartAreas["chart1"].AxisX.Title = "Question";
+            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
+            newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
+            newChart.ChartAreas["chart1"].AxisY.Title = "Score";
+            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
+            newChart.ChartAreas["chart1"].AxisY.Maximum = 4;*/
+            //newChart.ChartAreas["chart1"].AxisY.
+
+            newChart.Legends.Add("legend");
+            newChart.Legends["legend"].Enabled = true;
+            //newChart.Legends["legend"].LegendStyle = LegendStyle.Table;
+
+            newChart.Titles.Add("title");
+            newChart.Titles[0].Name = "title";
+            newChart.Titles["title"].Visible = true;
+            newChart.Titles["title"].Text = "System Agenda Capability Assessment Results";
+            newChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            newChart.Series.Add("As_Is");
+            newChart.Series["As_Is"].ChartArea = "chart1";
+            newChart.Series["As_Is"].ChartType = SeriesChartType.Bar;
+            newChart.Series["As_Is"].IsValueShownAsLabel = true;
+            newChart.Series["As_Is"].IsVisibleInLegend = true;
+            newChart.Series["As_Is"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("To_Be");
+            newChart.Series["To_Be"].ChartArea = "chart1";
+            newChart.Series["To_Be"].ChartType = SeriesChartType.Bar;
+            newChart.Series["To_Be"].IsValueShownAsLabel = true;
+            newChart.Series["To_Be"].IsVisibleInLegend = true;
+            newChart.Series["To_Be"].YValueType = ChartValueType.Double;
+
+            int currentCount = current.Count;
+            int futureCount = future.Count;
+            float currentTotal = 0;
+            float futureTotal = 0;
+
+            for (int i = 0; i < currentCount; i++)
+            {
+                newChart.Series["As_Is"].Points.AddXY(name[i], current[i]);
+                currentTotal += current[i];
+            }
+
+            for (int i = 0; i < futureCount; i++)
+            {
+                newChart.Series["To_Be"].Points.AddXY(name[i], future[i]);
+                futureTotal += future[i];
+            }
+        }
+
+        public void CreateChart(List<string> name, List<float> current, List<float> future)
+        {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
+            formChart.AutoScroll = true;
+
+            formChart.Show();
+            Chart newChart = new Chart();
+
+            formChart.Text = "Capability Assessment Summary Score";
+            newChart.Parent = formChart;
+
+            int maxQuestion = 0;
+
+            if (current.Count < future.Count)
+            {
+                maxQuestion = future.Count;
+            }
+            else
+            {
+                maxQuestion = current.Count;
+            }
+
+            newChart.Size = new Size(800, 800);
+            newChart.Visible = true;
+            newChart.Text = "Capability Assessment Summary Score";
+            newChart.ChartAreas.Add("chart1");
+            newChart.Palette = ChartColorPalette.BrightPastel;
+
+            newChart.ChartAreas["chart1"].Visible = true;
+            newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
+            newChart.ChartAreas["chart1"].AxisY.MajorGrid.Enabled = false;
+            /*newChart.ChartAreas["chart1"].AxisX.Title = "Question";
+            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
+            newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
+            newChart.ChartAreas["chart1"].AxisY.Title = "Score";
+            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
+            newChart.ChartAreas["chart1"].AxisY.Maximum = 4;*/
+            //newChart.ChartAreas["chart1"].AxisY.
+
+            newChart.Legends.Add("legend");
+            newChart.Legends["legend"].Enabled = true;
+            //newChart.Legends["legend"].LegendStyle = LegendStyle.Table;
+
+            newChart.Titles.Add("title");
+            newChart.Titles[0].Name = "title";
+            newChart.Titles["title"].Visible = true;
+            newChart.Titles["title"].Text = "Capability Assessment Summary Score";
+            newChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            newChart.Series.Add("As_Is");
+            newChart.Series["As_Is"].ChartArea = "chart1";
+            newChart.Series["As_Is"].ChartType = SeriesChartType.Bar;
+            newChart.Series["As_Is"].IsValueShownAsLabel = true;
+            newChart.Series["As_Is"].IsVisibleInLegend = true;
+            newChart.Series["As_Is"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("To_Be");
+            newChart.Series["To_Be"].ChartArea = "chart1";
+            newChart.Series["To_Be"].ChartType = SeriesChartType.Bar;
+            newChart.Series["To_Be"].IsValueShownAsLabel = true;
+            newChart.Series["To_Be"].IsVisibleInLegend = true;
+            newChart.Series["To_Be"].YValueType = ChartValueType.Double;
+
+            int currentCount = current.Count;
+            int futureCount = future.Count;
+            float currentTotal = 0;
+            float futureTotal = 0;
+
+            for (int i = 0; i < currentCount; i++)
+            {
+                newChart.Series["As_Is"].Points.AddXY(name[i], current[i]);
+                currentTotal += current[i];
+            }
+
+            for (int i = 0; i < futureCount; i++)
+            {
+                newChart.Series["To_Be"].Points.AddXY(name[i], future[i]);
+                futureTotal += future[i];
+            }
+
+            newChart.Series["As_Is"].Points.AddXY("Total", currentTotal);
+            newChart.Series["To_Be"].Points.AddXY("Total", futureTotal);
+        }
+
+        private void capabilityAssesmentSummaryScoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> capAsIs = new List<float>();
+            List<float> capToBe = new List<float>();
+            List<string> capName = new List<string>();
+
+            foreach (Capability cap in capabilities)
+            {
+                capAsIs.Add(cap.AsIsScore);
+                capToBe.Add(cap.ToBeScore);
+                capName.Add(cap.Name);
+            }
+
+            CreateChart(capName, capAsIs, capToBe);
+        }
 
     }// end class
 }
