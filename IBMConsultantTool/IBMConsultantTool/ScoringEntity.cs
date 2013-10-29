@@ -20,6 +20,8 @@ namespace IBMConsultantTool
        protected float asisStandardDeviation = 0;
        protected float tobeStandardDeviation = 0;
        private bool visible = false;
+       protected bool flagged = false;
+
 
        private string capabilityGapText;
 
@@ -166,6 +168,12 @@ namespace IBMConsultantTool
        {
            get { return visible; }
            set { visible = value; }
+       }
+       [Browsable(false)]
+       public bool Flagged
+       {
+           get { return flagged; }
+           set { flagged = value; }
        }
 
 

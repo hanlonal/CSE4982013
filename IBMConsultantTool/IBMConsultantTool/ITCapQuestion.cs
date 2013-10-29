@@ -13,7 +13,7 @@ namespace IBMConsultantTool
         private List<float> ToBeanswersToAttributes = new List<float>();
         private List<float> asIsAnswers = new List<float>();
         private List<float> toBeAnswers = new List<float>();
-        
+
         static private float staticThreshold = 1;
         enum SortTpe { Static, Dynamic };
         static SortTpe type;
@@ -36,14 +36,14 @@ namespace IBMConsultantTool
             asIsAnswers.Add(num);
             asIsScore = asIsAnswers.Average();
             StandardAsIsDeviation();
-            owner.CalculateAsIsAverage();            
+            owner.CalculateAsIsAverage();
         }
         public void AddToBeAnswer(float num)
         {
             toBeAnswers.Add(num);
             toBeScore = toBeAnswers.Average();
             StandardToBeDeviation();
-            owner.CalculateToBeAverage(); 
+            owner.CalculateToBeAverage();
         }
 
         private void StandardAsIsDeviation()
@@ -53,9 +53,14 @@ namespace IBMConsultantTool
             {
                 float sum = (float)asIsAnswers.Sum(d => Math.Pow(d - asIsScore, 2));
 
-                dev = (float)Math.Sqrt((sum) / (asIsAnswers.Count -1));
+                dev = (float)Math.Sqrt((sum) / (asIsAnswers.Count - 1));
             }
             asisStandardDeviation = dev;
+            if (asisStandardDeviation > .6f)
+            {
+                owner.Flagged = true;
+                flagged = true;
+            }
         }
 
         private void StandardToBeDeviation()
@@ -68,6 +73,12 @@ namespace IBMConsultantTool
                 dev = (float)Math.Sqrt((sum) / (toBeAnswers.Count - 1));
             }
             tobeStandardDeviation = dev;
+            if (tobeStandardDeviation > .6f)
+            {
+                //owner.Flagged = true;
+                //Flagged = true;
+            }
+
         }
 
 
@@ -88,7 +99,7 @@ namespace IBMConsultantTool
                 CapabilityGapText = "Medium Gap";
             else
                 CapabilityGapText = "Low/No Gap";
-            
+
         }
 
         public Capability Owner

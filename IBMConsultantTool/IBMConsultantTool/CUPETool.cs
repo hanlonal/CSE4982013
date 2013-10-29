@@ -311,25 +311,29 @@ namespace IBMConsultantTool
 
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                if ((string)row.Cells[colIndex].Value == "a" || (string)row.Cells[colIndex].Value == "A")
+                if (row.Cells[colIndex].Value == null)
+                { 
+                    continue;
+                }
+                if (row.Cells[colIndex].Value.ToString() == "a" || row.Cells[colIndex].Value.ToString() == "A")
                 {
                     totalA++;
                     count++;
                     total += 1;
                 }
-                if ((string)row.Cells[colIndex].Value == "b" || (string)row.Cells[colIndex].Value == "B")
+                if (row.Cells[colIndex].Value.ToString() == "b" || row.Cells[colIndex].Value.ToString() == "B")
                 {
                     totalB++;
                     count++;
                     total += 2;
                 }
-                if ((string)row.Cells[colIndex].Value == "c" || (string)row.Cells[colIndex].Value == "C")
+                if (row.Cells[colIndex].Value.ToString() == "c" || row.Cells[colIndex].Value.ToString() == "C")
                 {
                     totalC++;
                     count++;
                     total += 3;
                 }
-                if ((string)row.Cells[colIndex].Value == "d" || (string)row.Cells[colIndex].Value == "D")
+                if (row.Cells[colIndex].Value.ToString() == "d" || row.Cells[colIndex].Value.ToString() == "D")
                 {
                     totalD++;
                     count++;
@@ -524,19 +528,19 @@ namespace IBMConsultantTool
                 }
                 if (questionFilter.Text == "Least Commodity")
                 {
-                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalAIndex);
+                    FilterQuestionByLowestAnswer(questionFilterAmount.Text, totalAIndex);
                 }
                 if (questionFilter.Text == "Least Utility")
                 {
-                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalBIndex);
+                    FilterQuestionByLowestAnswer(questionFilterAmount.Text, totalBIndex);
                 }
                 if (questionFilter.Text == "Least Partner")
                 {
-                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalCIndex);
+                    FilterQuestionByLowestAnswer(questionFilterAmount.Text, totalCIndex);
                 }
                 if (questionFilter.Text == "Least Enabler")
                 {
-                    FilterQuestionByLowestScore(questionFilterAmount.Text, totalDIndex);
+                    FilterQuestionByLowestAnswer(questionFilterAmount.Text, totalDIndex);
                 }
             }
             catch
@@ -608,13 +612,10 @@ namespace IBMConsultantTool
 
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                if (row.Cells[index + currentGrid.ColumnCount - 7].Value != null)
-                {
-                    value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
-                    float floatValue = (float)Convert.ToDouble(value);
-                    values.Add(new Tuple<float, int>(floatValue, row.Index));
-                    //row.
-                }
+                value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
+                float floatValue = (float)Convert.ToDouble(value);
+                values.Add(new Tuple<float, int>(floatValue, row.Index));
+                //row.
             }
 
             DataGridView view = new DataGridView();
@@ -649,6 +650,66 @@ namespace IBMConsultantTool
             view.Height = 130;
             
          }
+
+        public void FilterQuestionByLowestAnswer(string amount, int index)
+        {
+            if (toRemove != null)
+                questionInfoPanel.Controls.Remove(toRemove);
+            int num = Convert.ToInt32(amount);
+            List<Tuple<float, int>> values = new List<Tuple<float, int>>();
+            string value;
+
+            foreach (DataGridViewRow row in currentGrid.Rows)
+            {
+                if (row.Cells[index + currentGrid.ColumnCount - 7].Value != null)
+                {
+                    value = row.Cells[index + currentGrid.ColumnCount - 7].Value.ToString();
+                    float floatValue = (float)Convert.ToDouble(value);
+                    values.Add(new Tuple<float, int>(floatValue, row.Index));
+                    //row.
+                }
+            }
+
+            DataGridView view = new DataGridView();
+            toRemove = view;
+            foreach (DataGridViewColumn col in currentGrid.Columns)
+            {
+                view.Columns.Add((DataGridViewColumn)col.Clone());
+                //col.Width = 50;
+
+            }
+
+            values.Sort();
+
+            //values.Reverse();
+
+            // DataGridView grid = new DataGridView();
+
+            for (int i = 0; i < num; i++)
+            {
+                DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
+                for (int j = 0; j < currentGrid.ColumnCount; j++)
+                {
+                    row.Cells[j].Value = currentGrid.Rows[values[i].Item2].Cells[j].Value;
+                }
+                view.Rows.Add(row);
+            }
+            //currentGrid.Columns[0].cl
+
+
+            questionInfoPanel.Controls.Add(view);
+            view.Location = new Point(10, 35);
+            view.Width = 550;
+            view.Height = 130;
+
+
+        }
+
+
+
+
+
+
 
         private void iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1163,6 +1224,7 @@ namespace IBMConsultantTool
             var SurveyReader = new SurveyReader();
 
             SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
+            LoadAnswersFromDataControl();
         }
 
         private void iTCapabilityToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1625,6 +1687,91 @@ namespace IBMConsultantTool
             newChart.Series["Business Current"].Points.AddY(curBusiness[index]);
             newChart.Series["IT Future"].Points.AddY(fuIT[index]);
             newChart.Series["IT Current"].Points.AddY(curIT[index]);
+        }
+
+        private void LoadAnswersFromDataControl()
+        {
+
+            foreach (DataGridViewColumn column in questionGridITCurrent.Columns)
+            {
+                if (column.HeaderText == "Questions")
+                {
+                    continue;
+                }
+                Person currentPerson = null;
+                try
+                {
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.HeaderText).Single();
+                }
+                catch
+                {
+
+                }
+
+                if (currentPerson != null)
+                {
+                    if (currentPerson.Type == Person.EmployeeType.IT)
+                    {
+                        foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+                        {
+                            if (row.Cells[0].Value == null)
+                            {
+                                break;
+                            }
+                            row.Cells[column.Index].Value = currentPerson.cupeDataHolder.CurrentAnswers[row.Cells[0].Value.ToString()];
+                        }
+                        foreach (DataGridViewRow row in questionGridITFuture.Rows)
+                        {
+                            if (row.Cells[0].Value == null)
+                            {
+                                break;
+                            }
+                            row.Cells[column.Index].Value = currentPerson.cupeDataHolder.FutureAnswers[row.Cells[0].Value.ToString()];
+                        }
+                    }
+                }
+            }
+
+            foreach (DataGridViewColumn column in questionGridBusinessCurrent.Columns)
+            {
+                if (column.HeaderText == "Questions")
+                {
+                    continue;
+                }
+                Person currentPerson = null;
+                try
+                {
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.HeaderText).Single();
+                }
+                catch
+                {
+
+                }
+
+                if (currentPerson != null)
+                {
+                    if (currentPerson.Type == Person.EmployeeType.Business)
+                    {
+                        foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
+                        {
+                            if(row.Cells[0].Value == null)
+                            { 
+                                break;
+                            }
+                            row.Cells[column.Index].Value = currentPerson.cupeDataHolder.CurrentAnswers[row.Cells[0].Value.ToString()];
+                        }
+                        foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
+                        {
+                            if (row.Cells[0].Value == null)
+                            {
+                                break;
+                            }
+                            row.Cells[column.Index].Value = currentPerson.cupeDataHolder.FutureAnswers[row.Cells[0].Value.ToString()];
+                        }
+                    }
+                }
+            }
+
         }
 
     }// end class

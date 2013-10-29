@@ -118,6 +118,7 @@ namespace IBMConsultantTool
 
             var files = Directory.EnumerateFiles(FD.SelectedPath);
             var badFiles = 0;
+
             foreach (var file in files)
             {
 
@@ -138,22 +139,60 @@ namespace IBMConsultantTool
                     Type.Missing, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 //oWord.Activate();
 
-                var tempType = "strang";
-                Person personTemp;
-                foreach (Word.FormField form in oDoc.FormFields)
+
+                //Loop through the forms. If the person doesn't exist in the participant list then create a new person
+                try
                 {
-                    //Find the person and their type
-                    if(form.Name == "Name")
+                    //Find the person object the form is related to, otherwise create a new one
+                    Person currentPerson = null;
+                    foreach (Word.FormField form in oDoc.FormFields)
                     {
-                        var nameForm = people.Where(x => x.Name == form.Result.ToString());
-                        
+                        //Find the person and their type
+                        if (form.Name == "Name")
+                        {
+                            currentPerson = people.Where(x => x.Name == form.Result.ToString()).Single();
 
-
+                            if(currentPerson != null)
+                            {
+                                currentPerson.cupeDataHolder.CurrentAnswers.Clear();
+                                currentPerson.cupeDataHolder.FutureAnswers.Clear();
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
 
-                    var value = form.Result;
+                    int q = 1, c=1;
+                    foreach (Word.FormField form in oDoc.FormFields)
+                    {
+                        if (form.Name != "Name")
+                        {
+                            if (c == 1)
+                            {
+                                currentPerson.cupeDataHolder.CurrentAnswers.Add("Question " + q, form.Result.ToCharArray()[0]);
+                                c = 2;
+                            }
+                            else if (c == 2)
+                            {
+                                currentPerson.cupeDataHolder.FutureAnswers.Add("Question " + q, form.Result.ToCharArray()[0]);
+                                c = 1;
+                                q++;
+                            }   
+
+                        }
+                    }
+                    oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
                 }
-                oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+                catch
+                {
+                    oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+                }
             }
 
         }
