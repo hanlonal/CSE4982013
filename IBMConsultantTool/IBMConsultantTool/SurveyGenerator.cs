@@ -258,7 +258,7 @@ namespace IBMConsultantTool
                 oTable.Cell(r, 1).Range.Text = question;
                 FormNames[c] = question;
                 c++;
-                FormNames[c] = question; ;
+                FormNames[c] = question; 
 
                 Word.Range cell2Range = oTable.Cell(r, 2).Range;
                 cell2Range.Collapse(ref oMissing);
@@ -272,12 +272,35 @@ namespace IBMConsultantTool
                 c++;
             }
 
+            r = 2;
+            //Add the question text
+            foreach ( CupeQuestionStringData question in ClientDataControl.GetCupeQuestions())
+            {
 
-            oTable.Rows[1].Range.Font.Bold = 1;
+                oTable.Cell(r, 1).Range.Text = question.QuestionText +
+                    Environment.NewLine + question.ChoiceA +
+                    Environment.NewLine + question.ChoiceB +
+                    Environment.NewLine + question.ChoiceC +
+                    Environment.NewLine + question.ChoiceD +
+                    Environment.NewLine + Environment.NewLine;
+ 
+                r++;
+            }
+
+
+            oTable.Rows[1].Range.Font.Bold = 0;
             oTable.Rows[1].Range.Font.Italic = 1;
-            oTable.Rows[1].Range.Font.Size = 10;
+            oTable.Rows[1].Range.Font.Size = 12;
 
+            oTable.Columns[1].SetWidth(420.0f, Word.WdRulerStyle.wdAdjustNone);
+            oTable.Columns[2].SetWidth(50.0f, Word.WdRulerStyle.wdAdjustNone);
+            oTable.Columns[3].SetWidth(50.0f, Word.WdRulerStyle.wdAdjustNone);
 
+            for (var i = 1; i <= oTable.Rows.Count; i++)
+            {
+                oTable.Rows[i].Range.Font.Size = 8;
+                oTable.Rows[1].Range.Font.Bold = 1;
+            }
 
 
             oDoc.Protect(Word.WdProtectionType.wdAllowOnlyFormFields, false, string.Empty, false, false);
