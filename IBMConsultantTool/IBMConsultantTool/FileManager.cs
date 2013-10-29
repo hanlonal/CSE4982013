@@ -69,24 +69,6 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public bool GetClient(int cntID, out XElement client)
-        {
-            try
-            {
-                client = (from ent in dbo.Element("CLIENTS").Elements("CLIENTS")
-                          where ent.Element("CLIENTID").Value == cntID.ToString()
-                          select ent).Single();
-            }
-
-            catch
-            {
-                client = null;
-                return false;
-            }
-
-            return true;
-        }
-
         public bool AddClient(XElement client)
         {
             //If already in DB, return false
@@ -97,7 +79,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            client.Add(new XElement("CLIENTID", -1));
             client.Add(new XElement("GROUPS"));
             client.Add(new XElement("BOMS"));
 
@@ -125,8 +106,6 @@ namespace IBMConsultantTool
 
             XElement grp = new XElement("GROUP");
             grp.Add(new XElement("NAME", grpName));
-
-            grp.Add(new XElement("GROUPID", -1));
 
             grp.Add(new XElement("BOMS"));
 
@@ -186,7 +165,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            bom.Add(new XElement("BOMID", -1));
             bom.Add(new XElement("EFFECTIVENESS", 0));
             bom.Add(new XElement("CRITICALITY", 0));
             bom.Add(new XElement("DIFFERENTIAL", 0));
@@ -217,7 +195,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            bom.Add(new XElement("BOMID", -1));
             bom.Add(new XElement("EFFECTIVENESS", 0));
             bom.Add(new XElement("CRITICALITY", 0));
             bom.Add(new XElement("DIFFERENTIAL", 0));
@@ -251,7 +228,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            bom.Add(new XElement("BOMID", -1));
             bom.Add(new XElement("EFFECTIVENESS", 0));
             bom.Add(new XElement("CRITICALITY", 0));
             bom.Add(new XElement("DIFFERENTIAL", 0));
@@ -427,7 +403,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public override bool AddITCAP(object itcapObj, object clientObj, List<int> otherIDList = null)
+        public override bool AddITCAP(object itcapObj, object clientObj)
         {
             XElement itcap = itcapObj as XElement;
             XElement client = clientObj as XElement;
@@ -446,7 +422,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            itcap.Add(new XElement("ITCAPID", -1));
             itcap.Add(new XElement("ASIS", 0));
             itcap.Add(new XElement("TOBE", 0));
             itcap.Add(new XElement("COMMENT", ""));
@@ -458,7 +433,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddITCAPToGroup(object itcapObj, object groupObj, List<int> otherIDList = null)
+        public override bool AddITCAPToGroup(object itcapObj, object groupObj)
         {
             XElement itcap = itcapObj as XElement;
             XElement grp = groupObj as XElement;
@@ -477,7 +452,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            itcap.Add(new XElement("ITCAPID", -1));
             itcap.Add(new XElement("ASIS", 0));
             itcap.Add(new XElement("TOBE", 0));
             itcap.Add(new XElement("COMMENT", ""));
@@ -489,7 +463,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddITCAPToContact(object itcapObj, object contactObj, List<int> otherIDList = null)
+        public override bool AddITCAPToContact(object itcapObj, object contactObj)
         {
             XElement itcap = itcapObj as XElement;
             XElement contact = contactObj as XElement;
@@ -508,7 +482,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            itcap.Add(new XElement("ITCAPID", -1));
             itcap.Add(new XElement("ASIS", 0));
             itcap.Add(new XElement("TOBE", 0));
             itcap.Add(new XElement("COMMENT", ""));
@@ -761,7 +734,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            category.Add(new XElement("CATEGORYID", -1));
             category.Add(new XElement("BUSINESSOBJECTIVES"));
 
             dbo.Element("CATEGORIES").Add(category);
@@ -839,7 +811,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            objective.Add(new XElement("BUSINESSOBJECTIVEID", -1));
             objective.Add(new XElement("INITIATIVES"));
 
             category.Element("BUSINESSOBJECTIVES").Add(objective);
@@ -919,8 +890,6 @@ namespace IBMConsultantTool
             {
                 return false;
             }
-
-            initiative.Add(new XElement("INITIATIVEID", -1));
 
             objective.Element("INITIATIVES").Add(initiative);
 
@@ -1076,7 +1045,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            domain.Add(new XElement("DOMAINID", -1));
             domain.Add(new XElement("DEFAULT", "N"));
             domain.Add(new XElement("CAPABILITIES"));
 
@@ -1178,7 +1146,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            capability.Add(new XElement("CAPABILITYID", -1));
             capability.Add(new XElement("DEFAULT", "N"));
             capability.Add(new XElement("ITCAPQUESTIONS"));
 
@@ -1309,7 +1276,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            itcapQuestion.Add(new XElement("ITCAPQUESTIONID", -1));
             itcapQuestion.Add(new XElement("DEFAULT", "N"));
 
             capability.Element("ITCAPQUESTIONS").Add(itcapQuestion);

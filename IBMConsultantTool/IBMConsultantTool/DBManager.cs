@@ -50,24 +50,6 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public bool GetClient(int cntID, out CLIENT client)
-        {
-            try
-            {
-                client = (from ent in dbo.CLIENT
-                          where ent.CLIENTID == cntID
-                          select ent).Single();
-            }
-
-            catch
-            {
-                client = null;
-                return false;
-            }
-
-            return true;
-        }
-
         public bool AddClient(CLIENT client)
         {
             //If already in DB, return false
@@ -78,11 +60,6 @@ namespace IBMConsultantTool
                 dbo.Detach(client);
                 return false;
             }
-
-            List<int> idList = (from ent in dbo.CLIENT
-                                select ent.CLIENTID).ToList();
-
-            client.CLIENTID = GetUniqueID(idList);
 
             dbo.AddToCLIENT(client);
 
@@ -128,19 +105,12 @@ namespace IBMConsultantTool
             grp.NAME = grpName;
             grp.CLIENT = client;
 
-            List<int> idList = (from ent in dbo.GROUP
-                                select ent.GROUPID).ToList();
-
-            grp.GROUPID = GetUniqueID(idList);
-
             dbo.AddToGROUP(grp);
 
             return true;
         }
         public bool AddGroups(string[] grpNames, CLIENT client)
         {
-            List<int> idList = (from ent in dbo.GROUP
-                                select ent.GROUPID).ToList();
             foreach (string grpName in grpNames)
             {
                 if ((from ent in client.GROUP
@@ -153,10 +123,6 @@ namespace IBMConsultantTool
                 GROUP grp = new GROUP();
                 grp.NAME = grpName;
                 grp.CLIENT = client;
-
-                int uniqueID = GetUniqueID(idList);
-                grp.GROUPID = uniqueID;
-                idList.Add(uniqueID);
 
                 dbo.AddToGROUP(grp);
             }
@@ -196,11 +162,6 @@ namespace IBMConsultantTool
             CONTACT contact = new CONTACT();
             contact.NAME = contactName;
             contact.GROUP = grp;
-
-            List<int> idList = (from ent in dbo.CONTACT
-                                select ent.CONTACTID).ToList();
-
-            contact.CONTACTID = GetUniqueID(idList);
 
             dbo.AddToCONTACT(contact);
 
@@ -272,10 +233,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.BOM
-                                select ent.BOMID).ToList();
-
-            bom.BOMID = GetUniqueID(idList);
             bom.CLIENT = client;
 
             dbo.AddToBOM(bom);
@@ -297,10 +254,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.BOM
-                                select ent.BOMID).ToList();
-
-            bom.BOMID = GetUniqueID(idList);
             bom.GROUP = grp;
 
             dbo.AddToBOM(bom);
@@ -322,10 +275,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.BOM
-                                select ent.BOMID).ToList();
-
-            bom.BOMID = GetUniqueID(idList);
             bom.CONTACT = contact;
 
             dbo.AddToBOM(bom);
@@ -495,7 +444,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public override bool AddITCAP(object itcqObject, object clientObj, List<int> otherIDList = null)
+        public override bool AddITCAP(object itcqObject, object clientObj)
         {
             ITCAP itcap = itcqObject as ITCAP;
             CLIENT client = clientObj as CLIENT;
@@ -509,12 +458,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.ITCAP
-                                select ent.ITCAPID).ToList();
-            if (otherIDList != null) idList.AddRange(otherIDList);
-
-            itcap.ITCAPID = GetUniqueID(idList);
-            if(otherIDList != null) otherIDList.Add(itcap.ITCAPID);
             itcap.CLIENT = client;
 
             dbo.AddToITCAP(itcap);
@@ -522,7 +465,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddITCAPToGroup(object itcqObject, object groupObj, List<int> otherIDList = null)
+        public override bool AddITCAPToGroup(object itcqObject, object groupObj)
         {
             ITCAP itcap = itcqObject as ITCAP;
             GROUP grp = groupObj as GROUP;
@@ -536,12 +479,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.ITCAP
-                                select ent.ITCAPID).ToList();
-            if (otherIDList != null) idList.AddRange(otherIDList);
-
-            itcap.ITCAPID = GetUniqueID(idList);
-            if (otherIDList != null) otherIDList.Add(itcap.ITCAPID);
             itcap.GROUP = grp;
 
             dbo.AddToITCAP(itcap);
@@ -549,7 +486,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddITCAPToContact(object itcqObject, object contactObj, List<int> otherIDList = null)
+        public override bool AddITCAPToContact(object itcqObject, object contactObj)
         {
             ITCAP itcap = itcqObject as ITCAP;
             CONTACT contact = contactObj as CONTACT;
@@ -563,12 +500,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.ITCAP
-                                select ent.ITCAPID).ToList();
-            if (otherIDList != null) idList.AddRange(otherIDList);
-
-            itcap.ITCAPID = GetUniqueID(idList);
-            if (otherIDList != null) otherIDList.Add(itcap.ITCAPID);
             itcap.CONTACT = contact;
 
             dbo.AddToITCAP(itcap);
@@ -583,7 +514,7 @@ namespace IBMConsultantTool
             
             if(GetITCAP(itcqName, client, out itcap))
             {
-                dbo.RemoveITCAPQUESTION(itcap);
+                dbo.DeleteObject(itcap);
                 return true;
             }
             
@@ -735,7 +666,6 @@ namespace IBMConsultantTool
 
             ITCAP itcapEnt;
             ITCAPQUESTION itcqEnt;
-            List<int> idList = new List<int>();
             foreach (Domain domain in itcapForm.domains)
             {
                 foreach(Capability capability in domain.CapabilitiesOwned)
@@ -749,7 +679,7 @@ namespace IBMConsultantTool
                             itcapEnt.ASIS = 0;
                             itcapEnt.TOBE = 0;
                             itcapEnt.COMMENT = "";
-                            if (!AddITCAP(itcapEnt, client, idList))
+                            if (!AddITCAP(itcapEnt, client))
                             {
                                 MessageBox.Show("Failed to add ITCAPQuestion: " + itcapEnt.ITCAPQUESTION.NAME);
                             }
@@ -784,24 +714,6 @@ namespace IBMConsultantTool
                     select ent.NAME.TrimEnd()).ToArray();
         }
 
-        public bool GetCategory(int catID, out CATEGORY category)
-        {
-            try
-            {
-                category = (from ent in dbo.CATEGORY
-                            where ent.CATEGORYID == catID
-                            select ent).Single();
-            }
-
-            catch
-            {
-                category = null;
-                return false;
-            }
-
-            return true;
-        }
-
         public bool GetCategory(string catName, out CATEGORY category)
         {
             try
@@ -831,11 +743,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.CATEGORY
-                                select ent.CATEGORYID).ToList();
-
-            category.CATEGORYID = GetUniqueID(idList);
-
             dbo.AddToCATEGORY(category);
 
             return true;
@@ -861,24 +768,6 @@ namespace IBMConsultantTool
         {
             return (from ent in dbo.BUSINESSOBJECTIVE
                     select ent).ToList();
-        }
-
-        public bool GetObjective(int busID, out BUSINESSOBJECTIVE objective)
-        {
-            try
-            {
-                objective = (from ent in dbo.BUSINESSOBJECTIVE
-                             where ent.BUSINESSOBJECTIVEID == busID
-                             select ent).Single();
-            }
-
-            catch
-            {
-                objective = null;
-                return false;
-            }
-
-            return true;
         }
 
         public bool GetObjective(string busName, out BUSINESSOBJECTIVE objective)
@@ -909,11 +798,6 @@ namespace IBMConsultantTool
                 dbo.Detach(objective);
                 return false;
             }
-
-            List<int> idList = (from ent in dbo.BUSINESSOBJECTIVE
-                                select ent.BUSINESSOBJECTIVEID).ToList();
-
-            objective.BUSINESSOBJECTIVEID = GetUniqueID(idList);
 
             dbo.AddToBUSINESSOBJECTIVE(objective);
 
@@ -964,24 +848,6 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public bool GetInitiative(int iniID, out INITIATIVE Initiative)
-        {
-            try
-            {
-                Initiative = (from ent in dbo.INITIATIVE
-                          where ent.INITIATIVEID == iniID
-                          select ent).Single();
-            }
-
-            catch
-            {
-                Initiative = null;
-                return false;
-            }
-
-            return true;
-        }
-
         public bool AddInitiative(INITIATIVE initiative)
         {
             //If already in DB, return false
@@ -992,11 +858,6 @@ namespace IBMConsultantTool
                 dbo.Detach(initiative);
                 return false;
             }
-
-            List<int> idList = (from ent in dbo.INITIATIVE
-                                select ent.INITIATIVEID).ToList();
-
-            initiative.INITIATIVEID = GetUniqueID(idList);
 
             dbo.AddToINITIATIVE(initiative);
 
@@ -1156,11 +1017,6 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            List<int> idList = (from ent in dbo.DOMAIN
-                                select ent.DOMAINID).ToList();
-
-            domain.DOMAINID = GetUniqueID(idList);
-
             dbo.AddToDOMAIN(domain);
 
             return true;
@@ -1248,11 +1104,6 @@ namespace IBMConsultantTool
                 dbo.Detach(capability);
                 return false;
             }
-
-            List<int> idList = (from ent in dbo.CAPABILITY
-                                select ent.CAPABILITYID).ToList();
-
-            capability.CAPABILITYID = GetUniqueID(idList);
 
             dbo.AddToCAPABILITY(capability);
 
@@ -1346,11 +1197,6 @@ namespace IBMConsultantTool
                 dbo.Detach(itcapQuestion);
                 return false;
             }
-
-            List<int> idList = (from ent in dbo.ITCAPQUESTION
-                                select ent.ITCAPQUESTIONID).ToList();
-
-            itcapQuestion.ITCAPQUESTIONID = GetUniqueID(idList);
 
             dbo.AddToITCAPQUESTION(itcapQuestion);
 
@@ -1517,34 +1363,7 @@ namespace IBMConsultantTool
 
             return true;
         }
-
-        //Used to create a unique ID for DB Entities
-        public int GetUniqueID(List<int> idList)
-        {
-            Random rnd = new Random();
-
-            int id = rnd.Next();
-
-            while (true)
-            {
-                var idQuery = from tmp in idList
-                              where tmp == id
-                              select tmp;
-
-                if (idQuery.Count() == 0)
-                {
-                    break;
-                }
-
-                else
-                {
-                    id = rnd.Next();
-                }
-            }
-
-            return id;
-        }
-
+        
         public void UpdateDataFile()
         {
             XElement root = new XElement("root");
@@ -1555,26 +1374,22 @@ namespace IBMConsultantTool
             {
                 XElement temp = new XElement("CLIENT");
                 temp.Add(new XElement("NAME", client.NAME.TrimEnd().Replace(' ', '~')));
-                temp.Add(new XElement("CLIENTID", client.CLIENTID));
                 XElement grpElement = new XElement("GROUPS");
                 foreach (GROUP grp in client.GROUP)
                 {
                     XElement tempGrp = new XElement("GROUP");
                     tempGrp.Add(new XElement("NAME", grp.NAME.TrimEnd().Replace(' ', '~')));
-                    tempGrp.Add(new XElement("GROUPID", grp.GROUPID));
 
                     XElement conElement = new XElement("CONTACTS");
                     foreach (CONTACT contact in grp.CONTACT)
                     {
                         XElement tempCon = new XElement("CONTACT");
                         tempCon.Add(new XElement("NAME", contact.NAME.TrimEnd().Replace(' ', '~')));
-                        tempCon.Add(new XElement("CONTACTID", contact.CONTACTID));
 
                         XElement bomConElement = new XElement("BOMS");
                         foreach (BOM bom in contact.BOM)
                         {
                             XElement tempBom = new XElement("BOM");
-                            tempBom.Add(new XElement("BOMID", bom.BOMID));
                             tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd().Replace(' ', '~')));
                             tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
                             tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd().Replace(' ', '~')));
@@ -1589,7 +1404,6 @@ namespace IBMConsultantTool
                         foreach (ITCAP itcap in contact.ITCAP)
                         {
                             XElement tempItcap = new XElement("ITCAP");
-                            tempItcap.Add(new XElement("ITCAPID", itcap.ITCAPID));
                             tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd().Replace(' ', '~')));
                             tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
                             tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd().Replace(' ', '~')));
@@ -1609,7 +1423,6 @@ namespace IBMConsultantTool
                     foreach (BOM bom in grp.BOM)
                     {
                         XElement tempBom = new XElement("BOM");
-                        tempBom.Add(new XElement("BOMID", bom.BOMID));
                         tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd().Replace(' ', '~')));
                         tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
                         tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd().Replace(' ', '~')));
@@ -1624,7 +1437,6 @@ namespace IBMConsultantTool
                     foreach (ITCAP itcap in grp.ITCAP)
                     {
                         XElement tempItcap = new XElement("ITCAP");
-                        tempItcap.Add(new XElement("ITCAPID", itcap.ITCAPID));
                         tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd().Replace(' ', '~')));
                         tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
                         tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd().Replace(' ', '~')));
@@ -1643,7 +1455,6 @@ namespace IBMConsultantTool
                 foreach (BOM bom in client.BOM)
                 {
                     XElement tempBom = new XElement("BOM");
-                    tempBom.Add(new XElement("BOMID", bom.BOMID));
                     tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd().Replace(' ', '~')));
                     tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd().Replace(' ', '~')));
                     tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd().Replace(' ', '~')));
@@ -1658,7 +1469,6 @@ namespace IBMConsultantTool
                 foreach (ITCAP itcap in client.ITCAP)
                 {
                     XElement tempItcap = new XElement("ITCAP");
-                    tempItcap.Add(new XElement("ITCAPID", itcap.ITCAPID));
                     tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd().Replace(' ', '~')));
                     tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd().Replace(' ', '~')));
                     tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd().Replace(' ', '~')));
@@ -1679,21 +1489,18 @@ namespace IBMConsultantTool
             {
                 XElement temp = new XElement("CATEGORY");
                 temp.Add(new XElement("NAME", category.NAME.TrimEnd().Replace(' ', '~')));
-                temp.Add(new XElement("CATEGORYID", category.CATEGORYID));
 
                 XElement busElement = new XElement("BUSINESSOBJECTIVES");
                 foreach (BUSINESSOBJECTIVE objective in category.BUSINESSOBJECTIVE)
                 {
                     XElement tempBus = new XElement("BUSINESSOBJECTIVE");
                     tempBus.Add(new XElement("NAME", objective.NAME.TrimEnd().Replace(' ', '~')));
-                    tempBus.Add(new XElement("BUSINESSOBJECTIVEID", objective.BUSINESSOBJECTIVEID));
 
                     XElement iniElement = new XElement("INITIATIVES");
                     foreach (INITIATIVE initiative in objective.INITIATIVE)
                     {
                         XElement tempIni = new XElement("INITIATIVE");
                         tempIni.Add(new XElement("NAME", initiative.NAME.TrimEnd().Replace(' ', '~')));
-                        tempIni.Add(new XElement("INITIATIVEID", initiative.INITIATIVEID));
                         iniElement.Add(tempIni);
                     }
                     tempBus.Add(iniElement);
@@ -1713,7 +1520,6 @@ namespace IBMConsultantTool
                 XElement temp = new XElement("DOMAIN");
                 temp.Add(new XElement("NAME", domain.NAME.TrimEnd().Replace(' ', '~')));
                 temp.Add(new XElement("DEFAULT", domain.DEFAULT));
-                temp.Add(new XElement("DOMAINID", domain.DOMAINID));
 
                 XElement capElement = new XElement("CAPABILITIES");
                 foreach (CAPABILITY capability in domain.CAPABILITY)
@@ -1721,7 +1527,6 @@ namespace IBMConsultantTool
                     XElement tempCap = new XElement("CAPABILITY");
                     tempCap.Add(new XElement("NAME", capability.NAME.TrimEnd().Replace(' ', '~')));
                     tempCap.Add(new XElement("DEFAULT", capability.DEFAULT));
-                    tempCap.Add(new XElement("CAPABILITYID", capability.CAPABILITYID));
 
                     XElement questionElement = new XElement("ITCAPQUESTIONS");
                     foreach (ITCAPQUESTION itcapQuestion in capability.ITCAPQUESTION)
@@ -1729,7 +1534,6 @@ namespace IBMConsultantTool
                         XElement tempItcq = new XElement("ITCAPQUESTION");
                         tempItcq.Add(new XElement("NAME", itcapQuestion.NAME.TrimEnd().Replace(' ', '~')));
                         tempItcq.Add(new XElement("DEFAULT", itcapQuestion.DEFAULT));
-                        tempItcq.Add(new XElement("ITCAPQUESTIONID", itcapQuestion.ITCAPQUESTIONID));
                         questionElement.Add(tempItcq);
                     }
                     tempCap.Add(questionElement);

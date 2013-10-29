@@ -361,11 +361,11 @@
     </EmbeddedResource>
     <None Include="App.Config" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="IBMConsultantTool_TemporaryKey.pfx" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="IBMConsultantTool_TemporaryKey.pfx" />
     <None Include="Properties\DataSources\Model1Container.datasource" />
     <None Include="Properties\DataSources\SAMPLEEntities.datasource" />
     <None Include="Properties\Settings.settings">
