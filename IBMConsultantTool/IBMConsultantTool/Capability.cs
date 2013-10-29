@@ -120,5 +120,9 @@ namespace IBMConsultantTool
                 id = owner.ID + "." + a; 
             }
         }
+        public bool Flagged
+        {
+            set { flagged = value; owner.Flagged = value; }
+        }
     }
 }

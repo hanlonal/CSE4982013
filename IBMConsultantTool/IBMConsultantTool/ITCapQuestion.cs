@@ -59,7 +59,7 @@ namespace IBMConsultantTool
             if (asisStandardDeviation > .6f)
             {
                 owner.Flagged = true;
-                Flagged = true;
+                flagged = true;
             }
         }
 
@@ -75,8 +75,8 @@ namespace IBMConsultantTool
             tobeStandardDeviation = dev;
             if (tobeStandardDeviation > .6f)
             {
-                owner.Flagged = true;
-                Flagged = true;
+                //owner.Flagged = true;
+                //Flagged = true;
             }
 
         }

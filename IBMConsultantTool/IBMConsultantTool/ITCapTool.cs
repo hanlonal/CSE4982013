@@ -599,17 +599,16 @@ namespace IBMConsultantTool
 
         private void GetClientObjectives()
         {
+            PropertyBagList list = new PropertyBagList();
+            
             int numObjs = 3;
             for (int i = 0; i < numObjs; i++)
             {
-                Capability.AddObjectiveToTrack("Objective");
+                list.Columns.Add("Objective " + (i+1).ToString());
             }
-
-            PropertyBagList list = new PropertyBagList();
-            list.Columns.Add("Hello");
-            list.Columns.Add("World");
-            list.Add("abc", "def");
-            list.Add("123", "456");
+            string[] args = new string[3];
+             list.Add(args);
+            //list.Add("123", "456");
 
             objectiveMappingGrid.DataSource = list;
 
@@ -740,7 +739,7 @@ namespace IBMConsultantTool
                     }
                     else
                     {
-                        row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
+                        //row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
                         DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
                         cell.Style.NullValue = null;
                     }
@@ -769,10 +768,11 @@ namespace IBMConsultantTool
             }
             if (states == FormStates.Open)
             {
-                //db.GetBOMS();
+                loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].Width = 50;
+                loadSurveyFromDataGrid.Columns["TobeStandardDeviation"].Width = 50;
 
             }
-            currentGrid.Columns["Name"].Width = 450;
+            currentGrid.Columns["Name"].Width = 400;
             currentGrid.Refresh();
         }
 

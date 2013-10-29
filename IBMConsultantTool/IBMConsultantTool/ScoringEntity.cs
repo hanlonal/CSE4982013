@@ -20,7 +20,7 @@ namespace IBMConsultantTool
        protected float asisStandardDeviation = 0;
        protected float tobeStandardDeviation = 0;
        private bool visible = false;
-       private bool flagged = false;
+       protected bool flagged = false;
 
 
        private string capabilityGapText;
