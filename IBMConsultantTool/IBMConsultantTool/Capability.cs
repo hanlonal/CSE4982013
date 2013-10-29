@@ -30,6 +30,8 @@ namespace IBMConsultantTool
         }
         
 //**************************************************************************************************
+        private List<decimal> objectiveScores = new List<decimal>();
+
 
 
         private Domain owner;
@@ -98,7 +100,11 @@ namespace IBMConsultantTool
             return toBeScore;
         }
 
+        public void AddObjectiveToTrack()
+        {
+            objectiveScores.Add(0);
 
+        }
 
 
         public Domain Owner
@@ -123,6 +129,11 @@ namespace IBMConsultantTool
         public bool Flagged
         {
             set { flagged = value; owner.Flagged = value; }
+        }
+        public List<decimal> ObjectiveScores
+        {
+            get { return objectiveScores; }
+            set { objectiveScores = value; }
         }
     }
 }

@@ -605,9 +605,17 @@ namespace IBMConsultantTool
             for (int i = 0; i < numObjs; i++)
             {
                 list.Columns.Add("Objective " + (i+1).ToString());
+                foreach (ScoringEntity ent in entities)
+                {
+                    if (ent.Type == "capability")
+                    {
+                        Capability cap = (Capability)ent;
+                        cap.AddObjectiveToTrack();
+                    }
+                }
             }
             string[] args = new string[3];
-             list.Add(args);
+            list.Add(args);
             //list.Add("123", "456");
 
             objectiveMappingGrid.DataSource = list;
