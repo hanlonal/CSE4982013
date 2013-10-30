@@ -131,14 +131,17 @@
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.numberOfQuestionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTVsBusinessFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iTCapabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.participantNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTCapabilityToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -296,7 +299,7 @@
             this.questionGridITCurrent.Size = new System.Drawing.Size(606, 469);
             this.questionGridITCurrent.TabIndex = 4;
             this.questionGridITCurrent.Visible = false;
-            this.questionGridITCurrent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridBusinessCurrent_CellClick);
+            this.questionGridITCurrent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridITCurrent_CellClick);
             this.questionGridITCurrent.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             this.questionGridITCurrent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cellClick);
             // 
@@ -586,7 +589,7 @@
             this.questionGridBusiFuture.Size = new System.Drawing.Size(606, 469);
             this.questionGridBusiFuture.TabIndex = 11;
             this.questionGridBusiFuture.Visible = false;
-            this.questionGridBusiFuture.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridBusinessCurrent_CellClick);
+            this.questionGridBusiFuture.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridBusiFuture_CellClick);
             this.questionGridBusiFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn8
@@ -679,7 +682,7 @@
             this.questionGridITFuture.Size = new System.Drawing.Size(606, 469);
             this.questionGridITFuture.TabIndex = 12;
             this.questionGridITFuture.Visible = false;
-            this.questionGridITFuture.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridBusinessCurrent_CellClick);
+            this.questionGridITFuture.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridITFuture_CellClick);
             this.questionGridITFuture.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn15
@@ -857,7 +860,6 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.workshopToolStripMenuItem,
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -882,53 +884,54 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.preferencesToolStripMenuItem.Text = "New";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // preferencesToolStripMenuItem2
             // 
             this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
-            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(168, 24);
+            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(175, 24);
             this.preferencesToolStripMenuItem2.Text = "Preferences";
             // 
             // createSurveyToolStripMenuItem
             // 
             this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
-            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.createSurveyToolStripMenuItem.Text = "Create Survey";
             this.createSurveyToolStripMenuItem.Click += new System.EventHandler(this.createSurveyToolStripMenuItem_Click);
             // 
             // openSurveysToolStripMenuItem
             // 
             this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
-            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.openSurveysToolStripMenuItem.Text = "Open Surveys";
             this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.openSurveysToolStripMenuItem_Click);
             // 
             // sendEmailToolStripMenuItem
             // 
             this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.sendEmailToolStripMenuItem.Text = "Send Email";
             this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.sendEmailToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.participantsToolStripMenuItem});
+            this.participantsToolStripMenuItem,
+            this.numberOfQuestionsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.editToolStripMenuItem.Text = "Edit";
@@ -936,9 +939,32 @@
             // participantsToolStripMenuItem
             // 
             this.participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
+            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.participantsToolStripMenuItem.Text = "Participants";
             this.participantsToolStripMenuItem.Click += new System.EventHandler(this.participantsToolStripMenuItem_Click);
+            // 
+            // numberOfQuestionsToolStripMenuItem
+            // 
+            this.numberOfQuestionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.numberOfQuestionsToolStripMenuItem.Name = "numberOfQuestionsToolStripMenuItem";
+            this.numberOfQuestionsToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
+            this.numberOfQuestionsToolStripMenuItem.Text = "Number Of Questions";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(94, 24);
+            this.toolStripMenuItem2.Text = "10";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(94, 24);
+            this.toolStripMenuItem3.Text = "20";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -947,7 +973,9 @@
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem,
             this.iTVsBusinessLeadersCurrentComparisonToolStripMenuItem,
             this.iTVsBusinessFutureComparisonToolStripMenuItem,
-            this.questionsToolStripMenuItem});
+            this.questionsToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.participantNamesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.viewToolStripMenuItem.Text = "View";
@@ -987,20 +1015,17 @@
             this.questionsToolStripMenuItem.Text = "Questions Business and IT Current/Future";
             this.questionsToolStripMenuItem.Click += new System.EventHandler(this.questionsToolStripMenuItem_Click);
             // 
-            // workshopToolStripMenuItem
+            // toolStripSeparator2
             // 
-            this.workshopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iTCapabilityToolStripMenuItem});
-            this.workshopToolStripMenuItem.Name = "workshopToolStripMenuItem";
-            this.workshopToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
-            this.workshopToolStripMenuItem.Text = "Workshop";
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(368, 6);
             // 
-            // iTCapabilityToolStripMenuItem
+            // participantNamesToolStripMenuItem
             // 
-            this.iTCapabilityToolStripMenuItem.Name = "iTCapabilityToolStripMenuItem";
-            this.iTCapabilityToolStripMenuItem.Size = new System.Drawing.Size(161, 24);
-            this.iTCapabilityToolStripMenuItem.Text = "IT Capability";
-            this.iTCapabilityToolStripMenuItem.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem_Click);
+            this.participantNamesToolStripMenuItem.Name = "participantNamesToolStripMenuItem";
+            this.participantNamesToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
+            this.participantNamesToolStripMenuItem.Text = "Participant Names";
+            this.participantNamesToolStripMenuItem.Click += new System.EventHandler(this.participantNamesToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -1014,14 +1039,14 @@
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(161, 24);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
             // iTCapabilityToolStripMenuItem1
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
-            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(161, 24);
+            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.iTCapabilityToolStripMenuItem1.Text = "IT Capability";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
             // 
@@ -1053,6 +1078,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CUPETool";
             this.Text = "CUPETool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CUPETool_FormClosing);
             this.Load += new System.EventHandler(this.CUPETool_Load);
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).EndInit();
@@ -1111,8 +1137,6 @@
         private System.Windows.Forms.ToolStripMenuItem participantsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createSurveyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openSurveysToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem workshopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iTCapabilityToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Header;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalA;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalB;
@@ -1147,5 +1171,10 @@
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTCapabilityToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem questionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem participantNamesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem numberOfQuestionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }

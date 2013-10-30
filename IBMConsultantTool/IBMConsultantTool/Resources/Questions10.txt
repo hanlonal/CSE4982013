@@ -1,0 +1,60 @@
+The corporate view of IT is:
+A. A provider of technical services
+B. A facilitator of organizational efficiency
+C. An organization strategically aligned with the business goals and objectives of the enterprise
+D. A critical enabler of the corporate vision
+
+IT customer satisfaction:
+A. Is considered less important than achieving cost reduction targets (or is not measured at all) 
+B. Focuses upon services provided to the business units, and the rating combines both SLA and survey data
+C. Considers both delivery of services to business units and external customers, and IT’s role and contribution to developing solutions appropriate to the industry 
+D. Is measured by the ability of IT to provide a strategic competitive advantage in the overall goals and initiatives of the business
+
+The enterprise approach toward the IT organization is:
+A. As an expense center
+B. As a service center
+C. As a profit contributor
+D. As a business enabler, providing highly responsive and flexible services to meet rapidly changing business needs
+
+IT management attention and investments focus upon: 
+A. Efficiency and quality of individual component types and technology towers
+B. Quality and efficiency of well-defined IT service offerings
+C. Flexibility, quality and efficiency of IT’s support of business services
+D. As c), but also including how innovation in technology usage can create improvements to the overall business
+
+When selecting a new IT solution:
+A. Cost is the major consideration, and selection is mainly made by IT. 
+B. The business units are involved in the selection, with a requirement validation process to ensure that the solution will meet their needs 
+C. The business units play a key role in the selection of the solution, ensuring that it enables the enterprise to compete effectively within the industry
+D. IT and the business units work closely together innovating new solutions to stay ahead of competitors in the industry
+
+The IT organization’s attitude toward risk is:
+A. Extremely risk averse
+B. Risk averse
+C. Accepting of some risk if the potential return is large enough
+D. One which embraces risk as a means to gain competitive advantage
+
+The components within the IT architecture:
+A. Are “off-the-shelf” applications found in many organizations, with many small custom-built applications that are notwell integrated
+B. Contain pockets of specialized industry solutions that allow the business units to be efficient and effective in some core business activities
+C. Contain many specialized solutions that enable the business to be highly competitive within their industry
+D. Contain many leading edge solutions that enable the business to be viewed as a technological leader in their industry
+
+The IT services that are provided to the business:
+A. Are standard, basic IT services with nothing unique
+B. Include the IT services expected by most organizations within the same industry
+C. Are relevant to the industry, with some services which provide competitive advantage
+D. Are directly aimed at providing competitive advantage based on the usage of IT
+
+The IT services are:
+A. Primarily focused on applications which improve the productivity of internal administrative functions
+B. A mix aimed at improving internal productivity and increasing the satisfaction of external customers
+C. A balance of IT enabled business services, visible to customers and suppliers of the enterprise, with some internally focused projects
+D. A mixture of services designed to gain significant competitive advantage, externally-visible services and internal focused initiatives
+
+This enterprise is:
+A. Not aware of how their competitors use technology
+B. Aware of their competitors use of technology, but does not react based on that knowledge
+C. Watching closely how their competitors use technology, and responds when necessary
+D. Anticipating how their competitors will use technology, and develops alternative strategies
+
