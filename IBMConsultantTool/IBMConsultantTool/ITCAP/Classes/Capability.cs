@@ -7,10 +7,9 @@ namespace IBMConsultantTool
 {    
     public class Capability : ScoringEntity
     {
-        private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
-        private static List<ObjectiveToTrack> priorityForObjective = new List<ObjectiveToTrack>();
+        private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();        
         private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
-        PropertyBagList properties = new PropertyBagList();
+        
         ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
         public ObjectiveValueCollection ObjectiveCollection
@@ -18,35 +17,7 @@ namespace IBMConsultantTool
             get { return objectiveCollection; }
             set { objectiveCollection = value; }
         }
-
-// ignore for now ********************************************************************
-        public static List<ObjectiveToTrack> PriorityForObjective
-        {
-            get { return priorityForObjective; }
-            set { priorityForObjective = value; }
-        }
-        public class ObjectiveToTrack
-        {
-            private string name;
-            public ObjectiveToTrack()
-            {
-
-            }
-
-            public string Name
-            {
-                get { return name; }
-                set { name = value; }
-            }        
-        }
         
-//**************************************************************************************************
-
-        //USE THIS ONE!!!!!!!!!!
-        private List<string> objectiveScores = new List<string>();
-
-
-
         private Domain owner;
 
         public Capability()
@@ -117,8 +88,29 @@ namespace IBMConsultantTool
         public void AddObjectiveToTrack(string name)
         {
             //OBJECTIVESCORES.Add(name, 0);
-            ObjectiveValues val = new ObjectiveValues(name, 4);
+            ObjectiveValues val = new ObjectiveValues(name, 0);
             objectiveCollection.Add(val);
+        }
+
+        public override void CalculatePrioritizedCapabilityGap()
+        {
+            prioritizedCapabilityGap = 0;
+            foreach (ObjectiveValues val in ObjectiveCollection)
+            {
+                prioritizedCapabilityGap += val.Value; 
+            }
+            CalculatePrioritizedGapText();
+            
+        }
+
+        public void CalculatePrioritizedGapText()
+        {
+            if (prioritizedCapabilityGap >= 20)
+                PrioritizedGap = "High Gap";
+            else if (prioritizedCapabilityGap > 10 || prioritizedCapabilityGap < 20)
+                PrioritizedGap = "Medium Gap";
+            else
+                PrioritizedGap = "Low Gap";
         }
 
 
@@ -157,26 +149,6 @@ namespace IBMConsultantTool
            // set { objectiveScores = value; }
         }
 
-        public PropertyBagList Properties
-        {
-            get { return properties; }
-            set { properties = value; }
-        }
 
-        public int this[string key]
-        {
-            get
-            {
-                int value;
-                OBJECTIVESCORES.TryGetValue(key, out value);
-                return value;
-            }
-            set
-            {
-                if (value == null) OBJECTIVESCORES.Remove(key);
-                else OBJECTIVESCORES[key] = value;
-            }
-
-        }
     }
 }

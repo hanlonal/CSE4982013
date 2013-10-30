@@ -22,6 +22,7 @@ namespace IBMConsultantTool
         public object client;
         private ITCapQuestion activequestion;
         Capability currentcap = new Capability();
+        MasterCollection coll = new MasterCollection();
 
 
 
@@ -572,8 +573,26 @@ namespace IBMConsultantTool
             db.OpenITCAP(this);
             GetAnswers();
             ChangeStates(FormStates.Open);
-            GetClientObjectives();
+            //GetClientObjectives();
+            PopulateCapabilitiesWithObjectives();
 
+        }
+
+        private void PopulateCapabilitiesWithObjectives()
+        {
+            string[] BOMS = db.GetObjectivesFromClientBOM(client).ToArray();
+
+            foreach (string bom in BOMS)
+            {
+                foreach (ScoringEntity ent in entities)
+                {
+                    if (ent.Type == "capability")
+                    {
+                        Capability cap = (Capability)ent;
+                        cap.AddObjectiveToTrack(bom);
+                    }
+                }
+            }
         }
 
         private void GetAnswers()
@@ -599,37 +618,33 @@ namespace IBMConsultantTool
             }
         }
 
-        private void GetClientObjectives()
+        private void GetClientObjectives(Capability cap)
         {
-            
-            MasterCollection coll = new MasterCollection();
+            objectiveMappingGrid.DataSource = null;
+            coll.Clear();
             //Some kind of function like this is needed
             //db.GetClientObjectives();
             //DataGrid grid = new DataGrid();
-            string[] BOMS = db.GetObjectivesFromClientBOM(client).ToArray();
 
-            foreach (string bom in BOMS)
-            {
-                foreach (ScoringEntity ent in entities)
-                {
-                    if (ent.GetType() == typeof(Capability))
-                    {
-                        Capability cap = (Capability)ent;
-                        cap.AddObjectiveToTrack(bom);
-                        currentcap = cap;
-                    }
-                }
-            }
-            coll.Add(currentcap);
+            coll.Add(cap);
             coll.CalculatePropertyDescriptors();
             //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
             
             objectiveMappingGrid.DataSource = coll;
             objectiveMappingGrid.Columns[0].ReadOnly = true;
+
             objectiveMappingGrid.RowHeadersVisible = false;
+            
             
 
         }
+        private void objectiveMappingGrid_CellEndEdit(object sender, EventArgs e)
+        {
+            currentcap.CalculatePrioritizedCapabilityGap();
+            loadSurveyFromDataGrid.Refresh();
+        }
+
+       
 
         private string[] Testing()
         {
@@ -844,7 +859,17 @@ namespace IBMConsultantTool
                 ScoringEntity ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ScoringEntity;
                 ent.ChangeChildrenVisibility();
                 ChangeGridVisibility();
-
+                return;
+            }
+            else
+            {
+                ScoringEntity ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ScoringEntity;
+                if (ent.Type == "capability")
+                {
+                    Capability cap = (Capability)ent;
+                    currentcap = cap;
+                    GetClientObjectives(cap);
+                }
             }
         }
 
@@ -940,9 +965,17 @@ namespace IBMConsultantTool
             Application.Run(new BOMTool());
         }
 
-        private void surveryMakerGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void AddObjectiveToITCAP(string bom)
         {
-
+            foreach (ScoringEntity ent in entities)
+            {
+                if (ent.Type == "capability")
+                {
+                    Capability cap = (Capability)ent;
+                    cap.AddObjectiveToTrack(bom);
+                }
+            }
+            GetClientObjectives(currentcap);
         }
 
         private void standardDeviationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1253,8 +1286,12 @@ namespace IBMConsultantTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(currentcap.ObjectiveCollection[0].Value);
+            AddObjectiveToITCAP(objectiveToAddButton.Text);
         }
+
+
+
+
 
     }// end class
 }

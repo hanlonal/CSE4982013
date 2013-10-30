@@ -96,6 +96,7 @@
             this.editQuestionTextbox = new System.Windows.Forms.RichTextBox();
             this.changeTextButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.seperatorLabel = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -103,7 +104,7 @@
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.objectiveToAddButton = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -142,7 +143,6 @@
             this.surveryMakerGrid.TabIndex = 3;
             this.surveryMakerGrid.Visible = false;
             this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
-            this.surveryMakerGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellContentClick);
             this.surveryMakerGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
             this.surveryMakerGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
             this.surveryMakerGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
@@ -680,6 +680,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.panel1.Controls.Add(this.objectiveToAddButton);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.objectiveMappingGrid);
             this.panel1.Controls.Add(this.seperatorLabel);
@@ -689,13 +690,24 @@
             this.panel1.Size = new System.Drawing.Size(1008, 163);
             this.panel1.TabIndex = 24;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(838, 51);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // objectiveMappingGrid
             // 
             this.objectiveMappingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.objectiveMappingGrid.Location = new System.Drawing.Point(25, 42);
+            this.objectiveMappingGrid.Location = new System.Drawing.Point(54, 51);
             this.objectiveMappingGrid.Name = "objectiveMappingGrid";
-            this.objectiveMappingGrid.Size = new System.Drawing.Size(664, 81);
+            this.objectiveMappingGrid.Size = new System.Drawing.Size(761, 62);
             this.objectiveMappingGrid.TabIndex = 2;
+            this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
             // 
             // seperatorLabel
             // 
@@ -779,15 +791,12 @@
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 30;
             // 
-            // button1
+            // objectiveToAddButton
             // 
-            this.button1.Location = new System.Drawing.Point(843, 90);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.objectiveToAddButton.Location = new System.Drawing.Point(838, 87);
+            this.objectiveToAddButton.Name = "objectiveToAddButton";
+            this.objectiveToAddButton.Size = new System.Drawing.Size(100, 26);
+            this.objectiveToAddButton.TabIndex = 4;
             // 
             // ITCapTool
             // 
@@ -822,6 +831,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.prioritizationGrid)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectiveMappingGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadSurveyFromDataGrid)).EndInit();
             this.ResumeLayout(false);
@@ -899,6 +909,7 @@
         private DataGridViewDisableButtonColumn Collapse;
         private System.Windows.Forms.DataGridViewImageColumn Flags;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox objectiveToAddButton;
 
        
     }

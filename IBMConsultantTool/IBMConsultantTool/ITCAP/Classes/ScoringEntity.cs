@@ -16,7 +16,7 @@ namespace IBMConsultantTool
        protected string id;
        private bool isInGrid = false;
        protected string type;
-       private float prioritizedCapabilityGap = 0;
+       protected float prioritizedCapabilityGap = 0;
        protected float asisStandardDeviation = 0;
        protected float tobeStandardDeviation = 0;
        private bool visible = false;
