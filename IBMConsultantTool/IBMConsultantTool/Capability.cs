@@ -9,6 +9,8 @@ namespace IBMConsultantTool
     {
         private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
         private static List<ObjectiveToTrack> priorityForObjective = new List<ObjectiveToTrack>();
+        private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
+        
 // ignore for now ********************************************************************
         public static List<ObjectiveToTrack> PriorityForObjective
         {
@@ -20,6 +22,7 @@ namespace IBMConsultantTool
             private string name;
             public ObjectiveToTrack()
             {
+
             }
 
             public string Name
@@ -30,7 +33,9 @@ namespace IBMConsultantTool
         }
         
 //**************************************************************************************************
-        private List<decimal> objectiveScores = new List<decimal>();
+
+        //USE THIS ONE!!!!!!!!!!
+        private List<string> objectiveScores = new List<string>();
 
 
 
@@ -50,13 +55,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public static void AddObjectiveToTrack( string name)
-        {
-            ObjectiveToTrack track = new ObjectiveToTrack();
-            track.Name = name;
-            
-            Capability.priorityForObjective.Add(track);
-        }
+
 
         public override float CalculateAsIsAverage()
         {
@@ -83,6 +82,13 @@ namespace IBMConsultantTool
             base.ChangeChildrenVisibility();
         }
 
+        
+     /*   public static DictionaryBindingList<TKey, TValue>
+            ToBindingList<TKey, TValue>(IDictionary<TKey, TValue> data)
+        {
+            return new DictionaryBindingList<TKey, TValue>(data);
+        }*/
+
         public override float CalculateToBeAverage()
         {
             float total = 0;
@@ -100,9 +106,9 @@ namespace IBMConsultantTool
             return toBeScore;
         }
 
-        public void AddObjectiveToTrack()
+        public void AddObjectiveToTrack(string name)
         {
-            objectiveScores.Add(0);
+            OBJECTIVESCORES.Add(name, 0);
 
         }
 
@@ -130,10 +136,26 @@ namespace IBMConsultantTool
         {
             set { flagged = value; owner.Flagged = value; }
         }
-        public List<decimal> ObjectiveScores
+        public Dictionary<string, int> OBJECTIVESCORES2
         {
-            get { return objectiveScores; }
-            set { objectiveScores = value; }
+            get { return OBJECTIVESCORES; }
+           // set { objectiveScores = value; }
+        }
+        
+        public int this[string key]
+        {
+            get
+            {
+                int value;
+                OBJECTIVESCORES.TryGetValue(key, out value);
+                return value;
+            }
+            set
+            {
+                if (value == null) OBJECTIVESCORES.Remove(key);
+                else OBJECTIVESCORES[key] = value;
+            }
+
         }
     }
 }

@@ -193,6 +193,7 @@
     <Compile Include="DataGridViewDisableButtonColumn .cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DBManager.cs" />
+    <Compile Include="DictionaryBindingList.cs" />
     <Compile Include="Domain.cs" />
     <Compile Include="EditCapabilities.cs">
       <SubType>Form</SubType>
@@ -241,6 +242,7 @@
     <Compile Include="OpenBOM.Designer.cs">
       <DependentUpon>OpenBOM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pair.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PropertyBag.cs" />
     <Compile Include="PropertyBagList.cs" />

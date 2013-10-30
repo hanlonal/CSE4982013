@@ -518,6 +518,8 @@ namespace IBMConsultantTool
             return null;
         }
 
+
+
         private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             foreach (ScoringEntity entity in entities)
@@ -601,32 +603,41 @@ namespace IBMConsultantTool
 
         private void GetClientObjectives()
         {
-            PropertyBagList list = new PropertyBagList();
-            
-            int numObjs = 3;
-            for (int i = 0; i < numObjs; i++)
+            db.AddITCAPOBJMAP(client, "capa1", "OBJ");
+
+            string[] objectives2 = Testing();
+
+            foreach (string obj in objectives2)
             {
-                list.Columns.Add("Objective " + (i+1).ToString());
                 foreach (ScoringEntity ent in entities)
                 {
-                    if (ent.Type == "capability")
+                    if (ent.GetType() == typeof(Capability))
                     {
                         Capability cap = (Capability)ent;
-                        cap.AddObjectiveToTrack();
+                        cap.AddObjectiveToTrack(obj);
                     }
                 }
             }
-            string[] args = new string[3];
-            list.Add(args);
-            //list.Add("123", "456");
 
-            objectiveMappingGrid.DataSource = list;
+            Capability cap2 = new Capability();
+            cap2.AddObjectiveToTrack("hello");
 
+            DictionaryBindingList<string, int> test =new DictionaryBindingList<string,int>( cap2.OBJECTIVESCORES2);
 
-
-
+            objectiveMappingGrid.DataSource = test;
+            
 
         }
+
+        private string[] Testing()
+        {
+            string[] test = new string[3];
+            test[0] = "1";
+            test[1] = "2";
+            test[2] = "3";
+            return test;
+        }
+
 
         public void ResetSurveyGrid()
         {
