@@ -24,6 +24,9 @@ namespace IBMConsultantTool
        // DataGridView view = new DataGridView();
         Chart currentChart;
         int personCount = 0;
+        bool isAnonymous = true;
+        bool is20Question = true;
+        bool changesMade = false;
 
         int totalAIndex = 1;
         int totalBIndex = 2;
@@ -56,7 +59,7 @@ namespace IBMConsultantTool
             charts.Add(busiFutureGraph);
             charts.Add(itCurrentGraph);
             charts.Add(itFutureGraph);
-            
+
             
         }
 
@@ -225,8 +228,6 @@ namespace IBMConsultantTool
 
         private void questionGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
-
             ChangeTotalsByRow(e.RowIndex);
             ChangeTotalsByColumn(e.ColumnIndex, e.RowIndex);
             LoadChartData();
@@ -243,25 +244,29 @@ namespace IBMConsultantTool
             float total = 0;
             foreach (DataGridViewCell cell in currentGrid.Rows[index].Cells)
             {
-                if ((string)(cell.Value) == "a" || (string)(cell.Value) == "A")
+                if (cell.Value == null)
+                {
+                    continue;
+                }
+                if ((cell.Value).ToString() == "a" || (cell.Value).ToString() == "A")
                 {
                     totalA++;
                     count++;
                     total +=1;
                 }
-                if ((string)(cell.Value) == "b" || (string)(cell.Value) == "B")
+                if ((cell.Value).ToString() == "b" || (cell.Value).ToString() == "B")
                 {
                     totalB++;
                     count++;
                     total+=2;
                 }
-                if ((string)cell.Value == "c" || (string)cell.Value == "C")
+                if ((cell.Value).ToString() == "c" || (cell.Value).ToString() == "C")
                 {
                     totalC++;
                     count++;
                     total += 3;
                 }
-                if ((string)cell.Value == "d" || (string)cell.Value == "D")
+                if ((cell.Value).ToString() == "d" || (cell.Value).ToString() == "D")
                 {
                     totalD++;
                     count++;
@@ -299,6 +304,8 @@ namespace IBMConsultantTool
             else
                 cupeScoreLabel.Text = " ";
         }
+
+
 
         private void ChangeTotalsByColumn(int colIndex, int rowIndex)
         {
@@ -995,7 +1002,8 @@ namespace IBMConsultantTool
             {
                 removePersonColumns();
                 loadColumnNames();
-                loadCupeDataValues();
+                LoadAnswersFromDataControl();
+                
                 return;
             }
 
@@ -1013,23 +1021,41 @@ namespace IBMConsultantTool
             foreach(Person person in ClientDataControl.GetParticipants())
             {
                 DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+
                 col.HeaderText =  person.Name;                   
                 col.Name = person.Name;
                 col.Width = 100;
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
 
                 DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
                 col2.HeaderText = person.Name;
                 col2.Name = person.Name;
                 col2.Width = 100;
+                col2.SortMode = DataGridViewColumnSortMode.NotSortable;
+
 
 
                 if (person.Type == Person.EmployeeType.IT)
                 {
+
+                    if (isAnonymous)
+                    {
+                        col.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
+                        col2.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
+                    }
+
                     questionGridITCurrent.Columns.Insert(questionGridITCurrent.ColumnCount - 6, col);
                     questionGridITFuture.Columns.Insert(questionGridITFuture.ColumnCount - 6, col2);
                 }
                 if (person.Type == Person.EmployeeType.Business)
                 {
+
+                    if (isAnonymous)
+                    {
+                        col.HeaderText = "Person " + (questionGridBusinessCurrent.Columns.Count - 6).ToString();
+                        col2.HeaderText = "Person " + (questionGridBusinessCurrent.Columns.Count - 6).ToString();
+                    }
+
                     questionGridBusinessCurrent.Columns.Insert(questionGridBusinessCurrent.ColumnCount - 6, col);
                     questionGridBusiFuture.Columns.Insert(questionGridBusiFuture.ColumnCount - 6, col2);
                 }
@@ -1177,19 +1203,19 @@ namespace IBMConsultantTool
         }
         private void removePersonColumns()
         {
-            for( int i=1; i<= questionGridITCurrent.ColumnCount - 7; i++)
+            for( int i=1; i<= questionGridITCurrent.ColumnCount - 7; i=1)
             {
                 questionGridITCurrent.Columns.RemoveAt(i);
             }
-            for (int i = 1; i <= questionGridITFuture.ColumnCount - 7; i++)
+            for (int i = 1; i <= questionGridITFuture.ColumnCount - 7; i=1)
             {
                 questionGridITFuture.Columns.RemoveAt(i);
             }
-            for (int i = 1; i <= questionGridBusinessCurrent.ColumnCount - 7; i++)
+            for (int i = 1; i <= questionGridBusinessCurrent.ColumnCount - 7; i=1)
             {
                 questionGridBusinessCurrent.Columns.RemoveAt(i);
             }
-            for (int i = 1; i <= questionGridBusiFuture.ColumnCount - 7; i++)
+            for (int i = 1; i <= questionGridBusiFuture.ColumnCount - 7; i=1)
             {
                 questionGridBusiFuture.Columns.RemoveAt(i);
             }
@@ -1332,7 +1358,16 @@ namespace IBMConsultantTool
         private void LoadCupeQuestionsFromDocument()
         {
             CupeQuestionStringData data = new CupeQuestionStringData();
-            foreach (string line in File.ReadLines(@"Resources/Questions.txt"))
+            string path;
+            if(is20Question)
+            {
+                path = @"Resources/Questions.txt";
+            }
+            else
+            {
+                path = @"Resources/Questions10.txt";
+            }
+            foreach (string line in File.ReadLines(path))
             {
                 if (!String.IsNullOrEmpty(line))
                 {
@@ -1366,49 +1401,7 @@ namespace IBMConsultantTool
 
         }
 
-        private void questionGridBusinessCurrent_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string RowName = "";
-            try
-            {
-                RowName = this.currentGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-            }
-            catch
-            {
-
-            }
-            QuestionView.Nodes.Clear();
-            var questionsText = ClientDataControl.GetCupeQuestions();
-            if (RowName.Contains("Question"))
-            {
-                var index = e.RowIndex;
-                indexCurrentQuestionNode = index;
-
-                TreeNode node = new TreeNode();
-                node.Text = ClientDataControl.GetCupeQuestions()[index].QuestionText;
-
-                TreeNode nodeA = new TreeNode();
-                nodeA.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceA;
-                
-                TreeNode nodeB = new TreeNode();
-                nodeB.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceB;
-
-                TreeNode nodeC = new TreeNode();
-                nodeC.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceC;
-
-                TreeNode nodeD = new TreeNode();
-                nodeD.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceD;
-
-                node.Nodes.Add(nodeA);
-                node.Nodes.Add(nodeB);
-                node.Nodes.Add(nodeC);
-                node.Nodes.Add(nodeD);
-                QuestionView.Nodes.Add(node);
-                QuestionView.ExpandAll();
-
-
-            }
-        }
+        
 
         private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1701,7 +1694,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.HeaderText).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
                 }
                 catch
                 {
@@ -1712,22 +1705,43 @@ namespace IBMConsultantTool
                 {
                     if (currentPerson.Type == Person.EmployeeType.IT)
                     {
+                        currentGrid = questionGridITCurrent;
+                        currentChart = itCurrentGraph;
                         foreach (DataGridViewRow row in questionGridITCurrent.Rows)
                         {
                             if (row.Cells[0].Value == null)
                             {
                                 break;
                             }
+                            if (!currentPerson.cupeDataHolder.CurrentAnswers.ContainsKey(row.Cells[0].Value.ToString()))
+                            {
+                                continue;
+                            }
                             row.Cells[column.Index].Value = currentPerson.cupeDataHolder.CurrentAnswers[row.Cells[0].Value.ToString()];
+                            ChangeTotalsByRow(row.Index);
                         }
+                        ChangeTotalsByColumn(column.Index, 1);
+                        LoadChartData();
+                        UpdateCupeScore();
+
+                        currentGrid = questionGridITFuture;
+                        currentChart = itFutureGraph;
                         foreach (DataGridViewRow row in questionGridITFuture.Rows)
                         {
                             if (row.Cells[0].Value == null)
                             {
                                 break;
                             }
+                            if (!currentPerson.cupeDataHolder.FutureAnswers.ContainsKey(row.Cells[0].Value.ToString()))
+                            {
+                                continue;
+                            }
                             row.Cells[column.Index].Value = currentPerson.cupeDataHolder.FutureAnswers[row.Cells[0].Value.ToString()];
+                            ChangeTotalsByRow(row.Index);
                         }
+                        ChangeTotalsByColumn(column.Index, 1);
+                        LoadChartData();
+                        UpdateCupeScore();
                     }
                 }
             }
@@ -1741,7 +1755,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.HeaderText).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
                 }
                 catch
                 {
@@ -1752,26 +1766,180 @@ namespace IBMConsultantTool
                 {
                     if (currentPerson.Type == Person.EmployeeType.Business)
                     {
+                        currentGrid = questionGridBusinessCurrent;
+                        currentChart = busiCurrentGraph;
                         foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
                         {
                             if(row.Cells[0].Value == null)
                             { 
                                 break;
                             }
+                            if (!currentPerson.cupeDataHolder.CurrentAnswers.ContainsKey(row.Cells[0].Value.ToString()))
+                            {
+                                continue;
+                            }
                             row.Cells[column.Index].Value = currentPerson.cupeDataHolder.CurrentAnswers[row.Cells[0].Value.ToString()];
+                            ChangeTotalsByRow(row.Index);
                         }
+                        ChangeTotalsByColumn(column.Index, 1);
+                        LoadChartData();
+                        UpdateCupeScore();
+
+
+                        currentGrid = questionGridBusiFuture;
+                        currentChart = busiFutureGraph;
                         foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
                         {
                             if (row.Cells[0].Value == null)
                             {
                                 break;
                             }
+                            if (!currentPerson.cupeDataHolder.FutureAnswers.ContainsKey(row.Cells[0].Value.ToString()))
+                            {
+                                continue;
+                            }
                             row.Cells[column.Index].Value = currentPerson.cupeDataHolder.FutureAnswers[row.Cells[0].Value.ToString()];
+                            ChangeTotalsByRow(row.Index);
                         }
+                        ChangeTotalsByColumn(column.Index, 1);
+                        LoadChartData();
+                        UpdateCupeScore();
                     }
                 }
             }
 
+        }
+
+        private void participantNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(isAnonymous == true)
+            {
+                isAnonymous = false;
+                foreach (DataGridView grid in grids)
+                {
+                    for (int i = 1; i < grid.Columns.Count - 6; i++)
+                    {
+                        grid.Columns[i].HeaderText = grid.Columns[i].Name;
+                    }
+                }
+            }
+            else
+            {
+                isAnonymous = true;
+                foreach (DataGridView grid in grids)
+                {
+                    for (int i = 1; i < grid.Columns.Count - 6; i++)
+                    {
+                        grid.Columns[i].HeaderText = "Person " + i;
+                    }
+                }
+            }
+
+
+
+        }
+
+        //Change the number of questions in the Cupe Form
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            changesMade = true;
+            is20Question = false;
+            ClientDataControl.cupeQuestions.Clear();
+            LoadCupeQuestionsFromDocument();
+            SetLastTenColumnVisibility(false);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            changesMade = true;
+            is20Question = true;
+            ClientDataControl.cupeQuestions.Clear();
+            LoadCupeQuestionsFromDocument();
+            SetLastTenColumnVisibility(true);
+        }
+
+        private void SetLastTenColumnVisibility(bool isShown)
+        {
+            foreach ( DataGridView grid in grids)
+            {
+                for(int index = 10; index < 20; index++)
+                {
+                    grid.Rows[index].Visible = isShown;
+                }
+            }
+        }
+
+        private void questionGridITFuture_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentGrid = questionGridITFuture;
+            currentChart = itFutureGraph;
+            GridClicked(sender, e);
+        }
+
+        private void questionGridBusiFuture_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentGrid = questionGridBusiFuture;
+            currentChart = busiFutureGraph;
+            GridClicked(sender, e);
+        }
+
+        private void questionGridITCurrent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentGrid = questionGridITCurrent;
+            currentChart = itCurrentGraph;
+            GridClicked(sender, e);
+        }
+
+        private void questionGridBusinessCurrent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentGrid = questionGridBusinessCurrent;
+            currentChart = busiCurrentGraph;
+            GridClicked(sender, e);
+        }
+
+        private void GridClicked(object sender, DataGridViewCellEventArgs e)
+        {
+             string RowName = "";
+
+            try
+            {
+                RowName = this.currentGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            }
+            catch
+            {
+
+            }
+            QuestionView.Nodes.Clear();
+            var questionsText = ClientDataControl.GetCupeQuestions();
+            if (RowName.Contains("Question"))
+            {
+                var index = e.RowIndex;
+                indexCurrentQuestionNode = index;
+
+                TreeNode node = new TreeNode();
+                node.Text = ClientDataControl.GetCupeQuestions()[index].QuestionText;
+
+                TreeNode nodeA = new TreeNode();
+                nodeA.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceA;
+
+                TreeNode nodeB = new TreeNode();
+                nodeB.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceB;
+
+                TreeNode nodeC = new TreeNode();
+                nodeC.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceC;
+
+                TreeNode nodeD = new TreeNode();
+                nodeD.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceD;
+
+                node.Nodes.Add(nodeA);
+                node.Nodes.Add(nodeB);
+                node.Nodes.Add(nodeC);
+                node.Nodes.Add(nodeD);
+                QuestionView.Nodes.Add(node);
+                QuestionView.ExpandAll();
+
+
+            }
         }
 
     }// end class
