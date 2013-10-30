@@ -90,12 +90,6 @@
     <Compile Include="BOM\Classes\BOMChartDynamically.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BOM\Classes\AddInitiative.Designer.cs">
-      <DependentUpon>AddInitiative.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BOM\Classes\BOMChartDynamically.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="BOM\Classes\BOMChartDynamically.Designer.cs">
       <DependentUpon>BOMChartDynamically.cs</DependentUpon>
     </Compile>
@@ -134,6 +128,12 @@
     </Compile>
     <Compile Include="ChooseBOMClient.Designer.cs">
       <DependentUpon>ChooseBOMClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseCUPEClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseCUPEClient.Designer.cs">
+      <DependentUpon>ChooseCUPEClient.cs</DependentUpon>
     </Compile>
     <Compile Include="ClientDataControl.cs" />
     <Compile Include="ChooseITCAPClient.cs">
@@ -283,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseBOMClient.resx">
       <DependentUpon>ChooseBOMClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseCUPEClient.resx">
+      <DependentUpon>ChooseCUPEClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseITCAPClient.resx">
       <DependentUpon>ChooseITCAPClient.cs</DependentUpon>

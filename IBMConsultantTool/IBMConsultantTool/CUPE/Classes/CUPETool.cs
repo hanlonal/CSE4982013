@@ -67,23 +67,28 @@ namespace IBMConsultantTool
                 db = new DBManager();
             }
 
-            catch
+            catch (Exception e)
             {
                 db = new FileManager();
+                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
             }
-            
+
+            new ChooseCUPEClient(this).ShowDialog();
         }
 
         private void CUPETool_Load(object sender, EventArgs e)
         {
-            
+            if (client == null)
+            {
+                this.Close();
+            }
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
-            
+            db.PopulateCUPEQuestions(this);
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;
-                for (int i = 1; i < 21; i++)
+                for (int i = 1; i < ClientDataControl.GetCupeQuestions().Count + 1; i++)
                 {
                     DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[0].Clone();
                     row.Cells[0].Value = "Question " + i;
@@ -106,13 +111,9 @@ namespace IBMConsultantTool
             }
             currentChart.Visible = true;
             CreateGraphs();
-            LoadCupeQuestionsFromDocument();
             //CreateLabel();
 
         }
-
-   
-        
 
         private void CreateGraphs()
         {
