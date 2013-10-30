@@ -61,6 +61,21 @@ namespace IBMConsultantTool
         public abstract bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm);
         #endregion
 
+        #region CUPEQuestion
+        public abstract List<CupeQuestion> GetCUPEQuestions();
+        public abstract bool AddCupeQuestion(CupeQuestion cupeQuestion);
+        #endregion
+
+        #region CUPE
+        public abstract bool UpdateCUPE(object clientObj, CupeQuestion cq);
+
+        public abstract bool AddCUPE(object cupe, object client);
+        public abstract bool AddCUPEToGroup(object cupe, object group);
+        public abstract bool AddCUPEToContact(object cupe, object contact);
+
+        public abstract bool BuildCUPEForm(CUPETool cupeForm, string clientName);
+        #endregion
+
         #region Domain
         public abstract string[] GetDomainNames();
         public abstract string[] GetDomainNamesAndDefault();

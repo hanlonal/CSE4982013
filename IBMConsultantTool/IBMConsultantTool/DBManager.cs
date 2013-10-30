@@ -961,6 +961,40 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region CUPEQuestion
+        public override List<CupeQuestion> GetCUPEQuestions()
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCupeQuestion(CupeQuestion cupeQuestion)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region CUPE
+        public override bool UpdateCUPE(object clientObj, CupeQuestion cq)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCUPE(object cupe, object client)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCUPEToGroup(object cupe, object group)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCUPEToContact(object cupe, object contact)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool BuildCUPEForm(CUPETool cupeForm, string clientName)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
         #region Domain
 
         public List<DOMAIN> GetDomains()
@@ -1521,7 +1555,23 @@ namespace IBMConsultantTool
                             tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
                             itcapConElement.Add(tempItcap);
                         }
-                        temp.Add(itcapConElement);
+                        tempCon.Add(itcapConElement);
+
+                        XElement cupeConElement = new XElement("CUPES");
+                        foreach (CUPE cupe in contact.CUPE)
+                        {
+                            XElement tempCUPE = new XElement("CUPE");
+                            tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd().Replace(' ', '~')));
+                            tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
+                            tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
+                            tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd().Replace(' ', '~')));
+                            tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY));
+                            tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY));
+                            tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER));
+                            tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER));
+                            itcapConElement.Add(tempCUPE);
+                        }
+                        tempCon.Add(cupeConElement);
 
                         conElement.Add(tempCon);
                     }
@@ -1556,6 +1606,22 @@ namespace IBMConsultantTool
                     }
                     tempGrp.Add(itcapGrpElement);
 
+                    XElement cupeGrpElement = new XElement("CUPES");
+                    foreach (CUPE cupe in grp.CUPE)
+                    {
+                        XElement tempCUPE = new XElement("CUPE");
+                        tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd().Replace(' ', '~')));
+                        tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
+                        tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
+                        tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd().Replace(' ', '~')));
+                        tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY));
+                        tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY));
+                        tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER));
+                        tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER));
+                        itcapGrpElement.Add(tempCUPE);
+                    }
+                    tempGrp.Add(cupeGrpElement);
+
                     grpElement.Add(tempGrp);
                 }
                 temp.Add(grpElement);
@@ -1587,6 +1653,22 @@ namespace IBMConsultantTool
                     itcapElement.Add(tempItcap);
                 }
                 temp.Add(itcapElement);
+
+                XElement cupeElement = new XElement("CUPES");
+                foreach (CUPE cupe in client.CUPE)
+                {
+                    XElement tempCUPE = new XElement("CUPE");
+                    tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd().Replace(' ', '~')));
+                    tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
+                    tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
+                    tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd().Replace(' ', '~')));
+                    tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY));
+                    tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY));
+                    tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER));
+                    tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER));
+                    cupeElement.Add(tempCUPE);
+                }
+                temp.Add(cupeElement);
 
                 XElement itcapObjMapElement = new XElement("ITCAPOBJMAPS");
                 foreach (ITCAPOBJMAP itcapObjMap in client.ITCAPOBJMAP)
@@ -1687,6 +1769,8 @@ namespace IBMConsultantTool
             BUSINESSOBJECTIVE objective;
             INITIATIVE initiative;
             BOM bom;
+            CUPEQUESTION cupeQuestion;
+            CUPE cupe;
             DOMAIN domain;
             CAPABILITY capability;
             ITCAPQUESTION itcapQuestion;

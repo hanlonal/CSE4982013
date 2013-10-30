@@ -996,6 +996,40 @@ namespace IBMConsultantTool
 
         #endregion
 
+        #region CUPEQuestion
+        public override List<CupeQuestion> GetCUPEQuestions()
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCupeQuestion(CupeQuestion cupeQuestion)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region CUPE
+        public override bool UpdateCUPE(object clientObj, CupeQuestion cq)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCUPE(object cupe, object client)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCUPEToGroup(object cupe, object group)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool AddCUPEToContact(object cupe, object contact)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool BuildCUPEForm(CUPETool cupeForm, string clientName)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
         #region Domain
         public override string[] GetDomainNames()
         {
