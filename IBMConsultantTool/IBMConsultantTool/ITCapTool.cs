@@ -10,6 +10,7 @@ using System.IO;
 using System.Resources;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.VisualBasic.PowerPacks;
 
 namespace IBMConsultantTool
 {
@@ -1142,6 +1143,99 @@ namespace IBMConsultantTool
             }
 
             CreateChart(capName, capAsIs, capToBe);
+        }
+
+        private void capabilityGapHeatmapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> capAsIs = new List<float>();
+            List<float> capToBe = new List<float>();
+            List<float> capGap = new List<float>();
+            List<string> capName = new List<string>();
+            List<string> domName = new List<string>();
+
+            foreach (Domain dom in domains)
+            {
+                foreach (Capability cap in capabilities)
+                {
+                    capAsIs.Add(cap.AsIsScore);
+                    capToBe.Add(cap.ToBeScore);
+                    capGap.Add(cap.ToBeScore - cap.AsIsScore);
+                    capName.Add(cap.Name);
+                }
+                domName.Add(dom.Name);
+            }
+
+
+            float gap = CalculateGap(capGap);
+
+            CreateHeatMap(domName, capName, capGap, gap);
+        }
+
+        public float CalculateGap(List<float> gap)
+        {
+            int count = gap.Count;
+            float totalGap = 0;
+
+            for (int cnt = 0; cnt < count; cnt++)
+            {
+                totalGap += gap[cnt];
+            }
+
+            float averageGap = totalGap / count;
+
+            return averageGap;
+        }
+
+        public void CreateHeatMap(List<string> dom, List<string> cap, List<float> gap, float avgGap)
+        {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
+            formChart.AutoScroll = true;
+
+            formChart.Show();
+
+            formChart.Text = "Capability Gap";
+
+            Label title = new Label();
+            title.Text = "Capability Gap";
+            title.Font = new Font("Arial", 14, FontStyle.Bold);
+            title.AutoSize = true;
+            title.Location = new Point(formChart.Width / 2 - title.Width / 2, 5);
+
+            int domCount = dom.Count;
+            int capCount = cap.Count;
+
+            Label[] domTitle = new Label[domCount];
+            for (int i = 0; i < domCount; i++)
+                domTitle[i] = new Label();
+
+            Label[] capTitle = new Label[capCount];
+            for (int j = 0; j < capCount; j++)
+                capTitle[j] = new Label();
+
+            formChart.Paint += new PaintEventHandler(formChart_Paint);
+            
+        }
+
+        private void formChart_Paint(object sender, PaintEventArgs e)
+        {
+            Rectangle myRec = new Rectangle(new Point(5, 5), new Size(20, 20));
+
+            //myRec.
+            /*RectangleF myRectangleF = new RectangleF(30F, 30F, 30F, 30F);
+
+            Rectangle roundedRectangle = Rectangle.Round(myRectangleF);
+
+            Pen redPen = new Pen(Color.Red, 4);
+            e.Graphics.DrawRectangle(redPen, roundedRectangle);
+
+            Rectangle truncatedRectangle = Rectangle.Truncate(myRectangleF);
+
+            Pen whitePen = new Pen(Color.White, 4);
+            e.Graphics.DrawRectangle(whitePen, truncatedRectangle);
+
+            redPen.Dispose();
+            whitePen.Dispose();*/
         }
 
     }// end class

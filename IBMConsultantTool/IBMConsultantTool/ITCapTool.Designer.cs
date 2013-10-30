@@ -82,6 +82,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,14 +100,9 @@
             this.seperatorLabel = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
-            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
-<<<<<<< HEAD
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-=======
->>>>>>> 68936dadb27bbc04bdd7656fae48436f4942c17a
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -259,6 +255,7 @@
             this.capabilityGapHeatmapToolStripMenuItem.Name = "capabilityGapHeatmapToolStripMenuItem";
             this.capabilityGapHeatmapToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.capabilityGapHeatmapToolStripMenuItem.Text = "Capability Gap Heatmap";
+            this.capabilityGapHeatmapToolStripMenuItem.Click += new System.EventHandler(this.capabilityGapHeatmapToolStripMenuItem_Click);
             // 
             // prioritizedCapabilityGapsToolStripMenuItem
             // 
@@ -543,6 +540,14 @@
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
             // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
+            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Type";
@@ -748,14 +753,6 @@
             this.loadSurveyFromDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellValueChanged);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
             // 
-            // dataGridViewButtonColumn2
-            // 
-            this.dataGridViewButtonColumn2.HeaderText = "";
-            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
-            this.dataGridViewButtonColumn2.Text = "+";
-            this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn2.Width = 30;
-            // 
             // Collapse
             // 
             this.Collapse.HeaderText = "";
@@ -772,15 +769,6 @@
             this.Flags.ReadOnly = true;
             this.Flags.Width = 50;
             // 
-<<<<<<< HEAD
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
-            // 
             // dataGridViewButtonColumn2
             // 
             this.dataGridViewButtonColumn2.HeaderText = "";
@@ -789,8 +777,6 @@
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 30;
             // 
-=======
->>>>>>> 68936dadb27bbc04bdd7656fae48436f4942c17a
             // ITCapTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
