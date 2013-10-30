@@ -87,47 +87,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddInitiative.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddInitiative.Designer.cs">
-      <DependentUpon>AddInitiative.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BOMBubbleChart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BOMBubbleChart.Designer.cs">
-      <DependentUpon>BOMBubbleChart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BOMBubbleChartRedesign.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BOMBubbleChartRedesign.Designer.cs">
-      <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BOMChartDynamically.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BOMChartDynamically.designer.cs">
-      <DependentUpon>BOMChartDynamically.cs</DependentUpon>
-    </Compile>
     <Compile Include="BOMChartInfoPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BOMTool.cs">
+    <Compile Include="BOM\Classes\AddInitiative.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BOMTool.Designer.cs">
+    <Compile Include="BOM\Classes\AddInitiative.Designer.cs">
+      <DependentUpon>AddInitiative.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BOM\Classes\BOMChartDynamically.cs" />
+    <Compile Include="BOM\Classes\BOMChartDynamically.Designer.cs">
+      <DependentUpon>BOMChartDynamically.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BOM\Classes\BOMTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BOM\Classes\BOMTool.Designer.cs">
       <DependentUpon>BOMTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="Capability.cs" />
-    <Compile Include="CapabilityGapForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="BOM\Classes\NewCategory.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CapabilityGapForm.Designer.cs">
-      <DependentUpon>CapabilityGapForm.cs</DependentUpon>
+    <Compile Include="BOM\Classes\NewInitiative.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CapabilityPropertyDescriptor.cs" />
+    <Compile Include="BOM\Classes\NewObjective.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ChangeITCAPDefaults.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,13 +153,13 @@
     <Compile Include="CupeForm.Designer.cs">
       <DependentUpon>CupeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CupeQuestion.cs" />
     <Compile Include="CupeQuestionData.cs" />
     <Compile Include="CupeQuestionStringData.cs" />
-    <Compile Include="CUPETool.cs">
+    <Compile Include="CUPE\Classes\CupeQuestion.cs" />
+    <Compile Include="CUPE\Classes\CUPETool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CUPETool.Designer.cs">
+    <Compile Include="CUPE\Classes\CUPETool.Designer.cs">
       <DependentUpon>CUPETool.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomBox.cs">
@@ -184,18 +171,15 @@
     <Compile Include="CustomLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Database\DataManager.cs" />
+    <Compile Include="Database\DBManager.cs" />
+    <Compile Include="Database\FileManager.cs" />
     <Compile Include="DataEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataEntryForm.Designer.cs">
       <DependentUpon>DataEntryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataGridViewDisableButtonCell .cs" />
-    <Compile Include="DataGridViewDisableButtonColumn .cs" />
-    <Compile Include="DataManager.cs" />
-    <Compile Include="DBManager.cs" />
-    <Compile Include="DictionaryBindingList.cs" />
-    <Compile Include="Domain.cs" />
     <Compile Include="EditCapabilities.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,39 +192,57 @@
     <Compile Include="EditParticipants.Designer.cs">
       <DependentUpon>EditParticipants.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManager.cs" />
     <Compile Include="ITCapFileManager.cs" />
-    <Compile Include="ITCapQuestion.cs" />
-    <Compile Include="ITCapTool.cs">
+    <Compile Include="ITCAP\Classes\Capability.cs" />
+    <Compile Include="ITCAP\Classes\CapabilityPropertyDescriptor.cs" />
+    <Compile Include="ITCAP\Classes\DataGridViewDisableButtonCell .cs" />
+    <Compile Include="ITCAP\Classes\DataGridViewDisableButtonColumn .cs" />
+    <Compile Include="ITCAP\Classes\Domain.cs" />
+    <Compile Include="ITCAP\Classes\HeatMapChart.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ITCapTool.Designer.cs">
+    <Compile Include="ITCAP\Classes\HeatMapChart.designer.cs">
+      <DependentUpon>HeatMapChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ITCAP\Classes\ITCapQuestion.cs" />
+    <Compile Include="ITCAP\Classes\MasterCollection.cs" />
+    <Compile Include="ITCAP\Classes\ObjectiveValueCollection.cs" />
+    <Compile Include="ITCAP\Classes\ObjectiveValuePropertyDescriptor.cs" />
+    <Compile Include="ITCAP\Classes\ObjectiveValues.cs" />
+    <Compile Include="ITCAP\Classes\ScoringEntity.cs" />
+    <Compile Include="ITCAP\Forms\CapabilityGapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ITCAP\Forms\CapabilityGapForm.Designer.cs">
+      <DependentUpon>CapabilityGapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ITCAP\ITCapTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ITCAP\ITCapTool.Designer.cs">
       <DependentUpon>ITCapTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="MasterCollection.cs" />
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="NewBOM.cs">
+    <Compile Include="No Longer Used\BOMBubbleChart.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewBOM.Designer.cs">
+    <Compile Include="No Longer Used\BOMBubbleChart.Designer.cs">
+      <DependentUpon>BOMBubbleChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="No Longer Used\DictionaryBindingList.cs" />
+    <Compile Include="No Longer Used\NewBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="No Longer Used\NewBOM.Designer.cs">
       <DependentUpon>NewBOM.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewCategory.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NewInitiative.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NewObjective.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ObjectiveValueCollection.cs" />
-    <Compile Include="ObjectiveValuePropertyDescriptor.cs" />
-    <Compile Include="ObjectiveValues.cs" />
+    <Compile Include="No Longer Used\PropertyBag.cs" />
+    <Compile Include="No Longer Used\PropertyBagList.cs" />
+    <Compile Include="No Longer Used\PropertyBagPropertyDescriptor.cs" />
     <Compile Include="OpenBOM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,13 +251,9 @@
     </Compile>
     <Compile Include="Pair.cs" />
     <Compile Include="Person.cs" />
-    <Compile Include="PropertyBag.cs" />
-    <Compile Include="PropertyBagList.cs" />
-    <Compile Include="PropertyBagPropertyDescriptor.cs" />
     <Compile Include="RoundedRectangle.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ScoringEntity.cs" />
     <Compile Include="StartPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,23 +284,14 @@
     <Compile Include="TestITCap.Designer.cs">
       <DependentUpon>TestITCap.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddInitiative.resx">
+    <EmbeddedResource Include="BOM\Classes\AddInitiative.resx">
       <DependentUpon>AddInitiative.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BOMBubbleChart.resx">
-      <DependentUpon>BOMBubbleChart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BOMBubbleChartRedesign.resx">
-      <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BOMChartDynamically.resx">
+    <EmbeddedResource Include="BOM\Classes\BOMChartDynamically.resx">
       <DependentUpon>BOMChartDynamically.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BOMTool.resx">
+    <EmbeddedResource Include="BOM\Classes\BOMTool.resx">
       <DependentUpon>BOMTool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CapabilityGapForm.resx">
-      <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeITCAPDefaults.resx">
       <DependentUpon>ChangeITCAPDefaults.cs</DependentUpon>
@@ -322,7 +311,7 @@
     <EmbeddedResource Include="CupeForm.resx">
       <DependentUpon>CupeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CUPETool.resx">
+    <EmbeddedResource Include="CUPE\Classes\CUPETool.resx">
       <DependentUpon>CUPETool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataEntryForm.resx">
@@ -334,10 +323,19 @@
     <EmbeddedResource Include="EditParticipants.resx">
       <DependentUpon>EditParticipants.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ITCapTool.resx">
+    <EmbeddedResource Include="ITCAP\Classes\HeatMapChart.resx">
+      <DependentUpon>HeatMapChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ITCAP\Forms\CapabilityGapForm.resx">
+      <DependentUpon>CapabilityGapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ITCAP\ITCapTool.resx">
       <DependentUpon>ITCapTool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewBOM.resx">
+    <EmbeddedResource Include="No Longer Used\BOMBubbleChart.resx">
+      <DependentUpon>BOMBubbleChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="No Longer Used\NewBOM.resx">
       <DependentUpon>NewBOM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenBOM.resx">
