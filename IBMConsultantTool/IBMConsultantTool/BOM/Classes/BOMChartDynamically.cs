@@ -83,6 +83,8 @@ namespace IBMConsultantTool
         private string[,] access1 = new string[1000, 100];
         private string[,] access2 = new string[1000, 100];
 
+        
+
         public BOMChartDynamically(BOMTool info)
         {
             /*if (this.WindowState == FormWindowState.Normal && (base.Height != Height || base.Width != Width))
@@ -390,6 +392,27 @@ namespace IBMConsultantTool
         //private Label criticLabel = new Label();
         //private PictureBox picBox = new PictureBox();
 
+        private void OnPaintBackground(object sender, PaintEventArgs e)
+        {
+            Rectangle diagonalFillRectangle = new Rectangle();
+            diagonalFillRectangle.Width = lineX.X2 - lineX.X1;
+            diagonalFillRectangle.Height = lineY.Y2 - lineY.Y1;
+
+            LinearGradientBrush brush = new LinearGradientBrush(new Point(lineX.X1, lineY.Y1), new Point(lineX.X2, lineY.Y2),
+                Color.Green, Color.White);
+
+            Pen pen = new Pen(brush);
+
+            e.Graphics.FillRectangle(brush, diagonalFillRectangle);
+
+            //Point(0, 0), Point(this.ClientSize.Width, this.ClientSize.Height), Color.Yellow, Color.Blue);
+            //e.Graphics.FillRectangle(
+            /*tem.Drawing.Drawing2D.LinearGradientBrush brush(Color.Green, Color.White, 
+                new Point(lineX.X1, lineY.Y1), new Point(lineX.X2, lineY.Y2);
+            //Point(0, 0), Point(this.ClientSize.Width, this.ClientSize.Height), Color.Yellow, Color.Blue);
+            e.Graphics.FillRectangle(*/
+        }
+
 
         private void picBox_Paint(object sender, PaintEventArgs e)
         {
@@ -406,6 +429,17 @@ namespace IBMConsultantTool
             stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
 
             e.Graphics.DrawString(myText, font, Brushes.Black, pointF, stringFormat);
+
+            Rectangle diagonalFillRectangle = new Rectangle();
+            diagonalFillRectangle.Width = lineX.X2 - lineX.X1;
+            diagonalFillRectangle.Height = lineY.Y2 - lineY.Y1;
+
+            LinearGradientBrush brush = new LinearGradientBrush(new Point(lineX.X1, lineY.Y1), new Point(lineX.X2, lineY.Y2),
+                Color.LightGreen, Color.White);
+
+            Pen pen = new Pen(brush);
+
+            e.Graphics.FillRectangle(brush, lineX.X1, lineY.Y1, diagonalFillRectangle.Width, diagonalFillRectangle.Height);
 
             /*StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Center;
@@ -649,6 +683,8 @@ namespace IBMConsultantTool
                         currentCircle = i;
                         current = i;
                         circle[i].BringToFront();
+                        if (click < 0)
+                            click = 0;
                         clickArray[click] = i;
                         click++;
                         break;

@@ -90,6 +90,12 @@
     <Compile Include="BOM\Classes\BOMChartDynamically.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BOM\Classes\AddInitiative.Designer.cs">
+      <DependentUpon>AddInitiative.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BOM\Classes\BOMChartDynamically.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="BOM\Classes\BOMChartDynamically.Designer.cs">
       <DependentUpon>BOMChartDynamically.cs</DependentUpon>
     </Compile>
