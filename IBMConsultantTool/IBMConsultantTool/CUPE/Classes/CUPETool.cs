@@ -17,6 +17,8 @@ namespace IBMConsultantTool
 
     public partial class CUPETool : Form
     {
+        public DataManager db;
+        public object client;
         List<DataGridView> grids = new List<DataGridView>();
         List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
@@ -60,6 +62,15 @@ namespace IBMConsultantTool
             charts.Add(itCurrentGraph);
             charts.Add(itFutureGraph);
 
+            try
+            {
+                db = new DBManager();
+            }
+
+            catch
+            {
+                db = new FileManager();
+            }
             
         }
 
