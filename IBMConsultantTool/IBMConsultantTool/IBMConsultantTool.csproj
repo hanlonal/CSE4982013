@@ -91,6 +91,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BOM\Classes\AddInitiative.cs">
+    <Compile Include="BOMBubbleChartRedesign.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BOM\Classes\AddInitiative.Designer.cs">
@@ -99,6 +100,24 @@
     <Compile Include="BOM\Classes\BOMChartDynamically.cs" />
     <Compile Include="BOM\Classes\BOMChartDynamically.Designer.cs">
       <DependentUpon>BOMChartDynamically.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BOM\Classes\BOMTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BOM\Classes\BOMTool.Designer.cs">
+      <DependentUpon>BOMTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BOM\Classes\NewCategory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BOMChartInfoPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BOM\Classes\AddInitiative.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BOM\Classes\AddInitiative.Designer.cs">
+      <DependentUpon>AddInitiative.cs</DependentUpon>
     </Compile>
     <Compile Include="BOM\Classes\BOMTool.cs">
       <SubType>Form</SubType>
@@ -120,6 +139,12 @@
     </Compile>
     <Compile Include="ChangeITCAPDefaults.Designer.cs">
       <DependentUpon>ChangeITCAPDefaults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangesMadeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangesMadeForm.Designer.cs">
+      <DependentUpon>ChangesMadeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ChooseBOMClient.cs">
       <SubType>Form</SubType>
@@ -293,8 +318,23 @@
     <EmbeddedResource Include="BOM\Classes\BOMTool.resx">
       <DependentUpon>BOMTool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BOMBubbleChartRedesign.resx">
+      <DependentUpon>BOMBubbleChartRedesign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BOMChartDynamically.resx">
+      <DependentUpon>BOMChartDynamically.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BOM\Classes\AddInitiative.resx">
+      <DependentUpon>AddInitiative.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BOM\Classes\BOMTool.resx">
+      <DependentUpon>BOMTool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangeITCAPDefaults.resx">
       <DependentUpon>ChangeITCAPDefaults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangesMadeForm.resx">
+      <DependentUpon>ChangesMadeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseBOMClient.resx">
       <DependentUpon>ChooseBOMClient.cs</DependentUpon>
@@ -503,6 +543,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Data.xml" />
+    <Content Include="Resources\Questions10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\ExclamationPoint_main_Full_answer_1_small.jpeg" />
     <Content Include="Resources\Questions.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

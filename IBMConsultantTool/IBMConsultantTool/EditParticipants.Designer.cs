@@ -110,6 +110,7 @@
             // 
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
+            this.Id.Visible = false;
             // 
             // EditParticipants
             // 

@@ -997,6 +997,7 @@ namespace IBMConsultantTool
 
         private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changesMade = true;
             var FD = new EditParticipants();
             if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
@@ -1297,6 +1298,7 @@ namespace IBMConsultantTool
         private void QuestionView_AfterLabelEdit(object sender,
          System.Windows.Forms.NodeLabelEditEventArgs e)
         {
+            changesMade = true;
             if (e.Label != null)
             {
                 if (e.Label.Length > 0)
@@ -1424,6 +1426,7 @@ namespace IBMConsultantTool
 
         private void bOMToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -1939,6 +1942,27 @@ namespace IBMConsultantTool
                 QuestionView.ExpandAll();
 
 
+            }
+        }
+
+        private void ShowChangesMadeDialog()
+        {
+            Form dialog = new ChangesMadeForm();
+            dialog.ShowDialog();
+
+            if(dialog.DialogResult == DialogResult.Yes)
+            {
+                saveCupeDataValues();
+                saveCupeAnswersToClientDataControl();
+            }
+
+        }
+
+        private void CUPETool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (changesMade)
+            {
+                ShowChangesMadeDialog();
             }
         }
 
