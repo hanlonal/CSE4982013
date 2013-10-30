@@ -70,11 +70,15 @@ namespace IBMConsultantTool
         #region CUPE
         public abstract bool UpdateCUPE(object clientObj, CupeQuestion cq);
 
-        public abstract bool AddCUPE(object cupe, object client);
-        public abstract bool AddCUPEToGroup(object cupe, object group);
-        public abstract bool AddCUPEToContact(object cupe, object contact);
+        public abstract bool AddCUPE(object cupeObj, object clientObj);
+        public abstract bool AddCUPEToGroup(object cupeObj, object groupObj);
+        public abstract bool AddCUPEToContact(object cupeObj, object contactObj);
 
         public abstract bool BuildCUPEForm(CUPETool cupeForm, string clientName);
+        public abstract bool NewCUPEForm(CUPETool cupeForm, string clientName);
+
+        public abstract void PopulateCUPEQuestions(CUPETool cupeForm);
+        //public abstract void EditQuestionForCUPE(CLIENT client, CupeQuestionStringData data);
         #endregion
 
         #region Domain

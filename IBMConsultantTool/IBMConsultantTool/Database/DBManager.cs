@@ -994,23 +994,173 @@ namespace IBMConsultantTool
         #region CUPE
         public override bool UpdateCUPE(object clientObj, CupeQuestion cq)
         {
-            throw new NotImplementedException();
+            CLIENT client = clientObj as CLIENT;
+            try
+            {
+                CUPE cupe = (from ent in client.CUPE
+                             where ent.NAME.TrimEnd() == cq.QuestionText
+                             select ent).Single();
+
+                cupe.CURRENT = cq.Current;
+                cupe.FUTURE = cq.Future;
+            }
+
+            catch
+            {
+                return false;
+            }
+
+
+            return true;   
         }
-        public override bool AddCUPE(object cupe, object client)
+        public override bool AddCUPE(object cupeObj, object clientObj)
         {
-            throw new NotImplementedException();
+            CUPE cupe = cupeObj as CUPE;
+            CLIENT client = clientObj as CLIENT;
+
+            if ((from ent in client.CUPE
+                 where ent.NAME.TrimEnd() == cupe.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                dbo.Detach(cupe);
+                return false;
+            }
+
+            client.CUPE.Add(cupe);
+
+            dbo.AddToCUPE(cupe);
+
+            return true;
         }
-        public override bool AddCUPEToGroup(object cupe, object group)
+        public override bool AddCUPEToGroup(object cupeObj, object groupObj)
         {
-            throw new NotImplementedException();
+            CUPE cupe = cupeObj as CUPE;
+            GROUP grp = groupObj as GROUP;
+
+            if ((from ent in grp.CUPE
+                 where ent.NAME.TrimEnd() == cupe.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                dbo.Detach(cupe);
+                return false;
+            }
+
+            grp.CUPE.Add(cupe);
+
+            dbo.AddToCUPE(cupe);
+
+            return true;
         }
-        public override bool AddCUPEToContact(object cupe, object contact)
+        public override bool AddCUPEToContact(object cupeObj, object contactObj)
         {
-            throw new NotImplementedException();
+            CUPE cupe = cupeObj as CUPE;
+            CONTACT contact = contactObj as CONTACT;
+
+            if ((from ent in contact.CUPE
+                 where ent.NAME.TrimEnd() == cupe.NAME.TrimEnd()
+                 select ent).Count() != 0)
+            {
+                dbo.Detach(cupe);
+                return false;
+            }
+
+            contact.CUPE.Add(cupe);
+
+            dbo.AddToCUPE(cupe);
+
+            return true;
         }
         public override bool BuildCUPEForm(CUPETool cupeForm, string clientName)
         {
-            throw new NotImplementedException();
+            CLIENT client;
+
+            if (GetClient(clientName, out client))
+            {
+                cupeForm.client = client;
+
+                return true;
+            }
+
+            else
+            {
+                MessageBox.Show("Client could not be found", "Error");
+                return false;
+            }
+        }
+        public override bool NewCUPEForm(CUPETool cupeForm, string clientName)
+        {
+            CLIENT client;
+            if (!GetClient(clientName, out client))
+            {
+                client = new CLIENT();
+                client.NAME = clientName;
+                if (!AddClient(client))
+                {
+                    MessageBox.Show("Failed to add client", "Error");
+                    return false;
+                }
+
+                string[] groupNamesArray = { "Business", "IT" };
+
+                if (!AddGroups(groupNamesArray, client))
+                {
+                    MessageBox.Show("Failed to add groups to client", "Error");
+                    return false;
+                }
+
+                if (!SaveChanges())
+                {
+                    MessageBox.Show("Failed to save changes to database", "Error");
+                    return false;
+                }
+
+                cupeForm.client = client;
+
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Client already exists", "Error");
+                return false;
+            }
+        }
+
+        public override void PopulateCUPEQuestions(CUPETool cupeForm)
+        {
+            CLIENT client = cupeForm.client as CLIENT;
+            CupeQuestionStringData data = new CupeQuestionStringData();
+            if (client.CUPE.Count != 0)
+            {
+                foreach (CUPE cupe in client.CUPE)
+                {
+                    data.QuestionText = cupe.NAME;
+                    data.ChoiceA = cupe.COMMODITY;
+                    data.ChoiceB = cupe.UTILITY;
+                    data.ChoiceC = cupe.PARTNER;
+                    data.ChoiceD = cupe.ENABLER;
+
+                    ClientDataControl.AddCupeQuestion(data);
+                    data = new CupeQuestionStringData();
+                }
+            }
+
+            else
+            {
+                foreach (CUPEQUESTION cupeQuestion in dbo.CUPEQUESTION)
+                {
+                    if (cupeQuestion.INTWENTY == "Y")
+                    {
+                        data.QuestionText = cupeQuestion.NAME;
+                        data.ChoiceA = cupeQuestion.COMMODITY;
+                        data.ChoiceB = cupeQuestion.UTILITY;
+                        data.ChoiceC = cupeQuestion.PARTNER;
+                        data.ChoiceD = cupeQuestion.ENABLER;
+
+                        ClientDataControl.AddCupeQuestion(data);
+                        data = new CupeQuestionStringData();
+                    }
+                }
+            }
         }
         #endregion
 

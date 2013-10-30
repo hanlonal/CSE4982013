@@ -1031,21 +1031,64 @@ namespace IBMConsultantTool
         {
             throw new NotImplementedException();
         }
-        public override bool AddCUPE(object cupe, object client)
+        public override bool AddCUPE(object cupeObj, object clientObj)
         {
             throw new NotImplementedException();
         }
-        public override bool AddCUPEToGroup(object cupe, object group)
+        public override bool AddCUPEToGroup(object cupeObj, object groupObj)
         {
             throw new NotImplementedException();
         }
-        public override bool AddCUPEToContact(object cupe, object contact)
+        public override bool AddCUPEToContact(object cupeObj, object contactObj)
         {
             throw new NotImplementedException();
         }
         public override bool BuildCUPEForm(CUPETool cupeForm, string clientName)
         {
             throw new NotImplementedException();
+        }
+        public override bool NewCUPEForm(CUPETool cupeForm, string clientName)
+        {
+            throw new NotImplementedException();
+        }
+        public override void PopulateCUPEQuestions(CUPETool cupeForm)
+        {
+            XElement client = cupeForm.client as XElement;
+            CupeQuestionStringData data = new CupeQuestionStringData();
+            List<XElement> cupeList = client.Element("CUPES").Elements("CUPE").ToList();
+            if (cupeList.Count != 0)
+            {
+                foreach (XElement cupe in cupeList)
+                {
+                    data.QuestionText = cupe.Element("NAME").Value;
+                    data.ChoiceA = cupe.Element("COMMODITY").Value;
+                    data.ChoiceB = cupe.Element("UTILITY").Value;
+                    data.ChoiceC = cupe.Element("PARTNER").Value;
+                    data.ChoiceD = cupe.Element("ENABLER").Value;
+
+                    ClientDataControl.AddCupeQuestion(data);
+                    data = new CupeQuestionStringData();
+                }
+            }
+
+            else
+            {
+                List<XElement> cupeQuestionList = dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION").ToList();
+                foreach (XElement cupeQuestion in cupeQuestionList)
+                {
+                    if (cupeQuestion.Element("INTWENTY").Value == "Y")
+                    {
+                        data.QuestionText = cupeQuestion.Element("NAME").Value;
+                        data.ChoiceA = cupeQuestion.Element("COMMODITY").Value;
+                        data.ChoiceB = cupeQuestion.Element("UTILITY").Value;
+                        data.ChoiceC = cupeQuestion.Element("PARTNER").Value;
+                        data.ChoiceD = cupeQuestion.Element("ENABLER").Value;
+
+                        ClientDataControl.AddCupeQuestion(data);
+                        data = new CupeQuestionStringData();
+                    }
+                }
+            }
         }
         #endregion
 
