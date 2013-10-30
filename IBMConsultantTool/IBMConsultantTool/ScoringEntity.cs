@@ -84,7 +84,7 @@ namespace IBMConsultantTool
        public string Name
        {
            get { return name; }
-           set { name = value; this.NotifyPropertyChanged("Name"); }
+           set { name = value;  }
        }
        [Browsable(false)]
        public int IndexInGrid

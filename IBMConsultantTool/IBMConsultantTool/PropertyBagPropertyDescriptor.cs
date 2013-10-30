@@ -6,16 +6,28 @@ using System.ComponentModel;
 
 namespace IBMConsultantTool
 {
-    public class PropertyBagPropertyDescriptor : PropertyDescriptor
+    public class PropertyBagPropertyDescriptor : PropertyDescriptor, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
         public PropertyBagPropertyDescriptor(string name) : base(name, null) { }
         public override object GetValue(object component)
         {
+
+
             return ((PropertyBag)component)[Name];
         }
         public override void SetValue(object component, object value)
         {
             ((PropertyBag)component)[Name] = (string)value;
+            //this.NotifyPropertyChanged();
+
         }
         public override void ResetValue(object component)
         {

@@ -127,6 +127,7 @@
     <Compile Include="CapabilityGapForm.Designer.cs">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapabilityPropertyDescriptor.cs" />
     <Compile Include="ChangeITCAPDefaults.cs">
       <SubType>Form</SubType>
     </Compile>

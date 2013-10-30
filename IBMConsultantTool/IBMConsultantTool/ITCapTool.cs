@@ -567,9 +567,6 @@ namespace IBMConsultantTool
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResetSurveyGrid();
-            //Some kind of function like this is needed
-            //db.GetClientObjectives();
-
 
             db.OpenITCAP(this);
             GetAnswers();
@@ -603,28 +600,25 @@ namespace IBMConsultantTool
 
         private void GetClientObjectives()
         {
-            db.AddITCAPOBJMAP(client, "capa1", "OBJ");
+            Capability currentcap = new Capability();
+            //Some kind of function like this is needed
+            //db.GetClientObjectives();
+            string[] BOMS = db.GetObjectivesFromClientBOM(client).ToArray();
 
-            string[] objectives2 = Testing();
-
-            foreach (string obj in objectives2)
+            foreach (string bom in BOMS)
             {
                 foreach (ScoringEntity ent in entities)
                 {
                     if (ent.GetType() == typeof(Capability))
                     {
                         Capability cap = (Capability)ent;
-                        cap.AddObjectiveToTrack(obj);
+                        cap.AddObjectiveToTrack(bom);
+                        currentcap = cap;
                     }
                 }
             }
 
-            Capability cap2 = new Capability();
-            cap2.AddObjectiveToTrack("hello");
-
-            DictionaryBindingList<string, int> test =new DictionaryBindingList<string,int>( cap2.OBJECTIVESCORES2);
-
-            objectiveMappingGrid.DataSource = test;
+            objectiveMappingGrid.DataSource = currentcap.Properties;
             
 
         }

@@ -10,7 +10,9 @@ namespace IBMConsultantTool
         private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
         private static List<ObjectiveToTrack> priorityForObjective = new List<ObjectiveToTrack>();
         private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
-        
+        PropertyBagList properties = new PropertyBagList();
+
+
 // ignore for now ********************************************************************
         public static List<ObjectiveToTrack> PriorityForObjective
         {
@@ -108,7 +110,8 @@ namespace IBMConsultantTool
 
         public void AddObjectiveToTrack(string name)
         {
-            OBJECTIVESCORES.Add(name, 0);
+            //OBJECTIVESCORES.Add(name, 0);
+            properties.Columns.Add(name);
 
         }
 
@@ -141,7 +144,13 @@ namespace IBMConsultantTool
             get { return OBJECTIVESCORES; }
            // set { objectiveScores = value; }
         }
-        
+
+        public PropertyBagList Properties
+        {
+            get { return properties; }
+            set { properties = value; }
+        }
+
         public int this[string key]
         {
             get
