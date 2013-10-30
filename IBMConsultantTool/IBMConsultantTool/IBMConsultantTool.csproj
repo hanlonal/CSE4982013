@@ -217,6 +217,7 @@
     <Compile Include="ITCapTool.Designer.cs">
       <DependentUpon>ITCapTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="MasterCollection.cs" />
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -237,6 +238,9 @@
     <Compile Include="NewObjective.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ObjectiveValueCollection.cs" />
+    <Compile Include="ObjectiveValuePropertyDescriptor.cs" />
+    <Compile Include="ObjectiveValues.cs" />
     <Compile Include="OpenBOM.cs">
       <SubType>Form</SubType>
     </Compile>

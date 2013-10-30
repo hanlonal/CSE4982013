@@ -11,7 +11,13 @@ namespace IBMConsultantTool
         private static List<ObjectiveToTrack> priorityForObjective = new List<ObjectiveToTrack>();
         private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
         PropertyBagList properties = new PropertyBagList();
+        ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
+        public ObjectiveValueCollection ObjectiveCollection
+        {
+            get { return objectiveCollection; }
+            set { objectiveCollection = value; }
+        }
 
 // ignore for now ********************************************************************
         public static List<ObjectiveToTrack> PriorityForObjective
@@ -111,10 +117,16 @@ namespace IBMConsultantTool
         public void AddObjectiveToTrack(string name)
         {
             //OBJECTIVESCORES.Add(name, 0);
-            properties.Columns.Add(name);
-
+            ObjectiveValues val = new ObjectiveValues(name, 4);
+            objectiveCollection.Add(val);
         }
 
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
         public Domain Owner
         {

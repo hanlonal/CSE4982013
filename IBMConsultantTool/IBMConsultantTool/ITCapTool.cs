@@ -21,6 +21,7 @@ namespace IBMConsultantTool
         public bool isOnline;
         public object client;
         private ITCapQuestion activequestion;
+        Capability currentcap = new Capability();
 
 
 
@@ -600,9 +601,11 @@ namespace IBMConsultantTool
 
         private void GetClientObjectives()
         {
-            Capability currentcap = new Capability();
+            
+            MasterCollection coll = new MasterCollection();
             //Some kind of function like this is needed
             //db.GetClientObjectives();
+            //DataGrid grid = new DataGrid();
             string[] BOMS = db.GetObjectivesFromClientBOM(client).ToArray();
 
             foreach (string bom in BOMS)
@@ -617,8 +620,13 @@ namespace IBMConsultantTool
                     }
                 }
             }
-
-            objectiveMappingGrid.DataSource = currentcap.Properties;
+            coll.Add(currentcap);
+            coll.CalculatePropertyDescriptors();
+            //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
+            
+            objectiveMappingGrid.DataSource = coll;
+            objectiveMappingGrid.Columns[0].ReadOnly = true;
+            objectiveMappingGrid.RowHeadersVisible = false;
             
 
         }
@@ -1241,6 +1249,11 @@ namespace IBMConsultantTool
 
             redPen.Dispose();
             whitePen.Dispose();*/
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(currentcap.ObjectiveCollection[0].Value);
         }
 
     }// end class
