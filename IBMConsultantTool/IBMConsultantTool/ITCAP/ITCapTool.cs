@@ -1247,6 +1247,18 @@ namespace IBMConsultantTool
             AddObjectiveToITCAP(objectiveToAddButton.Text);
         }
 
+        private void createSurveyDocumentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SurveyGenerator generator = new SurveyGenerator();
+            List<ITCapQuestion> questionTempList = new List<ITCapQuestion>();
+            foreach( ITCapQuestion question in questionsArray)
+            {
+                questionTempList.Add(question);
+            }
+
+            generator.CreateITCapSurvey(questionTempList);
+        }
+
 
 
 

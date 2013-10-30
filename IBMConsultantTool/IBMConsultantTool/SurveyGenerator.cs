@@ -184,10 +184,12 @@ namespace IBMConsultantTool
             try
             {
                 oDoc.SaveAs("BomSurvey", Word.WdSaveFormat.wdFormatDocument);
+                oDoc.Close();
             }
             catch (Exception)
             {
                 //just in case one is thrown for no reason
+                oDoc.Close();
             }
 
         }
@@ -339,13 +341,170 @@ namespace IBMConsultantTool
             catch (Exception)
             {
                 //just in case one is thrown for no reason
+                oDoc.Close();
             }
+            oDoc.Close();
 
         }
 
 
 
+        public void CreateITCapSurvey( List<ITCapQuestion> questions)
+        {
+            //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
+            var totalRows = questions.Count + 1;
 
+            //Creating the document
+            //
+            object oMissing = System.Reflection.Missing.Value;
+            object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+
+            //Start Word and create a new document.
+            Word._Application oWord;
+            Word._Document oDoc;
+            oWord = new Word.Application();
+            oWord.Visible = true;
+            oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
+                ref oMissing, ref oMissing);
+            oWord.Activate();
+            System.Threading.Thread.Sleep(3000);
+
+            //Insert a paragraph at the beginning of the document.
+            Word.Paragraph oPara1;
+            oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara1.Range.Text = "ITCap Survey";
+            oPara1.Range.Font.Bold = 1;
+            oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara1.Range.InsertParagraphAfter();
+
+
+
+
+            Word.Paragraph oPara2;
+            oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
+
+            oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormTextInput);
+            oPara2.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara2.Range.InsertBefore("Name: ");
+            oPara2.Range.InsertParagraphAfter();
+
+            Word.Paragraph oPara3;
+            oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara3.Range.Text = "5 = Completely True" + Environment.NewLine
+                + " 2 to 4 = Partially True" + Environment.NewLine
+                + "1 = Not True";
+
+            oPara3.Range.Font.Bold = 1;
+            oPara3.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara3.Range.InsertParagraphAfter();
+
+            Word.Table oTable;
+            Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            oTable = oDoc.Tables.Add(wrdRng, totalRows, 3, ref oMissing, Word.WdAutoFitBehavior.wdAutoFitContent);
+            oTable.Range.ParagraphFormat.SpaceAfter = 6;
+            oTable.Spacing = 1;
+
+
+            oTable.Cell(1, 1).Range.Text = "Question";
+            oTable.Cell(1, 2).Range.Text = "Current Value";
+            oTable.Cell(1, 3).Range.Text = "Future Value";
+
+
+
+            System.Threading.Thread.Sleep(3000);
+
+            //Create an array for the questions for the formfields
+            string[] FormNames = new string[(totalRows - 1) * 2];
+
+            //Current Row and Current FormName position
+            int r = 2, c = 0;
+            //Add the questions
+            foreach (ITCapQuestion question in questions)
+            {
+                FormNames[c] = TruncateLongString(question.Name, 14) + "Current";
+                c++;
+                FormNames[c] = TruncateLongString(question.Name, 14) + "Future";
+
+                Word.Range cell2Range = oTable.Cell(r, 2).Range;
+                cell2Range.Collapse(ref oMissing);
+                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+
+                cell2Range = oTable.Cell(r, 3).Range;
+                cell2Range.Collapse(ref oMissing);
+                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+
+                r++;
+                c++;
+            }
+
+            r = 2;
+            //Add the question text
+            foreach (ITCapQuestion question in questions)
+            {
+
+                oTable.Cell(r, 1).Range.Text = question.comment;
+
+                r++;
+            }
+
+            oPara3.Range.Font.Size = 10;
+            oPara3.LineSpacing = 0;
+            oTable.Rows[1].Range.Font.Bold = 0;
+            oTable.Rows[1].Range.Font.Italic = 1;
+            oTable.Rows[1].Range.Font.Size = 12;
+
+            oTable.Columns[1].SetWidth(420.0f, Word.WdRulerStyle.wdAdjustNone);
+            oTable.Columns[2].SetWidth(50.0f, Word.WdRulerStyle.wdAdjustNone);
+            oTable.Columns[3].SetWidth(50.0f, Word.WdRulerStyle.wdAdjustNone);
+
+            for (var i = 1; i <= oTable.Rows.Count; i++)
+            {
+                oTable.Rows[i].Range.Font.Size = 8;
+                oTable.Rows[1].Range.Font.Bold = 1;
+            }
+
+
+            oDoc.Protect(Word.WdProtectionType.wdAllowOnlyFormFields, false, string.Empty, false, false);
+
+
+
+            c = 0;
+            r = 0;
+            foreach (Word.FormField form in oDoc.FormFields)
+            {
+                if (r == 0)
+                {
+                    form.Name = "Name";
+                    r++;
+                    continue;
+                }
+                //form.Name = FormNames[c].ToString();
+                string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
+
+                string name = FormNames[c];
+                foreach (char p in removeChars)
+                {
+                    name = name.Replace(p.ToString(), string.Empty);
+                }
+
+
+
+                form.Name = name;
+                c++;
+            }
+
+            try
+            {
+                oDoc.SaveAs("ITCapSurvey", Word.WdSaveFormat.wdFormatDocument);
+            }
+            catch (Exception)
+            {
+                //just in case one is thrown for no reason
+                oDoc.Close();
+            }
+
+            oDoc.Close();
+        }
 
 
 
