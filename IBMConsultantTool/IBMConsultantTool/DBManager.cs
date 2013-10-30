@@ -65,6 +65,25 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override List<string> GetObjectivesFromClientBOM(object clientObj)
+        {
+            CLIENT client = clientObj as CLIENT;
+
+            List<BUSINESSOBJECTIVE> entList = (from ent in client.BOM
+                                               select ent.INITIATIVE.BUSINESSOBJECTIVE).ToList();
+
+            List<string> stringList = new List<string>();
+            foreach (BUSINESSOBJECTIVE busObj in entList)
+            {
+                if(!stringList.Contains(busObj.NAME.TrimEnd()))
+                {
+                    stringList.Add(busObj.NAME.TrimEnd());
+                }
+            }
+
+            return stringList;
+        }
         #endregion
 
         #region Group

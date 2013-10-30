@@ -14,6 +14,7 @@ namespace IBMConsultantTool
 
         #region Client
         public abstract string[] GetClientNames();
+        public abstract List<string> GetObjectivesFromClientBOM(object clientObj);
         #endregion
 
         #region Group

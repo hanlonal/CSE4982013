@@ -88,6 +88,25 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override List<string> GetObjectivesFromClientBOM(object clientObj)
+        {
+            XElement client = clientObj as XElement;
+
+            List<string> stringList = (from ent in client.Element("BOMS").Elements("BOM")
+                                    select ent.Element("BUSINESSOBJECTIVE").Value).ToList();
+
+            List<string> stringListNoRepeat = new List<string>();
+            foreach (string busName in stringList)
+            {
+                if (!stringListNoRepeat.Contains(busName))
+                {
+                    stringListNoRepeat.Add(busName);
+                }
+            }
+
+            return stringListNoRepeat;
+        }
         #endregion
 
         #region Group
