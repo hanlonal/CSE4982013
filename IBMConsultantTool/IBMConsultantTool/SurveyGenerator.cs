@@ -189,7 +189,6 @@ namespace IBMConsultantTool
             catch (Exception)
             {
                 //just in case one is thrown for no reason
-                oDoc.Close();
             }
 
         }
@@ -341,7 +340,6 @@ namespace IBMConsultantTool
             catch (Exception)
             {
                 //just in case one is thrown for no reason
-                oDoc.Close();
             }
             oDoc.Close();
 
@@ -349,7 +347,7 @@ namespace IBMConsultantTool
 
 
 
-        public void CreateITCapSurvey( List<ITCapQuestion> questions)
+        public void CreateITCapSurvey(List<ScoringEntity> questions)
         {
             //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
             var totalRows = questions.Count + 1;
@@ -374,7 +372,7 @@ namespace IBMConsultantTool
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
             oPara1.Range.Text = "ITCap Survey";
             oPara1.Range.Font.Bold = 1;
-            oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara1.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
             oPara1.Range.InsertParagraphAfter();
 
 
@@ -384,15 +382,13 @@ namespace IBMConsultantTool
             oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
 
             oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormTextInput);
-            oPara2.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara2.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
             oPara2.Range.InsertBefore("Name: ");
             oPara2.Range.InsertParagraphAfter();
 
             Word.Paragraph oPara3;
             oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara3.Range.Text = "5 = Completely True" + Environment.NewLine
-                + " 2 to 4 = Partially True" + Environment.NewLine
-                + "1 = Not True";
+            oPara3.Range.Text = "5 = Completely True" + " : " + "2 to 4 = Partially True" + ":" + "1 = Not True";
 
             oPara3.Range.Font.Bold = 1;
             oPara3.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
@@ -419,8 +415,12 @@ namespace IBMConsultantTool
             //Current Row and Current FormName position
             int r = 2, c = 0;
             //Add the questions
-            foreach (ITCapQuestion question in questions)
+            foreach (ScoringEntity question in questions)
             {
+                if (question.Type != "attribute")
+                {
+                    continue;
+                }
                 FormNames[c] = TruncateLongString(question.Name, 14) + "Current";
                 c++;
                 FormNames[c] = TruncateLongString(question.Name, 14) + "Future";
@@ -439,16 +439,21 @@ namespace IBMConsultantTool
 
             r = 2;
             //Add the question text
-            foreach (ITCapQuestion question in questions)
+            foreach (ScoringEntity question in questions)
             {
+                if (question.Type != "attribute")
+                {
+                    continue;
+                }
 
-                oTable.Cell(r, 1).Range.Text = question.comment;
+                oTable.Cell(r, 1).Range.Text = question.Name;
 
                 r++;
             }
 
             oPara3.Range.Font.Size = 10;
-            oPara3.LineSpacing = 0;
+            oPara3.LineSpacing = 1;
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
             oTable.Rows[1].Range.Font.Bold = 0;
             oTable.Rows[1].Range.Font.Italic = 1;
             oTable.Rows[1].Range.Font.Size = 12;
@@ -500,7 +505,6 @@ namespace IBMConsultantTool
             catch (Exception)
             {
                 //just in case one is thrown for no reason
-                oDoc.Close();
             }
 
             oDoc.Close();
