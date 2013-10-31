@@ -14,6 +14,15 @@ namespace IBMConsultantTool
         public StartPage()
         {
             InitializeComponent();
+            NewClientForm form = new NewClientForm();
+            form.Show();
+        }
+
+        private void StartPage_Load(object sender, EventArgs e)
+        {
+           
+            //this.Controls.Add(form);
+            
         }
     }
 }

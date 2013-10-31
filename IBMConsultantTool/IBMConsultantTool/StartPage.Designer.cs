@@ -38,6 +38,7 @@
             this.ClientSize = new System.Drawing.Size(864, 459);
             this.Name = "StartPage";
             this.Text = "StartPage";
+            this.Load += new System.EventHandler(this.StartPage_Load);
             this.ResumeLayout(false);
 
         }
