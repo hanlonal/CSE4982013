@@ -1016,42 +1016,361 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPEQuestion
-        public override List<CupeQuestion> GetCUPEQuestions()
+        public override List<CupeQuestionStringData> GetCUPEQuestions()
         {
-            throw new NotImplementedException();
+            List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                                      select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
         }
-        public override bool AddCupeQuestion(CupeQuestion cupeQuestion)
+        public override List<CupeQuestionStringData> GetCUPEQuestionsTwenty()
         {
-            throw new NotImplementedException();
+            List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                                  where ent.Element("INTWENTY").Value == "Y"
+                                                  select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
+        }
+        public override List<CupeQuestionStringData> GetCUPEQuestionsFifteen()
+        {
+            List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                                  where ent.Element("INFIFTEEN").Value == "Y"
+                                                  select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
+        }
+        public override List<CupeQuestionStringData> GetCUPEQuestionsTen()
+        {
+            List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                                  where ent.Element("INTEN").Value == "Y"
+                                                  select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
+        }
+        public override bool AddCupeQuestion(CupeQuestionStringData cupeQuestion)
+        {
+            string question = cupeQuestion.QuestionText.Replace(' ', '~');
+            if ((from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                 where ent.Element("NAME").Value == question
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding question: Question already exists", "Error");
+                return false;
+            }
+
+            string commodity = cupeQuestion.ChoiceA.Replace(' ', '~');
+            string utility = cupeQuestion.ChoiceB.Replace(' ', '~');
+            string partner = cupeQuestion.ChoiceC.Replace(' ', '~');
+            string enabler = cupeQuestion.ChoiceD.Replace(' ', '~');
+
+            XElement cupeQuestionEnt = new XElement("CUPEQUESTION");
+            cupeQuestionEnt.Add(new XElement("NAME", question));
+            cupeQuestionEnt.Add(new XElement("COMMODITY", commodity));
+            cupeQuestionEnt.Add(new XElement("UTILITY", utility));
+            cupeQuestionEnt.Add(new XElement("PARTNER", partner));
+            cupeQuestionEnt.Add(new XElement("ENABLER", enabler));
+            cupeQuestionEnt.Add(new XElement("INTWENTY", "N"));
+            cupeQuestionEnt.Add(new XElement("INFIFTEEN", "N"));
+            cupeQuestionEnt.Add(new XElement("INTEN", "N"));
+
+            dbo.Add(cupeQuestionEnt);
+
+            changeLog.Add("ADD CUPEQUESTION " + question + " " +
+                          commodity + " " + utility + " " + partner + " " + enabler);
+
+            return true;
+        }
+        public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
+        {
+            XElement cupeQuestionEnt;
+            cupeQuestion = cupeQuestion.Replace(' ', '~');
+            try
+            {
+                cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                   where ent.Element("NAME").Value == cupeQuestion
+                                   select ent).Single();
+
+                string inTwentyStr = inTwenty ? "Y" : "N";
+                string inFifteenStr = inFifteen? "Y" : "N";
+                string inTenStr = inTen ? "Y" : "N";
+
+                cupeQuestionEnt.Element("INTWENTY").Value = inTwentyStr;
+                cupeQuestionEnt.Element("INFIFTEEN").Value = inFifteenStr;
+                cupeQuestionEnt.Element("INTEN").Value = inTenStr;
+
+                changeLog.Add("UPDATE CUPEQUESTION " + inTwentyStr + " " +
+                          inFifteenStr + " " + inTenStr);
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error updating CupeQuestion\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            return true;
         }
         #endregion
 
         #region CUPE
-        public override bool UpdateCUPE(object clientObj, CupeQuestion cq)
+        public override bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future)
         {
-            throw new NotImplementedException();
+            cupeQuestion = cupeQuestion.Replace(' ', '~');
+            XElement client = clientObj as XElement;
+            try
+            {
+                XElement cupe = (from ent in client.Element("CUPES").Elements("CUPE")
+                             where ent.Element("NAME").Value == cupeQuestion
+                             select ent).Single();
+                cupe.Element("CURRENT").Value = current;
+                cupe.Element("FUTURE").Value = future;
+
+                changeLog.Add("UPDATE CUPE " + cupeQuestion + " " +
+                          current + " " + future);
+            }
+
+            catch
+            {
+                return false;
+            }
+
+
+            return true;   
         }
-        public override bool AddCUPE(object cupeObj, object clientObj)
+        public override bool AddCUPE(string question, object clientObj)
         {
-            throw new NotImplementedException();
+            XElement client = clientObj as XElement;
+            XElement cupeQuestionEnt;
+            question = question.Replace(' ', '~');
+            try
+            {
+                cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                   where ent.Element("NAME").Value == question
+                                   select ent).Single();
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            if ((from ent in client.Element("CUPES").Elements("CUPE")
+                 where ent.Element("CUPEQUESTION").Value == question
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
+                return false;
+            }
+
+            XElement cupe = new XElement("CUPE");
+            cupe.Add(new XElement("CUPEQUESTION", question));
+            cupe.Add(new XElement("NAME", question));
+            cupe.Add(new XElement("COMMODITY", cupeQuestionEnt.Element("COMMODITY").Value));
+            cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
+            cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
+            cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
+            cupe.Add(new XElement("CURRENT", "A"));
+            cupe.Add(new XElement("FUTURE", "A"));
+            client.Add(cupe);
+
+            changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value + " " + question);
+
+            return true;
         }
-        public override bool AddCUPEToGroup(object cupeObj, object groupObj)
+        public override bool AddCUPEToGroup(string question, object groupObj)
         {
-            throw new NotImplementedException();
+            XElement grp = groupObj as XElement;
+            XElement cupeQuestionEnt;
+            question = question.Replace(' ', '~');
+            try
+            {
+                cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                   where ent.Element("NAME").Value == question
+                                   select ent).Single();
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            if ((from ent in grp.Element("CUPES").Elements("CUPE")
+                 where ent.Element("CUPEQUESTION").Value == question
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
+                return false;
+            }
+
+            XElement cupe = new XElement("CUPE");
+            cupe.Add(new XElement("CUPEQUESTION", question));
+            cupe.Add(new XElement("NAME", question));
+            cupe.Add(new XElement("COMMODITY", cupeQuestionEnt.Element("COMMODITY").Value));
+            cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
+            cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
+            cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
+            cupe.Add(new XElement("CURRENT", "A"));
+            cupe.Add(new XElement("FUTURE", "A"));
+            grp.Add(cupe);
+
+            changeLog.Add("ADD CUPE GROUP " + grp.Element("NAME").Value + " " + question);
+
+            return true;
         }
-        public override bool AddCUPEToContact(object cupeObj, object contactObj)
+        public override bool AddCUPEToContact(string question, object contactObj)
         {
-            throw new NotImplementedException();
+            XElement contact = contactObj as XElement;
+            XElement cupeQuestionEnt;
+            question = question.Replace(' ', '~');
+            try
+            {
+                cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                   where ent.Element("NAME").Value == question
+                                   select ent).Single();
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            if ((from ent in contact.Element("CUPES").Elements("CUPE")
+                 where ent.Element("CUPEQUESTION").Value == question
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
+                return false;
+            }
+
+            XElement cupe = new XElement("CUPE");
+            cupe.Add(new XElement("CUPEQUESTION", question));
+            cupe.Add(new XElement("NAME", question));
+            cupe.Add(new XElement("COMMODITY", cupeQuestionEnt.Element("COMMODITY").Value));
+            cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
+            cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
+            cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
+            cupe.Add(new XElement("CURRENT", "A"));
+            cupe.Add(new XElement("FUTURE", "A"));
+            contact.Add(cupe);
+
+            changeLog.Add("ADD CUPE CONTACT " + contact.Element("NAME").Value + " " + question);
+
+            return true;
         }
         public override bool BuildCUPEForm(CUPETool cupeForm, string clientName)
         {
-            throw new NotImplementedException();
+            XElement client;
+
+            if (GetClient(clientName, out client))
+            {
+                cupeForm.client = client;
+
+                return true;
+            }
+
+            else
+            {
+                MessageBox.Show("Client could not be found", "Error");
+                return false;
+            }
         }
         public override bool NewCUPEForm(CUPETool cupeForm, string clientName)
         {
-            throw new NotImplementedException();
+            XElement client;
+            if (!GetClient(clientName, out client))
+            {
+                client = new XElement("CLIENT");
+                client.Add(new XElement("NAME", clientName));
+                if (!AddClient(client))
+                {
+                    MessageBox.Show("Failed to add client", "Error");
+                    return false;
+                }
+
+                if (!AddGroup("Business", client))
+                {
+                    MessageBox.Show("Failed to add group to client", "Error");
+                    return false;
+                }
+
+                if (!AddGroup("IT", client))
+                {
+                    MessageBox.Show("Failed to add group to client", "Error");
+                    return false;
+                }
+
+                if (!SaveChanges())
+                {
+                    MessageBox.Show("Failed to save changes to database", "Error");
+                    return false;
+                }
+
+                cupeForm.client = client;
+
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Client already exists", "Error");
+                return false;
+            }
         }
-        public override void PopulateCUPEQuestions(CUPETool cupeForm)
+        public override void PopulateCUPEQuestionsForClient(CUPETool cupeForm)
         {
             XElement client = cupeForm.client as XElement;
             CupeQuestionStringData data = new CupeQuestionStringData();
@@ -1060,11 +1379,11 @@ namespace IBMConsultantTool
             {
                 foreach (XElement cupe in cupeList)
                 {
-                    data.QuestionText = cupe.Element("NAME").Value;
-                    data.ChoiceA = cupe.Element("COMMODITY").Value;
-                    data.ChoiceB = cupe.Element("UTILITY").Value;
-                    data.ChoiceC = cupe.Element("PARTNER").Value;
-                    data.ChoiceD = cupe.Element("ENABLER").Value;
+                    data.QuestionText = cupe.Element("NAME").Value.Replace('~', ' ');
+                    data.ChoiceA = cupe.Element("COMMODITY").Value.Replace('~', ' ');
+                    data.ChoiceB = cupe.Element("UTILITY").Value.Replace('~', ' ');
+                    data.ChoiceC = cupe.Element("PARTNER").Value.Replace('~', ' ');
+                    data.ChoiceD = cupe.Element("ENABLER").Value.Replace('~', ' ');
 
                     ClientDataControl.AddCupeQuestion(data);
                     data = new CupeQuestionStringData();
@@ -1078,11 +1397,11 @@ namespace IBMConsultantTool
                 {
                     if (cupeQuestion.Element("INTWENTY").Value == "Y")
                     {
-                        data.QuestionText = cupeQuestion.Element("NAME").Value;
-                        data.ChoiceA = cupeQuestion.Element("COMMODITY").Value;
-                        data.ChoiceB = cupeQuestion.Element("UTILITY").Value;
-                        data.ChoiceC = cupeQuestion.Element("PARTNER").Value;
-                        data.ChoiceD = cupeQuestion.Element("ENABLER").Value;
+                        data.QuestionText = cupeQuestion.Element("NAME").Value.Replace('~', ' ');
+                        data.ChoiceA = cupeQuestion.Element("COMMODITY").Value.Replace('~', ' ');
+                        data.ChoiceB = cupeQuestion.Element("UTILITY").Value.Replace('~', ' ');
+                        data.ChoiceC = cupeQuestion.Element("PARTNER").Value.Replace('~', ' ');
+                        data.ChoiceD = cupeQuestion.Element("ENABLER").Value.Replace('~', ' ');
 
                         ClientDataControl.AddCupeQuestion(data);
                         data = new CupeQuestionStringData();

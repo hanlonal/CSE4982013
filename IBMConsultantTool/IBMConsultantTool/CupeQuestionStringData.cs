@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBMConsultantTool
 {
-    class CupeQuestionStringData
+    public class CupeQuestionStringData
     {
 
         public string QuestionText;

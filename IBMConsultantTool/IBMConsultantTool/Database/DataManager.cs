@@ -63,21 +63,25 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPEQuestion
-        public abstract List<CupeQuestion> GetCUPEQuestions();
-        public abstract bool AddCupeQuestion(CupeQuestion cupeQuestion);
+        public abstract List<CupeQuestionStringData> GetCUPEQuestions();
+        public abstract List<CupeQuestionStringData> GetCUPEQuestionsTwenty();
+        public abstract List<CupeQuestionStringData> GetCUPEQuestionsFifteen();
+        public abstract List<CupeQuestionStringData> GetCUPEQuestionsTen();
+        public abstract bool AddCupeQuestion(CupeQuestionStringData cupeQuestion);
+        public abstract bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen);
         #endregion
 
         #region CUPE
-        public abstract bool UpdateCUPE(object clientObj, CupeQuestion cq);
+        public abstract bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future);
 
-        public abstract bool AddCUPE(object cupeObj, object clientObj);
-        public abstract bool AddCUPEToGroup(object cupeObj, object groupObj);
-        public abstract bool AddCUPEToContact(object cupeObj, object contactObj);
+        public abstract bool AddCUPE(string question, object clientObj);
+        public abstract bool AddCUPEToGroup(string question, object groupObj);
+        public abstract bool AddCUPEToContact(string question, object contactObj);
 
         public abstract bool BuildCUPEForm(CUPETool cupeForm, string clientName);
         public abstract bool NewCUPEForm(CUPETool cupeForm, string clientName);
 
-        public abstract void PopulateCUPEQuestions(CUPETool cupeForm);
+        public abstract void PopulateCUPEQuestionsForClient(CUPETool cupeForm);
         //public abstract void EditQuestionForCUPE(CLIENT client, CupeQuestionStringData data);
         #endregion
 
