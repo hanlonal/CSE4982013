@@ -981,28 +981,147 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPEQuestion
-        public override List<CupeQuestion> GetCUPEQuestions()
+        public override List<CupeQuestionStringData> GetCUPEQuestions()
         {
-            throw new NotImplementedException();
+            List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
+                                                     select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
+                cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
+                cupeQuestion.ChoiceC = cupeQuestionEnt.PARTNER.TrimEnd();
+                cupeQuestion.ChoiceD = cupeQuestionEnt.ENABLER.TrimEnd();
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
         }
-        public override bool AddCupeQuestion(CupeQuestion cupeQuestion)
+        public override List<CupeQuestionStringData> GetCUPEQuestionsTwenty()
         {
-            throw new NotImplementedException();
+            List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
+                                                      where ent.INTWENTY == "Y"
+                                                      select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
+                cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
+                cupeQuestion.ChoiceC = cupeQuestionEnt.PARTNER.TrimEnd();
+                cupeQuestion.ChoiceD = cupeQuestionEnt.ENABLER.TrimEnd();
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
+        }
+        public override List<CupeQuestionStringData> GetCUPEQuestionsFifteen()
+        {
+            List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
+                                                      where ent.INFIFTEEN == "Y"
+                                                      select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
+                cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
+                cupeQuestion.ChoiceC = cupeQuestionEnt.PARTNER.TrimEnd();
+                cupeQuestion.ChoiceD = cupeQuestionEnt.ENABLER.TrimEnd();
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
+        }
+
+        public override List<CupeQuestionStringData> GetCUPEQuestionsTen()
+        {
+            List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
+                                                      where ent.INTEN == "Y"
+                                                      select ent).ToList();
+
+            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
+            CupeQuestionStringData cupeQuestion;
+            foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
+                cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
+                cupeQuestion.ChoiceC = cupeQuestionEnt.PARTNER.TrimEnd();
+                cupeQuestion.ChoiceD = cupeQuestionEnt.ENABLER.TrimEnd();
+                cupeQuestionList.Add(cupeQuestion);
+            }
+
+            return cupeQuestionList;
+        }
+        public override bool AddCupeQuestion(CupeQuestionStringData cupeQuestion)
+        {
+            if ((from ent in dbo.CUPEQUESTION
+                 where ent.NAME.TrimEnd() == cupeQuestion.QuestionText
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding question: Question already exists", "Error");
+                return false;
+            }
+
+            CUPEQUESTION cupeQuestionEnt = new CUPEQUESTION();
+            cupeQuestionEnt.NAME = cupeQuestion.QuestionText;
+            cupeQuestionEnt.COMMODITY = cupeQuestion.ChoiceA;
+            cupeQuestionEnt.UTILITY = cupeQuestion.ChoiceB;
+            cupeQuestionEnt.PARTNER = cupeQuestion.ChoiceC;
+            cupeQuestionEnt.ENABLER = cupeQuestion.ChoiceD;
+            cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INFIFTEEN = cupeQuestionEnt.INTEN = "N";
+
+            dbo.AddToCUPEQUESTION(cupeQuestionEnt);
+
+            return true;
+        }
+        public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
+        {
+            CUPEQUESTION cupeQuestionEnt;
+            try
+            {
+                cupeQuestionEnt = (from ent in dbo.CUPEQUESTION
+                                   where ent.NAME.TrimEnd() == cupeQuestion
+                                   select ent).Single();
+
+                cupeQuestionEnt.INTWENTY = inTwenty ? "Y" : "N";
+                cupeQuestionEnt.INFIFTEEN = inFifteen ? "Y" : "N";
+                cupeQuestionEnt.INTEN = inTen ? "Y" : "N";
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error updating CupeQuestion\n\n" + e.Message, "Error");
+                return false;
+            }
+
+            return true;
         }
         #endregion
 
         #region CUPE
-        public override bool UpdateCUPE(object clientObj, CupeQuestion cq)
+        public override bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future)
         {
             CLIENT client = clientObj as CLIENT;
             try
             {
                 CUPE cupe = (from ent in client.CUPE
-                             where ent.NAME.TrimEnd() == cq.QuestionText
+                             where ent.NAME.TrimEnd() == cupeQuestion
                              select ent).Single();
-
-                cupe.CURRENT = cq.Current;
-                cupe.FUTURE = cq.Future;
+                cupe.CURRENT = current;
+                cupe.FUTURE = future;
             }
 
             catch
@@ -1011,59 +1130,116 @@ namespace IBMConsultantTool
             }
 
 
-            return true;   
+            return true;
         }
-        public override bool AddCUPE(object cupeObj, object clientObj)
+        public override bool AddCUPE(string question, object clientObj)
         {
-            CUPE cupe = cupeObj as CUPE;
             CLIENT client = clientObj as CLIENT;
-
-            if ((from ent in client.CUPE
-                 where ent.NAME.TrimEnd() == cupe.NAME.TrimEnd()
-                 select ent).Count() != 0)
+            CUPEQUESTION cupeQuestionEnt;
+            try
             {
-                dbo.Detach(cupe);
+                cupeQuestionEnt = (from ent in dbo.CUPEQUESTION
+                                   where ent.NAME.TrimEnd() == question
+                                   select ent).Single();
+            }
+
+            catch(Exception e)
+            {
+                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
                 return false;
             }
 
+            if ((from ent in client.CUPE
+                 where ent.CUPEQUESTION == cupeQuestionEnt
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
+                return false;
+            }
+
+            CUPE cupe = new CUPE();
+            cupe.CUPEQUESTION = cupeQuestionEnt;
+            cupe.NAME = cupeQuestionEnt.NAME;
+            cupe.COMMODITY = cupeQuestionEnt.COMMODITY;
+            cupe.UTILITY = cupeQuestionEnt.UTILITY;
+            cupe.PARTNER = cupeQuestionEnt.PARTNER;
+            cupe.ENABLER = cupeQuestionEnt.ENABLER;
             client.CUPE.Add(cupe);
 
             dbo.AddToCUPE(cupe);
 
             return true;
         }
-        public override bool AddCUPEToGroup(object cupeObj, object groupObj)
+        public override bool AddCUPEToGroup(string question, object groupObj)
         {
-            CUPE cupe = cupeObj as CUPE;
             GROUP grp = groupObj as GROUP;
-
-            if ((from ent in grp.CUPE
-                 where ent.NAME.TrimEnd() == cupe.NAME.TrimEnd()
-                 select ent).Count() != 0)
+            CUPEQUESTION cupeQuestionEnt;
+            try
             {
-                dbo.Detach(cupe);
+                cupeQuestionEnt = (from ent in dbo.CUPEQUESTION
+                                   where ent.NAME.TrimEnd() == question
+                                   select ent).Single();
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
                 return false;
             }
 
+            if ((from ent in grp.CUPE
+                 where ent.CUPEQUESTION == cupeQuestionEnt
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
+                return false;
+            }
+
+            CUPE cupe = new CUPE();
+            cupe.CUPEQUESTION = cupeQuestionEnt;
+            cupe.NAME = cupeQuestionEnt.NAME;
+            cupe.COMMODITY = cupeQuestionEnt.COMMODITY;
+            cupe.UTILITY = cupeQuestionEnt.UTILITY;
+            cupe.PARTNER = cupeQuestionEnt.PARTNER;
+            cupe.ENABLER = cupeQuestionEnt.ENABLER;
             grp.CUPE.Add(cupe);
 
             dbo.AddToCUPE(cupe);
 
             return true;
         }
-        public override bool AddCUPEToContact(object cupeObj, object contactObj)
+        public override bool AddCUPEToContact(string question, object contactObj)
         {
-            CUPE cupe = cupeObj as CUPE;
             CONTACT contact = contactObj as CONTACT;
-
-            if ((from ent in contact.CUPE
-                 where ent.NAME.TrimEnd() == cupe.NAME.TrimEnd()
-                 select ent).Count() != 0)
+            CUPEQUESTION cupeQuestionEnt;
+            try
             {
-                dbo.Detach(cupe);
+                cupeQuestionEnt = (from ent in dbo.CUPEQUESTION
+                                   where ent.NAME.TrimEnd() == question
+                                   select ent).Single();
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
                 return false;
             }
 
+            if ((from ent in contact.CUPE
+                 where ent.CUPEQUESTION == cupeQuestionEnt
+                 select ent).Count() != 0)
+            {
+                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
+                return false;
+            }
+
+            CUPE cupe = new CUPE();
+            cupe.CUPEQUESTION = cupeQuestionEnt;
+            cupe.NAME = cupeQuestionEnt.NAME;
+            cupe.COMMODITY = cupeQuestionEnt.COMMODITY;
+            cupe.UTILITY = cupeQuestionEnt.UTILITY;
+            cupe.PARTNER = cupeQuestionEnt.PARTNER;
+            cupe.ENABLER = cupeQuestionEnt.ENABLER;
             contact.CUPE.Add(cupe);
 
             dbo.AddToCUPE(cupe);
@@ -1125,7 +1301,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public override void PopulateCUPEQuestions(CUPETool cupeForm)
+        public override void PopulateCUPEQuestionsForClient(CUPETool cupeForm)
         {
             CLIENT client = cupeForm.client as CLIENT;
             CupeQuestionStringData data = new CupeQuestionStringData();
@@ -1133,11 +1309,11 @@ namespace IBMConsultantTool
             {
                 foreach (CUPE cupe in client.CUPE)
                 {
-                    data.QuestionText = cupe.NAME;
-                    data.ChoiceA = cupe.COMMODITY;
-                    data.ChoiceB = cupe.UTILITY;
-                    data.ChoiceC = cupe.PARTNER;
-                    data.ChoiceD = cupe.ENABLER;
+                    data.QuestionText = cupe.NAME.TrimEnd();
+                    data.ChoiceA = cupe.COMMODITY.TrimEnd();
+                    data.ChoiceB = cupe.UTILITY.TrimEnd();
+                    data.ChoiceC = cupe.PARTNER.TrimEnd();
+                    data.ChoiceD = cupe.ENABLER.TrimEnd();
 
                     ClientDataControl.AddCupeQuestion(data);
                     data = new CupeQuestionStringData();
@@ -1150,11 +1326,11 @@ namespace IBMConsultantTool
                 {
                     if (cupeQuestion.INTWENTY == "Y")
                     {
-                        data.QuestionText = cupeQuestion.NAME;
-                        data.ChoiceA = cupeQuestion.COMMODITY;
-                        data.ChoiceB = cupeQuestion.UTILITY;
-                        data.ChoiceC = cupeQuestion.PARTNER;
-                        data.ChoiceD = cupeQuestion.ENABLER;
+                        data.QuestionText = cupeQuestion.NAME.TrimEnd();
+                        data.ChoiceA = cupeQuestion.COMMODITY.TrimEnd();
+                        data.ChoiceB = cupeQuestion.UTILITY.TrimEnd();
+                        data.ChoiceC = cupeQuestion.PARTNER.TrimEnd();
+                        data.ChoiceD = cupeQuestion.ENABLER.TrimEnd();
 
                         ClientDataControl.AddCupeQuestion(data);
                         data = new CupeQuestionStringData();
@@ -1734,10 +1910,10 @@ namespace IBMConsultantTool
                             tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
                             tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
                             tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd().Replace(' ', '~')));
-                            tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY));
-                            tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY));
-                            tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER));
-                            tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER));
+                            tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd().Replace(' ', '~')));
+                            tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd().Replace(' ', '~')));
+                            tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER.TrimEnd().Replace(' ', '~')));
+                            tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER.TrimEnd().Replace(' ', '~')));
                             itcapConElement.Add(tempCUPE);
                         }
                         tempCon.Add(cupeConElement);
@@ -1783,10 +1959,10 @@ namespace IBMConsultantTool
                         tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
                         tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
                         tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd().Replace(' ', '~')));
-                        tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY));
-                        tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY));
-                        tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER));
-                        tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER));
+                        tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd().Replace(' ', '~')));
+                        tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd().Replace(' ', '~')));
+                        tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER.TrimEnd().Replace(' ', '~')));
+                        tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER.TrimEnd().Replace(' ', '~')));
                         itcapGrpElement.Add(tempCUPE);
                     }
                     tempGrp.Add(cupeGrpElement);
@@ -1831,10 +2007,10 @@ namespace IBMConsultantTool
                     tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
                     tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
                     tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd().Replace(' ', '~')));
-                    tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY));
-                    tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY));
-                    tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER));
-                    tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER));
+                    tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd().Replace(' ', '~')));
+                    tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd().Replace(' ', '~')));
+                    tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER.TrimEnd().Replace(' ', '~')));
+                    tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER.TrimEnd().Replace(' ', '~')));
                     cupeElement.Add(tempCUPE);
                 }
                 temp.Add(cupeElement);

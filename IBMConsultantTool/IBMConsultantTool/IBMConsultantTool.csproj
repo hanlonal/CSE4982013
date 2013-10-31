@@ -135,6 +135,7 @@
     <Compile Include="ChooseCUPEClient.Designer.cs">
       <DependentUpon>ChooseCUPEClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs" />
     <Compile Include="ClientDataControl.cs" />
     <Compile Include="ChooseITCAPClient.cs">
       <SubType>Form</SubType>
@@ -233,6 +234,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="NewClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewClientForm.Designer.cs">
+      <DependentUpon>NewClientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="No Longer Used\BOMBubbleChart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -319,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ITCAP\ITCapTool.resx">
       <DependentUpon>ITCapTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewClientForm.resx">
+      <DependentUpon>NewClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="No Longer Used\BOMBubbleChart.resx">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>

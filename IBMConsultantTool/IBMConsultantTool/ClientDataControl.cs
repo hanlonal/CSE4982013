@@ -17,6 +17,9 @@ namespace IBMConsultantTool
         private static List<CupeData> cupeAnswers = new List<CupeData>();
         private static List<NewCategory> bomCategories = new List<NewCategory>();
         public static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
+        private static Client client;
+
+
 
         private ClientDataControl() { }
 
@@ -159,6 +162,12 @@ namespace IBMConsultantTool
             }
 
             MessageBox.Show("Email Succesfully Sent");
+        }
+
+        public static Client Client
+        {
+            get { return client; }
+            set { client = value; }
         }
 
     }

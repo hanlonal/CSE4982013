@@ -99,7 +99,7 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "--OR--";
             // 
-            // ChooseClient
+            // ChooseBOMClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,8 +111,9 @@
             this.Controls.Add(this.OpenBOMButton);
             this.Controls.Add(this.ChooseClientLabel);
             this.Controls.Add(this.ChooseClientComboBox);
-            this.Name = "ChooseClient";
+            this.Name = "ChooseBOMClient";
             this.Text = "ChooseClient";
+            this.Load += new System.EventHandler(this.ChooseBOMClient_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

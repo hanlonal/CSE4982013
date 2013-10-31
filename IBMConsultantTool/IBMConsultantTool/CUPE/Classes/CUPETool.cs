@@ -84,7 +84,7 @@ namespace IBMConsultantTool
             }
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
-            db.PopulateCUPEQuestions(this);
+            db.PopulateCUPEQuestionsForClient(this);
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;

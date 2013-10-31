@@ -37,5 +37,10 @@ namespace IBMConsultantTool
                 this.Close();
             }
         }
+
+        private void ChooseBOMClient_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
