@@ -11,11 +11,16 @@ namespace IBMConsultantTool
 {
     public partial class StartPage : Form
     {
+        Client currentClient;
+
         public StartPage()
         {
             InitializeComponent();
             NewClientForm form = new NewClientForm();
+            form.Owner = this;
             form.Show();
+
+            
         }
 
         private void StartPage_Load(object sender, EventArgs e)
@@ -24,5 +29,73 @@ namespace IBMConsultantTool
             //this.Controls.Add(form);
             
         }
+        private void BindLabels()
+        {
+            clientNameLabel.DataBindings.Add("Text", currentClient, "Name");
+            clientLocationLabel.DataBindings.Add("Text", currentClient, "Location");
+            clientTypeLabel.DataBindings.Add("Text", currentClient, "BusinessType");
+            dateStartedLabel.DataBindings.Add("Text", currentClient, "StartDate");
+        }
+
+        public string ClientNameLabel
+        {
+            get { return clientNameLabel.Text; }
+            set { clientNameLabel.Text = value; }
+        }
+        public Client CurrentClient
+        {
+            get { return currentClient; }
+            set { currentClient = value; BindLabels(); }
+        }
+        #region Run Bom Tool
+
+        private void runBomButton_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RUNBOM()
+        {
+            Application.Run(new BOMTool());
+        }
+        #endregion
+
+        #region Run CUPE Tool
+
+        private void runCupeButton_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RUNCUPE()
+        {
+            Application.Run(new CUPETool());
+        }
+        #endregion
+
+        private void runITCapButton_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCAP));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+        private void RUNITCAP()
+        {
+            Application.Run(new ITCapTool());
+        }
+
+
+
+
     }
 }

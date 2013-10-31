@@ -107,6 +107,7 @@
             this.startDateText.Name = "startDateText";
             this.startDateText.Size = new System.Drawing.Size(179, 26);
             this.startDateText.TabIndex = 7;
+           // this.startDateText.TextChanged += new System.EventHandler(this.startDateText_TextChanged);
             // 
             // buisnessTypeComboBox
             // 
@@ -154,6 +155,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "NewClientForm";
             this.Text = "NewClientForm";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.NewClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

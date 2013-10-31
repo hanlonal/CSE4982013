@@ -44,7 +44,13 @@ namespace IBMConsultantTool
         public DateTime StartDate
         {
             get { return startDate; }
-            set { startDate = value; }
+            set 
+            {
+                DateTime val = (DateTime)value;
+                val.ToShortDateString();
+                startDate = val; 
+
+            }
         }
         public bool BomCompleted
         {
