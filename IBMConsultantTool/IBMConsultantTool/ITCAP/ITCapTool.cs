@@ -1200,6 +1200,7 @@ namespace IBMConsultantTool
             List<string> capName = new List<string>();
             List<string> domName = new List<string>();
             List<int> capPerDom = new List<int>();
+            List<bool> notAFocus = new List<bool>();
             int counting = 0;
 
             int domCount = domains.Count;
@@ -1213,6 +1214,10 @@ namespace IBMConsultantTool
                 {
                     capAsIs.Add(cap.AsIsScore);
                     capToBe.Add(cap.ToBeScore);
+                    if (cap.AsIsScore == 0 && cap.ToBeScore == 0)
+                        notAFocus.Add(true);
+                    else
+                        notAFocus.Add(false);
                     capGap.Add(cap.ToBeScore - cap.AsIsScore);
                     capName.Add(cap.Name);
                     counting++;
@@ -1223,8 +1228,9 @@ namespace IBMConsultantTool
 
 
             float gap = CalculateGap(capGap);
+            float total = CalculateTotalGap(capGap, notAFocus);
 
-            HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap);
+            HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap);
             chart.Show();
         }
 
@@ -1241,6 +1247,23 @@ namespace IBMConsultantTool
             float averageGap = totalGap / count;
 
             return averageGap;
+        }
+
+        int numberOfGap = 0;
+        public float CalculateTotalGap(List<float> gap, List<bool> notFocus)
+        {
+            float totalGap = 0;
+
+            for (int cnt = 0; cnt < gap.Count; cnt++)
+            {
+                if (!notFocus[cnt])
+                {
+                    totalGap += gap[cnt];
+                    numberOfGap++;
+                }
+            }
+
+            return totalGap;
         }
 
         private void button1_Click(object sender, EventArgs e)
