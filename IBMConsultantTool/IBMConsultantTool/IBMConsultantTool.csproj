@@ -225,10 +225,12 @@
     <Compile Include="ITCAP\Forms\CapabilityGapForm.Designer.cs">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ITCAP\ITCapTool.cs">
+    <Compile Include="ITCAP\ITCapFix.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ITCAP\ITCapTool.Designer.cs" />
+    <Compile Include="ITCAP\ITCapFix.Designer.cs">
+      <DependentUpon>ITCapFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,16 +326,11 @@
     <EmbeddedResource Include="ITCAP\Forms\CapabilityGapForm.resx">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ITCAP\ITCapTool.resx">
-      <DependentUpon>ITCapTool.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="NewClientForm.resx">
       <DependentUpon>NewClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="No Longer Used\BOMBubbleChart.resx">
       <DependentUpon>BOMBubbleChart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ITCAP\ITCapTool.resx">
     </EmbeddedResource>
     <EmbeddedResource Include="StartPage.resx">
       <DependentUpon>StartPage.cs</DependentUpon>

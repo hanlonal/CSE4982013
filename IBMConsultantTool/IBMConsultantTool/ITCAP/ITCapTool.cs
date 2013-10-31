@@ -36,6 +36,7 @@ namespace IBMConsultantTool
         private List<Control> liveDataEntryControls = new List<Control>();
         private List<Control> prioritizationControls = new List<Control>();
         DataGridView currentGrid;
+        private Button button13322345;
 
         //only used for testing
         private int numBoms = 3;
@@ -629,13 +630,13 @@ namespace IBMConsultantTool
             coll.Add(cap);
             coll.CalculatePropertyDescriptors();
             //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
-            
+
             objectiveMappingGrid.DataSource = coll;
             objectiveMappingGrid.Columns[0].ReadOnly = true;
 
             objectiveMappingGrid.RowHeadersVisible = false;
-            
-            
+
+
 
         }
         private void objectiveMappingGrid_CellEndEdit(object sender, EventArgs e)
@@ -644,7 +645,7 @@ namespace IBMConsultantTool
             loadSurveyFromDataGrid.Refresh();
         }
 
-       
+
 
         private string[] Testing()
         {
@@ -1041,7 +1042,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisY.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisY.Title = "Average Capability Score";
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
-            
+
             /*newChart.ChartAreas["chart1"].AxisX.Title = "Question";
             newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
@@ -1251,16 +1252,16 @@ namespace IBMConsultantTool
         {
             SurveyGenerator generator = new SurveyGenerator();
             List<ITCapQuestion> questionTempList = new List<ITCapQuestion>();
-            foreach( ITCapQuestion question in questionsArray)
+            foreach (ITCapQuestion question in questionsArray)
             {
                 questionTempList.Add(question);
             }
-
+            
             generator.CreateITCapSurvey(entities);
         }
 
-
-
+        
+        
 
 
     }// end class

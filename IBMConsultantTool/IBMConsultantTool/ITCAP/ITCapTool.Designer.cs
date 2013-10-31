@@ -97,7 +97,7 @@
             this.changeTextButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.objectiveToAddButton = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button13322345 = new System.Windows.Forms.Button();
             this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.seperatorLabel = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -683,7 +683,7 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.panel1.Controls.Add(this.objectiveToAddButton);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.button13322345);
             this.panel1.Controls.Add(this.objectiveMappingGrid);
             this.panel1.Controls.Add(this.seperatorLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -701,13 +701,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(838, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button13322345.Location = new System.Drawing.Point(838, 51);
+            this.button13322345.Name = "button1";
+            this.button13322345.Size = new System.Drawing.Size(75, 23);
+            this.button13322345.TabIndex = 3;
+            this.button13322345.Text = "button1";
+            this.button13322345.UseVisualStyleBackColor = true;
+            this.button13322345.Click += new System.EventHandler(this.button1_Click);
             // 
             // objectiveMappingGrid
             // 
@@ -915,12 +915,12 @@
         private System.Windows.Forms.ToolStripMenuItem toBeToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
-        private DataGridViewDisableButtonColumn Collapse;
+        private IBMConsultantTool.DataGridViewDisableButtonColumn Collapse;
         private System.Windows.Forms.DataGridViewImageColumn Flags;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox objectiveToAddButton;
         private System.Windows.Forms.ToolStripMenuItem createSurveyDocumentToolStripMenuItem;
 
-       
+
     }
 }
