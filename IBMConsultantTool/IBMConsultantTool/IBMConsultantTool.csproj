@@ -225,11 +225,11 @@
     <Compile Include="ITCAP\Forms\CapabilityGapForm.Designer.cs">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ITCAP\ITCapFix.cs">
+    <Compile Include="ITCAP\ITCapTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ITCAP\ITCapFix.Designer.cs">
-      <DependentUpon>ITCapFix.cs</DependentUpon>
+    <Compile Include="ITCAP\ITCapTool.Designer.cs">
+      <DependentUpon>ITCapTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
