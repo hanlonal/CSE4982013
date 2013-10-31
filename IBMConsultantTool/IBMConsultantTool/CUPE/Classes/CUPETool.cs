@@ -65,6 +65,7 @@ namespace IBMConsultantTool
             try
             {
                 db = new DBManager();
+
             }
 
             catch (Exception e)

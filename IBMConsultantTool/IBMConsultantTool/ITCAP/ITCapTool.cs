@@ -1256,7 +1256,7 @@ namespace IBMConsultantTool
                 questionTempList.Add(question);
             }
 
-            generator.CreateITCapSurvey(questionTempList);
+            generator.CreateITCapSurvey(entities);
         }
 
 
