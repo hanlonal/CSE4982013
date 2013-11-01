@@ -47,12 +47,12 @@ namespace IBMConsultantTool
         public override string[] GetClientNames()
         {
             return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public bool GetClient(string cntName, out XElement client)
         {
-            cntName = cntName.Replace(' ', '~');
+            cntName = cntName;
             try
             {
                 client = (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
@@ -113,7 +113,7 @@ namespace IBMConsultantTool
         //group is a keyword in C#
         public bool AddGroup(string grpName, XElement client)
         {
-            grpName = grpName.Replace(' ', '~');
+            grpName = grpName;
             //If Client points to 2 BOMs with same Initiative, return false
             if ((from ent in client.Element("GROUPS").Elements("GROUP")
                  where ent.Element("NAME") != null &&
@@ -141,7 +141,7 @@ namespace IBMConsultantTool
         public override bool UpdateBOM(object clientObj, NewInitiative ini)
         {
             XElement client = clientObj as XElement;
-            string formattedName = ini.Name.Replace(' ', '~');
+            string formattedName = ini.Name;
             try
             {
                 XElement bom = (from ent in client.Element("BOMS").Elements("BOM")
@@ -169,9 +169,9 @@ namespace IBMConsultantTool
         {
             XElement bom = bomObj as XElement;
             XElement client = clientObj as XElement;
-            string iniXML = bom.Element("INITIATIVE").Value.Replace(' ', '~');
-            string busXML = bom.Element("BUSINESSOBJECTIVE").Value.Replace(' ', '~');
-            string catXML = bom.Element("CATEGORY").Value.Replace(' ', '~');
+            string iniXML = bom.Element("INITIATIVE").Value;
+            string busXML = bom.Element("BUSINESSOBJECTIVE").Value;
+            string catXML = bom.Element("CATEGORY").Value;
 
             List<XElement> bomList = client.Element("BOMS").Elements("BOM").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
@@ -199,9 +199,9 @@ namespace IBMConsultantTool
         {
             XElement bom = bomObj as XElement;
             XElement grp = groupObj as XElement;
-            string iniXML = bom.Element("INITIATIVE").Value.Replace(' ', '~');
-            string busXML = bom.Element("BUSINESSOBJECTIVE").Value.Replace(' ', '~');
-            string catXML = bom.Element("CATEGORY").Value.Replace(' ', '~');
+            string iniXML = bom.Element("INITIATIVE").Value;
+            string busXML = bom.Element("BUSINESSOBJECTIVE").Value;
+            string catXML = bom.Element("CATEGORY").Value;
 
             List<XElement> bomList = grp.Element("BOMS").Elements("BOM").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
@@ -232,9 +232,9 @@ namespace IBMConsultantTool
         {
             XElement bom = bomObj as XElement;
             XElement contact = contactObj as XElement;
-            string iniXML = bom.Element("INITIATIVE").Value.Replace(' ', '~');
-            string busXML = bom.Element("BUSINESSOBJECTIVE").Value.Replace(' ', '~');
-            string catXML = bom.Element("CATEGORY").Value.Replace(' ', '~');
+            string iniXML = bom.Element("INITIATIVE").Value;
+            string busXML = bom.Element("BUSINESSOBJECTIVE").Value;
+            string catXML = bom.Element("CATEGORY").Value;
 
             List<XElement> bomList = contact.Element("BOMS").Elements("BOM").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
@@ -281,7 +281,7 @@ namespace IBMConsultantTool
 
                 foreach (XElement bom in client.Element("BOMS").Elements("BOM"))
                 {
-                    catName = bom.Element("CATEGORY").Value.TrimEnd().Replace('~', ' ');
+                    catName = bom.Element("CATEGORY").Value.TrimEnd();
                     category = bomForm.Categories.Find(delegate(NewCategory cat)
                     {
                         return cat.name == catName;
@@ -291,7 +291,7 @@ namespace IBMConsultantTool
                         category = bomForm.AddCategory(catName);
                     }
 
-                    busName = bom.Element("BUSINESSOBJECTIVE").Value.TrimEnd().Replace('~', ' ');
+                    busName = bom.Element("BUSINESSOBJECTIVE").Value.TrimEnd();
                     objective = category.Objectives.Find(delegate(NewObjective bus)
                     {
                         return bus.Name == busName;
@@ -301,7 +301,7 @@ namespace IBMConsultantTool
                         objective = category.AddObjective(busName);
                     }
 
-                    iniName = bom.Element("INITIATIVE").Value.TrimEnd().Replace('~', ' ');
+                    iniName = bom.Element("INITIATIVE").Value.TrimEnd();
                     initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
                     {
                         return ini.Name == iniName;
@@ -380,7 +380,7 @@ namespace IBMConsultantTool
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
         {
             XElement client = clientObj as XElement;
-            string formattedName = itcapQuestion.Name.Replace(' ', '~');
+            string formattedName = itcapQuestion.Name;
             try
             {
                 XElement itcap = (from ent in client.Element("ITCAPS").Elements("ITCAP")
@@ -426,9 +426,9 @@ namespace IBMConsultantTool
         {
             XElement itcap = itcapObj as XElement;
             XElement client = clientObj as XElement;
-            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
-            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
-            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value;
+            string capXML = itcap.Element("CAPABILITY").Value;
+            string domXML = itcap.Element("DOMAIN").Value;
 
             List<XElement> itcapList = client.Element("ITCAPS").Elements("ITCAP").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
@@ -456,9 +456,9 @@ namespace IBMConsultantTool
         {
             XElement itcap = itcapObj as XElement;
             XElement grp = groupObj as XElement;
-            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
-            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
-            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value;
+            string capXML = itcap.Element("CAPABILITY").Value;
+            string domXML = itcap.Element("DOMAIN").Value;
 
             List<XElement> itcapList = grp.Element("ITCAPS").Elements("ITCAP").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
@@ -486,9 +486,9 @@ namespace IBMConsultantTool
         {
             XElement itcap = itcapObj as XElement;
             XElement contact = contactObj as XElement;
-            string itcqXML = itcap.Element("ITCAPQUESTION").Value.Replace(' ', '~');
-            string capXML = itcap.Element("CAPABILITY").Value.Replace(' ', '~');
-            string domXML = itcap.Element("DOMAIN").Value.Replace(' ', '~');
+            string itcqXML = itcap.Element("ITCAPQUESTION").Value;
+            string capXML = itcap.Element("CAPABILITY").Value;
+            string domXML = itcap.Element("DOMAIN").Value;
 
             List<XElement> itcapList = contact.Element("ITCAPS").Elements("ITCAP").ToList();
             //If Client points to 2 BOMs with same Initiative, return false
@@ -568,9 +568,9 @@ namespace IBMConsultantTool
 
             foreach (XElement itcap in itcapList)
             {
-                itcqName = itcap.Element("ITCAPQUESTION").Value.Replace('~', ' ');
-                capName = itcap.Element("CAPABILITY").Value.Replace('~', ' ');
-                domName = itcap.Element("DOMAIN").Value.Replace('~', ' ');
+                itcqName = itcap.Element("ITCAPQUESTION").Value;
+                capName = itcap.Element("CAPABILITY").Value;
+                domName = itcap.Element("DOMAIN").Value;
 
                 Domain domain;
                 Capability capability;
@@ -703,7 +703,7 @@ namespace IBMConsultantTool
         public override string[] GetCategoryNames()
         {
             return (from ent in dbo.Element("CATEGORIES").Elements("CATEGORY")
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public bool GetCategory(int catID, out XElement category)
@@ -726,7 +726,7 @@ namespace IBMConsultantTool
 
         public bool GetCategory(string catName, out XElement category)
         {
-            catName = catName.Replace(' ', '~');
+            catName = catName;
             try
             {
                 category = (from ent in dbo.Element("CATEGORIES").Elements("CATEGORY")
@@ -772,7 +772,7 @@ namespace IBMConsultantTool
             if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
             {
                 bomForm.objectiveNames.Items.AddRange((from ent in category.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
-                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+                                                       select ent.Element("NAME").Value).ToArray());
             }
         }
         #endregion
@@ -800,7 +800,7 @@ namespace IBMConsultantTool
 
         public bool GetObjective(string busName, out XElement objective)
         {
-            busName = busName.Replace(' ', '~');
+            busName = busName;
             try
             {
                 objective = (from cnt in dbo.Element("CATEGORIES").Elements("CATEGORY")
@@ -848,7 +848,7 @@ namespace IBMConsultantTool
             if (GetObjective(bomForm.objectiveNames.Text.Trim(), out objective))
             {
                 bomForm.initiativeNames.Items.AddRange((from ent in objective.Element("INITIATIVES").Elements("INITIATIVE")
-                                                        select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+                                                        select ent.Element("NAME").Value).ToArray());
             }
         }
 
@@ -857,7 +857,7 @@ namespace IBMConsultantTool
         #region Initiative
         public bool GetInitiative(string iniName, out XElement Initiative)
         {
-            iniName = iniName.Replace(' ', '~');
+            iniName = iniName;
             try
             {
                 Initiative = (from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
@@ -925,7 +925,7 @@ namespace IBMConsultantTool
             if (!GetCategory(catName, out categoryXML))
             {
                 categoryXML = new XElement("CATEGORY");
-                categoryXML.Add(new XElement("NAME", catName.Replace(' ', '~')));
+                categoryXML.Add(new XElement("NAME", catName));
                 if (!AddCategory(categoryXML))
                 {
                     MessageBox.Show("Failed to add Category to File", "Error");
@@ -937,7 +937,7 @@ namespace IBMConsultantTool
             if (!GetObjective(busName, out objectiveXML))
             {
                 objectiveXML = new XElement("BUSINESSOBJECTIVE");
-                objectiveXML.Add(new XElement("NAME", busName.Replace(' ', '~')));
+                objectiveXML.Add(new XElement("NAME", busName));
                 if (!AddObjective(objectiveXML, categoryXML))
                 {
                     MessageBox.Show("Failed to add Objective to File", "Error");
@@ -949,7 +949,7 @@ namespace IBMConsultantTool
             if (!GetInitiative(iniName, out initiativeXML))
             {
                 initiativeXML = new XElement("INITIATIVE");
-                initiativeXML.Add(new XElement("NAME", iniName.Replace(' ', '~')));
+                initiativeXML.Add(new XElement("NAME", iniName));
                 if (!AddInitiative(initiativeXML, objectiveXML, categoryXML))
                 {
                     MessageBox.Show("Failed to add Initiative to File", "Error");
@@ -1026,11 +1026,11 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value;
                 cupeQuestionList.Add(cupeQuestion);
             }
 
@@ -1047,11 +1047,11 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value;
                 cupeQuestionList.Add(cupeQuestion);
             }
 
@@ -1068,11 +1068,11 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value;
                 cupeQuestionList.Add(cupeQuestion);
             }
 
@@ -1089,11 +1089,11 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value.Replace('~', ' ');
-                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value.Replace('~', ' ');
+                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
+                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
+                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
+                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value;
                 cupeQuestionList.Add(cupeQuestion);
             }
 
@@ -1101,7 +1101,7 @@ namespace IBMConsultantTool
         }
         public override bool AddCupeQuestion(CupeQuestionStringData cupeQuestion)
         {
-            string question = cupeQuestion.QuestionText.Replace(' ', '~');
+            string question = cupeQuestion.QuestionText;
             if ((from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
                  where ent.Element("NAME").Value == question
                  select ent).Count() != 0)
@@ -1110,10 +1110,10 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            string commodity = cupeQuestion.ChoiceA.Replace(' ', '~');
-            string utility = cupeQuestion.ChoiceB.Replace(' ', '~');
-            string partner = cupeQuestion.ChoiceC.Replace(' ', '~');
-            string enabler = cupeQuestion.ChoiceD.Replace(' ', '~');
+            string commodity = cupeQuestion.ChoiceA;
+            string utility = cupeQuestion.ChoiceB;
+            string partner = cupeQuestion.ChoiceC;
+            string enabler = cupeQuestion.ChoiceD;
 
             XElement cupeQuestionEnt = new XElement("CUPEQUESTION");
             cupeQuestionEnt.Add(new XElement("NAME", question));
@@ -1135,7 +1135,7 @@ namespace IBMConsultantTool
         public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
         {
             XElement cupeQuestionEnt;
-            cupeQuestion = cupeQuestion.Replace(' ', '~');
+            cupeQuestion = cupeQuestion;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1167,7 +1167,7 @@ namespace IBMConsultantTool
         #region CUPE
         public override bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future)
         {
-            cupeQuestion = cupeQuestion.Replace(' ', '~');
+            cupeQuestion = cupeQuestion;
             XElement client = clientObj as XElement;
             try
             {
@@ -1193,7 +1193,7 @@ namespace IBMConsultantTool
         {
             XElement client = clientObj as XElement;
             XElement cupeQuestionEnt;
-            question = question.Replace(' ', '~');
+            question = question;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1234,7 +1234,7 @@ namespace IBMConsultantTool
         {
             XElement grp = groupObj as XElement;
             XElement cupeQuestionEnt;
-            question = question.Replace(' ', '~');
+            question = question;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1275,7 +1275,7 @@ namespace IBMConsultantTool
         {
             XElement contact = contactObj as XElement;
             XElement cupeQuestionEnt;
-            question = question.Replace(' ', '~');
+            question = question;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1379,11 +1379,11 @@ namespace IBMConsultantTool
             {
                 foreach (XElement cupe in cupeList)
                 {
-                    data.QuestionText = cupe.Element("NAME").Value.Replace('~', ' ');
-                    data.ChoiceA = cupe.Element("COMMODITY").Value.Replace('~', ' ');
-                    data.ChoiceB = cupe.Element("UTILITY").Value.Replace('~', ' ');
-                    data.ChoiceC = cupe.Element("PARTNER").Value.Replace('~', ' ');
-                    data.ChoiceD = cupe.Element("ENABLER").Value.Replace('~', ' ');
+                    data.QuestionText = cupe.Element("NAME").Value;
+                    data.ChoiceA = cupe.Element("COMMODITY").Value;
+                    data.ChoiceB = cupe.Element("UTILITY").Value;
+                    data.ChoiceC = cupe.Element("PARTNER").Value;
+                    data.ChoiceD = cupe.Element("ENABLER").Value;
 
                     ClientDataControl.AddCupeQuestion(data);
                     data = new CupeQuestionStringData();
@@ -1397,11 +1397,11 @@ namespace IBMConsultantTool
                 {
                     if (cupeQuestion.Element("INTWENTY").Value == "Y")
                     {
-                        data.QuestionText = cupeQuestion.Element("NAME").Value.Replace('~', ' ');
-                        data.ChoiceA = cupeQuestion.Element("COMMODITY").Value.Replace('~', ' ');
-                        data.ChoiceB = cupeQuestion.Element("UTILITY").Value.Replace('~', ' ');
-                        data.ChoiceC = cupeQuestion.Element("PARTNER").Value.Replace('~', ' ');
-                        data.ChoiceD = cupeQuestion.Element("ENABLER").Value.Replace('~', ' ');
+                        data.QuestionText = cupeQuestion.Element("NAME").Value;
+                        data.ChoiceA = cupeQuestion.Element("COMMODITY").Value;
+                        data.ChoiceB = cupeQuestion.Element("UTILITY").Value;
+                        data.ChoiceC = cupeQuestion.Element("PARTNER").Value;
+                        data.ChoiceD = cupeQuestion.Element("ENABLER").Value;
 
                         ClientDataControl.AddCupeQuestion(data);
                         data = new CupeQuestionStringData();
@@ -1415,25 +1415,25 @@ namespace IBMConsultantTool
         public override string[] GetDomainNames()
         {
             return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public override string[] GetDomainNamesAndDefault()
         {
             return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
-                    select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+                    select ent.Element("NAME").Value + ent.Element("DEFAULT").Value).ToArray();
         }
 
         public override string[] GetDefaultDomainNames()
         {
             return (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where ent.Element("DEFAULT").Value == "Y"
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public bool GetDomain(string domName, out XElement domain)
         {
-            domName = domName.Replace(' ', '~');
+            domName = domName;
             try
             {
                 domain = (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
@@ -1481,7 +1481,7 @@ namespace IBMConsultantTool
             if (GetDomain(itcapForm.domainList.Text.Trim(), out domain))
             {
                 itcapForm.capabilitiesList.Items.AddRange((from ent in domain.Element("CAPABILITIES").Elements("CAPABILITY")
-                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+                                                       select ent.Element("NAME").Value).ToArray());
             }
         }
 
@@ -1503,35 +1503,35 @@ namespace IBMConsultantTool
 
         public override string[] GetCapabilityNames(string domName)
         {
-            domName = domName.Replace(' ', '~');
+            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public override string[] GetCapabilityNamesAndDefault(string domName)
         {
-            domName = domName.Replace(' ', '~');
+            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
-                    select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+                    select ent.Element("NAME").Value + ent.Element("DEFAULT").Value).ToArray();
         }
 
         public override string[] GetDefaultCapabilityNames(string domName)
         {
-            domName = domName.Replace(' ', '~');
+            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
                     where ent.Element("DEFAULT").Value == "Y"
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public bool GetCapability(string capName, out XElement capability)
         {
-            capName = capName.Replace(' ', '~');
+            capName = capName;
             try
             {
                 capability = (from cnt in dbo.Element("DOMAINS").Elements("DOMAIN")
@@ -1581,7 +1581,7 @@ namespace IBMConsultantTool
             if (GetCapability(itcapForm.capabilitiesList.Text.Trim(), out capability))
             {
                 itcapForm.questionList.Items.AddRange((from ent in capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
-                                                       select ent.Element("NAME").Value.Replace('~', ' ')).ToArray());
+                                                       select ent.Element("NAME").Value).ToArray());
             }
         }
 
@@ -1621,44 +1621,44 @@ namespace IBMConsultantTool
 
         public override string[] GetITCAPQuestionNames(string capName, string domName)
         {
-            capName = capName.Replace(' ', '~');
-            domName = domName.Replace(' ', '~');
+            capName = capName;
+            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
                     where cap.Element("NAME").Value == capName
                     from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public override string[] GetITCAPQuestionNamesAndDefault(string capName, string domName)
         {
-            capName = capName.Replace(' ', '~');
-            domName = domName.Replace(' ', '~');
+            capName = capName;
+            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
                     where cap.Element("NAME").Value == capName
                     from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
-                    select ent.Element("NAME").Value.Replace('~', ' ') + ent.Element("DEFAULT").Value).ToArray();
+                    select ent.Element("NAME").Value + ent.Element("DEFAULT").Value).ToArray();
         }
 
         public override string[] GetDefaultITCAPQuestionNames(string capName, string domName)
         {
-            capName = capName.Replace(' ', '~');
-            domName = domName.Replace(' ', '~');
+            capName = capName;
+            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
                     where cap.Element("NAME").Value == capName
                     from ent in cap.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION")
                     where ent.Element("DEFAULT").Value == "Y"
-                    select ent.Element("NAME").Value.Replace('~', ' ')).ToArray();
+                    select ent.Element("NAME").Value).ToArray();
         }
 
         public bool GetITCAPQuestion(string itcapName, out XElement itcapQuestion)
         {
-            itcapName = itcapName.Replace(' ', '~');
+            itcapName = itcapName;
             try
             {
                 itcapQuestion = (from cat in dbo.Element("DOMAINS").Elements("DOMAIN")
@@ -1708,7 +1708,7 @@ namespace IBMConsultantTool
             if (!GetDomain(domName, out domainXML))
             {
                 domainXML = new XElement("DOMAIN");
-                domainXML.Add(new XElement("NAME", domName.Replace(' ', '~')));
+                domainXML.Add(new XElement("NAME", domName));
                 domainXML.Add(new XElement("DEFAULT", 'N'));
                 if (!AddDomain(domainXML))
                 {
@@ -1721,7 +1721,7 @@ namespace IBMConsultantTool
             if (!GetCapability(capName, out capabilityXML))
             {
                 capabilityXML = new XElement("CAPABILITY");
-                capabilityXML.Add(new XElement("NAME", capName.Replace(' ', '~')));
+                capabilityXML.Add(new XElement("NAME", capName));
                 if (!AddCapability(capabilityXML, domainXML))
                 {
                     MessageBox.Show("Failed to add Capability to File", "Error");
@@ -1733,7 +1733,7 @@ namespace IBMConsultantTool
             if (!GetITCAPQuestion(itcqName, out itcapQuestionXML))
             {
                 itcapQuestionXML = new XElement("ITCAPQUESTION");
-                itcapQuestionXML.Add(new XElement("NAME", itcqName.Replace(' ', '~')));
+                itcapQuestionXML.Add(new XElement("NAME", itcqName));
                 if (!AddITCAPQuestion(itcapQuestionXML, capabilityXML, domainXML))
                 {
                     MessageBox.Show("Failed to add ITCAPQuestion to File", "Error");
@@ -1844,8 +1844,8 @@ namespace IBMConsultantTool
         public override bool GetITCAPOBJMAPScore(object clientObj, string capName, string busName, out int score)
         {
             XElement client = clientObj as XElement;
-            capName = capName.Replace(' ', '~');
-            busName = busName.Replace(' ', '~');
+            capName = capName;
+            busName = busName;
             try
             {
                 score = Convert.ToInt32((from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
@@ -1865,8 +1865,8 @@ namespace IBMConsultantTool
         public override bool AddITCAPOBJMAP(object clientObj, string capName, string busName)
         {
             XElement client = clientObj as XElement;
-            capName = capName.Replace(' ', '~');
-            busName = busName.Replace(' ', '~');
+            capName = capName;
+            busName = busName;
 
             if ((from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
                  where ent.Element("CAPABILITY").Value == capName &&
@@ -1913,8 +1913,8 @@ namespace IBMConsultantTool
         public override bool UpdateITCAPOBJMAPScore(object clientObj, string capName, string busName, int score)
         {
             XElement client = clientObj as XElement;
-            capName = capName.Replace(' ', '~');
-            busName = busName.Replace(' ', '~');
+            capName = capName;
+            busName = busName;
 
             XElement itcapObjMap;
             try
