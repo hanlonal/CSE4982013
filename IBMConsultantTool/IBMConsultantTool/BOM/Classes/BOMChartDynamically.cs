@@ -387,7 +387,7 @@ namespace IBMConsultantTool
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
             panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width, bmp.Height));
             System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
-            bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Application.StartupPath + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
             InitializeComponent();
 

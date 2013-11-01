@@ -791,9 +791,20 @@ namespace IBMConsultantTool
                 maxQuestion = current.Count;
             }
 
-            newChart.Size = new Size(800, 800);
+            newChart.Size = new Size(800, 750);
             newChart.Visible = true;
             newChart.Text = name;
+            char[] slashSeparator = new char[] { '/' };
+            string[] result;
+            result = name.Split(slashSeparator, StringSplitOptions.None);
+            string newStr = "";
+            foreach (string s in result)
+            {
+                System.Console.WriteLine(s);
+                newStr += s;
+            }
+            newChart.Name = newStr;
+            System.Diagnostics.Trace.WriteLine("split: " + newChart.Name.ToString());
             newChart.ChartAreas.Add("chart1");
             newChart.Palette = ChartColorPalette.BrightPastel;
 
@@ -845,6 +856,8 @@ namespace IBMConsultantTool
             {
                 newChart.Series["Future"].Points.AddXY((i + 1).ToString(), future[i]);
             }
+
+            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void businessLeadersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -917,18 +930,19 @@ namespace IBMConsultantTool
                 count++;
                 futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value));
             }
-            count = 0;
+            int countB = 0;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
                 //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
                     break;
-                count++;
+                countB++;
                 futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value));
             }
 
-            CreateChartITVsBussiness(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
+            if (count > 0 || countB > 0)
+                CreateChartITVsBussiness(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
         }
 
         public void CreateChartITVsBussiness(List<float> current, List<float> future, string name)
@@ -954,7 +968,7 @@ namespace IBMConsultantTool
                 maxQuestion = current.Count;
             }
 
-            newChart.Size = new Size(800, 800);
+            newChart.Size = new Size(800, 750);
             newChart.Visible = true;
             newChart.Text = name;
             newChart.ChartAreas.Add("chart1");
@@ -1006,6 +1020,8 @@ namespace IBMConsultantTool
             {
                 newChart.Series["IT"].Points.AddXY((i + 1).ToString(), future[i]);
             }
+
+            newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1641,6 +1657,8 @@ namespace IBMConsultantTool
             newChart.ChartAreas.Add("chart1");
             newChart.Palette = ChartColorPalette.BrightPastel;
 
+            newChart.Name = "Question" + index.ToString();
+
             newChart.ChartAreas["chart1"].Visible = true;
             newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisX.Title = "Question";
@@ -1696,6 +1714,8 @@ namespace IBMConsultantTool
             newChart.Series["Business Current"].Points.AddY(curBusiness[index]);
             newChart.Series["IT Future"].Points.AddY(fuIT[index]);
             newChart.Series["IT Current"].Points.AddY(curIT[index]);
+
+            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void LoadAnswersFromDataControl()
