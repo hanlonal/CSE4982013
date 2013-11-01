@@ -14,17 +14,13 @@ namespace IBMConsultantTool
         private List<float> asIsAnswers = new List<float>();
         private List<float> toBeAnswers = new List<float>();
 
-        static private float staticThreshold = 1;
-        enum SortTpe { Static, Dynamic };
-        static SortTpe type;
-        static private float percentToCategorizeAsHigh = .33f;
-        static private float percentToCategorizeAsLow = .33f;
+
 
 
         public ITCapQuestion()
         {
             Console.WriteLine("question created");
-            type = SortTpe.Dynamic;
+            
         }
 
         public override void UpdateIndexDecrease(int index)
@@ -99,7 +95,6 @@ namespace IBMConsultantTool
                 CapabilityGapText = "Medium Gap";
             else
                 CapabilityGapText = "Low/No Gap";
-
         }
 
         public Capability Owner

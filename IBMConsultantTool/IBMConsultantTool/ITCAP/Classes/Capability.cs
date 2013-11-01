@@ -9,6 +9,16 @@ namespace IBMConsultantTool
     {
         private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();        
         private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
+
+        static private float staticThreshold = 1;
+        enum SortTpe { Static, Dynamic };
+        static SortTpe sortType;
+        static private float percentToCategorizeAsHigh = .33f;
+        static private float percentToCategorizeAsLow = .33f;
+        static private float staticHighGapThreshold = 1.5f;
+        static private float staticLowGapThreshold = 1;
+        static private Dictionary<Capability, float> dynamicCapabilityGaps = new Dictionary<Capability, float>();
+
         
         ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
@@ -23,6 +33,7 @@ namespace IBMConsultantTool
         public Capability()
         {
             Console.WriteLine("capability created");
+            sortType = SortTpe.Dynamic;
         }
 
         public override void UpdateIndexDecrease(int index)
@@ -50,8 +61,59 @@ namespace IBMConsultantTool
             }
             asIsScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
             owner.CalculateAsIsAverage();
+            CalculateCapabilityGap();
             return asIsScore;
         }
+
+        public override void CalculateCapabilityGap()
+        {
+            base.CalculateCapabilityGap();
+            if (sortType == SortTpe.Static)
+            {
+                if (capabilityGap >= staticHighGapThreshold)
+                    CapabilityGapText = "High Gap";
+                else if (capabilityGap >= staticLowGapThreshold && capabilityGap < staticHighGapThreshold)
+                    CapabilityGapText = "Medium Gap";
+                else
+                    CapabilityGapText = "Low/No Gap";
+            }
+            else if (sortType == SortTpe.Dynamic)
+            {
+                if (dynamicCapabilityGaps.ContainsKey(this))
+                {
+                    dynamicCapabilityGaps[this] = capabilityGap;                    
+                }
+                else
+                     dynamicCapabilityGaps.Add(this, capabilityGap);
+
+                var items = from pair in dynamicCapabilityGaps
+                            orderby pair.Value ascending
+                            select pair;
+
+                if (dynamicCapabilityGaps.Count > 3)
+                {
+                    int numberForLow = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsLow);
+                    int numberForMid = (int)(decimal)(dynamicCapabilityGaps.Count * (1 - (percentToCategorizeAsHigh + percentToCategorizeAsLow)));
+                    int numberForHigh = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsHigh);
+
+                    int count = 0;
+                    foreach (KeyValuePair<Capability, float> pair in items)
+                    {
+
+                    }
+                    Console.WriteLine(numberForLow.ToString());
+                    Console.WriteLine(numberForMid.ToString());
+                    Console.WriteLine(numberForHigh.ToString());
+                }
+                else
+                {
+
+                }
+
+            }
+
+        }
+
         public override void ChangeChildrenVisibility()
         {
             foreach (ITCapQuestion ques in questionsOwned)
@@ -82,6 +144,7 @@ namespace IBMConsultantTool
             }
             toBeScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
             owner.CalculateToBeAverage();
+            CalculateCapabilityGap();
             return toBeScore;
         }
 
