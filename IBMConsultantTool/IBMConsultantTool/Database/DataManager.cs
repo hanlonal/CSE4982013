@@ -17,6 +17,14 @@ namespace IBMConsultantTool
         public abstract List<string> GetObjectivesFromClientBOM(object clientObj);
         #endregion
 
+        #region Region
+        public abstract bool AddRegion(string regName);
+        #endregion
+
+        #region BusinessType
+        public abstract bool AddBusinessType(string busTypeName);
+        #endregion
+
         #region Group
         //group is a keyword in C#
         #endregion

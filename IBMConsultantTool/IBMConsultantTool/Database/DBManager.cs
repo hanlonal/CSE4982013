@@ -86,6 +86,44 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region Region
+        public override bool AddRegion(string regName)
+        {
+            //If already in DB, return false
+            if ((from ent in dbo.REGION
+                 where ent.NAME.TrimEnd() == regName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            REGION region = new REGION();
+            region.NAME = regName;
+            dbo.AddToREGION(region);
+
+            return true;
+        }
+        #endregion
+
+        #region BusinessType
+        public override bool AddBusinessType(string busTypeName)
+        {
+            //If already in DB, return false
+            if ((from ent in dbo.BUSINESSTYPE
+                 where ent.NAME.TrimEnd() == busTypeName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            BUSINESSTYPE busType = new BUSINESSTYPE();
+            busType.NAME = busTypeName;
+            dbo.AddToBUSINESSTYPE(busType);
+
+            return true;
+        }
+        #endregion
+
         #region Group
         //group is a keyword in C#
         public List<GROUP> GetGroups()
@@ -649,7 +687,7 @@ namespace IBMConsultantTool
                 itcapQuestion.IsDefault = itcqEnt.DEFAULT == "Y";
                 itcapQuestion.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
                 itcapQuestion.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
-                itcapQuestion.AddComment(itcap.COMMENT);
+                //itcapQuestion.AddComment(itcap.COMMENT);
                 itcapQuestion.Type = "attribute";
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
@@ -697,7 +735,7 @@ namespace IBMConsultantTool
                             itcapEnt.ITCAPQUESTION = itcqEnt;
                             itcapEnt.ASIS = 0;
                             itcapEnt.TOBE = 0;
-                            itcapEnt.COMMENT = "";
+                            //itcapEnt.COMMENT = "";
                             if (!AddITCAP(itcapEnt, client))
                             {
                                 MessageBox.Show("Failed to add ITCAPQuestion: " + itcapEnt.ITCAPQUESTION.NAME);
@@ -1841,6 +1879,176 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region TrendAnalysis
+        public List<BOM> GetBOMSForInitiative(string iniName)
+        {
+            INITIATIVE initiative;
+            if(GetInitiative(iniName, out initiative))
+            {
+                return initiative.BOM.ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        public List<BOM> GetBOMSForInitiativeRegion(string iniName, string regionName)
+        {
+            INITIATIVE initiative;
+            if (GetInitiative(iniName, out initiative))
+            {
+                return (from ent in initiative.BOM
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regionName
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        public List<BOM> GetBOMSForInitiativeBusinessType(string iniName, string busTypeName)
+        {
+            INITIATIVE initiative;
+            if (GetInitiative(iniName, out initiative))
+            {
+                return (from ent in initiative.BOM
+                        where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CUPE> GetCUPESForCUPEQuestion(string cqName)
+        {
+            CUPEQUESTION cq;
+            try
+            {
+                cq = (from ent in dbo.CUPEQUESTION
+                      where ent.NAME.TrimEnd() == cqName
+                      select ent).Single();
+
+                return cq.CUPE.ToList();
+ 
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<CUPE> GetCUPESForCUPEQuestionRegion(string cqName, string regionName)
+        {
+            CUPEQUESTION cq;
+            try
+            {
+                cq = (from ent in dbo.CUPEQUESTION
+                      where ent.NAME.TrimEnd() == cqName
+                      select ent).Single();
+
+                return (from ent in cq.CUPE
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regionName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<CUPE> GetCUPESForCUPEQuestionBusinessType(string cqName, string busTypeName)
+        {
+            CUPEQUESTION cq;
+            try
+            {
+                cq = (from ent in dbo.CUPEQUESTION
+                      where ent.NAME.TrimEnd() == cqName
+                      select ent).Single();
+
+                return (from ent in cq.CUPE
+                        where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<ITCAP> GetITCAPSForAttribute(string itcqName)
+        {
+            ITCAPQUESTION itcq;
+            try
+            {
+                itcq = (from ent in dbo.ITCAPQUESTION
+                      where ent.NAME.TrimEnd() == itcqName
+                      select ent).Single();
+
+                return itcq.ITCAP.ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<ITCAP> GetITCAPSForAttributeRegion(string itcqName, string regionName)
+        {
+            ITCAPQUESTION itcq;
+            try
+            {
+                itcq = (from ent in dbo.ITCAPQUESTION
+                        where ent.NAME.TrimEnd() == itcqName
+                        select ent).Single();
+
+                return (from ent in itcq.ITCAP
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regionName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<ITCAP> GetITCAPSForAttributeBusinessType(string itcqName, string busTypeName)
+        {
+            ITCAPQUESTION itcq;
+            try
+            {
+                itcq = (from ent in dbo.ITCAPQUESTION
+                        where ent.NAME.TrimEnd() == itcqName
+                        select ent).Single();
+
+                return (from ent in itcq.ITCAP
+                        where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region General
         public override bool SaveChanges()
         {
@@ -1905,7 +2113,7 @@ namespace IBMConsultantTool
                             tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd()));
                             tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
                             tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
-                            tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                            //tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
                             itcapConElement.Add(tempItcap);
                         }
                         tempCon.Add(itcapConElement);
@@ -1954,7 +2162,7 @@ namespace IBMConsultantTool
                         tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd()));
                         tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
                         tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
-                        tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                        //tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
                         itcapGrpElement.Add(tempItcap);
                     }
                     tempGrp.Add(itcapGrpElement);
@@ -2002,7 +2210,7 @@ namespace IBMConsultantTool
                     tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd()));
                     tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
                     tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
-                    tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                    //tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
                     itcapElement.Add(tempItcap);
                 }
                 temp.Add(itcapElement);

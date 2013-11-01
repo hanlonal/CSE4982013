@@ -108,6 +108,46 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region Region
+        public override bool AddRegion(string regName)
+        {
+            /*//If already in DB, return false
+            if ((from ent in dbo.REGION
+                 where ent.NAME.TrimEnd() == regName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            REGION region = new REGION();
+            region.NAME = regName;
+            dbo.AddToREGION(region);
+
+            return true;*/
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region BusinessType
+        public override bool AddBusinessType(string busTypeName)
+        {
+            /*//If already in DB, return false
+            if ((from ent in dbo.BUSINESSTYPE
+                 where ent.NAME.TrimEnd() == busTypeName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            BUSINESSTYPE busType = new BUSINESSTYPE();
+            busType.NAME = busTypeName;
+            dbo.AddToBUSINESSTYPE(busType);
+
+            return true;*/
+            throw new NotImplementedException();
+        }
+        #endregion
+
         #region Group
         //group is a keyword in C#
         public bool AddGroup(string grpName, XElement client)
