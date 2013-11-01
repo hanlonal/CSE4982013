@@ -253,6 +253,12 @@ namespace IBMConsultantTool
                             else if (c == 2)
                             {
                                 temp.AddToBeAnswer(Convert.ToSingle(form.Result.ToString()));
+                                c = 3;
+                                q++;
+                            }
+                            else if (c == 3)
+                            {
+                                temp.AddComment(form.Result.ToString());
                                 c = 1;
                                 q++;
                             }

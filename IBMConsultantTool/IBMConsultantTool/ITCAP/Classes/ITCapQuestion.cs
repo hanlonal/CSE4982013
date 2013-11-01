@@ -8,7 +8,7 @@ namespace IBMConsultantTool
     public class ITCapQuestion : ScoringEntity
     {
         private Capability owner;
-        public string comment;
+        public List<string> comment;
         private List<float> AsIsanswersToAttributes = new List<float>();
         private List<float> ToBeanswersToAttributes = new List<float>();
         private List<float> asIsAnswers = new List<float>();
@@ -20,6 +20,7 @@ namespace IBMConsultantTool
         public ITCapQuestion()
         {
             Console.WriteLine("question created");
+            comment = new List<string>();
             
         }
 
@@ -108,6 +109,12 @@ namespace IBMConsultantTool
             set { id = owner.ID + "." + (string)value; }
         }
 
-
+        public void AddComment(string comm)
+        {
+            if (!String.IsNullOrEmpty(comm))
+            {
+                comment.Add(comm);
+            }
+        }
     }
 }

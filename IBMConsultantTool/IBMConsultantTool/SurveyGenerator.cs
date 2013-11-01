@@ -396,7 +396,7 @@ namespace IBMConsultantTool
 
             Word.Table oTable;
             Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oTable = oDoc.Tables.Add(wrdRng, totalRows, 3, ref oMissing, Word.WdAutoFitBehavior.wdAutoFitContent);
+            oTable = oDoc.Tables.Add(wrdRng, totalRows, 4, ref oMissing, Word.WdAutoFitBehavior.wdAutoFitContent);
             oTable.Range.ParagraphFormat.SpaceAfter = 6;
             oTable.Spacing = 1;
 
@@ -404,13 +404,13 @@ namespace IBMConsultantTool
             oTable.Cell(1, 1).Range.Text = "Question";
             oTable.Cell(1, 2).Range.Text = "Current Value";
             oTable.Cell(1, 3).Range.Text = "Future Value";
-
+            oTable.Cell(1, 4).Range.Text = "Comments";
 
 
             System.Threading.Thread.Sleep(3000);
 
             //Create an array for the questions for the formfields
-            string[] FormNames = new string[(totalRows - 1) * 2];
+            string[] FormNames = new string[(totalRows - 1) * 3];
 
             //Current Row and Current FormName position
             int r = 2, c = 0;
@@ -424,12 +424,18 @@ namespace IBMConsultantTool
                 FormNames[c] = TruncateLongString(question.Name, 14);
                 c++;
                 FormNames[c] = TruncateLongString(question.Name, 14);
+                c++;
+                FormNames[c] = TruncateLongString(question.Name, 14);
 
                 Word.Range cell2Range = oTable.Cell(r, 2).Range;
                 cell2Range.Collapse(ref oMissing);
                 oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
 
                 cell2Range = oTable.Cell(r, 3).Range;
+                cell2Range.Collapse(ref oMissing);
+                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+
+                cell2Range = oTable.Cell(r, 4).Range;
                 cell2Range.Collapse(ref oMissing);
                 oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
 
@@ -458,9 +464,10 @@ namespace IBMConsultantTool
             oTable.Rows[1].Range.Font.Italic = 1;
             oTable.Rows[1].Range.Font.Size = 12;
 
-            oTable.Columns[1].SetWidth(420.0f, Word.WdRulerStyle.wdAdjustNone);
+            oTable.Columns[1].SetWidth(320.0f, Word.WdRulerStyle.wdAdjustNone);
             oTable.Columns[2].SetWidth(50.0f, Word.WdRulerStyle.wdAdjustNone);
             oTable.Columns[3].SetWidth(50.0f, Word.WdRulerStyle.wdAdjustNone);
+            oTable.Columns[4].SetWidth(100.0f, Word.WdRulerStyle.wdAdjustNone);
 
             for (var i = 1; i <= oTable.Rows.Count; i++)
             {

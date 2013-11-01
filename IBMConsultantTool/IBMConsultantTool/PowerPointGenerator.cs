@@ -20,9 +20,8 @@ namespace IBMConsultantTool
         public void CreatePowerPoint()
         {
             String strTemplate, strPic;
-            strTemplate = "C:\\Program Files\\Microsoft Office 15\\blends.pot";
-            strPic = "C:\\Program Files\\Microsoft Office 15\\Add record.png";
-            bool bAssistantOn;
+            strTemplate = Directory.GetCurrentDirectory() + "\\Resources\\blends.pot";
+            strPic = Directory.GetCurrentDirectory() + "\\Resources\\Add record.png";
 
             Power.Application objApp;
             Power.Presentations objPresSet;
@@ -32,11 +31,12 @@ namespace IBMConsultantTool
             Power.TextRange objTextRng;
             Power.Shapes objShapes;
             Power.Shape objShape;
-            Power.SlideShowWindows objSSWs;
-            Power.SlideShowTransition objSST;
-            Power.SlideShowSettings objSSS;
-            Power.SlideRange objSldRng;
-            Graph.Chart objChart;
+
+            //Power.SlideShowWindows objSSWs;
+            //Power.SlideShowTransition objSST;
+            //Power.SlideShowSettings objSSS;
+            //Power.SlideRange objSldRng;
+            //Graph.Chart objChart;
 
             //Create a new presentation based on a template.
             objApp = new Power.Application();
@@ -53,7 +53,7 @@ namespace IBMConsultantTool
             //picture on the first slide.
             objSlide = objSlides.Add(1, Power.PpSlideLayout.ppLayoutTitleOnly);
             objTextRng = objSlide.Shapes[1].TextFrame.TextRange;
-            objTextRng.Text = "My Sample Presentation";
+            objTextRng.Text = "IBM IT Consultation";
             objTextRng.Font.Name = "Comic Sans MS";
             objTextRng.Font.Size = 48;
             objSlide.Shapes.AddPicture(strPic, Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -63,19 +63,19 @@ namespace IBMConsultantTool
             //Build Slide #2:
             //Add text to the slide title, format the text. Also add a chart to the
             //slide and change the chart type to a 3D pie chart.
-            objSlide = objSlides.Add(2, Power.PpSlideLayout.ppLayoutTitleOnly);
-            objTextRng = objSlide.Shapes[1].TextFrame.TextRange;
-            objTextRng.Text = "My Chart";
-            objTextRng.Font.Name = "Comic Sans MS";
-            objTextRng.Font.Size = 48;
-            objChart = (Graph.Chart)objSlide.Shapes.AddOLEObject(150, 150, 480, 320,
-                "MSGraph.Chart.8", "", Microsoft.Office.Core.MsoTriState.msoFalse,
-                "", 0, "",
-                Microsoft.Office.Core.MsoTriState.msoFalse).OLEFormat.Object;
-            objChart.ChartType = Graph.XlChartType.xl3DPie;
-            objChart.Legend.Position = Graph.XlLegendPosition.xlLegendPositionBottom;
-            objChart.HasTitle = true;
-            objChart.ChartTitle.Text = "Here it is...";
+            //objSlide = objSlides.Add(2, Power.PpSlideLayout.ppLayoutTitleOnly);
+            //objTextRng = objSlide.Shapes[1].TextFrame.TextRange;
+            //objTextRng.Text = "My Chart";
+            //objTextRng.Font.Name = "Comic Sans MS";
+            //objTextRng.Font.Size = 48;
+            //objChart = (Graph.Chart)objSlide.Shapes.AddOLEObject(150, 150, 480, 320,
+            //    "MSGraph.Chart.8", "", Microsoft.Office.Core.MsoTriState.msoFalse,
+            //    "", 0, "",
+            //    Microsoft.Office.Core.MsoTriState.msoFalse).OLEFormat.Object;
+            //objChart.ChartType = Graph.XlChartType.xl3DPie;
+            //objChart.Legend.Position = Graph.XlLegendPosition.xlLegendPositionBottom;
+            //objChart.HasTitle = true;
+            //objChart.ChartTitle.Text = "Here it is...";
 
             //Build Slide #3:
             //Change the background color of this slide only. Add a text effect to the slide
@@ -87,15 +87,6 @@ namespace IBMConsultantTool
               "The End", "Impact", 96, Microsoft.Office.Core.MsoTriState.msoFalse, 
               Microsoft.Office.Core.MsoTriState.msoFalse, 230, 200);
 
-            //Modify the slide show transition settings for all 3 slides in
-            //the presentation.
-            int[] SlideIdx = new int[3];
-            for (int i = 0; i < 3; i++) SlideIdx[i] = i + 1;
-            objSldRng = objSlides.Range(SlideIdx);
-            objSST = objSldRng.SlideShowTransition;
-            objSST.AdvanceOnTime = Microsoft.Office.Core.MsoTriState.msoTrue;
-            objSST.AdvanceTime = 3;
-            objSST.EntryEffect = Power.PpEntryEffect.ppEffectBoxOut;
 
 
         }
