@@ -649,7 +649,7 @@ namespace IBMConsultantTool
                 itcapQuestion.IsDefault = itcqEnt.DEFAULT == "Y";
                 itcapQuestion.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
                 itcapQuestion.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
-                itcapQuestion.comment = itcap.COMMENT;
+                itcapQuestion.AddComment(itcap.COMMENT);
                 itcapQuestion.Type = "attribute";
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
@@ -1305,6 +1305,7 @@ namespace IBMConsultantTool
         {
             CLIENT client = cupeForm.client as CLIENT;
             CupeQuestionStringData data = new CupeQuestionStringData();
+            List<CupeQuestionStringData> templist = new List<CupeQuestionStringData>();
             if (client.CUPE.Count != 0)
             {
                 foreach (CUPE cupe in client.CUPE)
@@ -1315,9 +1316,15 @@ namespace IBMConsultantTool
                     data.ChoiceC = cupe.PARTNER.TrimEnd();
                     data.ChoiceD = cupe.ENABLER.TrimEnd();
 
-                    ClientDataControl.AddCupeQuestion(data);
+                    templist.Add(data);
                     data = new CupeQuestionStringData();
                 }
+                ClientDataControl.cupeQuestions.RemoveRange(0, templist.Count);
+                foreach( CupeQuestionStringData temp in templist)
+                {
+                    ClientDataControl.AddCupeQuestion(temp);
+                }
+                
             }
 
             else
@@ -1333,6 +1340,7 @@ namespace IBMConsultantTool
                         data.ChoiceD = cupeQuestion.ENABLER.TrimEnd();
 
                         ClientDataControl.AddCupeQuestion(data);
+                        ClientDataControl.cupeQuestions.RemoveAt(1);
                         data = new CupeQuestionStringData();
                     }
                 }

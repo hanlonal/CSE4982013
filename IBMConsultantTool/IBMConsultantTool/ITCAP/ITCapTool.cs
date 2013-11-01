@@ -95,7 +95,7 @@ namespace IBMConsultantTool
                 ITCapQuestion question = new ITCapQuestion();
                 question.Name = questionInfo;
                 question.IsDefault = questionInfo.Last() == 'Y';
-                question.comment = "";
+                question.comment = new List<string>();
                 cap.Owner.TotalChildren++;
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
