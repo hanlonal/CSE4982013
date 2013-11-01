@@ -198,6 +198,76 @@ namespace IBMConsultantTool
         }
 
 
+        public void ReadSurveyITCap(List<ScoringEntity> questions)
+        {
+            var FD = new System.Windows.Forms.FolderBrowserDialog();
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            var files = Directory.EnumerateFiles(FD.SelectedPath);
+            var badFiles = 0;
+
+            foreach (var file in files)
+            {
+
+                if (file.Contains("~$"))
+                {
+                    badFiles++;
+                    continue;
+                }
+                //Start Word and open the word document.
+                Word._Application oWord;
+                Word._Document oDoc;
+                oWord = new Word.Application();
+                oWord.Visible = false;
+
+
+                oDoc = oWord.Documents.Open(file, Type.Missing, Type.Missing, Type.Missing,
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                    Type.Missing, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //oWord.Activate();
+
+
+                try
+                {
+
+                    ScoringEntity currentQuestion = null;
+
+
+                    int q = 1, c = 1;
+                    foreach (Word.FormField form in oDoc.FormFields)
+                    {
+                        if (form.Name != "Name")
+                        {
+                            currentQuestion = questions.Where(x => x.Name == form.Name).Single();
+                            ITCapQuestion temp = (ITCapQuestion)currentQuestion;
+
+                            if (c == 1)
+                            {
+                                temp.AddAsIsAnswer(Convert.ToSingle(form.Result.ToString()));
+                                
+                                c = 2;
+                            }
+                            else if (c == 2)
+                            {
+                                temp.AddToBeAnswer(Convert.ToSingle(form.Result.ToString()));
+                                c = 1;
+                                q++;
+                            }
+
+                        }
+                    }
+                    oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+                }
+                catch
+                {
+                    oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+                }
+            }
+
+        }
 
     }
 }

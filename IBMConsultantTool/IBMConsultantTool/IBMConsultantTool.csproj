@@ -254,6 +254,7 @@
     <Compile Include="No Longer Used\PropertyBagPropertyDescriptor.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="PowerPointGenerator.cs" />
     <Compile Include="RoundedRectangle.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -325,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ITCAP\Forms\CapabilityGapForm.resx">
       <DependentUpon>CapabilityGapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ITCAP\ITCapTool.resx">
+      <DependentUpon>ITCapTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewClientForm.resx">
       <DependentUpon>NewClientForm.cs</DependentUpon>
@@ -417,6 +421,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Graph">
+      <Guid>{00020802-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.MSProject1">
       <Guid>{A7107640-94DF-1068-855E-00DD01075445}</Guid>
       <VersionMajor>4</VersionMajor>
@@ -432,6 +445,15 @@
       <VersionMinor>8</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.PowerPoint">
+      <Guid>{91493440-5A91-11CF-8700-00AA0060263B}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>11</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
@@ -499,6 +521,9 @@
     <Content Include="Resources\Questions.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\temp.potx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\yellow-warning-sign.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -509,7 +534,9 @@
     <Content Include="Resources\load-upload-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Add record.png" />
+    <Content Include="Resources\Add record.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
