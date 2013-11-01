@@ -1289,6 +1289,21 @@ namespace IBMConsultantTool
             generator.CreateITCapSurvey(entities);
         }
 
+        private void openSurveyDocumentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var SurveyReader = new SurveyReader();
+
+            SurveyReader.ReadSurveyITCap(entities);
+
+        }
+
+        private void createPowerPointToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var Powah = new PowerPointGenerator();
+
+            Powah.CreatePowerPoint();
+        }
+
         
         
 

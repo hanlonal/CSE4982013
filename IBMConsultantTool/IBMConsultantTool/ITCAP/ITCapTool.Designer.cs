@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.surveryMakerGrid = new System.Windows.Forms.DataGridView();
             this.mainMenuToolBar = new System.Windows.Forms.MenuStrip();
             this.File = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +46,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createSurveyDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSurveyDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.View = new System.Windows.Forms.ToolStripMenuItem();
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityAssesmentSummaryScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +84,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,8 +105,9 @@
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.createSurveyDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createPowerPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -117,28 +119,28 @@
             // 
             // surveryMakerGrid
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.surveryMakerGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.surveryMakerGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.surveryMakerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.surveryMakerGrid.EnableHeadersVisualStyles = false;
             this.surveryMakerGrid.Location = new System.Drawing.Point(13, 30);
             this.surveryMakerGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.surveryMakerGrid.MultiSelect = false;
             this.surveryMakerGrid.Name = "surveryMakerGrid";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.surveryMakerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.surveryMakerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.surveryMakerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.surveryMakerGrid.Size = new System.Drawing.Size(450, 529);
             this.surveryMakerGrid.TabIndex = 3;
@@ -173,7 +175,9 @@
             this.openToolStripMenuItem,
             this.loadDataToolStripMenuItem,
             this.sendSurveyToolStripMenuItem,
-            this.createSurveyDocumentToolStripMenuItem});
+            this.createSurveyDocumentToolStripMenuItem,
+            this.openSurveyDocumentsToolStripMenuItem,
+            this.createPowerPointToolStripMenuItem});
             this.File.Name = "File";
             this.File.Size = new System.Drawing.Size(44, 24);
             this.File.Text = "File";
@@ -185,48 +189,62 @@
             this.businessToolStripMenuItem,
             this.otherToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
             this.newToolStripMenuItem.Text = "New Default Survey";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // governmentToolStripMenuItem
             // 
             this.governmentToolStripMenuItem.Name = "governmentToolStripMenuItem";
-            this.governmentToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.governmentToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
             this.governmentToolStripMenuItem.Text = "Government";
             // 
             // businessToolStripMenuItem
             // 
             this.businessToolStripMenuItem.Name = "businessToolStripMenuItem";
-            this.businessToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.businessToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
             this.businessToolStripMenuItem.Text = "Business";
             // 
             // otherToolStripMenuItem
             // 
             this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            this.otherToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
             this.otherToolStripMenuItem.Text = "Other";
             this.otherToolStripMenuItem.Click += new System.EventHandler(this.otherToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // loadDataToolStripMenuItem
             // 
             this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
             this.loadDataToolStripMenuItem.Text = "Load Data";
             this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // sendSurveyToolStripMenuItem
             // 
             this.sendSurveyToolStripMenuItem.Name = "sendSurveyToolStripMenuItem";
-            this.sendSurveyToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+            this.sendSurveyToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
             this.sendSurveyToolStripMenuItem.Text = "Send Survey";
+            // 
+            // createSurveyDocumentToolStripMenuItem
+            // 
+            this.createSurveyDocumentToolStripMenuItem.Name = "createSurveyDocumentToolStripMenuItem";
+            this.createSurveyDocumentToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.createSurveyDocumentToolStripMenuItem.Text = "Create Survey Document";
+            this.createSurveyDocumentToolStripMenuItem.Click += new System.EventHandler(this.createSurveyDocumentToolStripMenuItem_Click);
+            // 
+            // openSurveyDocumentsToolStripMenuItem
+            // 
+            this.openSurveyDocumentsToolStripMenuItem.Name = "openSurveyDocumentsToolStripMenuItem";
+            this.openSurveyDocumentsToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.openSurveyDocumentsToolStripMenuItem.Text = "Open Survey Documents";
+            this.openSurveyDocumentsToolStripMenuItem.Click += new System.EventHandler(this.openSurveyDocumentsToolStripMenuItem_Click);
             // 
             // View
             // 
@@ -469,14 +487,14 @@
             // 
             // liveDataEntryGrid
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.liveDataEntryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.liveDataEntryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.liveDataEntryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.liveDataEntryGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -491,14 +509,14 @@
             this.liveDataEntryGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.liveDataEntryGrid.MultiSelect = false;
             this.liveDataEntryGrid.Name = "liveDataEntryGrid";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.liveDataEntryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.liveDataEntryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.liveDataEntryGrid.RowHeadersVisible = false;
             this.liveDataEntryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.liveDataEntryGrid.Size = new System.Drawing.Size(925, 529);
@@ -543,14 +561,6 @@
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
             // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
-            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Type";
@@ -559,14 +569,14 @@
             // 
             // prioritizationGrid
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.prioritizationGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.prioritizationGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.prioritizationGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.prioritizationGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn7,
@@ -580,14 +590,14 @@
             this.prioritizationGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prioritizationGrid.MultiSelect = false;
             this.prioritizationGrid.Name = "prioritizationGrid";
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.prioritizationGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.prioritizationGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.prioritizationGrid.RowHeadersVisible = false;
             this.prioritizationGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.prioritizationGrid.Size = new System.Drawing.Size(938, 529);
@@ -699,10 +709,10 @@
             this.objectiveToAddButton.Size = new System.Drawing.Size(100, 30);
             this.objectiveToAddButton.TabIndex = 4;
             // 
-            // button1
+            // button13322345
             // 
             this.button13322345.Location = new System.Drawing.Point(838, 51);
-            this.button13322345.Name = "button1";
+            this.button13322345.Name = "button13322345";
             this.button13322345.Size = new System.Drawing.Size(75, 23);
             this.button13322345.TabIndex = 3;
             this.button13322345.Text = "button1";
@@ -740,14 +750,14 @@
             // 
             // loadSurveyFromDataGrid
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.loadSurveyFromDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.loadSurveyFromDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.loadSurveyFromDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.loadSurveyFromDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Collapse,
@@ -757,14 +767,14 @@
             this.loadSurveyFromDataGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.loadSurveyFromDataGrid.MultiSelect = false;
             this.loadSurveyFromDataGrid.Name = "loadSurveyFromDataGrid";
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.loadSurveyFromDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.loadSurveyFromDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.loadSurveyFromDataGrid.RowHeadersVisible = false;
             this.loadSurveyFromDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.loadSurveyFromDataGrid.Size = new System.Drawing.Size(938, 529);
@@ -792,6 +802,14 @@
             this.Flags.ReadOnly = true;
             this.Flags.Width = 50;
             // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
+            // 
             // dataGridViewButtonColumn2
             // 
             this.dataGridViewButtonColumn2.HeaderText = "";
@@ -800,12 +818,12 @@
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 30;
             // 
-            // createSurveyDocumentToolStripMenuItem
+            // createPowerPointToolStripMenuItem
             // 
-            this.createSurveyDocumentToolStripMenuItem.Name = "createSurveyDocumentToolStripMenuItem";
-            this.createSurveyDocumentToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.createSurveyDocumentToolStripMenuItem.Text = "Create Survey Document";
-            this.createSurveyDocumentToolStripMenuItem.Click += new System.EventHandler(this.createSurveyDocumentToolStripMenuItem_Click);
+            this.createPowerPointToolStripMenuItem.Name = "createPowerPointToolStripMenuItem";
+            this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.createPowerPointToolStripMenuItem.Text = "Create PowerPoint";
+            this.createPowerPointToolStripMenuItem.Click += new System.EventHandler(this.createPowerPointToolStripMenuItem_Click);
             // 
             // ITCapTool
             // 
@@ -920,6 +938,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox objectiveToAddButton;
         private System.Windows.Forms.ToolStripMenuItem createSurveyDocumentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openSurveyDocumentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createPowerPointToolStripMenuItem;
 
 
     }

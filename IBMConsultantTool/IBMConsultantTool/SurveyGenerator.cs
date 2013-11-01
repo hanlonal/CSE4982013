@@ -421,9 +421,9 @@ namespace IBMConsultantTool
                 {
                     continue;
                 }
-                FormNames[c] = TruncateLongString(question.Name, 14) + "Current";
+                FormNames[c] = TruncateLongString(question.Name, 14);
                 c++;
-                FormNames[c] = TruncateLongString(question.Name, 14) + "Future";
+                FormNames[c] = TruncateLongString(question.Name, 14);
 
                 Word.Range cell2Range = oTable.Cell(r, 2).Range;
                 cell2Range.Collapse(ref oMissing);
