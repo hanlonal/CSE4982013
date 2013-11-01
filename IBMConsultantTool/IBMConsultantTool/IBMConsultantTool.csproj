@@ -372,6 +372,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ChartImages\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>

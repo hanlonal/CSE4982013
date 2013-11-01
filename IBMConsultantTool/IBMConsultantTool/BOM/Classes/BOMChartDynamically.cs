@@ -382,7 +382,13 @@ namespace IBMConsultantTool
                 }
                 y += 10;
             }
-            
+
+            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            //new Bitmap(this.panelChart.Width,this.panelChart.Height);
+            panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width, bmp.Height));
+            System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
+            bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
             InitializeComponent();
 
             //this.panelChart.Paint += new PaintEventHandler(picBox_Paint);
@@ -1042,6 +1048,26 @@ namespace IBMConsultantTool
                     objectivesCount++;
                 }
             }
+
+            System.IO.MemoryStream mss = new System.IO.MemoryStream();
+            //FileStream imgStream = new FileStream("BubbleChart.jpeg", FileMode.Create);
+            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            //new Bitmap(this.panelChart.Width,this.panelChart.Height);
+            panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width+5, bmp.Height+5));
+            //System.Diagnostics.Trace.WriteLine("path: " + too
+            /*System.Diagnostics.Trace.WriteLine("path1: " + Application.ExecutablePath.ToString());
+            System.Diagnostics.Trace.WriteLine("path2: " + Application.LocalUserAppDataPath.ToString());
+            System.Diagnostics.Trace.WriteLine("path3: " + Application.UserAppDataPath.ToString());
+            System.Diagnostics.Trace.WriteLine("path4: " + Application.CommonAppDataPath.ToString());*/
+            //Application.
+
+            //FileStream file = 
+            //Stream path = System.IO.Path.GetDirectoryName("\\IBMConsultantTool\ChartImages");
+            //bmp.Save(path + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            Console.WriteLine(path);
+            bmp.Save(Application.StartupPath + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            //bmp.Save(imgStream, System.Drawing.Imaging.ImageFormat.Jpeg);
         }
     }
 }
