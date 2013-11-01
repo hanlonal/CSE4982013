@@ -2143,38 +2143,38 @@ namespace IBMConsultantTool
                         {
                             case "CLIENT":
                                 client = new CLIENT();
-                                client.NAME = lineArray[2];
+                                client.NAME = lineArray[2].Replace('~', ' ');
                                 AddClient(client);
                                 break;
 
                             case "GROUP":
-                                if (GetClient(lineArray[3], out client))
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                 {
-                                    AddGroup(lineArray[2], client);
+                                    AddGroup(lineArray[2].Replace('~', ' '), client);
                                 }
                                 break;
 
                             case "CATEGORY":
                                 category = new CATEGORY();
-                                category.NAME = lineArray[2];
+                                category.NAME = lineArray[2].Replace('~', ' ');
                                 AddCategory(category);
                                 break;
 
                             case "BUSINESSOBJECTIVE":
-                                if (GetCategory(lineArray[3], out category))
+                                if (GetCategory(lineArray[3].Replace('~', ' '), out category))
                                 {
                                     objective = new BUSINESSOBJECTIVE();
-                                    objective.NAME = lineArray[2];
+                                    objective.NAME = lineArray[2].Replace('~', ' ');
                                     objective.CATEGORY = category;
                                     AddObjective(objective);
                                 }
                                 break;
 
                             case "INITIATIVE":
-                                if (GetObjective(lineArray[3], out objective))
+                                if (GetObjective(lineArray[3].Replace('~', ' '), out objective))
                                 {
                                     initiative = new INITIATIVE();
-                                    initiative.NAME = lineArray[2];
+                                    initiative.NAME = lineArray[2].Replace('~', ' ');
                                     initiative.BUSINESSOBJECTIVE = objective;
                                     AddInitiative(initiative);
                                 }
@@ -2183,9 +2183,9 @@ namespace IBMConsultantTool
                             case "BOM":
                                 if (lineArray[2] == "CLIENT")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetInitiative(lineArray[4], out initiative))
+                                        if (GetInitiative(lineArray[4].Replace('~', ' '), out initiative))
                                         {
                                             bom = new BOM();
                                             bom.INITIATIVE = initiative;
@@ -2195,11 +2195,11 @@ namespace IBMConsultantTool
                                 }
                                 else if (lineArray[2] == "GROUP")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetGroup(lineArray[4], client, out grp))
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                         {
-                                            if (GetInitiative(lineArray[5], out initiative))
+                                            if (GetInitiative(lineArray[5].Replace('~', ' '), out initiative))
                                             {
                                                 bom = new BOM();
                                                 bom.INITIATIVE = initiative;
@@ -2211,13 +2211,13 @@ namespace IBMConsultantTool
 
                                 else if (lineArray[2] == "CONTACT")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetGroup(lineArray[4], client, out grp))
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                         {
-                                            if (GetContact(lineArray[5], grp, out contact))
+                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
                                             {
-                                                if (GetInitiative(lineArray[6], out initiative))
+                                                if (GetInitiative(lineArray[6].Replace('~', ' '), out initiative))
                                                 {
                                                     bom = new BOM();
                                                     bom.INITIATIVE = initiative;
@@ -2236,16 +2236,16 @@ namespace IBMConsultantTool
 
                             case "DOMAIN":
                                 domain = new DOMAIN();
-                                domain.NAME = lineArray[2];
+                                domain.NAME = lineArray[2].Replace('~', ' ');
                                 domain.DEFAULT = "N";
                                 AddDomain(domain);
                                 break;
 
                             case "CAPABILITY":
-                                if (GetDomain(lineArray[3], out domain))
+                                if (GetDomain(lineArray[3].Replace('~', ' '), out domain))
                                 {
                                     capability = new CAPABILITY();
-                                    capability.NAME = lineArray[2];
+                                    capability.NAME = lineArray[2].Replace('~', ' ');
                                     capability.DEFAULT = "N";
                                     capability.DOMAIN = domain;
                                     AddCapability(capability);
@@ -2253,10 +2253,10 @@ namespace IBMConsultantTool
                                 break;
 
                             case "ITCAPQUESTION":
-                                if (GetCapability(lineArray[3], out capability))
+                                if (GetCapability(lineArray[3].Replace('~', ' '), out capability))
                                 {
                                     itcapQuestion = new ITCAPQUESTION();
-                                    itcapQuestion.NAME = lineArray[2];
+                                    itcapQuestion.NAME = lineArray[2].Replace('~', ' ');
                                     itcapQuestion.DEFAULT = "N";
                                     itcapQuestion.CAPABILITY = capability;
                                     AddITCAPQuestion(itcapQuestion);
@@ -2266,9 +2266,9 @@ namespace IBMConsultantTool
                             case "ITCAP":
                                 if (lineArray[2] == "CLIENT")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetITCAPQuestion(lineArray[4], out itcapQuestion))
+                                        if (GetITCAPQuestion(lineArray[4].Replace('~', ' '), out itcapQuestion))
                                         {
                                             itcap = new ITCAP();
                                             itcap.ITCAPQUESTION = itcapQuestion;
@@ -2278,11 +2278,11 @@ namespace IBMConsultantTool
                                 }
                                 else if (lineArray[2] == "GROUP")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetGroup(lineArray[4], client, out grp))
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                         {
-                                            if (GetITCAPQuestion(lineArray[4], out itcapQuestion))
+                                            if (GetITCAPQuestion(lineArray[5].Replace('~', ' '), out itcapQuestion))
                                             {
                                                 itcap = new ITCAP();
                                                 itcap.ITCAPQUESTION = itcapQuestion;
@@ -2294,13 +2294,13 @@ namespace IBMConsultantTool
 
                                 else if (lineArray[2] == "CONTACT")
                                 {
-                                    if (GetClient(lineArray[3], out client))
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetGroup(lineArray[4], client, out grp))
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                         {
-                                            if (GetContact(lineArray[5], grp, out contact))
+                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
                                             {
-                                                if (GetITCAPQuestion(lineArray[4], out itcapQuestion))
+                                                if (GetITCAPQuestion(lineArray[6].Replace('~', ' '), out itcapQuestion))
                                                 {
                                                     itcap = new ITCAP();
                                                     itcap.ITCAPQUESTION = itcapQuestion;
@@ -2318,18 +2318,18 @@ namespace IBMConsultantTool
                                 break;
 
                             case "ITCAPOBJMAP":
-                                if(GetClient(lineArray[3], out client))
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                 {
                                     int temp;
-                                    if(!GetITCAPOBJMAPScore(client, lineArray[4], lineArray[5], out temp))
+                                    if (!GetITCAPOBJMAPScore(client, lineArray[4].Replace('~', ' '), lineArray[5].Replace('~', ' '), out temp))
                                     {
-                                        if(!GetCapability(lineArray[4], out capability))
+                                        if (!GetCapability(lineArray[4].Replace('~', ' '), out capability))
                                         {
                                             MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
                                             success = false;
                                         }
 
-                                        if(!GetObjective(lineArray[5], out objective))
+                                        if (!GetObjective(lineArray[5].Replace('~', ' '), out objective))
                                         {
                                             MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
                                             success = false;
@@ -2356,9 +2356,9 @@ namespace IBMConsultantTool
                         switch (lineArray[1])
                         {
                             case "BOM":
-                                if (GetClient(lineArray[2], out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetBOM(lineArray[3], client, out bom))
+                                    if (GetBOM(lineArray[3].Replace('~', ' '), client, out bom))
                                     {
                                         bom.EFFECTIVENESS = Convert.ToSingle(lineArray[4]);
                                         bom.CRITICALITY = Convert.ToSingle(lineArray[5]);
@@ -2367,20 +2367,20 @@ namespace IBMConsultantTool
                                 }
                                 break;
                            case "ITCAP":
-                                if (GetClient(lineArray[2], out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetITCAP(lineArray[3], client, out itcap))
+                                    if (GetITCAP(lineArray[3].Replace('~', ' '), client, out itcap))
                                     {
                                         itcap.ASIS = Convert.ToSingle(lineArray[4]);
                                         itcap.TOBE = Convert.ToSingle(lineArray[5]);
-                                        itcap.COMMENT = lineArray[6];
+                                        itcap.COMMENT = lineArray[6].Replace('~', ' ');
                                     }
                                 }
                                 break;
                             case "ITCAPOBJMAP":
-                                if(GetClient(lineArray[3], out client))
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                 {
-                                    if(GetITCAPOBJMAP(client, lineArray[4], lineArray[5], out itcapObjMap))
+                                    if (GetITCAPOBJMAP(client, lineArray[4].Replace('~', ' '), lineArray[5].Replace('~', ' '), out itcapObjMap))
                                     {
                                         itcapObjMap.SCORE = Convert.ToInt32(lineArray[6]);
                                     }

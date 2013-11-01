@@ -52,7 +52,6 @@ namespace IBMConsultantTool
 
         public bool GetClient(string cntName, out XElement client)
         {
-            cntName = cntName;
             try
             {
                 client = (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
@@ -84,7 +83,7 @@ namespace IBMConsultantTool
 
             dbo.Element("CLIENTS").Add(client);
 
-            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value);
+            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -113,7 +112,6 @@ namespace IBMConsultantTool
         //group is a keyword in C#
         public bool AddGroup(string grpName, XElement client)
         {
-            grpName = grpName;
             //If Client points to 2 BOMs with same Initiative, return false
             if ((from ent in client.Element("GROUPS").Elements("GROUP")
                  where ent.Element("NAME") != null &&
@@ -130,8 +128,8 @@ namespace IBMConsultantTool
 
             client.Element("GROUPS").Add(grp);
 
-            changeLog.Add("ADD GROUP " + grp.Element("NAME").Value + " " +
-                            client.Element("NAME").Value);
+            changeLog.Add("ADD GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " +
+                            client.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -141,18 +139,17 @@ namespace IBMConsultantTool
         public override bool UpdateBOM(object clientObj, NewInitiative ini)
         {
             XElement client = clientObj as XElement;
-            string formattedName = ini.Name;
             try
             {
                 XElement bom = (from ent in client.Element("BOMS").Elements("BOM")
-                                where ent.Element("INITIATIVE").Value == formattedName
+                                where ent.Element("INITIATIVE").Value == ini.Name
                                 select ent).Single();
 
                 bom.Element("EFFECTIVENESS").Value = ini.Effectiveness.ToString();
                 bom.Element("CRITICALITY").Value = ini.Criticality.ToString();
                 bom.Element("DIFFERENTIAL").Value = ini.Differentiation.ToString();
 
-                changeLog.Add("UPDATE BOM " + client.Element("NAME").Value + " " + formattedName + " " +
+                changeLog.Add("UPDATE BOM " + client.Element("NAME").Value.Replace(' ', '~') + " " + ini.Name.Replace(' ', '~') + " " +
                                 ini.Effectiveness + " " + ini.Criticality + " " + ini.Differentiation);
             }
 
@@ -190,7 +187,7 @@ namespace IBMConsultantTool
 
             client.Element("BOMS").Add(bom);
 
-            changeLog.Add("ADD BOM CLIENT " + client.Element("NAME").Value + " " + iniXML);
+            changeLog.Add("ADD BOM CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + iniXML.Replace(' ', '~'));
 
             return true;
         }
@@ -222,8 +219,8 @@ namespace IBMConsultantTool
 
             XElement client = grp.Parent.Parent;
 
-            changeLog.Add("ADD BOM GROUP " + grp.Element("NAME").Value + " " +
-                          client.Element("NAME").Value + " " + iniXML);
+            changeLog.Add("ADD BOM GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " +
+                          client.Element("NAME").Value.Replace(' ', '~') + " " + iniXML.Replace(' ', '~'));
 
             return true;
         }
@@ -256,9 +253,9 @@ namespace IBMConsultantTool
             XElement grp = contact.Parent.Parent;
             XElement client = grp.Parent.Parent;
 
-            changeLog.Add("ADD BOM CONTACT " + contact.Element("NAME").Value + " " +
-                          grp.Element("NAME").Value + " " +
-                          client.Element("NAME").Value + " " + iniXML);
+            changeLog.Add("ADD BOM CONTACT " + contact.Element("NAME").Value.Replace(' ', '~') + " " +
+                          grp.Element("NAME").Value.Replace(' ', '~') + " " +
+                          client.Element("NAME").Value.Replace(' ', '~') + " " + iniXML.Replace(' ', '~'));
 
             return true;
         }
@@ -390,7 +387,7 @@ namespace IBMConsultantTool
                 itcap.Element("ASIS").Value = itcapQuestion.AsIsScore.ToString();
                 itcap.Element("TOBE").Value = itcapQuestion.ToBeScore.ToString();
 
-                changeLog.Add("UPDATE ITCAP " + client.Element("NAME").Value + " " + formattedName + " " +
+                changeLog.Add("UPDATE ITCAP " + client.Element("NAME").Value.Replace(' ', '~') + " " + formattedName.Replace(' ', '~') + " " +
                                 itcapQuestion.AsIsScore + " " + itcapQuestion.ToBeScore);
             }
 
@@ -447,7 +444,7 @@ namespace IBMConsultantTool
 
             client.Element("ITCAPS").Add(itcap);
 
-            changeLog.Add("ADD ITCAP CLIENT " + client.Element("NAME").Value + " " + itcqXML);
+            changeLog.Add("ADD ITCAP CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + itcqXML.Replace(' ', '~'));
 
             return true;
         }
@@ -477,7 +474,7 @@ namespace IBMConsultantTool
 
             grp.Element("ITCAPS").Add(itcap);
 
-            changeLog.Add("ADD ITCAP GROUP " + grp.Element("NAME").Value + " " + itcqXML);
+            changeLog.Add("ADD ITCAP GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " + itcqXML.Replace(' ', '~'));
 
             return true;
         }
@@ -507,7 +504,7 @@ namespace IBMConsultantTool
 
             contact.Element("ITCAPS").Add(itcap);
 
-            changeLog.Add("ADD ITCAP CONTACT " + contact.Element("NAME").Value + " " + itcqXML);
+            changeLog.Add("ADD ITCAP CONTACT " + contact.Element("NAME").Value.Replace(' ', '~') + " " + itcqXML.Replace(' ', '~'));
 
             return true;
         }
@@ -726,7 +723,6 @@ namespace IBMConsultantTool
 
         public bool GetCategory(string catName, out XElement category)
         {
-            catName = catName;
             try
             {
                 category = (from ent in dbo.Element("CATEGORIES").Elements("CATEGORY")
@@ -757,7 +753,7 @@ namespace IBMConsultantTool
 
             dbo.Element("CATEGORIES").Add(category);
 
-            changeLog.Add("ADD CATEGORY " + category.Element("NAME").Value);
+            changeLog.Add("ADD CATEGORY " + category.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -800,7 +796,6 @@ namespace IBMConsultantTool
 
         public bool GetObjective(string busName, out XElement objective)
         {
-            busName = busName;
             try
             {
                 objective = (from cnt in dbo.Element("CATEGORIES").Elements("CATEGORY")
@@ -834,8 +829,8 @@ namespace IBMConsultantTool
 
             category.Element("BUSINESSOBJECTIVES").Add(objective);
 
-            changeLog.Add("ADD BUSINESSOBJECTIVE " + objective.Element("NAME").Value + " " +
-                            category.Element("NAME").Value);
+            changeLog.Add("ADD BUSINESSOBJECTIVE " + objective.Element("NAME").Value.Replace(' ', '~') + " " +
+                            category.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -857,7 +852,6 @@ namespace IBMConsultantTool
         #region Initiative
         public bool GetInitiative(string iniName, out XElement Initiative)
         {
-            iniName = iniName;
             try
             {
                 Initiative = (from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
@@ -912,9 +906,9 @@ namespace IBMConsultantTool
 
             objective.Element("INITIATIVES").Add(initiative);
 
-            changeLog.Add("ADD INITIATIVE " + initiative.Element("NAME").Value + " " +
-                            objective.Element("NAME").Value + " " +
-                            category.Element("NAME").Value);
+            changeLog.Add("ADD INITIATIVE " + initiative.Element("NAME").Value.Replace(' ', '~') + " " +
+                            objective.Element("NAME").Value.Replace(' ', '~') + " " +
+                            category.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -1127,15 +1121,15 @@ namespace IBMConsultantTool
 
             dbo.Add(cupeQuestionEnt);
 
-            changeLog.Add("ADD CUPEQUESTION " + question + " " +
-                          commodity + " " + utility + " " + partner + " " + enabler);
+            changeLog.Add("ADD CUPEQUESTION " + question.Replace(' ', '~') + " " +
+                          commodity.Replace(' ', '~') + " " + utility.Replace(' ', '~') + " " +
+                          partner.Replace(' ', '~') + " " + enabler.Replace(' ', '~'));
 
             return true;
         }
         public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
         {
             XElement cupeQuestionEnt;
-            cupeQuestion = cupeQuestion;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1150,8 +1144,8 @@ namespace IBMConsultantTool
                 cupeQuestionEnt.Element("INFIFTEEN").Value = inFifteenStr;
                 cupeQuestionEnt.Element("INTEN").Value = inTenStr;
 
-                changeLog.Add("UPDATE CUPEQUESTION " + inTwentyStr + " " +
-                          inFifteenStr + " " + inTenStr);
+                changeLog.Add("UPDATE CUPEQUESTION " + inTwentyStr.Replace(' ', '~') + " " +
+                          inFifteenStr.Replace(' ', '~') + " " + inTenStr.Replace(' ', '~'));
             }
 
             catch (Exception e)
@@ -1167,7 +1161,6 @@ namespace IBMConsultantTool
         #region CUPE
         public override bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future)
         {
-            cupeQuestion = cupeQuestion;
             XElement client = clientObj as XElement;
             try
             {
@@ -1177,7 +1170,7 @@ namespace IBMConsultantTool
                 cupe.Element("CURRENT").Value = current;
                 cupe.Element("FUTURE").Value = future;
 
-                changeLog.Add("UPDATE CUPE " + cupeQuestion + " " +
+                changeLog.Add("UPDATE CUPE " + cupeQuestion.Replace(' ', '~') + " " +
                           current + " " + future);
             }
 
@@ -1193,7 +1186,6 @@ namespace IBMConsultantTool
         {
             XElement client = clientObj as XElement;
             XElement cupeQuestionEnt;
-            question = question;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1226,7 +1218,7 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("FUTURE", "A"));
             client.Add(cupe);
 
-            changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value + " " + question);
+            changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
 
             return true;
         }
@@ -1234,7 +1226,6 @@ namespace IBMConsultantTool
         {
             XElement grp = groupObj as XElement;
             XElement cupeQuestionEnt;
-            question = question;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1267,7 +1258,7 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("FUTURE", "A"));
             grp.Add(cupe);
 
-            changeLog.Add("ADD CUPE GROUP " + grp.Element("NAME").Value + " " + question);
+            changeLog.Add("ADD CUPE GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
 
             return true;
         }
@@ -1275,7 +1266,6 @@ namespace IBMConsultantTool
         {
             XElement contact = contactObj as XElement;
             XElement cupeQuestionEnt;
-            question = question;
             try
             {
                 cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1308,7 +1298,7 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("FUTURE", "A"));
             contact.Add(cupe);
 
-            changeLog.Add("ADD CUPE CONTACT " + contact.Element("NAME").Value + " " + question);
+            changeLog.Add("ADD CUPE CONTACT " + contact.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
 
             return true;
         }
@@ -1433,7 +1423,6 @@ namespace IBMConsultantTool
 
         public bool GetDomain(string domName, out XElement domain)
         {
-            domName = domName;
             try
             {
                 domain = (from ent in dbo.Element("DOMAINS").Elements("DOMAIN")
@@ -1465,7 +1454,7 @@ namespace IBMConsultantTool
 
             dbo.Element("DOMAINS").Add(domain);
 
-            changeLog.Add("ADD DOMAIN " + domain.Element("NAME").Value);
+            changeLog.Add("ADD DOMAIN " + domain.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -1503,7 +1492,6 @@ namespace IBMConsultantTool
 
         public override string[] GetCapabilityNames(string domName)
         {
-            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -1512,7 +1500,6 @@ namespace IBMConsultantTool
 
         public override string[] GetCapabilityNamesAndDefault(string domName)
         {
-            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -1521,7 +1508,6 @@ namespace IBMConsultantTool
 
         public override string[] GetDefaultCapabilityNames(string domName)
         {
-            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from ent in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -1531,7 +1517,6 @@ namespace IBMConsultantTool
 
         public bool GetCapability(string capName, out XElement capability)
         {
-            capName = capName;
             try
             {
                 capability = (from cnt in dbo.Element("DOMAINS").Elements("DOMAIN")
@@ -1566,8 +1551,8 @@ namespace IBMConsultantTool
 
             domain.Element("CAPABILITIES").Add(capability);
 
-            changeLog.Add("ADD CAPABILITY " + capability.Element("NAME").Value + " " +
-                            domain.Element("NAME").Value);
+            changeLog.Add("ADD CAPABILITY " + capability.Element("NAME").Value.Replace(' ', '~') + " " +
+                            domain.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -1621,8 +1606,6 @@ namespace IBMConsultantTool
 
         public override string[] GetITCAPQuestionNames(string capName, string domName)
         {
-            capName = capName;
-            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -1633,8 +1616,6 @@ namespace IBMConsultantTool
 
         public override string[] GetITCAPQuestionNamesAndDefault(string capName, string domName)
         {
-            capName = capName;
-            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -1645,8 +1626,6 @@ namespace IBMConsultantTool
 
         public override string[] GetDefaultITCAPQuestionNames(string capName, string domName)
         {
-            capName = capName;
-            domName = domName;
             return (from dom in dbo.Element("DOMAINS").Elements("DOMAIN")
                     where dom.Element("NAME").Value == domName
                     from cap in dom.Element("CAPABILITIES").Elements("CAPABILITY")
@@ -1658,7 +1637,6 @@ namespace IBMConsultantTool
 
         public bool GetITCAPQuestion(string itcapName, out XElement itcapQuestion)
         {
-            itcapName = itcapName;
             try
             {
                 itcapQuestion = (from cat in dbo.Element("DOMAINS").Elements("DOMAIN")
@@ -1695,9 +1673,9 @@ namespace IBMConsultantTool
 
             capability.Element("ITCAPQUESTIONS").Add(itcapQuestion);
 
-            changeLog.Add("ADD ITCAPQUESTION " + itcapQuestion.Element("NAME").Value + " " +
-                            capability.Element("NAME").Value + " " +
-                            domain.Element("NAME").Value);
+            changeLog.Add("ADD ITCAPQUESTION " + itcapQuestion.Element("NAME").Value.Replace(' ', '~') + " " +
+                            capability.Element("NAME").Value.Replace(' ', '~') + " " +
+                            domain.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -1844,8 +1822,6 @@ namespace IBMConsultantTool
         public override bool GetITCAPOBJMAPScore(object clientObj, string capName, string busName, out int score)
         {
             XElement client = clientObj as XElement;
-            capName = capName;
-            busName = busName;
             try
             {
                 score = Convert.ToInt32((from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
@@ -1865,8 +1841,6 @@ namespace IBMConsultantTool
         public override bool AddITCAPOBJMAP(object clientObj, string capName, string busName)
         {
             XElement client = clientObj as XElement;
-            capName = capName;
-            busName = busName;
 
             if ((from ent in client.Element("ITCAPOBJMAP").Elements("ITCAPOBJMAPS")
                  where ent.Element("CAPABILITY").Value == capName &&
@@ -1897,8 +1871,8 @@ namespace IBMConsultantTool
 
                 client.Add(itcapObjMap);
 
-                changeLog.Add("ADD ITCAPOBJMAP " + client.Element("NAME").Value + " " +
-                               capName + " " + busName);
+                changeLog.Add("ADD ITCAPOBJMAP " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                               capName.Replace(' ', '~') + " " + busName.Replace(' ', '~'));
             }
 
             else
@@ -1913,8 +1887,6 @@ namespace IBMConsultantTool
         public override bool UpdateITCAPOBJMAPScore(object clientObj, string capName, string busName, int score)
         {
             XElement client = clientObj as XElement;
-            capName = capName;
-            busName = busName;
 
             XElement itcapObjMap;
             try
@@ -1926,8 +1898,8 @@ namespace IBMConsultantTool
 
                 itcapObjMap.Element("SCORE").Value = score.ToString();
 
-                changeLog.Add("UPDATE ITCAPOBJMAP " + client.Element("NAME").Value + " " +
-                              capName + " " + busName + " " + score.ToString());
+                changeLog.Add("UPDATE ITCAPOBJMAP " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                              capName.Replace(' ', '~') + " " + busName.Replace(' ', '~') + " " + score.ToString());
             }
 
             catch (Exception e)
