@@ -310,7 +310,10 @@ namespace IBMConsultantTool
                 //System.Diagnostics.Trace.WriteLine("Done");
             }
 
-            
+            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            //new Bitmap(this.panelChart.Width,this.panelChart.Height);
+            panelChart.DrawToBitmap(bmp, panelChart.Bounds);
+            bmp.Save(Application.StartupPath + "\\HeatMap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
         private void formChart_Paint(object sender, PaintEventArgs e)

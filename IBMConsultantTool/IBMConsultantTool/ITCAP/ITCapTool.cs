@@ -1031,9 +1031,10 @@ namespace IBMConsultantTool
                 maxQuestion = current.Count;
             }
 
-            newChart.Size = new Size(800, 800);
+            newChart.Size = new Size(800, 750);
             newChart.Visible = true;
             newChart.Text = "System Agenda Capability Assessment Results";
+            newChart.Name = newChart.Text;
             newChart.ChartAreas.Add("chart1");
             newChart.Palette = ChartColorPalette.BrightPastel;
 
@@ -1090,6 +1091,8 @@ namespace IBMConsultantTool
                 newChart.Series["To_Be"].Points.AddXY(name[i], future[i]);
                 futureTotal += future[i];
             }
+
+            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         public void CreateChart(List<string> name, List<float> current, List<float> future)
@@ -1118,6 +1121,7 @@ namespace IBMConsultantTool
             newChart.Size = new Size(800, 800);
             newChart.Visible = true;
             newChart.Text = "Capability Assessment Summary Score";
+            newChart.Name = newChart.Text;
             newChart.ChartAreas.Add("chart1");
             newChart.Palette = ChartColorPalette.BrightPastel;
 
@@ -1174,6 +1178,8 @@ namespace IBMConsultantTool
 
             newChart.Series["As_Is"].Points.AddXY("Total", currentTotal);
             newChart.Series["To_Be"].Points.AddXY("Total", futureTotal);
+
+            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void capabilityAssesmentSummaryScoresToolStripMenuItem_Click(object sender, EventArgs e)

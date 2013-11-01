@@ -387,7 +387,7 @@ namespace IBMConsultantTool
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
             panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width, bmp.Height));
             System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
-            bmp.Save(Application.StartupPath + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
             InitializeComponent();
 
@@ -1053,7 +1053,7 @@ namespace IBMConsultantTool
             //FileStream imgStream = new FileStream("BubbleChart.jpeg", FileMode.Create);
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
-            panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width+5, bmp.Height+5));
+            panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, panelChart.Width, panelChart.Height));
             //System.Diagnostics.Trace.WriteLine("path: " + too
             /*System.Diagnostics.Trace.WriteLine("path1: " + Application.ExecutablePath.ToString());
             System.Diagnostics.Trace.WriteLine("path2: " + Application.LocalUserAppDataPath.ToString());
@@ -1066,7 +1066,7 @@ namespace IBMConsultantTool
             //bmp.Save(path + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             Console.WriteLine(path);
-            bmp.Save(Application.StartupPath + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             //bmp.Save(imgStream, System.Drawing.Imaging.ImageFormat.Jpeg);
         }
     }
