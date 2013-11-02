@@ -50,6 +50,9 @@ namespace IBMConsultantTool
 
         List<string> questions = new List<string>();
 
+        bool HelpEnabled = false;
+        int HelpCurrentStep = 0;
+
         public CUPETool()
         {
             InitializeComponent();
@@ -529,7 +532,7 @@ namespace IBMConsultantTool
                 }
                 if (questionFilter.Text == "Lowest Cupe Score")
                 {
-                    FilterQuestionByLowestScore(questionFilterAmount.Text, averageIndex);
+                    FilterQuestionByLowestAnswer(questionFilterAmount.Text, averageIndex);
                 }
                 if (questionFilter.Text == "Most Commodity")
                 {
@@ -1011,6 +1014,7 @@ namespace IBMConsultantTool
         private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             changesMade = true;
+            saveCupeAnswersToClientDataControl();
             var FD = new EditParticipants();
             if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
@@ -2683,6 +2687,101 @@ namespace IBMConsultantTool
                 newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), enabler[cnt]);
             }
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        private void StartTutorialMode()
+        {
+
+            System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+            myToolTip.IsBalloon = true;
+            myToolTip.Show("Some text", this.questionGridBusinessCurrent);
+
+        }
+
+        private void beginTutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartTutorialMode();
+        }
+
+
+        private void commodityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            // Keeps the user from selecting a custom color.
+            MyDialog.AllowFullOpen = false;
+            // Allows the user to get help. (The default is false.)
+            MyDialog.ShowHelp = true;
+            // Sets the initial color select to the current text color.
+            MyDialog.Color = charts[0].Series["BusiCurrent"].Points[0].Color;
+            // Update the text box color if the user clicks OK  
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach(Chart ch in charts)
+                {
+                    ch.Series["BusiCurrent"].Points[0].Color = MyDialog.Color;
+                }
+                
+            }
+        }
+
+        private void utilityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            // Keeps the user from selecting a custom color.
+            MyDialog.AllowFullOpen = false;
+            // Allows the user to get help. (The default is false.)
+            MyDialog.ShowHelp = true;
+            // Sets the initial color select to the current text color.
+            MyDialog.Color = charts[0].Series["BusiCurrent"].Points[1].Color;
+            // Update the text box color if the user clicks OK  
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (Chart ch in charts)
+                {
+                    ch.Series["BusiCurrent"].Points[1].Color = MyDialog.Color;
+                }
+
+            }
+        }
+
+        private void partnerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            // Keeps the user from selecting a custom color.
+            MyDialog.AllowFullOpen = false;
+            // Allows the user to get help. (The default is false.)
+            MyDialog.ShowHelp = true;
+            // Sets the initial color select to the current text color.
+            MyDialog.Color = charts[0].Series["BusiCurrent"].Points[2].Color;
+            // Update the text box color if the user clicks OK  
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (Chart ch in charts)
+                {
+                    ch.Series["BusiCurrent"].Points[2].Color = MyDialog.Color;
+                }
+
+            }
+        }
+
+        private void enablerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            // Keeps the user from selecting a custom color.
+            MyDialog.AllowFullOpen = false;
+            // Allows the user to get help. (The default is false.)
+            MyDialog.ShowHelp = true;
+            // Sets the initial color select to the current text color.
+            MyDialog.Color = charts[0].Series["BusiCurrent"].Points[3].Color;
+            // Update the text box color if the user clicks OK  
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (Chart ch in charts)
+                {
+                    ch.Series["BusiCurrent"].Points[3].Color = MyDialog.Color;
+                }
+
+            }
         }
 
     }// end class

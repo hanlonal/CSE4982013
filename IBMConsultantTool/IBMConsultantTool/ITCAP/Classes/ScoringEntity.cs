@@ -6,175 +6,185 @@ using System.ComponentModel;
 
 namespace IBMConsultantTool
 {
-   public abstract class ScoringEntity : INotifyPropertyChanged
+    public abstract class ScoringEntity : INotifyPropertyChanged
     {
-       protected float asIsScore = 0;
-       protected float toBeScore = 0;
-       protected int indexInGrid = 0;
-       protected string name;
-       protected bool isDefault = false;
-       protected string id;
-       private bool isInGrid = false;
-       protected string type;
-       protected float prioritizedCapabilityGap = 0;
-       protected float asisStandardDeviation = 0;
-       protected float tobeStandardDeviation = 0;
-       private bool visible = false;
-       protected bool flagged = false;
+        public enum GapType { High, Low, Middle, None };
+        protected GapType gapType;
+
+        protected float asIsScore = 0;
+        protected float toBeScore = 0;
+        protected int indexInGrid = 0;
+        protected string name;
+        protected bool isDefault = false;
+        protected string id;
+        private bool isInGrid = false;
+        protected string type;
+        protected float prioritizedCapabilityGap = 0;
+        protected float asisStandardDeviation = 0;
+        protected float tobeStandardDeviation = 0;
+        private bool visible = false;
+        protected bool flagged = false;
 
 
-       private string capabilityGapText;
+        private string capabilityGapText;
 
 
-       private string prioritizedGap;
-
-
-
+        private string prioritizedGap;
 
 
 
 
 
-       protected float capabilityGap = 0;
 
 
-       public event PropertyChangedEventHandler PropertyChanged;
+
+        protected float capabilityGap = 0;
 
 
-       public virtual void CalculateCapabilityGap()
-       {
-           capabilityGap = toBeScore - asIsScore;
-       }
-       public virtual void CalculatePrioritizedCapabilityGap()
-       {
-            
-       }
-       public virtual void ChangeChildrenVisibility()
-       {
-           return;
-       }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-       public ScoringEntity()
-       {
-           Console.WriteLine("scoring entity created");
-       }
 
-       public virtual void UpdateIndexDecrease(int index)
-       {
+        public virtual void CalculateCapabilityGap()
+        {
+            capabilityGap = toBeScore - asIsScore;
+        }
+        public virtual void CalculatePrioritizedCapabilityGap()
+        {
 
-       }
-       public virtual void UpdateIndexIncrease()
-       {
+        }
+        public virtual void ChangeChildrenVisibility()
+        {
+            return;
+        }
 
-       }
+        public ScoringEntity()
+        {
+            Console.WriteLine("scoring entity created");
+            gapType = GapType.None;
+        }
 
-       public override string ToString()
-       {
-           return name;
-       }
-       public abstract float CalculateAsIsAverage();
-       public abstract float CalculateToBeAverage();
+        public virtual void UpdateIndexDecrease(int index)
+        {
 
-       private void NotifyPropertyChanged(string name)
-       {
-           if (PropertyChanged != null)
-               PropertyChanged(this, new PropertyChangedEventArgs(name));
-       }
+        }
+        public virtual void UpdateIndexIncrease()
+        {
 
-       public string Name
-       {
-           get { return name; }
-           set { name = value;  }
-       }
-       [Browsable(false)]
-       public int IndexInGrid
-       {
-           get { return indexInGrid; }
-           set 
-           { 
-               indexInGrid = value; 
-               
-           }
-       }
-       public float TobeStandardDeviation
-       {
-           get { return tobeStandardDeviation; }
-           set { tobeStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
-       }
-       public float AsisStandardDeviation
-       {
-           get { return asisStandardDeviation; }
-           set { asisStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
-       }
+        }
 
-       public float AsIsScore
-       {
-           get { return asIsScore; }
-           set 
-           { 
-               asIsScore = value;
-               
-               this.NotifyPropertyChanged("AsIsScore");
-           }
-       }
-       public float ToBeScore
-       {
-           get { return toBeScore; }
-           set { toBeScore = value; this.NotifyPropertyChanged("ToBeScore"); }
-       }
-       [Browsable(false)]
-       public bool IsDefault
-       {
-           get { return isDefault; }
-           set { isDefault = value; }
-       }
-       [Browsable(false)]
-       public bool IsInGrid
-       {
-           get { return isInGrid; }
-           set { isInGrid = value; }
-       }
-       [Browsable(false)]
-       public string Type
-       {
-           get { return type; }
-           set { type = value; }
-       }
-       [Browsable(false)]
-       public float CapabilityGap
-       {
-           get { return capabilityGap; }
-           set { capabilityGap = value;/* this.NotifyPropertyChanged("CapabilityGap");*/ }
-       }
-       public string CapabilityGapText
-       {
-           get { return capabilityGapText; }
-           set { capabilityGapText = value; this.NotifyPropertyChanged("CapabilityGapText"); }
-       }
-       public string PrioritizedGap
-       {
-           get { return prioritizedGap; }
-           set { prioritizedGap = value; this.NotifyPropertyChanged("PrioritizedGap"); }
-       }
-       [Browsable(false)]
-       public float PrioritizedCapabilityGap
-       {
-           get { return prioritizedCapabilityGap; }
-           set { prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); }
-       }
+        public override string ToString()
+        {
+            return name;
+        }
+        public abstract float CalculateAsIsAverage();
+        public abstract float CalculateToBeAverage();
 
-       [Browsable(false)]
-       public bool Visible
-       {
-           get { return visible; }
-           set { visible = value; }
-       }
-       [Browsable(false)]
-       public bool Flagged
-       {
-           get { return flagged; }
-           set { flagged = value; }
-       }
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        [Browsable(false)]
+        public int IndexInGrid
+        {
+            get { return indexInGrid; }
+            set
+            {
+                indexInGrid = value;
+
+            }
+        }
+        public float TobeStandardDeviation
+        {
+            get { return tobeStandardDeviation; }
+            set { tobeStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+        }
+        public float AsisStandardDeviation
+        {
+            get { return asisStandardDeviation; }
+            set { asisStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+        }
+
+        public float AsIsScore
+        {
+            get { return asIsScore; }
+            set
+            {
+                asIsScore = value;
+
+                this.NotifyPropertyChanged("AsIsScore");
+            }
+        }
+        public float ToBeScore
+        {
+            get { return toBeScore; }
+            set { toBeScore = value; this.NotifyPropertyChanged("ToBeScore"); }
+        }
+        [Browsable(false)]
+        public bool IsDefault
+        {
+            get { return isDefault; }
+            set { isDefault = value; }
+        }
+        [Browsable(false)]
+        public bool IsInGrid
+        {
+            get { return isInGrid; }
+            set { isInGrid = value; }
+        }
+        [Browsable(false)]
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+        [Browsable(false)]
+        public float CapabilityGap
+        {
+            get { return capabilityGap; }
+            set { capabilityGap = value;/* this.NotifyPropertyChanged("CapabilityGap");*/ }
+        }
+        public string CapabilityGapText
+        {
+            get { return capabilityGapText; }
+            set { capabilityGapText = value; this.NotifyPropertyChanged("CapabilityGapText"); }
+        }
+        public string PrioritizedGap
+        {
+            get { return prioritizedGap; }
+            set { prioritizedGap = value; this.NotifyPropertyChanged("PrioritizedGap"); }
+        }
+        [Browsable(false)]
+        public float PrioritizedCapabilityGap
+        {
+            get { return prioritizedCapabilityGap; }
+            set { prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); }
+        }
+
+        [Browsable(false)]
+        public bool Visible
+        {
+            get { return visible; }
+            set { visible = value; }
+        }
+        [Browsable(false)]
+        public bool Flagged
+        {
+            get { return flagged; }
+            set { flagged = value; }
+        }
+        [Browsable(false)]
+        public GapType GapType1
+        {
+            get { return gapType; }
+            set { gapType = value; }
+        }
 
 
     }

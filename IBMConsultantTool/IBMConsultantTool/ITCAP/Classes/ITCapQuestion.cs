@@ -8,7 +8,11 @@ namespace IBMConsultantTool
     public class ITCapQuestion : ScoringEntity
     {
         private Capability owner;
+
+        public List<string> comments = new List<string>();
+
         public List<string> comment;
+
         private List<float> AsIsanswersToAttributes = new List<float>();
         private List<float> ToBeanswersToAttributes = new List<float>();
         private List<float> asIsAnswers = new List<float>();
@@ -17,11 +21,15 @@ namespace IBMConsultantTool
 
 
 
+
+
+
+
         public ITCapQuestion()
         {
             Console.WriteLine("question created");
             comment = new List<string>();
-            
+
         }
 
         public override void UpdateIndexDecrease(int index)
@@ -91,11 +99,26 @@ namespace IBMConsultantTool
         {
             base.CalculateCapabilityGap();
             if (capabilityGap >= 1.5)
+            {
                 CapabilityGapText = "High Gap";
+                GapType1 = GapType.High;
+
+            }
             else if (capabilityGap < 1.5 && capabilityGap >= 1)
+            {
                 CapabilityGapText = "Medium Gap";
-            else
+                GapType1 = GapType.Middle;
+            }
+            else if (capabilityGap < 1)
+            {
                 CapabilityGapText = "Low/No Gap";
+                GapType1 = GapType.Low;
+            }
+
+            if (capabilityGap == 0)
+            {
+
+            }
         }
 
         public Capability Owner

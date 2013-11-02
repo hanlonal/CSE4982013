@@ -734,12 +734,14 @@ namespace IBMConsultantTool
             {
                 ScoringEntity ent = row.DataBoundItem as ScoringEntity;
 
-                if (ent.CapabilityGap >= 1.5)
+                if (ent.GapType1 == ScoringEntity.GapType.High)
                     row.Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
-                else if (ent.CapabilityGap < 1.5 && ent.CapabilityGap >= 1)
+                else if (ent.GapType1 == ScoringEntity.GapType.Middle)
                     row.Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
-                else
+                else if (ent.GapType1 == ScoringEntity.GapType.Low)
                     row.Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
+                else
+                    row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
 
                 if (ent.Type == "domain")
                 {
@@ -758,6 +760,17 @@ namespace IBMConsultantTool
                 else if (ent.Type == "attribute")
                 {
                     ent.CalculateCapabilityGap();
+                    row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+                    if (ent.GapType1 == ScoringEntity.GapType.High)
+                        row.Cells["CapabilityGapText"].Style.ForeColor = Color.Red;
+                    else if (ent.GapType1 == ScoringEntity.GapType.Middle)
+                        row.Cells["CapabilityGapText"].Style.ForeColor = Color.Orange;
+                    else if (ent.GapType1 == ScoringEntity.GapType.Low)
+                        row.Cells["CapabilityGapText"].Style.ForeColor = Color.DarkGreen;
+                    else
+                        row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+
+
                     if (states == FormStates.SurveryMaker)
                         row.ReadOnly = true;
                     row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
@@ -769,18 +782,20 @@ namespace IBMConsultantTool
 
 
                     }
-
-                    if (ent.Flagged)
+                    if (currentGrid != surveryMakerGrid)
                     {
-                        row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
-                        DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
-                        cell.Value = Properties.Resources.ExclamationPoint_main_Full_answer_1_small;
-                    }
-                    else
-                    {
-                        //row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
-                        DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
-                        cell.Style.NullValue = null;
+                        if (ent.Flagged)
+                        {
+                            row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
+                            DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
+                            cell.Value = Properties.Resources.ExclamationPoint_main_Full_answer_1_small;
+                        }
+                        else
+                        {
+                            //row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
+                            DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
+                            cell.Style.NullValue = null;
+                        }
                     }
                 }
 

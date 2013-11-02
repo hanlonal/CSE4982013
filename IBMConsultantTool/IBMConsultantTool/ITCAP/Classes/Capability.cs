@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace IBMConsultantTool
-{    
+{
     public class Capability : ScoringEntity
     {
-        private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();        
+        private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
         private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
 
         static private float staticThreshold = 1;
@@ -19,7 +19,7 @@ namespace IBMConsultantTool
         static private float staticLowGapThreshold = 1;
         static private Dictionary<Capability, float> dynamicCapabilityGaps = new Dictionary<Capability, float>();
 
-        
+
         ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
         public ObjectiveValueCollection ObjectiveCollection
@@ -27,7 +27,7 @@ namespace IBMConsultantTool
             get { return objectiveCollection; }
             set { objectiveCollection = value; }
         }
-        
+
         private Domain owner;
 
         public Capability()
@@ -53,7 +53,7 @@ namespace IBMConsultantTool
             float activeQuestionCount = 0;
             foreach (ITCapQuestion question in questionsOwned)
             {
-                if (question.AsIsScore != 0 )
+                if (question.AsIsScore != 0)
                 {
                     total += question.AsIsScore;
                     activeQuestionCount++;
@@ -71,20 +71,36 @@ namespace IBMConsultantTool
             if (sortType == SortTpe.Static)
             {
                 if (capabilityGap >= staticHighGapThreshold)
+                {
                     CapabilityGapText = "High Gap";
+                    gapType = GapType.High;
+                }
                 else if (capabilityGap >= staticLowGapThreshold && capabilityGap < staticHighGapThreshold)
+                {
                     CapabilityGapText = "Medium Gap";
+                    gapType = GapType.Middle;
+                }
                 else
+                {
                     CapabilityGapText = "Low/No Gap";
+                    gapType = GapType.Low;
+                }
             }
             else if (sortType == SortTpe.Dynamic)
             {
                 if (dynamicCapabilityGaps.ContainsKey(this))
                 {
-                    dynamicCapabilityGaps[this] = capabilityGap;                    
+                    dynamicCapabilityGaps[this] = capabilityGap;
                 }
                 else
-                     dynamicCapabilityGaps.Add(this, capabilityGap);
+                {
+                    if (this.asIsScore == 0 && this.toBeScore == 0)
+                    {
+                        this.gapType = GapType.None;
+                        return;
+                    }
+                    dynamicCapabilityGaps.Add(this, capabilityGap);
+                }
 
                 var items = from pair in dynamicCapabilityGaps
                             orderby pair.Value ascending
@@ -94,11 +110,34 @@ namespace IBMConsultantTool
                 {
                     int numberForLow = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsLow);
                     int numberForMid = (int)(decimal)(dynamicCapabilityGaps.Count * (1 - (percentToCategorizeAsHigh + percentToCategorizeAsLow)));
-                    int numberForHigh = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsHigh);
+                    int numberForHigh = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsHigh) + numberForLow + numberForMid;
 
                     int count = 0;
                     foreach (KeyValuePair<Capability, float> pair in items)
                     {
+                        if (count <= numberForLow)
+                        {
+                            pair.Key.CapabilityGapText = "Low Gap";
+                            pair.Key.gapType = GapType.Low;
+                        }
+
+                        else if (count > numberForLow && count < numberForHigh)
+                        {
+                            pair.Key.CapabilityGapText = "Middle Gap";
+                            pair.Key.gapType = GapType.Middle;
+                        }
+
+                        else if (count >= numberForHigh)
+                        {
+                            pair.Key.CapabilityGapText = "High Gap";
+                            pair.Key.gapType = GapType.High;
+                        }
+
+                        if (pair.Value == 0)
+                            pair.Key.gapType = GapType.None;
+
+                        count++;
+
 
                     }
                     Console.WriteLine(numberForLow.ToString());
@@ -123,12 +162,12 @@ namespace IBMConsultantTool
             base.ChangeChildrenVisibility();
         }
 
-        
-     /*   public static DictionaryBindingList<TKey, TValue>
-            ToBindingList<TKey, TValue>(IDictionary<TKey, TValue> data)
-        {
-            return new DictionaryBindingList<TKey, TValue>(data);
-        }*/
+
+        /*   public static DictionaryBindingList<TKey, TValue>
+               ToBindingList<TKey, TValue>(IDictionary<TKey, TValue> data)
+           {
+               return new DictionaryBindingList<TKey, TValue>(data);
+           }*/
 
         public override float CalculateToBeAverage()
         {
@@ -160,17 +199,17 @@ namespace IBMConsultantTool
             prioritizedCapabilityGap = 0;
             foreach (ObjectiveValues val in ObjectiveCollection)
             {
-                prioritizedCapabilityGap += val.Value; 
+                prioritizedCapabilityGap += val.Value;
             }
             CalculatePrioritizedGapText();
-            
+
         }
 
         public void CalculatePrioritizedGapText()
         {
             if (prioritizedCapabilityGap >= 20)
                 PrioritizedGap = "High Gap";
-            else if (prioritizedCapabilityGap > 10 || prioritizedCapabilityGap < 20)
+            else if (prioritizedCapabilityGap > 10 && prioritizedCapabilityGap < 20)
                 PrioritizedGap = "Medium Gap";
             else
                 PrioritizedGap = "Low Gap";
@@ -196,10 +235,10 @@ namespace IBMConsultantTool
         public string ID
         {
             get { return id; }
-            set 
+            set
             {
                 string a = value;
-                id = owner.ID + "." + a; 
+                id = owner.ID + "." + a;
             }
         }
         public bool Flagged
@@ -209,7 +248,7 @@ namespace IBMConsultantTool
         public Dictionary<string, int> OBJECTIVESCORES2
         {
             get { return OBJECTIVESCORES; }
-           // set { objectiveScores = value; }
+            // set { objectiveScores = value; }
         }
 
 
