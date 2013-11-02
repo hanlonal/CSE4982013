@@ -387,7 +387,7 @@ namespace IBMConsultantTool
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
             panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width, bmp.Height));
             System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
-            bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
             InitializeComponent();
 
@@ -911,6 +911,10 @@ namespace IBMConsultantTool
                 mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Initiatives[iniArray[cnt]].Criticality = criArray[cnt, count[cnt]];
                 mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Initiatives[iniArray[cnt]].Differentiation = difArray[cnt, count[cnt]];
             }
+
+            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, panelChart.Width, panelChart.Height));
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -1066,7 +1070,8 @@ namespace IBMConsultantTool
             //bmp.Save(path + "BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             Console.WriteLine(path);
-            bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            //bmp.Save(Application.StartupPath + "\\BubbleChart.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             //bmp.Save(imgStream, System.Drawing.Imaging.ImageFormat.Jpeg);
         }
     }

@@ -726,12 +726,6 @@ namespace IBMConsultantTool
 
         }
 
-
-
-
-
-
-
         private void iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> currentFloats = new List<float>();
@@ -758,7 +752,6 @@ namespace IBMConsultantTool
                 
                 if (row.Cells[0].Value == null)
                 {
-                    System.Diagnostics.Trace.WriteLine("NULL!!!!!");
                     break;
                 }
                     //break;
@@ -805,7 +798,6 @@ namespace IBMConsultantTool
                 newStr += s;
             }
             newChart.Name = newStr;
-            System.Diagnostics.Trace.WriteLine("split: " + newChart.Name.ToString());
             newChart.ChartAreas.Add("chart1");
             newChart.Palette = ChartColorPalette.BrightPastel;
 
@@ -817,6 +809,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisY.Title = "Score";
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisY.Maximum = 4;
+            newChart.ChartAreas["chart1"].AxisX.Interval = 1;
             //newChart.ChartAreas["chart1"].AxisY.
 
             newChart.Legends.Add("legend");
@@ -849,16 +842,17 @@ namespace IBMConsultantTool
 
             for (int i = 0; i < currentCount; i++)
             {
-                newChart.Series["Current"].Points.AddXY((i + 1).ToString(), current[i]);
+                newChart.Series["Current"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), current[i]);
 
             }
 
             for (int i = 0; i < futureCount; i++)
             {
-                newChart.Series["Future"].Points.AddXY((i + 1).ToString(), future[i]);
+                newChart.Series["Future"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
             }
 
-            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void businessLeadersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -866,20 +860,16 @@ namespace IBMConsultantTool
             List<float> currentFloats = new List<float>();
             List<float> futureFloats = new List<float>();
             int count = 0;
-            foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+            foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 count++;
                 currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value));
             }
             count = 0;
-            foreach (DataGridViewRow row in questionGridITFuture.Rows)
+            foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 count++;
@@ -896,8 +886,6 @@ namespace IBMConsultantTool
             int count = 0;
             foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 count++;
@@ -906,8 +894,6 @@ namespace IBMConsultantTool
             count = 0;
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 count++;
@@ -924,8 +910,6 @@ namespace IBMConsultantTool
             int count = 0;
             foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 count++;
@@ -934,9 +918,7 @@ namespace IBMConsultantTool
             int countB = 0;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
-                    //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
                     break;
                 countB++;
                 futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value));
@@ -983,6 +965,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisY.Title = "Score";
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisY.Maximum = 4;
+            newChart.ChartAreas["chart1"].AxisX.Interval = 1;
             //newChart.ChartAreas["chart1"].AxisY.
 
             newChart.Legends.Add("legend");
@@ -1013,16 +996,16 @@ namespace IBMConsultantTool
 
             for (int i = 0; i < currentCount; i++)
             {
-                newChart.Series["Business"].Points.AddXY((i + 1).ToString(), current[i]);
-
+                newChart.Series["Business"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), current[i]);
             }
 
             for (int i = 0; i < futureCount; i++)
             {
-                newChart.Series["IT"].Points.AddXY((i + 1).ToString(), future[i]);
+                newChart.Series["IT"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
             }
 
-            newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1484,12 +1467,8 @@ namespace IBMConsultantTool
             List<float> currentBusinessFloats = new List<float>();
             List<float> currentITFloats = new List<float>();
 
-            
-
             foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (countA >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 countA++;
@@ -1498,8 +1477,6 @@ namespace IBMConsultantTool
             count = countA;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (countB >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 countB++;
@@ -1509,8 +1486,6 @@ namespace IBMConsultantTool
                 count = countB;
             foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (countC >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 countC++;
@@ -1520,8 +1495,6 @@ namespace IBMConsultantTool
                 count = countC;
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (countD >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 countD++;
@@ -1998,6 +1971,718 @@ namespace IBMConsultantTool
             {
                 ShowChangesMadeDialog();
             }
+        }
+
+        private void currentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double numA = 0;
+            double numB = 0;
+            double numC = 0;
+            double numD = 0;
+            double ITc = 0;
+            double ITu = 0;
+            double ITp = 0;
+            double ITe = 0;
+            double total = 0;
+            double avgBusC, avgBusU, avgBusP, avgBusE;
+            double avgITc, avgITu, avgITp, avgITe;
+            //double avgC, avgU, avgP, avgE;
+            string temp = "";
+            List<string> cupe = new List<string> { "Total Commodity", "Total Utility", "Total Partner", "Total Enabler" };
+            string name = "Business & IT CUPE Responses Current";
+            List<double> busCurInfo = new List<double>();
+            List<double> ITCurInfo = new List<double>();
+            List<double> totalCurInfo = new List<double>();
+
+            for (int i = 1; i <= (questionGridBusinessCurrent.ColumnCount - 7); i++)
+            {
+                if (questionGridBusinessCurrent.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridBusinessCurrent.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    numA += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    numB += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    numC += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    numD += Convert.ToDouble(temp);
+                }
+            }
+            total = numA + numB + numC + numD;
+            avgBusC = numA / total * 100;
+            avgBusU = numB / total * 100;
+            avgBusP = numC / total * 100;
+            avgBusE = numD / total * 100;
+            busCurInfo.Add(avgBusC);
+            busCurInfo.Add(avgBusU);
+            busCurInfo.Add(avgBusP);
+            busCurInfo.Add(avgBusE);
+
+            for (int i = 1; i <= (questionGridITCurrent.ColumnCount - 7); i++)
+            {
+                if (questionGridITCurrent.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridITCurrent.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    ITc += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    ITu += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    ITp += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    ITe += Convert.ToDouble(temp);
+                }
+            }
+
+            total = ITc + ITu + ITp + ITe;
+            avgITc = ITc / total * 100;
+            avgITu = ITu / total * 100;
+            avgITp = ITp / total * 100;
+            avgITe = ITe / total * 100;
+            ITCurInfo.Add(avgITc);
+            ITCurInfo.Add(avgITu);
+            ITCurInfo.Add(avgITp);
+            ITCurInfo.Add(avgITe);
+
+            /*total = numA + numB + numC + numD + ITc + ITu + ITp + ITe;
+            avgC = (numA + ITc) / total * 100;
+            avgU = (numB + ITu) / total * 100;
+            avgP = (numC + ITp) / total * 100;
+            avgE = (numD + ITe) / total * 100;
+
+            totalCurInfo.Add(avgC);
+            totalCurInfo.Add(avgU);
+            totalCurInfo.Add(avgP);
+            totalCurInfo.Add(avgE);*/
+
+            BusITResponsesChart(busCurInfo, ITCurInfo, cupe, name);
+
+            //CurrentBusITChart chart = new CurrentBusITChart();
+        }
+
+
+        private void futureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double numA = 0;
+            double numB = 0;
+            double numC = 0;
+            double numD = 0;
+            double ITc = 0;
+            double ITu = 0;
+            double ITp = 0;
+            double ITe = 0;
+            double total = 0;
+            double avgBusC, avgBusU, avgBusP, avgBusE;
+            double avgITc, avgITu, avgITp, avgITe;
+            string temp = "";
+            List<string> cupe = new List<string> { "Total Commodity", "Total Utility", "Total Partner", "Total Enabler" };
+            string name = "Business & IT CUPE Responses Future";
+            List<double> busFutureInfo = new List<double>();
+            List<double> ITFutureInfo = new List<double>();
+            //List<double> totalFutureInfo = new List<double>();
+
+            for (int i = 1; i <= (questionGridBusiFuture.ColumnCount - 7); i++)
+            {
+                if (questionGridBusiFuture.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridBusiFuture.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    numA += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    numB += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    numC += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    numD += Convert.ToDouble(temp);
+                }
+            }
+            total = numA + numB + numC + numD;
+            avgBusC = numA / total * 100;
+            avgBusU = numB / total * 100;
+            avgBusP = numC / total * 100;
+            avgBusE = numD / total * 100;
+            busFutureInfo.Add(avgBusC);
+            busFutureInfo.Add(avgBusU);
+            busFutureInfo.Add(avgBusP);
+            busFutureInfo.Add(avgBusE);
+
+            for (int i = 1; i <= (questionGridITFuture.ColumnCount - 7); i++)
+            {
+                if (questionGridITFuture.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridITFuture.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    ITc += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    ITu += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    ITp += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    ITe += Convert.ToDouble(temp);
+                }
+            }
+
+            total = ITc + ITu + ITp + ITe;
+            avgITc = ITc / total * 100;
+            avgITu = ITu / total * 100;
+            avgITp = ITp / total * 100;
+            avgITe = ITe / total * 100;
+            ITFutureInfo.Add(avgITc);
+            ITFutureInfo.Add(avgITu);
+            ITFutureInfo.Add(avgITp);
+            ITFutureInfo.Add(avgITe);
+
+            BusITResponsesChart(busFutureInfo, ITFutureInfo, cupe, name);
+        }
+
+        public void BusITResponsesChart(List<double> bus, List<double> it, List<string> cupe, string name)
+        {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
+            formChart.AutoScroll = true;
+
+            formChart.Show();
+            Chart newChart = new Chart();
+
+            formChart.Text = name;
+            newChart.Parent = formChart;
+
+            newChart.Size = new Size(800, 750);
+            newChart.Visible = true;
+            newChart.Text = name;
+            newChart.ChartAreas.Add("chart1");
+            newChart.Palette = ChartColorPalette.BrightPastel;
+
+            newChart.ChartAreas["chart1"].Visible = true;
+            newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
+            newChart.ChartAreas["chart1"].Area3DStyle.Enable3D = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.IsClustered = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.LightStyle = LightStyle.None;
+            newChart.ChartAreas["chart1"].Area3DStyle.WallWidth = 0;
+            newChart.ChartAreas["chart1"].Area3DStyle.IsRightAngleAxes = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.Inclination = 30;
+            newChart.ChartAreas["chart1"].AxisY.Interval = 5;
+
+            newChart.Legends.Add("legend");
+            newChart.Legends["legend"].Enabled = true;
+
+            newChart.Titles.Add("title");
+            newChart.Titles[0].Name = "title";
+            newChart.Titles["title"].Visible = true;
+            newChart.Titles["title"].Text = name;
+            newChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            newChart.Series.Add("Business");
+            newChart.Series["Business"].ChartArea = "chart1";
+            newChart.Series["Business"].ChartType = SeriesChartType.Column;
+            newChart.Series["Business"].IsValueShownAsLabel = true;
+            newChart.Series["Business"].IsVisibleInLegend = true;
+            newChart.Series["Business"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("IT");
+            newChart.Series["IT"].ChartArea = "chart1";
+            newChart.Series["IT"].ChartType = SeriesChartType.Column;
+            newChart.Series["IT"].IsValueShownAsLabel = true;
+            newChart.Series["IT"].IsVisibleInLegend = true;
+            newChart.Series["IT"].YValueType = ChartValueType.Double;
+
+            int busCount = bus.Count;
+            int itCount = it.Count;
+
+            for (int i = 0; i < busCount; i++)
+            {
+                newChart.Series["Business"].Points.AddXY(cupe[i], bus[i]);
+            }
+
+            for (int i = 0; i < itCount; i++)
+            {
+                newChart.Series["IT"].Points.AddXY(cupe[i], it[i]);
+            }
+
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        private void currentToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            double numA = 0;
+            double numB = 0;
+            double numC = 0;
+            double numD = 0;
+            double ITc = 0;
+            double ITu = 0;
+            double ITp = 0;
+            double ITe = 0;
+            double total = 0;
+            double avgBusC, avgBusU, avgBusP, avgBusE;
+            double avgITc, avgITu, avgITp, avgITe;
+            double avgC, avgU, avgP, avgE;
+            string temp = "";
+            List<string> id = new List<string> { "Business", "IT", "Total" };
+            string name = "Current CUPE Score - Overall";
+            List<double> busCurInfo = new List<double>();
+            List<double> ITCurInfo = new List<double>();
+            List<double> totalCurInfo = new List<double>();
+
+            for (int i = 1; i <= (questionGridBusinessCurrent.ColumnCount - 7); i++)
+            {
+                if (questionGridBusinessCurrent.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridBusinessCurrent.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    numA += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    numB += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    numC += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    numD += Convert.ToDouble(temp);
+                }
+            }
+            total = numA + numB + numC + numD;
+            avgBusC = numA;// / total * 100;
+            avgBusU = numB;// / total * 100;
+            avgBusP = numC;// / total * 100;
+            avgBusE = numD;// / total * 100;
+            busCurInfo.Add(avgBusC);
+            busCurInfo.Add(avgBusU);
+            busCurInfo.Add(avgBusP);
+            busCurInfo.Add(avgBusE);
+
+            for (int i = 1; i <= (questionGridITCurrent.ColumnCount - 7); i++)
+            {
+                if (questionGridITCurrent.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridITCurrent.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    ITc += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    ITu += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    ITp += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    ITe += Convert.ToDouble(temp);
+                }
+            }
+
+            total = ITc + ITu + ITp + ITe;
+            avgITc = ITc;// / total * 100;
+            avgITu = ITu; // / total * 100;
+            avgITp = ITp; // / total * 100;
+            avgITe = ITe; // / total * 100;
+            ITCurInfo.Add(avgITc);
+            ITCurInfo.Add(avgITu);
+            ITCurInfo.Add(avgITp);
+            ITCurInfo.Add(avgITe);
+
+            /*total = numA + numB + numC + numD + ITc + ITu + ITp + ITe;
+            avgC = (numA + ITc) / total * 100;
+            avgU = (numB + ITu) / total * 100;
+            avgP = (numC + ITp) / total * 100;
+            avgE = (numD + ITe) / total * 100;*/
+            avgC = avgBusC + avgITc;
+            avgU = avgBusU + avgITu;
+            avgP = avgBusP + avgITp;
+            avgE = avgBusE + avgITe;
+
+            totalCurInfo.Add(avgC);
+            totalCurInfo.Add(avgU);
+            totalCurInfo.Add(avgP);
+            totalCurInfo.Add(avgE);
+
+            OverallChart(busCurInfo, ITCurInfo, totalCurInfo, id, name);
+
+            //CurrentBusITChart chart = new CurrentBusITChart();
+        }
+
+        private void futureToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            double numA = 0;
+            double numB = 0;
+            double numC = 0;
+            double numD = 0;
+            double ITc = 0;
+            double ITu = 0;
+            double ITp = 0;
+            double ITe = 0;
+            double total = 0;
+            double avgBusC, avgBusU, avgBusP, avgBusE;
+            double avgITc, avgITu, avgITp, avgITe;
+            double avgC, avgU, avgP, avgE;
+            string temp = "";
+            List<string> id = new List<string> { "Business", "IT", "Total" };
+            string name = "Future CUPE Score - Overall";
+            List<double> busFutureInfo = new List<double>();
+            List<double> ITFutureInfo = new List<double>();
+            List<double> totalFutureInfo = new List<double>();
+
+            for (int i = 1; i <= (questionGridBusiFuture.ColumnCount - 7); i++)
+            {
+                if (questionGridBusiFuture.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridBusiFuture.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    numA += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    numB += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    numC += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    numD += Convert.ToDouble(temp);
+                }
+            }
+            total = numA + numB + numC + numD;
+            avgBusC = numA; // / total * 100;
+            avgBusU = numB; // / total * 100;
+            avgBusP = numC; // / total * 100;
+            avgBusE = numD; // / total * 100;
+            busFutureInfo.Add(avgBusC);
+            busFutureInfo.Add(avgBusU);
+            busFutureInfo.Add(avgBusP);
+            busFutureInfo.Add(avgBusE);
+
+            for (int i = 1; i <= (questionGridITFuture.ColumnCount - 7); i++)
+            {
+                if (questionGridITFuture.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridITFuture.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    ITc += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    ITu += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    ITp += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    ITe += Convert.ToDouble(temp);
+                }
+            }
+
+            total = ITc + ITu + ITp + ITe;
+            avgITc = ITc; // / total * 100;
+            avgITu = ITu; //  / total * 100;
+            avgITp = ITp; // / total * 100;
+            avgITe = ITe; // / total * 100;
+            ITFutureInfo.Add(avgITc);
+            ITFutureInfo.Add(avgITu);
+            ITFutureInfo.Add(avgITp);
+            ITFutureInfo.Add(avgITe);
+
+            avgC = avgBusC + avgITc;
+            avgU = avgBusU + avgITu;
+            avgP = avgBusP + avgITp;
+            avgE = avgBusE + avgITe;
+
+            totalFutureInfo.Add(avgC);
+            totalFutureInfo.Add(avgU);
+            totalFutureInfo.Add(avgP);
+            totalFutureInfo.Add(avgE);
+
+            OverallChart(busFutureInfo, ITFutureInfo, totalFutureInfo, id, name);
+        }
+
+        public void OverallChart(List<double> bus, List<double> it, List<double> total, List<string> id, string name)
+        {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
+            formChart.AutoScroll = true;
+
+            formChart.Show();
+            Chart newChart = new Chart();
+
+            formChart.Text = name;
+            newChart.Parent = formChart;
+
+            newChart.Size = new Size(800, 750);
+            newChart.Visible = true;
+            newChart.Text = name;
+            newChart.ChartAreas.Add("chart1");
+            newChart.Palette = ChartColorPalette.Excel;
+
+            newChart.ChartAreas["chart1"].Visible = true;
+            newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
+            newChart.ChartAreas["chart1"].Area3DStyle.Enable3D = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.IsClustered = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.LightStyle = LightStyle.None;
+            newChart.ChartAreas["chart1"].Area3DStyle.WallWidth = 0;
+            newChart.ChartAreas["chart1"].Area3DStyle.IsRightAngleAxes = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.Inclination = 30;
+            newChart.ChartAreas["chart1"].AxisY.Interval = 5;
+
+            newChart.Legends.Add("legend");
+            newChart.Legends["legend"].Enabled = true;
+
+            newChart.Titles.Add("title");
+            newChart.Titles[0].Name = "title";
+            newChart.Titles["title"].Visible = true;
+            newChart.Titles["title"].Text = name;
+            newChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            newChart.Series.Add("Total Commodity");
+            newChart.Series["Total Commodity"].ChartArea = "chart1";
+            newChart.Series["Total Commodity"].ChartType = SeriesChartType.StackedColumn;
+            newChart.Series["Total Commodity"].IsValueShownAsLabel = true;
+            newChart.Series["Total Commodity"].IsVisibleInLegend = true;
+            newChart.Series["Total Commodity"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("Total Utility");
+            newChart.Series["Total Utility"].ChartArea = "chart1";
+            newChart.Series["Total Utility"].ChartType = SeriesChartType.StackedColumn;
+            newChart.Series["Total Utility"].IsValueShownAsLabel = true;
+            newChart.Series["Total Utility"].IsVisibleInLegend = true;
+            newChart.Series["Total Utility"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("Total Partner");
+            newChart.Series["Total Partner"].ChartArea = "chart1";
+            newChart.Series["Total Partner"].ChartType = SeriesChartType.StackedColumn;
+            newChart.Series["Total Partner"].IsValueShownAsLabel = true;
+            newChart.Series["Total Partner"].IsVisibleInLegend = true;
+            newChart.Series["Total Partner"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("Total Enabler");
+            newChart.Series["Total Enabler"].ChartArea = "chart1";
+            newChart.Series["Total Enabler"].ChartType = SeriesChartType.StackedColumn;
+            newChart.Series["Total Enabler"].IsValueShownAsLabel = true;
+            newChart.Series["Total Enabler"].IsVisibleInLegend = true;
+            newChart.Series["Total Enabler"].YValueType = ChartValueType.Double;
+
+            newChart.Series["Total Commodity"].Points.AddXY(id[0], bus[0]);
+            newChart.Series["Total Commodity"].Points.AddXY(id[1], it[0]);
+            newChart.Series["Total Commodity"].Points.AddXY(id[2], total[0]);
+
+            newChart.Series["Total Utility"].Points.AddXY(id[0], bus[1]);
+            newChart.Series["Total Utility"].Points.AddXY(id[1], it[1]);
+            newChart.Series["Total Utility"].Points.AddXY(id[2], total[1]);
+
+            newChart.Series["Total Partner"].Points.AddXY(id[0], bus[2]);
+            newChart.Series["Total Partner"].Points.AddXY(id[1], it[2]);
+            newChart.Series["Total Partner"].Points.AddXY(id[2], total[2]);
+
+            newChart.Series["Total Enabler"].Points.AddXY(id[0], bus[3]);
+            newChart.Series["Total Enabler"].Points.AddXY(id[1], it[3]);
+            newChart.Series["Total Enabler"].Points.AddXY(id[2], total[3]);
+
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        private void iTStakeHoldersCurrentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double[] ITc = new double[100];
+            double[] ITu = new double[100];
+            double[] ITp = new double[100];
+            double[] ITe = new double[100];
+            string temp = "";
+            List<string> cupe = new List<string> { "Total Commodity", "Total Utility", "Total Partner", "Total Enabler" };
+            string name = "Current IT CUPE Score";
+            string xName = "IT Stakeholders";
+            List<double> commodity = new List<double>();
+            List<double> utility = new List<double>();
+            List<double> partner = new List<double>();
+            List<double> enabler = new List<double>();
+
+            for (int i = 1; i <= (questionGridITCurrent.ColumnCount - 7); i++)
+            {
+                if (questionGridITCurrent.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridITCurrent.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    ITc[i] += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    ITu[i] += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    ITp[i] += Convert.ToDouble(temp);
+                    temp = questionGridITCurrent.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    ITe[i] += Convert.ToDouble(temp);
+                }
+                commodity.Add(ITc[i]);
+                utility.Add(ITu[i]);
+                partner.Add(ITp[i]);
+                enabler.Add(ITe[i]);
+            }
+
+            EachPersonChart(name, xName, commodity, utility, partner, enabler);
+        }
+
+
+        private void iTStakeHoldersFutureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double[] ITc = new double[100];
+            double[] ITu = new double[100];
+            double[] ITp = new double[100];
+            double[] ITe = new double[100];
+            string temp = "";
+            List<string> cupe = new List<string> { "Total Commodity", "Total Utility", "Total Partner", "Total Enabler" };
+            string name = "Future (Desired) IT CUPE Score";
+            string xName = "IT Stakeholders";
+            List<double> commodity = new List<double>();
+            List<double> utility = new List<double>();
+            List<double> partner = new List<double>();
+            List<double> enabler = new List<double>();
+
+            for (int i = 1; i <= (questionGridITFuture.ColumnCount - 7); i++)
+            {
+                if (questionGridITFuture.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridITFuture.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    ITc[i] += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    ITu[i] += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    ITp[i] += Convert.ToDouble(temp);
+                    temp = questionGridITFuture.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    ITe[i] += Convert.ToDouble(temp);
+                }
+                commodity.Add(ITc[i]);
+                utility.Add(ITu[i]);
+                partner.Add(ITp[i]);
+                enabler.Add(ITe[i]);
+            }
+
+            EachPersonChart(name, xName, commodity, utility, partner, enabler);
+            
+        }
+
+        private void businessStakeHoldersCurrentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            double[] busC = new double[100];
+            double[] busU = new double[100];
+            double[] busP = new double[100];
+            double[] busE = new double[100];
+            string temp = "";
+            List<string> cupe = new List<string> { "Total Commodity", "Total Utility", "Total Partner", "Total Enabler" };
+            string name = "Current Business CUPE Score";
+            string xName = "Business Stakeholders";
+            List<double> commodity = new List<double>();
+            List<double> utility = new List<double>();
+            List<double> partner = new List<double>();
+            List<double> enabler = new List<double>();
+
+            for (int i = 1; i <= (questionGridBusinessCurrent.ColumnCount - 7); i++)
+            {
+                if (questionGridBusinessCurrent.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridBusinessCurrent.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    busC[i] += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    busU[i] += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    busP[i] += Convert.ToDouble(temp);
+                    temp = questionGridBusinessCurrent.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    busE[i] += Convert.ToDouble(temp);
+                }
+                commodity.Add(busC[i]);
+                utility.Add(busU[i]);
+                partner.Add(busP[i]);
+                enabler.Add(busE[i]);
+            }
+
+            EachPersonChart(name, xName, commodity, utility, partner, enabler);
+        }
+
+        private void businessStakeHoldersFutureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double[] busC = new double[100];
+            double[] busU = new double[100];
+            double[] busP = new double[100];
+            double[] busE = new double[100];
+            string temp = "";
+            List<string> cupe = new List<string> { "Total Commodity", "Total Utility", "Total Partner", "Total Enabler" };
+            string name = "Future (Desired) Business CUPE Score";
+            string xName = "Business Stakeholders";
+            List<double> commodity = new List<double>();
+            List<double> utility = new List<double>();
+            List<double> partner = new List<double>();
+            List<double> enabler = new List<double>();
+
+            for (int i = 1; i <= (questionGridBusiFuture.ColumnCount - 7); i++)
+            {
+                if (questionGridBusiFuture.Rows[totalARowIndex].Cells[i].Value != null)
+                {
+                    temp = questionGridBusiFuture.Rows[totalARowIndex].Cells[i].Value.ToString();
+                    busC[i] += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalBRowIndex].Cells[i].Value.ToString();
+                    busU[i] += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalCRowIndex].Cells[i].Value.ToString();
+                    busP[i] += Convert.ToDouble(temp);
+                    temp = questionGridBusiFuture.Rows[totalDRowIndex].Cells[i].Value.ToString();
+                    busE[i] += Convert.ToDouble(temp);
+                }
+                commodity.Add(busC[i]);
+                utility.Add(busU[i]);
+                partner.Add(busP[i]);
+                enabler.Add(busE[i]);
+            }
+
+            EachPersonChart(name, xName, commodity, utility, partner, enabler);
+        }
+
+        public void EachPersonChart(string name, string xName, List<double> commodity, List<double> utility, List<double> partner, List<double> enabler)
+        {
+            Form formChart = new Form();
+            formChart.AutoSize = true;
+            formChart.AutoScroll = true;
+
+            formChart.Show();
+            Chart newChart = new Chart();
+
+            formChart.Text = name;
+            newChart.Parent = formChart;
+
+            newChart.Size = new Size(800, 750);
+            newChart.Visible = true;
+            newChart.Text = name;
+            newChart.ChartAreas.Add("chart1");
+            newChart.Palette = ChartColorPalette.None;
+
+            newChart.ChartAreas["chart1"].Visible = true;
+            newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
+            newChart.ChartAreas["chart1"].Area3DStyle.Enable3D = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.IsClustered = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.LightStyle = LightStyle.None;
+            newChart.ChartAreas["chart1"].Area3DStyle.WallWidth = 0;
+            newChart.ChartAreas["chart1"].Area3DStyle.IsRightAngleAxes = true;
+            newChart.ChartAreas["chart1"].Area3DStyle.Inclination = 30;
+            newChart.ChartAreas["chart1"].AxisY.Interval = 5;
+            newChart.ChartAreas["chart1"].AxisY.Maximum = 20;
+            newChart.ChartAreas["chart1"].AxisX.Title = xName;
+            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Arial", 13);
+            newChart.ChartAreas["chart1"].AxisY.Title = "CUPE Responses";
+            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Arial", 13);
+
+            newChart.Legends.Add("legend");
+            newChart.Legends["legend"].Enabled = true;
+
+            newChart.Titles.Add("title");
+            newChart.Titles[0].Name = "title";
+            newChart.Titles["title"].Visible = true;
+            newChart.Titles["title"].Text = name;
+            newChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            newChart.Series.Add("Total Commodity");
+            newChart.Series["Total Commodity"].ChartArea = "chart1";
+            newChart.Series["Total Commodity"].ChartType = SeriesChartType.StackedColumn;
+            //newChart.Series["Total Commodity"].IsValueShownAsLabel = true;
+            newChart.Series["Total Commodity"].IsVisibleInLegend = true;
+            newChart.Series["Total Commodity"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("Total Utility");
+            newChart.Series["Total Utility"].ChartArea = "chart1";
+            newChart.Series["Total Utility"].ChartType = SeriesChartType.StackedColumn;
+            //newChart.Series["Total Utility"].IsValueShownAsLabel = true;
+            newChart.Series["Total Utility"].IsVisibleInLegend = true;
+            newChart.Series["Total Utility"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("Total Partner");
+            newChart.Series["Total Partner"].ChartArea = "chart1";
+            newChart.Series["Total Partner"].ChartType = SeriesChartType.StackedColumn;
+            //newChart.Series["Total Partner"].IsValueShownAsLabel = true;
+            newChart.Series["Total Partner"].IsVisibleInLegend = true;
+            newChart.Series["Total Partner"].YValueType = ChartValueType.Double;
+            newChart.Series.Add("Total Enabler");
+            newChart.Series["Total Enabler"].ChartArea = "chart1";
+            newChart.Series["Total Enabler"].ChartType = SeriesChartType.StackedColumn;
+            //newChart.Series["Total Enabler"].IsValueShownAsLabel = true;
+            newChart.Series["Total Enabler"].IsVisibleInLegend = true;
+            newChart.Series["Total Enabler"].YValueType = ChartValueType.Double;
+
+            int count = commodity.Count;
+
+            for (int cnt = 0; cnt < count; cnt++)
+            {
+                newChart.Series["Total Commodity"].Points.AddXY((cnt + 1).ToString(), commodity[cnt]);
+
+                newChart.Series["Total Utility"].Points.AddXY((cnt + 1).ToString(), utility[cnt]);
+
+                newChart.Series["Total Partner"].Points.AddXY((cnt + 1).ToString(), partner[cnt]);
+
+                newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), enabler[cnt]);
+            }
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
     }// end class
