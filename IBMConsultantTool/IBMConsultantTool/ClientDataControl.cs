@@ -36,6 +36,7 @@ namespace IBMConsultantTool
         {
             try
             {
+                throw new Exception();
                 db = new DBManager();
                 isOnline = true;
             }

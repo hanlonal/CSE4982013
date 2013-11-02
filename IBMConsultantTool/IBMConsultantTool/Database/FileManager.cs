@@ -83,7 +83,11 @@ namespace IBMConsultantTool
 
             dbo.Element("CLIENTS").Add(client);
 
-            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~'));
+            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + 
+                           client.Element("LOCATION").Value.Replace(' ', '~') +
+                           client.Element("REGION").Value.Replace(' ', '~') +
+                           client.Element("STARTDATE").Value.Replace(' ', '~') +
+                           client.Element("BUSINESSTYPE").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -94,10 +98,6 @@ namespace IBMConsultantTool
             XElement clientEnt = new XElement("CLIENT");
 
             clientEnt.Add(new XElement("NAME", client.Name));
-            if (!AddClient(clientEnt))
-            {
-                return null;
-            }
 
             clientEnt.Add(new XElement("LOCATION", client.Location));
 
@@ -132,6 +132,11 @@ namespace IBMConsultantTool
             clientEnt.Add(new XElement("BUSINESSTYPE", busType));
 
             clientEnt.Add(new XElement("STARTDATE", client.StartDate));
+
+            if (!AddClient(clientEnt))
+            {
+                return null;
+            }
             dbo.Element("CLIENTS").Add(clientEnt);
 
             client.EntityObject = clientEnt;

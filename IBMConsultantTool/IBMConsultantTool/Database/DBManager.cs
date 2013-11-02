@@ -72,10 +72,6 @@ namespace IBMConsultantTool
             CLIENT clientEnt = new CLIENT();
             
             clientEnt.NAME = client.Name.TrimEnd();
-            if (!AddClient(clientEnt))
-            {
-                return null;
-            }
             
             clientEnt.LOCATION = client.Location;
 
@@ -113,6 +109,12 @@ namespace IBMConsultantTool
 
             clientEnt.STARTDATE = client.StartDate;
             clientEnt.BOMCOMPLETE = clientEnt.CUPECOMPLETE = clientEnt.ITCAPCOMPLETE = "N";
+
+            if (!AddClient(clientEnt))
+            {
+                return null;
+            }
+
             dbo.AddToCLIENT(clientEnt);
 
             client.EntityObject = clientEnt;
@@ -167,7 +169,7 @@ namespace IBMConsultantTool
         public override List<string> GetRegionNames()
         {
             return (from ent in dbo.REGION
-                    select ent.NAME).ToList();
+                    select ent.NAME.TrimEnd()).ToList();
         }
         public override bool AddRegion(string regName)
         {
@@ -191,7 +193,7 @@ namespace IBMConsultantTool
         public override List<string> GetBusinessTypeNames()
         {
             return (from ent in dbo.BUSINESSTYPE
-                    select ent.NAME).ToList();
+                    select ent.NAME.TrimEnd()).ToList();
         }
         public override bool AddBusinessType(string busTypeName)
         {
@@ -2311,6 +2313,42 @@ namespace IBMConsultantTool
                             case "CLIENT":
                                 client = new CLIENT();
                                 client.NAME = lineArray[2].Replace('~', ' ');
+                                client.LOCATION = lineArray[3].Replace('~', ' ');
+
+                                string regionName = lineArray[4].Replace('~', ' ');
+                                try
+                                {
+                                    region = (from ent in dbo.REGION
+                                              where ent.NAME.TrimEnd() == regionName
+                                              select ent).Single();
+                                }
+                                catch
+                                {
+                                    region = new REGION();
+                                    region.NAME = regionName;
+                                    dbo.AddToREGION(region);
+                                }
+                                client.REGION = region;
+
+                                client.STARTDATE = DateTime.Parse(lineArray[5].Replace('~', ' '));
+
+                                string busTypeName = lineArray[6].Replace('~', ' ');
+                                try
+                                {
+                                    busType = (from ent in dbo.BUSINESSTYPE
+                                              where ent.NAME.TrimEnd() == busTypeName
+                                              select ent).Single();
+                                }
+                                catch
+                                {
+                                    busType = new BUSINESSTYPE();
+                                    busType.NAME = busTypeName;
+                                    dbo.AddToBUSINESSTYPE(busType);
+                                }
+                                client.BUSINESSTYPE = busType;
+
+                                client.BOMCOMPLETE = client.CUPECOMPLETE = client.ITCAPCOMPLETE = "N";
+
                                 AddClient(client);
                                 break;
 
