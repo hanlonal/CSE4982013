@@ -25,11 +25,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BUSINESSOB_CATE_FK", "CATEGORY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CATEGORY), "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BUSINESSOBJECTIVE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCA_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIE_BUSINESSTY_FK", "BUSINESSTYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.BUSINESSTYPE), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIE_BUSINESSTY_FK", "BUSINESSTYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSTYPE), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILIT_DOMAI_FK", "DOMAIN", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.DOMAIN), "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITY))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOB_CAPABI_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPQUE_CAPAB_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPQUESTION))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIENT_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.REGION), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIENT_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.REGION), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
@@ -1350,11 +1350,21 @@ namespace IBMConsultantTool
         /// </summary>
         /// <param name="cLIENTID">Initial value of the CLIENTID property.</param>
         /// <param name="nAME">Initial value of the NAME property.</param>
-        public static CLIENT CreateCLIENT(global::System.Int32 cLIENTID, global::System.String nAME)
+        /// <param name="lOCATION">Initial value of the LOCATION property.</param>
+        /// <param name="sTARTDATE">Initial value of the STARTDATE property.</param>
+        /// <param name="bOMCOMPLETE">Initial value of the BOMCOMPLETE property.</param>
+        /// <param name="cUPECOMPLETE">Initial value of the CUPECOMPLETE property.</param>
+        /// <param name="iTCAPCOMPLETE">Initial value of the ITCAPCOMPLETE property.</param>
+        public static CLIENT CreateCLIENT(global::System.Int32 cLIENTID, global::System.String nAME, global::System.String lOCATION, global::System.DateTime sTARTDATE, global::System.String bOMCOMPLETE, global::System.String cUPECOMPLETE, global::System.String iTCAPCOMPLETE)
         {
             CLIENT cLIENT = new CLIENT();
             cLIENT.CLIENTID = cLIENTID;
             cLIENT.NAME = nAME;
+            cLIENT.LOCATION = lOCATION;
+            cLIENT.STARTDATE = sTARTDATE;
+            cLIENT.BOMCOMPLETE = bOMCOMPLETE;
+            cLIENT.CUPECOMPLETE = cUPECOMPLETE;
+            cLIENT.ITCAPCOMPLETE = iTCAPCOMPLETE;
             return cLIENT;
         }
 
@@ -1415,7 +1425,7 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String LOCATION
         {
@@ -1427,7 +1437,7 @@ namespace IBMConsultantTool
             {
                 OnLOCATIONChanging(value);
                 ReportPropertyChanging("LOCATION");
-                _LOCATION = StructuralObject.SetValidValue(value, true);
+                _LOCATION = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LOCATION");
                 OnLOCATIONChanged();
             }
@@ -1439,9 +1449,9 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> STARTDATE
+        public global::System.DateTime STARTDATE
         {
             get
             {
@@ -1456,9 +1466,81 @@ namespace IBMConsultantTool
                 OnSTARTDATEChanged();
             }
         }
-        private Nullable<global::System.DateTime> _STARTDATE;
-        partial void OnSTARTDATEChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _STARTDATE;
+        partial void OnSTARTDATEChanging(global::System.DateTime value);
         partial void OnSTARTDATEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String BOMCOMPLETE
+        {
+            get
+            {
+                return _BOMCOMPLETE;
+            }
+            set
+            {
+                OnBOMCOMPLETEChanging(value);
+                ReportPropertyChanging("BOMCOMPLETE");
+                _BOMCOMPLETE = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("BOMCOMPLETE");
+                OnBOMCOMPLETEChanged();
+            }
+        }
+        private global::System.String _BOMCOMPLETE;
+        partial void OnBOMCOMPLETEChanging(global::System.String value);
+        partial void OnBOMCOMPLETEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CUPECOMPLETE
+        {
+            get
+            {
+                return _CUPECOMPLETE;
+            }
+            set
+            {
+                OnCUPECOMPLETEChanging(value);
+                ReportPropertyChanging("CUPECOMPLETE");
+                _CUPECOMPLETE = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CUPECOMPLETE");
+                OnCUPECOMPLETEChanged();
+            }
+        }
+        private global::System.String _CUPECOMPLETE;
+        partial void OnCUPECOMPLETEChanging(global::System.String value);
+        partial void OnCUPECOMPLETEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ITCAPCOMPLETE
+        {
+            get
+            {
+                return _ITCAPCOMPLETE;
+            }
+            set
+            {
+                OnITCAPCOMPLETEChanging(value);
+                ReportPropertyChanging("ITCAPCOMPLETE");
+                _ITCAPCOMPLETE = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ITCAPCOMPLETE");
+                OnITCAPCOMPLETEChanged();
+            }
+        }
+        private global::System.String _ITCAPCOMPLETE;
+        partial void OnITCAPCOMPLETEChanging(global::System.String value);
+        partial void OnITCAPCOMPLETEChanged();
 
         #endregion
     

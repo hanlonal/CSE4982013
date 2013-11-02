@@ -14,14 +14,18 @@ namespace IBMConsultantTool
 
         #region Client
         public abstract string[] GetClientNames();
+        public abstract Client AddClient(Client client);
+        public abstract Client LoadClient(string clientName);
         public abstract List<string> GetObjectivesFromClientBOM(object clientObj);
         #endregion
 
         #region Region
+        public abstract List<string> GetRegionNames();
         public abstract bool AddRegion(string regName);
         #endregion
 
         #region BusinessType
+        public abstract List<string> GetBusinessTypeNames();
         public abstract bool AddBusinessType(string busTypeName);
         #endregion
 
@@ -39,15 +43,12 @@ namespace IBMConsultantTool
         public abstract bool AddBOMToGroup(object bom, object group);
         public abstract bool AddBOMToContact(object bom, object contact);
 
-        public abstract bool BuildBOMForm(BOMTool bomForm, string clientName);
-        public abstract bool NewBOMForm(BOMTool bomForm, string clientName);
+        public abstract void BuildBOMForm(BOMTool bomForm);
         #endregion
 
         #region ITCAP
         public abstract bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion);
 
-        public abstract bool BuildITCAPForm(ITCapTool itcapForm, string clientName);
-        public abstract bool NewITCAPForm(ITCapTool itcapForm, string clientName);
         public abstract bool OpenITCAP(ITCapTool itcapForm);
         public abstract bool AddITCAP(object itcap, object client);
         public abstract bool AddITCAPToGroup(object itcap, object grp);
@@ -85,9 +86,6 @@ namespace IBMConsultantTool
         public abstract bool AddCUPE(string question, object clientObj);
         public abstract bool AddCUPEToGroup(string question, object groupObj);
         public abstract bool AddCUPEToContact(string question, object contactObj);
-
-        public abstract bool BuildCUPEForm(CUPETool cupeForm, string clientName);
-        public abstract bool NewCUPEForm(CUPETool cupeForm, string clientName);
 
         public abstract void PopulateCUPEQuestionsForClient(CUPETool cupeForm);
         //public abstract void EditQuestionForCUPE(CLIENT client, CupeQuestionStringData data);

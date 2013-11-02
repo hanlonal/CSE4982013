@@ -18,7 +18,7 @@ namespace IBMConsultantTool
 
             itcapForm = parentForm;
 
-            string[] domainList = itcapForm.db.GetDomainNamesAndDefault();
+            string[] domainList = ClientDataControl.db.GetDomainNamesAndDefault();
             List<string> capabilityList = new List<string>();
             List<string> questionList = new List<string>();
             string domainName;
@@ -34,7 +34,7 @@ namespace IBMConsultantTool
                 domRow.DefaultCellStyle.BackColor = Color.Orange;
                 domRow.ReadOnly = true;
                 ITCAPQuestionDataGridView.Rows.Add(domRow);
-                capabilityList = itcapForm.db.GetCapabilityNamesAndDefault(domainName).ToList();
+                capabilityList = ClientDataControl.db.GetCapabilityNamesAndDefault(domainName).ToList();
                 foreach(string capability in capabilityList)
                 {
                     capabilityName = capability.Substring(0, capability.Length - 1);
@@ -44,7 +44,7 @@ namespace IBMConsultantTool
                     capRow.DefaultCellStyle.BackColor = Color.Yellow;
                     capRow.ReadOnly = true;
                     ITCAPQuestionDataGridView.Rows.Add(capRow);
-                    questionList = itcapForm.db.GetITCAPQuestionNamesAndDefault(capabilityName, domainName).ToList();
+                    questionList = ClientDataControl.db.GetITCAPQuestionNamesAndDefault(capabilityName, domainName).ToList();
                     foreach (string question in questionList)
                     {
                         itcapQuestionName = question.Substring(0, question.Length - 1);
@@ -71,7 +71,7 @@ namespace IBMConsultantTool
                 if (row.DefaultCellStyle.BackColor == Color.LawnGreen)
                 {
                     itcqName = (string)row.Cells[0].Value;
-                    if (!itcapForm.db.ChangeITCAPQuestionDefault(itcqName, (bool)row.Cells[1].Value))
+                    if (!ClientDataControl.db.ChangeITCAPQuestionDefault(itcqName, (bool)row.Cells[1].Value))
                     {
                         MessageBox.Show("ITCAPQuestion \"" + itcqName + "\" Not Found", "Error");
                         return;
@@ -81,7 +81,7 @@ namespace IBMConsultantTool
                 else if (row.DefaultCellStyle.BackColor == Color.Yellow)
                 {
                     capName = (string)row.Cells[0].Value;
-                    if (!itcapForm.db.ChangeCapabilityDefault(capName, (bool)row.Cells[1].Value))
+                    if (!ClientDataControl.db.ChangeCapabilityDefault(capName, (bool)row.Cells[1].Value))
                     {
                         MessageBox.Show("Capability \"" + capName + "\" Not Found", "Error");
                         return;
@@ -91,7 +91,7 @@ namespace IBMConsultantTool
                 else if (row.DefaultCellStyle.BackColor == Color.Orange)
                 {
                     domName = (string)row.Cells[0].Value;
-                    if (!itcapForm.db.ChangeDomainDefault(domName, (bool)row.Cells[1].Value))
+                    if (!ClientDataControl.db.ChangeDomainDefault(domName, (bool)row.Cells[1].Value))
                     {
                         MessageBox.Show("Domain \"" + domName + "\" Not Found", "Error");
                         return;
@@ -99,7 +99,7 @@ namespace IBMConsultantTool
                 }
             }
 
-            if (!itcapForm.db.SaveChanges())
+            if (!ClientDataControl.db.SaveChanges())
             {
                 MessageBox.Show("Failed to Save Changes", "Error");
             }

@@ -16,16 +16,27 @@ namespace IBMConsultantTool
         public StartPage()
         {
             InitializeComponent();
-            NewClientForm form = new NewClientForm();
-            form.Owner = this;
-            form.Show();
+            if (ClientDataControl.newClient)
+            {
+                NewClientForm form = new NewClientForm();
+                form.Owner = this;
+                form.ShowDialog();
+            }
 
-            
+            else
+            {
+                LoadClientForm form = new LoadClientForm();
+                form.Owner = this;
+                form.ShowDialog();
+            }
         }
 
         private void StartPage_Load(object sender, EventArgs e)
         {
-           
+            if (ClientDataControl.Client == null)
+            {
+                this.Close();
+            }
             //this.Controls.Add(form);
             
         }

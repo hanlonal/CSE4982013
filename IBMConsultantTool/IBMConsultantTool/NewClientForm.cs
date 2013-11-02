@@ -25,7 +25,9 @@ namespace IBMConsultantTool
             okButton.Click +=new EventHandler(okButton_Click);
             cancelButton.Click +=new EventHandler(cancelButton_Click);
             startDateText.Click +=new EventHandler(startDateText_Click);
-            
+
+            RegionComboBox.Items.AddRange(ClientDataControl.GetRegionNames());
+            BusinessTypeComboBox.Items.AddRange(ClientDataControl.GetBusinessTypeNames());
         }
 
 
@@ -38,14 +40,17 @@ namespace IBMConsultantTool
 
             client.Name = clientNameTextBox.Text;
             client.Location = locationTextBox.Text;
+            client.Region = RegionComboBox.Text;
             client.StartDate = selectedTime;
-            client.BusinessType = buisnessTypeComboBox.Text;
+            client.BusinessType = BusinessTypeComboBox.Text;
 
-            ClientDataControl.Client = client;
-            owner.CurrentClient = client;
+            if (!ClientDataControl.NewClient(client))
+            {
+                MessageBox.Show("Failed to create new client: " + client.Name + " already exists", "Error");
+                return;
+            }
+
             owner.Refresh();
-            
-
             this.Close();
         }
 
@@ -78,6 +83,11 @@ namespace IBMConsultantTool
         {
             get { return owner; }
             set { owner = value; }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

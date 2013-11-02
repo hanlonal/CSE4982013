@@ -12,7 +12,6 @@ namespace IBMConsultantTool
     public partial class CrossClientForm : Form
     {
         DBManager db;
-
         public CrossClientForm()
         {
             InitializeComponent();

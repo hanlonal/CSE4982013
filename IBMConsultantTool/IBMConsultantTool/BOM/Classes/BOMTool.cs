@@ -15,13 +15,7 @@ namespace IBMConsultantTool
 {
     public partial class BOMTool : Form
     {
-        
-
-
         TabPage clickedPage;
-        public DataManager db;
-        public object client;
-        public bool isOnline;
         List<Control> removableControls = new List<Control>();
         List<NewCategory> categories = new List<NewCategory>();
 
@@ -30,22 +24,9 @@ namespace IBMConsultantTool
             InitializeComponent();
             detailInfoPanel.Controls.Add(seperatorLabel);
             seperatorLabel.Width = detailInfoPanel.Width;
-            try
-            {
-                db = new DBManager();
-                isOnline = true;
-            }
-            catch (Exception e)
-            {
-                db = new FileManager();
-                isOnline = false;
-                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
-            }
 
-            categoryNames.Items.AddRange(db.GetCategoryNames());
-
-            new ChooseBOMClient(this).ShowDialog();
-            
+            categoryNames.Items.AddRange(ClientDataControl.db.GetCategoryNames());
+            ClientDataControl.db.BuildBOMForm(this);
         }
 
         public void ObjectiveClicked(NewObjective obj)
@@ -161,22 +142,22 @@ namespace IBMConsultantTool
 
         private void categoryNames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            db.ChangedCategory(this);
+            ClientDataControl.db.ChangedCategory(this);
         }
 
         private void categoryNames_LostFocus(object sender, EventArgs e)
         {
-            db.ChangedCategory(this);
+            ClientDataControl.db.ChangedCategory(this);
         }
 
         private void objectiveNames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            db.ChangedObjective(this);
+            ClientDataControl.db.ChangedObjective(this);
         }
 
         private void objectiveNames_LostFocus(object sender, EventArgs e)
         {
-            db.ChangedObjective(this);
+            ClientDataControl.db.ChangedObjective(this);
         }
 
         private void AddInitiativeButton_Click(object sender, EventArgs e)
@@ -185,7 +166,7 @@ namespace IBMConsultantTool
             string busName = objectiveNames.Text.Trim();
             string iniName = initiativeNames.Text.Trim();
 
-            db.AddInitiativeToBOM(iniName, busName, catName, this);
+            ClientDataControl.db.AddInitiativeToBOM(iniName, busName, catName, this);
         }
 
         private void SendEmailButton_Click(object sender, EventArgs e)
@@ -238,14 +219,6 @@ namespace IBMConsultantTool
             if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
                 return;
-            }
-        }
-
-        private void BOMTool_Load(object sender, EventArgs e)
-        {
-            if (client == null)
-            {
-                this.Close();
             }
         }
 
@@ -334,13 +307,13 @@ namespace IBMConsultantTool
                 {
                     foreach (NewInitiative init in obj.Initiatives)
                     {
-                        if (!db.UpdateBOM(this.client, init))
+                        if (!ClientDataControl.db.UpdateBOM(ClientDataControl.Client.EntityObject, init))
                         {
                             MessageBox.Show("BOM \"" + init.Name + "\" could not be saved to database", "Error");
                             return;
                         }
                     }
-                    if (db.SaveChanges()) { MessageBox.Show("Saved Changes Successfully", "Success"); }
+                    if (ClientDataControl.db.SaveChanges()) { MessageBox.Show("Saved Changes Successfully", "Success"); }
 
                     else { MessageBox.Show("Failed to save changes", "Error"); }
                 }
@@ -366,7 +339,7 @@ namespace IBMConsultantTool
                             }
                         }                        
                         this.catWorkspace.TabPages.Remove(clickedPage);
-                        db.SaveChanges();
+                        ClientDataControl.db.SaveChanges();
                     }
                 }
 

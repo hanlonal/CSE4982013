@@ -10,8 +10,9 @@ namespace IBMConsultantTool
 {
     internal sealed class ClientDataControl
     {
+        public static bool newClient;
         private static readonly ClientDataControl instance = new ClientDataControl();
-        private static DataManager db;
+        public static DataManager db;
         private static bool isOnline;
         private static List<Person> participants = new List<Person>();
         private static List<CupeData> cupeAnswers = new List<CupeData>();
@@ -168,6 +169,30 @@ namespace IBMConsultantTool
         {
             get { return client; }
             set { client = value; }
+        }
+
+        public static string[] GetRegionNames()
+        {
+            return db.GetRegionNames().ToArray();
+        }
+
+        public static string[] GetBusinessTypeNames()
+        {
+            return db.GetBusinessTypeNames().ToArray();
+        }
+
+        public static bool NewClient(Client selectedClient)
+        {
+            client = db.AddClient(selectedClient);
+
+            return (client != null && db.SaveChanges());
+        }
+
+        public static bool LoadClient(string clientName)
+        {
+            client = db.LoadClient(clientName);
+
+            return (client != null && db.SaveChanges());
         }
 
     }

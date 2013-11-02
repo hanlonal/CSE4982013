@@ -66,6 +66,83 @@ namespace IBMConsultantTool
             return true;
         }
 
+        //Used by ClientDataControl
+        public override Client AddClient(Client client)
+        {
+            CLIENT clientEnt = new CLIENT();
+            
+            clientEnt.NAME = client.Name.TrimEnd();
+            if (!AddClient(clientEnt))
+            {
+                return null;
+            }
+            
+            clientEnt.LOCATION = client.Location;
+
+            string regionName = client.Region;
+            REGION region;
+            try
+            {
+                region = (from ent in dbo.REGION
+                          where ent.NAME.TrimEnd() == regionName
+                          select ent).Single();
+            }
+            catch
+            {
+                region = new REGION();
+                region.NAME = client.Region;
+                dbo.AddToREGION(region);
+            }
+            clientEnt.REGION = region;
+
+            string busTypeName = client.BusinessType;
+            BUSINESSTYPE busType;
+            try
+            {
+                busType = (from ent in dbo.BUSINESSTYPE
+                          where ent.NAME.TrimEnd() == busTypeName
+                          select ent).Single();
+            }
+            catch
+            {
+                busType = new BUSINESSTYPE();
+                busType.NAME = client.BusinessType;
+                dbo.AddToBUSINESSTYPE(busType);
+            }
+            clientEnt.BUSINESSTYPE = busType;
+
+            clientEnt.STARTDATE = client.StartDate;
+            clientEnt.BOMCOMPLETE = clientEnt.CUPECOMPLETE = clientEnt.ITCAPCOMPLETE = "N";
+            dbo.AddToCLIENT(clientEnt);
+
+            client.EntityObject = clientEnt;
+            return client;
+        }
+
+        //Used by ClientDataControl
+        public override Client LoadClient(string clientName)
+        {
+            CLIENT clientEnt;
+
+            if (!GetClient(clientName, out clientEnt))
+            {
+                return null;
+            }
+
+            Client client = new Client();
+
+            client.Name = clientEnt.NAME;
+            client.Location = clientEnt.LOCATION.TrimEnd();
+            client.Region = clientEnt.REGION.NAME.TrimEnd();
+            client.BusinessType = clientEnt.BUSINESSTYPE.NAME.TrimEnd();
+            client.StartDate = clientEnt.STARTDATE;
+            client.EntityObject = clientEnt;
+            client.BomCompleted = clientEnt.BOMCOMPLETE == "Y";
+            client.CupeCompleted = clientEnt.CUPECOMPLETE == "Y";
+            client.ITCapCompleted = clientEnt.ITCAPCOMPLETE == "Y";
+            return client;
+        }
+
         public override List<string> GetObjectivesFromClientBOM(object clientObj)
         {
             CLIENT client = clientObj as CLIENT;
@@ -87,6 +164,11 @@ namespace IBMConsultantTool
         #endregion
 
         #region Region
+        public override List<string> GetRegionNames()
+        {
+            return (from ent in dbo.REGION
+                    select ent.NAME).ToList();
+        }
         public override bool AddRegion(string regName)
         {
             //If already in DB, return false
@@ -106,6 +188,11 @@ namespace IBMConsultantTool
         #endregion
 
         #region BusinessType
+        public override List<string> GetBusinessTypeNames()
+        {
+            return (from ent in dbo.BUSINESSTYPE
+                    select ent.NAME).ToList();
+        }
         public override bool AddBusinessType(string busTypeName)
         {
             //If already in DB, return false
@@ -339,104 +426,54 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool BuildBOMForm(BOMTool bomForm, string clientName)
+        public override void BuildBOMForm(BOMTool bomForm)
         {
-            CLIENT client;
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
 
-            if (GetClient(clientName, out client))
+            string catName;
+            string busName;
+            string iniName;
+
+            NewCategory category;
+            NewObjective objective;
+            NewInitiative initiative;
+
+            foreach (BOM bom in client.BOM)
             {
-                bomForm.client = client;
-
-                string catName;
-                string busName;
-                string iniName;
-
-                NewCategory category;
-                NewObjective objective;
-                NewInitiative initiative;
-
-                foreach (BOM bom in client.BOM)
+                catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
+                category = bomForm.Categories.Find(delegate(NewCategory cat)
                 {
-                    catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
-                    category = bomForm.Categories.Find(delegate(NewCategory cat)
-                    {
-                        return cat.name == catName;
-                    });
-                    if (category == null)
-                    {
-                        category = bomForm.AddCategory(catName);
-                    }
-
-                    bomForm.CategoryWorkspace.SelectTab(category.name);
-
-                    busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
-                    objective = category.Objectives.Find(delegate(NewObjective bus)
-                    {
-                        return bus.Name == busName;
-                    });
-                    if (objective == null)
-                    {
-                        objective = category.AddObjective(busName);
-                    }
-
-                    iniName = bom.INITIATIVE.NAME.TrimEnd();
-                    initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
-                    {
-                        return ini.Name == iniName;
-                    });
-                    if (initiative == null)
-                    {
-                        initiative = objective.AddInitiative(iniName);
-                        initiative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
-                        initiative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
-                        initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
-                    }
+                    return cat.name == catName;
+                });
+                if (category == null)
+                {
+                    category = bomForm.AddCategory(catName);
                 }
 
-                return true;
-            }
+                bomForm.CategoryWorkspace.SelectTab(category.name);
 
-            else
-            {
-                MessageBox.Show("Client could not be found", "Error");
-                return false;
-            }
-        }
-        public override bool NewBOMForm(BOMTool bomForm, string clientName)
-        {
-            CLIENT client;
-            if (!GetClient(clientName, out client))
-            {
-                client = new CLIENT();
-                client.NAME = clientName;
-                if (!AddClient(client))
+                busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
-                    MessageBox.Show("Failed to add client", "Error");
-                    return false;
+                    return bus.Name == busName;
+                });
+                if (objective == null)
+                {
+                    objective = category.AddObjective(busName);
                 }
 
-                string[] groupNamesArray = {"Business", "IT"};
-
-                if (!AddGroups(groupNamesArray, client))
+                iniName = bom.INITIATIVE.NAME.TrimEnd();
+                initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
                 {
-                    MessageBox.Show("Failed to add groups to client", "Error");
-                    return false;
-                }
-
-                if (!SaveChanges())
+                    return ini.Name == iniName;
+                });
+                if (initiative == null)
                 {
-                    MessageBox.Show("Failed to save changes to database", "Error");
-                    return false;
+                    initiative = objective.AddInitiative(iniName);
+                    initiative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
+                    initiative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
+                    initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
                 }
-
-                bomForm.client = client;
-
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("Client already exists", "Error");
-                return false;
             }
         }
         #endregion
@@ -481,24 +518,6 @@ namespace IBMConsultantTool
 
 
             return true;
-        }
-
-        public override bool BuildITCAPForm(ITCapTool itcapForm, string clientName)
-        {
-            CLIENT client;
-
-            if (GetClient(clientName, out client))
-            {
-                itcapForm.client = client;
-
-                return true;
-            }
-
-            else
-            {
-                MessageBox.Show("Client could not be found", "Error");
-                return false;
-            }
         }
 
         public override bool AddITCAP(object itcqObject, object clientObj)
@@ -578,53 +597,10 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool NewITCAPForm(ITCapTool itcapForm, string clientName)
-        {
-            CLIENT client;
-            if (!GetClient(clientName, out client))
-            {
-                client = new CLIENT();
-                client.NAME = clientName;
-                if (!AddClient(client))
-                {
-                    MessageBox.Show("Failed to add client", "Error");
-                    return false;
-                }
-
-                string[] groupNamesArray = { "Business", "IT" };
-
-                if (!AddGroups(groupNamesArray, client))
-                {
-                    MessageBox.Show("Failed to add groups to client", "Error");
-                    return false;
-                }
-
-                if (!SaveChanges())
-                {
-                    MessageBox.Show("Failed to save changes to database", "Error");
-                    return false;
-                }
-
-                itcapForm.client = client;
-
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("Client already exists", "Error");
-                return false;
-            }
-        }
 
         public override bool OpenITCAP(ITCapTool itcapForm)
         {
-            if (itcapForm.client == null)
-            {
-                MessageBox.Show("Must choose client before opening ITCAP", "Error");
-                return false;
-            }
-
-            List<ITCAP> itcapList = (itcapForm.client as CLIENT).ITCAP.ToList();
+            List<ITCAP> itcapList = (ClientDataControl.Client.EntityObject as CLIENT).ITCAP.ToList();
 
             ITCAPQUESTION itcqEnt;
             CAPABILITY capEnt;
@@ -712,7 +688,7 @@ namespace IBMConsultantTool
 
         public override bool RewriteITCAP(ITCapTool itcapForm)
         {
-            CLIENT client = itcapForm.client as CLIENT;
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             List<ITCAP> itcapList = client.ITCAP.ToList();
             foreach (ITCAP itcap in itcapList)
             {
@@ -963,7 +939,7 @@ namespace IBMConsultantTool
 
             BOM bom = new BOM();
             bom.INITIATIVE = initiative;
-            if (!AddBOM(bom, bomForm.client))
+            if (!AddBOM(bom, ClientDataControl.Client.EntityObject))
             {
                 MessageBox.Show("Failed to add Initiative to BOM", "Error");
                 return false;
@@ -1284,64 +1260,10 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public override bool BuildCUPEForm(CUPETool cupeForm, string clientName)
-        {
-            CLIENT client;
-
-            if (GetClient(clientName, out client))
-            {
-                cupeForm.client = client;
-
-                return true;
-            }
-
-            else
-            {
-                MessageBox.Show("Client could not be found", "Error");
-                return false;
-            }
-        }
-        public override bool NewCUPEForm(CUPETool cupeForm, string clientName)
-        {
-            CLIENT client;
-            if (!GetClient(clientName, out client))
-            {
-                client = new CLIENT();
-                client.NAME = clientName;
-                if (!AddClient(client))
-                {
-                    MessageBox.Show("Failed to add client", "Error");
-                    return false;
-                }
-
-                string[] groupNamesArray = { "Business", "IT" };
-
-                if (!AddGroups(groupNamesArray, client))
-                {
-                    MessageBox.Show("Failed to add groups to client", "Error");
-                    return false;
-                }
-
-                if (!SaveChanges())
-                {
-                    MessageBox.Show("Failed to save changes to database", "Error");
-                    return false;
-                }
-
-                cupeForm.client = client;
-
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("Client already exists", "Error");
-                return false;
-            }
-        }
-
+       
         public override void PopulateCUPEQuestionsForClient(CUPETool cupeForm)
         {
-            CLIENT client = cupeForm.client as CLIENT;
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             CupeQuestionStringData data = new CupeQuestionStringData();
             List<CupeQuestionStringData> templist = new List<CupeQuestionStringData>();
             if (client.CUPE.Count != 0)
@@ -1673,7 +1595,7 @@ namespace IBMConsultantTool
 
             ITCAP itcap = new ITCAP();
             itcap.ITCAPQUESTION = itcapQuestion;
-            if (!AddITCAP(itcap, itcapForm.client))
+            if (!AddITCAP(itcap, ClientDataControl.Client.EntityObject))
             {
                 MessageBox.Show("Failed to add ITCAPQuestion to ITCAP", "Error");
                 return;
@@ -2078,6 +2000,13 @@ namespace IBMConsultantTool
             {
                 XElement temp = new XElement("CLIENT");
                 temp.Add(new XElement("NAME", client.NAME.TrimEnd()));
+                temp.Add(new XElement("LOCATION", client.LOCATION.TrimEnd()));
+                temp.Add(new XElement("STARTDATE", client.STARTDATE.ToString()));
+                temp.Add(new XElement("REGION", client.REGION.NAME.TrimEnd()));
+                temp.Add(new XElement("BUSINESSTYPE", client.BUSINESSTYPE.NAME.TrimEnd()));
+                temp.Add(new XElement("BOMCOMPLETE", client.BOMCOMPLETE));
+                temp.Add(new XElement("CUPECOMPLETE", client.CUPECOMPLETE));
+                temp.Add(new XElement("ITCAPCOMPLETE", client.ITCAPCOMPLETE));
                 XElement grpElement = new XElement("GROUPS");
                 foreach (GROUP grp in client.GROUP)
                 {
@@ -2246,6 +2175,26 @@ namespace IBMConsultantTool
             }
             root.Add(clientElement);
 
+            List<string> regList = GetRegionNames();
+            XElement regElement = new XElement("REGIONS");
+            foreach (string regName in regList)
+            {
+                XElement tempReg = new XElement("REGION");
+                tempReg.Add(new XElement("NAME", regName));
+                regElement.Add(tempReg);
+            }
+            root.Add(regElement);
+
+            List<string> busTypeList = GetBusinessTypeNames();
+            XElement busTypeElement = new XElement("BUSINESSTYPES");
+            foreach (string busTypeName in busTypeList)
+            {
+                XElement tempBusType = new XElement("BUSINESSTYPE");
+                tempBusType.Add(new XElement("NAME", busTypeName));
+                busTypeElement.Add(tempBusType);
+            }
+            root.Add(busTypeElement);
+
             List<CATEGORY> catList = GetCategories();
             XElement catElement = new XElement("CATEGORIES");
             foreach (CATEGORY category in catList)
@@ -2324,6 +2273,8 @@ namespace IBMConsultantTool
             string[] lineArray;
 
             CLIENT client;
+            REGION region;
+            BUSINESSTYPE busType;
             GROUP grp;
             CONTACT contact;
             CATEGORY category;
@@ -2361,6 +2312,14 @@ namespace IBMConsultantTool
                                 client = new CLIENT();
                                 client.NAME = lineArray[2].Replace('~', ' ');
                                 AddClient(client);
+                                break;
+
+                            case "REGION":
+                                AddRegion(lineArray[2].Replace('~', ' '));
+                                break;
+
+                            case "BUSINESSTYPE":
+                                AddBusinessType(lineArray[2].Replace('~', ' '));
                                 break;
 
                             case "GROUP":

@@ -81,7 +81,7 @@ namespace IBMConsultantTool
                         initiative.Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
                         initiative.Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
 
-                        if (!mainForm.db.UpdateBOM(mainForm.client, initiative))
+                        if (!ClientDataControl.db.UpdateBOM(ClientDataControl.Client.EntityObject, initiative))
                         {
                             MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
                             return;
@@ -91,7 +91,7 @@ namespace IBMConsultantTool
                     }
                 }
             }
-            if (!mainForm.db.SaveChanges())
+            if (!ClientDataControl.db.SaveChanges())
             {
                 MessageBox.Show("Could not save changes to database", "Error");
                 return;

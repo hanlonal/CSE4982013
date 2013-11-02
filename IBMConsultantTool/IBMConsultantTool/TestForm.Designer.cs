@@ -37,12 +37,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.TrendAnalysisLabel = new System.Windows.Forms.Label();
             this.TrendDescription = new System.Windows.Forms.Label();
-            this.loadConsultButton = new System.Windows.Forms.PictureBox();
+            this.LoadConsultButton = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadConsultButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).BeginInit();
             this.SuspendLayout();
             // 
             // NewConsultButton
@@ -132,15 +132,18 @@
             this.TrendDescription.TabIndex = 11;
             this.TrendDescription.Text = "Organize past consults in a number of ways to see industry trends";
             // 
-            // loadConsultButton
+            // LoadConsultButton
             // 
-            this.loadConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.loadConsultButton.Image = global::IBMConsultantTool.Properties.Resources.load_upload_icon;
-            this.loadConsultButton.Location = new System.Drawing.Point(72, 294);
-            this.loadConsultButton.Name = "loadConsultButton";
-            this.loadConsultButton.Size = new System.Drawing.Size(120, 129);
-            this.loadConsultButton.TabIndex = 13;
-            this.loadConsultButton.TabStop = false;
+            this.LoadConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LoadConsultButton.Image = global::IBMConsultantTool.Properties.Resources.load_upload_icon;
+            this.LoadConsultButton.Location = new System.Drawing.Point(72, 294);
+            this.LoadConsultButton.Name = "LoadConsultButton";
+            this.LoadConsultButton.Size = new System.Drawing.Size(120, 129);
+            this.LoadConsultButton.TabIndex = 13;
+            this.LoadConsultButton.TabStop = false;
+            this.LoadConsultButton.Click += new System.EventHandler(this.LoadConsultButton_Click);
+            this.LoadConsultButton.MouseEnter += new System.EventHandler(this.LoadConsultButton_MouseEnter);
+            this.LoadConsultButton.MouseLeave += new System.EventHandler(this.LoadConsultButton_MouseLeave);
             // 
             // label2
             // 
@@ -170,7 +173,7 @@
             this.ClientSize = new System.Drawing.Size(774, 595);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.loadConsultButton);
+            this.Controls.Add(this.LoadConsultButton);
             this.Controls.Add(this.TrendDescription);
             this.Controls.Add(this.TrendAnalysisLabel);
             this.Controls.Add(this.label1);
@@ -183,10 +186,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "TestForm";
             this.Text = "IBM Consultant Toolkit";
-            this.Load += new System.EventHandler(this.TestForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadConsultButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,7 +204,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label TrendAnalysisLabel;
         private System.Windows.Forms.Label TrendDescription;
-        private System.Windows.Forms.PictureBox loadConsultButton;
+        private System.Windows.Forms.PictureBox LoadConsultButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
     }

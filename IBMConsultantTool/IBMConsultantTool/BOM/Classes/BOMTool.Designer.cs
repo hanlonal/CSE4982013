@@ -441,7 +441,6 @@
             this.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.Name = "BOMTool";
             this.Text = "BOMTool";
-            this.Load += new System.EventHandler(this.BOMTool_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.detailInfoPanel.ResumeLayout(false);

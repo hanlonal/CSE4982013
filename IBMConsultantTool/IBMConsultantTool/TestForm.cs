@@ -24,12 +24,6 @@ namespace IBMConsultantTool
             ClientDataControl.LoadDatabase();
         }
 
-        private void TestForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void NewConsultButton_MouseLeave(object sender, EventArgs e)
         {
             NewConsultButton.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -38,6 +32,16 @@ namespace IBMConsultantTool
         private void NewConsultButton_MouseEnter(object sender, EventArgs e)
         {
             NewConsultButton.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+        }
+
+        private void LoadConsultButton_MouseLeave(object sender, EventArgs e)
+        {
+            LoadConsultButton.BorderStyle = System.Windows.Forms.BorderStyle.None;
+        }
+
+        private void LoadConsultButton_MouseEnter(object sender, EventArgs e)
+        {
+            LoadConsultButton.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
         }
 
         private void TrendAnalysisButton_MouseEnter(object sender, EventArgs e)
@@ -57,12 +61,12 @@ namespace IBMConsultantTool
             t.Start();
             this.Close();
             return;
-            
         }
 
 
         public static void ThreadProcMainForm()
         {
+            ClientDataControl.newClient = true;
             Application.Run(new StartPage());
         }
 
@@ -80,8 +84,20 @@ namespace IBMConsultantTool
             Application.Run(new CUPETool());
         }
 
- 
+        private void LoadConsultButton_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLoad));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
 
+        public static void ThreadProcLoad()
+        {
+            ClientDataControl.newClient = false;
+            Application.Run(new StartPage());
+        }
 
     }
    

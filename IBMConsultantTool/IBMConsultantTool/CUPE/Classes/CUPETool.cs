@@ -17,8 +17,6 @@ namespace IBMConsultantTool
 
     public partial class CUPETool : Form
     {
-        public DataManager db;
-        public object client;
         List<DataGridView> grids = new List<DataGridView>();
         List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
@@ -64,32 +62,14 @@ namespace IBMConsultantTool
             charts.Add(busiFutureGraph);
             charts.Add(itCurrentGraph);
             charts.Add(itFutureGraph);
-
-            try
-            {
-                db = new DBManager();
-
-            }
-
-            catch (Exception e)
-            {
-                db = new FileManager();
-                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
-            }
-
-            new ChooseCUPEClient(this).ShowDialog();
         }
 
         private void CUPETool_Load(object sender, EventArgs e)
         {
-            if (client == null)
-            {
-                this.Close();
-            }
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
             LoadCupeQuestionsFromDocument();
-            db.PopulateCUPEQuestionsForClient(this);
+            ClientDataControl.db.PopulateCUPEQuestionsForClient(this);
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;

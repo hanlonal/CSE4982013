@@ -7,20 +7,24 @@ namespace IBMConsultantTool
 {
     public class Client
     {
-
         private string name;
         private string location;
+        private string region;
         private string businessType;
         private DateTime startDate;
 
 
         private bool bomCompleted;
-        private bool CUPEcompleted;
-        private bool ITCapCompleted;
+        private bool cupeCompleted;
+        private bool itcapCompleted;
+
+        private object entityObject;
 
         public Client()
         {
-            
+            bomCompleted = false;
+            cupeCompleted = false;
+            itcapCompleted = false;
         }
 
         #region PROPERTIES START
@@ -34,6 +38,11 @@ namespace IBMConsultantTool
         {
             get { return location; }
             set { location = value; }
+        }
+        public string Region
+        {
+            get { return region; }
+            set { region = value; }
         }
         public string BusinessType
         {
@@ -57,16 +66,29 @@ namespace IBMConsultantTool
             get { return bomCompleted; }
             set { bomCompleted = value; }
         }
-        public bool CUPEcompleted1
+        public bool CupeCompleted
         {
-            get { return CUPEcompleted; }
-            set { CUPEcompleted = value; }
+            get { return cupeCompleted; }
+            set { cupeCompleted = value; }
         }
 
-        public bool ITCapCompleted1
+        public bool ITCapCompleted
         {
-            get { return ITCapCompleted; }
-            set { ITCapCompleted = value; }
+            get { return itcapCompleted; }
+            set { itcapCompleted = value; }
+        }
+
+        public object EntityObject
+        {
+            get
+            {
+                return entityObject;
+            }
+
+            set
+            {
+                entityObject = value;
+            }
         }
 
 

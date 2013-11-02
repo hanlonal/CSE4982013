@@ -17,9 +17,6 @@ namespace IBMConsultantTool
 
     public partial class ITCapTool : Form
     {
-        public DataManager db;
-        public bool isOnline;
-        public object client;
         private ITCapQuestion activequestion;
         Capability currentcap = new Capability();
         MasterCollection coll = new MasterCollection();
@@ -45,7 +42,7 @@ namespace IBMConsultantTool
 
         private void LoadDomains()
         {
-            string[] domainInfoArray = db.GetDefaultDomainNames();
+            string[] domainInfoArray = ClientDataControl.db.GetDefaultDomainNames();
             int domCount = 1;
             foreach (string domainInfo in domainInfoArray)
             {
@@ -64,7 +61,7 @@ namespace IBMConsultantTool
 
         private void LoadCapabilities(Domain dom)
         {
-            string[] capabilityInfoArray = db.GetDefaultCapabilityNames(dom.Name);
+            string[] capabilityInfoArray = ClientDataControl.db.GetDefaultCapabilityNames(dom.Name);
 
             int capCount = 1;
             foreach (string capabilityInfo in capabilityInfoArray)
@@ -87,7 +84,7 @@ namespace IBMConsultantTool
 
         private void LoadQuestions(Capability cap)
         {
-            string[] questionInfoArray = db.GetDefaultITCAPQuestionNames(cap.Name, cap.Owner.Name);
+            string[] questionInfoArray = ClientDataControl.db.GetDefaultITCAPQuestionNames(cap.Name, cap.Owner.Name);
 
             int questionCount = 1;
             foreach (string questionInfo in questionInfoArray)
@@ -111,19 +108,6 @@ namespace IBMConsultantTool
             InitializeComponent();
             currentGrid = surveryMakerGrid;
 
-            try
-            {
-                db = new DBManager();
-                isOnline = true;
-            }
-            catch (Exception e)
-            {
-                db = new FileManager();
-                isOnline = false;
-                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
-            }
-
-
             states = FormStates.Open;
 
             surverymakercontrols.Add(capabilityNameTextBox);
@@ -144,17 +128,10 @@ namespace IBMConsultantTool
             prioritizationControls.Add(prioritizationGrid);
 
             //loadSurveyFromDataGrid.Columns["Collapse"] = new DataGridViewDisableButtonColumn();
-
-            new ChooseITCAPClient(this).ShowDialog();
         }
 
         private void ITCapTool_Load(object sender, EventArgs e)
         {
-            if (client == null)
-            {
-                this.Close();
-            }
-
             // remove default [x] image for data DataGridViewImageColumn columns
             foreach (var column in loadSurveyFromDataGrid.Columns)
             {
@@ -162,7 +139,7 @@ namespace IBMConsultantTool
                     (column as DataGridViewImageColumn).DefaultCellStyle.NullValue = null;
             }
 
-            domainList.Items.AddRange(db.GetDomainNames());
+            domainList.Items.AddRange(ClientDataControl.db.GetDomainNames());
 
             //LoadDomains();
             //LoadCapabilities();
@@ -180,7 +157,7 @@ namespace IBMConsultantTool
             {
                 ResetSurveyGrid();
                 LoadDomains();
-                if (db.RewriteITCAP(this))
+                if (ClientDataControl.db.RewriteITCAP(this))
                 {
                     ChangeStates(FormStates.SurveryMaker);
                 }
@@ -492,7 +469,7 @@ namespace IBMConsultantTool
         {
             ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
 
-            db.RemoveITCAP(question.Name, client);
+            ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
 
 
         }
@@ -571,7 +548,7 @@ namespace IBMConsultantTool
         {
             ResetSurveyGrid();
 
-            db.OpenITCAP(this);
+            ClientDataControl.db.OpenITCAP(this);
             GetAnswers();
             ChangeStates(FormStates.Open);
             //GetClientObjectives();
@@ -581,7 +558,7 @@ namespace IBMConsultantTool
 
         private void PopulateCapabilitiesWithObjectives()
         {
-            string[] BOMS = db.GetObjectivesFromClientBOM(client).ToArray();
+            string[] BOMS = ClientDataControl.db.GetObjectivesFromClientBOM(ClientDataControl.Client.EntityObject).ToArray();
 
             foreach (string bom in BOMS)
             {
@@ -624,7 +601,7 @@ namespace IBMConsultantTool
             objectiveMappingGrid.DataSource = null;
             coll.Clear();
             //Some kind of function like this is needed
-            //db.GetClientObjectives();
+            //ClientDataControl.db.GetClientObjectives();
             //DataGrid grid = new DataGrid();
 
             coll.Add(cap);
@@ -668,27 +645,27 @@ namespace IBMConsultantTool
 
         private void domainList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            db.ChangedDomain(this);
+            ClientDataControl.db.ChangedDomain(this);
         }
 
         private void domainList_LostFocus(object sender, EventArgs e)
         {
-            db.ChangedDomain(this);
+            ClientDataControl.db.ChangedDomain(this);
         }
 
         private void capabilitiesList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            db.ChangedCapability(this);
+            ClientDataControl.db.ChangedCapability(this);
         }
 
         private void capabilitiesList_LostFocus(object sender, EventArgs e)
         {
-            db.ChangedCapability(this);
+            ClientDataControl.db.ChangedCapability(this);
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
+            ClientDataControl.db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
             LoadChartSurvey();
         }
 
@@ -699,7 +676,7 @@ namespace IBMConsultantTool
             {
                 if (question != null)
                 {
-                    if (!db.UpdateITCAP(client, question))
+                    if (!ClientDataControl.db.UpdateITCAP(ClientDataControl.Client.EntityObject, question))
                     {
                         success = false;
                         break;
@@ -707,7 +684,7 @@ namespace IBMConsultantTool
                 }
             }
 
-            if (success && db.SaveChanges())
+            if (success && ClientDataControl.db.SaveChanges())
             {
                 MessageBox.Show("Saved Changes Successfully", "Success");
             }
@@ -946,7 +923,7 @@ namespace IBMConsultantTool
             {
                 ResetSurveyGrid();
                 LoadDomains();
-                if (db.RewriteITCAP(this))
+                if (ClientDataControl.db.RewriteITCAP(this))
                 {
                     ChangeStates(FormStates.SurveryMaker);
                 }
