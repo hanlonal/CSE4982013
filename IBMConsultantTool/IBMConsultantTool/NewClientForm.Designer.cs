@@ -143,7 +143,6 @@
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(179, 28);
             this.RegionComboBox.TabIndex = 12;
-            this.RegionComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // RegionLabel
             // 

@@ -12,6 +12,7 @@ namespace IBMConsultantTool
 {
     public partial class LoadClientForm : Form
     {
+        StartPage owner;
         public LoadClientForm()
         {
             InitializeComponent();
@@ -24,13 +25,25 @@ namespace IBMConsultantTool
         {
             if (ClientDataControl.LoadClient(ChooseClientComboBox.Text))
             {
+                Owner.Refresh();
                 this.Close();
+            }
+
+            else
+            {
+                MessageBox.Show("Failed to load client: " + ChooseClientComboBox.Text + " does not exist", "Error");
             }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public StartPage Owner
+        {
+            get { return owner; }
+            set { owner = value; }
         }
     }
 }

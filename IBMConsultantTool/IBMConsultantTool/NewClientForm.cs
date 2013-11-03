@@ -84,11 +84,5 @@ namespace IBMConsultantTool
             get { return owner; }
             set { owner = value; }
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
