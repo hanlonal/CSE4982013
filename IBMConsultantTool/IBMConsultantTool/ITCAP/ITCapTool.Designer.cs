@@ -73,6 +73,7 @@
             this.standardDeviationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asIsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toBeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.answersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityNameTextBox = new System.Windows.Forms.TextBox();
             this.questionNameTextBox = new System.Windows.Forms.TextBox();
             this.domainList = new System.Windows.Forms.ComboBox();
@@ -109,7 +110,6 @@
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.answersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -386,14 +386,14 @@
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
             // 
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
@@ -411,7 +411,7 @@
             this.standardDeviationToolStripMenuItem,
             this.answersToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
@@ -435,6 +435,13 @@
             this.toBeToolStripMenuItem.Name = "toBeToolStripMenuItem";
             this.toBeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.toBeToolStripMenuItem.Text = "To Be";
+            // 
+            // answersToolStripMenuItem
+            // 
+            this.answersToolStripMenuItem.Name = "answersToolStripMenuItem";
+            this.answersToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.answersToolStripMenuItem.Text = "Answers";
+            this.answersToolStripMenuItem.Click += new System.EventHandler(this.answersToolStripMenuItem_Click);
             // 
             // capabilityNameTextBox
             // 
@@ -817,6 +824,7 @@
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
             this.loadSurveyFromDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellContentClick);
             this.loadSurveyFromDataGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
+            this.loadSurveyFromDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.loadSurveyFromDataGrid_CellMouseDown);
             this.loadSurveyFromDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellValueChanged);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
             // 
@@ -843,13 +851,6 @@
             this.dataGridViewButtonColumn2.Text = "+";
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 30;
-            // 
-            // answersToolStripMenuItem
-            // 
-            this.answersToolStripMenuItem.Name = "answersToolStripMenuItem";
-            this.answersToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.answersToolStripMenuItem.Text = "Answers";
-            this.answersToolStripMenuItem.Click += new System.EventHandler(this.answersToolStripMenuItem_Click);
             // 
             // ITCapTool
             // 
