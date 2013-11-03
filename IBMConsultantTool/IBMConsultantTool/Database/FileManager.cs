@@ -1707,14 +1707,20 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm)
+        public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm, out int alreadyExists, out string owner)
         {
+            alreadyExists = 3;
+            owner = "";
+            bool setOutVars = false;
             XElement domainXML;
             if (!GetDomain(domName, out domainXML))
             {
                 domainXML = new XElement("DOMAIN");
                 domainXML.Add(new XElement("NAME", domName));
                 domainXML.Add(new XElement("DEFAULT", 'N'));
+                alreadyExists = 0;
+                owner = "";
+                setOutVars = true;
                 if (!AddDomain(domainXML))
                 {
                     MessageBox.Show("Failed to add Domain to File", "Error");
@@ -1727,6 +1733,12 @@ namespace IBMConsultantTool
             {
                 capabilityXML = new XElement("CAPABILITY");
                 capabilityXML.Add(new XElement("NAME", capName));
+                if (!setOutVars)
+                {
+                    setOutVars = true;
+                    alreadyExists = 1;
+                    owner = domName;
+                }
                 if (!AddCapability(capabilityXML, domainXML))
                 {
                     MessageBox.Show("Failed to add Capability to File", "Error");
@@ -1739,6 +1751,12 @@ namespace IBMConsultantTool
             {
                 itcapQuestionXML = new XElement("ITCAPQUESTION");
                 itcapQuestionXML.Add(new XElement("NAME", itcqName));
+                if (!setOutVars)
+                {
+                    setOutVars = true;
+                    alreadyExists = 2;
+                    owner = capName;
+                }
                 if (!AddITCAPQuestion(itcapQuestionXML, capabilityXML, domainXML))
                 {
                     MessageBox.Show("Failed to add ITCAPQuestion to File", "Error");

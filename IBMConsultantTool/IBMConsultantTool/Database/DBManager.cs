@@ -1220,7 +1220,7 @@ namespace IBMConsultantTool
 
             catch(Exception e)
             {
-                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
+                MessageBox.Show("Error retrieving CUPEQuestion:\n\n" + e.Message, "Error");
                 return false;
             }
 
@@ -1611,7 +1611,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm)
+        public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm, out int alreadyExists, out string owner)
         {
             ITCAPQUESTION itcapQuestion;
             if (!GetITCAPQuestion(itcqName, out itcapQuestion))
@@ -1631,11 +1631,19 @@ namespace IBMConsultantTool
                         domain = new DOMAIN();
                         domain.NAME = domName;
                         domain.DEFAULT = "N";
+                        alreadyExists = 0;
+                        owner = "";
                         if (!AddDomain(domain))
                         {
                             MessageBox.Show("Failed to add Domain to Database", "Error");
                             return;
                         }
+                    }
+
+                    else
+                    {
+                        alreadyExists = 1;
+                        owner = domName;
                     }
 
                     capability.DOMAIN = domain;
@@ -1646,12 +1654,24 @@ namespace IBMConsultantTool
                     }
                 }
 
+                else
+                {
+                    alreadyExists = 2;
+                    owner = capName;
+                }
+
                 itcapQuestion.CAPABILITY = capability;
                 if (!AddITCAPQuestion(itcapQuestion))
                 {
                     MessageBox.Show("Failed to add ITCAPQuestion to Database", "Error");
                     return;
                 }
+            }
+
+            else
+            {
+                alreadyExists = 3;
+                owner = "";
             }
 
             ITCAP itcap = new ITCAP();

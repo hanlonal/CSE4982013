@@ -30,7 +30,8 @@
         {
             this.ChooseClientComboBox = new System.Windows.Forms.ComboBox();
             this.ChooseClientLabel = new System.Windows.Forms.Label();
-            this.OpenBOMButton = new System.Windows.Forms.Button();
+            this.LoadClientButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ChooseClientComboBox
@@ -50,22 +51,33 @@
             this.ChooseClientLabel.TabIndex = 1;
             this.ChooseClientLabel.Text = "Choose a Client";
             // 
-            // OpenBOMButton
+            // LoadClientButton
             // 
-            this.OpenBOMButton.Location = new System.Drawing.Point(134, 163);
-            this.OpenBOMButton.Name = "OpenBOMButton";
-            this.OpenBOMButton.Size = new System.Drawing.Size(75, 23);
-            this.OpenBOMButton.TabIndex = 2;
-            this.OpenBOMButton.Text = "Open BOM";
-            this.OpenBOMButton.UseVisualStyleBackColor = true;
-            this.OpenBOMButton.Click += new System.EventHandler(this.OpenBOMButton_Click);
+            this.LoadClientButton.Location = new System.Drawing.Point(183, 163);
+            this.LoadClientButton.Name = "LoadClientButton";
+            this.LoadClientButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadClientButton.TabIndex = 2;
+            this.LoadClientButton.Text = "Load";
+            this.LoadClientButton.UseVisualStyleBackColor = true;
+            this.LoadClientButton.Click += new System.EventHandler(this.LoadClientButton_Click);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.Location = new System.Drawing.Point(79, 163);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelButton.TabIndex = 3;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // LoadClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 248);
-            this.Controls.Add(this.OpenBOMButton);
+            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.LoadClientButton);
             this.Controls.Add(this.ChooseClientLabel);
             this.Controls.Add(this.ChooseClientComboBox);
             this.Name = "LoadClientForm";
@@ -79,6 +91,7 @@
 
         private System.Windows.Forms.ComboBox ChooseClientComboBox;
         private System.Windows.Forms.Label ChooseClientLabel;
-        private System.Windows.Forms.Button OpenBOMButton;
+        private System.Windows.Forms.Button LoadClientButton;
+        private System.Windows.Forms.Button CancelButton;
     }
 }

@@ -119,7 +119,7 @@ namespace IBMConsultantTool
         public abstract void RemoveQuestionToITCAP(string itcqName);
        // public abstract bool RemoveITCAP(object itcqObject, object clientObj);
 
-        public abstract void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm);
+        public abstract void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm, out int alreadyExists, out string owner);
         public abstract bool ChangeITCAPQuestionDefault(string itcq, bool isDefault);
         #endregion
 

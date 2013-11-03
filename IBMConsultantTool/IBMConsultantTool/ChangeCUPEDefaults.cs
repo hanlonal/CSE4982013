@@ -39,10 +39,13 @@ namespace IBMConsultantTool
         {
             foreach (DataGridViewRow row in CUPEQuestionDataGridView.Rows)
             {
-                if (!ClientDataControl.db.UpdateCupeQuestion(row.Cells[3].Value as string, (bool)row.Cells[0].Value, (bool)row.Cells[1].Value, (bool)row.Cells[2].Value))
+                if (row.Cells[3].Value != null)
                 {
-                    MessageBox.Show("CUPEQuestion \"" + row.Cells[3].Value as string + "\" Not Found", "Error");
-                    return;
+                    if (!ClientDataControl.db.UpdateCupeQuestion(row.Cells[3].Value as string, (bool)row.Cells[0].Value, (bool)row.Cells[1].Value, (bool)row.Cells[2].Value))
+                    {
+                        MessageBox.Show("CUPEQuestion \"" + row.Cells[3].Value as string + "\" Not Found", "Error");
+                        return;
+                    }
                 }
             }
 

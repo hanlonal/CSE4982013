@@ -20,12 +20,17 @@ namespace IBMConsultantTool
             this.Focus();
         }
 
-        private void OpenBOMButton_Click(object sender, EventArgs e)
+        private void LoadClientButton_Click(object sender, EventArgs e)
         {
             if (ClientDataControl.LoadClient(ChooseClientComboBox.Text))
             {
                 this.Close();
             }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

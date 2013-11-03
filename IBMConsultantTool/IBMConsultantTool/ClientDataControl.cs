@@ -54,9 +54,17 @@ namespace IBMConsultantTool
         {
             cupeQuestions = db.GetCUPESForClient();
 
-            if(cupeQuestions.Count == 0)
+            if(cupeQuestions.Count == 0 && MessageBox.Show("No CUPE was found for this client. Would you like to make one?", "New CUPE", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
+                foreach (CupeQuestionStringData cqsd in cupeQuestions)
+                {
+                    db.AddCUPE(cqsd.QuestionText, Client.EntityObject);
+                }
+                if (!ClientDataControl.db.SaveChanges())
+                {
+                    MessageBox.Show("Failed to create new CUPE for client", "Error");
+                }
             }
         }
 
