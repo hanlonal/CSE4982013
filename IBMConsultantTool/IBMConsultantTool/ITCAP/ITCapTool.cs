@@ -603,19 +603,28 @@ namespace IBMConsultantTool
             //Some kind of function like this is needed
             //ClientDataControl.db.GetClientObjectives();
             //DataGrid grid = new DataGrid();
-
+            capabilityNameLabel.Visible = true;
             coll.Add(cap);
+            
             coll.CalculatePropertyDescriptors();
             //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
 
             objectiveMappingGrid.DataSource = coll;
             objectiveMappingGrid.Columns[0].ReadOnly = true;
-
+            BuildObjectiveMappingArea();
             objectiveMappingGrid.RowHeadersVisible = false;
 
 
 
         }
+
+        private void BuildObjectiveMappingArea()
+        {
+           
+
+        }
+
+
         private void objectiveMappingGrid_CellEndEdit(object sender, EventArgs e)
         {
             currentcap.CalculatePrioritizedCapabilityGap();

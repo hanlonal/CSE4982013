@@ -99,10 +99,11 @@
             this.editQuestionTextbox = new System.Windows.Forms.RichTextBox();
             this.changeTextButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.capabilityNameLabel = new System.Windows.Forms.Label();
             this.objectiveToAddButton = new System.Windows.Forms.TextBox();
             this.button13322345 = new System.Windows.Forms.Button();
-            this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.seperatorLabel = new System.Windows.Forms.Label();
+            this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
@@ -164,7 +165,7 @@
             this.mainMenuToolBar.Location = new System.Drawing.Point(0, 0);
             this.mainMenuToolBar.Name = "mainMenuToolBar";
             this.mainMenuToolBar.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.mainMenuToolBar.Size = new System.Drawing.Size(1008, 30);
+            this.mainMenuToolBar.Size = new System.Drawing.Size(1008, 25);
             this.mainMenuToolBar.TabIndex = 8;
             this.mainMenuToolBar.Text = "menuStrip1";
             // 
@@ -179,7 +180,7 @@
             this.openSurveyDocumentsToolStripMenuItem,
             this.createPowerPointToolStripMenuItem});
             this.File.Name = "File";
-            this.File.Size = new System.Drawing.Size(44, 24);
+            this.File.Size = new System.Drawing.Size(37, 19);
             this.File.Text = "File";
             // 
             // newToolStripMenuItem
@@ -189,67 +190,67 @@
             this.businessToolStripMenuItem,
             this.otherToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.newToolStripMenuItem.Text = "New Default Survey";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // governmentToolStripMenuItem
             // 
             this.governmentToolStripMenuItem.Name = "governmentToolStripMenuItem";
-            this.governmentToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
+            this.governmentToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.governmentToolStripMenuItem.Text = "Government";
             // 
             // businessToolStripMenuItem
             // 
             this.businessToolStripMenuItem.Name = "businessToolStripMenuItem";
-            this.businessToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
+            this.businessToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.businessToolStripMenuItem.Text = "Business";
             // 
             // otherToolStripMenuItem
             // 
             this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            this.otherToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.otherToolStripMenuItem.Text = "Other";
             this.otherToolStripMenuItem.Click += new System.EventHandler(this.otherToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // loadDataToolStripMenuItem
             // 
             this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.loadDataToolStripMenuItem.Text = "Load Data";
             this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // sendSurveyToolStripMenuItem
             // 
             this.sendSurveyToolStripMenuItem.Name = "sendSurveyToolStripMenuItem";
-            this.sendSurveyToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.sendSurveyToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.sendSurveyToolStripMenuItem.Text = "Send Survey";
             // 
             // createSurveyDocumentToolStripMenuItem
             // 
             this.createSurveyDocumentToolStripMenuItem.Name = "createSurveyDocumentToolStripMenuItem";
-            this.createSurveyDocumentToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.createSurveyDocumentToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.createSurveyDocumentToolStripMenuItem.Text = "Create Survey Document";
             this.createSurveyDocumentToolStripMenuItem.Click += new System.EventHandler(this.createSurveyDocumentToolStripMenuItem_Click);
             // 
             // openSurveyDocumentsToolStripMenuItem
             // 
             this.openSurveyDocumentsToolStripMenuItem.Name = "openSurveyDocumentsToolStripMenuItem";
-            this.openSurveyDocumentsToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.openSurveyDocumentsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.openSurveyDocumentsToolStripMenuItem.Text = "Open Survey Documents";
             this.openSurveyDocumentsToolStripMenuItem.Click += new System.EventHandler(this.openSurveyDocumentsToolStripMenuItem_Click);
             // 
             // createPowerPointToolStripMenuItem
             // 
             this.createPowerPointToolStripMenuItem.Name = "createPowerPointToolStripMenuItem";
-            this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
+            this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.createPowerPointToolStripMenuItem.Text = "Create PowerPoint";
             this.createPowerPointToolStripMenuItem.Click += new System.EventHandler(this.createPowerPointToolStripMenuItem_Click);
             // 
@@ -261,34 +262,34 @@
             this.capabilityGapHeatmapToolStripMenuItem,
             this.prioritizedCapabilityGapsToolStripMenuItem});
             this.View.Name = "View";
-            this.View.Size = new System.Drawing.Size(53, 24);
+            this.View.Size = new System.Drawing.Size(44, 19);
             this.View.Text = "View";
             // 
             // systemsAgendaCapabilityAssesmentResultsToolStripMenuItem
             // 
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Name = "systemsAgendaCapabilityAssesmentResultsToolStripMenuItem";
-            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Size = new System.Drawing.Size(382, 24);
+            this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Text = "Systems Agenda Capability Assesment Results";
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem.Click += new System.EventHandler(this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem_Click);
             // 
             // capabilityAssesmentSummaryScoresToolStripMenuItem
             // 
             this.capabilityAssesmentSummaryScoresToolStripMenuItem.Name = "capabilityAssesmentSummaryScoresToolStripMenuItem";
-            this.capabilityAssesmentSummaryScoresToolStripMenuItem.Size = new System.Drawing.Size(382, 24);
+            this.capabilityAssesmentSummaryScoresToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.capabilityAssesmentSummaryScoresToolStripMenuItem.Text = "Capability Assesment Summary Scores";
             this.capabilityAssesmentSummaryScoresToolStripMenuItem.Click += new System.EventHandler(this.capabilityAssesmentSummaryScoresToolStripMenuItem_Click);
             // 
             // capabilityGapHeatmapToolStripMenuItem
             // 
             this.capabilityGapHeatmapToolStripMenuItem.Name = "capabilityGapHeatmapToolStripMenuItem";
-            this.capabilityGapHeatmapToolStripMenuItem.Size = new System.Drawing.Size(382, 24);
+            this.capabilityGapHeatmapToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.capabilityGapHeatmapToolStripMenuItem.Text = "Capability Gap Heatmap";
             this.capabilityGapHeatmapToolStripMenuItem.Click += new System.EventHandler(this.capabilityGapHeatmapToolStripMenuItem_Click);
             // 
             // prioritizedCapabilityGapsToolStripMenuItem
             // 
             this.prioritizedCapabilityGapsToolStripMenuItem.Name = "prioritizedCapabilityGapsToolStripMenuItem";
-            this.prioritizedCapabilityGapsToolStripMenuItem.Size = new System.Drawing.Size(382, 24);
+            this.prioritizedCapabilityGapsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.prioritizedCapabilityGapsToolStripMenuItem.Text = "Prioritized Capability Gaps";
             // 
             // Insert
@@ -298,25 +299,25 @@
             this.capabilityToolStripMenuItem,
             this.questionToolStripMenuItem});
             this.Insert.Name = "Insert";
-            this.Insert.Size = new System.Drawing.Size(57, 24);
+            this.Insert.Size = new System.Drawing.Size(48, 19);
             this.Insert.Text = "Insert";
             // 
             // domainToolStripMenuItem
             // 
             this.domainToolStripMenuItem.Name = "domainToolStripMenuItem";
-            this.domainToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
+            this.domainToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.domainToolStripMenuItem.Text = "Domain";
             // 
             // capabilityToolStripMenuItem
             // 
             this.capabilityToolStripMenuItem.Name = "capabilityToolStripMenuItem";
-            this.capabilityToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
+            this.capabilityToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.capabilityToolStripMenuItem.Text = "Capability";
             // 
             // questionToolStripMenuItem
             // 
             this.questionToolStripMenuItem.Name = "questionToolStripMenuItem";
-            this.questionToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
+            this.questionToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.questionToolStripMenuItem.Text = "Question";
             // 
             // ChangeDefaults
@@ -325,20 +326,20 @@
             this.changeDefaultsToolStripMenuItem,
             this.preferencesToolStripMenuItem});
             this.ChangeDefaults.Name = "ChangeDefaults";
-            this.ChangeDefaults.Size = new System.Drawing.Size(74, 24);
+            this.ChangeDefaults.Size = new System.Drawing.Size(61, 19);
             this.ChangeDefaults.Text = "Settings";
             // 
             // changeDefaultsToolStripMenuItem
             // 
             this.changeDefaultsToolStripMenuItem.Name = "changeDefaultsToolStripMenuItem";
-            this.changeDefaultsToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.changeDefaultsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.changeDefaultsToolStripMenuItem.Text = "ChangeDefaults";
             this.changeDefaultsToolStripMenuItem.Click += new System.EventHandler(this.changeDefaultsToolStripMenuItem_Click);
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             // 
             // Workshop
@@ -348,27 +349,27 @@
             this.Prioritization,
             this.SurveryMaker});
             this.Workshop.Name = "Workshop";
-            this.Workshop.Size = new System.Drawing.Size(88, 24);
+            this.Workshop.Size = new System.Drawing.Size(73, 19);
             this.Workshop.Text = "Workshop";
             // 
             // LiveDataEntry
             // 
             this.LiveDataEntry.Name = "LiveDataEntry";
-            this.LiveDataEntry.Size = new System.Drawing.Size(177, 24);
+            this.LiveDataEntry.Size = new System.Drawing.Size(152, 22);
             this.LiveDataEntry.Text = "Live Data Entry";
             this.LiveDataEntry.Click += new System.EventHandler(this.LiveDataEntry_Click);
             // 
             // Prioritization
             // 
             this.Prioritization.Name = "Prioritization";
-            this.Prioritization.Size = new System.Drawing.Size(177, 24);
+            this.Prioritization.Size = new System.Drawing.Size(152, 22);
             this.Prioritization.Text = "Prioritization";
             this.Prioritization.Click += new System.EventHandler(this.Prioritization_Click);
             // 
             // SurveryMaker
             // 
             this.SurveryMaker.Name = "SurveryMaker";
-            this.SurveryMaker.Size = new System.Drawing.Size(177, 24);
+            this.SurveryMaker.Size = new System.Drawing.Size(152, 22);
             this.SurveryMaker.Text = "Survery Maker";
             this.SurveryMaker.Click += new System.EventHandler(this.SurveryMaker_Click);
             // 
@@ -378,20 +379,20 @@
             this.cUPEToolStripMenuItem,
             this.bOMToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 19);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
             // 
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
@@ -400,7 +401,7 @@
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showHideToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 19);
             this.gridToolStripMenuItem.Text = "Grid";
             // 
             // showHideToolStripMenuItem
@@ -408,7 +409,7 @@
             this.showHideToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.standardDeviationToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
@@ -417,20 +418,20 @@
             this.asIsToolStripMenuItem,
             this.toBeToolStripMenuItem});
             this.standardDeviationToolStripMenuItem.Name = "standardDeviationToolStripMenuItem";
-            this.standardDeviationToolStripMenuItem.Size = new System.Drawing.Size(206, 24);
+            this.standardDeviationToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.standardDeviationToolStripMenuItem.Text = "Standard Deviation";
             this.standardDeviationToolStripMenuItem.Click += new System.EventHandler(this.standardDeviationToolStripMenuItem_Click);
             // 
             // asIsToolStripMenuItem
             // 
             this.asIsToolStripMenuItem.Name = "asIsToolStripMenuItem";
-            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
+            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.asIsToolStripMenuItem.Text = "As Is";
             // 
             // toBeToolStripMenuItem
             // 
             this.toBeToolStripMenuItem.Name = "toBeToolStripMenuItem";
-            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
+            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.toBeToolStripMenuItem.Text = "To Be";
             // 
             // capabilityNameTextBox
@@ -438,7 +439,7 @@
             this.capabilityNameTextBox.Location = new System.Drawing.Point(1425, 246);
             this.capabilityNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.capabilityNameTextBox.Name = "capabilityNameTextBox";
-            this.capabilityNameTextBox.Size = new System.Drawing.Size(148, 30);
+            this.capabilityNameTextBox.Size = new System.Drawing.Size(148, 26);
             this.capabilityNameTextBox.TabIndex = 9;
             this.capabilityNameTextBox.Visible = false;
             // 
@@ -447,7 +448,7 @@
             this.questionNameTextBox.Location = new System.Drawing.Point(1425, 346);
             this.questionNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.questionNameTextBox.Name = "questionNameTextBox";
-            this.questionNameTextBox.Size = new System.Drawing.Size(148, 30);
+            this.questionNameTextBox.Size = new System.Drawing.Size(148, 26);
             this.questionNameTextBox.TabIndex = 11;
             this.questionNameTextBox.Visible = false;
             // 
@@ -457,7 +458,7 @@
             this.domainList.Location = new System.Drawing.Point(596, 233);
             this.domainList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.domainList.Name = "domainList";
-            this.domainList.Size = new System.Drawing.Size(253, 33);
+            this.domainList.Size = new System.Drawing.Size(253, 28);
             this.domainList.TabIndex = 14;
             this.domainList.Text = "<Select Domain>";
             this.domainList.Visible = false;
@@ -470,7 +471,7 @@
             this.capabilitiesList.Location = new System.Drawing.Point(596, 313);
             this.capabilitiesList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.capabilitiesList.Name = "capabilitiesList";
-            this.capabilitiesList.Size = new System.Drawing.Size(253, 33);
+            this.capabilitiesList.Size = new System.Drawing.Size(253, 28);
             this.capabilitiesList.TabIndex = 15;
             this.capabilitiesList.Visible = false;
             this.capabilitiesList.SelectedIndexChanged += new System.EventHandler(this.capabilitiesList_SelectedIndexChanged);
@@ -482,7 +483,7 @@
             this.questionList.Location = new System.Drawing.Point(596, 389);
             this.questionList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.questionList.Name = "questionList";
-            this.questionList.Size = new System.Drawing.Size(253, 33);
+            this.questionList.Size = new System.Drawing.Size(253, 28);
             this.questionList.TabIndex = 16;
             this.questionList.Visible = false;
             // 
@@ -707,41 +708,44 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.panel1.Controls.Add(this.capabilityNameLabel);
             this.panel1.Controls.Add(this.objectiveToAddButton);
             this.panel1.Controls.Add(this.button13322345);
-            this.panel1.Controls.Add(this.objectiveMappingGrid);
             this.panel1.Controls.Add(this.seperatorLabel);
+            this.panel1.Controls.Add(this.objectiveMappingGrid);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 567);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1008, 163);
             this.panel1.TabIndex = 24;
             // 
+            // capabilityNameLabel
+            // 
+            this.capabilityNameLabel.AutoSize = true;
+            this.capabilityNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.capabilityNameLabel.Location = new System.Drawing.Point(43, 35);
+            this.capabilityNameLabel.Name = "capabilityNameLabel";
+            this.capabilityNameLabel.Size = new System.Drawing.Size(87, 20);
+            this.capabilityNameLabel.TabIndex = 5;
+            this.capabilityNameLabel.Text = "Capability";
+            this.capabilityNameLabel.Visible = false;
+            // 
             // objectiveToAddButton
             // 
-            this.objectiveToAddButton.Location = new System.Drawing.Point(838, 87);
+            this.objectiveToAddButton.Location = new System.Drawing.Point(883, 125);
             this.objectiveToAddButton.Name = "objectiveToAddButton";
-            this.objectiveToAddButton.Size = new System.Drawing.Size(100, 30);
+            this.objectiveToAddButton.Size = new System.Drawing.Size(100, 26);
             this.objectiveToAddButton.TabIndex = 4;
             // 
             // button13322345
             // 
-            this.button13322345.Location = new System.Drawing.Point(838, 51);
+            this.button13322345.Location = new System.Drawing.Point(883, 90);
             this.button13322345.Name = "button13322345";
             this.button13322345.Size = new System.Drawing.Size(75, 23);
             this.button13322345.TabIndex = 3;
             this.button13322345.Text = "button1";
             this.button13322345.UseVisualStyleBackColor = true;
             this.button13322345.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // objectiveMappingGrid
-            // 
-            this.objectiveMappingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.objectiveMappingGrid.Location = new System.Drawing.Point(54, 51);
-            this.objectiveMappingGrid.Name = "objectiveMappingGrid";
-            this.objectiveMappingGrid.Size = new System.Drawing.Size(761, 62);
-            this.objectiveMappingGrid.TabIndex = 2;
-            this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
             // 
             // seperatorLabel
             // 
@@ -754,6 +758,16 @@
             this.seperatorLabel.TabIndex = 1;
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "Business Objective Mapping";
+            // 
+            // objectiveMappingGrid
+            // 
+            this.objectiveMappingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.objectiveMappingGrid.Location = new System.Drawing.Point(47, 89);
+            this.objectiveMappingGrid.Name = "objectiveMappingGrid";
+            this.objectiveMappingGrid.Size = new System.Drawing.Size(761, 62);
+            this.objectiveMappingGrid.TabIndex = 2;
+            this.objectiveMappingGrid.Visible = false;
+            this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
             // 
             // dataGridViewButtonColumn1
             // 
@@ -827,7 +841,7 @@
             // 
             // ITCapTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1008, 730);
@@ -940,6 +954,7 @@
         private System.Windows.Forms.ToolStripMenuItem createSurveyDocumentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openSurveyDocumentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createPowerPointToolStripMenuItem;
+        private System.Windows.Forms.Label capabilityNameLabel;
 
 
     }

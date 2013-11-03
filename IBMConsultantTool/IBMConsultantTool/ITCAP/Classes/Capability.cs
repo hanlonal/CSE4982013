@@ -19,6 +19,9 @@ namespace IBMConsultantTool
         static private float staticLowGapThreshold = 1;
         static private Dictionary<Capability, float> dynamicCapabilityGaps = new Dictionary<Capability, float>();
 
+        static private float dynamicAutoHighGap = 4;
+        static private float dynamicAutoLowGap = .5f;
+
 
         ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
@@ -102,6 +105,19 @@ namespace IBMConsultantTool
                     dynamicCapabilityGaps.Add(this, capabilityGap);
                 }
 
+                if (capabilityGap >= dynamicAutoHighGap)
+                {
+                    CapabilityGapText = "High Gap";
+                    gapType = GapType.High;
+                    return;
+                }
+                else if (capabilityGap <= dynamicAutoLowGap)
+                {
+                    CapabilityGapText = "Low Gap";
+                    gapType = GapType.Low;
+                    return;
+                }
+
                 var items = from pair in dynamicCapabilityGaps
                             orderby pair.Value ascending
                             select pair;
@@ -115,13 +131,13 @@ namespace IBMConsultantTool
                     int count = 0;
                     foreach (KeyValuePair<Capability, float> pair in items)
                     {
-                        if (count <= numberForLow)
+                        if (count < numberForLow)
                         {
                             pair.Key.CapabilityGapText = "Low Gap";
                             pair.Key.gapType = GapType.Low;
                         }
 
-                        else if (count > numberForLow && count < numberForHigh)
+                        else if (count >= numberForLow && count < numberForHigh)
                         {
                             pair.Key.CapabilityGapText = "Middle Gap";
                             pair.Key.gapType = GapType.Middle;
@@ -139,10 +155,9 @@ namespace IBMConsultantTool
                         count++;
 
 
+
                     }
-                    Console.WriteLine(numberForLow.ToString());
-                    Console.WriteLine(numberForMid.ToString());
-                    Console.WriteLine(numberForHigh.ToString());
+
                 }
                 else
                 {

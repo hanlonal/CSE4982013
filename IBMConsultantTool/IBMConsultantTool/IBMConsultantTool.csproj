@@ -245,6 +245,9 @@
     <Compile Include="No Longer Used\PropertyBag.cs" />
     <Compile Include="No Longer Used\PropertyBagList.cs" />
     <Compile Include="No Longer Used\PropertyBagPropertyDescriptor.cs" />
+    <Compile Include="OrientedTextLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Pair.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PowerPointGenerator.cs" />
