@@ -34,11 +34,18 @@ namespace IBMConsultantTool
         private void StartPage_Load(object sender, EventArgs e)
         {
             if (ClientDataControl.Client == null)
-            {
+            {   System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcReset));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
                 this.Close();
             }
             //this.Controls.Add(form);
             
+        }
+
+        public static void ThreadProcReset()
+        {
+            Application.Run(new TestForm());
         }
         private void BindLabels()
         {
