@@ -47,9 +47,17 @@ namespace IBMConsultantTool
                 MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
             }
 
-
             return isOnline;
-            ///categoryNames.Items.AddRange(db.GetCategoryNames());        
+        }
+
+        public static void LoadCUPEQuestions(CUPETool cupeForm)
+        {
+            cupeQuestions = db.GetCUPESForClient();
+
+            if(cupeQuestions.Count == 0)
+            {
+                cupeQuestions = db.GetCUPEQuestionsTwenty();
+            }
         }
 
         public static bool AddParticipant(Person person)
@@ -133,7 +141,7 @@ namespace IBMConsultantTool
             var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");
             const string fromPassword = "CSE498-38734";
             const string subject = "IBM Survey Request";
-            const string body = "Please download attatchment, fill out the form, and submit. Thank you!\n\n\n\n\nTeam IBM";
+            const string body = "Please download attatchment, fill out the form, and return to sender. Thank you!\n\n\n\n\nTeam IBM";
 
             var smtp = new SmtpClient
             {

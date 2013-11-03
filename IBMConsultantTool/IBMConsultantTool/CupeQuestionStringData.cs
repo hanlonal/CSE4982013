@@ -8,6 +8,7 @@ namespace IBMConsultantTool
     public class CupeQuestionStringData
     {
 
+        public string OriginalQuestionText;
         public string QuestionText;
         public string ChoiceA;
         public string ChoiceB;
@@ -16,8 +17,6 @@ namespace IBMConsultantTool
 
         public void CupeQuestionData()
         {
-
-
         }
     }
 }

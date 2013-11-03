@@ -25,7 +25,7 @@ namespace IBMConsultantTool
         Chart currentChart;
         int personCount = 0;
         bool isAnonymous = true;
-        bool is20Question = true;
+        public bool is20Question = true;
         bool changesMade = false;
 
         int totalAIndex = 1;
@@ -68,8 +68,7 @@ namespace IBMConsultantTool
         {
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
-            LoadCupeQuestionsFromDocument();
-            ClientDataControl.db.PopulateCUPEQuestionsForClient(this);
+            ClientDataControl.LoadCUPEQuestions(this);
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;

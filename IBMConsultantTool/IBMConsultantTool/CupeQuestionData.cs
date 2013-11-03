@@ -7,7 +7,7 @@ namespace IBMConsultantTool
 {
     public class CupeQuestionData
     {
-        string questionText ="";
+        CupeQuestionStringData stringData = new CupeQuestionStringData();
         string currentValue = "";
         string futureValue = "";
         int questionID;
@@ -16,15 +16,15 @@ namespace IBMConsultantTool
 
 
 
-        public string QuestionText
+        public CupeQuestionStringData StringData
         {
             get
             {
-                return questionText;
+                return stringData;
             }
             set
             {
-                questionText = value;
+                stringData = value;
             }
         }
         public string CurrentValue

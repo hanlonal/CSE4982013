@@ -81,13 +81,14 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public abstract bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future);
+        public abstract bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future);
 
         public abstract bool AddCUPE(string question, object clientObj);
         public abstract bool AddCUPEToGroup(string question, object groupObj);
         public abstract bool AddCUPEToContact(string question, object contactObj);
 
         public abstract void PopulateCUPEQuestionsForClient(CUPETool cupeForm);
+        public abstract List<CupeQuestionStringData> GetCUPESForClient();
         //public abstract void EditQuestionForCUPE(CLIENT client, CupeQuestionStringData data);
         #endregion
 

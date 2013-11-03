@@ -1007,6 +1007,7 @@ namespace IBMConsultantTool
             foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
                 cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
@@ -1028,6 +1029,7 @@ namespace IBMConsultantTool
             foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
                 cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
@@ -1049,6 +1051,7 @@ namespace IBMConsultantTool
             foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
                 cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
@@ -1071,6 +1074,7 @@ namespace IBMConsultantTool
             foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
+                cupeQuestion.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
                 cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
                 cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
@@ -1128,14 +1132,41 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public override bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future)
+
+        public override List<CupeQuestionStringData> GetCUPESForClient()
         {
-            CLIENT client = clientObj as CLIENT;
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            List<CUPE> cupeList = client.CUPE.ToList();
+            List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
+            CupeQuestionStringData data = new CupeQuestionStringData();
+            foreach (CUPE cupe in cupeList)
+            {
+                data.OriginalQuestionText = cupe.CUPEQUESTION.NAME.TrimEnd();
+                data.QuestionText = cupe.NAME.TrimEnd();
+                data.ChoiceA = cupe.COMMODITY.TrimEnd();
+                data.ChoiceB = cupe.UTILITY.TrimEnd();
+                data.ChoiceC = cupe.PARTNER.TrimEnd();
+                data.ChoiceD = cupe.ENABLER.TrimEnd();
+                cupeQuestions.Add(data);
+            }
+
+            return cupeQuestions;
+        }
+
+        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future)
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             try
             {
                 CUPE cupe = (from ent in client.CUPE
-                             where ent.NAME.TrimEnd() == cupeQuestion
+                             where ent.CUPEQUESTION.NAME.TrimEnd() == cupeQuestion.OriginalQuestionText
                              select ent).Single();
+
+                cupe.NAME = cupeQuestion.QuestionText;
+                cupe.COMMODITY = cupeQuestion.ChoiceA;
+                cupe.UTILITY = cupeQuestion.ChoiceB;
+                cupe.PARTNER = cupeQuestion.ChoiceC;
+                cupe.ENABLER = cupeQuestion.ChoiceD;
                 cupe.CURRENT = current;
                 cupe.FUTURE = future;
             }

@@ -1154,6 +1154,26 @@ namespace IBMConsultantTool
 
             return true;
         }
+
+        public override List<CupeQuestionStringData>  GetCUPESForClient()
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            List<XElement> cupeList = client.Element("CUPES").Elements("CUPE").ToList();
+            List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
+            CupeQuestionStringData data = new CupeQuestionStringData();
+            foreach (XElement cupe in cupeList)
+            {
+                data.QuestionText = data.OriginalQuestionText = cupe.Element("CUPEQUESTION").Value;
+                data.ChoiceA = cupe.Element("COMMODITY").Value;
+                data.ChoiceB = cupe.Element("UTILITY").Value;
+                data.ChoiceC = cupe.Element("PARTNER").Value;
+                data.ChoiceD = cupe.Element("ENABLER").Value;
+                cupeQuestions.Add(data);
+            }
+
+            return cupeQuestions;
+        } 
+
         public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
         {
             XElement cupeQuestionEnt;
@@ -1186,19 +1206,28 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public override bool UpdateCUPE(object clientObj, string cupeQuestion, string current, string future)
+        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future)
         {
-            XElement client = clientObj as XElement;
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
             try
             {
                 XElement cupe = (from ent in client.Element("CUPES").Elements("CUPE")
-                             where ent.Element("NAME").Value == cupeQuestion
+                             where ent.Element("CUPEQUESTION").Value == cupeQuestion.OriginalQuestionText
                              select ent).Single();
+                cupe.Element("NAME").Value = cupeQuestion.QuestionText;
+                cupe.Element("COMMODITY").Value = cupeQuestion.ChoiceA;
+                cupe.Element("UTILITY").Value = cupeQuestion.ChoiceB;
+                cupe.Element("PARTNER").Value = cupeQuestion.ChoiceC;
+                cupe.Element("ENABLER").Value = cupeQuestion.ChoiceD;
                 cupe.Element("CURRENT").Value = current;
                 cupe.Element("FUTURE").Value = future;
 
-                changeLog.Add("UPDATE CUPE " + cupeQuestion.Replace(' ', '~') + " " +
-                          current + " " + future);
+                changeLog.Add("UPDATE CUPE " + cupeQuestion.QuestionText.Replace(' ', '~') + " " +
+                              cupeQuestion.ChoiceA.Replace(' ', '~') + " " +
+                              cupeQuestion.ChoiceB.Replace(' ', '~') + " " +
+                              cupeQuestion.ChoiceC.Replace(' ', '~') + " " +
+                              cupeQuestion.ChoiceD.Replace(' ', '~') + " " +
+                              current + " " + future);
             }
 
             catch
