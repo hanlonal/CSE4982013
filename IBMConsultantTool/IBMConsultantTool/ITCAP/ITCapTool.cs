@@ -609,10 +609,10 @@ namespace IBMConsultantTool
             coll.CalculatePropertyDescriptors();
             //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
 
-            objectiveMappingGrid.DataSource = coll;
-            objectiveMappingGrid.Columns[0].ReadOnly = true;
+            //objectiveMappingGrid.DataSource = coll;
+            //objectiveMappingGrid.Columns[0].ReadOnly = true;
             BuildObjectiveMappingArea();
-            objectiveMappingGrid.RowHeadersVisible = false;
+            //objectiveMappingGrid.RowHeadersVisible = false;
 
 
 
@@ -620,8 +620,52 @@ namespace IBMConsultantTool
 
         private void BuildObjectiveMappingArea()
         {
-           
+            Font font = new Font("Arial", 12, FontStyle.Underline | FontStyle.Bold);
+            
+            foreach (Control con in panel1.Controls)
+            {
+                if ((string)con.Tag != "permenant")
+                {
+                    panel1.Controls.Remove(con);
+                }
+            }
+            int count = 1;
+            Label nameLabel = new Label();
+            //nameLabel.Font = font;
+            nameLabel.Text = currentcap.Name;
+            panel1.Controls.Add(nameLabel);
+            nameLabel.Location = new Point(capabilityNameLabel.Location.X, capabilityNameLabel.Location.Y + 50);
+            foreach (ObjectiveValues val in currentcap.ObjectiveCollection)
+            {
+                Label label = new Label();
+                label.Font = font;
+                label.Text = val.Name;
+                ComboBox combo = new ComboBox();
+                //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
+                combo.DataBindings.Add("Text", val, "Value");
+                combo.DataBindings.Add("SelectedItem", val, "Value");
+                combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
+                combo.Items.Add(1);
+                combo.Items.Add(2);
+                combo.Items.Add(3);
+                combo.Width = 50;
+               
+                //combo.ValueMemberChanged +=new EventHandler(combo_ValueMemberChanged);
+                panel1.Controls.Add(combo);
+               
+                panel1.Controls.Add(label);
+                label.Location = new Point(capabilityNameLabel.Location.X + 100 * count, capabilityNameLabel.Location.Y);
+                combo.Location = new Point(label.Location.X, label.Location.Y + 50);
+                
+                count++;
+            }
 
+        }
+
+        private void combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentcap.CalculatePrioritizedCapabilityGap();
+            currentGrid.Refresh();
         }
 
 

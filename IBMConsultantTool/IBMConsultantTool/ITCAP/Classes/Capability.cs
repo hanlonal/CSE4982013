@@ -105,18 +105,7 @@ namespace IBMConsultantTool
                     dynamicCapabilityGaps.Add(this, capabilityGap);
                 }
 
-                if (capabilityGap >= dynamicAutoHighGap)
-                {
-                    CapabilityGapText = "High Gap";
-                    gapType = GapType.High;
-                    return;
-                }
-                else if (capabilityGap <= dynamicAutoLowGap)
-                {
-                    CapabilityGapText = "Low Gap";
-                    gapType = GapType.Low;
-                    return;
-                }
+
 
                 var items = from pair in dynamicCapabilityGaps
                             orderby pair.Value ascending
@@ -133,20 +122,61 @@ namespace IBMConsultantTool
                     {
                         if (count < numberForLow)
                         {
-                            pair.Key.CapabilityGapText = "Low Gap";
-                            pair.Key.gapType = GapType.Low;
+                            if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                            {
+                                CapabilityGapText = "High Gap";
+                                gapType = GapType.High;                                
+                            }
+                            else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                            {
+                                pair.Key.CapabilityGapText = "Low Gap";
+                                pair.Key.GapType1 = GapType.Low;                                
+                            }
+                            else
+                            {
+                                pair.Key.CapabilityGapText = "Low Gap";
+                                pair.Key.gapType = GapType.Low;
+                            }
                         }
 
                         else if (count >= numberForLow && count < numberForHigh)
                         {
-                            pair.Key.CapabilityGapText = "Middle Gap";
-                            pair.Key.gapType = GapType.Middle;
+                            if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                            {
+                                CapabilityGapText = "High Gap";
+                                gapType = GapType.High;
+
+                            }
+                            else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                            {
+                                pair.Key.CapabilityGapText = "Low Gap";
+                                pair.Key.GapType1 = GapType.Low;
+                            }
+                            else
+                            {
+                                pair.Key.CapabilityGapText = "Middle Gap";
+                                pair.Key.gapType = GapType.Middle;
+                            }
                         }
 
                         else if (count >= numberForHigh)
                         {
-                            pair.Key.CapabilityGapText = "High Gap";
-                            pair.Key.gapType = GapType.High;
+                            if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                            {
+                                CapabilityGapText = "High Gap";
+                                gapType = GapType.High;
+
+                            }
+                            else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                            {
+                                pair.Key.CapabilityGapText = "Low Gap";
+                                pair.Key.GapType1 = GapType.Low;
+                            }
+                            else
+                            {
+                                pair.Key.CapabilityGapText = "High Gap";
+                                pair.Key.gapType = GapType.High;
+                            }
                         }
 
                         if (pair.Value == 0)
@@ -167,6 +197,8 @@ namespace IBMConsultantTool
             }
 
         }
+
+
 
         public override void ChangeChildrenVisibility()
         {
@@ -222,9 +254,9 @@ namespace IBMConsultantTool
 
         public void CalculatePrioritizedGapText()
         {
-            if (prioritizedCapabilityGap >= 20)
+            if (prioritizedCapabilityGap >= 4)
                 PrioritizedGap = "High Gap";
-            else if (prioritizedCapabilityGap > 10 && prioritizedCapabilityGap < 20)
+            else if (prioritizedCapabilityGap > 2 && prioritizedCapabilityGap < 4)
                 PrioritizedGap = "Medium Gap";
             else
                 PrioritizedGap = "Low Gap";

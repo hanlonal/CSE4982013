@@ -712,7 +712,6 @@
             this.panel1.Controls.Add(this.objectiveToAddButton);
             this.panel1.Controls.Add(this.button13322345);
             this.panel1.Controls.Add(this.seperatorLabel);
-            this.panel1.Controls.Add(this.objectiveMappingGrid);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 567);
             this.panel1.Name = "panel1";
@@ -727,23 +726,26 @@
             this.capabilityNameLabel.Name = "capabilityNameLabel";
             this.capabilityNameLabel.Size = new System.Drawing.Size(87, 20);
             this.capabilityNameLabel.TabIndex = 5;
+            this.capabilityNameLabel.Tag = "permenant";
             this.capabilityNameLabel.Text = "Capability";
             this.capabilityNameLabel.Visible = false;
             // 
             // objectiveToAddButton
             // 
-            this.objectiveToAddButton.Location = new System.Drawing.Point(883, 125);
+            this.objectiveToAddButton.Location = new System.Drawing.Point(873, 81);
             this.objectiveToAddButton.Name = "objectiveToAddButton";
-            this.objectiveToAddButton.Size = new System.Drawing.Size(100, 26);
+            this.objectiveToAddButton.Size = new System.Drawing.Size(122, 26);
             this.objectiveToAddButton.TabIndex = 4;
+            this.objectiveToAddButton.Tag = "permenant";
             // 
             // button13322345
             // 
-            this.button13322345.Location = new System.Drawing.Point(883, 90);
+            this.button13322345.Location = new System.Drawing.Point(873, 123);
             this.button13322345.Name = "button13322345";
-            this.button13322345.Size = new System.Drawing.Size(75, 23);
+            this.button13322345.Size = new System.Drawing.Size(123, 28);
             this.button13322345.TabIndex = 3;
-            this.button13322345.Text = "button1";
+            this.button13322345.Tag = "permenant";
+            this.button13322345.Text = "Add Objective";
             this.button13322345.UseVisualStyleBackColor = true;
             this.button13322345.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -761,12 +763,13 @@
             // 
             // objectiveMappingGrid
             // 
+            this.objectiveMappingGrid.AllowUserToAddRows = false;
+            this.objectiveMappingGrid.AllowUserToDeleteRows = false;
             this.objectiveMappingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.objectiveMappingGrid.Location = new System.Drawing.Point(47, 89);
+            this.objectiveMappingGrid.Location = new System.Drawing.Point(47, 638);
             this.objectiveMappingGrid.Name = "objectiveMappingGrid";
-            this.objectiveMappingGrid.Size = new System.Drawing.Size(761, 62);
+            this.objectiveMappingGrid.Size = new System.Drawing.Size(673, 80);
             this.objectiveMappingGrid.TabIndex = 2;
-            this.objectiveMappingGrid.Visible = false;
             this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
             // 
             // dataGridViewButtonColumn1
@@ -849,6 +852,7 @@
             this.Controls.Add(this.loadSurveyFromDataGrid);
             this.Controls.Add(this.changeTextButton);
             this.Controls.Add(this.editQuestionTextbox);
+            this.Controls.Add(this.objectiveMappingGrid);
             this.Controls.Add(this.LiveDataSaveITCAPButton);
             this.Controls.Add(this.addEntityButton);
             this.Controls.Add(this.questionList);
