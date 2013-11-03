@@ -116,6 +116,7 @@ namespace IBMConsultantTool
                 }
                 else
                 {
+                    
                     flagged = false;
                     highStandardDeviation = false;
                 }
