@@ -705,31 +705,45 @@ namespace IBMConsultantTool
 
         }
 
+        private void CheckBackColor(ScoringEntity ent, DataGridViewRow row)
+        {
+            if (ent.GapType1 == ScoringEntity.GapType.High)
+                row.Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
+            else if (ent.GapType1 == ScoringEntity.GapType.Middle)
+                row.Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
+            else if (ent.GapType1 == ScoringEntity.GapType.Low)
+                row.Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
+            else
+                row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+        }
+        private void CheckForeColor(ScoringEntity ent, DataGridViewRow row)
+        {
+            if (ent.GapType1 == ScoringEntity.GapType.High)
+                row.Cells["CapabilityGapText"].Style.ForeColor = Color.Red;
+            else if (ent.GapType1 == ScoringEntity.GapType.Middle)
+                row.Cells["CapabilityGapText"].Style.ForeColor = Color.Orange;
+            else if (ent.GapType1 == ScoringEntity.GapType.Low)
+                row.Cells["CapabilityGapText"].Style.ForeColor = Color.DarkGreen;
+            else
+                row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+        }
+
         private void currentGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
                 ScoringEntity ent = row.DataBoundItem as ScoringEntity;
-
-                if (ent.GapType1 == ScoringEntity.GapType.High)
-                    row.Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
-                else if (ent.GapType1 == ScoringEntity.GapType.Middle)
-                    row.Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
-                else if (ent.GapType1 == ScoringEntity.GapType.Low)
-                    row.Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
-                else
-                    row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+                
 
                 if (ent.Type == "domain")
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
                     row.ReadOnly = true;
-
-
                 }
                 else if (ent.Type == "capability")
                 {
-                    row.DefaultCellStyle.BackColor = Color.DimGray;
+                    CheckBackColor(ent, row);
+                    row.DefaultCellStyle.BackColor = Color.LightSlateGray;
                     row.ReadOnly = true;
                     if (states == FormStates.Open)
                         row.Visible = false;
@@ -737,15 +751,9 @@ namespace IBMConsultantTool
                 else if (ent.Type == "attribute")
                 {
                     ent.CalculateCapabilityGap();
+                    
                     row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
-                    if (ent.GapType1 == ScoringEntity.GapType.High)
-                        row.Cells["CapabilityGapText"].Style.ForeColor = Color.Red;
-                    else if (ent.GapType1 == ScoringEntity.GapType.Middle)
-                        row.Cells["CapabilityGapText"].Style.ForeColor = Color.Orange;
-                    else if (ent.GapType1 == ScoringEntity.GapType.Low)
-                        row.Cells["CapabilityGapText"].Style.ForeColor = Color.DarkGreen;
-                    else
-                        row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+                    CheckForeColor(ent, row);
 
 
                     if (states == FormStates.SurveryMaker)
@@ -756,9 +764,8 @@ namespace IBMConsultantTool
                         row.Visible = false;
                         DataGridViewDisableButtonCell cell = (DataGridViewDisableButtonCell)row.Cells["Collapse"];
                         cell.Enabled = false;
-
-
                     }
+
                     if (currentGrid != surveryMakerGrid)
                     {
                         if (ent.Flagged)
@@ -811,27 +818,28 @@ namespace IBMConsultantTool
         {
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
             ent.CalculateCapabilityGap();
-            if (e.ColumnIndex == 2)
+            if (e.ColumnIndex == 5)
             {
                 ent.Owner.CalculateAsIsAverage();
             }
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 6)
             {
                 ent.Owner.CalculateToBeAverage();
             }
-            if (ent.CapabilityGap >= 1.5)
-                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.IndianRed;
-            else if (ent.CapabilityGap < 1.5 && ent.CapabilityGap >= 1)
-                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.Yellow;
-            else
-                currentGrid.Rows[e.RowIndex].Cells["CapabilityGapText"].Style.BackColor = Color.LawnGreen;
+            CheckForeColor(ent, currentGrid.Rows[e.RowIndex]);
 
             if (ent.AsisStandardDeviation > .6)
                 currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
             if (ent.AsisStandardDeviation <= .6)
                 currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
 
-
+            foreach(DataGridViewRow row in currentGrid.Rows)
+            {
+                
+                ScoringEntity update = row.DataBoundItem as ScoringEntity;
+                if(update.Type == "capability" || update.Type == "domain")
+                    CheckBackColor(update, row);
+            }
 
             currentGrid.Refresh();
 

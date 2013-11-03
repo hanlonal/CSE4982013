@@ -66,6 +66,11 @@ namespace IBMConsultantTool
             foreach (Capability cap in capabilitiesOwned)
             {
                 cap.Visible = !cap.Visible;
+                foreach (ITCapQuestion ques in cap.QuestionsOwned)
+                {
+                    if (!cap.Visible)
+                        ques.Visible = cap.Visible;
+                }
             }
             base.ChangeChildrenVisibility();
         }
