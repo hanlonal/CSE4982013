@@ -37,7 +37,7 @@ namespace IBMConsultantTool
 
         //only used for testing
         private int numBoms = 3;
-
+        int questionCount = 1;
         //Functions just used for testing until we have save and load
 
         private void LoadDomains()
@@ -86,7 +86,7 @@ namespace IBMConsultantTool
         {
             string[] questionInfoArray = ClientDataControl.db.GetDefaultITCAPQuestionNames(cap.Name, cap.Owner.Name);
 
-            int questionCount = 1;
+            questionCount = 1;
             foreach (string questionInfo in questionInfoArray)
             {
                 ITCapQuestion question = new ITCapQuestion();
@@ -323,6 +323,7 @@ namespace IBMConsultantTool
 
         private void LoadChartSurvey()
         {
+            currentGrid.DataSource = null;
             currentGrid.DataSource = entities;
 
         }
@@ -447,7 +448,7 @@ namespace IBMConsultantTool
 
             }
             entities.Remove(dom);
-            surveryMakerGrid.Refresh();
+            LoadChartSurvey();
         }
 
         private void deleteCapability_Click(object sender, EventArgs e)
@@ -724,6 +725,46 @@ namespace IBMConsultantTool
             int value;
             string name;
             ClientDataControl.db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this, out value, out name);
+            if (value == 0)
+            {
+
+                ITCapQuestion ques = new ITCapQuestion();
+                Capability cap = new Capability();
+                Domain dom = new Domain();
+
+                dom.Name = domainList.Text;
+                dom.IsDefault = false;                
+                dom.Type = "domain";
+                //entities.Add(dom);
+                //LoadCapabilities(dom);
+                domains.Add(dom);
+                dom.ID = domains.Count.ToString();
+
+                cap.Name = capabilitiesList.Text;
+                cap.IsDefault = false;
+                dom.CapabilitiesOwned.Add(cap);
+                dom.TotalChildren++;
+                capabilities.Add(cap);
+                cap.Owner = dom;
+                cap.Type = "capability";
+                cap.ID = capabilities.Count.ToString();
+               // entities.Add(cap);
+
+
+                ques.Name = questionList.Text;
+                ques.IsDefault = false;
+                cap.QuestionsOwned.Add(ques);
+                ques.Type = "attribute";
+                ques.Owner = cap;
+                ques.ID = questionCount.ToString();
+
+                entities.Add(dom);
+                entities.Add(cap);
+                entities.Add(ques);
+
+                
+
+            }
             LoadChartSurvey();
         }
 
