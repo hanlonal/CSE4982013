@@ -1001,6 +1001,11 @@ namespace IBMConsultantTool
                 loadColumnNames();
                 LoadAnswersFromDataControl();
                 
+                if(HelpEnabled && HelpCurrentStep == 1)
+                {
+                    HelpCurrentStep = 2;
+                    StartTutorialMode();
+                }
                 return;
             }
 
@@ -2670,16 +2675,43 @@ namespace IBMConsultantTool
 
         private void StartTutorialMode()
         {
+            if( HelpCurrentStep == 0 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show(string.Empty, this, 0);
+                myToolTip.Show("Begin by adding participants under the Edit->Participants menu",
+                    this, 100, 5, 4000);
+            }
+            if (HelpCurrentStep == 1 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show(string.Empty, this, 0);
+                myToolTip.Show("Enter answers manually or go to File->Open Surveys",
+                    this, -40, 5, 4000);
+            }
+            if (HelpCurrentStep == 2 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show("Begin by adding participants under the Edit->Participants menu",
+                    this.menuStrip1, -40, 0, 4000);
+            }
 
-            System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
-            myToolTip.IsBalloon = true;
-            myToolTip.Show("Some text", this.questionGridBusinessCurrent);
 
         }
 
         private void beginTutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            HelpEnabled = true;
+            HelpCurrentStep = 0;
             StartTutorialMode();
+        }
+
+        private void continuteTutorialMode(object sender, EventArgs e)
+        {
+
         }
 
 
