@@ -446,6 +446,7 @@ namespace IBMConsultantTool
                     entities.Remove(cap);
 
             }
+            entities.Remove(dom);
             surveryMakerGrid.Refresh();
         }
 
@@ -720,7 +721,9 @@ namespace IBMConsultantTool
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            ClientDataControl.db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this);
+            int value;
+            string name;
+            ClientDataControl.db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this, out value, out name);
             LoadChartSurvey();
         }
 
@@ -796,6 +799,7 @@ namespace IBMConsultantTool
                 //row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
                 DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
                 cell.Style.NullValue = null;
+                cell.Value = null;
             }
         }
 
@@ -936,7 +940,7 @@ namespace IBMConsultantTool
             }
 
             CheckForeColor(ent, currentGrid.Rows[e.RowIndex]);
-
+            CheckFlags(ent, currentGrid.Rows[e.RowIndex]);
             if (ent.HighStandardDeviation)
                 currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
             else if (!ent.HighStandardDeviation)
@@ -1028,21 +1032,7 @@ namespace IBMConsultantTool
             }
         }
 
-        private void loadSurveyFromDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
 
-
-        }
-
-        private void loadSurveyFromDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void addCapabilityButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void otherToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1425,6 +1415,7 @@ namespace IBMConsultantTool
 
         private void answersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+             loadSurveyFromDataGrid.Columns["NumZeros"].Visible = !loadSurveyFromDataGrid.Columns["NumZeros"].Visible;
              loadSurveyFromDataGrid.Columns["NumOnes"].Visible = !loadSurveyFromDataGrid.Columns["NumOnes"].Visible;
              loadSurveyFromDataGrid.Columns["NumTwos"].Visible = !loadSurveyFromDataGrid.Columns["NumTwos"].Visible;
              loadSurveyFromDataGrid.Columns["NumThrees"].Visible = !loadSurveyFromDataGrid.Columns["NumThrees"].Visible;

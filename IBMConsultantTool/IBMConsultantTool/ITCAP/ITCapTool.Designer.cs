@@ -411,7 +411,7 @@
             this.standardDeviationToolStripMenuItem,
             this.answersToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
@@ -822,10 +822,8 @@
             this.loadSurveyFromDataGrid.TabIndex = 21;
             this.loadSurveyFromDataGrid.Visible = false;
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
-            this.loadSurveyFromDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellContentClick);
             this.loadSurveyFromDataGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
             this.loadSurveyFromDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.loadSurveyFromDataGrid_CellMouseDown);
-            this.loadSurveyFromDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellValueChanged);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
             // 
             // Collapse
@@ -878,7 +876,7 @@
             this.MainMenuStrip = this.mainMenuToolBar;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ITCapTool";
-            this.Text = "ITCapTool";
+            this.Text = "IT Capability Assesment Tool";
             this.Load += new System.EventHandler(this.ITCapTool_Load);
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).EndInit();
             this.mainMenuToolBar.ResumeLayout(false);
