@@ -25,6 +25,14 @@ namespace IBMConsultantTool
         private bool visible = false;
         protected bool flagged = false;
 
+        protected int numOnes = 0;
+        protected int numTwos = 0;
+        protected int numThrees = 0;
+        protected int numFours = 0;
+        protected int numFives = 0;
+
+
+
 
         private string capabilityGapText;
 
@@ -100,16 +108,44 @@ namespace IBMConsultantTool
 
             }
         }
-        public float TobeStandardDeviation
+        public int NumOnes
         {
-            get { return tobeStandardDeviation; }
-            set { tobeStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+            get { return numOnes; }
+            set { numOnes = value; this.NotifyPropertyChanged("NumOnes"); }
         }
+        public int NumTwos
+        {
+            get { return numTwos; }
+            set { numTwos = value; this.NotifyPropertyChanged("NumTwos"); }
+        }
+        public int NumThrees
+        {
+            get { return numThrees; }
+            set { numThrees = value; this.NotifyPropertyChanged("NumThrees"); }
+        }
+        public int NumFours
+        {
+            get { return numFours; }
+            set { numFours = value; this.NotifyPropertyChanged("NumFours"); }
+        }
+        public int NumFives
+        {
+            get { return numFives; }
+            set { numFives = value; this.NotifyPropertyChanged("NumFives"); }
+        }
+
+
         public float AsisStandardDeviation
         {
             get { return asisStandardDeviation; }
             set { asisStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
         }
+        public float TobeStandardDeviation
+        {
+            get { return tobeStandardDeviation; }
+            set { tobeStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+        }
+
 
         public float AsIsScore
         {

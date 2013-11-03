@@ -497,6 +497,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Data.xml" />
+    <None Include="Resources\exclamation.gif" />
     <Content Include="Resources\Questions10.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

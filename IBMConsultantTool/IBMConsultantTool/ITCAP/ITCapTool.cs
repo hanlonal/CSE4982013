@@ -825,7 +825,7 @@ namespace IBMConsultantTool
                         {
                             row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
                             DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
-                            cell.Value = Properties.Resources.ExclamationPoint_main_Full_answer_1_small;
+                            cell.Value = Properties.Resources.exclamation;
                         }
                         else
                         {
@@ -843,7 +843,7 @@ namespace IBMConsultantTool
                 ScoringEntity ent = row.DataBoundItem as ScoringEntity;
                 if (ent.Flagged)
                 {
-                    row.Cells["Flags"].Value = Properties.Resources.ExclamationPoint_main_Full_answer_1_small;
+                    row.Cells["Flags"].Value = Properties.Resources.exclamation;
                 }
             }
             if (states == FormStates.SurveryMaker)
@@ -861,6 +861,16 @@ namespace IBMConsultantTool
             {
                 loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].Width = 50;
                 loadSurveyFromDataGrid.Columns["TobeStandardDeviation"].Width = 50;
+                loadSurveyFromDataGrid.Columns["TobeStandardDeviation"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].HeaderText = "As Is Std Dev";
+                loadSurveyFromDataGrid.Columns["TobeStandardDeviation"].HeaderText = "To Be Std Dev";
+                loadSurveyFromDataGrid.Columns["NumOnes"].HeaderText = "1s";
+                loadSurveyFromDataGrid.Columns["NumTwos"].HeaderText = "2s";
+                loadSurveyFromDataGrid.Columns["NumThrees"].HeaderText = "3s";
+                loadSurveyFromDataGrid.Columns["NumFours"].HeaderText = "4s";
+                loadSurveyFromDataGrid.Columns["NumFives"].HeaderText = "5s";
+                //loadSurveyFromDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
 
             }
             currentGrid.Columns["Name"].Width = 400;
@@ -915,7 +925,7 @@ namespace IBMConsultantTool
                 ChangeGridVisibility();
                 return;
             }
-            else
+            else if(e.RowIndex >0)
             {
                 ScoringEntity ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ScoringEntity;
                 if (ent.Type == "capability")
@@ -1355,6 +1365,15 @@ namespace IBMConsultantTool
             var Powah = new PowerPointGenerator();
 
             Powah.CreatePowerPoint();
+        }
+
+        private void answersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             loadSurveyFromDataGrid.Columns["NumOnes"].Visible = !loadSurveyFromDataGrid.Columns["NumOnes"].Visible;
+             loadSurveyFromDataGrid.Columns["NumTwos"].Visible = !loadSurveyFromDataGrid.Columns["NumTwos"].Visible;
+             loadSurveyFromDataGrid.Columns["NumThrees"].Visible = !loadSurveyFromDataGrid.Columns["NumThrees"].Visible;
+             loadSurveyFromDataGrid.Columns["NumFours"].Visible = !loadSurveyFromDataGrid.Columns["NumFours"].Visible;
+             loadSurveyFromDataGrid.Columns["NumFives"].Visible = !loadSurveyFromDataGrid.Columns["NumFives"].Visible;
         }
 
         
