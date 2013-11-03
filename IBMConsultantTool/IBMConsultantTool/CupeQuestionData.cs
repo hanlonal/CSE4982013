@@ -8,6 +8,9 @@ namespace IBMConsultantTool
     public class CupeQuestionData
     {
         CupeQuestionStringData stringData = new CupeQuestionStringData();
+        bool inDefault20 = false;
+        bool inDefault15 = false;
+        bool inDefault10 = false;
         string currentValue = "";
         string futureValue = "";
         int questionID;
@@ -25,6 +28,39 @@ namespace IBMConsultantTool
             set
             {
                 stringData = value;
+            }
+        }
+        public bool InDefault20
+        {
+            get
+            {
+                return inDefault20;
+            }
+            set
+            {
+                inDefault20 = value;
+            }
+        }
+        public bool InDefault15
+        {
+            get
+            {
+                return inDefault15;
+            }
+            set
+            {
+                inDefault15 = value;
+            }
+        }
+        public bool InDefault10
+        {
+            get
+            {
+                return inDefault10;
+            }
+            set
+            {
+                inDefault10 = value;
             }
         }
         public string CurrentValue

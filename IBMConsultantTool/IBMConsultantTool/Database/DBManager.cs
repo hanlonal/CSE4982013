@@ -997,7 +997,35 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPEQuestion
-        public override List<CupeQuestionStringData> GetCUPEQuestions()
+        public override List<CupeQuestionData> GetCUPEQuestionData()
+        {
+            List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
+                                                      select ent).ToList();
+
+            List<CupeQuestionData> cupeQuestionDataList = new List<CupeQuestionData>();
+            CupeQuestionData cupeQuestionData;
+            CupeQuestionStringData cupeQuestionStringData;
+            foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
+            {
+                cupeQuestionStringData = new CupeQuestionStringData();
+                cupeQuestionStringData.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                cupeQuestionStringData.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                cupeQuestionStringData.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
+                cupeQuestionStringData.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
+                cupeQuestionStringData.ChoiceC = cupeQuestionEnt.PARTNER.TrimEnd();
+                cupeQuestionStringData.ChoiceD = cupeQuestionEnt.ENABLER.TrimEnd();
+                cupeQuestionData = new CupeQuestionData();
+                cupeQuestionData.StringData = cupeQuestionStringData;
+                cupeQuestionData.InDefault20 = cupeQuestionEnt.INTWENTY == "Y";
+                cupeQuestionData.InDefault15 = cupeQuestionEnt.INFIFTEEN == "Y";
+                cupeQuestionData.InDefault10 = cupeQuestionEnt.INTEN == "Y";
+
+                cupeQuestionDataList.Add(cupeQuestionData);
+            }
+
+            return cupeQuestionDataList;
+        }
+        public override List<CupeQuestionStringData> GetCUPEQuestionStringData()
         {
             List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
                                                      select ent).ToList();
@@ -1018,7 +1046,7 @@ namespace IBMConsultantTool
 
             return cupeQuestionList;
         }
-        public override List<CupeQuestionStringData> GetCUPEQuestionsTwenty()
+        public override List<CupeQuestionStringData> GetCUPEQuestionStringDataTwenty()
         {
             List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
                                                       where ent.INTWENTY == "Y"
@@ -1040,7 +1068,7 @@ namespace IBMConsultantTool
 
             return cupeQuestionList;
         }
-        public override List<CupeQuestionStringData> GetCUPEQuestionsFifteen()
+        public override List<CupeQuestionStringData> GetCUPEQuestionStringDataFifteen()
         {
             List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
                                                       where ent.INFIFTEEN == "Y"
@@ -1063,7 +1091,7 @@ namespace IBMConsultantTool
             return cupeQuestionList;
         }
 
-        public override List<CupeQuestionStringData> GetCUPEQuestionsTen()
+        public override List<CupeQuestionStringData> GetCUPEQuestionStringDataTen()
         {
             List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
                                                       where ent.INTEN == "Y"

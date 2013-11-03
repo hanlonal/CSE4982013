@@ -2763,6 +2763,11 @@ namespace IBMConsultantTool
             }
         }
 
+        private void defaultSurveysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ChangeCUPEDefaults().Show();
+        }
+
     }// end class
 
 

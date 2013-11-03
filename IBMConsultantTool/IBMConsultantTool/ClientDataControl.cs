@@ -56,7 +56,7 @@ namespace IBMConsultantTool
 
             if(cupeQuestions.Count == 0)
             {
-                cupeQuestions = db.GetCUPEQuestionsTwenty();
+                cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
             }
         }
 
@@ -202,6 +202,11 @@ namespace IBMConsultantTool
             client = db.LoadClient(clientName);
 
             return (client != null && db.SaveChanges());
+        }
+
+        public static List<CupeQuestionData> GetCupeQuestionData()
+        {
+            return db.GetCUPEQuestionData();
         }
 
     }
