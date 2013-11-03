@@ -28,6 +28,16 @@ namespace IBMConsultantTool
             }
         }
 
+        public void CheckFlags()
+        {
+            foreach (Capability cap in capabilitiesOwned)
+            {
+                if (cap.Flagged)
+                    return;
+            }
+            flagged = false;
+        }
+
         public override float CalculateAsIsAverage()
         {
             float total = 0;

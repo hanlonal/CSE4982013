@@ -30,6 +30,9 @@ namespace IBMConsultantTool
         protected int numThrees = 0;
         protected int numFours = 0;
         protected int numFives = 0;
+        protected int numZeros = 0;
+
+
 
 
 
@@ -107,6 +110,11 @@ namespace IBMConsultantTool
                 indexInGrid = value;
 
             }
+        }
+        public int NumZeros
+        {
+            get { return numZeros; }
+            set { numZeros = value; this.NotifyPropertyChanged("NumZeros"); }
         }
         public int NumOnes
         {

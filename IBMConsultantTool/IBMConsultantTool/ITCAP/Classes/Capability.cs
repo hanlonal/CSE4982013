@@ -48,7 +48,16 @@ namespace IBMConsultantTool
             }
         }
 
-
+        public void CheckFlags()
+        {
+            foreach (ITCapQuestion ques in questionsOwned)
+            {
+                if (ques.Flagged)
+                    return;
+            }
+            flagged = false;
+            
+        }
 
         public override float CalculateAsIsAverage()
         {
@@ -291,6 +300,7 @@ namespace IBMConsultantTool
         public bool Flagged
         {
             set { flagged = value; owner.Flagged = value; }
+            get { return flagged; }
         }
         public Dictionary<string, int> OBJECTIVESCORES2
         {
