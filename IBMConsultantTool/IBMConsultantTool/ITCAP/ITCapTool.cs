@@ -636,6 +636,7 @@ namespace IBMConsultantTool
             int count = 1;
             Label nameLabel = new Label();
             //nameLabel.Font = font;
+            nameLabel.AutoSize = true;
             nameLabel.Text = currentcap.Name;
             panel1.Controls.Add(nameLabel);
             nameLabel.Location = new Point(capabilityNameLabel.Location.X, capabilityNameLabel.Location.Y + 50);
@@ -855,12 +856,25 @@ namespace IBMConsultantTool
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
                     row.ReadOnly = true;
+                    row.Cells["NumZeros"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumOnes"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumTwos"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumThrees"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+
                 }
                 else if (ent.Type == "capability")
                 {
                     CheckBackColor(ent, row);
                     row.DefaultCellStyle.BackColor = Color.LightSlateGray;
+
                     row.ReadOnly = true;
+                    row.Cells["NumOnes"].Style.ForeColor = row.Cells["NumOnes"].Style.BackColor;
+                    row.Cells["NumTwos"].Style.ForeColor = row.Cells["NumTwos"].Style.BackColor;
+                    row.Cells["NumThrees"].Style.ForeColor = row.Cells["NumThrees"].Style.BackColor;
+                    row.Cells["NumFours"].Style.ForeColor = row.Cells["NumFours"].Style.BackColor;
+                    row.Cells["NumFives"].Style.ForeColor = row.Cells["NumFives"].Style.BackColor;
                     if (states == FormStates.Open)
                         row.Visible = false;
                 }
@@ -947,6 +961,8 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.Columns["NumFives"].Width = 30;
                 loadSurveyFromDataGrid.Columns["NumZeros"].HeaderText = "0s";
                 loadSurveyFromDataGrid.Columns["NumZeros"].Width = 30;
+
+
                 //loadSurveyFromDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
 
             }
