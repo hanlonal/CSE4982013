@@ -411,7 +411,7 @@
             this.standardDeviationToolStripMenuItem,
             this.answersToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
@@ -716,6 +716,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.panel1.Controls.Add(this.capabilityNameLabel);
             this.panel1.Controls.Add(this.objectiveToAddButton);
@@ -731,7 +732,7 @@
             // 
             this.capabilityNameLabel.AutoSize = true;
             this.capabilityNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.capabilityNameLabel.Location = new System.Drawing.Point(43, 35);
+            this.capabilityNameLabel.Location = new System.Drawing.Point(12, 32);
             this.capabilityNameLabel.Name = "capabilityNameLabel";
             this.capabilityNameLabel.Size = new System.Drawing.Size(87, 20);
             this.capabilityNameLabel.TabIndex = 5;
@@ -741,17 +742,18 @@
             // 
             // objectiveToAddButton
             // 
-            this.objectiveToAddButton.Location = new System.Drawing.Point(873, 81);
+            this.objectiveToAddButton.Location = new System.Drawing.Point(13, 125);
             this.objectiveToAddButton.Name = "objectiveToAddButton";
-            this.objectiveToAddButton.Size = new System.Drawing.Size(122, 26);
+            this.objectiveToAddButton.Size = new System.Drawing.Size(141, 26);
             this.objectiveToAddButton.TabIndex = 4;
             this.objectiveToAddButton.Tag = "permenant";
+            this.objectiveToAddButton.Text = "<Add Objective>";
             // 
             // button13322345
             // 
-            this.button13322345.Location = new System.Drawing.Point(873, 123);
+            this.button13322345.Location = new System.Drawing.Point(173, 125);
             this.button13322345.Name = "button13322345";
-            this.button13322345.Size = new System.Drawing.Size(123, 28);
+            this.button13322345.Size = new System.Drawing.Size(142, 28);
             this.button13322345.TabIndex = 3;
             this.button13322345.Tag = "permenant";
             this.button13322345.Text = "Add Objective";

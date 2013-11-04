@@ -636,14 +636,18 @@ namespace IBMConsultantTool
             int count = 1;
             Label nameLabel = new Label();
             //nameLabel.Font = font;
-            nameLabel.AutoSize = true;
+            nameLabel.Width = 150;
+            nameLabel.AutoEllipsis = true;
             nameLabel.Text = currentcap.Name;
             panel1.Controls.Add(nameLabel);
             nameLabel.Location = new Point(capabilityNameLabel.Location.X, capabilityNameLabel.Location.Y + 50);
+            int width = 150;
             foreach (ObjectiveValues val in currentcap.ObjectiveCollection)
             {
                 Label label = new Label();
                 label.Font = font;
+                label.Width = 100;
+                label.AutoEllipsis = true;
                 label.Text = val.Name;
                 ComboBox combo = new ComboBox();
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
@@ -659,7 +663,8 @@ namespace IBMConsultantTool
                 panel1.Controls.Add(combo);
                
                 panel1.Controls.Add(label);
-                label.Location = new Point(capabilityNameLabel.Location.X + 100 * count, capabilityNameLabel.Location.Y);
+                width += label.Width;
+                label.Location = new Point(width, capabilityNameLabel.Location.Y);
                 combo.Location = new Point(label.Location.X, label.Location.Y + 50);
                 
                 count++;
@@ -670,6 +675,21 @@ namespace IBMConsultantTool
         private void combo_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentcap.CalculatePrioritizedCapabilityGap();
+            currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+            }
+
+                
             currentGrid.Refresh();
         }
 
@@ -862,7 +882,6 @@ namespace IBMConsultantTool
                     row.Cells["NumThrees"].Style.ForeColor = row.DefaultCellStyle.BackColor;
                     row.Cells["NumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
                     row.Cells["NumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
-
                 }
                 else if (ent.Type == "capability")
                 {

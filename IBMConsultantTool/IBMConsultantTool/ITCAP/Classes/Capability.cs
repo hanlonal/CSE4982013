@@ -264,11 +264,20 @@ namespace IBMConsultantTool
         public void CalculatePrioritizedGapText()
         {
             if (prioritizedCapabilityGap >= 4)
+            {
                 PrioritizedGap = "High Gap";
+                PrioritizedGapType1 = PrioritizedGapType.High;
+            }
             else if (prioritizedCapabilityGap > 2 && prioritizedCapabilityGap < 4)
+            {
                 PrioritizedGap = "Medium Gap";
+                PrioritizedGapType1 = PrioritizedGapType.Middle;
+            }
             else
+            {
                 PrioritizedGap = "Low Gap";
+                PrioritizedGapType1 = PrioritizedGapType.Low;
+            }
         }
 
 

@@ -9,7 +9,11 @@ namespace IBMConsultantTool
     public abstract class ScoringEntity : INotifyPropertyChanged
     {
         public enum GapType { High, Low, Middle, None };
+        public enum PrioritizedGapType {High, Low, Middle, None};
         protected GapType gapType;
+        private PrioritizedGapType prioritizedGapType;
+
+
 
         protected float asIsScore = 0;
         protected float toBeScore = 0;
@@ -209,6 +213,12 @@ namespace IBMConsultantTool
         {
             get { return prioritizedCapabilityGap; }
             set { prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); }
+        }
+        [Browsable(false)]
+        public PrioritizedGapType PrioritizedGapType1
+        {
+            get { return prioritizedGapType; }
+            set { prioritizedGapType = value; }
         }
 
         [Browsable(false)]
