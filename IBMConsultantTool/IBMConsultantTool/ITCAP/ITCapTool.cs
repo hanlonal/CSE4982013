@@ -933,16 +933,19 @@ namespace IBMConsultantTool
                 }
 
             }
-
-            foreach (DataGridViewRow row in currentGrid.Rows)
+            if (states != FormStates.SurveryMaker)
             {
-                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
-                if (ent.Flagged)
+                foreach (DataGridViewRow row in currentGrid.Rows)
                 {
-                    row.Cells["Flags"].Value = Properties.Resources.exclamation;
+
+                    ScoringEntity ent = row.DataBoundItem as ScoringEntity;
+                    if (ent.Flagged)
+                    {
+                        row.Cells["Flags"].Value = Properties.Resources.exclamation;
+                    }
                 }
             }
-            if (states == FormStates.SurveryMaker)
+            else
             {
                 surveryMakerGrid.Columns["AsIsScore"].Visible = false;
                 surveryMakerGrid.Columns["TobeStandardDeviation"].Visible = false;
