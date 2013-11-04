@@ -309,7 +309,8 @@ namespace IBMConsultantTool
                     objectivesCheckBox[objCount].Location = new Point((x + 10), y);
                     objectivesCheckBox[objCount].Font = new Font("Arial", 12);
                     objectivesCheckBox[objCount].AutoSize = true;
-                    objectivesCheckBox[objCount].BackColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
+                    objectivesCheckBox[objCount].BackColor = mainForm.Categories[i].Objectives[j].BackColor;
+                    //Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
                     objectivesCheckBox[objCount].Checked = true;
                     objectivesCheckBox[objCount].CheckedChanged += new EventHandler(checkBox_CheckedChanged);
                     //if (objectivesCheckBox[objectivesCount].Checked)

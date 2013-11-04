@@ -52,6 +52,12 @@ namespace IBMConsultantTool
             Refresh();
         }
 
+        public void ChooseColor(NewObjective obj)
+        {
+            owner.ChooseColor(obj);
+            Refresh();
+        }
+
         public void objective_Click(object sender, EventArgs e)
         {
             NewObjective obj = (NewObjective)sender;
@@ -98,6 +104,6 @@ namespace IBMConsultantTool
             set { heights = value; }
         }
 
-
+        
     }// end class
 }

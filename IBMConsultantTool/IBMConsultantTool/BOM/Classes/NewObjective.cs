@@ -95,27 +95,37 @@ namespace IBMConsultantTool
 
         }
 
-    private void label_MouseDown(object sender, MouseEventArgs e)           
-    {
-        if (e.Button == MouseButtons.Right)
+        private void label_MouseDown(object sender, MouseEventArgs e)           
         {
-            ContextMenuStrip strip = new ContextMenuStrip();
-            ToolStripMenuItem deleteObj = new ToolStripMenuItem();
-            deleteObj.Click += new EventHandler(deleteObj_Click);
-            deleteObj.Text = "Remove Objective";
-            strip.Items.Add(deleteObj);
-            strip.Show(this, e.Location, ToolStripDropDownDirection.BelowRight);
-        }
-    }
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenuStrip strip = new ContextMenuStrip();
+                ToolStripMenuItem deleteObj = new ToolStripMenuItem();
+                deleteObj.Click += new EventHandler(deleteObj_Click);
+                deleteObj.Text = "Remove Objective";
+                strip.Items.Add(deleteObj);
 
-    private void deleteObj_Click(object sender, EventArgs e)
-    {
-        initiatives.Clear();
-        this.Controls.Clear();
-        owner.RemoveObjective(this);
+                ToolStripMenuItem colorObj = new ToolStripMenuItem();
+                colorObj.Click += new EventHandler(colorObj_Click);
+                colorObj.Text = "Objective Color";
+                strip.Items.Add(colorObj);
+                strip.Show(this, e.Location, ToolStripDropDownDirection.BelowRight);
+            }
+        }
+
+        private void deleteObj_Click(object sender, EventArgs e)
+        {
+            initiatives.Clear();
+            this.Controls.Clear();
+            owner.RemoveObjective(this);
         
         
-    }
+        }
+
+        private void colorObj_Click(object sender, EventArgs e)
+        {
+            owner.ChooseColor(this);
+        }
 
         public void ColorByDifferentiation()
         {
