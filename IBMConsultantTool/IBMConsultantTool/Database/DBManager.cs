@@ -2333,7 +2333,8 @@ namespace IBMConsultantTool
 
             else if (!File.Exists("Resources/Changes.log"))
             {
-                File.Create("Resources/Changes.log");
+                FileStream file = File.Create("Resources/Changes.log");
+                file.Close();
             }
 
             using (System.IO.StreamReader file = new System.IO.StreamReader("Resources/Changes.log"))
