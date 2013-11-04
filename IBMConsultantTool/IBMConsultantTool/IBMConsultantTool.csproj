@@ -293,6 +293,9 @@
     <EmbeddedResource Include="BOM\Classes\BOMChartDynamically.resx">
       <DependentUpon>BOMChartDynamically.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BOM\Classes\BOMTool.resx">
+      <DependentUpon>BOMTool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangeITCAPDefaults.resx">
       <DependentUpon>ChangeITCAPDefaults.cs</DependentUpon>
     </EmbeddedResource>
