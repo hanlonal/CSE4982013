@@ -651,12 +651,17 @@ namespace IBMConsultantTool
                 label.Text = val.Name;
                 ComboBox combo = new ComboBox();
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
-                combo.DataBindings.Add("Text", val, "Value");
-                combo.DataBindings.Add("SelectedItem", val, "Value");
-                combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
-                combo.Items.Add(1);
-                combo.Items.Add(2);
-                combo.Items.Add(3);
+                
+                //combo.DataBindings.Add("Text", val, "Value");
+                combo.DataBindings.Add("SelectedIndex", val, "Value", true, DataSourceUpdateMode.OnPropertyChanged);
+                combo.SelectedIndexChanged  +=new EventHandler(combo_SelectedIndexChanged);
+                int x = 1;
+                int y = 2;
+                int z = 3;
+                combo.Items.Add("0");
+                combo.Items.Add("1");
+                combo.Items.Add("2");
+                combo.Items.Add("3");
                 combo.Width = 50;
                
                 //combo.ValueMemberChanged +=new EventHandler(combo_ValueMemberChanged);
@@ -693,23 +698,6 @@ namespace IBMConsultantTool
             currentGrid.Refresh();
         }
 
-
-        private void objectiveMappingGrid_CellEndEdit(object sender, EventArgs e)
-        {
-            currentcap.CalculatePrioritizedCapabilityGap();
-            loadSurveyFromDataGrid.Refresh();
-        }
-
-
-
-        private string[] Testing()
-        {
-            string[] test = new string[3];
-            test[0] = "1";
-            test[1] = "2";
-            test[2] = "3";
-            return test;
-        }
 
 
         public void ResetSurveyGrid()
@@ -1069,7 +1057,7 @@ namespace IBMConsultantTool
                 {
                     Capability cap = (Capability)ent;
                     currentcap = cap;
-                    GetClientObjectives(cap);
+                    GetClientObjectives(currentcap);
                 }
             }
         }
