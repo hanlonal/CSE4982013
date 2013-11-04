@@ -72,11 +72,12 @@ namespace IBMConsultantTool
 
         private void TrendAnalysisButton_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcCrossClientForm));
+            /*System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcCrossClientForm));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
             this.Close();
-            return;
+            return;*/
+            MessageBox.Show("Trend Analysis Feature Coming Soon!", "Coming Soon");
         }
 
         public static void ThreadProcCrossClientForm()
