@@ -202,15 +202,11 @@ namespace IBMConsultantTool
             // Allows the user to get help. (The default is false.)
             MyDialog.ShowHelp = true;
             // Sets the initial color select to the current text color.
-            MyDialog.Color = NewObjective.DefaultBackColor; //owner.BackColor;
+            MyDialog.Color = NewObjective.DefaultBackColor;
             // Update the text box color if the user clicks OK  
             if (MyDialog.ShowDialog() == DialogResult.OK)
             {
-                //foreach (NewObjective objective in obj)
-                //{
-                    obj.BackColor = MyDialog.Color;
-                //}
-
+                obj.BackColor = MyDialog.Color;
             }
         }
 
