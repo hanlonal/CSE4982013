@@ -920,22 +920,23 @@ namespace IBMConsultantTool
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog();
+            /*SaveFileDialog save = new SaveFileDialog();
             save.Title = "Save File";
             save.Filter = "Image files (*.jpeg)|*.jpeg| All Files (*.*)|*.*";
             if (save.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            {*/
                 Bitmap bmp = new Bitmap(this.panelChart.Width, this.panelChart.Height);
                 //new Bitmap(this.panelChart.Width,this.panelChart.Height);
                 this.panelChart.DrawToBitmap(bmp, this.panelChart.Bounds);
-                bmp.Save(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
+                bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //bmp.Save(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
 
                 //Image img = 
                 //bmp.Save(@"C:\Temp\Test.bmp");
                 //Image image = this.panelChart.
                 //this.panelChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
                 // this.initiativeChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
+            //}
         }
 
         private void btnClose_Click(object sender, EventArgs e)
