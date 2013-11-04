@@ -1919,7 +1919,8 @@ namespace IBMConsultantTool
 
                 if (!File.Exists("Resources/Changes.log"))
                 {
-                    File.Create("Resources/Changes.log");
+                    FileStream file = File.Create("Resources/Changes.log");
+                    file.Close();
                 }
 
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Resources/Changes.log", true))
