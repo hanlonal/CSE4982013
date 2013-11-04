@@ -37,6 +37,7 @@ namespace IBMConsultantTool
             this.Location = FindLocation();
             this.Height = baseHeight;
             this.BackColor = Color.White;
+            this.AutoEllipsis = true;
             
             this.Width = owner.Width;
             this.BorderStyle = BorderStyle.FixedSingle;
