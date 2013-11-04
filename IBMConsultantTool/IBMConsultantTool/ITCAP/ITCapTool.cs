@@ -37,7 +37,7 @@ namespace IBMConsultantTool
 
         //only used for testing
         private int numBoms = 3;
-
+        int questionCount = 1;
         //Functions just used for testing until we have save and load
 
         private void LoadDomains()
@@ -86,7 +86,7 @@ namespace IBMConsultantTool
         {
             string[] questionInfoArray = ClientDataControl.db.GetDefaultITCAPQuestionNames(cap.Name, cap.Owner.Name);
 
-            int questionCount = 1;
+            questionCount = 1;
             foreach (string questionInfo in questionInfoArray)
             {
                 ITCapQuestion question = new ITCapQuestion();
@@ -323,6 +323,7 @@ namespace IBMConsultantTool
 
         private void LoadChartSurvey()
         {
+            currentGrid.DataSource = null;
             currentGrid.DataSource = entities;
 
         }
@@ -447,7 +448,7 @@ namespace IBMConsultantTool
 
             }
             entities.Remove(dom);
-            surveryMakerGrid.Refresh();
+            LoadChartSurvey();
         }
 
         private void deleteCapability_Click(object sender, EventArgs e)
@@ -635,13 +636,18 @@ namespace IBMConsultantTool
             int count = 1;
             Label nameLabel = new Label();
             //nameLabel.Font = font;
+            nameLabel.Width = 150;
+            nameLabel.AutoEllipsis = true;
             nameLabel.Text = currentcap.Name;
             panel1.Controls.Add(nameLabel);
             nameLabel.Location = new Point(capabilityNameLabel.Location.X, capabilityNameLabel.Location.Y + 50);
+            int width = 150;
             foreach (ObjectiveValues val in currentcap.ObjectiveCollection)
             {
                 Label label = new Label();
                 label.Font = font;
+                label.Width = 100;
+                label.AutoEllipsis = true;
                 label.Text = val.Name;
                 ComboBox combo = new ComboBox();
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
@@ -657,7 +663,8 @@ namespace IBMConsultantTool
                 panel1.Controls.Add(combo);
                
                 panel1.Controls.Add(label);
-                label.Location = new Point(capabilityNameLabel.Location.X + 100 * count, capabilityNameLabel.Location.Y);
+                width += label.Width;
+                label.Location = new Point(width, capabilityNameLabel.Location.Y);
                 combo.Location = new Point(label.Location.X, label.Location.Y + 50);
                 
                 count++;
@@ -668,6 +675,21 @@ namespace IBMConsultantTool
         private void combo_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentcap.CalculatePrioritizedCapabilityGap();
+            currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+            }
+
+                
             currentGrid.Refresh();
         }
 
@@ -724,6 +746,46 @@ namespace IBMConsultantTool
             int value;
             string name;
             ClientDataControl.db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this, out value, out name);
+            if (value == 0)
+            {
+
+                ITCapQuestion ques = new ITCapQuestion();
+                Capability cap = new Capability();
+                Domain dom = new Domain();
+
+                dom.Name = domainList.Text;
+                dom.IsDefault = false;                
+                dom.Type = "domain";
+                //entities.Add(dom);
+                //LoadCapabilities(dom);
+                domains.Add(dom);
+                dom.ID = domains.Count.ToString();
+
+                cap.Name = capabilitiesList.Text;
+                cap.IsDefault = false;
+                dom.CapabilitiesOwned.Add(cap);
+                dom.TotalChildren++;
+                capabilities.Add(cap);
+                cap.Owner = dom;
+                cap.Type = "capability";
+                cap.ID = capabilities.Count.ToString();
+               // entities.Add(cap);
+
+
+                ques.Name = questionList.Text;
+                ques.IsDefault = false;
+                cap.QuestionsOwned.Add(ques);
+                ques.Type = "attribute";
+                ques.Owner = cap;
+                ques.ID = questionCount.ToString();
+
+                entities.Add(dom);
+                entities.Add(cap);
+                entities.Add(ques);
+
+                
+
+            }
             LoadChartSurvey();
         }
 
@@ -814,12 +876,24 @@ namespace IBMConsultantTool
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
                     row.ReadOnly = true;
+                    row.Cells["NumZeros"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumOnes"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumTwos"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumThrees"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["NumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
                 }
                 else if (ent.Type == "capability")
                 {
                     CheckBackColor(ent, row);
                     row.DefaultCellStyle.BackColor = Color.LightSlateGray;
+
                     row.ReadOnly = true;
+                    row.Cells["NumOnes"].Style.ForeColor = row.Cells["NumOnes"].Style.BackColor;
+                    row.Cells["NumTwos"].Style.ForeColor = row.Cells["NumTwos"].Style.BackColor;
+                    row.Cells["NumThrees"].Style.ForeColor = row.Cells["NumThrees"].Style.BackColor;
+                    row.Cells["NumFours"].Style.ForeColor = row.Cells["NumFours"].Style.BackColor;
+                    row.Cells["NumFives"].Style.ForeColor = row.Cells["NumFives"].Style.BackColor;
                     if (states == FormStates.Open)
                         row.Visible = false;
                 }
@@ -906,6 +980,8 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.Columns["NumFives"].Width = 30;
                 loadSurveyFromDataGrid.Columns["NumZeros"].HeaderText = "0s";
                 loadSurveyFromDataGrid.Columns["NumZeros"].Width = 30;
+
+
                 //loadSurveyFromDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
 
             }

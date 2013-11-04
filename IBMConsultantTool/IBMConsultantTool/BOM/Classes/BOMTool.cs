@@ -79,14 +79,10 @@ namespace IBMConsultantTool
             //removableControls.Add(nameLabel);
             nameLabel.Text = init.Name;
             nameLabel.Location = new Point(nameXValue, yValue);
-            Label totalScoreLabel = new Label();
-            totalScoreLabel.DataBindings.Add(new Binding("Text", init, "TotalBOMScore"));
-            totalScoreLabel.Location = new Point(totalXValue, yValue);
-            totalScoreLabel.BackColor = Color.White;
-            totalScoreLabel.Text = "0";
+
             //removableControls.Add(totalScoreLabel);
             
-            detailInfoPanel.Controls.Add(totalScoreLabel);
+           // detailInfoPanel.Controls.Add(totalScoreLabel);
             TextBox effectbox = new TextBox();
            // effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
             effectbox.DataBindings.Add(new Binding("Text", init, "Effectiveness"));
@@ -228,10 +224,7 @@ namespace IBMConsultantTool
             chart.Show();
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
 
-        }
 
         private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -57,7 +57,6 @@
             this.iTCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLoadChart = new System.Windows.Forms.Button();
             this.detailInfoPanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -103,7 +102,7 @@
             this.objectiveNames.Name = "objectiveNames";
             this.objectiveNames.Size = new System.Drawing.Size(182, 28);
             this.objectiveNames.TabIndex = 12;
-            this.objectiveNames.Text = "<Objective>";
+            this.objectiveNames.Text = "<Business Objective>";
             this.objectiveNames.SelectedIndexChanged += new System.EventHandler(this.objectiveNames_SelectedIndexChanged);
             this.objectiveNames.LostFocus += new System.EventHandler(this.objectiveNames_LostFocus);
             // 
@@ -117,7 +116,7 @@
             this.initiativeNames.Name = "initiativeNames";
             this.initiativeNames.Size = new System.Drawing.Size(182, 28);
             this.initiativeNames.TabIndex = 13;
-            this.initiativeNames.Text = "<Imperative>";
+            this.initiativeNames.Text = "<Business Imperative>";
             // 
             // AddInitiativeButton
             // 
@@ -172,7 +171,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1008, 29);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -317,7 +315,7 @@
             // iTCapToolStripMenuItem
             // 
             this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
-            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
             this.iTCapToolStripMenuItem.Text = "ITCap";
             this.iTCapToolStripMenuItem.Click += new System.EventHandler(this.iTCapToolStripMenuItem_Click);
             // 
@@ -342,7 +340,6 @@
             this.detailInfoPanel.AutoScroll = true;
             this.detailInfoPanel.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.detailInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.detailInfoPanel.Controls.Add(this.label5);
             this.detailInfoPanel.Controls.Add(this.label4);
             this.detailInfoPanel.Controls.Add(this.label3);
             this.detailInfoPanel.Controls.Add(this.label2);
@@ -353,17 +350,6 @@
             this.detailInfoPanel.Name = "detailInfoPanel";
             this.detailInfoPanel.Size = new System.Drawing.Size(1008, 173);
             this.detailInfoPanel.TabIndex = 20;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(791, 32);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 20);
-            this.label5.TabIndex = 5;
-            this.label5.Tag = "permanent";
-            this.label5.Text = "BOM Score";
             // 
             // label4
             // 
@@ -440,7 +426,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.Name = "BOMTool";
-            this.Text = "BOMTool";
+            this.Text = "Business Objective Mapping Tool";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.detailInfoPanel.ResumeLayout(false);
@@ -477,7 +463,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTCapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
