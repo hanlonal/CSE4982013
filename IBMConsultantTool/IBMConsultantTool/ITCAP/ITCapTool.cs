@@ -520,7 +520,7 @@ namespace IBMConsultantTool
 
         private void LiveDataEntry_Click(object sender, EventArgs e)
         {
-            ChangeStates(FormStates.LiveDataEntry);
+            //ChangeStates(FormStates.LiveDataEntry);
         }
 
         private void SurveryMaker_Click(object sender, EventArgs e)
@@ -538,7 +538,7 @@ namespace IBMConsultantTool
 
         private void Prioritization_Click(object sender, EventArgs e)
         {
-            ChangeStates(FormStates.Prioritization);
+            //ChangeStates(FormStates.Prioritization);
         }
 
         private void surveryMakerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1485,19 +1485,22 @@ namespace IBMConsultantTool
 
         private void createPowerPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var Powah = new PowerPointGenerator();
+            /*var Powah = new PowerPointGenerator();
 
-            Powah.CreatePowerPoint();
+            Powah.CreatePowerPoint();*/
         }
 
         private void answersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-             loadSurveyFromDataGrid.Columns["NumZeros"].Visible = !loadSurveyFromDataGrid.Columns["NumZeros"].Visible;
-             loadSurveyFromDataGrid.Columns["NumOnes"].Visible = !loadSurveyFromDataGrid.Columns["NumOnes"].Visible;
-             loadSurveyFromDataGrid.Columns["NumTwos"].Visible = !loadSurveyFromDataGrid.Columns["NumTwos"].Visible;
-             loadSurveyFromDataGrid.Columns["NumThrees"].Visible = !loadSurveyFromDataGrid.Columns["NumThrees"].Visible;
-             loadSurveyFromDataGrid.Columns["NumFours"].Visible = !loadSurveyFromDataGrid.Columns["NumFours"].Visible;
-             loadSurveyFromDataGrid.Columns["NumFives"].Visible = !loadSurveyFromDataGrid.Columns["NumFives"].Visible;
+            if (currentGrid == loadSurveyFromDataGrid)
+            {
+                loadSurveyFromDataGrid.Columns["NumZeros"].Visible = !loadSurveyFromDataGrid.Columns["NumZeros"].Visible;
+                loadSurveyFromDataGrid.Columns["NumOnes"].Visible = !loadSurveyFromDataGrid.Columns["NumOnes"].Visible;
+                loadSurveyFromDataGrid.Columns["NumTwos"].Visible = !loadSurveyFromDataGrid.Columns["NumTwos"].Visible;
+                loadSurveyFromDataGrid.Columns["NumThrees"].Visible = !loadSurveyFromDataGrid.Columns["NumThrees"].Visible;
+                loadSurveyFromDataGrid.Columns["NumFours"].Visible = !loadSurveyFromDataGrid.Columns["NumFours"].Visible;
+                loadSurveyFromDataGrid.Columns["NumFives"].Visible = !loadSurveyFromDataGrid.Columns["NumFives"].Visible;
+            }
         }
 
         private void loadSurveyFromDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -1527,6 +1530,11 @@ namespace IBMConsultantTool
         }
 
         private void addToDebate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void asIsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
