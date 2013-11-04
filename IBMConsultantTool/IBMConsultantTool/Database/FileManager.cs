@@ -1195,9 +1195,10 @@ namespace IBMConsultantTool
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             List<XElement> cupeList = client.Element("CUPES").Elements("CUPE").ToList();
             List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
-            CupeQuestionStringData data = new CupeQuestionStringData();
+            CupeQuestionStringData data;
             foreach (XElement cupe in cupeList)
             {
+                data = new CupeQuestionStringData();
                 data.QuestionText = data.OriginalQuestionText = cupe.Element("CUPEQUESTION").Value;
                 data.ChoiceA = cupe.Element("COMMODITY").Value;
                 data.ChoiceB = cupe.Element("UTILITY").Value;

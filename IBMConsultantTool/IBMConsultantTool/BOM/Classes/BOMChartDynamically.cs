@@ -383,11 +383,11 @@ namespace IBMConsultantTool
                 y += 10;
             }
 
-            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            /*Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
             panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width, bmp.Height));
             System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);*/
 
             InitializeComponent();
 

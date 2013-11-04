@@ -833,7 +833,7 @@ namespace IBMConsultantTool
                 newChart.Series["Future"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
             }
 
-            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -986,7 +986,7 @@ namespace IBMConsultantTool
                 newChart.Series["IT"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
             }
 
-            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -1532,6 +1532,10 @@ namespace IBMConsultantTool
 
         public void Question(int a, int b, int c, int d, int cnt, List<float> fuBusiness, List<float> curBusiness, List<float> fuIT, List<float> curIT)
         {
+            form = new Form();
+            btnOpen = new Button();
+            la = new Label();
+            combo = new ComboBox();
             //System.Diagnostics.Trace.WriteLine("hello");
             
             var list = new List<int>() { a, b, c, d, cnt };
@@ -1540,14 +1544,14 @@ namespace IBMConsultantTool
 
             if (a == 0 && b == 0 && c == 0 && d == 0)
             {
-                MessageBox.Show("There is not any participants");
+                MessageBox.Show("There are no participants");
             }
             else
             {
                 if (a == 0 && b == 0)
-                    MessageBox.Show("There is not any Business participants");
+                    MessageBox.Show("There are no Business participants");
                 else if (c == 0 && d == 0)
-                    MessageBox.Show("There is not any IT participants");
+                    MessageBox.Show("There are no IT participants");
 
                 form.Size = new Size(250, 100);
                 form.AutoSize = true;
@@ -1677,7 +1681,7 @@ namespace IBMConsultantTool
             newChart.Series["IT Future"].Points.AddY(fuIT[index]);
             newChart.Series["IT Current"].Points.AddY(curIT[index]);
 
-            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void LoadAnswersFromDataControl()
@@ -2183,7 +2187,7 @@ namespace IBMConsultantTool
                 newChart.Series["IT"].Points.AddXY(cupe[i], it[i]);
             }
 
-            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void currentToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -2437,7 +2441,7 @@ namespace IBMConsultantTool
             newChart.Series["Total Enabler"].Points.AddXY(id[1], it[3]);
             newChart.Series["Total Enabler"].Points.AddXY(id[2], total[3]);
 
-            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void iTStakeHoldersCurrentToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2670,7 +2674,7 @@ namespace IBMConsultantTool
 
                 newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), enabler[cnt]);
             }
-            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void StartTutorialMode()
