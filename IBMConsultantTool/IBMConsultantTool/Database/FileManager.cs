@@ -24,7 +24,10 @@ namespace IBMConsultantTool
             {
                 dbo = new XElement("root");
                 dbo.Add(new XElement("CLIENTS"));
+                dbo.Add(new XElement("REGIONS"));
+                dbo.Add(new XElement("BUSINESSTYPES"));
                 dbo.Add(new XElement("CATEGORIES"));
+                dbo.Add(new XElement("CUPEQUESTIONS"));
                 dbo.Add(new XElement("DOMAINS"));
                 if (!Directory.Exists("Resources"))
                 {
@@ -80,13 +83,15 @@ namespace IBMConsultantTool
 
             client.Add(new XElement("GROUPS"));
             client.Add(new XElement("BOMS"));
+            client.Add(new XElement("CUPES"));
+            client.Add(new XElement("ITCAPS"));
 
             dbo.Element("CLIENTS").Add(client);
 
-            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + 
-                           client.Element("LOCATION").Value.Replace(' ', '~') +
-                           client.Element("REGION").Value.Replace(' ', '~') +
-                           client.Element("STARTDATE").Value.Replace(' ', '~') +
+            changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                           client.Element("LOCATION").Value.Replace(' ', '~') + " " +
+                           client.Element("REGION").Value.Replace(' ', '~') + " " +
+                           client.Element("STARTDATE").Value.Replace(' ', '~') + " " +
                            client.Element("BUSINESSTYPE").Value.Replace(' ', '~'));
 
             return true;
@@ -137,7 +142,10 @@ namespace IBMConsultantTool
             {
                 return null;
             }
-            dbo.Element("CLIENTS").Add(clientEnt);
+
+            clientEnt.Add(new XElement("BOMCOMPLETE", "N"));
+            clientEnt.Add(new XElement("CUPECOMPLETE", "N"));
+            clientEnt.Add(new XElement("ITCAPCOMPLETE", "N"));
 
             client.EntityObject = clientEnt;
             return client;
@@ -679,11 +687,7 @@ namespace IBMConsultantTool
         public override bool RewriteITCAP(ITCapTool itcapForm)
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
-            List<XElement> itcapList = client.Element("ITCAPS").Elements("ITCAP").ToList();
-            foreach (XElement itcap in itcapList)
-            {
-                itcap.RemoveAll();
-            }
+            client.Element("ITCAPS").RemoveAll();
 
             XElement itcapEnt = new XElement("ITCAP");
             XElement itcqEnt;
@@ -695,7 +699,10 @@ namespace IBMConsultantTool
                     {
                         if (GetITCAPQuestion(itcapQuestion.Name, out itcqEnt))
                         {
-                            itcapEnt.Add(new XElement("ITCAPQUESTION", itcqEnt.Name));
+                            itcapEnt = new XElement("ITCAP");
+                            itcapEnt.Add(new XElement("ITCAPQUESTION", itcapQuestion.Name));
+                            itcapEnt.Add(new XElement("CAPABILITY", capability.Name));
+                            itcapEnt.Add(new XElement("DOMAIN", domain.Name));
                             if (!AddITCAP(itcapEnt, client))
                             {
                                 MessageBox.Show("Failed to add ITCAPQuestion: " + itcapEnt.Element("ITCAPQUESTION").Value, "Error");
@@ -1049,7 +1056,7 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestionStringData = new CupeQuestionStringData();
-                cupeQuestionStringData.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestionStringData.OriginalQuestionText = cupeQuestionStringData.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestionStringData.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestionStringData.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestionStringData.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
@@ -1183,7 +1190,7 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override List<CupeQuestionStringData>  GetCUPESForClient()
+        public override List<CupeQuestionStringData> GetCUPESForClient()
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             List<XElement> cupeList = client.Element("CUPES").Elements("CUPE").ToList();
@@ -1300,7 +1307,7 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
             cupe.Add(new XElement("CURRENT", "A"));
             cupe.Add(new XElement("FUTURE", "A"));
-            client.Add(cupe);
+            client.Element("CUPES").Add(cupe);
 
             changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
 

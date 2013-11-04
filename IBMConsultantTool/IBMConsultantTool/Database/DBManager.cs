@@ -2306,6 +2306,23 @@ namespace IBMConsultantTool
             }
             root.Add(catElement);
 
+            List<CUPEQUESTION> cqList = dbo.CUPEQUESTION.ToList();
+            XElement cqElement = new XElement("CUPEQUESTIONS");
+            foreach (CUPEQUESTION cupeQuestion in cqList)
+            {
+                XElement tempCQ = new XElement("CUPEQUESTION");
+                tempCQ.Add(new XElement("NAME", cupeQuestion.NAME.TrimEnd()));
+                tempCQ.Add(new XElement("COMMODITY", cupeQuestion.COMMODITY.TrimEnd()));
+                tempCQ.Add(new XElement("UTILITY", cupeQuestion.UTILITY.TrimEnd()));
+                tempCQ.Add(new XElement("PARTNER", cupeQuestion.PARTNER.TrimEnd()));
+                tempCQ.Add(new XElement("ENABLER", cupeQuestion.ENABLER.TrimEnd()));
+                tempCQ.Add(new XElement("INTWENTY", cupeQuestion.INTWENTY));
+                tempCQ.Add(new XElement("INFIFTEEN", cupeQuestion.INFIFTEEN));
+                tempCQ.Add(new XElement("INTEN", cupeQuestion.INTEN));
+                cqElement.Add(tempCQ);
+            }
+            root.Add(cqElement);
+
             List<DOMAIN> domList = GetDomains();
             XElement domElement = new XElement("DOMAINS");
             foreach (DOMAIN domain in domList)

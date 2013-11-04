@@ -25,7 +25,7 @@ namespace IBMConsultantTool
         {
             if (ClientDataControl.LoadClient(ChooseClientComboBox.Text))
             {
-                Owner.Refresh();
+                owner.Refresh();
                 this.Close();
             }
 
