@@ -782,11 +782,9 @@ namespace IBMConsultantTool
                 entities.Add(dom);
                 entities.Add(cap);
                 entities.Add(ques);
-
-                
-
             }
             LoadChartSurvey();
+            surveryMakerGrid.Refresh();
         }
 
         private void SaveITCAPButton_Click(object sender, EventArgs e)

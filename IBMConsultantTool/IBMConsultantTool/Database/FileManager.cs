@@ -1788,67 +1788,6 @@ namespace IBMConsultantTool
                 MessageBox.Show("Failed to save changes to File", "Error");
                 return;
             }
-
-            else
-            {
-                //Successfully added to database, update GUI
-                Domain domain = itcapForm.domains.Find(delegate(Domain dom)
-                {
-                    return dom.Name == domName;
-                });
-                if (domain == null)
-                {
-                    domain = new Domain();
-                    domain.Name = domName;
-                    domain.IsDefault = false;
-                    domain.ID = itcapForm.domains.Count.ToString();
-                    itcapForm.domains.Add(domain);
-                    itcapForm.entities.Add(domain);
-                    itcapForm.domainList.Items.Add(domain);
-                }
-
-                Capability capability = domain.CapabilitiesOwned.Find(delegate(Capability cap)
-                {
-                    return cap.Name == capName;
-                });
-                if (capability == null)
-                {
-                    capability = new Capability();
-                    capability.Name = capName;
-                    capability.IsDefault = false;
-                    domain.CapabilitiesOwned.Add(capability);
-                    domain.TotalChildren++;
-                    itcapForm.capabilities.Add(capability);
-                    capability.Owner = domain;
-                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
-                    //LoadQuestions(cap);
-                    itcapForm.entities.Add(capability);
-                    itcapForm.capabilitiesList.Items.Add(capability);
-                }
-
-                ITCapQuestion itcqObject = capability.QuestionsOwned.Find(delegate(ITCapQuestion itcq)
-                {
-                    return itcq.Name == itcqName;
-                });
-                if (itcqObject == null)
-                {
-                    itcqObject = new ITCapQuestion();
-                    itcqObject.Name = itcqName;
-                    itcqObject.IsDefault = false;
-                    itcqObject.AsIsScore = 0;
-                    itcqObject.ToBeScore = 0;
-                    capability.Owner.TotalChildren++;
-                    capability.QuestionsOwned.Add(itcqObject);
-                    itcqObject.Owner = capability;
-                    itcqObject.ID = capability.QuestionsOwned.Count.ToString();
-                    itcapForm.entities.Add(itcqObject);
-                    itcapForm.questionList.Items.Add(itcqObject);
-                }
-                else
-                {
-                    MessageBox.Show("ITCAPQuestion already exists in ITCAP", "Error");
-                }
-            }
         }
         public override void RemoveQuestionToITCAP(string itcqName)
         {
