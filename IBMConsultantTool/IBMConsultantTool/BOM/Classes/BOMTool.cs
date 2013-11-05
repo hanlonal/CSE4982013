@@ -194,6 +194,22 @@ namespace IBMConsultantTool
             Refresh();
         }
 
+        public void ChooseColor(NewObjective obj)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            // Keeps the user from selecting a custom color.
+            MyDialog.AllowFullOpen = false;
+            // Allows the user to get help. (The default is false.)
+            MyDialog.ShowHelp = true;
+            // Sets the initial color select to the current text color.
+            MyDialog.Color = NewObjective.DefaultBackColor;
+            // Update the text box color if the user clicks OK  
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                obj.BackColor = MyDialog.Color;
+            }
+        }
+
         public void ResetValues()
         {
             foreach (NewCategory cat in Categories)

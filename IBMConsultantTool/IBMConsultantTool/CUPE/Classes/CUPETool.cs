@@ -833,7 +833,7 @@ namespace IBMConsultantTool
                 newChart.Series["Future"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
             }
 
-            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -986,7 +986,7 @@ namespace IBMConsultantTool
                 newChart.Series["IT"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
             }
 
-            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -1681,7 +1681,7 @@ namespace IBMConsultantTool
             newChart.Series["IT Future"].Points.AddY(fuIT[index]);
             newChart.Series["IT Current"].Points.AddY(curIT[index]);
 
-            //newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void LoadAnswersFromDataControl()
@@ -2187,7 +2187,7 @@ namespace IBMConsultantTool
                 newChart.Series["IT"].Points.AddXY(cupe[i], it[i]);
             }
 
-            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void currentToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -2441,7 +2441,7 @@ namespace IBMConsultantTool
             newChart.Series["Total Enabler"].Points.AddXY(id[1], it[3]);
             newChart.Series["Total Enabler"].Points.AddXY(id[2], total[3]);
 
-            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void iTStakeHoldersCurrentToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2674,7 +2674,7 @@ namespace IBMConsultantTool
 
                 newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), enabler[cnt]);
             }
-            //newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void StartTutorialMode()

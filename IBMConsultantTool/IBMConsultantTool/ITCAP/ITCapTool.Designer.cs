@@ -782,7 +782,7 @@
             this.objectiveMappingGrid.Name = "objectiveMappingGrid";
             this.objectiveMappingGrid.Size = new System.Drawing.Size(673, 80);
             this.objectiveMappingGrid.TabIndex = 2;
-            this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
+            //this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
             // 
             // dataGridViewButtonColumn1
             // 
