@@ -1951,6 +1951,24 @@ namespace IBMConsultantTool
                 return null;
             }
         }
+        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string busTypeName)
+        {
+            INITIATIVE initiative;
+            if (GetInitiative(iniName, out initiative))
+            {
+                return (from ent in initiative.BOM
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
 
         public List<CUPE> GetCUPESForCUPEQuestion(string cqName)
         {
@@ -2002,6 +2020,29 @@ namespace IBMConsultantTool
 
                 return (from ent in cq.CUPE
                         where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<CUPE> GetCUPESForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string busTypeName)
+        {
+            CUPEQUESTION cq;
+            try
+            {
+                cq = (from ent in dbo.CUPEQUESTION
+                      where ent.NAME.TrimEnd() == cqName
+                      select ent).Single();
+
+                return (from ent in cq.CUPE
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
                         select ent).ToList();
 
@@ -2073,46 +2114,21 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<ITCAP> GetITCAPSForCapability(string capName)
+        public List<ITCAP> GetITCAPSForAttributeRegionAndBusinessType(string itcqName, string regName, string busTypeName)
         {
-            CAPABILITY capability;
+            ITCAPQUESTION itcq;
             try
             {
-                capability = (from ent in dbo.CAPABILITY
-                              where ent.NAME.TrimEnd() == capName
-                              select ent).Single();
+                itcq = (from ent in dbo.ITCAPQUESTION
+                        where ent.NAME.TrimEnd() == itcqName
+                        select ent).Single();
 
-                List<ITCAP> result = new List<ITCAP>();
-                foreach (ITCAPQUESTION itcq in capability.ITCAPQUESTION)
-                {
-                    result.AddRange(itcq.ITCAP.ToList());
-                }
-
-                return result;
-
-            }
-
-            catch
-            {
-                return null;
-            }
-        }
-        public List<BOM> GetBOMSForObjective(string busName)
-        {
-            BUSINESSOBJECTIVE objective;
-            try
-            {
-                objective = (from ent in dbo.BUSINESSOBJECTIVE
-                              where ent.NAME.TrimEnd() == busName
-                              select ent).Single();
-
-                List<BOM> result = new List<BOM>();
-                foreach (INITIATIVE ini in objective.INITIATIVE)
-                {
-                    result.AddRange(ini.BOM.ToList());
-                }
-
-                return result;
+                return (from ent in itcq.ITCAP
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
 
             }
 
