@@ -286,7 +286,7 @@ namespace IBMConsultantTool
                 this.Hide();
             }
 
-            System.Diagnostics.Trace.WriteLine("lineX: " + lineX.X1.ToString() + lineX.X2.ToString() + lineX.Y1.ToString() + lineX.Y2.ToString() + "  lineY: " + lineY.ToString());
+            int valOfCount = 0;
 
             for (int i = 0; i < mainForm.Categories.Count; i++)
             {
@@ -310,9 +310,11 @@ namespace IBMConsultantTool
                     objectivesCheckBox[objCount].Font = new Font("Arial", 12);
                     objectivesCheckBox[objCount].AutoSize = true;
                     objectivesCheckBox[objCount].BackColor = mainForm.Categories[i].Objectives[j].BackColor;
-                    //Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
+                    if (valOfCount > 0 && objectivesCheckBox[objCount - valOfCount].BackColor ==  objectivesCheckBox[objCount].BackColor)
+                        objectivesCheckBox[objCount].BackColor = Color.FromArgb(random.Next(225), random.Next(225), random.Next(225), random.Next(225));
                     objectivesCheckBox[objCount].Checked = true;
                     objectivesCheckBox[objCount].CheckedChanged += new EventHandler(checkBox_CheckedChanged);
+                    valOfCount++;
                     //if (objectivesCheckBox[objectivesCount].Checked)
                     //{
                         for (int k = 0; k < mainForm.Categories[i].Objectives[j].Initiatives.Count; k++)
