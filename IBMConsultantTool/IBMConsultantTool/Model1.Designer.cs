@@ -36,9 +36,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOBJM_CLIE_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CONTACT_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CONTACT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPO_CONT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CONTACT), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CUPEQUESTION), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPON_CUPE_FK", "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CUPE), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCA_ITCAPQUEST_FK", "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.ITCAPQUESTION), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
 
@@ -239,6 +241,22 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<CUPERESPONSE> CUPERESPONSE
+        {
+            get
+            {
+                if ((_CUPERESPONSE == null))
+                {
+                    _CUPERESPONSE = base.CreateObjectSet<CUPERESPONSE>("CUPERESPONSE");
+                }
+                return _CUPERESPONSE;
+            }
+        }
+        private ObjectSet<CUPERESPONSE> _CUPERESPONSE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DOMAIN> DOMAIN
         {
             get
@@ -421,6 +439,14 @@ namespace IBMConsultantTool
         public void AddToCUPEQUESTION(CUPEQUESTION cUPEQUESTION)
         {
             base.AddObject("CUPEQUESTION", cUPEQUESTION);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CUPERESPONSE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCUPERESPONSE(CUPERESPONSE cUPERESPONSE)
+        {
+            base.AddObject("CUPERESPONSE", cUPERESPONSE);
         }
     
         /// <summary>
@@ -1833,30 +1859,6 @@ namespace IBMConsultantTool
         private global::System.String _EMAIL;
         partial void OnEMAILChanging(global::System.String value);
         partial void OnEMAILChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String PHONE
-        {
-            get
-            {
-                return _PHONE;
-            }
-            set
-            {
-                OnPHONEChanging(value);
-                ReportPropertyChanging("PHONE");
-                _PHONE = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("PHONE");
-                OnPHONEChanged();
-            }
-        }
-        private global::System.String _PHONE;
-        partial void OnPHONEChanging(global::System.String value);
-        partial void OnPHONEChanged();
 
         #endregion
     
@@ -1950,6 +1952,28 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CUPERESPO_CONT_FK", "CUPERESPONSE")]
+        public EntityCollection<CUPERESPONSE> CUPERESPONSE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPERESPONSE>("CAPSTONEModel.CUPERESPO_CONT_FK", "CUPERESPONSE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPERESPONSE>("CAPSTONEModel.CUPERESPO_CONT_FK", "CUPERESPONSE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "ITCAP_CONTACT_FK", "ITCAP")]
         public EntityCollection<ITCAP> ITCAP
         {
@@ -2019,54 +2043,6 @@ namespace IBMConsultantTool
         private global::System.Int32 _CUPEID;
         partial void OnCUPEIDChanging(global::System.Int32 value);
         partial void OnCUPEIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String CURRENT
-        {
-            get
-            {
-                return _CURRENT;
-            }
-            set
-            {
-                OnCURRENTChanging(value);
-                ReportPropertyChanging("CURRENT");
-                _CURRENT = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("CURRENT");
-                OnCURRENTChanged();
-            }
-        }
-        private global::System.String _CURRENT;
-        partial void OnCURRENTChanging(global::System.String value);
-        partial void OnCURRENTChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String FUTURE
-        {
-            get
-            {
-                return _FUTURE;
-            }
-            set
-            {
-                OnFUTUREChanging(value);
-                ReportPropertyChanging("FUTURE");
-                _FUTURE = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("FUTURE");
-                OnFUTUREChanged();
-            }
-        }
-        private global::System.String _FUTURE;
-        partial void OnFUTUREChanging(global::System.String value);
-        partial void OnFUTUREChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2343,6 +2319,28 @@ namespace IBMConsultantTool
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CUPERESPON_CUPE_FK", "CUPERESPONSE")]
+        public EntityCollection<CUPERESPONSE> CUPERESPONSE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CUPERESPONSE>("CAPSTONEModel.CUPERESPON_CUPE_FK", "CUPERESPONSE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPERESPONSE>("CAPSTONEModel.CUPERESPON_CUPE_FK", "CUPERESPONSE", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2612,6 +2610,188 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CUPE>("CAPSTONEModel.CUPE_CUPEQUESTI_FK", "CUPE", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CAPSTONEModel", Name="CUPERESPONSE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CUPERESPONSE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CUPERESPONSE object.
+        /// </summary>
+        /// <param name="cUPERESPONSEID">Initial value of the CUPERESPONSEID property.</param>
+        public static CUPERESPONSE CreateCUPERESPONSE(global::System.Int32 cUPERESPONSEID)
+        {
+            CUPERESPONSE cUPERESPONSE = new CUPERESPONSE();
+            cUPERESPONSE.CUPERESPONSEID = cUPERESPONSEID;
+            return cUPERESPONSE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CUPERESPONSEID
+        {
+            get
+            {
+                return _CUPERESPONSEID;
+            }
+            set
+            {
+                if (_CUPERESPONSEID != value)
+                {
+                    OnCUPERESPONSEIDChanging(value);
+                    ReportPropertyChanging("CUPERESPONSEID");
+                    _CUPERESPONSEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CUPERESPONSEID");
+                    OnCUPERESPONSEIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _CUPERESPONSEID;
+        partial void OnCUPERESPONSEIDChanging(global::System.Int32 value);
+        partial void OnCUPERESPONSEIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CURRENT
+        {
+            get
+            {
+                return _CURRENT;
+            }
+            set
+            {
+                OnCURRENTChanging(value);
+                ReportPropertyChanging("CURRENT");
+                _CURRENT = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CURRENT");
+                OnCURRENTChanged();
+            }
+        }
+        private global::System.String _CURRENT;
+        partial void OnCURRENTChanging(global::System.String value);
+        partial void OnCURRENTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FUTURE
+        {
+            get
+            {
+                return _FUTURE;
+            }
+            set
+            {
+                OnFUTUREChanging(value);
+                ReportPropertyChanging("FUTURE");
+                _FUTURE = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FUTURE");
+                OnFUTUREChanged();
+            }
+        }
+        private global::System.String _FUTURE;
+        partial void OnFUTUREChanging(global::System.String value);
+        partial void OnFUTUREChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CUPERESPO_CONT_FK", "CONTACT")]
+        public CONTACT CONTACT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CONTACT>("CAPSTONEModel.CUPERESPO_CONT_FK", "CONTACT").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CONTACT>("CAPSTONEModel.CUPERESPO_CONT_FK", "CONTACT").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CONTACT> CONTACTReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CONTACT>("CAPSTONEModel.CUPERESPO_CONT_FK", "CONTACT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CONTACT>("CAPSTONEModel.CUPERESPO_CONT_FK", "CONTACT", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CUPERESPON_CUPE_FK", "CUPE")]
+        public CUPE CUPE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPE>("CAPSTONEModel.CUPERESPON_CUPE_FK", "CUPE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPE>("CAPSTONEModel.CUPERESPON_CUPE_FK", "CUPE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CUPE> CUPEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CUPE>("CAPSTONEModel.CUPERESPON_CUPE_FK", "CUPE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CUPE>("CAPSTONEModel.CUPERESPON_CUPE_FK", "CUPE", value);
                 }
             }
         }

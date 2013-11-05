@@ -82,6 +82,8 @@ namespace IBMConsultantTool
             }
 
             client.Add(new XElement("GROUPS"));
+            AddGroup("Business", client);
+            AddGroup("IT", client);
             client.Add(new XElement("BOMS"));
             client.Add(new XElement("CUPES"));
             client.Add(new XElement("ITCAPS"));
@@ -270,6 +272,13 @@ namespace IBMConsultantTool
                             client.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
+        }
+        #endregion
+
+        #region Contact
+        public override void LoadParticipants()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -1242,7 +1251,13 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future)
+
+        public override void SaveCUPEParticipants()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion)
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             try
@@ -1255,15 +1270,12 @@ namespace IBMConsultantTool
                 cupe.Element("UTILITY").Value = cupeQuestion.ChoiceB;
                 cupe.Element("PARTNER").Value = cupeQuestion.ChoiceC;
                 cupe.Element("ENABLER").Value = cupeQuestion.ChoiceD;
-                cupe.Element("CURRENT").Value = current;
-                cupe.Element("FUTURE").Value = future;
 
                 changeLog.Add("UPDATE CUPE " + cupeQuestion.QuestionText.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceA.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceB.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceC.Replace(' ', '~') + " " +
-                              cupeQuestion.ChoiceD.Replace(' ', '~') + " " +
-                              current + " " + future);
+                              cupeQuestion.ChoiceD.Replace(' ', '~'));
             }
 
             catch
@@ -1306,8 +1318,6 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
             cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
             cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
-            cupe.Add(new XElement("CURRENT", "A"));
-            cupe.Add(new XElement("FUTURE", "A"));
             client.Element("CUPES").Add(cupe);
 
             changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
