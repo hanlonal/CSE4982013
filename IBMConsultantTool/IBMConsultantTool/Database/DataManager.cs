@@ -114,6 +114,10 @@ namespace IBMConsultantTool
 
         #endregion
 
+        #region CapabilityGapInfo
+        public abstract void SaveCapabilityGapInfo(Capability capability);
+        #endregion
+
         #region ITCAPQuestion
         public abstract string[] GetITCAPQuestionNames(string capName, string domName);
         public abstract string[] GetITCAPQuestionNamesAndDefault(string capName, string domName);

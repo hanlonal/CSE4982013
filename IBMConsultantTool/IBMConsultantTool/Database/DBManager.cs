@@ -1629,6 +1629,80 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region CapabilityGapInfo
+        public bool GetCapabilityGapInfo(string capName, out CAPABILITYGAPINFO capGapInfo)
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            try
+            {
+                capGapInfo = (from ent in client.CAPABILITYGAPINFO
+                              where ent.CAPABILITY.NAME.TrimEnd() == capName
+                              select ent).Single();
+
+                return true;
+            }
+
+            catch
+            {
+                capGapInfo = null;
+                return false;
+            }              
+        }
+        public override void SaveCapabilityGapInfo(Capability capability)
+        {
+            CAPABILITYGAPINFO capGapInfo;
+            if(!GetCapabilityGapInfo(capability.Name, out capGapInfo))
+            {
+                capGapInfo = new CAPABILITYGAPINFO();
+                capGapInfo.CLIENT = ClientDataControl.Client.EntityObject as CLIENT;
+                CAPABILITY capabilityEnt;
+                GetCapability(capability.Name, out capabilityEnt);
+                capGapInfo.CAPABILITY = capabilityEnt;
+                dbo.AddToCAPABILITYGAPINFO(capGapInfo);
+            }
+            switch(capability.GapType1)
+            {
+                case ScoringEntity.GapType.High:
+                    capGapInfo.GAPTYPE = "High";
+                    break;
+
+                case ScoringEntity.GapType.Middle:
+                    capGapInfo.GAPTYPE = "Middle";
+                    break;
+
+                case ScoringEntity.GapType.Low:
+                    capGapInfo.GAPTYPE = "Low";
+                    break;
+
+                case ScoringEntity.GapType.None:
+                    capGapInfo.GAPTYPE = "None";
+                    break;
+            }
+
+            switch (capability.PrioritizedGapType1)
+            {
+                case ScoringEntity.PrioritizedGapType.High:
+                    capGapInfo.PRIORITIZEDGAPTYPE = "High";
+                    break;
+
+                case ScoringEntity.PrioritizedGapType.Middle:
+                    capGapInfo.PRIORITIZEDGAPTYPE = "Middle";
+                    break;
+
+                case ScoringEntity.PrioritizedGapType.Low:
+                    capGapInfo.PRIORITIZEDGAPTYPE = "Low";
+                    break;
+
+                case ScoringEntity.PrioritizedGapType.None:
+                    capGapInfo.PRIORITIZEDGAPTYPE = "None";
+                    break;
+            }
+
+            capGapInfo.GAP = capability.CapabilityGap;
+            capGapInfo.PRIORITIZEDGAP = capability.PrioritizedCapabilityGap;
+        }
+        #endregion
+
         #region ITCAPQuestion
         public override string[] GetITCAPQuestionNames(string capName, string domName)
         {

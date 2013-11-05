@@ -143,7 +143,7 @@ namespace IBMConsultantTool
 
             //LoadDomains();
             //LoadCapabilities();
-            // LoadQuestions();
+            //LoadQuestions();
         }
 
         private void addDomainButton_Click(object sender, EventArgs e)
@@ -592,8 +592,8 @@ namespace IBMConsultantTool
                     ques.AddAsIsAnswer((float)rand.Next(4));
 
 
-                    ques.AddToBeAnswer((float)rand.Next(5) );
-                    ques.AddToBeAnswer((float)rand.Next(5) );
+                    ques.AddToBeAnswer((float)rand.Next(5));
+                    ques.AddToBeAnswer((float)rand.Next(5));
                     ques.AddToBeAnswer((float)rand.Next(5));
                     ques.AddToBeAnswer((float)rand.Next(5));
                 }
@@ -787,6 +787,14 @@ namespace IBMConsultantTool
                         success = false;
                         break;
                     }
+                }
+            }
+
+            foreach (Capability capability in capabilities)
+            {
+                if (capability != null)
+                {
+                    ClientDataControl.db.SaveCapabilityGapInfo(capability);
                 }
             }
 

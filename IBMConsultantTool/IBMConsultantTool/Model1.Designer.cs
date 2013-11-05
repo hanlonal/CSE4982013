@@ -27,8 +27,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCA_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIE_BUSINESSTY_FK", "BUSINESSTYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSTYPE), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILIT_DOMAI_FK", "DOMAIN", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.DOMAIN), "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITY))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILITY_CAPA_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CAPABILITY), "CAPABILITYGAPINFO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITYGAPINFO))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOB_CAPABI_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPQUE_CAPAB_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPQUESTION))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILITY_CLIE_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "CAPABILITYGAPINFO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITYGAPINFO))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIENT_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.REGION), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
@@ -157,6 +159,22 @@ namespace IBMConsultantTool
             }
         }
         private ObjectSet<CAPABILITY> _CAPABILITY;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CAPABILITYGAPINFO> CAPABILITYGAPINFO
+        {
+            get
+            {
+                if ((_CAPABILITYGAPINFO == null))
+                {
+                    _CAPABILITYGAPINFO = base.CreateObjectSet<CAPABILITYGAPINFO>("CAPABILITYGAPINFO");
+                }
+                return _CAPABILITYGAPINFO;
+            }
+        }
+        private ObjectSet<CAPABILITYGAPINFO> _CAPABILITYGAPINFO;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -399,6 +417,14 @@ namespace IBMConsultantTool
         public void AddToCAPABILITY(CAPABILITY cAPABILITY)
         {
             base.AddObject("CAPABILITY", cAPABILITY);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CAPABILITYGAPINFO EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCAPABILITYGAPINFO(CAPABILITYGAPINFO cAPABILITYGAPINFO)
+        {
+            base.AddObject("CAPABILITYGAPINFO", cAPABILITYGAPINFO);
         }
     
         /// <summary>
@@ -1214,6 +1240,28 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CAPABILITY_CAPA_FK", "CAPABILITYGAPINFO")]
+        public EntityCollection<CAPABILITYGAPINFO> CAPABILITYGAPINFO
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CAPABILITYGAPINFO>("CAPSTONEModel.CAPABILITY_CAPA_FK", "CAPABILITYGAPINFO");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CAPABILITYGAPINFO>("CAPSTONEModel.CAPABILITY_CAPA_FK", "CAPABILITYGAPINFO", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "ITCAPOB_CAPABI_FK", "ITCAPOBJMAP")]
         public EntityCollection<ITCAPOBJMAP> ITCAPOBJMAP
         {
@@ -1248,6 +1296,236 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAPQUESTION>("CAPSTONEModel.ITCAPQUE_CAPAB_FK", "ITCAPQUESTION", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CAPSTONEModel", Name="CAPABILITYGAPINFO")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CAPABILITYGAPINFO : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CAPABILITYGAPINFO object.
+        /// </summary>
+        /// <param name="cAPABILITYGAPINFOID">Initial value of the CAPABILITYGAPINFOID property.</param>
+        public static CAPABILITYGAPINFO CreateCAPABILITYGAPINFO(global::System.Int32 cAPABILITYGAPINFOID)
+        {
+            CAPABILITYGAPINFO cAPABILITYGAPINFO = new CAPABILITYGAPINFO();
+            cAPABILITYGAPINFO.CAPABILITYGAPINFOID = cAPABILITYGAPINFOID;
+            return cAPABILITYGAPINFO;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CAPABILITYGAPINFOID
+        {
+            get
+            {
+                return _CAPABILITYGAPINFOID;
+            }
+            set
+            {
+                if (_CAPABILITYGAPINFOID != value)
+                {
+                    OnCAPABILITYGAPINFOIDChanging(value);
+                    ReportPropertyChanging("CAPABILITYGAPINFOID");
+                    _CAPABILITYGAPINFOID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CAPABILITYGAPINFOID");
+                    OnCAPABILITYGAPINFOIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _CAPABILITYGAPINFOID;
+        partial void OnCAPABILITYGAPINFOIDChanging(global::System.Int32 value);
+        partial void OnCAPABILITYGAPINFOIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String GAPTYPE
+        {
+            get
+            {
+                return _GAPTYPE;
+            }
+            set
+            {
+                OnGAPTYPEChanging(value);
+                ReportPropertyChanging("GAPTYPE");
+                _GAPTYPE = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("GAPTYPE");
+                OnGAPTYPEChanged();
+            }
+        }
+        private global::System.String _GAPTYPE;
+        partial void OnGAPTYPEChanging(global::System.String value);
+        partial void OnGAPTYPEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PRIORITIZEDGAPTYPE
+        {
+            get
+            {
+                return _PRIORITIZEDGAPTYPE;
+            }
+            set
+            {
+                OnPRIORITIZEDGAPTYPEChanging(value);
+                ReportPropertyChanging("PRIORITIZEDGAPTYPE");
+                _PRIORITIZEDGAPTYPE = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PRIORITIZEDGAPTYPE");
+                OnPRIORITIZEDGAPTYPEChanged();
+            }
+        }
+        private global::System.String _PRIORITIZEDGAPTYPE;
+        partial void OnPRIORITIZEDGAPTYPEChanging(global::System.String value);
+        partial void OnPRIORITIZEDGAPTYPEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Single> GAP
+        {
+            get
+            {
+                return _GAP;
+            }
+            set
+            {
+                OnGAPChanging(value);
+                ReportPropertyChanging("GAP");
+                _GAP = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("GAP");
+                OnGAPChanged();
+            }
+        }
+        private Nullable<global::System.Single> _GAP;
+        partial void OnGAPChanging(Nullable<global::System.Single> value);
+        partial void OnGAPChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Single> PRIORITIZEDGAP
+        {
+            get
+            {
+                return _PRIORITIZEDGAP;
+            }
+            set
+            {
+                OnPRIORITIZEDGAPChanging(value);
+                ReportPropertyChanging("PRIORITIZEDGAP");
+                _PRIORITIZEDGAP = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PRIORITIZEDGAP");
+                OnPRIORITIZEDGAPChanged();
+            }
+        }
+        private Nullable<global::System.Single> _PRIORITIZEDGAP;
+        partial void OnPRIORITIZEDGAPChanging(Nullable<global::System.Single> value);
+        partial void OnPRIORITIZEDGAPChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CAPABILITY_CAPA_FK", "CAPABILITY")]
+        public CAPABILITY CAPABILITY
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CAPABILITY>("CAPSTONEModel.CAPABILITY_CAPA_FK", "CAPABILITY").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CAPABILITY>("CAPSTONEModel.CAPABILITY_CAPA_FK", "CAPABILITY").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CAPABILITY> CAPABILITYReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CAPABILITY>("CAPSTONEModel.CAPABILITY_CAPA_FK", "CAPABILITY");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CAPABILITY>("CAPSTONEModel.CAPABILITY_CAPA_FK", "CAPABILITY", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CAPABILITY_CLIE_FK", "CLIENT")]
+        public CLIENT CLIENT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("CAPSTONEModel.CAPABILITY_CLIE_FK", "CLIENT").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("CAPSTONEModel.CAPABILITY_CLIE_FK", "CLIENT").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CLIENT> CLIENTReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CLIENT>("CAPSTONEModel.CAPABILITY_CLIE_FK", "CLIENT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CLIENT>("CAPSTONEModel.CAPABILITY_CLIE_FK", "CLIENT", value);
                 }
             }
         }
@@ -1628,6 +1906,28 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BUSINESSTYPE>("CAPSTONEModel.CLIE_BUSINESSTY_FK", "BUSINESSTYPE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CAPABILITY_CLIE_FK", "CAPABILITYGAPINFO")]
+        public EntityCollection<CAPABILITYGAPINFO> CAPABILITYGAPINFO
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CAPABILITYGAPINFO>("CAPSTONEModel.CAPABILITY_CLIE_FK", "CAPABILITYGAPINFO");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CAPABILITYGAPINFO>("CAPSTONEModel.CAPABILITY_CLIE_FK", "CAPABILITYGAPINFO", value);
                 }
             }
         }
