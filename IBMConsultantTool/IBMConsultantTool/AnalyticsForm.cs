@@ -15,8 +15,11 @@ namespace IBMConsultantTool
         List<CapabilityTrendAnalysis> capabilities = new List<CapabilityTrendAnalysis>();
         List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
         List<ITAttributeTrendAnalysis> attributes = new List<ITAttributeTrendAnalysis>();
+        List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
         enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Initiatives, None };
         TrackingState state;
+        private DateTime fromTime;
+        private DateTime toTime;
         private string currentlyBeingTracked = "";
         DBManager db = new DBManager();
         TextBox currentBox;
@@ -56,6 +59,12 @@ namespace IBMConsultantTool
             businessTypeComboBox.DataBindings.Add("Enabled", typeCheckBox, "Checked");
             fromDateText.DataBindings.Add("Enabled", fromDateCheckBox, "Checked");
             toDateText.DataBindings.Add("Enabled", toDateCheckBox, "Checked");
+            countryComboBox.DataBindings.Add("Enabled", countryCheckBox, "Checked");
+
+            metricsComboBox.SelectedValueChanged +=new EventHandler(metricsComboBox_SelectedValueChanged);
+            regionComboBox.SelectedValueChanged +=new EventHandler(regionComboBox_SelectedValueChanged);
+            businessTypeComboBox.SelectedValueChanged +=new EventHandler(businessTypeComboBox_SelectedValueChanged);
+
 
 
         }
@@ -86,8 +95,7 @@ namespace IBMConsultantTool
             switch (state)
             {
                 case TrackingState.Capabilities:
-                    ClearControls("Capabilities");
-                    
+                    ClearControls("Capabilities");                    
                     break;
                 case TrackingState.CUPEQuestions:
                     ClearControls("CUPE");
@@ -98,6 +106,9 @@ namespace IBMConsultantTool
                 case TrackingState.ITAttributes:
                     ClearControls("Capabilities");
                     break;
+                case TrackingState.Initiatives:
+                    ClearControls("Initiatives");
+                    break;
 
             }
 
@@ -105,6 +116,22 @@ namespace IBMConsultantTool
 
 
         #region Event Handlers
+
+        private void metricsComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void regionComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            // TODO
+        }
+        private void businessTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            //TODO
+        }
+
+
 
         private void analyticsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -162,6 +189,13 @@ namespace IBMConsultantTool
                 domainsComboBox.Text = "<Domains>";
                 domainsComboBox.SelectedValueChanged += new EventHandler(domainsComboBox_SelectedValueChanged);
             }
+            if (value == "Initiatives")
+            {
+                ChangeState(TrackingState.Initiatives);
+                names = db.GetInitiativeNames().ToList();
+                initiativesComboBox.DataSource = names;
+            }
+
         }
 
         private void objectiveNamesComboBox_SelectedValueChanged(object sender, EventArgs e)
@@ -187,9 +221,11 @@ namespace IBMConsultantTool
             capabilitiesComboBox.Text = "<Capabilities>";
             if (state == TrackingState.ITAttributes)
             {
-                capabilitiesComboBox.SelectedValueChanged +=new EventHandler(capabilitiesComboBox_SelectedValueChanged);
-                
+                capabilitiesComboBox.SelectedValueChanged += new EventHandler(capabilitiesComboBox_SelectedValueChanged);
+                itAttributesComboBox.Enabled = true;
             }
+            else
+                itAttributesComboBox.Enabled = false;
         }
 
         private void date_DateSelected(object sender, DateRangeEventArgs e)
@@ -198,6 +234,24 @@ namespace IBMConsultantTool
             currentBox.Text = e.Start.Date.ToShortDateString();
             //selectedTime = e.Start.Date;
             cal.Visible = false;
+            if (currentBox == toDateText)
+            {
+                toTime = e.Start.Date;
+                if (fromTime == null)
+                    return;
+                else
+                    if (fromTime > toTime)
+                    {
+                        MessageBox.Show("From data cannot be larger than to date");
+                        toDateText.Clear();
+                        fromDateText.Clear();
+
+                    }
+            }
+            else if (currentBox == fromDateText)
+            {
+                fromTime = e.Start.Date;
+            }
         }
 
         # endregion
@@ -267,6 +321,24 @@ namespace IBMConsultantTool
             }
         }
 
+        private void CreateInitiativeToTrack()
+        {
+            if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
+            {
+                InitiativeTrendAnalysis ent = new InitiativeTrendAnalysis();
+                initiatives.Add(ent);
+                trendGridView.DataSource = null;
+                trendGridView.DataSource = initiatives;
+                trendGridView.Refresh();
+                currentlyBeingTracked = "Initiative";
+            }
+            else
+            {
+                MessageBox.Show("You can only track one entity type at a time. Please clear grid and try again.");
+            }
+
+        }
+
         private void showResultsButton_Click(object sender, EventArgs e)
         {
             if (state == TrackingState.Capabilities)
@@ -275,6 +347,8 @@ namespace IBMConsultantTool
                 CreateCUPEQuestionToTrack();
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack();
+            else if (state == TrackingState.Initiatives)
+                CreateInitiativeToTrack();
 
             
         }
@@ -293,6 +367,11 @@ namespace IBMConsultantTool
             attributes.Clear();
             cupes.Clear();
             capabilities.Clear();
+        }
+
+        private void dataPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
 

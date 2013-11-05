@@ -33,6 +33,7 @@
             this.analyticsListBox = new System.Windows.Forms.ListBox();
             this.metricsComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel = new System.Windows.Forms.Panel();
+            this.clearGridButton = new System.Windows.Forms.Button();
             this.itAttributesComboBox = new System.Windows.Forms.ComboBox();
             this.cupeTimeFrameComboBox = new System.Windows.Forms.ComboBox();
             this.cupeAnswerTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -54,7 +55,11 @@
             this.dataPanel = new System.Windows.Forms.Panel();
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.clearGridButton = new System.Windows.Forms.Button();
+            this.initiativesComboBox = new System.Windows.Forms.ComboBox();
+            this.submitQueryButton = new System.Windows.Forms.Button();
+            this.countryComboBox = new System.Windows.Forms.ComboBox();
+            this.countryCheckBox = new System.Windows.Forms.CheckBox();
+            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
@@ -65,7 +70,7 @@
             // 
             this.toDateText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.toDateText.Enabled = false;
-            this.toDateText.Location = new System.Drawing.Point(44, 577);
+            this.toDateText.Location = new System.Drawing.Point(44, 527);
             this.toDateText.Name = "toDateText";
             this.toDateText.ReadOnly = true;
             this.toDateText.Size = new System.Drawing.Size(184, 26);
@@ -78,7 +83,7 @@
             // 
             this.fromDateText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.fromDateText.Enabled = false;
-            this.fromDateText.Location = new System.Drawing.Point(44, 520);
+            this.fromDateText.Location = new System.Drawing.Point(44, 479);
             this.fromDateText.Name = "fromDateText";
             this.fromDateText.ReadOnly = true;
             this.fromDateText.Size = new System.Drawing.Size(184, 26);
@@ -99,14 +104,14 @@
             "IT Attribues"});
             this.analyticsListBox.Location = new System.Drawing.Point(7, 3);
             this.analyticsListBox.Name = "analyticsListBox";
-            this.analyticsListBox.Size = new System.Drawing.Size(130, 144);
+            this.analyticsListBox.Size = new System.Drawing.Size(130, 124);
             this.analyticsListBox.TabIndex = 2;
             this.analyticsListBox.Tag = "All";
             // 
             // metricsComboBox
             // 
             this.metricsComboBox.FormattingEnabled = true;
-            this.metricsComboBox.Location = new System.Drawing.Point(44, 319);
+            this.metricsComboBox.Location = new System.Drawing.Point(44, 280);
             this.metricsComboBox.Name = "metricsComboBox";
             this.metricsComboBox.Size = new System.Drawing.Size(184, 28);
             this.metricsComboBox.TabIndex = 5;
@@ -116,6 +121,10 @@
             // filterPanel
             // 
             this.filterPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.filterPanel.Controls.Add(this.countryCheckBox);
+            this.filterPanel.Controls.Add(this.countryComboBox);
+            this.filterPanel.Controls.Add(this.submitQueryButton);
+            this.filterPanel.Controls.Add(this.initiativesComboBox);
             this.filterPanel.Controls.Add(this.clearGridButton);
             this.filterPanel.Controls.Add(this.itAttributesComboBox);
             this.filterPanel.Controls.Add(this.cupeTimeFrameComboBox);
@@ -139,13 +148,24 @@
             this.filterPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.filterPanel.Location = new System.Drawing.Point(0, 24);
             this.filterPanel.Name = "filterPanel";
-            this.filterPanel.Size = new System.Drawing.Size(231, 705);
+            this.filterPanel.Size = new System.Drawing.Size(240, 705);
             this.filterPanel.TabIndex = 6;
+            // 
+            // clearGridButton
+            // 
+            this.clearGridButton.Location = new System.Drawing.Point(44, 671);
+            this.clearGridButton.Name = "clearGridButton";
+            this.clearGridButton.Size = new System.Drawing.Size(139, 31);
+            this.clearGridButton.TabIndex = 21;
+            this.clearGridButton.Tag = "All";
+            this.clearGridButton.Text = "Clear Grid";
+            this.clearGridButton.UseVisualStyleBackColor = true;
+            this.clearGridButton.Click += new System.EventHandler(this.clearGridButton_Click);
             // 
             // itAttributesComboBox
             // 
             this.itAttributesComboBox.FormattingEnabled = true;
-            this.itAttributesComboBox.Location = new System.Drawing.Point(12, 255);
+            this.itAttributesComboBox.Location = new System.Drawing.Point(9, 235);
             this.itAttributesComboBox.Name = "itAttributesComboBox";
             this.itAttributesComboBox.Size = new System.Drawing.Size(216, 28);
             this.itAttributesComboBox.TabIndex = 20;
@@ -156,7 +176,7 @@
             // cupeTimeFrameComboBox
             // 
             this.cupeTimeFrameComboBox.FormattingEnabled = true;
-            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(44, 255);
+            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(41, 235);
             this.cupeTimeFrameComboBox.Name = "cupeTimeFrameComboBox";
             this.cupeTimeFrameComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeTimeFrameComboBox.TabIndex = 19;
@@ -167,7 +187,7 @@
             // cupeAnswerTypeComboBox
             // 
             this.cupeAnswerTypeComboBox.FormattingEnabled = true;
-            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(44, 203);
+            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(41, 183);
             this.cupeAnswerTypeComboBox.Name = "cupeAnswerTypeComboBox";
             this.cupeAnswerTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeAnswerTypeComboBox.TabIndex = 18;
@@ -178,7 +198,7 @@
             // capabilitiesComboBox
             // 
             this.capabilitiesComboBox.FormattingEnabled = true;
-            this.capabilitiesComboBox.Location = new System.Drawing.Point(12, 203);
+            this.capabilitiesComboBox.Location = new System.Drawing.Point(9, 183);
             this.capabilitiesComboBox.Name = "capabilitiesComboBox";
             this.capabilitiesComboBox.Size = new System.Drawing.Size(216, 28);
             this.capabilitiesComboBox.TabIndex = 17;
@@ -189,7 +209,7 @@
             // cupeQuestionsComboBox
             // 
             this.cupeQuestionsComboBox.FormattingEnabled = true;
-            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(12, 153);
+            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(9, 133);
             this.cupeQuestionsComboBox.Name = "cupeQuestionsComboBox";
             this.cupeQuestionsComboBox.Size = new System.Drawing.Size(216, 28);
             this.cupeQuestionsComboBox.TabIndex = 16;
@@ -200,7 +220,7 @@
             // objectiveNamesComboBox
             // 
             this.objectiveNamesComboBox.FormattingEnabled = true;
-            this.objectiveNamesComboBox.Location = new System.Drawing.Point(12, 153);
+            this.objectiveNamesComboBox.Location = new System.Drawing.Point(9, 133);
             this.objectiveNamesComboBox.Name = "objectiveNamesComboBox";
             this.objectiveNamesComboBox.Size = new System.Drawing.Size(216, 28);
             this.objectiveNamesComboBox.TabIndex = 15;
@@ -210,7 +230,7 @@
             // 
             // showResultsButton
             // 
-            this.showResultsButton.Location = new System.Drawing.Point(44, 609);
+            this.showResultsButton.Location = new System.Drawing.Point(44, 574);
             this.showResultsButton.Name = "showResultsButton";
             this.showResultsButton.Size = new System.Drawing.Size(139, 31);
             this.showResultsButton.TabIndex = 14;
@@ -222,7 +242,7 @@
             // domainsComboBox
             // 
             this.domainsComboBox.FormattingEnabled = true;
-            this.domainsComboBox.Location = new System.Drawing.Point(12, 153);
+            this.domainsComboBox.Location = new System.Drawing.Point(9, 133);
             this.domainsComboBox.Name = "domainsComboBox";
             this.domainsComboBox.Size = new System.Drawing.Size(216, 28);
             this.domainsComboBox.TabIndex = 12;
@@ -233,7 +253,9 @@
             // fromDateCheckBox
             // 
             this.fromDateCheckBox.AutoSize = true;
-            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 520);
+            this.fromDateCheckBox.Checked = true;
+            this.fromDateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 479);
             this.fromDateCheckBox.Name = "fromDateCheckBox";
             this.fromDateCheckBox.Size = new System.Drawing.Size(15, 14);
             this.fromDateCheckBox.TabIndex = 11;
@@ -243,7 +265,9 @@
             // toDateCheckBox
             // 
             this.toDateCheckBox.AutoSize = true;
-            this.toDateCheckBox.Location = new System.Drawing.Point(12, 577);
+            this.toDateCheckBox.Checked = true;
+            this.toDateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toDateCheckBox.Location = new System.Drawing.Point(12, 527);
             this.toDateCheckBox.Name = "toDateCheckBox";
             this.toDateCheckBox.Size = new System.Drawing.Size(15, 14);
             this.toDateCheckBox.TabIndex = 10;
@@ -253,7 +277,9 @@
             // regionCheckBox
             // 
             this.regionCheckBox.AutoSize = true;
-            this.regionCheckBox.Location = new System.Drawing.Point(12, 396);
+            this.regionCheckBox.Checked = true;
+            this.regionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.regionCheckBox.Location = new System.Drawing.Point(12, 332);
             this.regionCheckBox.Name = "regionCheckBox";
             this.regionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.regionCheckBox.TabIndex = 9;
@@ -263,7 +289,9 @@
             // typeCheckBox
             // 
             this.typeCheckBox.AutoSize = true;
-            this.typeCheckBox.Location = new System.Drawing.Point(12, 462);
+            this.typeCheckBox.Checked = true;
+            this.typeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.typeCheckBox.Location = new System.Drawing.Point(12, 428);
             this.typeCheckBox.Name = "typeCheckBox";
             this.typeCheckBox.Size = new System.Drawing.Size(15, 14);
             this.typeCheckBox.TabIndex = 8;
@@ -273,7 +301,9 @@
             // metricCheckBox
             // 
             this.metricCheckBox.AutoSize = true;
-            this.metricCheckBox.Location = new System.Drawing.Point(12, 319);
+            this.metricCheckBox.Checked = true;
+            this.metricCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metricCheckBox.Location = new System.Drawing.Point(12, 280);
             this.metricCheckBox.Name = "metricCheckBox";
             this.metricCheckBox.Size = new System.Drawing.Size(15, 14);
             this.metricCheckBox.TabIndex = 0;
@@ -284,7 +314,7 @@
             // 
             this.regionComboBox.Enabled = false;
             this.regionComboBox.FormattingEnabled = true;
-            this.regionComboBox.Location = new System.Drawing.Point(44, 396);
+            this.regionComboBox.Location = new System.Drawing.Point(44, 332);
             this.regionComboBox.Name = "regionComboBox";
             this.regionComboBox.Size = new System.Drawing.Size(184, 28);
             this.regionComboBox.TabIndex = 7;
@@ -295,7 +325,7 @@
             // 
             this.businessTypeComboBox.Enabled = false;
             this.businessTypeComboBox.FormattingEnabled = true;
-            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 462);
+            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 428);
             this.businessTypeComboBox.Name = "businessTypeComboBox";
             this.businessTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.businessTypeComboBox.TabIndex = 6;
@@ -331,45 +361,90 @@
             this.dataPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.dataPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataPanel.Controls.Add(this.trendGridView);
-            this.dataPanel.Location = new System.Drawing.Point(237, 27);
+            this.dataPanel.Location = new System.Drawing.Point(246, 27);
             this.dataPanel.Name = "dataPanel";
-            this.dataPanel.Size = new System.Drawing.Size(737, 298);
+            this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
+            this.dataPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.dataPanel_Paint);
             // 
             // trendGridView
             // 
             this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trendGridView.Location = new System.Drawing.Point(3, 3);
+            this.trendGridView.Location = new System.Drawing.Point(3, 8);
             this.trendGridView.Name = "trendGridView";
             this.trendGridView.ReadOnly = true;
-            this.trendGridView.Size = new System.Drawing.Size(727, 275);
+            this.trendGridView.Size = new System.Drawing.Size(740, 288);
             this.trendGridView.TabIndex = 0;
             // 
             // chartPanel
             // 
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.chartPanel.Location = new System.Drawing.Point(237, 331);
+            this.chartPanel.Location = new System.Drawing.Point(246, 361);
             this.chartPanel.Name = "chartPanel";
-            this.chartPanel.Size = new System.Drawing.Size(737, 386);
+            this.chartPanel.Size = new System.Drawing.Size(745, 356);
             this.chartPanel.TabIndex = 9;
             // 
-            // clearGridButton
+            // initiativesComboBox
             // 
-            this.clearGridButton.Location = new System.Drawing.Point(44, 662);
-            this.clearGridButton.Name = "clearGridButton";
-            this.clearGridButton.Size = new System.Drawing.Size(139, 31);
-            this.clearGridButton.TabIndex = 21;
-            this.clearGridButton.Tag = "All";
-            this.clearGridButton.Text = "Clear Grid";
-            this.clearGridButton.UseVisualStyleBackColor = true;
-            this.clearGridButton.Click += new System.EventHandler(this.clearGridButton_Click);
+            this.initiativesComboBox.FormattingEnabled = true;
+            this.initiativesComboBox.Location = new System.Drawing.Point(12, 133);
+            this.initiativesComboBox.Name = "initiativesComboBox";
+            this.initiativesComboBox.Size = new System.Drawing.Size(216, 28);
+            this.initiativesComboBox.TabIndex = 22;
+            this.initiativesComboBox.Tag = "Initiatives";
+            this.initiativesComboBox.Text = "<Initiatives>";
+            this.initiativesComboBox.Visible = false;
+            // 
+            // submitQueryButton
+            // 
+            this.submitQueryButton.Location = new System.Drawing.Point(44, 622);
+            this.submitQueryButton.Name = "submitQueryButton";
+            this.submitQueryButton.Size = new System.Drawing.Size(139, 31);
+            this.submitQueryButton.TabIndex = 23;
+            this.submitQueryButton.Tag = "All";
+            this.submitQueryButton.Text = "Submit Query";
+            this.submitQueryButton.UseVisualStyleBackColor = true;
+            // 
+            // countryComboBox
+            // 
+            this.countryComboBox.Enabled = false;
+            this.countryComboBox.FormattingEnabled = true;
+            this.countryComboBox.Location = new System.Drawing.Point(44, 377);
+            this.countryComboBox.Name = "countryComboBox";
+            this.countryComboBox.Size = new System.Drawing.Size(184, 28);
+            this.countryComboBox.TabIndex = 24;
+            this.countryComboBox.Tag = "All";
+            this.countryComboBox.Text = "<Country>";
+            // 
+            // countryCheckBox
+            // 
+            this.countryCheckBox.AutoSize = true;
+            this.countryCheckBox.Checked = true;
+            this.countryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.countryCheckBox.Location = new System.Drawing.Point(12, 377);
+            this.countryCheckBox.Name = "countryCheckBox";
+            this.countryCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.countryCheckBox.TabIndex = 25;
+            this.countryCheckBox.Tag = "All";
+            this.countryCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // graphTypeComboBox
+            // 
+            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.graphTypeComboBox.FormattingEnabled = true;
+            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
+            this.graphTypeComboBox.Name = "graphTypeComboBox";
+            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
+            this.graphTypeComboBox.TabIndex = 10;
+            this.graphTypeComboBox.Text = "<Graph Type>";
             // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.graphTypeComboBox);
             this.Controls.Add(this.chartPanel);
             this.Controls.Add(this.dataPanel);
             this.Controls.Add(this.filterPanel);
@@ -420,5 +495,10 @@
         private System.Windows.Forms.DataGridView trendGridView;
         private System.Windows.Forms.ComboBox itAttributesComboBox;
         private System.Windows.Forms.Button clearGridButton;
+        private System.Windows.Forms.ComboBox initiativesComboBox;
+        private System.Windows.Forms.Button submitQueryButton;
+        private System.Windows.Forms.CheckBox countryCheckBox;
+        private System.Windows.Forms.ComboBox countryComboBox;
+        private System.Windows.Forms.ComboBox graphTypeComboBox;
     }
 }

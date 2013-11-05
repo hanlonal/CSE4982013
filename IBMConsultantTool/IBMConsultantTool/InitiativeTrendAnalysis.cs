@@ -9,6 +9,13 @@ namespace IBMConsultantTool
     {
         private float effectiveness;
 
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
         public float Effectiveness
         {
             get { return effectiveness; }

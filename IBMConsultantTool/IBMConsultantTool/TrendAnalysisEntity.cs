@@ -17,14 +17,7 @@ namespace IBMConsultantTool
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
+        protected string name;
 
         protected string location;
 
