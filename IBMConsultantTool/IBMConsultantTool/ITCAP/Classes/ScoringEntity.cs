@@ -37,19 +37,10 @@ namespace IBMConsultantTool
         protected int numZeros = 0;
 
 
-
-
-
-
         private string capabilityGapText;
 
 
         private string prioritizedGap;
-
-
-
-
-
 
 
 
@@ -166,13 +157,26 @@ namespace IBMConsultantTool
             {
                 asIsScore = value;
 
+                decimal asIs = Convert.ToDecimal(asIsScore);
+                asIs = Math.Round(asIs, 2);
+                asIsScore = (float)asIs;
+
                 this.NotifyPropertyChanged("AsIsScore");
             }
         }
         public float ToBeScore
         {
             get { return toBeScore; }
-            set { toBeScore = value; this.NotifyPropertyChanged("ToBeScore"); }
+            set 
+            { 
+                toBeScore = value;
+
+                decimal toBe = Convert.ToDecimal(toBeScore);
+                toBe = Math.Round(toBe, 2);
+                toBeScore = (float)toBe;
+
+                this.NotifyPropertyChanged("ToBeScore");
+            }
         }
         [Browsable(false)]
         public bool IsDefault

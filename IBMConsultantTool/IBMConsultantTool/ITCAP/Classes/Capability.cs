@@ -74,6 +74,11 @@ namespace IBMConsultantTool
             asIsScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
             owner.CalculateAsIsAverage();
             CalculateCapabilityGap();
+
+            decimal asIs = Convert.ToDecimal(asIsScore);
+            asIs = Math.Round(asIs, 2);
+            asIsScore = (float)asIs;
+
             return asIsScore;
         }
 
@@ -240,6 +245,11 @@ namespace IBMConsultantTool
             toBeScore = activeQuestionCount == 0 ? 0 : total / activeQuestionCount;
             owner.CalculateToBeAverage();
             CalculateCapabilityGap();
+
+            decimal toBe = Convert.ToDecimal(toBeScore);
+            toBe = Math.Round(toBe, 2);
+            toBeScore = (float)toBe;
+
             return toBeScore;
         }
 

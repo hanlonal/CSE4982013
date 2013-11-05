@@ -749,11 +749,8 @@ namespace IBMConsultantTool
                     }
                     else
                     {
-                        //System.Diagnostics.Trace.WriteLine("Y less");
                         circle[currentCircle].Top = lineY.Y2;
                         circle[currentCircle].Top -= circle[currentCircle].Height / 2;
-                        //System.Diagnostics.Trace.WriteLine("new circle: " + circle[i].Top.ToString());
-
                     }
                     double newDifferentiation = (double)(circle[currentCircle].Left + circle[currentCircle].Height / 2 - 30) / (double)((lineX.X2 - lineX.X1) / 10);
                     float newCriticality = (float)(lineY.Y2 - circle[currentCircle].Top - circle[currentCircle].Height / 2) / (float)((lineY.Y2 - lineY.Y1) / 10);

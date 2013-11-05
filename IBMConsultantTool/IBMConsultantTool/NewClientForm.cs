@@ -84,5 +84,10 @@ namespace IBMConsultantTool
             get { return owner; }
             set { owner = value; }
         }
+
+        private void startDateText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

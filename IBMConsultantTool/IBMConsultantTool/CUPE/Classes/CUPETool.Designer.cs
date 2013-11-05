@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -63,13 +69,14 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.questionGridBusinessCurrent = new System.Windows.Forms.DataGridView();
+            this.Header = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numAnswers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avgScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.busiCurrentRadioButton = new System.Windows.Forms.RadioButton();
             this.itCurrentRadioButton = new System.Windows.Forms.RadioButton();
             this.questionGridITCurrent = new System.Windows.Forms.DataGridView();
@@ -158,13 +165,6 @@
             this.iTCapabilityToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beginTutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Header = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numAnswers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avgScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.busiCurrentGraph)).BeginInit();
@@ -180,8 +180,8 @@
             // 
             // questionGridBusinessCurrent
             // 
-            this.questionGridBusinessCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridBusinessCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridBusinessCurrent.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridBusinessCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridBusinessCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -201,6 +201,80 @@
             this.questionGridBusinessCurrent.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             this.questionGridBusinessCurrent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.cellClick);
             this.questionGridBusinessCurrent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cellClick);
+            // 
+            // Header
+            // 
+            this.Header.Frozen = true;
+            this.Header.HeaderText = "Questions";
+            this.Header.Name = "Header";
+            this.Header.ReadOnly = true;
+            this.Header.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Header.Width = 150;
+            // 
+            // TotalA
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalA.DefaultCellStyle = dataGridViewCellStyle1;
+            this.TotalA.HeaderText = "Total A";
+            this.TotalA.Name = "TotalA";
+            this.TotalA.ReadOnly = true;
+            this.TotalA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TotalA.Width = 50;
+            // 
+            // TotalB
+            // 
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalB.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TotalB.HeaderText = "Total B";
+            this.TotalB.Name = "TotalB";
+            this.TotalB.ReadOnly = true;
+            this.TotalB.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TotalB.Width = 50;
+            // 
+            // TotalC
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalC.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TotalC.HeaderText = "Total C";
+            this.TotalC.Name = "TotalC";
+            this.TotalC.ReadOnly = true;
+            this.TotalC.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TotalC.Width = 50;
+            // 
+            // TotalD
+            // 
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalD.DefaultCellStyle = dataGridViewCellStyle4;
+            this.TotalD.HeaderText = "Total D";
+            this.TotalD.Name = "TotalD";
+            this.TotalD.ReadOnly = true;
+            this.TotalD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TotalD.Width = 50;
+            // 
+            // numAnswers
+            // 
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numAnswers.DefaultCellStyle = dataGridViewCellStyle5;
+            this.numAnswers.HeaderText = "Total Answers";
+            this.numAnswers.Name = "numAnswers";
+            this.numAnswers.ReadOnly = true;
+            this.numAnswers.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.numAnswers.Width = 80;
+            // 
+            // avgScore
+            // 
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avgScore.DefaultCellStyle = dataGridViewCellStyle6;
+            this.avgScore.HeaderText = "Average Score";
+            this.avgScore.Name = "avgScore";
+            this.avgScore.ReadOnly = true;
+            this.avgScore.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // busiCurrentRadioButton
             // 
@@ -232,8 +306,8 @@
             // 
             // questionGridITCurrent
             // 
-            this.questionGridITCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridITCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridITCurrent.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridITCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridITCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -335,6 +409,7 @@
             chartArea1.BorderWidth = 4;
             chartArea1.Name = "ChartArea1";
             this.busiCurrentGraph.ChartAreas.Add(chartArea1);
+            this.busiCurrentGraph.Cursor = System.Windows.Forms.Cursors.Default;
             legend1.Name = "Legend1";
             this.busiCurrentGraph.Legends.Add(legend1);
             this.busiCurrentGraph.Location = new System.Drawing.Point(637, 50);
@@ -342,6 +417,7 @@
             this.busiCurrentGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.EmptyPointStyle.IsVisibleInLegend = false;
             series1.Legend = "Legend1";
             series1.Name = "BusiCurrent";
             this.busiCurrentGraph.Series.Add(series1);
@@ -424,9 +500,9 @@
             // 
             // questionInfoPanel
             // 
-            this.questionInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.questionInfoPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.questionInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.questionInfoPanel.Controls.Add(this.QuestionView);
@@ -444,8 +520,8 @@
             // 
             // QuestionView
             // 
-            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionView.Cursor = System.Windows.Forms.Cursors.Default;
             this.QuestionView.LabelEdit = true;
             this.QuestionView.Location = new System.Drawing.Point(565, 6);
@@ -522,8 +598,8 @@
             // 
             // questionGridBusiFuture
             // 
-            this.questionGridBusiFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridBusiFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridBusiFuture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridBusiFuture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridBusiFuture.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -614,8 +690,8 @@
             // 
             // questionGridITFuture
             // 
-            this.questionGridITFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridITFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridITFuture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridITFuture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridITFuture.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -756,7 +832,7 @@
             this.itCurrentGraph.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
             this.itCurrentGraph.Legends.Add(legend3);
-            this.itCurrentGraph.Location = new System.Drawing.Point(637, 50);
+            this.itCurrentGraph.Location = new System.Drawing.Point(636, 50);
             this.itCurrentGraph.Name = "itCurrentGraph";
             this.itCurrentGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series3.ChartArea = "ChartArea1";
@@ -787,7 +863,7 @@
             this.itFutureGraph.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
             this.itFutureGraph.Legends.Add(legend4);
-            this.itFutureGraph.Location = new System.Drawing.Point(637, 50);
+            this.itFutureGraph.Location = new System.Drawing.Point(636, 50);
             this.itFutureGraph.Name = "itFutureGraph";
             this.itFutureGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series4.ChartArea = "ChartArea1";
@@ -1158,80 +1234,6 @@
             this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
             this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
-            // 
-            // Header
-            // 
-            this.Header.Frozen = true;
-            this.Header.HeaderText = "Questions";
-            this.Header.Name = "Header";
-            this.Header.ReadOnly = true;
-            this.Header.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Header.Width = 150;
-            // 
-            // TotalA
-            // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalA.DefaultCellStyle = dataGridViewCellStyle1;
-            this.TotalA.HeaderText = "Total A";
-            this.TotalA.Name = "TotalA";
-            this.TotalA.ReadOnly = true;
-            this.TotalA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalA.Width = 50;
-            // 
-            // TotalB
-            // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalB.DefaultCellStyle = dataGridViewCellStyle2;
-            this.TotalB.HeaderText = "Total B";
-            this.TotalB.Name = "TotalB";
-            this.TotalB.ReadOnly = true;
-            this.TotalB.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalB.Width = 50;
-            // 
-            // TotalC
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalC.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TotalC.HeaderText = "Total C";
-            this.TotalC.Name = "TotalC";
-            this.TotalC.ReadOnly = true;
-            this.TotalC.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalC.Width = 50;
-            // 
-            // TotalD
-            // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalD.DefaultCellStyle = dataGridViewCellStyle4;
-            this.TotalD.HeaderText = "Total D";
-            this.TotalD.Name = "TotalD";
-            this.TotalD.ReadOnly = true;
-            this.TotalD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalD.Width = 50;
-            // 
-            // numAnswers
-            // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numAnswers.DefaultCellStyle = dataGridViewCellStyle5;
-            this.numAnswers.HeaderText = "Total Answers";
-            this.numAnswers.Name = "numAnswers";
-            this.numAnswers.ReadOnly = true;
-            this.numAnswers.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.numAnswers.Width = 80;
-            // 
-            // avgScore
-            // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avgScore.DefaultCellStyle = dataGridViewCellStyle6;
-            this.avgScore.HeaderText = "Average Score";
-            this.avgScore.Name = "avgScore";
-            this.avgScore.ReadOnly = true;
-            this.avgScore.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // CUPETool
             // 

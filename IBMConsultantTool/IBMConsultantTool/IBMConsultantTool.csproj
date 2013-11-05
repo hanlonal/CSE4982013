@@ -296,6 +296,7 @@
     <Compile Include="TestITCap.Designer.cs">
       <DependentUpon>TestITCap.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrendAnalysisEntity.cs" />
     <EmbeddedResource Include="AnalyticsForm.resx">
       <DependentUpon>AnalyticsForm.cs</DependentUpon>
     </EmbeddedResource>

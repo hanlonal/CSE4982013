@@ -10,8 +10,6 @@ namespace IBMConsultantTool
         private List<Capability> capabilitiesOwned = new List<Capability>();
         private int totalChildren = 0;
 
-
-
         public Domain()
         {
             
@@ -51,6 +49,11 @@ namespace IBMConsultantTool
                 }
             }
             asIsScore = activeCaps == 0 ? 0 : total / activeCaps;
+
+            decimal asIs = Convert.ToDecimal(asIsScore);
+            asIs = Math.Round(asIs, 2);
+            asIsScore = (float)asIs;
+
             return asIsScore;
         }
 
@@ -67,6 +70,10 @@ namespace IBMConsultantTool
                 }
             }
             toBeScore = activeCaps == 0 ? 0 : total / activeCaps;
+
+            decimal toBe = Convert.ToDecimal(toBeScore);
+            toBe = Math.Round(toBe, 2);
+            toBeScore = (float)toBe;
 
             return toBeScore;
         }
