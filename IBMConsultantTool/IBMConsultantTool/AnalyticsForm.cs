@@ -75,9 +75,16 @@ namespace IBMConsultantTool
 
             List<String> names = new List<string>();
 
-           // names = db.(domainsComboBox.SelectedText).ToList();
-
+            names = db.GetCapabilitiesFromDomain(domainsComboBox.SelectedText);
+           
             capabilitiesComboBox.DataSource = names;
+            Console.WriteLine("Adasd");
+
+           
+            foreach (string h in names)
+            {
+                Console.WriteLine(h);
+            }
 
         }
 
