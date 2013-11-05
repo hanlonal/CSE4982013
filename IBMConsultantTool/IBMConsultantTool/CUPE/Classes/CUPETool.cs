@@ -2913,7 +2913,7 @@ namespace IBMConsultantTool
         {
             var Powah = new PowerPointGenerator();
 
-            Powah.CreatePowerPoint();
+            Powah.ReplaceTemplatePowerpoint();
         }
 
 

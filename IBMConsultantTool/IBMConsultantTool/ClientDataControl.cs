@@ -238,5 +238,10 @@ namespace IBMConsultantTool
             db.SaveCUPEParticipants();
         }
 
+        public static List<NewCategory> GetBomCategories()
+        {
+            return bomCategories;
+
+        }
     }
 }

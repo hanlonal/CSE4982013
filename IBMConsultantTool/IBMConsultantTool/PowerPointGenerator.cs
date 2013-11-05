@@ -121,5 +121,105 @@ namespace IBMConsultantTool
 
         }
 
+
+
+        public void ReplaceTemplatePowerpoint()
+        {
+            String strTemplate, strPic;
+            strTemplate = Directory.GetCurrentDirectory() + "\\Resources\\ITPlanningTemplate.ppt";
+            String strBubblePic = Directory.GetCurrentDirectory() + "\\Charts\\BubbleChart.jpg";
+            String strITCUPECurr = Directory.GetCurrentDirectory() + "\\Charts\\IT Current CUPE Responses.jpg";
+            String strITCUPEFut = Directory.GetCurrentDirectory() + "\\Charts\\IT Future CUPE Responses.jpg";
+            String strITBUSCurr = Directory.GetCurrentDirectory() + "\\Charts\\Business Current CUPE Responses.jpg";
+            String strITBUSFut = Directory.GetCurrentDirectory() + "\\Charts\\Business Future CUPE Responses.jpg";
+            strPic = Directory.GetCurrentDirectory() + "\\Resources\\Add record.png";
+
+            Power.Slides objSlides;
+            Power._Slide objSlide;
+
+
+            //Create a new presentation based on a template.
+            Power.Application ppApp = new Power.Application();
+            ppApp.Visible = Microsoft.Office.Core.MsoTriState.msoTrue;
+            Power.Presentations ppPresens = ppApp.Presentations; 
+            Power.Presentation objPres = ppPresens.Open(strTemplate,
+                Microsoft.Office.Core.MsoTriState.msoFalse,
+                Microsoft.Office.Core.MsoTriState.msoTrue,
+                Microsoft.Office.Core.MsoTriState.msoTrue);
+            objSlides = objPres.Slides;
+
+            //Slide 10
+            //Replace the bullets on Slide 10
+            //
+            objSlide = objSlides[10];
+
+            Power.Shape objShape = objSlide.Shapes[4];
+            String tempString = string.Empty;
+            //TODO: change this to objectives
+            foreach (string BomCat in ClientDataControl.db.GetCategoryNames())
+            {
+                tempString += BomCat + "\r";
+            }
+            objShape.TextFrame.TextRange.Text = tempString;
+            ///
+
+
+            //Slide 12
+            //Replace the bubblechart picture on slide 12
+            //
+            objSlide = objSlides[12];
+
+            objSlide.Shapes[2].Delete();
+
+
+            objSlide.Shapes.AddPicture(strBubblePic, Microsoft.Office.Core.MsoTriState.msoFalse,
+                    Microsoft.Office.Core.MsoTriState.msoTrue, 100, 100, 490, 275);
+            //Change the text on slide 12
+
+            objShape = objSlide.Shapes[3];
+
+            tempString = string.Empty + "Business Imperatives:\v\v ";
+
+            //TODO: Replace with initiatives
+            foreach(String s in ClientDataControl.db.GetDomainNames())
+            {
+                tempString += s + "\t\t";
+            }
+            objShape.TextFrame.TextRange.Text = tempString;
+            ///
+
+            ///Slide 19
+            ///
+            objSlide = objSlides[19];
+            objShape = objSlide.Shapes[3];
+            objShape.Delete();
+            objShape = objSlide.Shapes[3];
+            objShape.Delete();
+            objShape = objSlide.Shapes[3];
+            objShape.Delete();
+            objShape = objSlide.Shapes[3];
+            objShape.Delete();
+            objShape = objSlide.Shapes[4];
+            objShape.Delete();
+            objShape = objSlide.Shapes[4];
+            objShape.Delete();
+
+            objSlide.Shapes.AddPicture(strITBUSCurr, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 80, 120, 300, 200);
+            objSlide.Shapes.AddPicture(strITBUSFut, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 80, 320, 300, 200);
+            objSlide.Shapes.AddPicture(strITCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 360, 120, 300, 200);
+            objSlide.Shapes.AddPicture(strITCUPEFut, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 360, 320, 300, 200);
+
+            ///
+
+            
+
+
+
+        }
+
     }
 }

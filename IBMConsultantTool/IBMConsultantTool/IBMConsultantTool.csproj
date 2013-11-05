@@ -541,6 +541,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Data.xml" />
+    <Content Include="Resources\ITPlanningTemplate.ppt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\startpage logo.png" />
     <None Include="Resources\exclamation.gif" />
     <None Include="Resources\ibm_logo.png" />
