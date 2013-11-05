@@ -50,6 +50,11 @@ namespace IBMConsultantTool
             return isOnline;
         }
 
+        public static void LoadParticipants()
+        {
+            db.LoadParticipants();
+        }
+
         public static void LoadCUPEQuestions(CUPETool cupeForm)
         {
             cupeQuestions = db.GetCUPESForClient();
@@ -215,6 +220,21 @@ namespace IBMConsultantTool
         public static List<CupeQuestionData> GetCupeQuestionData()
         {
             return db.GetCUPEQuestionData();
+        }
+
+        public static void SaveCUPE()
+        {
+            foreach (CupeQuestionStringData stringData in cupeQuestions)
+            {
+                db.UpdateCUPE(stringData);
+            }
+
+            db.SaveCUPEParticipants();
+        }
+
+        public static void SaveParticipantsToDB()
+        {
+            db.SaveCUPEParticipants();
         }
 
     }

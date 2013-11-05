@@ -144,6 +144,7 @@ namespace IBMConsultantTool
             tempList.OrderBy(o => o.ID);
 
             ClientDataControl.SetParticipants(tempList);
+            ClientDataControl.SaveParticipantsToDB();
         }
 
         private void participantsGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)

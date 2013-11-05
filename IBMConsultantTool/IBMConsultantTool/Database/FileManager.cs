@@ -82,6 +82,8 @@ namespace IBMConsultantTool
             }
 
             client.Add(new XElement("GROUPS"));
+            AddGroup("Business", client);
+            AddGroup("IT", client);
             client.Add(new XElement("BOMS"));
             client.Add(new XElement("CUPES"));
             client.Add(new XElement("ITCAPS"));
@@ -248,6 +250,23 @@ namespace IBMConsultantTool
 
         #region Group
         //group is a keyword in C#
+        public bool GetGroup(string grpName, XElement client, out XElement grp)
+        {
+            try
+            {
+                grp = (from ent in client.Element("GROUPS").Elements("GROUP")
+                       where ent.Element("NAME").Value == grpName
+                       select ent).Single();
+            }
+
+            catch
+            {
+                grp = null;
+                return false;
+            }
+
+            return true;
+        }
         public bool AddGroup(string grpName, XElement client)
         {
             //If Client points to 2 BOMs with same Initiative, return false
@@ -270,6 +289,37 @@ namespace IBMConsultantTool
                             client.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
+        }
+        #endregion
+
+        #region Contact
+        public override void LoadParticipants()
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            XElement busGrp;
+            XElement itGrp;
+            GetGroup("Business", client, out busGrp);
+            GetGroup("IT", client, out itGrp);
+            Person person;
+            List<XElement> busContacts = busGrp.Element("CONTACTS").Elements("CONTACT").ToList();
+            List<XElement> itContacts = itGrp.Element("CONTACTS").Elements("CONTACT").ToList();
+            foreach (XElement contact in busContacts)
+            {
+                person = new Person();
+                person.Name = contact.Element("NAME").Value;
+                person.Email = contact.Element("EMAIL").Value;
+                person.Type = Person.EmployeeType.Business;
+                ClientDataControl.AddParticipant(person);
+            }
+
+            foreach (XElement contact in itContacts)
+            {
+                person = new Person();
+                person.Name = contact.Element("NAME").Value;
+                person.Email = contact.Element("EMAIL").Value;
+                person.Type = Person.EmployeeType.IT;
+                ClientDataControl.AddParticipant(person);
+            }
         }
         #endregion
 
@@ -1242,7 +1292,13 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future)
+
+        public override void SaveCUPEParticipants()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion)
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             try
@@ -1255,15 +1311,12 @@ namespace IBMConsultantTool
                 cupe.Element("UTILITY").Value = cupeQuestion.ChoiceB;
                 cupe.Element("PARTNER").Value = cupeQuestion.ChoiceC;
                 cupe.Element("ENABLER").Value = cupeQuestion.ChoiceD;
-                cupe.Element("CURRENT").Value = current;
-                cupe.Element("FUTURE").Value = future;
 
                 changeLog.Add("UPDATE CUPE " + cupeQuestion.QuestionText.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceA.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceB.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceC.Replace(' ', '~') + " " +
-                              cupeQuestion.ChoiceD.Replace(' ', '~') + " " +
-                              current + " " + future);
+                              cupeQuestion.ChoiceD.Replace(' ', '~'));
             }
 
             catch
@@ -1306,8 +1359,6 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
             cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
             cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
-            cupe.Add(new XElement("CURRENT", "A"));
-            cupe.Add(new XElement("FUTURE", "A"));
             client.Element("CUPES").Add(cupe);
 
             changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));

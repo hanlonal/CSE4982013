@@ -34,6 +34,7 @@ namespace IBMConsultantTool
         #endregion
 
         #region Contact
+        public abstract void LoadParticipants();
         #endregion
 
         #region BOM
@@ -82,7 +83,7 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public abstract bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future);
+        public abstract bool UpdateCUPE(CupeQuestionStringData cupeQuestion);
 
         public abstract bool AddCUPE(string question, object clientObj);
         public abstract bool AddCUPEToGroup(string question, object groupObj);
@@ -90,7 +91,8 @@ namespace IBMConsultantTool
 
         public abstract void PopulateCUPEQuestionsForClient(CUPETool cupeForm);
         public abstract List<CupeQuestionStringData> GetCUPESForClient();
-        //public abstract void EditQuestionForCUPE(CLIENT client, CupeQuestionStringData data);
+
+        public abstract void SaveCUPEParticipants();
         #endregion
 
         #region Domain

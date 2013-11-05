@@ -61,6 +61,9 @@ namespace IBMConsultantTool
                 return false;
             }
 
+            AddGroup("Business", client);
+            AddGroup("IT", client);
+
             dbo.AddToCLIENT(client);
 
             return true;
@@ -278,6 +281,33 @@ namespace IBMConsultantTool
         #endregion
 
         #region Contact
+
+        public override void LoadParticipants()
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            GROUP busGrp;
+            GROUP itGrp;
+            GetGroup("Business", client, out busGrp);
+            GetGroup("IT", client, out itGrp);
+            Person person;
+            foreach (CONTACT contact in busGrp.CONTACT)
+            {
+                person = new Person();
+                person.Name = contact.NAME.TrimEnd();
+                person.Email = contact.EMAIL.TrimEnd();
+                person.Type = Person.EmployeeType.Business;
+                ClientDataControl.AddParticipant(person);
+            }
+
+            foreach (CONTACT contact in itGrp.CONTACT)
+            {
+                person = new Person();
+                person.Name = contact.NAME.TrimEnd();
+                person.Email = contact.EMAIL.TrimEnd();
+                person.Type = Person.EmployeeType.IT;
+                ClientDataControl.AddParticipant(person);
+            }
+        }
 
         public bool GetContact(string contactName, GROUP grp, out CONTACT contact)
         {
@@ -1161,14 +1191,70 @@ namespace IBMConsultantTool
 
         #region CUPE
 
+        public override void SaveCUPEParticipants()
+        {
+            List<Person> personList = ClientDataControl.GetParticipants();
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            GROUP busGrp;
+            GROUP itGrp;
+            if (!GetGroup("Business", client, out busGrp))
+            {
+                AddGroup("Business", client);
+                GetGroup("Business", client, out busGrp);
+            }
+            if(!GetGroup("IT", client, out itGrp))
+            {
+                AddGroup("IT", client);
+                GetGroup("IT", client, out itGrp);
+            }
+            CONTACT contact;
+            foreach (Person person in personList)
+            {
+                if (person.Type == Person.EmployeeType.Business)
+                {
+                    if (GetContact(person.Name, busGrp, out contact))
+                    {
+                        contact.EMAIL = person.Email;
+                    }
+
+                    else
+                    {
+                        contact = new CONTACT();
+                        contact.NAME = person.Name;
+                        contact.EMAIL = person.Email;
+                        busGrp.CONTACT.Add(contact);
+                        dbo.AddToCONTACT(contact);
+                    }
+                }
+
+                else if(person.Type == Person.EmployeeType.IT)
+                {
+                    if (GetContact(person.Name, itGrp, out contact))
+                    {
+                        contact.EMAIL = person.Email;
+                    }
+
+                    else
+                    {
+                        contact = new CONTACT();
+                        contact.NAME = person.Name;
+                        contact.EMAIL = person.Email;
+                        itGrp.CONTACT.Add(contact);
+                        dbo.AddToCONTACT(contact);
+                    }
+                }
+            }
+        }
+
         public override List<CupeQuestionStringData> GetCUPESForClient()
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             List<CUPE> cupeList = client.CUPE.ToList();
             List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
-            CupeQuestionStringData data = new CupeQuestionStringData();
+            CupeQuestionStringData data;
             foreach (CUPE cupe in cupeList)
             {
+                data = new CupeQuestionStringData();
                 data.OriginalQuestionText = cupe.CUPEQUESTION.NAME.TrimEnd();
                 data.QuestionText = cupe.NAME.TrimEnd();
                 data.ChoiceA = cupe.COMMODITY.TrimEnd();
@@ -1181,7 +1267,7 @@ namespace IBMConsultantTool
             return cupeQuestions;
         }
 
-        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion, string current, string future)
+        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion)
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             try
@@ -1195,8 +1281,6 @@ namespace IBMConsultantTool
                 cupe.UTILITY = cupeQuestion.ChoiceB;
                 cupe.PARTNER = cupeQuestion.ChoiceC;
                 cupe.ENABLER = cupeQuestion.ChoiceD;
-                cupe.CURRENT = current;
-                cupe.FUTURE = future;
             }
 
             catch
@@ -1822,6 +1906,62 @@ namespace IBMConsultantTool
         #endregion
 
         #region TrendAnalysis
+        public List<string> GetObjectivesFromCategory(string catName)
+        {
+            CATEGORY category;
+            if (GetCategory(catName, out category))
+            {
+                return ((from ent in category.BUSINESSOBJECTIVE
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
+        public List<string> GetInitiativesFromObjective(string busName)
+        {
+            BUSINESSOBJECTIVE objective;
+            if (GetObjective(busName, out objective))
+            {
+                return ((from ent in objective.INITIATIVE
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
+        public List<string> GetCapabilitiesFromDomain(string domName)
+        {
+            DOMAIN domain;
+            if (GetDomain(domName, out domain))
+            {
+                return ((from ent in domain.CAPABILITY
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
+        public List<string> GetAttributesFromCapability(string capName)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                return ((from ent in capability.ITCAPQUESTION
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
         public List<BOM> GetBOMSForInitiative(string iniName)
         {
             INITIATIVE initiative;
@@ -1858,6 +1998,24 @@ namespace IBMConsultantTool
             {
                 return (from ent in initiative.BOM
                         where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string busTypeName)
+        {
+            INITIATIVE initiative;
+            if (GetInitiative(iniName, out initiative))
+            {
+                return (from ent in initiative.BOM
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
                         select ent).ToList();
             }
@@ -1928,6 +2086,29 @@ namespace IBMConsultantTool
                 return null;
             }
         }
+        public List<CUPE> GetCUPESForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string busTypeName)
+        {
+            CUPEQUESTION cq;
+            try
+            {
+                cq = (from ent in dbo.CUPEQUESTION
+                      where ent.NAME.TrimEnd() == cqName
+                      select ent).Single();
+
+                return (from ent in cq.CUPE
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
 
         public List<ITCAP> GetITCAPSForAttribute(string itcqName)
         {
@@ -1979,6 +2160,29 @@ namespace IBMConsultantTool
 
                 return (from ent in itcq.ITCAP
                         where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                        select ent).ToList();
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<ITCAP> GetITCAPSForAttributeRegionAndBusinessType(string itcqName, string regName, string busTypeName)
+        {
+            ITCAPQUESTION itcq;
+            try
+            {
+                itcq = (from ent in dbo.ITCAPQUESTION
+                        where ent.NAME.TrimEnd() == itcqName
+                        select ent).Single();
+
+                return (from ent in itcq.ITCAP
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
                         select ent).ToList();
 
@@ -2072,8 +2276,6 @@ namespace IBMConsultantTool
                         {
                             XElement tempCUPE = new XElement("CUPE");
                             tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd()));
-                            tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
-                            tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
                             tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd()));
                             tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd()));
                             tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd()));
@@ -2121,8 +2323,6 @@ namespace IBMConsultantTool
                     {
                         XElement tempCUPE = new XElement("CUPE");
                         tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd()));
-                        tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
-                        tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
                         tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd()));
                         tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd()));
                         tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd()));
@@ -2169,8 +2369,6 @@ namespace IBMConsultantTool
                 {
                     XElement tempCUPE = new XElement("CUPE");
                     tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd()));
-                    tempCUPE.Add(new XElement("CURRENT", cupe.CURRENT));
-                    tempCUPE.Add(new XElement("FUTURE", cupe.FUTURE));
                     tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd()));
                     tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd()));
                     tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd()));

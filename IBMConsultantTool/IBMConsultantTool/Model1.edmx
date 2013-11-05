@@ -15,6 +15,7 @@
           <EntitySet Name="CONTACT" EntityType="CAPSTONEModel.Store.CONTACT" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="CUPE" EntityType="CAPSTONEModel.Store.CUPE" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="CUPEQUESTION" EntityType="CAPSTONEModel.Store.CUPEQUESTION" store:Type="Tables" Schema="SCHEMA" />
+          <EntitySet Name="CUPERESPONSE" EntityType="CAPSTONEModel.Store.CUPERESPONSE" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="DOMAIN" EntityType="CAPSTONEModel.Store.DOMAIN" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="GROUP" EntityType="CAPSTONEModel.Store.GROUP" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="INITIATIVE" EntityType="CAPSTONEModel.Store.INITIATIVE" store:Type="Tables" Schema="SCHEMA" />
@@ -73,6 +74,14 @@
           <AssociationSet Name="CUPE_GROUP_FK" Association="CAPSTONEModel.Store.CUPE_GROUP_FK">
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="CUPE" EntitySet="CUPE" />
+          </AssociationSet>
+          <AssociationSet Name="CUPERESPO_CONT_FK" Association="CAPSTONEModel.Store.CUPERESPO_CONT_FK">
+            <End Role="CONTACT" EntitySet="CONTACT" />
+            <End Role="CUPERESPONSE" EntitySet="CUPERESPONSE" />
+          </AssociationSet>
+          <AssociationSet Name="CUPERESPON_CUPE_FK" Association="CAPSTONEModel.Store.CUPERESPON_CUPE_FK">
+            <End Role="CUPE" EntitySet="CUPE" />
+            <End Role="CUPERESPONSE" EntitySet="CUPERESPONSE" />
           </AssociationSet>
           <AssociationSet Name="GROUP_CLIENT_FK" Association="CAPSTONEModel.Store.GROUP_CLIENT_FK">
             <End Role="CLIENT" EntitySet="CLIENT" />
@@ -180,7 +189,6 @@
           <Property Name="CONTACTID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="character" MaxLength="40" />
           <Property Name="EMAIL" Type="character" MaxLength="50" />
-          <Property Name="PHONE" Type="character" MaxLength="10" />
           <Property Name="GROUPID" Type="integer" />
         </EntityType>
         <EntityType Name="CUPE">
@@ -188,13 +196,11 @@
             <PropertyRef Name="CUPEID" />
           </Key>
           <Property Name="CUPEID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CURRENT" Type="character" />
-          <Property Name="FUTURE" Type="character" />
           <Property Name="NAME" Type="character" MaxLength="150" />
-          <Property Name="COMMODITY" Type="character" MaxLength="150" />
-          <Property Name="UTILITY" Type="character" MaxLength="150" />
-          <Property Name="PARTNER" Type="character" MaxLength="150" />
-          <Property Name="ENABLER" Type="character" MaxLength="150" />
+          <Property Name="COMMODITY" Type="character" MaxLength="250" />
+          <Property Name="UTILITY" Type="character" MaxLength="250" />
+          <Property Name="PARTNER" Type="character" MaxLength="250" />
+          <Property Name="ENABLER" Type="character" MaxLength="250" />
           <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUP" Type="integer" />
           <Property Name="CONTACTID" Type="integer" />
@@ -206,13 +212,23 @@
           </Key>
           <Property Name="CUPEQUESTIONID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="character" MaxLength="150" />
-          <Property Name="COMMODITY" Type="character" MaxLength="150" />
-          <Property Name="UTILITY" Type="character" MaxLength="150" />
-          <Property Name="PARTNER" Type="character" MaxLength="150" />
-          <Property Name="ENABLER" Type="character" MaxLength="150" />
+          <Property Name="COMMODITY" Type="character" MaxLength="250" />
+          <Property Name="UTILITY" Type="character" MaxLength="250" />
+          <Property Name="PARTNER" Type="character" MaxLength="250" />
+          <Property Name="ENABLER" Type="character" MaxLength="250" />
           <Property Name="INTWENTY" Type="character" />
           <Property Name="INFIFTEEN" Type="character" />
           <Property Name="INTEN" Type="character" />
+        </EntityType>
+        <EntityType Name="CUPERESPONSE">
+          <Key>
+            <PropertyRef Name="CUPERESPONSEID" />
+          </Key>
+          <Property Name="CUPERESPONSEID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CURRENT" Type="character" />
+          <Property Name="FUTURE" Type="character" />
+          <Property Name="CUPEID" Type="integer" />
+          <Property Name="CONTACTID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="DOMAIN">
           <Key>
@@ -265,7 +281,7 @@
           <Key>
             <PropertyRef Name="ITCAPQUESTIONID" />
           </Key>
-          <Property Name="NAME" Type="character" Nullable="false" MaxLength="150" />
+          <Property Name="NAME" Type="character" Nullable="false" MaxLength="200" />
           <Property Name="ITCAPQUESTIONID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="DEFAULT" Type="character" Nullable="false" />
           <Property Name="CAPABILITYID" Type="integer" Nullable="false" />
@@ -459,6 +475,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="CUPERESPO_CONT_FK">
+          <End Role="CONTACT" Type="CAPSTONEModel.Store.CONTACT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CUPERESPONSE" Type="CAPSTONEModel.Store.CUPERESPONSE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTACT">
+              <PropertyRef Name="CONTACTID" />
+            </Principal>
+            <Dependent Role="CUPERESPONSE">
+              <PropertyRef Name="CONTACTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CUPERESPON_CUPE_FK">
+          <End Role="CUPE" Type="CAPSTONEModel.Store.CUPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CUPERESPONSE" Type="CAPSTONEModel.Store.CUPERESPONSE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUPE">
+              <PropertyRef Name="CUPEID" />
+            </Principal>
+            <Dependent Role="CUPERESPONSE">
+              <PropertyRef Name="CUPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="GROUP_CLIENT_FK">
           <End Role="CLIENT" Type="CAPSTONEModel.Store.CLIENT" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -614,6 +658,7 @@
           <EntitySet Name="CONTACT" EntityType="CAPSTONEModel.CONTACT" />
           <EntitySet Name="CUPE" EntityType="CAPSTONEModel.CUPE" />
           <EntitySet Name="CUPEQUESTION" EntityType="CAPSTONEModel.CUPEQUESTION" />
+          <EntitySet Name="CUPERESPONSE" EntityType="CAPSTONEModel.CUPERESPONSE" />
           <EntitySet Name="DOMAIN" EntityType="CAPSTONEModel.DOMAIN" />
           <EntitySet Name="GROUP" EntityType="CAPSTONEModel.GROUP" />
           <EntitySet Name="INITIATIVE" EntityType="CAPSTONEModel.INITIATIVE" />
@@ -693,6 +738,10 @@
             <End Role="CONTACT" EntitySet="CONTACT" />
             <End Role="CUPE" EntitySet="CUPE" />
           </AssociationSet>
+          <AssociationSet Name="CUPERESPO_CONT_FK" Association="CAPSTONEModel.CUPERESPO_CONT_FK">
+            <End Role="CONTACT" EntitySet="CONTACT" />
+            <End Role="CUPERESPONSE" EntitySet="CUPERESPONSE" />
+          </AssociationSet>
           <AssociationSet Name="ITCAP_CONTACT_FK" Association="CAPSTONEModel.ITCAP_CONTACT_FK">
             <End Role="CONTACT" EntitySet="CONTACT" />
             <End Role="ITCAP" EntitySet="ITCAP" />
@@ -704,6 +753,10 @@
           <AssociationSet Name="CUPE_GROUP_FK" Association="CAPSTONEModel.CUPE_GROUP_FK">
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="CUPE" EntitySet="CUPE" />
+          </AssociationSet>
+          <AssociationSet Name="CUPERESPON_CUPE_FK" Association="CAPSTONEModel.CUPERESPON_CUPE_FK">
+            <End Role="CUPE" EntitySet="CUPE" />
+            <End Role="CUPERESPONSE" EntitySet="CUPERESPONSE" />
           </AssociationSet>
           <AssociationSet Name="ITCAP_GROUP_FK" Association="CAPSTONEModel.ITCAP_GROUP_FK">
             <End Role="GROUP" EntitySet="GROUP" />
@@ -790,10 +843,10 @@
           <Property Name="CONTACTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" MaxLength="40" Unicode="false" FixedLength="true" />
           <Property Name="EMAIL" Type="String" MaxLength="50" Unicode="false" FixedLength="true" />
-          <Property Name="PHONE" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="BOM" Relationship="CAPSTONEModel.BOM_CONTACT_FK" FromRole="CONTACT" ToRole="BOM" />
           <NavigationProperty Name="GROUP" Relationship="CAPSTONEModel.CONTACT_GROUP_FK" FromRole="CONTACT" ToRole="GROUP" />
           <NavigationProperty Name="CUPE" Relationship="CAPSTONEModel.CUPE_CONTACT_FK" FromRole="CONTACT" ToRole="CUPE" />
+          <NavigationProperty Name="CUPERESPONSE" Relationship="CAPSTONEModel.CUPERESPO_CONT_FK" FromRole="CONTACT" ToRole="CUPERESPONSE" />
           <NavigationProperty Name="ITCAP" Relationship="CAPSTONEModel.ITCAP_CONTACT_FK" FromRole="CONTACT" ToRole="ITCAP" />
         </EntityType>
         <EntityType Name="CUPE">
@@ -801,17 +854,16 @@
             <PropertyRef Name="CUPEID" />
           </Key>
           <Property Name="CUPEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CURRENT" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
-          <Property Name="FUTURE" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <Property Name="NAME" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="COMMODITY" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="UTILITY" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="PARTNER" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="ENABLER" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
+          <Property Name="COMMODITY" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="UTILITY" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="PARTNER" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="ENABLER" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CLIENT" Relationship="CAPSTONEModel.CUPE_CLIENT_FK" FromRole="CUPE" ToRole="CLIENT" />
           <NavigationProperty Name="CONTACT" Relationship="CAPSTONEModel.CUPE_CONTACT_FK" FromRole="CUPE" ToRole="CONTACT" />
           <NavigationProperty Name="CUPEQUESTION" Relationship="CAPSTONEModel.CUPE_CUPEQUESTI_FK" FromRole="CUPE" ToRole="CUPEQUESTION" />
           <NavigationProperty Name="GROUP" Relationship="CAPSTONEModel.CUPE_GROUP_FK" FromRole="CUPE" ToRole="GROUP" />
+          <NavigationProperty Name="CUPERESPONSE" Relationship="CAPSTONEModel.CUPERESPON_CUPE_FK" FromRole="CUPE" ToRole="CUPERESPONSE" />
         </EntityType>
         <EntityType Name="CUPEQUESTION">
           <Key>
@@ -819,14 +871,24 @@
           </Key>
           <Property Name="CUPEQUESTIONID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="COMMODITY" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="UTILITY" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="PARTNER" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
-          <Property Name="ENABLER" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
+          <Property Name="COMMODITY" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="UTILITY" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="PARTNER" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="ENABLER" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
           <Property Name="INTWENTY" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <Property Name="INFIFTEEN" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <Property Name="INTEN" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CUPE" Relationship="CAPSTONEModel.CUPE_CUPEQUESTI_FK" FromRole="CUPEQUESTION" ToRole="CUPE" />
+        </EntityType>
+        <EntityType Name="CUPERESPONSE">
+          <Key>
+            <PropertyRef Name="CUPERESPONSEID" />
+          </Key>
+          <Property Name="CUPERESPONSEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CURRENT" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="FUTURE" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="CONTACT" Relationship="CAPSTONEModel.CUPERESPO_CONT_FK" FromRole="CUPERESPONSE" ToRole="CONTACT" />
+          <NavigationProperty Name="CUPE" Relationship="CAPSTONEModel.CUPERESPON_CUPE_FK" FromRole="CUPERESPONSE" ToRole="CUPE" />
         </EntityType>
         <EntityType Name="DOMAIN">
           <Key>
@@ -885,7 +947,7 @@
           <Key>
             <PropertyRef Name="ITCAPQUESTIONID" />
           </Key>
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="true" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="true" />
           <Property Name="ITCAPQUESTIONID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DEFAULT" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="CAPABILITY" Relationship="CAPSTONEModel.ITCAPQUE_CAPAB_FK" FromRole="ITCAPQUESTION" ToRole="CAPABILITY" />
@@ -1007,6 +1069,12 @@
           </End>
           <End Role="CUPE" Type="CAPSTONEModel.CUPE" Multiplicity="*" />
         </Association>
+        <Association Name="CUPERESPO_CONT_FK">
+          <End Role="CONTACT" Type="CAPSTONEModel.CONTACT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CUPERESPONSE" Type="CAPSTONEModel.CUPERESPONSE" Multiplicity="*" />
+        </Association>
         <Association Name="ITCAP_CONTACT_FK">
           <End Role="CONTACT" Type="CAPSTONEModel.CONTACT" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1024,6 +1092,12 @@
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CUPE" Type="CAPSTONEModel.CUPE" Multiplicity="*" />
+        </Association>
+        <Association Name="CUPERESPON_CUPE_FK">
+          <End Role="CUPE" Type="CAPSTONEModel.CUPE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CUPERESPONSE" Type="CAPSTONEModel.CUPERESPONSE" Multiplicity="*" />
         </Association>
         <Association Name="ITCAP_GROUP_FK">
           <End Role="GROUP" Type="CAPSTONEModel.GROUP" Multiplicity="0..1">
@@ -1079,12 +1153,9 @@
             <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
             <ScalarProperty Name="NAME" ColumnName="NAME" />
             <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-            <ScalarProperty Name="PHONE" ColumnName="PHONE" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CUPE"><EntityTypeMapping TypeName="CAPSTONEModel.CUPE"><MappingFragment StoreEntitySet="CUPE">
             <ScalarProperty Name="CUPEID" ColumnName="CUPEID" />
-            <ScalarProperty Name="CURRENT" ColumnName="CURRENT" />
-            <ScalarProperty Name="FUTURE" ColumnName="FUTURE" />
             <ScalarProperty Name="NAME" ColumnName="NAME" />
             <ScalarProperty Name="COMMODITY" ColumnName="COMMODITY" />
             <ScalarProperty Name="UTILITY" ColumnName="UTILITY" />
@@ -1101,6 +1172,11 @@
             <ScalarProperty Name="INTWENTY" ColumnName="INTWENTY" />
             <ScalarProperty Name="INFIFTEEN" ColumnName="INFIFTEEN" />
             <ScalarProperty Name="INTEN" ColumnName="INTEN" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CUPERESPONSE"><EntityTypeMapping TypeName="CAPSTONEModel.CUPERESPONSE"><MappingFragment StoreEntitySet="CUPERESPONSE">
+            <ScalarProperty Name="CUPERESPONSEID" ColumnName="CUPERESPONSEID" />
+            <ScalarProperty Name="CURRENT" ColumnName="CURRENT" />
+            <ScalarProperty Name="FUTURE" ColumnName="FUTURE" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="DOMAIN"><EntityTypeMapping TypeName="CAPSTONEModel.DOMAIN"><MappingFragment StoreEntitySet="DOMAIN">
             <ScalarProperty Name="DOMAINID" ColumnName="DOMAINID" />
@@ -1285,6 +1361,14 @@
             </EndProperty>
             <Condition ColumnName="CONTACTID" IsNull="false" />
           </AssociationSetMapping>
+          <AssociationSetMapping Name="CUPERESPO_CONT_FK" TypeName="CAPSTONEModel.CUPERESPO_CONT_FK" StoreEntitySet="CUPERESPONSE">
+            <EndProperty Name="CONTACT">
+              <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
+            </EndProperty>
+            <EndProperty Name="CUPERESPONSE">
+              <ScalarProperty Name="CUPERESPONSEID" ColumnName="CUPERESPONSEID" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="ITCAP_CONTACT_FK" TypeName="CAPSTONEModel.ITCAP_CONTACT_FK" StoreEntitySet="ITCAP">
             <EndProperty Name="CONTACT">
               <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
@@ -1310,6 +1394,15 @@
               <ScalarProperty Name="CUPEID" ColumnName="CUPEID" />
             </EndProperty>
             <Condition ColumnName="GROUP" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CUPERESPON_CUPE_FK" TypeName="CAPSTONEModel.CUPERESPON_CUPE_FK" StoreEntitySet="CUPERESPONSE">
+            <EndProperty Name="CUPE">
+              <ScalarProperty Name="CUPEID" ColumnName="CUPEID" />
+            </EndProperty>
+            <EndProperty Name="CUPERESPONSE">
+              <ScalarProperty Name="CUPERESPONSEID" ColumnName="CUPERESPONSEID" />
+            </EndProperty>
+            <Condition ColumnName="CUPEID" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="ITCAP_GROUP_FK" TypeName="CAPSTONEModel.ITCAP_GROUP_FK" StoreEntitySet="ITCAP">
             <EndProperty Name="GROUP">
@@ -1349,21 +1442,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="CAPSTONEModel.BOM" Width="1.5" PointX="9.75" PointY="10.375" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.BOM" Width="1.5" PointX="9.75" PointY="10.25" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="3" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSTYPE" Width="1.5" PointX="0.75" PointY="7.375" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSTYPE" Width="1.5" PointX="0.75" PointY="7.375" Height="1.5956835937499978" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITY" Width="1.5" PointX="3" PointY="11.5" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CATEGORY" Width="1.5" PointX="0.75" PointY="1.125" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CLIENT" Width="1.5" PointX="3" PointY="6.375" Height="3.7109993489583308" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CONTACT" Width="1.5" PointX="7.5" PointY="14.25" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPE" Width="1.5" PointX="12.75" PointY="11" Height="3.3263964843749996" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPEQUESTION" Width="1.5" PointX="10.5" PointY="14.125" Height="2.9417936197916674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.DOMAIN" Width="1.5" PointX="0.75" PointY="11.625" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.GROUP" Width="1.5" PointX="5.25" PointY="14.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.INITIATIVE" Width="1.5" PointX="7.5" PointY="10.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.ITCAP" Width="1.5" PointX="12.75" PointY="7.375" Height="2.5571907552083379" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CONTACT" Width="1.5" PointX="7.5" PointY="14.125" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPE" Width="1.5" PointX="12.75" PointY="11" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPEQUESTION" Width="1.5" PointX="10.5" PointY="14" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPERESPONSE" Width="1.5" PointX="15" PointY="12.875" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.DOMAIN" Width="1.5" PointX="0.75" PointY="11.625" Height="1.787985026041671" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.GROUP" Width="1.5" PointX="5.25" PointY="14.25" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.INITIATIVE" Width="1.5" PointX="7.5" PointY="10.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.ITCAP" Width="1.5" PointX="12.75" PointY="7.25" Height="2.5571907552083379" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.ITCAPOBJMAP" Width="1.5" PointX="5.25" PointY="7.25" Height="1.9802864583333379" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.ITCAPQUESTION" Width="1.5" PointX="10.5" PointY="6.625" Height="1.9802864583333379" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.ITCAPQUESTION" Width="1.5" PointX="10.5" PointY="6.5" Height="1.9802864583333379" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.REGION" Width="1.5" PointX="0.75" PointY="4.375" Height="1.5956835937500031" IsExpanded="true" />
         <AssociationConnector Association="CAPSTONEModel.BOM_CLIENT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="9.6893929036458353" />
@@ -1374,24 +1468,24 @@
           <ConnectorPoint PointX="8.1666666666666661" PointY="9.6893929036458353" />
           <ConnectorPoint PointX="8.3333333333333339" PointY="9.6893929036458353" />
           <ConnectorPoint PointX="10.09375" PointY="9.6893929036458353" />
-          <ConnectorPoint PointX="10.09375" PointY="10.375" />
+          <ConnectorPoint PointX="10.09375" PointY="10.25" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BOM_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="14.25" />
-          <ConnectorPoint PointX="9.375" PointY="13.875" />
-          <ConnectorPoint PointX="9.375" PointY="11.653595377604166" />
-          <ConnectorPoint PointX="9.75" PointY="11.653595377604166" />
+          <ConnectorPoint PointX="9" PointY="14.125" />
+          <ConnectorPoint PointX="9.375" PointY="13.75" />
+          <ConnectorPoint PointX="9.375" PointY="11.528595377604166" />
+          <ConnectorPoint PointX="9.75" PointY="11.528595377604166" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BOM_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6" PointY="14.375" />
-          <ConnectorPoint PointX="6" PointY="12.766337890625" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="12.766337890625" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="12.766337890625" />
-          <ConnectorPoint PointX="9.75" PointY="12.766337890625" />
+          <ConnectorPoint PointX="6" PointY="14.25" />
+          <ConnectorPoint PointX="6" PointY="12.641337890625" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="12.641337890625" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="12.641337890625" />
+          <ConnectorPoint PointX="9.75" PointY="12.641337890625" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BOM_INITIATIVE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="11.139297688802083" />
-          <ConnectorPoint PointX="9.75" PointY="11.139297688802083" />
+          <ConnectorPoint PointX="9" PointY="11.014297688802083" />
+          <ConnectorPoint PointX="9.75" PointY="11.014297688802083" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BUSINESSOB_CATE_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="1.9228417968749998" />
@@ -1400,7 +1494,7 @@
         <AssociationConnector Association="CAPSTONEModel.INIT_BUSINESSOB_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="1.7401432291666668" />
           <ConnectorPoint PointX="8.25" PointY="1.7401432291666668" />
-          <ConnectorPoint PointX="8.25" PointY="10.75" />
+          <ConnectorPoint PointX="8.25" PointY="10.625" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCA_BUSINESSOB_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="2.26646734375" />
@@ -1408,32 +1502,32 @@
           <ConnectorPoint PointX="6" PointY="7.25" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CLIE_BUSINESSTY_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.172841796875" />
-          <ConnectorPoint PointX="3" PointY="8.172841796875" />
+          <ConnectorPoint PointX="2.25" PointY="8.172841796874998" />
+          <ConnectorPoint PointX="3" PointY="8.172841796874998" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CAPABILIT_DOMAI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="12.518992513020834" />
-          <ConnectorPoint PointX="3" PointY="12.518992513020834" />
+          <ConnectorPoint PointX="2.25" PointY="12.518992513020836" />
+          <ConnectorPoint PointX="3" PointY="12.518992513020836" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPOB_CAPABI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="12.1331689453125" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="12.1331689453125" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="12.1331689453125" />
-          <ConnectorPoint PointX="5.625" PointY="12.1331689453125" />
+          <ConnectorPoint PointX="4.5" PointY="12.0706689453125" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="12.0706689453125" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="12.0706689453125" />
+          <ConnectorPoint PointX="5.625" PointY="12.0706689453125" />
           <ConnectorPoint PointX="5.625" PointY="9.2302864583333388" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPQUE_CAPAB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="8.1354146666666658" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="8.3020813333333336" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="11.65625" PointY="13.333639322916666" />
-          <ConnectorPoint PointX="11.65625" PointY="8.6052864583333388" />
+          <ConnectorPoint PointX="4.5" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="8.1354146666666658" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="8.3020813333333336" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="11.65625" PointY="13.271139322916666" />
+          <ConnectorPoint PointX="11.65625" PointY="8.4802864583333388" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CLIENT_REGION_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="5.1728417968750016" />
@@ -1443,25 +1537,25 @@
         <AssociationConnector Association="CAPSTONEModel.CUPE_CLIENT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="8.0009444518229174" />
           <ConnectorPoint PointX="5" PointY="8.0009444518229174" />
-          <ConnectorPoint PointX="5" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="10.010416666666666" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="10.177083333333334" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="11.572916666666666" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="11.739583333333334" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="13.041667166666665" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="13.208333833333333" PointY="10.182190755208339" />
-          <ConnectorPoint PointX="13.5" PointY="10.182190755208339" />
+          <ConnectorPoint PointX="5" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="10.010416666666666" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="10.177083333333334" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="11.572916666666666" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="11.739583333333334" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="13.041667166666665" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="13.208333833333333" PointY="10.057190755208339" />
+          <ConnectorPoint PointX="13.5" PointY="10.057190755208339" />
           <ConnectorPoint PointX="13.5" PointY="11" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.GROUP_CLIENT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.4999999999999991" PointY="10.085999348958332" />
           <ConnectorPoint PointX="4.875" PointY="10.460999348958332" />
-          <ConnectorPoint PointX="4.875" PointY="15.557444661458334" />
-          <ConnectorPoint PointX="5.25" PointY="15.557444661458334" />
+          <ConnectorPoint PointX="4.875" PointY="15.432444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="15.432444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_CLIENT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="9.4285896809895871" />
@@ -1482,71 +1576,88 @@
           <ConnectorPoint PointX="5.25" PointY="8.6781154550781281" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CONTACT_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="15.557444661458334" />
-          <ConnectorPoint PointX="7.5" PointY="15.557444661458334" />
+          <ConnectorPoint PointX="6.75" PointY="15.432444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="15.432444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.218748" PointY="14.25" />
-          <ConnectorPoint PointX="8.218748" PointY="13.182190755208332" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="13.182190755208332" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="13.182190755208332" />
-          <ConnectorPoint PointX="11.572916666666666" PointY="13.182190755208332" />
-          <ConnectorPoint PointX="11.739583333333334" PointY="13.182190755208332" />
-          <ConnectorPoint PointX="12.375" PointY="13.182190755208332" />
-          <ConnectorPoint PointX="12.375" PointY="12.6631982421875" />
-          <ConnectorPoint PointX="12.416666666666666" PointY="12.663198242187498" />
-          <ConnectorPoint PointX="12.708333333333334" PointY="12.6631982421875" />
-          <ConnectorPoint PointX="12.75" PointY="12.6631982421875" />
+          <ConnectorPoint PointX="8.218748" PointY="14.125" />
+          <ConnectorPoint PointX="8.218748" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="11.572916666666666" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="11.739583333333334" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="12.166666666666666" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="12.333333333333334" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="12.375" PointY="13.057190755208332" />
+          <ConnectorPoint PointX="12.375" PointY="12.567047526041666" />
+          <ConnectorPoint PointX="12.541666666666666" PointY="12.567047526041666" />
+          <ConnectorPoint PointX="12.708333333333334" PointY="12.567047526041666" />
+          <ConnectorPoint PointX="12.75" PointY="12.567047526041666" />
+        </AssociationConnector>
+        <AssociationConnector Association="CAPSTONEModel.CUPERESPO_CONT_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.609373999999999" PointY="14.125" />
+          <ConnectorPoint PointX="8.609373999999999" PointY="13.75" />
+          <ConnectorPoint PointX="12.5" PointY="13.75" />
+          <ConnectorPoint PointX="12.5" PointY="14.384095052083332" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="14.384095052083332" />
+          <ConnectorPoint PointX="13.583333333333334" PointY="14.384095052083332" />
+          <ConnectorPoint PointX="14.625" PointY="14.384095052083332" />
+          <ConnectorPoint PointX="14.625" PointY="13.865143229166666" />
+          <ConnectorPoint PointX="15" PointY="13.865143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="15.559847377604166" />
-          <ConnectorPoint PointX="10.25" PointY="15.559847377604166" />
+          <ConnectorPoint PointX="9" PointY="15.434847377604166" />
+          <ConnectorPoint PointX="10.25" PointY="15.434847377604166" />
           <ConnectorPoint PointX="10.25" PointY="13.875" />
-          <ConnectorPoint PointX="12.5" PointY="13.875" />
-          <ConnectorPoint PointX="12.5" PointY="10.75" />
-          <ConnectorPoint PointX="12.541666666666666" PointY="10.75" />
-          <ConnectorPoint PointX="12.708333333333334" PointY="10.75" />
+          <ConnectorPoint PointX="12.416666666666666" PointY="13.875" />
+          <ConnectorPoint PointX="12.583333333333334" PointY="13.875" />
+          <ConnectorPoint PointX="12.625" PointY="13.875" />
+          <ConnectorPoint PointX="12.625" PointY="10.75" />
           <ConnectorPoint PointX="13.125000499999999" PointY="10.75" />
-          <ConnectorPoint PointX="13.125000499999999" PointY="9.9321907552083388" />
+          <ConnectorPoint PointX="13.125000499999999" PointY="9.8071907552083388" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_CUPEQUESTI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="12" PointY="15.696595552083334" />
-          <ConnectorPoint PointX="13.5" PointY="15.696595552083334" />
-          <ConnectorPoint PointX="13.5" PointY="14.326396484375" />
+          <ConnectorPoint PointX="12" PointY="15.6629443359375" />
+          <ConnectorPoint PointX="13.5" PointY="15.6629443359375" />
+          <ConnectorPoint PointX="13.5" PointY="14.134095052083332" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.4062525" PointY="14.375" />
-          <ConnectorPoint PointX="6.4062525" PointY="13.604319661458334" />
-          <ConnectorPoint PointX="8.1354146666666658" PointY="13.604319661458334" />
-          <ConnectorPoint PointX="8.3020813333333336" PointY="13.604319661458334" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="13.604319661458334" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="13.604319661458334" />
-          <ConnectorPoint PointX="12.416666666666666" PointY="13.604319661458332" />
-          <ConnectorPoint PointX="12.708333333333334" PointY="13.604319661458334" />
-          <ConnectorPoint PointX="12.75" PointY="13.604319661458334" />
+          <ConnectorPoint PointX="6.4062525" PointY="14.25" />
+          <ConnectorPoint PointX="6.4062525" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="8.1354146666666658" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="8.3020813333333336" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="12.166666666666666" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="12.333333333333334" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="12.541666666666666" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="12.708333333333334" PointY="13.510569661458334" />
+          <ConnectorPoint PointX="12.75" PointY="13.510569661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="CAPSTONEModel.CUPERESPON_CUPE_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="14.25" PointY="13.307571614583333" />
+          <ConnectorPoint PointX="15" PointY="13.307571614583333" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="14.934970330729165" />
-          <ConnectorPoint PointX="7.25" PointY="14.934970330729165" />
-          <ConnectorPoint PointX="7.25" PointY="14" />
-          <ConnectorPoint PointX="8.1354146666666658" PointY="14" />
-          <ConnectorPoint PointX="8.3020813333333336" PointY="14" />
-          <ConnectorPoint PointX="9.1666666666666661" PointY="14" />
-          <ConnectorPoint PointX="9.3333333333333339" PointY="14" />
-          <ConnectorPoint PointX="10.166666666666666" PointY="14" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="14" />
-          <ConnectorPoint PointX="12.625" PointY="14" />
-          <ConnectorPoint PointX="12.625" PointY="10.5" />
+          <ConnectorPoint PointX="6.75" PointY="14.809970330729165" />
+          <ConnectorPoint PointX="7.25" PointY="14.809970330729165" />
+          <ConnectorPoint PointX="7.25" PointY="13.8125" />
+          <ConnectorPoint PointX="8.1354146666666658" PointY="13.8125" />
+          <ConnectorPoint PointX="8.3020813333333336" PointY="13.8125" />
+          <ConnectorPoint PointX="9.2291666666666661" PointY="13.8125" />
+          <ConnectorPoint PointX="9.3958333333333339" PointY="13.8125" />
+          <ConnectorPoint PointX="12.25" PointY="13.8125" />
+          <ConnectorPoint PointX="12.25" PointY="10.5" />
           <ConnectorPoint PointX="13.041667166666665" PointY="10.5" />
           <ConnectorPoint PointX="13.208333833333333" PointY="10.5" />
           <ConnectorPoint PointX="13.416666666666666" PointY="10.5" />
           <ConnectorPoint PointX="13.583333333333334" PointY="10.5" />
           <ConnectorPoint PointX="13.874999500000001" PointY="10.5" />
-          <ConnectorPoint PointX="13.874999500000001" PointY="9.9321907552083388" />
+          <ConnectorPoint PointX="13.874999500000001" PointY="9.8071907552083388" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCA_ITCAPQUEST_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="12" PointY="7.9901432291666694" />
-          <ConnectorPoint PointX="12.75" PointY="7.9901432291666694" />
+          <ConnectorPoint PointX="12" PointY="7.8651432291666694" />
+          <ConnectorPoint PointX="12.75" PointY="7.8651432291666694" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
