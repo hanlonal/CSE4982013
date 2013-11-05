@@ -292,6 +292,7 @@ namespace IBMConsultantTool
             Person person;
             CupeData cupeData;
             int id = 1;
+            int questionIndex = 0;
             foreach (CONTACT contact in busGrp.CONTACT)
             {
                 person = new Person();
@@ -302,8 +303,15 @@ namespace IBMConsultantTool
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
-                    cupeData.CurrentAnswers.Add(response.CUPE.NAME.TrimEnd(), response.CURRENT[0]);
-                    cupeData.FutureAnswers.Add(response.CUPE.NAME.TrimEnd(), response.FUTURE[0]);
+                    questionIndex = ClientDataControl.cupeQuestions.FindIndex(delegate(CupeQuestionStringData question)
+                                                                              {
+                                                                                  return question.QuestionText == response.CUPE.NAME.TrimEnd();
+                                                                              });
+                    if (questionIndex != -1)
+                    {
+                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.CURRENT[0]);
+                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.FUTURE[0]);
+                    }
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
@@ -320,8 +328,15 @@ namespace IBMConsultantTool
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
-                    cupeData.CurrentAnswers.Add(response.CUPE.NAME.TrimEnd(), response.CURRENT[0]);
-                    cupeData.FutureAnswers.Add(response.CUPE.NAME.TrimEnd(), response.FUTURE[0]);
+                    questionIndex = ClientDataControl.cupeQuestions.FindIndex(delegate(CupeQuestionStringData question)
+                                                                              {
+                                                                                  return question.QuestionText == response.CUPE.NAME.TrimEnd();
+                                                                              });
+                    if (questionIndex != -1)
+                    {
+                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.CURRENT[0]);
+                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.FUTURE[0]);
+                    }
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);

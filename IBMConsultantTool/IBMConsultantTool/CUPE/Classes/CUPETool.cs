@@ -72,6 +72,7 @@ namespace IBMConsultantTool
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
             ClientDataControl.LoadCUPEQuestions(this);
+            ClientDataControl.LoadParticipants();
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;
@@ -99,6 +100,9 @@ namespace IBMConsultantTool
             currentChart.Visible = true;
             CreateGraphs();
             //CreateLabel();
+
+            loadColumnNames();
+            LoadAnswersFromDataControl();
 
         }
 
