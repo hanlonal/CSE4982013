@@ -158,6 +158,7 @@ namespace IBMConsultantTool
             trendGridView.DataSource = null;
             trendGridView.DataSource = entities;
             trendGridView.Refresh();
+            //db.getin
         }
 
 
