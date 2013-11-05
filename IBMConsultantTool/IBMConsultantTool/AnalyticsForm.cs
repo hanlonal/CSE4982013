@@ -13,6 +13,7 @@ namespace IBMConsultantTool
     {
         List<Control> comboBoxControls = new List<Control>();
         DBManager db = new DBManager();
+        TextBox currentBox;
         public AnalyticsForm()
         {
             InitializeComponent();
@@ -35,6 +36,14 @@ namespace IBMConsultantTool
             cupeTimeFrameComboBox.Items.Add("Current");
             cupeTimeFrameComboBox.Items.Add("Future");
             cupeTimeFrameComboBox.Items.Add("Both");
+            List<string> names = new List<string>();
+            names = db.GetRegionNames();
+
+            regionComboBox.DataSource = names;
+
+            names = db.GetBusinessTypeNames();
+
+            businessTypeComboBox.DataSource = names;
 
 
         }
@@ -119,7 +128,29 @@ namespace IBMConsultantTool
            
         }
 
+        private void date_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            MonthCalendar cal = (MonthCalendar)sender;
+
+            currentBox.Text = e.Start.Date.ToShortDateString();
+            //selectedTime = e.Start.Date;
+            cal.Visible = false;
+        }
+
         # endregion
+
+        private void DateText_Click(object sender, EventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            currentBox = box;
+            MonthCalendar date = new MonthCalendar();
+            filterPanel.Controls.Add(date);
+            date.DateSelected += new DateRangeEventHandler(date_DateSelected);
+            date.Visible = true;
+            date.BringToFront();
+        }
+
+
 
 
 

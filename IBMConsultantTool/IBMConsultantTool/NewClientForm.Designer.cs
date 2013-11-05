@@ -109,6 +109,7 @@
             this.startDateText.Name = "startDateText";
             this.startDateText.Size = new System.Drawing.Size(179, 26);
             this.startDateText.TabIndex = 7;
+            this.startDateText.TextChanged += new System.EventHandler(this.startDateText_TextChanged);
             // 
             // BusinessTypeComboBox
             // 
