@@ -27,6 +27,7 @@ namespace IBMConsultantTool
         bool isAnonymous = true;
         public bool is20Question = true;
         bool changesMade = false;
+        string oldCellValue = String.Empty;
 
         int totalAIndex = 1;
         int totalBIndex = 2;
@@ -230,10 +231,51 @@ namespace IBMConsultantTool
 
         private void questionGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            ChangeTotalsByRow(e.RowIndex);
-            ChangeTotalsByColumn(e.ColumnIndex, e.RowIndex);
-            LoadChartData();
-            UpdateCupeScore();
+            changesMade = true;
+            var currentCell = currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if ( currentCell.Value!= null)
+            {
+                if (currentCell.Value.ToString().Length > 0)
+                {
+                    if ((currentCell.Value.ToString().IndexOfAny(new char[] { 'a','b','c','d', 'A', 'B', 'C', 'D' }) != -1)
+                        && (currentCell.Value.ToString().Length < 2))
+                    {
+                        // Stop editing without canceling the label change.
+                        ChangeTotalsByRow(e.RowIndex);
+                        ChangeTotalsByColumn(e.ColumnIndex, e.RowIndex);
+                        LoadChartData();
+                        UpdateCupeScore();
+
+
+
+                    }
+                    else
+                    {
+                        /* Cancel the label edit action, inform the user, and 
+                           place the node in edit mode again. */
+                        currentCell.Value = String.Empty;
+                        System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                        myToolTip.IsBalloon = true;
+                        myToolTip.Show(string.Empty, this, 0);
+                        myToolTip.Show("Invalid answer. Must give answer as a, b, c, or d. Case insensitive",
+                            currentGrid, 100, 5, 2000);
+                        currentGrid.ShowCellToolTips = false;
+
+                        if (oldCellValue != string.Empty)
+                        {
+                            currentCell.Value = oldCellValue;
+                        }
+
+                    }
+                }
+                else
+                {
+
+                }
+
+            }
+
+            oldCellValue = string.Empty;
         }
 
         public void ChangeTotalsByRow(int index)
@@ -1908,6 +1950,13 @@ namespace IBMConsultantTool
         {
             currentGrid = questionGridITFuture;
             currentChart = itFutureGraph;
+            if (e.RowIndex != -1)
+            {
+                if (currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    oldCellValue = currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                }
+            }
             GridClicked(sender, e);
         }
 
@@ -1915,6 +1964,13 @@ namespace IBMConsultantTool
         {
             currentGrid = questionGridBusiFuture;
             currentChart = busiFutureGraph;
+            if (e.RowIndex != -1)
+            {
+                if (currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    oldCellValue = currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                }
+            }
             GridClicked(sender, e);
         }
 
@@ -1922,6 +1978,13 @@ namespace IBMConsultantTool
         {
             currentGrid = questionGridITCurrent;
             currentChart = itCurrentGraph;
+            if (e.RowIndex != -1)
+            {
+                if (currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    oldCellValue = currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                }
+            }
             GridClicked(sender, e);
         }
 
@@ -1929,6 +1992,13 @@ namespace IBMConsultantTool
         {
             currentGrid = questionGridBusinessCurrent;
             currentChart = busiCurrentGraph;
+            if (e.RowIndex != -1)
+            {
+                if (currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    oldCellValue = currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                }
+            }
             GridClicked(sender, e);
         }
 
