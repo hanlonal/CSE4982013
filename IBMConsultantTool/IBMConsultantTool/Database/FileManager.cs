@@ -250,6 +250,23 @@ namespace IBMConsultantTool
 
         #region Group
         //group is a keyword in C#
+        public bool GetGroup(string grpName, XElement client, out XElement grp)
+        {
+            try
+            {
+                grp = (from ent in client.Element("GROUPS").Elements("GROUP")
+                       where ent.Element("NAME").Value == grpName
+                       select ent).Single();
+            }
+
+            catch
+            {
+                grp = null;
+                return false;
+            }
+
+            return true;
+        }
         public bool AddGroup(string grpName, XElement client)
         {
             //If Client points to 2 BOMs with same Initiative, return false
@@ -278,7 +295,31 @@ namespace IBMConsultantTool
         #region Contact
         public override void LoadParticipants()
         {
-            throw new NotImplementedException();
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            XElement busGrp;
+            XElement itGrp;
+            GetGroup("Business", client, out busGrp);
+            GetGroup("IT", client, out itGrp);
+            Person person;
+            List<XElement> busContacts = busGrp.Element("CONTACTS").Elements("CONTACT").ToList();
+            List<XElement> itContacts = itGrp.Element("CONTACTS").Elements("CONTACT").ToList();
+            foreach (XElement contact in busContacts)
+            {
+                person = new Person();
+                person.Name = contact.Element("NAME").Value;
+                person.Email = contact.Element("EMAIL").Value;
+                person.Type = Person.EmployeeType.Business;
+                ClientDataControl.AddParticipant(person);
+            }
+
+            foreach (XElement contact in itContacts)
+            {
+                person = new Person();
+                person.Name = contact.Element("NAME").Value;
+                person.Email = contact.Element("EMAIL").Value;
+                person.Type = Person.EmployeeType.IT;
+                ClientDataControl.AddParticipant(person);
+            }
         }
         #endregion
 

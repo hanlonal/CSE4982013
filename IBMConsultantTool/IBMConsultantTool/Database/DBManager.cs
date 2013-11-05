@@ -284,7 +284,29 @@ namespace IBMConsultantTool
 
         public override void LoadParticipants()
         {
-            throw new NotImplementedException();
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            GROUP busGrp;
+            GROUP itGrp;
+            GetGroup("Business", client, out busGrp);
+            GetGroup("IT", client, out itGrp);
+            Person person;
+            foreach (CONTACT contact in busGrp.CONTACT)
+            {
+                person = new Person();
+                person.Name = contact.NAME.TrimEnd();
+                person.Email = contact.EMAIL.TrimEnd();
+                person.Type = Person.EmployeeType.Business;
+                ClientDataControl.AddParticipant(person);
+            }
+
+            foreach (CONTACT contact in itGrp.CONTACT)
+            {
+                person = new Person();
+                person.Name = contact.NAME.TrimEnd();
+                person.Email = contact.EMAIL.TrimEnd();
+                person.Type = Person.EmployeeType.IT;
+                ClientDataControl.AddParticipant(person);
+            }
         }
 
         public bool GetContact(string contactName, GROUP grp, out CONTACT contact)
