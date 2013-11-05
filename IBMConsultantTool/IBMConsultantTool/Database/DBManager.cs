@@ -2073,6 +2073,54 @@ namespace IBMConsultantTool
                 return null;
             }
         }
+        public List<ITCAP> GetITCAPSForCapability(string capName)
+        {
+            CAPABILITY capability;
+            try
+            {
+                capability = (from ent in dbo.CAPABILITY
+                              where ent.NAME.TrimEnd() == capName
+                              select ent).Single();
+
+                List<ITCAP> result = new List<ITCAP>();
+                foreach (ITCAPQUESTION itcq in capability.ITCAPQUESTION)
+                {
+                    result.AddRange(itcq.ITCAP.ToList());
+                }
+
+                return result;
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+        public List<BOM> GetBOMSForObjective(string busName)
+        {
+            BUSINESSOBJECTIVE objective;
+            try
+            {
+                objective = (from ent in dbo.BUSINESSOBJECTIVE
+                              where ent.NAME.TrimEnd() == busName
+                              select ent).Single();
+
+                List<BOM> result = new List<BOM>();
+                foreach (INITIATIVE ini in objective.INITIATIVE)
+                {
+                    result.AddRange(ini.BOM.ToList());
+                }
+
+                return result;
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
         #endregion
 
         #region General
