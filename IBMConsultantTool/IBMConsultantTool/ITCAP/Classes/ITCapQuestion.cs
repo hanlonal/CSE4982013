@@ -131,6 +131,7 @@ namespace IBMConsultantTool
                 {
                     
                     flagged = false;
+                    owner.CheckFlags();
                     highStandardDeviation = false;
                 }
             }

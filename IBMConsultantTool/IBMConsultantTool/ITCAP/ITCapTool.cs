@@ -548,9 +548,11 @@ namespace IBMConsultantTool
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             ResetSurveyGrid();
 
             ClientDataControl.db.OpenITCAP(this);
+            
             GetAnswers();
             ChangeStates(FormStates.Open);
             //GetClientObjectives();
@@ -863,9 +865,8 @@ namespace IBMConsultantTool
         {
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
-                
-
+                ScoringEntity ent = row.DataBoundItem as ScoringEntity;                
+               
                 if (ent.Type == "domain")
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
@@ -879,8 +880,10 @@ namespace IBMConsultantTool
                 }
                 else if (ent.Type == "capability")
                 {
-                    CheckBackColor(ent, row);
                     row.DefaultCellStyle.BackColor = Color.LightSlateGray;
+
+                    CheckBackColor(ent, row);
+                    
 
                     row.ReadOnly = true;
                     row.Cells["NumOnes"].Style.ForeColor = row.Cells["NumOnes"].Style.BackColor;
@@ -978,10 +981,27 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.Columns["NumZeros"].HeaderText = "0s";
                 loadSurveyFromDataGrid.Columns["NumZeros"].Width = 30;
 
+                loadSurveyFromDataGrid.Columns["AsIsScore"].ReadOnly = true;
+                loadSurveyFromDataGrid.Columns["ToBeScore"].ReadOnly = true;
+
 
                 //loadSurveyFromDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
 
             }
+            if (states == FormStates.Open)
+            {
+                foreach (DataGridViewRow row in currentGrid.Rows)
+                {
+
+                    ScoringEntity update = row.DataBoundItem as ScoringEntity;
+                    if (update.Type == "capability" || update.Type == "domain")
+                    {
+                        CheckBackColor(update, row);
+                        CheckFlags(update, row);
+                    }
+                }
+            }
+
             currentGrid.Columns["Name"].Width = 400;
             currentGrid.Refresh();
         }
@@ -1011,6 +1031,10 @@ namespace IBMConsultantTool
             {
                 ent.CalculateAsIsAverage();
             }
+            else if (e.ColumnIndex == 8)
+            {
+                ent.CalculateAsIsAverage();
+            }
 
             CheckForeColor(ent, currentGrid.Rows[e.RowIndex]);
             CheckFlags(ent, currentGrid.Rows[e.RowIndex]);
@@ -1022,12 +1046,15 @@ namespace IBMConsultantTool
                 currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.White;
             }
 
-            foreach(DataGridViewRow row in currentGrid.Rows)
+            foreach (DataGridViewRow row in currentGrid.Rows)
             {
-                
+
                 ScoringEntity update = row.DataBoundItem as ScoringEntity;
-                if(update.Type == "capability" || update.Type == "domain")
+                if (update.Type == "capability" || update.Type == "domain")
+                {
                     CheckBackColor(update, row);
+                    CheckFlags(update, row);
+                }
             }
 
             currentGrid.Refresh();
@@ -1065,7 +1092,7 @@ namespace IBMConsultantTool
                 {
                     Capability cap = (Capability)ent;
                     currentcap = cap;
-                    GetClientObjectives(currentcap);
+                   // GetClientObjectives(currentcap);
                 }
             }
         }
@@ -1091,20 +1118,6 @@ namespace IBMConsultantTool
             surveryMakerGrid.Refresh();
 
         }
-
-        private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DataLoader();
-        }
-
-        private void DataLoader()
-        {
-            foreach (ScoringEntity ent in entities)
-            {
-
-            }
-        }
-
 
 
         private void otherToolStripMenuItem_Click(object sender, EventArgs e)

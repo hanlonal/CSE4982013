@@ -111,7 +111,7 @@ namespace IBMConsultantTool
                 }
                 else
                 {
-                    if (this.asIsScore == 0 && this.toBeScore == 0)
+                    if (this.asIsScore == 0.00 && this.toBeScore == 0.00)
                     {
                         this.gapType = GapType.None;
                         return;
@@ -127,9 +127,9 @@ namespace IBMConsultantTool
 
                 if (dynamicCapabilityGaps.Count > 3)
                 {
-                    int numberForLow = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsLow);
-                    int numberForMid = (int)(decimal)(dynamicCapabilityGaps.Count * (1 - (percentToCategorizeAsHigh + percentToCategorizeAsLow)));
-                    int numberForHigh = (int)(decimal)(dynamicCapabilityGaps.Count * percentToCategorizeAsHigh) + numberForLow + numberForMid;
+                    int numberForLow = (int)(dynamicCapabilityGaps.Count * percentToCategorizeAsLow);
+                    int numberForMid = (int)(dynamicCapabilityGaps.Count * (1 - (percentToCategorizeAsHigh + percentToCategorizeAsLow)));
+                    int numberForHigh = (int)(dynamicCapabilityGaps.Count * percentToCategorizeAsHigh) + numberForLow + numberForMid;
 
                     int count = 0;
                     foreach (KeyValuePair<Capability, float> pair in items)
@@ -192,20 +192,50 @@ namespace IBMConsultantTool
                                 pair.Key.gapType = GapType.High;
                             }
                         }
-
                         if (pair.Value == 0)
                             pair.Key.gapType = GapType.None;
+                        
+                        count++;
+                    }
+                }
+                else if(dynamicCapabilityGaps.Count == 3)
+                {
+                    int count = 0;
+                    foreach (KeyValuePair<Capability, float> pair in items)
+                    {
+                        if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                        {
+                            CapabilityGapText = "High Gap";
+                            gapType = GapType.High;
+                            count++;
+                            continue;
+                        }
+                        else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                        {
+                            pair.Key.CapabilityGapText = "Low Gap";
+                            pair.Key.GapType1 = GapType.Low;
+                            count++;
+                            continue;
+                        }
+
+                        if (count == 0)
+                        {
+                            pair.Key.CapabilityGapText = "Low Gap";
+                            pair.Key.GapType1 = GapType.High;
+                        }
+                        else if (count == 1)
+                        {
+                            pair.Key.CapabilityGapText = "Medium Gap";
+                            pair.Key.GapType1 = GapType.Middle;
+                        }
+                        else if (count == 2)
+                        {
+                            pair.Key.CapabilityGapText = "High Gap";
+                            pair.Key.GapType1 = GapType.High;
+                        }
 
                         count++;
-
-
-
                     }
-
-                }
-                else
-                {
-
                 }
 
             }
