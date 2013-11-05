@@ -91,23 +91,41 @@ namespace IBMConsultantTool
         private void ChangeState(TrackingState newState)
         {
             state = newState;
-
+            metricsComboBox.Items.Clear();
             switch (state)
             {
                 case TrackingState.Capabilities:
-                    ClearControls("Capabilities");                    
+                    ClearControls("Capabilities");
+                    metricsComboBox.Items.Add("All");
+                    metricsComboBox.Items.Add("Capability Gap Type");
+                    metricsComboBox.Items.Add("Prioritized Capability Gap Type");
+                    metricsComboBox.Items.Add("Capability Gap Amount");
+                    metricsComboBox.Items.Add("Prioritized Capability Gap Amount");
                     break;
                 case TrackingState.CUPEQuestions:
+                    metricsComboBox.Items.Add("All");
+                    metricsComboBox.Items.Add("Business Future");
+                    metricsComboBox.Items.Add("Business Current");
+                    metricsComboBox.Items.Add("IT Future");
+                    metricsComboBox.Items.Add("IT Current");
                     ClearControls("CUPE");
                     break;
                 case TrackingState.Objectives:
                     ClearControls("Objectives");
+                    metricsComboBox.Items.Add("Total Priority");
                     break;
                 case TrackingState.ITAttributes:
                     ClearControls("Capabilities");
+                    metricsComboBox.Items.Add("All");
+                    metricsComboBox.Items.Add("Average As Is Score");
+                    metricsComboBox.Items.Add("Average To Be Score");
                     break;
                 case TrackingState.Initiatives:
                     ClearControls("Initiatives");
+                    metricsComboBox.Items.Add("All");
+                    metricsComboBox.Items.Add("Differentiation");
+                    metricsComboBox.Items.Add("Criticality");
+                    metricsComboBox.Items.Add("Effectiveness");
                     break;
 
             }

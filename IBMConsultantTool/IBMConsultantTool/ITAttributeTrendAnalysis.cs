@@ -9,6 +9,12 @@ namespace IBMConsultantTool
     {
         private float tobeScore;
 
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
         public float TobeScore
         {
             get { return tobeScore; }

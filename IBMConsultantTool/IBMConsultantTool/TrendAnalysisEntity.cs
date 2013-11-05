@@ -19,12 +19,20 @@ namespace IBMConsultantTool
 
         protected string name;
 
-        protected string location;
+        private string country;
 
-        public string Location
+        public string Country
         {
-            get { return location; }
-            set { location = value; }
+            get { return country; }
+            set { country = value; }
+        }
+
+        protected string region;
+
+        public string Region
+        {
+            get { return region; }
+            set { region = value; }
         }
         protected string businessType;
 
@@ -33,20 +41,14 @@ namespace IBMConsultantTool
             get { return businessType; }
             set { businessType = value; }
         }
-        protected DateTime startDate;
+        protected DateTime date;
 
-        public DateTime StartDate
+        public DateTime Date
         {
-            get { return startDate; }
-            set { startDate = value; }
+            get { return date; }
+            set { date = value; }
         }
-        protected DateTime endDate;
 
-        public DateTime EndDate
-        {
-            get { return endDate; }
-            set { endDate = value; }
-        }
 
     }
 }
