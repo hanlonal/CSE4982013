@@ -51,14 +51,14 @@ namespace IBMConsultantTool
             //Build Slide #1:
             //Add text to the slide, change the font and insert/position a 
             //picture on the first slide.
-            objSlide = objSlides.Add(1, Power.PpSlideLayout.ppLayoutTitleOnly);
-            objTextRng = objSlide.Shapes[1].TextFrame.TextRange;
-            objTextRng.Text = "IBM IT Consultation";
-            objTextRng.Font.Name = "Comic Sans MS";
-            objTextRng.Font.Size = 48;
-            objSlide.Shapes.AddPicture(strPic, Microsoft.Office.Core.MsoTriState.msoFalse,
-                Microsoft.Office.Core.MsoTriState.msoTrue,
-                150, 150, 500, 350);
+            //objSlide = objSlides.Add(1, Power.PpSlideLayout.ppLayoutTitleOnly);
+            //objTextRng = objSlide.Shapes[1].TextFrame.TextRange;
+            //objTextRng.Text = "IBM IT Consultation";
+            //objTextRng.Font.Name = "Comic Sans MS";
+            //objTextRng.Font.Size = 48;
+            //objSlide.Shapes.AddPicture(strPic, Microsoft.Office.Core.MsoTriState.msoFalse,
+            //    Microsoft.Office.Core.MsoTriState.msoTrue,
+            //    150, 150, 500, 350);
 
             //Build Slide #2:
             //Add text to the slide title, format the text. Also add a chart to the
@@ -80,12 +80,42 @@ namespace IBMConsultantTool
             //Build Slide #3:
             //Change the background color of this slide only. Add a text effect to the slide
             //and apply various color schemes and shadows to the text effect.
-            objSlide = objSlides.Add(3, Power.PpSlideLayout.ppLayoutBlank);
-            objSlide.FollowMasterBackground = Microsoft.Office.Core.MsoTriState.msoFalse;
-            objShapes = objSlide.Shapes;
-            objShape = objShapes.AddTextEffect(Microsoft.Office.Core.MsoPresetTextEffect.msoTextEffect27,
-              "The End", "Impact", 96, Microsoft.Office.Core.MsoTriState.msoFalse, 
-              Microsoft.Office.Core.MsoTriState.msoFalse, 230, 200);
+            //objSlide = objSlides.Add(3, Power.PpSlideLayout.ppLayoutBlank);
+            //objSlide.FollowMasterBackground = Microsoft.Office.Core.MsoTriState.msoFalse;
+            //objShapes = objSlide.Shapes;
+            //objShape = objShapes.AddTextEffect(Microsoft.Office.Core.MsoPresetTextEffect.msoTextEffect27,
+            //  "The End", "Impact", 96, Microsoft.Office.Core.MsoTriState.msoFalse, 
+            //  Microsoft.Office.Core.MsoTriState.msoFalse, 230, 200);
+
+
+            var FD = new System.Windows.Forms.FolderBrowserDialog();
+            if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            var files = Directory.EnumerateFiles(FD.SelectedPath);
+
+            foreach (var file in files)
+            {
+
+                if (file.Contains("~$") || !file.Contains(".jpg"))
+                {
+                    continue;
+                }
+
+                objSlide = objSlides.Add(1, Power.PpSlideLayout.ppLayoutTitleOnly);
+                objTextRng = objSlide.Shapes[1].TextFrame.TextRange;
+                objTextRng.Text = Path.GetFileNameWithoutExtension(file);
+                objTextRng.Font.Name = "Comic Sans MS";
+                objTextRng.Font.Size = 48;
+                objSlide.Shapes.AddPicture(file, Microsoft.Office.Core.MsoTriState.msoFalse,
+                    Microsoft.Office.Core.MsoTriState.msoTrue,
+                    150, 150, 500, 350);
+
+
+
+            }
 
 
 

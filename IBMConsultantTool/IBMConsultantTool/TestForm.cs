@@ -72,13 +72,20 @@ namespace IBMConsultantTool
 
         private void TrendAnalysisButton_Click(object sender, EventArgs e)
         {
-            /*System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcCrossClientForm));
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTrendAnalysis));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
             this.Close();
-            return;*/
-            MessageBox.Show("Trend Analysis Feature Coming Soon!", "Coming Soon");
+            return;
+           
         }
+
+        public void RUNTrendAnalysis()
+        {
+            Application.Run(new AnalyticsForm());
+
+        }
+
 
         public static void ThreadProcCrossClientForm()
         {
@@ -98,6 +105,11 @@ namespace IBMConsultantTool
         {
             ClientDataControl.newClient = false;
             Application.Run(new StartPage());
+        }
+
+        private void TestForm_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

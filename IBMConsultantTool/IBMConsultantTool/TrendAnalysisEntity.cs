@@ -2,11 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace IBMConsultantTool
 {
-    public class TrendAnalysisEntity
+    public class TrendAnalysisEntity : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
 
         private string location;
 

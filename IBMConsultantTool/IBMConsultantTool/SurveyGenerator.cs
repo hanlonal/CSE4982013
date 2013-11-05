@@ -184,7 +184,6 @@ namespace IBMConsultantTool
             try
             {
                 oDoc.SaveAs("BomSurvey", Word.WdSaveFormat.wdFormatDocument);
-                oDoc.Close();
             }
             catch (Exception)
             {
@@ -341,7 +340,7 @@ namespace IBMConsultantTool
             {
                 //just in case one is thrown for no reason
             }
-            oDoc.Close();
+            
 
         }
 
@@ -514,7 +513,7 @@ namespace IBMConsultantTool
                 //just in case one is thrown for no reason
             }
 
-            oDoc.Close();
+            
         }
 
 

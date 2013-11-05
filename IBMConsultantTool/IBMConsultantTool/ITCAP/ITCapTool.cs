@@ -1509,9 +1509,9 @@ namespace IBMConsultantTool
 
         private void createPowerPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*var Powah = new PowerPointGenerator();
+            var Powah = new PowerPointGenerator();
 
-            Powah.CreatePowerPoint();*/
+            Powah.CreatePowerPoint();
         }
 
         private void answersToolStripMenuItem_Click(object sender, EventArgs e)

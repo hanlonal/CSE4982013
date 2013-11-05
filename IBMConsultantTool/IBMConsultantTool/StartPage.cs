@@ -47,6 +47,8 @@ namespace IBMConsultantTool
 
             ClientDataControl.LoadParticipants();
             //this.Controls.Add(form);
+
+            
             
         }
 
