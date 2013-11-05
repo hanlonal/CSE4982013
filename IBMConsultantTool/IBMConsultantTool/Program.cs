@@ -15,7 +15,7 @@ namespace IBMConsultantTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AnalyticsForm());
+            Application.Run(new TestForm());
         }
     }
 }

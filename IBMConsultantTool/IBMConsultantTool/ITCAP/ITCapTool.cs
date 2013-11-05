@@ -1176,6 +1176,7 @@ namespace IBMConsultantTool
             {
                 domAsIs.Add(dom.AsIsScore);
                 domToBe.Add(dom.ToBeScore);
+
                 domName.Add(dom.Name);
             }
 
@@ -1217,6 +1218,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisY.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisY.Title = "Average Capability Score";
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
+            newChart.ChartAreas["chart1"].AxisX.LabelStyle.Format = "#.##";
 
             /*newChart.ChartAreas["chart1"].AxisX.Title = "Question";
             newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
@@ -1228,7 +1230,6 @@ namespace IBMConsultantTool
 
             newChart.Legends.Add("legend");
             newChart.Legends["legend"].Enabled = true;
-            //newChart.Legends["legend"].LegendStyle = LegendStyle.Table;
 
             newChart.Titles.Add("title");
             newChart.Titles[0].Name = "title";
@@ -1240,30 +1241,35 @@ namespace IBMConsultantTool
             newChart.Series["As_Is"].ChartArea = "chart1";
             newChart.Series["As_Is"].ChartType = SeriesChartType.Bar;
             newChart.Series["As_Is"].IsValueShownAsLabel = true;
-            newChart.Series["As_Is"].IsVisibleInLegend = true;
-            newChart.Series["As_Is"].YValueType = ChartValueType.Double;
+
             newChart.Series.Add("To_Be");
             newChart.Series["To_Be"].ChartArea = "chart1";
             newChart.Series["To_Be"].ChartType = SeriesChartType.Bar;
             newChart.Series["To_Be"].IsValueShownAsLabel = true;
             newChart.Series["To_Be"].IsVisibleInLegend = true;
-            newChart.Series["To_Be"].YValueType = ChartValueType.Double;
 
             int currentCount = current.Count;
             int futureCount = future.Count;
-            float currentTotal = 0;
-            float futureTotal = 0;
+            double cur;
 
             for (int i = 0; i < currentCount; i++)
             {
-                newChart.Series["As_Is"].Points.AddXY(name[i], current[i]);
-                currentTotal += current[i];
+                cur = Convert.ToDouble(current[i]);
+                decimal tmp = Convert.ToDecimal(cur);
+                tmp = Math.Round(tmp, 2);
+                cur = (double)tmp;
+
+                newChart.Series["As_Is"].Points.AddXY(name[i], cur);
             }
 
             for (int i = 0; i < futureCount; i++)
             {
-                newChart.Series["To_Be"].Points.AddXY(name[i], future[i]);
-                futureTotal += future[i];
+                cur = Convert.ToDouble(future[i]);
+                decimal tmp = Convert.ToDecimal(cur);
+                tmp = Math.Round(tmp, 2);
+                cur = (double)tmp;
+
+                newChart.Series["To_Be"].Points.AddXY(name[i], cur);
             }
 
             newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
@@ -1337,21 +1343,43 @@ namespace IBMConsultantTool
             int futureCount = future.Count;
             float currentTotal = 0;
             float futureTotal = 0;
+            double temp;
 
             for (int i = 0; i < currentCount; i++)
             {
-                newChart.Series["As_Is"].Points.AddXY(name[i], current[i]);
+                temp = Convert.ToDouble(current[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["As_Is"].Points.AddXY(name[i], temp);
                 currentTotal += current[i];
             }
 
             for (int i = 0; i < futureCount; i++)
             {
-                newChart.Series["To_Be"].Points.AddXY(name[i], future[i]);
+                temp = Convert.ToDouble(future[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["To_Be"].Points.AddXY(name[i], temp);
                 futureTotal += future[i];
             }
 
-            newChart.Series["As_Is"].Points.AddXY("Total", currentTotal);
-            newChart.Series["To_Be"].Points.AddXY("Total", futureTotal);
+            temp = Convert.ToDouble(currentTotal);
+            decimal converter = Convert.ToDecimal(temp);
+            converter = Math.Round(converter, 2);
+            temp = (double)converter;
+
+            newChart.Series["As_Is"].Points.AddXY("Total", temp);
+
+            temp = Convert.ToDouble(futureTotal);
+            converter = Convert.ToDecimal(temp);
+            converter = Math.Round(converter, 2);
+            temp = (double)converter;
+
+            newChart.Series["To_Be"].Points.AddXY("Total", temp);
 
             newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }

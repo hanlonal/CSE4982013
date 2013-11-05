@@ -24,10 +24,6 @@ namespace IBMConsultantTool
         private Dictionary<int, int> answers = new Dictionary<int, int>();
         private static float standardDeviationThreshold = 1.00f;
 
-
-
-
-
         public ITCapQuestion()
         {
             Console.WriteLine("question created");
@@ -44,6 +40,7 @@ namespace IBMConsultantTool
         {
 
         }
+
         public void AddAsIsAnswer(float num)
         {
             asIsAnswers.Add(num);
@@ -66,7 +63,10 @@ namespace IBMConsultantTool
 
             StandardAsIsDeviation();
             asIsScore = (float)(((1 * numOnes) + (2 * numTwos) + (3 * numThrees) + (4 * numFours) + (5 * numFives)) / (float)numAnswers);
-           
+
+            decimal asIs = Convert.ToDecimal(asIsScore);
+            asIs = Math.Round(asIs, 2);
+            asIsScore = (float)asIs;
                 
             owner.CalculateAsIsAverage();
         }
@@ -76,6 +76,10 @@ namespace IBMConsultantTool
             toBeScore = toBeAnswers.Average();
             StandardToBeDeviation();
             owner.CalculateToBeAverage();
+
+            decimal toBe = Convert.ToDecimal(toBeScore);
+            toBe = Math.Round(toBe, 2);
+            toBeScore = (float)toBe;
         }
 
         private void StandardAsIsDeviation()
@@ -107,6 +111,15 @@ namespace IBMConsultantTool
 
                 dev = (float)Math.Sqrt((sum) / (numAnswers - 1));
                 asisStandardDeviation = dev;
+
+                // Make two decimals
+                if (sum > 0)
+                {
+                    decimal asIsdev = Convert.ToDecimal(asisStandardDeviation);
+                    asIsdev = Math.Round(asIsdev, 2);
+                    asisStandardDeviation = (float)asIsdev;
+                }
+
                 owner.CalculateAsIsAverage();
                 if (asisStandardDeviation > standardDeviationThreshold)
                 {
@@ -128,18 +141,30 @@ namespace IBMConsultantTool
         private void StandardToBeDeviation()
         {
             float dev = 0;
+            float sum = 0;
             if (toBeAnswers.Count > 0)
             {
-                float sum = (float)toBeAnswers.Sum(d => Math.Pow(d - toBeScore, 2));
+                sum = (float)toBeAnswers.Sum(d => Math.Pow(d - toBeScore, 2));
 
                 dev = (float)Math.Sqrt((sum) / (toBeAnswers.Count - 1));
             }
+
             tobeStandardDeviation = dev;
+
+            // Make two decimals
+            if (sum > 0)
+            {
+                decimal toBedev = Convert.ToDecimal(tobeStandardDeviation);
+                toBedev = Math.Round(toBedev, 2);
+                tobeStandardDeviation = (float)toBedev;
+            }
+
             if (tobeStandardDeviation > standardDeviationThreshold)
             {
                 //owner.Flagged = true;
                 //Flagged = true;
             }
+            
 
         }
 
@@ -150,8 +175,14 @@ namespace IBMConsultantTool
             asIsScore = (float)(((1 * numOnes) + (2 * numTwos) + (3 * numThrees) + (4 * numFours) + (5 * numFives)) / (float)numAnswers);
 
             StandardAsIsDeviation();
+
+            decimal asIs = Convert.ToDecimal(asIsScore);
+            asIs = Math.Round(asIs, 2);
+            asIsScore = (float)asIs;
+
             return asIsScore;
         }
+
         public override float CalculateToBeAverage()
         {
             return 0;
