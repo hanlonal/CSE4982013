@@ -52,8 +52,11 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
+            this.trendGridView = new System.Windows.Forms.DataGridView();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.dataPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -182,6 +185,7 @@
             this.showResultsButton.TabIndex = 14;
             this.showResultsButton.Text = "Show Results";
             this.showResultsButton.UseVisualStyleBackColor = true;
+            this.showResultsButton.Click += new System.EventHandler(this.showResultsButton_Click);
             // 
             // domainsComboBox
             // 
@@ -283,6 +287,7 @@
             // 
             this.dataPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.dataPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataPanel.Controls.Add(this.trendGridView);
             this.dataPanel.Location = new System.Drawing.Point(237, 27);
             this.dataPanel.Name = "dataPanel";
             this.dataPanel.Size = new System.Drawing.Size(737, 298);
@@ -296,6 +301,14 @@
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(737, 386);
             this.chartPanel.TabIndex = 9;
+            // 
+            // trendGridView
+            // 
+            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.trendGridView.Location = new System.Drawing.Point(3, 3);
+            this.trendGridView.Name = "trendGridView";
+            this.trendGridView.Size = new System.Drawing.Size(727, 275);
+            this.trendGridView.TabIndex = 0;
             // 
             // AnalyticsForm
             // 
@@ -316,6 +329,8 @@
             this.filterPanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.dataPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,5 +362,6 @@
         private System.Windows.Forms.ComboBox capabilitiesComboBox;
         private System.Windows.Forms.ComboBox cupeTimeFrameComboBox;
         private System.Windows.Forms.ComboBox cupeAnswerTypeComboBox;
+        private System.Windows.Forms.DataGridView trendGridView;
     }
 }

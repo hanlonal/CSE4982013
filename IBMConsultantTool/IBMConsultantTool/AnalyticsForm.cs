@@ -12,6 +12,7 @@ namespace IBMConsultantTool
     public partial class AnalyticsForm : Form
     {
         List<Control> comboBoxControls = new List<Control>();
+        List<TrendAnalysisEntity> entities = new List<TrendAnalysisEntity>();
         DBManager db = new DBManager();
         TextBox currentBox;
         public AnalyticsForm()
@@ -148,6 +149,15 @@ namespace IBMConsultantTool
             date.DateSelected += new DateRangeEventHandler(date_DateSelected);
             date.Visible = true;
             date.BringToFront();
+        }
+
+        private void showResultsButton_Click(object sender, EventArgs e)
+        {
+            TrendAnalysisEntity ent = new TrendAnalysisEntity();
+            entities.Add(ent);
+            trendGridView.DataSource = null;
+            trendGridView.DataSource = entities;
+            trendGridView.Refresh();
         }
 
 

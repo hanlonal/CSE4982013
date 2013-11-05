@@ -8,9 +8,9 @@ namespace IBMConsultantTool
     public class TrendAnalysisEntity
     {
 
-        private string Location;
+        private string location;
 
-        public string Location1
+        public string Location
         {
             get { return Location; }
             set { Location = value; }
