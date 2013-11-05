@@ -51,6 +51,8 @@ namespace IBMConsultantTool
         bool HelpEnabled = false;
         int HelpCurrentStep = 0;
 
+        string chartName;
+
         public CUPETool()
         {
             InitializeComponent();
@@ -108,30 +110,34 @@ namespace IBMConsultantTool
                 DataPoint point = new DataPoint();
                 point.Color = Color.Fuchsia;
                 point.BackGradientStyle = GradientStyle.Center;
-                point.Name = "Commodity";
-                point.Label = "Commodity";
-                point.SetValueY(30);
+                point.LegendText = "Commodity";
+                //point.Name = "Commodity";
+                //point.Label = "Commodity";
+                //point.SetValueY(30);
                 currentChart.Series["BusiCurrent"].Points.Add(point);
                 DataPoint point2 = new DataPoint();
                 point2.Color = Color.Blue;
                 point2.BackGradientStyle = GradientStyle.Center;
-                point2.Name = "Utility";
-                point2.Label = "Utility";
-                point2.SetValueY(10);
+                point2.LegendText = "Utility";
+                //point2.Name = "Utility";
+                //point2.Label = "Utility";
+                //point2.SetValueY(10);
                 currentChart.Series["BusiCurrent"].Points.Add(point2);
                 DataPoint point3 = new DataPoint();
                 point3.Color = Color.Orange;
                 point3.BackGradientStyle = GradientStyle.Center;
-                point3.Name = "Partner";
-                point3.Label = "Partner";
-                point3.SetValueY(5);
+                point3.LegendText = "Partner";
+                //point3.Name = "Partner";
+                //point3.Label = "Partner";
+                //point3.SetValueY(5);
                 currentChart.Series["BusiCurrent"].Points.Add(point3);
                 DataPoint point4 = new DataPoint();
                 point4.Color = Color.Green;
                 point4.BackGradientStyle = GradientStyle.Center;
-                point4.Name = "Enabler";
-                point4.Label = "Enabler";
-                point4.SetValueY(25);
+                point4.LegendText = "Enabler";
+                //point4.Name = "Enabler";
+                //point4.Label = "Enabler";
+                //point4.SetValueY(25);
                 currentChart.Series["BusiCurrent"].Points.Add(point4);
             }
         }
@@ -382,15 +388,57 @@ namespace IBMConsultantTool
                     numD += Convert.ToDouble(temp);
                 }
             }
-            
+
+            for (int cnt = 0; cnt < 4; cnt++)
+                currentChart.Series["BusiCurrent"].Points[cnt].SetDefault(true);
+
+
+            if (currentGrid == questionGridBusiFuture)
+                chartName = "Business Future CUPE Responses";
+            if (currentGrid == questionGridBusinessCurrent)
+                chartName = "Business Current CUPE Responses";
+            if (currentGrid == questionGridITCurrent)
+                chartName = "IT Current CUPE Responses";
+            if (currentGrid == questionGridITFuture)
+                chartName = "IT Future CUPE Responses";
+
               
               // int temp = (int)Convert.ToInt32(totalComm);
               // num += temp;
             //Console.WriteLine(numA.ToString());
-            currentChart.Series["BusiCurrent"].Points[0].SetValueXY("Commodity", numA);
-            currentChart.Series["BusiCurrent"].Points[1].SetValueXY("Utility", numB);
-            currentChart.Series["BusiCurrent"].Points[2].SetValueXY("Parter", numC);
-            currentChart.Series["BusiCurrent"].Points[3].SetValueXY("Enabler", numD);
+            if (numA != 0 && numA > 0)
+                currentChart.Series["BusiCurrent"].Points[0].SetValueXY("Commodity", numA);
+            if (numB != 0 && numB > 0)
+                currentChart.Series["BusiCurrent"].Points[1].SetValueXY("Utility", numB);
+            if (numC != 0 && numC > 0)
+                currentChart.Series["BusiCurrent"].Points[2].SetValueXY("Partner", numC);
+            if (numD != 0 && numD > 0)
+                currentChart.Series["BusiCurrent"].Points[3].SetValueXY("Enabler", numD);
+
+            // the beginning of the chart
+            if (numA == 0)
+            {
+                currentChart.Series["BusiCurrent"].Points[0].LegendText = "Commodity";
+                currentChart.Series["BusiCurrent"].Points[0].SetValueY(numA);
+            }
+            if (numB == 0)
+            {
+                currentChart.Series["BusiCurrent"].Points[1].LegendText = "Utility";
+                currentChart.Series["BusiCurrent"].Points[1].SetValueY(numB);
+            }
+            if (numC == 0)
+            {
+                currentChart.Series["BusiCurrent"].Points[2].LegendText = "Partner";
+                currentChart.Series["BusiCurrent"].Points[2].SetValueY(numC);
+            }
+            if (numD == 0)
+            {
+                currentChart.Series["BusiCurrent"].Points[3].LegendText = "Enabler";
+                currentChart.Series["BusiCurrent"].Points[3].SetValueY(numD);
+            }
+
+            
+            currentChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + chartName + ".jpg", ChartImageFormat.Jpeg);
         }
 
         public void PersonCellFormatting(int index)
@@ -713,13 +761,9 @@ namespace IBMConsultantTool
             List<float> currentFloats = new List<float>();
             List<float> futureFloats = new List<float>();
             int count = 0;
-            //System.Diagnostics.Trace.WriteLine("count: " + questionGridITCurrent.RowCount);
-            System.Diagnostics.Trace.WriteLine("column: " + questionGridITCurrent.ColumnCount);
+
             foreach (DataGridViewRow row in questionGridITCurrent.Rows)
             {
-                //currentFloats.Add((float)row.Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value);
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
                 if (row.Cells[0].Value == null)
                     break;
                 currentFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value));
@@ -729,17 +773,10 @@ namespace IBMConsultantTool
             count = 0;
             foreach (DataGridViewRow row in questionGridITFuture.Rows)
             {
-                //if (row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value == null)
-                //if (count >= 20)
-                
                 if (row.Cells[0].Value == null)
-                {
                     break;
-                }
-                    //break;
                 futureFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value));
                 count++;
-                //System.Diagnostics.Trace.WriteLine("count: " + count.ToString());
             }
 
             CreateChart(currentFloats, futureFloats, "IT StakeHolders Current/Future Comparison");
@@ -819,8 +856,6 @@ namespace IBMConsultantTool
 
             int currentCount = current.Count;
             int futureCount = future.Count;
-
-            //System.Diagnostics.Trace.WriteLine("current: " + currentCount.ToString() + "  future: " + futureCount.ToString());
 
             for (int i = 0; i < currentCount; i++)
             {
@@ -1276,8 +1311,7 @@ namespace IBMConsultantTool
         TreeNode mySelectedNode;
         int indexCurrentQuestionNode;
 
-        private void QuestionView_MouseDown(object sender,
-  System.Windows.Forms.MouseEventArgs e)
+        private void QuestionView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             try
             {
