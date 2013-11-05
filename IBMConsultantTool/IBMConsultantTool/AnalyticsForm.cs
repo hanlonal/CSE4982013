@@ -12,14 +12,19 @@ namespace IBMConsultantTool
     public partial class AnalyticsForm : Form
     {
         List<Control> comboBoxControls = new List<Control>();
-        List<TrendAnalysisEntity> entities = new List<TrendAnalysisEntity>();
+        List<CapabilityTrendAnalysis> capabilities = new List<CapabilityTrendAnalysis>();
+        List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
+        List<ITAttributeTrendAnalysis> attributes = new List<ITAttributeTrendAnalysis>();
+        enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Initiatives, None };
+        TrackingState state;
+        private string currentlyBeingTracked = "";
         DBManager db = new DBManager();
         TextBox currentBox;
         public AnalyticsForm()
         {
             InitializeComponent();
-            
 
+            state = TrackingState.None;
             analyticsListBox.SelectedValueChanged +=new EventHandler(analyticsListBox_SelectedValueChanged);
         }
 
@@ -46,6 +51,12 @@ namespace IBMConsultantTool
 
             businessTypeComboBox.DataSource = names;
 
+            metricsComboBox.DataBindings.Add("Enabled", metricCheckBox, "Checked");
+            regionComboBox.DataBindings.Add("Enabled", regionCheckBox, "Checked");
+            businessTypeComboBox.DataBindings.Add("Enabled", typeCheckBox, "Checked");
+            fromDateText.DataBindings.Add("Enabled", fromDateCheckBox, "Checked");
+            toDateText.DataBindings.Add("Enabled", toDateCheckBox, "Checked");
+
 
         }
 
@@ -54,13 +65,40 @@ namespace IBMConsultantTool
 
         }
 
-        private void ClearControls()
+        private void ClearControls(string tag)
         {
-            foreach (Control con in comboBoxControls)
+            foreach (Control con in filterPanel.Controls)
             {
-                ComboBox box = (ComboBox)con;
-                box.DataSource = null;
-                box.Items.Clear();
+                if ((string)con.Tag == tag || con.Tag == "All")
+                {
+                    con.Visible = true;
+                }
+                else
+                    con.Visible = false;
+            }
+
+        }
+
+        private void ChangeState(TrackingState newState)
+        {
+            state = newState;
+
+            switch (state)
+            {
+                case TrackingState.Capabilities:
+                    ClearControls("Capabilities");
+                    
+                    break;
+                case TrackingState.CUPEQuestions:
+                    ClearControls("CUPE");
+                    break;
+                case TrackingState.Objectives:
+                    ClearControls("Objectives");
+                    break;
+                case TrackingState.ITAttributes:
+                    ClearControls("Capabilities");
+                    break;
+
             }
 
         }
@@ -71,11 +109,14 @@ namespace IBMConsultantTool
         private void analyticsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             string value = (string)analyticsListBox.SelectedItem;
-            List<BUSINESSOBJECTIVE> values = new List<BUSINESSOBJECTIVE>();
+            
             List<string> names = new List<string>();
+
 
             if (value == "Objectives")
             {
+                ChangeState(TrackingState.Objectives);
+                List<BUSINESSOBJECTIVE> values = new List<BUSINESSOBJECTIVE>();
                 values = db.GetObjectives().ToList();
 
                 foreach (BUSINESSOBJECTIVE obj in values)
@@ -83,22 +124,25 @@ namespace IBMConsultantTool
                     names.Add(obj.NAME.Trim());
                 }
                 objectiveNamesComboBox.DataSource = names;
+                objectiveNamesComboBox.Text = "<Objectives>";
                 objectiveNamesComboBox.SelectedValueChanged += new EventHandler(objectiveNamesComboBox_SelectedValueChanged);
             }
 
             if (value == "Capabilities")
             {
+                ChangeState(TrackingState.Capabilities);
                 //ClearControls();
                 names = db.GetDomainNames().ToList();
                 domainsComboBox.DataSource = names;
-
-                domainsComboBox.SelectedValueChanged +=new EventHandler(domainsComboBox_SelectedValueChanged);
+                domainsComboBox.Text = "<Domains>";
+                domainsComboBox.SelectedValueChanged += new EventHandler(domainsComboBox_SelectedValueChanged);
 
             }
 
             if (value == "CUPE Questions")
             {
                 //ClearControls();
+                ChangeState(TrackingState.CUPEQuestions);
                 List<CupeQuestionStringData> stringData = new List<CupeQuestionStringData>();
                 
                 stringData = db.GetCUPEQuestionStringData();
@@ -108,7 +152,15 @@ namespace IBMConsultantTool
                 }
 
                 cupeQuestionsComboBox.DataSource = names;
-
+                cupeQuestionsComboBox.Text = "<CUPE Questions";
+            }
+            if (value == "IT Attribues")
+            {
+                ChangeState(TrackingState.ITAttributes);
+                names = db.GetDomainNames().ToList();
+                domainsComboBox.DataSource = names;
+                domainsComboBox.Text = "<Domains>";
+                domainsComboBox.SelectedValueChanged += new EventHandler(domainsComboBox_SelectedValueChanged);
             }
         }
 
@@ -117,22 +169,32 @@ namespace IBMConsultantTool
             string value = (string)cupeQuestionsComboBox.SelectedText;
         }
 
+        private void capabilitiesComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            List<string> attributes = new List<string>();
+            attributes = db.GetITCAPQuestionNames(capabilitiesComboBox.Text, domainsComboBox.Text).ToList();
+            itAttributesComboBox.DataSource = attributes;
+            itAttributesComboBox.Text = "<Attributes>";
+        
+        }
+
         private void domainsComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            //ClearControls();
-
             List<String> names = new List<string>();
-
+            
             names = db.GetCapabilitiesFromDomain(domainsComboBox.Text);
-           
             capabilitiesComboBox.DataSource = names;
-           
+            capabilitiesComboBox.Text = "<Capabilities>";
+            if (state == TrackingState.ITAttributes)
+            {
+                capabilitiesComboBox.SelectedValueChanged +=new EventHandler(capabilitiesComboBox_SelectedValueChanged);
+                
+            }
         }
 
         private void date_DateSelected(object sender, DateRangeEventArgs e)
         {
             MonthCalendar cal = (MonthCalendar)sender;
-
             currentBox.Text = e.Start.Date.ToShortDateString();
             //selectedTime = e.Start.Date;
             cal.Visible = false;
@@ -151,15 +213,90 @@ namespace IBMConsultantTool
             date.BringToFront();
         }
 
+        private void CreateCapabilityToTrack()
+        {
+
+            if (currentlyBeingTracked == "" || currentlyBeingTracked == "Capability")
+            {
+                CapabilityTrendAnalysis ent = new CapabilityTrendAnalysis();
+                capabilities.Add(ent);
+                trendGridView.DataSource = null;
+                trendGridView.DataSource = capabilities;
+                trendGridView.Refresh();
+                currentlyBeingTracked = "Capability";
+            }
+            else
+            {
+                MessageBox.Show("You can only track one entity type at a time. Please clear grid and try again.");
+            }
+
+        }
+
+        private void CreateCUPEQuestionToTrack()
+        {
+            if (currentlyBeingTracked == "" || currentlyBeingTracked == "CUPE")
+            {
+                CUPEQuestionTrendAnalysis ent = new CUPEQuestionTrendAnalysis();
+                cupes.Add(ent);
+                trendGridView.DataSource = null;
+                trendGridView.DataSource = cupes;
+                trendGridView.Refresh();
+                currentlyBeingTracked = "CUPE";
+            }
+            else
+            {
+                MessageBox.Show("You can only track one entity type at a time. Please clear grid and try again.");
+            }
+
+        }
+
+        private void CreateITAttributeToTrack()
+        {
+            if (currentlyBeingTracked == "" || currentlyBeingTracked == "Attribute")
+            {
+                ITAttributeTrendAnalysis ent = new ITAttributeTrendAnalysis();
+                attributes.Add(ent);
+                trendGridView.DataSource = null;
+                trendGridView.DataSource = attributes;
+                trendGridView.Refresh();
+                currentlyBeingTracked = "Attribute";
+            }
+            else
+            {
+                MessageBox.Show("You can only track one entity type at a time. Please clear grid and try again.");
+            }
+        }
+
         private void showResultsButton_Click(object sender, EventArgs e)
         {
-            TrendAnalysisEntity ent = new TrendAnalysisEntity();
-            entities.Add(ent);
-            trendGridView.DataSource = null;
-            trendGridView.DataSource = entities;
-            trendGridView.Refresh();
-            //db.getin
+            if (state == TrackingState.Capabilities)
+                CreateCapabilityToTrack();
+            else if (state == TrackingState.CUPEQuestions)
+                CreateCUPEQuestionToTrack();
+            else if (state == TrackingState.ITAttributes)
+                CreateITAttributeToTrack();
+
+            
         }
+
+        private void clearGridButton_Click(object sender, EventArgs e)
+        {
+            ClearGridForm form = new ClearGridForm(this);
+            form.Show();
+        }
+
+        public void ClearGrid()
+        {
+            trendGridView.DataSource = null;
+            trendGridView.Refresh();
+            currentlyBeingTracked = "";
+            attributes.Clear();
+            cupes.Clear();
+            capabilities.Clear();
+        }
+
+
+
 
 
 

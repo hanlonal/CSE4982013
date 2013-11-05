@@ -7,12 +7,12 @@ namespace IBMConsultantTool
 {
     public class CapabilityTrendAnalysis : TrendAnalysisEntity
     {
-        string GapType = "";
+        string gapType = "";
 
-        public string GapType1
+        public string GapType
         {
-            get { return GapType; }
-            set { GapType = value; }
+            get { return gapType; }
+            set { gapType = value; }
         }
 
         string prioritizedGapType = "";

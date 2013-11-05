@@ -122,6 +122,7 @@
     <Compile Include="BOM\Classes\NewObjective.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CapabilityTrendAnalysis.cs" />
     <Compile Include="ChangeITCAPDefaults.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +141,15 @@
     <Compile Include="ChangeCUPEDefaults.Designer.cs">
       <DependentUpon>ChangeCUPEDefaults.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClearGridForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClearGridForm.Designer.cs">
+      <DependentUpon>ClearGridForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUPEQuestionTrendAnalysis.cs" />
+    <Compile Include="InitiativeTrendAnalysis.cs" />
+    <Compile Include="ITAttributeTrendAnalysis.cs" />
     <Compile Include="LoadClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeCUPEDefaults.resx">
       <DependentUpon>ChangeCUPEDefaults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClearGridForm.resx">
+      <DependentUpon>ClearGridForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadClientForm.resx">
       <DependentUpon>LoadClientForm.cs</DependentUpon>

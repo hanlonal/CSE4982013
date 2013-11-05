@@ -7,6 +7,8 @@ namespace IBMConsultantTool
 {
     public class CUPEQuestionTrendAnalysis : TrendAnalysisEntity
     {
+        //four answers
+
 
 
     }

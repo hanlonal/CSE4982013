@@ -17,29 +17,37 @@ namespace IBMConsultantTool
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
+        private string name;
 
-        private string location;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+
+        protected string location;
 
         public string Location
         {
-            get { return Location; }
-            set { Location = value; }
+            get { return location; }
+            set { location = value; }
         }
-        private string businessType;
+        protected string businessType;
 
         public string BusinessType
         {
             get { return businessType; }
             set { businessType = value; }
         }
-        private DateTime startDate;
+        protected DateTime startDate;
 
         public DateTime StartDate
         {
             get { return startDate; }
             set { startDate = value; }
         }
-        private DateTime endDate;
+        protected DateTime endDate;
 
         public DateTime EndDate
         {
