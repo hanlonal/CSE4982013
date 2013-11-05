@@ -33,22 +33,23 @@
             this.analyticsListBox = new System.Windows.Forms.ListBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.firstLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.secondLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.showResultsButton = new System.Windows.Forms.Button();
+            this.domainsComboBox = new System.Windows.Forms.ComboBox();
+            this.fromDateCheckBox = new System.Windows.Forms.CheckBox();
+            this.toDateCheckBox = new System.Windows.Forms.CheckBox();
+            this.regionCheckBox = new System.Windows.Forms.CheckBox();
+            this.typeCheckBox = new System.Windows.Forms.CheckBox();
+            this.metricCheckBox = new System.Windows.Forms.CheckBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.metricCheckBox = new System.Windows.Forms.CheckBox();
-            this.typeCheckBox = new System.Windows.Forms.CheckBox();
-            this.regionCheckBox = new System.Windows.Forms.CheckBox();
-            this.toDateCheckBox = new System.Windows.Forms.CheckBox();
-            this.fromDateCheckBox = new System.Windows.Forms.CheckBox();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.thirdLevelComboBox = new System.Windows.Forms.ComboBox();
-            this.showResultsButton = new System.Windows.Forms.Button();
-            this.secondLevelComboBox = new System.Windows.Forms.ComboBox();
-            this.firstLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.capabilitiesComboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -100,10 +101,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.capabilitiesComboBox);
             this.panel1.Controls.Add(this.firstLevelComboBox);
             this.panel1.Controls.Add(this.secondLevelComboBox);
             this.panel1.Controls.Add(this.showResultsButton);
-            this.panel1.Controls.Add(this.thirdLevelComboBox);
+            this.panel1.Controls.Add(this.domainsComboBox);
             this.panel1.Controls.Add(this.fromDateCheckBox);
             this.panel1.Controls.Add(this.toDateCheckBox);
             this.panel1.Controls.Add(this.regionCheckBox);
@@ -120,6 +122,105 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(231, 705);
             this.panel1.TabIndex = 6;
+            // 
+            // firstLevelComboBox
+            // 
+            this.firstLevelComboBox.FormattingEnabled = true;
+            this.firstLevelComboBox.Location = new System.Drawing.Point(44, 168);
+            this.firstLevelComboBox.Name = "firstLevelComboBox";
+            this.firstLevelComboBox.Size = new System.Drawing.Size(184, 28);
+            this.firstLevelComboBox.TabIndex = 16;
+            this.firstLevelComboBox.Text = "<Choose>";
+            // 
+            // secondLevelComboBox
+            // 
+            this.secondLevelComboBox.FormattingEnabled = true;
+            this.secondLevelComboBox.Location = new System.Drawing.Point(44, 202);
+            this.secondLevelComboBox.Name = "secondLevelComboBox";
+            this.secondLevelComboBox.Size = new System.Drawing.Size(184, 28);
+            this.secondLevelComboBox.TabIndex = 15;
+            this.secondLevelComboBox.Text = "<Choose>";
+            // 
+            // showResultsButton
+            // 
+            this.showResultsButton.Location = new System.Drawing.Point(44, 662);
+            this.showResultsButton.Name = "showResultsButton";
+            this.showResultsButton.Size = new System.Drawing.Size(139, 31);
+            this.showResultsButton.TabIndex = 14;
+            this.showResultsButton.Text = "Show Results";
+            this.showResultsButton.UseVisualStyleBackColor = true;
+            // 
+            // domainsComboBox
+            // 
+            this.domainsComboBox.FormattingEnabled = true;
+            this.domainsComboBox.Location = new System.Drawing.Point(44, 236);
+            this.domainsComboBox.Name = "domainsComboBox";
+            this.domainsComboBox.Size = new System.Drawing.Size(184, 28);
+            this.domainsComboBox.TabIndex = 12;
+            this.domainsComboBox.Text = "<Choose>";
+            // 
+            // fromDateCheckBox
+            // 
+            this.fromDateCheckBox.AutoSize = true;
+            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 557);
+            this.fromDateCheckBox.Name = "fromDateCheckBox";
+            this.fromDateCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.fromDateCheckBox.TabIndex = 11;
+            this.fromDateCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // toDateCheckBox
+            // 
+            this.toDateCheckBox.AutoSize = true;
+            this.toDateCheckBox.Location = new System.Drawing.Point(12, 614);
+            this.toDateCheckBox.Name = "toDateCheckBox";
+            this.toDateCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.toDateCheckBox.TabIndex = 10;
+            this.toDateCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // regionCheckBox
+            // 
+            this.regionCheckBox.AutoSize = true;
+            this.regionCheckBox.Location = new System.Drawing.Point(12, 433);
+            this.regionCheckBox.Name = "regionCheckBox";
+            this.regionCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.regionCheckBox.TabIndex = 9;
+            this.regionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // typeCheckBox
+            // 
+            this.typeCheckBox.AutoSize = true;
+            this.typeCheckBox.Location = new System.Drawing.Point(12, 499);
+            this.typeCheckBox.Name = "typeCheckBox";
+            this.typeCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.typeCheckBox.TabIndex = 8;
+            this.typeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // metricCheckBox
+            // 
+            this.metricCheckBox.AutoSize = true;
+            this.metricCheckBox.Location = new System.Drawing.Point(12, 356);
+            this.metricCheckBox.Name = "metricCheckBox";
+            this.metricCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.metricCheckBox.TabIndex = 0;
+            this.metricCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(44, 433);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(184, 28);
+            this.comboBox3.TabIndex = 7;
+            this.comboBox3.Text = "<Region>";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(44, 499);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(184, 28);
+            this.comboBox2.TabIndex = 6;
+            this.comboBox2.Text = "<Business Type>";
             // 
             // menuStrip1
             // 
@@ -154,69 +255,6 @@
             this.dataPanel.Size = new System.Drawing.Size(737, 298);
             this.dataPanel.TabIndex = 8;
             // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(44, 499);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(184, 28);
-            this.comboBox2.TabIndex = 6;
-            this.comboBox2.Text = "<Business Type>";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(44, 433);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(184, 28);
-            this.comboBox3.TabIndex = 7;
-            this.comboBox3.Text = "<Region>";
-            // 
-            // metricCheckBox
-            // 
-            this.metricCheckBox.AutoSize = true;
-            this.metricCheckBox.Location = new System.Drawing.Point(12, 356);
-            this.metricCheckBox.Name = "metricCheckBox";
-            this.metricCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.metricCheckBox.TabIndex = 0;
-            this.metricCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // typeCheckBox
-            // 
-            this.typeCheckBox.AutoSize = true;
-            this.typeCheckBox.Location = new System.Drawing.Point(12, 499);
-            this.typeCheckBox.Name = "typeCheckBox";
-            this.typeCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.typeCheckBox.TabIndex = 8;
-            this.typeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // regionCheckBox
-            // 
-            this.regionCheckBox.AutoSize = true;
-            this.regionCheckBox.Location = new System.Drawing.Point(12, 433);
-            this.regionCheckBox.Name = "regionCheckBox";
-            this.regionCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.regionCheckBox.TabIndex = 9;
-            this.regionCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // toDateCheckBox
-            // 
-            this.toDateCheckBox.AutoSize = true;
-            this.toDateCheckBox.Location = new System.Drawing.Point(12, 614);
-            this.toDateCheckBox.Name = "toDateCheckBox";
-            this.toDateCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.toDateCheckBox.TabIndex = 10;
-            this.toDateCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // fromDateCheckBox
-            // 
-            this.fromDateCheckBox.AutoSize = true;
-            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 557);
-            this.fromDateCheckBox.Name = "fromDateCheckBox";
-            this.fromDateCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.fromDateCheckBox.TabIndex = 11;
-            this.fromDateCheckBox.UseVisualStyleBackColor = true;
-            // 
             // chartPanel
             // 
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -226,41 +264,14 @@
             this.chartPanel.Size = new System.Drawing.Size(737, 386);
             this.chartPanel.TabIndex = 9;
             // 
-            // thirdLevelComboBox
+            // capabilitiesComboBox
             // 
-            this.thirdLevelComboBox.FormattingEnabled = true;
-            this.thirdLevelComboBox.Location = new System.Drawing.Point(44, 288);
-            this.thirdLevelComboBox.Name = "thirdLevelComboBox";
-            this.thirdLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.thirdLevelComboBox.TabIndex = 12;
-            this.thirdLevelComboBox.Text = "<Choose>";
-            // 
-            // showResultsButton
-            // 
-            this.showResultsButton.Location = new System.Drawing.Point(44, 662);
-            this.showResultsButton.Name = "showResultsButton";
-            this.showResultsButton.Size = new System.Drawing.Size(139, 31);
-            this.showResultsButton.TabIndex = 14;
-            this.showResultsButton.Text = "Show Results";
-            this.showResultsButton.UseVisualStyleBackColor = true;
-            // 
-            // secondLevelComboBox
-            // 
-            this.secondLevelComboBox.FormattingEnabled = true;
-            this.secondLevelComboBox.Location = new System.Drawing.Point(44, 229);
-            this.secondLevelComboBox.Name = "secondLevelComboBox";
-            this.secondLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.secondLevelComboBox.TabIndex = 15;
-            this.secondLevelComboBox.Text = "<Choose>";
-            // 
-            // firstLevelComboBox
-            // 
-            this.firstLevelComboBox.FormattingEnabled = true;
-            this.firstLevelComboBox.Location = new System.Drawing.Point(44, 168);
-            this.firstLevelComboBox.Name = "firstLevelComboBox";
-            this.firstLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.firstLevelComboBox.TabIndex = 16;
-            this.firstLevelComboBox.Text = "<Choose>";
+            this.capabilitiesComboBox.FormattingEnabled = true;
+            this.capabilitiesComboBox.Location = new System.Drawing.Point(44, 273);
+            this.capabilitiesComboBox.Name = "capabilitiesComboBox";
+            this.capabilitiesComboBox.Size = new System.Drawing.Size(184, 28);
+            this.capabilitiesComboBox.TabIndex = 17;
+            this.capabilitiesComboBox.Text = "<Choose>";
             // 
             // AnalyticsForm
             // 
@@ -306,8 +317,9 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Panel chartPanel;
         private System.Windows.Forms.Button showResultsButton;
-        private System.Windows.Forms.ComboBox thirdLevelComboBox;
+        private System.Windows.Forms.ComboBox domainsComboBox;
         private System.Windows.Forms.ComboBox firstLevelComboBox;
         private System.Windows.Forms.ComboBox secondLevelComboBox;
+        private System.Windows.Forms.ComboBox capabilitiesComboBox;
     }
 }

@@ -36,17 +36,54 @@ namespace IBMConsultantTool
         private void analyticsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             string value = (string)analyticsListBox.SelectedItem;
-            List<string> values = new List<string>();
+            List<BUSINESSOBJECTIVE> values = new List<BUSINESSOBJECTIVE>();
+            List<string> names = new List<string>();
 
-            if (value == "Initiatives")
+            if (value == "Objectives")
             {
-                values = db.GetCategoryNames().ToList();
-                firstLevelComboBox.DataSource = values;
+                values = db.GetObjectives().ToList();
+
+                foreach (BUSINESSOBJECTIVE obj in values)
+                {
+                    names.Add(obj.NAME.Trim());
+                }
+                firstLevelComboBox.DataSource = names;
+                firstLevelComboBox.SelectedValueChanged +=new EventHandler(firstLevelComboBox_SelectedValueChanged);
+            }
+
+            if (value == "Capabilities")
+            {
+                domainsComboBox.DataSource = null;
+                domainsComboBox.Items.Clear();
+                names = db.GetDomainNames().ToList();
+                domainsComboBox.DataSource = names;
+
+                domainsComboBox.SelectedValueChanged +=new EventHandler(domainsComboBox_SelectedValueChanged);
+
             }
         }
 
+        private void firstLevelComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string value = (string)firstLevelComboBox.SelectedText;
+        }
+
+        private void domainsComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            capabilitiesComboBox.DataSource = null;
+            capabilitiesComboBox.Items.Clear();
+
+            List<String> names = new List<string>();
+
+           // names = db.(domainsComboBox.SelectedText).ToList();
+
+            capabilitiesComboBox.DataSource = names;
+
+        }
 
         # endregion
+
+
 
 
     }
