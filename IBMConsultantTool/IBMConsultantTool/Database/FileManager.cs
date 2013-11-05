@@ -1670,6 +1670,84 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region CapabilityGapInfo
+        public bool GetCapabilityGapInfo(string capName, out XElement capGapInfo)
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            try
+            {
+                capGapInfo = (from ent in client.Element("CAPABILITYGAPINFOS").Elements("CAPABILITYGAPINFO")
+                              where ent.Element("CAPABILITY").Value == capName
+                              select ent).Single();
+
+                return true;
+            }
+
+            catch
+            {
+                capGapInfo = null;
+                return false;
+            }
+        }
+        public override void SaveCapabilityGapInfo(Capability capability)
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            XElement capGapInfo;
+            if (!GetCapabilityGapInfo(capability.Name, out capGapInfo))
+            {
+                capGapInfo = new XElement("CAPABILITYGAPINFO");
+                XElement capabilityEnt;
+                GetCapability(capability.Name, out capabilityEnt);
+                capGapInfo.Add(new XElement("CAPABILITY", capability.Name));
+                capGapInfo.Add(new XElement("GAPTYPE", "None"));
+                capGapInfo.Add(new XElement("GAP", "0"));
+                capGapInfo.Add(new XElement("PRIORITIZEDGAPTYPE", "None"));
+                capGapInfo.Add(new XElement("PRIORITIZEDGAP", "0"));
+                client.Add(capGapInfo);
+            }
+            switch (capability.GapType1)
+            {
+                case ScoringEntity.GapType.High:
+                    capGapInfo.Element("GAPTYPE").Value = "High";
+                    break;
+
+                case ScoringEntity.GapType.Middle:
+                    capGapInfo.Element("GAPTYPE").Value = "Middle";
+                    break;
+
+                case ScoringEntity.GapType.Low:
+                    capGapInfo.Element("GAPTYPE").Value = "Low";
+                    break;
+
+                case ScoringEntity.GapType.None:
+                    capGapInfo.Element("GAPTYPE").Value = "None";
+                    break;
+            }
+
+            switch (capability.PrioritizedGapType1)
+            {
+                case ScoringEntity.PrioritizedGapType.High:
+                    capGapInfo.Element("PRIORITIZEDGAPTYPE").Value = "High";
+                    break;
+
+                case ScoringEntity.PrioritizedGapType.Middle:
+                    capGapInfo.Element("PRIORITIZEDGAPTYPE").Value = "Middle";
+                    break;
+
+                case ScoringEntity.PrioritizedGapType.Low:
+                    capGapInfo.Element("PRIORITIZEDGAPTYPE").Value = "Low";
+                    break;
+
+                case ScoringEntity.PrioritizedGapType.None:
+                    capGapInfo.Element("PRIORITIZEDGAPTYPE").Value = "None";
+                    break;
+            }
+
+            capGapInfo.Element("PRIORITIZEDGAP").Value = capability.PrioritizedCapabilityGap.ToString();
+            capGapInfo.Element("GAP").Value = capability.CapabilityGap.ToString();
+        }
+        #endregion
+
         #region ITCAPQuestion
 
         public bool GetITCAP(string itcqName, XElement client, out XElement itcap)
