@@ -2909,6 +2909,14 @@ namespace IBMConsultantTool
             new ChangeCUPEDefaults().Show();
         }
 
+        private void generatePowerpointToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var Powah = new PowerPointGenerator();
+
+            Powah.CreatePowerPoint();
+        }
+
+
     }// end class
 
 
