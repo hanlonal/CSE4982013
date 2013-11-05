@@ -33,8 +33,8 @@
             this.analyticsListBox = new System.Windows.Forms.ListBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.firstLevelComboBox = new System.Windows.Forms.ComboBox();
-            this.secondLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.cupeQuestionsComboBox = new System.Windows.Forms.ComboBox();
+            this.objectiveNamesComboBox = new System.Windows.Forms.ComboBox();
             this.showResultsButton = new System.Windows.Forms.Button();
             this.domainsComboBox = new System.Windows.Forms.ComboBox();
             this.fromDateCheckBox = new System.Windows.Forms.CheckBox();
@@ -50,6 +50,8 @@
             this.dataPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
             this.capabilitiesComboBox = new System.Windows.Forms.ComboBox();
+            this.cupeAnswerTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.cupeTimeFrameComboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,9 +103,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.cupeTimeFrameComboBox);
+            this.panel1.Controls.Add(this.cupeAnswerTypeComboBox);
             this.panel1.Controls.Add(this.capabilitiesComboBox);
-            this.panel1.Controls.Add(this.firstLevelComboBox);
-            this.panel1.Controls.Add(this.secondLevelComboBox);
+            this.panel1.Controls.Add(this.cupeQuestionsComboBox);
+            this.panel1.Controls.Add(this.objectiveNamesComboBox);
             this.panel1.Controls.Add(this.showResultsButton);
             this.panel1.Controls.Add(this.domainsComboBox);
             this.panel1.Controls.Add(this.fromDateCheckBox);
@@ -123,23 +127,23 @@
             this.panel1.Size = new System.Drawing.Size(231, 705);
             this.panel1.TabIndex = 6;
             // 
-            // firstLevelComboBox
+            // cupeQuestionsComboBox
             // 
-            this.firstLevelComboBox.FormattingEnabled = true;
-            this.firstLevelComboBox.Location = new System.Drawing.Point(44, 168);
-            this.firstLevelComboBox.Name = "firstLevelComboBox";
-            this.firstLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.firstLevelComboBox.TabIndex = 16;
-            this.firstLevelComboBox.Text = "<Choose>";
+            this.cupeQuestionsComboBox.FormattingEnabled = true;
+            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(12, 153);
+            this.cupeQuestionsComboBox.Name = "cupeQuestionsComboBox";
+            this.cupeQuestionsComboBox.Size = new System.Drawing.Size(216, 28);
+            this.cupeQuestionsComboBox.TabIndex = 16;
+            this.cupeQuestionsComboBox.Text = "<CUPE Questions>";
             // 
-            // secondLevelComboBox
+            // objectiveNamesComboBox
             // 
-            this.secondLevelComboBox.FormattingEnabled = true;
-            this.secondLevelComboBox.Location = new System.Drawing.Point(44, 202);
-            this.secondLevelComboBox.Name = "secondLevelComboBox";
-            this.secondLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.secondLevelComboBox.TabIndex = 15;
-            this.secondLevelComboBox.Text = "<Choose>";
+            this.objectiveNamesComboBox.FormattingEnabled = true;
+            this.objectiveNamesComboBox.Location = new System.Drawing.Point(12, 187);
+            this.objectiveNamesComboBox.Name = "objectiveNamesComboBox";
+            this.objectiveNamesComboBox.Size = new System.Drawing.Size(216, 28);
+            this.objectiveNamesComboBox.TabIndex = 15;
+            this.objectiveNamesComboBox.Text = "<Choose>";
             // 
             // showResultsButton
             // 
@@ -153,9 +157,9 @@
             // domainsComboBox
             // 
             this.domainsComboBox.FormattingEnabled = true;
-            this.domainsComboBox.Location = new System.Drawing.Point(44, 236);
+            this.domainsComboBox.Location = new System.Drawing.Point(12, 221);
             this.domainsComboBox.Name = "domainsComboBox";
-            this.domainsComboBox.Size = new System.Drawing.Size(184, 28);
+            this.domainsComboBox.Size = new System.Drawing.Size(216, 28);
             this.domainsComboBox.TabIndex = 12;
             this.domainsComboBox.Text = "<Choose>";
             // 
@@ -267,11 +271,29 @@
             // capabilitiesComboBox
             // 
             this.capabilitiesComboBox.FormattingEnabled = true;
-            this.capabilitiesComboBox.Location = new System.Drawing.Point(44, 273);
+            this.capabilitiesComboBox.Location = new System.Drawing.Point(12, 255);
             this.capabilitiesComboBox.Name = "capabilitiesComboBox";
-            this.capabilitiesComboBox.Size = new System.Drawing.Size(184, 28);
+            this.capabilitiesComboBox.Size = new System.Drawing.Size(216, 28);
             this.capabilitiesComboBox.TabIndex = 17;
             this.capabilitiesComboBox.Text = "<Choose>";
+            // 
+            // cupeAnswerTypeComboBox
+            // 
+            this.cupeAnswerTypeComboBox.FormattingEnabled = true;
+            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(44, 289);
+            this.cupeAnswerTypeComboBox.Name = "cupeAnswerTypeComboBox";
+            this.cupeAnswerTypeComboBox.Size = new System.Drawing.Size(184, 28);
+            this.cupeAnswerTypeComboBox.TabIndex = 18;
+            this.cupeAnswerTypeComboBox.Text = "<Choose>";
+            // 
+            // cupeTimeFrameComboBox
+            // 
+            this.cupeTimeFrameComboBox.FormattingEnabled = true;
+            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(44, 323);
+            this.cupeTimeFrameComboBox.Name = "cupeTimeFrameComboBox";
+            this.cupeTimeFrameComboBox.Size = new System.Drawing.Size(184, 28);
+            this.cupeTimeFrameComboBox.TabIndex = 19;
+            this.cupeTimeFrameComboBox.Text = "<Choose>";
             // 
             // AnalyticsForm
             // 
@@ -318,8 +340,10 @@
         private System.Windows.Forms.Panel chartPanel;
         private System.Windows.Forms.Button showResultsButton;
         private System.Windows.Forms.ComboBox domainsComboBox;
-        private System.Windows.Forms.ComboBox firstLevelComboBox;
-        private System.Windows.Forms.ComboBox secondLevelComboBox;
+        private System.Windows.Forms.ComboBox cupeQuestionsComboBox;
+        private System.Windows.Forms.ComboBox objectiveNamesComboBox;
         private System.Windows.Forms.ComboBox capabilitiesComboBox;
+        private System.Windows.Forms.ComboBox cupeTimeFrameComboBox;
+        private System.Windows.Forms.ComboBox cupeAnswerTypeComboBox;
     }
 }
