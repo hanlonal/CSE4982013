@@ -51,8 +51,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.chartPanel = new System.Windows.Forms.Panel();
             this.trendGridView = new System.Windows.Forms.DataGridView();
+            this.chartPanel = new System.Windows.Forms.Panel();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
@@ -139,7 +139,7 @@
             this.cupeTimeFrameComboBox.Name = "cupeTimeFrameComboBox";
             this.cupeTimeFrameComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeTimeFrameComboBox.TabIndex = 19;
-            this.cupeTimeFrameComboBox.Text = "<Choose>";
+            this.cupeTimeFrameComboBox.Text = "<CUPE Time Frame>";
             // 
             // cupeAnswerTypeComboBox
             // 
@@ -148,7 +148,7 @@
             this.cupeAnswerTypeComboBox.Name = "cupeAnswerTypeComboBox";
             this.cupeAnswerTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeAnswerTypeComboBox.TabIndex = 18;
-            this.cupeAnswerTypeComboBox.Text = "<Choose>";
+            this.cupeAnswerTypeComboBox.Text = "<CUPE Answer Type>";
             // 
             // capabilitiesComboBox
             // 
@@ -157,7 +157,7 @@
             this.capabilitiesComboBox.Name = "capabilitiesComboBox";
             this.capabilitiesComboBox.Size = new System.Drawing.Size(216, 28);
             this.capabilitiesComboBox.TabIndex = 17;
-            this.capabilitiesComboBox.Text = "<Choose>";
+            this.capabilitiesComboBox.Text = "<Capabilities>";
             // 
             // cupeQuestionsComboBox
             // 
@@ -175,7 +175,7 @@
             this.objectiveNamesComboBox.Name = "objectiveNamesComboBox";
             this.objectiveNamesComboBox.Size = new System.Drawing.Size(216, 28);
             this.objectiveNamesComboBox.TabIndex = 15;
-            this.objectiveNamesComboBox.Text = "<Choose>";
+            this.objectiveNamesComboBox.Text = "<Objectives>";
             // 
             // showResultsButton
             // 
@@ -194,7 +194,7 @@
             this.domainsComboBox.Name = "domainsComboBox";
             this.domainsComboBox.Size = new System.Drawing.Size(216, 28);
             this.domainsComboBox.TabIndex = 12;
-            this.domainsComboBox.Text = "<Choose>";
+            this.domainsComboBox.Text = "<Domains>";
             // 
             // fromDateCheckBox
             // 
@@ -293,6 +293,15 @@
             this.dataPanel.Size = new System.Drawing.Size(737, 298);
             this.dataPanel.TabIndex = 8;
             // 
+            // trendGridView
+            // 
+            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.trendGridView.Location = new System.Drawing.Point(3, 3);
+            this.trendGridView.Name = "trendGridView";
+            this.trendGridView.ReadOnly = true;
+            this.trendGridView.Size = new System.Drawing.Size(727, 275);
+            this.trendGridView.TabIndex = 0;
+            // 
             // chartPanel
             // 
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -301,14 +310,6 @@
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(737, 386);
             this.chartPanel.TabIndex = 9;
-            // 
-            // trendGridView
-            // 
-            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trendGridView.Location = new System.Drawing.Point(3, 3);
-            this.trendGridView.Name = "trendGridView";
-            this.trendGridView.Size = new System.Drawing.Size(727, 275);
-            this.trendGridView.TabIndex = 0;
             // 
             // AnalyticsForm
             // 

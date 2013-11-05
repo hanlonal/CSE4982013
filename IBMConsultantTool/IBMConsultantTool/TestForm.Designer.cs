@@ -186,6 +186,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "TestForm";
             this.Text = "IBM Consultant Toolkit";
+            this.Load += new System.EventHandler(this.TestForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).EndInit();
