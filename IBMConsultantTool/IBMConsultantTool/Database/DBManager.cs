@@ -1906,6 +1906,62 @@ namespace IBMConsultantTool
         #endregion
 
         #region TrendAnalysis
+        public List<string> GetObjectivesFromCategory(string catName)
+        {
+            CATEGORY category;
+            if (GetCategory(catName, out category))
+            {
+                return ((from ent in category.BUSINESSOBJECTIVE
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
+        public List<string> GetInitiativesFromObjective(string busName)
+        {
+            BUSINESSOBJECTIVE objective;
+            if (GetObjective(busName, out objective))
+            {
+                return ((from ent in objective.INITIATIVE
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
+        public List<string> GetCapabilitiesFromDomain(string domName)
+        {
+            DOMAIN domain;
+            if (GetDomain(domName, out domain))
+            {
+                return ((from ent in domain.CAPABILITY
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
+        public List<string> GetAttributesFromCapability(string capName)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                return ((from ent in capability.ITCAPQUESTION
+                         select ent.NAME.TrimEnd()).ToList());
+            }
+
+            else
+            {
+                return new List<string>();
+            }
+        }
         public List<BOM> GetBOMSForInitiative(string iniName)
         {
             INITIATIVE initiative;
