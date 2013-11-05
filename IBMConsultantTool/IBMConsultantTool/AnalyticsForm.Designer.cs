@@ -32,9 +32,12 @@
             this.fromDateText = new System.Windows.Forms.TextBox();
             this.analyticsListBox = new System.Windows.Forms.ListBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.firstLevelComboBox = new System.Windows.Forms.ComboBox();
-            this.secondLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.filterPanel = new System.Windows.Forms.Panel();
+            this.cupeTimeFrameComboBox = new System.Windows.Forms.ComboBox();
+            this.cupeAnswerTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.capabilitiesComboBox = new System.Windows.Forms.ComboBox();
+            this.cupeQuestionsComboBox = new System.Windows.Forms.ComboBox();
+            this.objectiveNamesComboBox = new System.Windows.Forms.ComboBox();
             this.showResultsButton = new System.Windows.Forms.Button();
             this.domainsComboBox = new System.Windows.Forms.ComboBox();
             this.fromDateCheckBox = new System.Windows.Forms.CheckBox();
@@ -42,15 +45,14 @@
             this.regionCheckBox = new System.Windows.Forms.CheckBox();
             this.typeCheckBox = new System.Windows.Forms.CheckBox();
             this.metricCheckBox = new System.Windows.Forms.CheckBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.regionComboBox = new System.Windows.Forms.ComboBox();
+            this.businessTypeComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.capabilitiesComboBox = new System.Windows.Forms.ComboBox();
-            this.panel1.SuspendLayout();
+            this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +65,7 @@
             this.textBox1.Size = new System.Drawing.Size(184, 26);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "<To Date>";
+            this.textBox1.Click += new System.EventHandler(this.DateText_Click);
             // 
             // fromDateText
             // 
@@ -73,6 +76,7 @@
             this.fromDateText.Size = new System.Drawing.Size(184, 26);
             this.fromDateText.TabIndex = 1;
             this.fromDateText.Text = "<From Date>";
+            this.fromDateText.Click += new System.EventHandler(this.DateText_Click);
             // 
             // analyticsListBox
             // 
@@ -98,48 +102,77 @@
             this.comboBox1.TabIndex = 5;
             this.comboBox1.Text = "<Metric>";
             // 
-            // panel1
+            // filterPanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel1.Controls.Add(this.capabilitiesComboBox);
-            this.panel1.Controls.Add(this.firstLevelComboBox);
-            this.panel1.Controls.Add(this.secondLevelComboBox);
-            this.panel1.Controls.Add(this.showResultsButton);
-            this.panel1.Controls.Add(this.domainsComboBox);
-            this.panel1.Controls.Add(this.fromDateCheckBox);
-            this.panel1.Controls.Add(this.toDateCheckBox);
-            this.panel1.Controls.Add(this.regionCheckBox);
-            this.panel1.Controls.Add(this.typeCheckBox);
-            this.panel1.Controls.Add(this.metricCheckBox);
-            this.panel1.Controls.Add(this.comboBox3);
-            this.panel1.Controls.Add(this.comboBox2);
-            this.panel1.Controls.Add(this.analyticsListBox);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.fromDateText);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(231, 705);
-            this.panel1.TabIndex = 6;
+            this.filterPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.filterPanel.Controls.Add(this.cupeTimeFrameComboBox);
+            this.filterPanel.Controls.Add(this.cupeAnswerTypeComboBox);
+            this.filterPanel.Controls.Add(this.capabilitiesComboBox);
+            this.filterPanel.Controls.Add(this.cupeQuestionsComboBox);
+            this.filterPanel.Controls.Add(this.objectiveNamesComboBox);
+            this.filterPanel.Controls.Add(this.showResultsButton);
+            this.filterPanel.Controls.Add(this.domainsComboBox);
+            this.filterPanel.Controls.Add(this.fromDateCheckBox);
+            this.filterPanel.Controls.Add(this.toDateCheckBox);
+            this.filterPanel.Controls.Add(this.regionCheckBox);
+            this.filterPanel.Controls.Add(this.typeCheckBox);
+            this.filterPanel.Controls.Add(this.metricCheckBox);
+            this.filterPanel.Controls.Add(this.regionComboBox);
+            this.filterPanel.Controls.Add(this.businessTypeComboBox);
+            this.filterPanel.Controls.Add(this.analyticsListBox);
+            this.filterPanel.Controls.Add(this.textBox1);
+            this.filterPanel.Controls.Add(this.comboBox1);
+            this.filterPanel.Controls.Add(this.fromDateText);
+            this.filterPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.filterPanel.Location = new System.Drawing.Point(0, 24);
+            this.filterPanel.Name = "filterPanel";
+            this.filterPanel.Size = new System.Drawing.Size(231, 705);
+            this.filterPanel.TabIndex = 6;
             // 
-            // firstLevelComboBox
+            // cupeTimeFrameComboBox
             // 
-            this.firstLevelComboBox.FormattingEnabled = true;
-            this.firstLevelComboBox.Location = new System.Drawing.Point(44, 168);
-            this.firstLevelComboBox.Name = "firstLevelComboBox";
-            this.firstLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.firstLevelComboBox.TabIndex = 16;
-            this.firstLevelComboBox.Text = "<Choose>";
+            this.cupeTimeFrameComboBox.FormattingEnabled = true;
+            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(44, 323);
+            this.cupeTimeFrameComboBox.Name = "cupeTimeFrameComboBox";
+            this.cupeTimeFrameComboBox.Size = new System.Drawing.Size(184, 28);
+            this.cupeTimeFrameComboBox.TabIndex = 19;
+            this.cupeTimeFrameComboBox.Text = "<Choose>";
             // 
-            // secondLevelComboBox
+            // cupeAnswerTypeComboBox
             // 
-            this.secondLevelComboBox.FormattingEnabled = true;
-            this.secondLevelComboBox.Location = new System.Drawing.Point(44, 202);
-            this.secondLevelComboBox.Name = "secondLevelComboBox";
-            this.secondLevelComboBox.Size = new System.Drawing.Size(184, 28);
-            this.secondLevelComboBox.TabIndex = 15;
-            this.secondLevelComboBox.Text = "<Choose>";
+            this.cupeAnswerTypeComboBox.FormattingEnabled = true;
+            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(44, 289);
+            this.cupeAnswerTypeComboBox.Name = "cupeAnswerTypeComboBox";
+            this.cupeAnswerTypeComboBox.Size = new System.Drawing.Size(184, 28);
+            this.cupeAnswerTypeComboBox.TabIndex = 18;
+            this.cupeAnswerTypeComboBox.Text = "<Choose>";
+            // 
+            // capabilitiesComboBox
+            // 
+            this.capabilitiesComboBox.FormattingEnabled = true;
+            this.capabilitiesComboBox.Location = new System.Drawing.Point(12, 255);
+            this.capabilitiesComboBox.Name = "capabilitiesComboBox";
+            this.capabilitiesComboBox.Size = new System.Drawing.Size(216, 28);
+            this.capabilitiesComboBox.TabIndex = 17;
+            this.capabilitiesComboBox.Text = "<Choose>";
+            // 
+            // cupeQuestionsComboBox
+            // 
+            this.cupeQuestionsComboBox.FormattingEnabled = true;
+            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(12, 153);
+            this.cupeQuestionsComboBox.Name = "cupeQuestionsComboBox";
+            this.cupeQuestionsComboBox.Size = new System.Drawing.Size(216, 28);
+            this.cupeQuestionsComboBox.TabIndex = 16;
+            this.cupeQuestionsComboBox.Text = "<CUPE Questions>";
+            // 
+            // objectiveNamesComboBox
+            // 
+            this.objectiveNamesComboBox.FormattingEnabled = true;
+            this.objectiveNamesComboBox.Location = new System.Drawing.Point(12, 187);
+            this.objectiveNamesComboBox.Name = "objectiveNamesComboBox";
+            this.objectiveNamesComboBox.Size = new System.Drawing.Size(216, 28);
+            this.objectiveNamesComboBox.TabIndex = 15;
+            this.objectiveNamesComboBox.Text = "<Choose>";
             // 
             // showResultsButton
             // 
@@ -153,9 +186,9 @@
             // domainsComboBox
             // 
             this.domainsComboBox.FormattingEnabled = true;
-            this.domainsComboBox.Location = new System.Drawing.Point(44, 236);
+            this.domainsComboBox.Location = new System.Drawing.Point(12, 221);
             this.domainsComboBox.Name = "domainsComboBox";
-            this.domainsComboBox.Size = new System.Drawing.Size(184, 28);
+            this.domainsComboBox.Size = new System.Drawing.Size(216, 28);
             this.domainsComboBox.TabIndex = 12;
             this.domainsComboBox.Text = "<Choose>";
             // 
@@ -204,23 +237,23 @@
             this.metricCheckBox.TabIndex = 0;
             this.metricCheckBox.UseVisualStyleBackColor = true;
             // 
-            // comboBox3
+            // regionComboBox
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(44, 433);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(184, 28);
-            this.comboBox3.TabIndex = 7;
-            this.comboBox3.Text = "<Region>";
+            this.regionComboBox.FormattingEnabled = true;
+            this.regionComboBox.Location = new System.Drawing.Point(44, 433);
+            this.regionComboBox.Name = "regionComboBox";
+            this.regionComboBox.Size = new System.Drawing.Size(184, 28);
+            this.regionComboBox.TabIndex = 7;
+            this.regionComboBox.Text = "<Region>";
             // 
-            // comboBox2
+            // businessTypeComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(44, 499);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(184, 28);
-            this.comboBox2.TabIndex = 6;
-            this.comboBox2.Text = "<Business Type>";
+            this.businessTypeComboBox.FormattingEnabled = true;
+            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 499);
+            this.businessTypeComboBox.Name = "businessTypeComboBox";
+            this.businessTypeComboBox.Size = new System.Drawing.Size(184, 28);
+            this.businessTypeComboBox.TabIndex = 6;
+            this.businessTypeComboBox.Text = "<Business Type>";
             // 
             // menuStrip1
             // 
@@ -264,15 +297,6 @@
             this.chartPanel.Size = new System.Drawing.Size(737, 386);
             this.chartPanel.TabIndex = 9;
             // 
-            // capabilitiesComboBox
-            // 
-            this.capabilitiesComboBox.FormattingEnabled = true;
-            this.capabilitiesComboBox.Location = new System.Drawing.Point(44, 273);
-            this.capabilitiesComboBox.Name = "capabilitiesComboBox";
-            this.capabilitiesComboBox.Size = new System.Drawing.Size(184, 28);
-            this.capabilitiesComboBox.TabIndex = 17;
-            this.capabilitiesComboBox.Text = "<Choose>";
-            // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -280,7 +304,7 @@
             this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.chartPanel);
             this.Controls.Add(this.dataPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.filterPanel);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
@@ -288,8 +312,8 @@
             this.Name = "AnalyticsForm";
             this.Text = "AnalyticsForm";
             this.Load += new System.EventHandler(this.AnalyticsForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.filterPanel.ResumeLayout(false);
+            this.filterPanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -303,7 +327,7 @@
         private System.Windows.Forms.TextBox fromDateText;
         private System.Windows.Forms.ListBox analyticsListBox;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel filterPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -313,13 +337,15 @@
         private System.Windows.Forms.CheckBox regionCheckBox;
         private System.Windows.Forms.CheckBox typeCheckBox;
         private System.Windows.Forms.CheckBox metricCheckBox;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox regionComboBox;
+        private System.Windows.Forms.ComboBox businessTypeComboBox;
         private System.Windows.Forms.Panel chartPanel;
         private System.Windows.Forms.Button showResultsButton;
         private System.Windows.Forms.ComboBox domainsComboBox;
-        private System.Windows.Forms.ComboBox firstLevelComboBox;
-        private System.Windows.Forms.ComboBox secondLevelComboBox;
+        private System.Windows.Forms.ComboBox cupeQuestionsComboBox;
+        private System.Windows.Forms.ComboBox objectiveNamesComboBox;
         private System.Windows.Forms.ComboBox capabilitiesComboBox;
+        private System.Windows.Forms.ComboBox cupeTimeFrameComboBox;
+        private System.Windows.Forms.ComboBox cupeAnswerTypeComboBox;
     }
 }
