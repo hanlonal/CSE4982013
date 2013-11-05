@@ -290,13 +290,24 @@ namespace IBMConsultantTool
             GetGroup("Business", client, out busGrp);
             GetGroup("IT", client, out itGrp);
             Person person;
+            CupeData cupeData;
+            int id = 1;
             foreach (CONTACT contact in busGrp.CONTACT)
             {
                 person = new Person();
                 person.Name = contact.NAME.TrimEnd();
                 person.Email = contact.EMAIL.TrimEnd();
                 person.Type = Person.EmployeeType.Business;
+                person.ID = id;
+                cupeData = new CupeData(id);
+                foreach (CUPERESPONSE response in contact.CUPERESPONSE)
+                {
+                    cupeData.CurrentAnswers.Add(response.CUPE.NAME.TrimEnd(), response.CURRENT[0]);
+                    cupeData.FutureAnswers.Add(response.CUPE.NAME.TrimEnd(), response.FUTURE[0]);
+                }
+                person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
 
             foreach (CONTACT contact in itGrp.CONTACT)
@@ -305,7 +316,16 @@ namespace IBMConsultantTool
                 person.Name = contact.NAME.TrimEnd();
                 person.Email = contact.EMAIL.TrimEnd();
                 person.Type = Person.EmployeeType.IT;
+                person.ID = id;
+                cupeData = new CupeData(id);
+                foreach (CUPERESPONSE response in contact.CUPERESPONSE)
+                {
+                    cupeData.CurrentAnswers.Add(response.CUPE.NAME.TrimEnd(), response.CURRENT[0]);
+                    cupeData.FutureAnswers.Add(response.CUPE.NAME.TrimEnd(), response.FUTURE[0]);
+                }
+                person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
         }
 
@@ -1191,13 +1211,32 @@ namespace IBMConsultantTool
 
         #region CUPE
 
+        public bool GetCUPE(string name, out CUPE cupe)
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            try
+            {
+                cupe = (from ent in client.CUPE
+                        where ent.NAME.TrimEnd() == name
+                        select ent).Single();
+
+                return true;
+            }
+
+            catch
+            {
+                cupe = null;
+                return false;
+            }
+        }
+
         public override void SaveCUPEParticipants()
         {
             List<Person> personList = ClientDataControl.GetParticipants();
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             GROUP busGrp;
             GROUP itGrp;
-            if (!GetGroup("Business", client, out busGrp))
+            if(!GetGroup("Business", client, out busGrp))
             {
                 AddGroup("Business", client);
                 GetGroup("Business", client, out busGrp);
@@ -1208,6 +1247,8 @@ namespace IBMConsultantTool
                 GetGroup("IT", client, out itGrp);
             }
             CONTACT contact;
+            CUPERESPONSE response;
+            CUPE cupe;
             foreach (Person person in personList)
             {
                 if (person.Type == Person.EmployeeType.Business)
@@ -1225,6 +1266,34 @@ namespace IBMConsultantTool
                         busGrp.CONTACT.Add(contact);
                         dbo.AddToCONTACT(contact);
                     }
+
+                    //Clear out responses in case survey is different
+                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
+                    foreach (CUPERESPONSE responseToDelete in responseList)
+                    {
+                        dbo.DeleteObject(responseToDelete);
+                    }
+
+                    List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
+                    for (int i = 0; i < questionList.Count - 1; i++)
+                    {
+                        CupeQuestionStringData data = questionList[i];
+                        if (!GetCUPE(data.QuestionText, out cupe))
+                        {
+                            MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
+                            continue;
+                        }
+                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
+                        //{
+                        response = new CUPERESPONSE();
+                        response.CONTACT = contact;
+                        response.CUPE = cupe;
+                        dbo.AddToCUPERESPONSE(response);
+                        // }
+
+                        response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                        response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                    }
                 }
 
                 else if(person.Type == Person.EmployeeType.IT)
@@ -1241,6 +1310,34 @@ namespace IBMConsultantTool
                         contact.EMAIL = person.Email;
                         itGrp.CONTACT.Add(contact);
                         dbo.AddToCONTACT(contact);
+                    }
+
+                    //Clear out responses in case survey is different
+                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
+                    foreach (CUPERESPONSE responseToDelete in responseList)
+                    {
+                        dbo.DeleteObject(responseToDelete);
+                    }
+
+                    List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
+                    for(int i = 0; i < questionList.Count - 1; i++)
+                    {
+                        CupeQuestionStringData data = questionList[i];
+                        if (!GetCUPE(data.QuestionText, out cupe))
+                        {
+                            MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
+                            continue;
+                        }
+                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
+                        //{
+                        response = new CUPERESPONSE();
+                        response.CONTACT = contact;
+                        response.CUPE = cupe;
+                        dbo.AddToCUPERESPONSE(response);
+                        // }
+
+                        response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i+1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i+1).ToString()].ToString() : "";
+                        response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i+1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i+1).ToString()].ToString() : "";
                     }
                 }
             }
@@ -1450,6 +1547,27 @@ namespace IBMConsultantTool
                     }
                 }
             }
+        }
+        #endregion
+
+        #region CUPEResponse
+        public bool GetCUPEResponse(string cupeName, CONTACT contact, out CUPERESPONSE response)
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            try
+            {
+                response = (from ent in contact.CUPERESPONSE
+                            where ent.CUPE.NAME.TrimEnd() == cupeName  
+                            select ent).Single();
+            }
+
+            catch
+            {
+                response = null;
+                return false;
+            }
+
+            return true;
         }
         #endregion
 

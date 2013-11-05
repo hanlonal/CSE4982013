@@ -1273,6 +1273,8 @@ namespace IBMConsultantTool
             saveCupeDataValues();
             //Store everyone's answers in the clientdatacontroller
             saveCupeAnswersToClientDataControl();
+
+            ClientDataControl.SaveCUPE();
         }
 
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1719,7 +1721,6 @@ namespace IBMConsultantTool
 
         private void LoadAnswersFromDataControl()
         {
-
             foreach (DataGridViewColumn column in questionGridITCurrent.Columns)
             {
                 if (column.HeaderText == "Questions")
@@ -1986,6 +1987,7 @@ namespace IBMConsultantTool
             {
                 saveCupeDataValues();
                 saveCupeAnswersToClientDataControl();
+                ClientDataControl.SaveCUPE();
             }
 
         }

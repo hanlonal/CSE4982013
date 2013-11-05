@@ -95,6 +95,9 @@ namespace IBMConsultantTool
         public abstract void SaveCUPEParticipants();
         #endregion
 
+        #region CUPEResponse
+        #endregion
+
         #region Domain
         public abstract string[] GetDomainNames();
         public abstract string[] GetDomainNamesAndDefault();

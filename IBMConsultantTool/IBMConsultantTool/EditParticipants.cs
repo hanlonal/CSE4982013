@@ -15,8 +15,6 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
 
-
-
             try
             {
                 if (ClientDataControl.GetParticipants().Count() != 0)

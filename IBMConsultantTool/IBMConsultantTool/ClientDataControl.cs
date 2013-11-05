@@ -230,6 +230,7 @@ namespace IBMConsultantTool
             }
 
             db.SaveCUPEParticipants();
+            db.SaveChanges();
         }
 
         public static void SaveParticipantsToDB()
