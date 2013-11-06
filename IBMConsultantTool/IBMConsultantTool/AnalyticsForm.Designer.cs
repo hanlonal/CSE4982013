@@ -185,7 +185,7 @@
             // initiativesComboBox
             // 
             this.initiativesComboBox.FormattingEnabled = true;
-            this.initiativesComboBox.Location = new System.Drawing.Point(12, 133);
+            this.initiativesComboBox.Location = new System.Drawing.Point(15, 148);
             this.initiativesComboBox.Name = "initiativesComboBox";
             this.initiativesComboBox.Size = new System.Drawing.Size(216, 28);
             this.initiativesComboBox.TabIndex = 22;
@@ -207,7 +207,7 @@
             // itAttributesComboBox
             // 
             this.itAttributesComboBox.FormattingEnabled = true;
-            this.itAttributesComboBox.Location = new System.Drawing.Point(9, 235);
+            this.itAttributesComboBox.Location = new System.Drawing.Point(12, 250);
             this.itAttributesComboBox.Name = "itAttributesComboBox";
             this.itAttributesComboBox.Size = new System.Drawing.Size(216, 28);
             this.itAttributesComboBox.TabIndex = 20;
@@ -218,7 +218,7 @@
             // cupeTimeFrameComboBox
             // 
             this.cupeTimeFrameComboBox.FormattingEnabled = true;
-            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(41, 235);
+            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(44, 250);
             this.cupeTimeFrameComboBox.Name = "cupeTimeFrameComboBox";
             this.cupeTimeFrameComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeTimeFrameComboBox.TabIndex = 19;
@@ -229,7 +229,7 @@
             // cupeAnswerTypeComboBox
             // 
             this.cupeAnswerTypeComboBox.FormattingEnabled = true;
-            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(41, 183);
+            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(44, 198);
             this.cupeAnswerTypeComboBox.Name = "cupeAnswerTypeComboBox";
             this.cupeAnswerTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeAnswerTypeComboBox.TabIndex = 18;
@@ -240,7 +240,7 @@
             // capabilitiesComboBox
             // 
             this.capabilitiesComboBox.FormattingEnabled = true;
-            this.capabilitiesComboBox.Location = new System.Drawing.Point(9, 183);
+            this.capabilitiesComboBox.Location = new System.Drawing.Point(12, 198);
             this.capabilitiesComboBox.Name = "capabilitiesComboBox";
             this.capabilitiesComboBox.Size = new System.Drawing.Size(216, 28);
             this.capabilitiesComboBox.TabIndex = 17;
@@ -251,7 +251,7 @@
             // cupeQuestionsComboBox
             // 
             this.cupeQuestionsComboBox.FormattingEnabled = true;
-            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(9, 133);
+            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(12, 148);
             this.cupeQuestionsComboBox.Name = "cupeQuestionsComboBox";
             this.cupeQuestionsComboBox.Size = new System.Drawing.Size(216, 28);
             this.cupeQuestionsComboBox.TabIndex = 16;
@@ -262,7 +262,7 @@
             // objectiveNamesComboBox
             // 
             this.objectiveNamesComboBox.FormattingEnabled = true;
-            this.objectiveNamesComboBox.Location = new System.Drawing.Point(9, 133);
+            this.objectiveNamesComboBox.Location = new System.Drawing.Point(12, 148);
             this.objectiveNamesComboBox.Name = "objectiveNamesComboBox";
             this.objectiveNamesComboBox.Size = new System.Drawing.Size(216, 28);
             this.objectiveNamesComboBox.TabIndex = 15;
@@ -284,7 +284,7 @@
             // domainsComboBox
             // 
             this.domainsComboBox.FormattingEnabled = true;
-            this.domainsComboBox.Location = new System.Drawing.Point(9, 133);
+            this.domainsComboBox.Location = new System.Drawing.Point(12, 148);
             this.domainsComboBox.Name = "domainsComboBox";
             this.domainsComboBox.Size = new System.Drawing.Size(216, 28);
             this.domainsComboBox.TabIndex = 12;

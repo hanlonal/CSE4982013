@@ -252,6 +252,12 @@
     <Compile Include="ITCAP\ITCapTool.Designer.cs">
       <DependentUpon>ITCapTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoadingScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadingScreen.Designer.cs">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ITCAP\ITCapTool.resx">
       <DependentUpon>ITCapTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadingScreen.resx">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewClientForm.resx">
       <DependentUpon>NewClientForm.cs</DependentUpon>
