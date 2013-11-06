@@ -33,6 +33,10 @@
             this.analyticsListBox = new System.Windows.Forms.ListBox();
             this.metricsComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel = new System.Windows.Forms.Panel();
+            this.countryCheckBox = new System.Windows.Forms.CheckBox();
+            this.countryComboBox = new System.Windows.Forms.ComboBox();
+            this.submitQueryButton = new System.Windows.Forms.Button();
+            this.initiativesComboBox = new System.Windows.Forms.ComboBox();
             this.clearGridButton = new System.Windows.Forms.Button();
             this.itAttributesComboBox = new System.Windows.Forms.ComboBox();
             this.cupeTimeFrameComboBox = new System.Windows.Forms.ComboBox();
@@ -55,10 +59,6 @@
             this.dataPanel = new System.Windows.Forms.Panel();
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.initiativesComboBox = new System.Windows.Forms.ComboBox();
-            this.submitQueryButton = new System.Windows.Forms.Button();
-            this.countryComboBox = new System.Windows.Forms.ComboBox();
-            this.countryCheckBox = new System.Windows.Forms.CheckBox();
             this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -70,26 +70,26 @@
             // 
             this.toDateText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.toDateText.Enabled = false;
-            this.toDateText.Location = new System.Drawing.Point(44, 527);
+            this.toDateText.Location = new System.Drawing.Point(44, 502);
             this.toDateText.Name = "toDateText";
             this.toDateText.ReadOnly = true;
             this.toDateText.Size = new System.Drawing.Size(184, 26);
             this.toDateText.TabIndex = 0;
             this.toDateText.Tag = "All";
-            this.toDateText.Text = "<To Date>";
+            this.toDateText.Text = "<End of Time>";
             this.toDateText.Click += new System.EventHandler(this.DateText_Click);
             // 
             // fromDateText
             // 
             this.fromDateText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.fromDateText.Enabled = false;
-            this.fromDateText.Location = new System.Drawing.Point(44, 479);
+            this.fromDateText.Location = new System.Drawing.Point(44, 454);
             this.fromDateText.Name = "fromDateText";
             this.fromDateText.ReadOnly = true;
             this.fromDateText.Size = new System.Drawing.Size(184, 26);
             this.fromDateText.TabIndex = 1;
             this.fromDateText.Tag = "All";
-            this.fromDateText.Text = "<From Date>";
+            this.fromDateText.Text = "<Beginning of Time>";
             this.fromDateText.Click += new System.EventHandler(this.DateText_Click);
             // 
             // analyticsListBox
@@ -111,12 +111,12 @@
             // metricsComboBox
             // 
             this.metricsComboBox.FormattingEnabled = true;
-            this.metricsComboBox.Location = new System.Drawing.Point(44, 280);
+            this.metricsComboBox.Location = new System.Drawing.Point(592, 331);
             this.metricsComboBox.Name = "metricsComboBox";
             this.metricsComboBox.Size = new System.Drawing.Size(184, 28);
             this.metricsComboBox.TabIndex = 5;
             this.metricsComboBox.Tag = "All";
-            this.metricsComboBox.Text = "<Metric>";
+            this.metricsComboBox.Text = "<Choose Metric>";
             // 
             // filterPanel
             // 
@@ -138,12 +138,10 @@
             this.filterPanel.Controls.Add(this.toDateCheckBox);
             this.filterPanel.Controls.Add(this.regionCheckBox);
             this.filterPanel.Controls.Add(this.typeCheckBox);
-            this.filterPanel.Controls.Add(this.metricCheckBox);
             this.filterPanel.Controls.Add(this.regionComboBox);
             this.filterPanel.Controls.Add(this.businessTypeComboBox);
             this.filterPanel.Controls.Add(this.analyticsListBox);
             this.filterPanel.Controls.Add(this.toDateText);
-            this.filterPanel.Controls.Add(this.metricsComboBox);
             this.filterPanel.Controls.Add(this.fromDateText);
             this.filterPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.filterPanel.Location = new System.Drawing.Point(0, 24);
@@ -151,9 +149,53 @@
             this.filterPanel.Size = new System.Drawing.Size(240, 705);
             this.filterPanel.TabIndex = 6;
             // 
+            // countryCheckBox
+            // 
+            this.countryCheckBox.AutoSize = true;
+            this.countryCheckBox.Checked = true;
+            this.countryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.countryCheckBox.Location = new System.Drawing.Point(12, 352);
+            this.countryCheckBox.Name = "countryCheckBox";
+            this.countryCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.countryCheckBox.TabIndex = 25;
+            this.countryCheckBox.Tag = "All";
+            this.countryCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // countryComboBox
+            // 
+            this.countryComboBox.Enabled = false;
+            this.countryComboBox.FormattingEnabled = true;
+            this.countryComboBox.Location = new System.Drawing.Point(44, 352);
+            this.countryComboBox.Name = "countryComboBox";
+            this.countryComboBox.Size = new System.Drawing.Size(184, 28);
+            this.countryComboBox.TabIndex = 24;
+            this.countryComboBox.Tag = "All";
+            this.countryComboBox.Text = "<All Countries>";
+            // 
+            // submitQueryButton
+            // 
+            this.submitQueryButton.Location = new System.Drawing.Point(44, 597);
+            this.submitQueryButton.Name = "submitQueryButton";
+            this.submitQueryButton.Size = new System.Drawing.Size(139, 31);
+            this.submitQueryButton.TabIndex = 23;
+            this.submitQueryButton.Tag = "All";
+            this.submitQueryButton.Text = "Submit Query";
+            this.submitQueryButton.UseVisualStyleBackColor = true;
+            // 
+            // initiativesComboBox
+            // 
+            this.initiativesComboBox.FormattingEnabled = true;
+            this.initiativesComboBox.Location = new System.Drawing.Point(12, 133);
+            this.initiativesComboBox.Name = "initiativesComboBox";
+            this.initiativesComboBox.Size = new System.Drawing.Size(216, 28);
+            this.initiativesComboBox.TabIndex = 22;
+            this.initiativesComboBox.Tag = "Initiatives";
+            this.initiativesComboBox.Text = "<Initiatives>";
+            this.initiativesComboBox.Visible = false;
+            // 
             // clearGridButton
             // 
-            this.clearGridButton.Location = new System.Drawing.Point(44, 671);
+            this.clearGridButton.Location = new System.Drawing.Point(44, 646);
             this.clearGridButton.Name = "clearGridButton";
             this.clearGridButton.Size = new System.Drawing.Size(139, 31);
             this.clearGridButton.TabIndex = 21;
@@ -230,7 +272,7 @@
             // 
             // showResultsButton
             // 
-            this.showResultsButton.Location = new System.Drawing.Point(44, 574);
+            this.showResultsButton.Location = new System.Drawing.Point(44, 549);
             this.showResultsButton.Name = "showResultsButton";
             this.showResultsButton.Size = new System.Drawing.Size(139, 31);
             this.showResultsButton.TabIndex = 14;
@@ -255,7 +297,7 @@
             this.fromDateCheckBox.AutoSize = true;
             this.fromDateCheckBox.Checked = true;
             this.fromDateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 479);
+            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 454);
             this.fromDateCheckBox.Name = "fromDateCheckBox";
             this.fromDateCheckBox.Size = new System.Drawing.Size(15, 14);
             this.fromDateCheckBox.TabIndex = 11;
@@ -267,7 +309,7 @@
             this.toDateCheckBox.AutoSize = true;
             this.toDateCheckBox.Checked = true;
             this.toDateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toDateCheckBox.Location = new System.Drawing.Point(12, 527);
+            this.toDateCheckBox.Location = new System.Drawing.Point(12, 502);
             this.toDateCheckBox.Name = "toDateCheckBox";
             this.toDateCheckBox.Size = new System.Drawing.Size(15, 14);
             this.toDateCheckBox.TabIndex = 10;
@@ -279,7 +321,7 @@
             this.regionCheckBox.AutoSize = true;
             this.regionCheckBox.Checked = true;
             this.regionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.regionCheckBox.Location = new System.Drawing.Point(12, 332);
+            this.regionCheckBox.Location = new System.Drawing.Point(12, 307);
             this.regionCheckBox.Name = "regionCheckBox";
             this.regionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.regionCheckBox.TabIndex = 9;
@@ -291,7 +333,7 @@
             this.typeCheckBox.AutoSize = true;
             this.typeCheckBox.Checked = true;
             this.typeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.typeCheckBox.Location = new System.Drawing.Point(12, 428);
+            this.typeCheckBox.Location = new System.Drawing.Point(12, 403);
             this.typeCheckBox.Name = "typeCheckBox";
             this.typeCheckBox.Size = new System.Drawing.Size(15, 14);
             this.typeCheckBox.TabIndex = 8;
@@ -303,7 +345,7 @@
             this.metricCheckBox.AutoSize = true;
             this.metricCheckBox.Checked = true;
             this.metricCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metricCheckBox.Location = new System.Drawing.Point(12, 280);
+            this.metricCheckBox.Location = new System.Drawing.Point(556, 331);
             this.metricCheckBox.Name = "metricCheckBox";
             this.metricCheckBox.Size = new System.Drawing.Size(15, 14);
             this.metricCheckBox.TabIndex = 0;
@@ -314,23 +356,23 @@
             // 
             this.regionComboBox.Enabled = false;
             this.regionComboBox.FormattingEnabled = true;
-            this.regionComboBox.Location = new System.Drawing.Point(44, 332);
+            this.regionComboBox.Location = new System.Drawing.Point(44, 307);
             this.regionComboBox.Name = "regionComboBox";
             this.regionComboBox.Size = new System.Drawing.Size(184, 28);
             this.regionComboBox.TabIndex = 7;
             this.regionComboBox.Tag = "All";
-            this.regionComboBox.Text = "<Region>";
+            this.regionComboBox.Text = "<All Regions>";
             // 
             // businessTypeComboBox
             // 
             this.businessTypeComboBox.Enabled = false;
             this.businessTypeComboBox.FormattingEnabled = true;
-            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 428);
+            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 403);
             this.businessTypeComboBox.Name = "businessTypeComboBox";
             this.businessTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.businessTypeComboBox.TabIndex = 6;
             this.businessTypeComboBox.Tag = "All";
-            this.businessTypeComboBox.Text = "<Business Type>";
+            this.businessTypeComboBox.Text = "<All Business Types>";
             // 
             // menuStrip1
             // 
@@ -385,50 +427,6 @@
             this.chartPanel.Size = new System.Drawing.Size(745, 356);
             this.chartPanel.TabIndex = 9;
             // 
-            // initiativesComboBox
-            // 
-            this.initiativesComboBox.FormattingEnabled = true;
-            this.initiativesComboBox.Location = new System.Drawing.Point(12, 133);
-            this.initiativesComboBox.Name = "initiativesComboBox";
-            this.initiativesComboBox.Size = new System.Drawing.Size(216, 28);
-            this.initiativesComboBox.TabIndex = 22;
-            this.initiativesComboBox.Tag = "Initiatives";
-            this.initiativesComboBox.Text = "<Initiatives>";
-            this.initiativesComboBox.Visible = false;
-            // 
-            // submitQueryButton
-            // 
-            this.submitQueryButton.Location = new System.Drawing.Point(44, 622);
-            this.submitQueryButton.Name = "submitQueryButton";
-            this.submitQueryButton.Size = new System.Drawing.Size(139, 31);
-            this.submitQueryButton.TabIndex = 23;
-            this.submitQueryButton.Tag = "All";
-            this.submitQueryButton.Text = "Submit Query";
-            this.submitQueryButton.UseVisualStyleBackColor = true;
-            // 
-            // countryComboBox
-            // 
-            this.countryComboBox.Enabled = false;
-            this.countryComboBox.FormattingEnabled = true;
-            this.countryComboBox.Location = new System.Drawing.Point(44, 377);
-            this.countryComboBox.Name = "countryComboBox";
-            this.countryComboBox.Size = new System.Drawing.Size(184, 28);
-            this.countryComboBox.TabIndex = 24;
-            this.countryComboBox.Tag = "All";
-            this.countryComboBox.Text = "<Country>";
-            // 
-            // countryCheckBox
-            // 
-            this.countryCheckBox.AutoSize = true;
-            this.countryCheckBox.Checked = true;
-            this.countryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.countryCheckBox.Location = new System.Drawing.Point(12, 377);
-            this.countryCheckBox.Name = "countryCheckBox";
-            this.countryCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.countryCheckBox.TabIndex = 25;
-            this.countryCheckBox.Tag = "All";
-            this.countryCheckBox.UseVisualStyleBackColor = true;
-            // 
             // graphTypeComboBox
             // 
             this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -449,6 +447,8 @@
             this.Controls.Add(this.dataPanel);
             this.Controls.Add(this.filterPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.metricsComboBox);
+            this.Controls.Add(this.metricCheckBox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
