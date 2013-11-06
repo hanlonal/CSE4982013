@@ -2976,7 +2976,7 @@ namespace IBMConsultantTool
                         foreach (CUPERESPONSE cupeResponse in contact.CUPERESPONSE)
                         {
                             XElement tempCUPERes = new XElement("CUPERESPONSE");
-                            tempCUPERes.Add(new XElement("CUPE", cupeResponse.CUPE.NAME.TrimEnd();
+                            tempCUPERes.Add(new XElement("CUPE", cupeResponse.CUPE.NAME.TrimEnd()));
                             tempCUPERes.Add(new XElement("CURRENT", cupeResponse.CURRENT));
                             tempCUPERes.Add(new XElement("FUTURE", cupeResponse.FUTURE));
                             cupeResConElement.Add(tempCUPERes);
