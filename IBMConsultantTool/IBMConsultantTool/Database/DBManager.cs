@@ -1243,6 +1243,20 @@ namespace IBMConsultantTool
 
         #region CUPE
 
+        public override void ClearCUPE()
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            foreach (CUPE cupe in client.CUPE)
+            {
+                foreach (CUPERESPONSE cr in cupe.CUPERESPONSE)
+                {
+                    dbo.DeleteObject(cr);
+                }
+
+                dbo.DeleteObject(cupe);
+            }
+        }
+
         public bool GetCUPE(string name, out CUPE cupe)
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
@@ -2408,6 +2422,7 @@ namespace IBMConsultantTool
 
             return ctaList;
         }
+        
         public List<string> GetObjectivesFromCategory(string catName)
         {
             CATEGORY category;

@@ -1321,6 +1321,7 @@ namespace IBMConsultantTool
             saveCupeAnswersToClientDataControl();
 
             ClientDataControl.SaveCUPE();
+            changesMade = false;
         }
 
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1927,7 +1928,7 @@ namespace IBMConsultantTool
             changesMade = true;
             is20Question = false;
             ClientDataControl.cupeQuestions.Clear();
-            LoadCupeQuestionsFromDocument();
+            ClientDataControl.LoadNewCUPE10(this);
             SetLastTenColumnVisibility(false);
         }
 
@@ -1936,7 +1937,7 @@ namespace IBMConsultantTool
             changesMade = true;
             is20Question = true;
             ClientDataControl.cupeQuestions.Clear();
-            LoadCupeQuestionsFromDocument();
+            ClientDataControl.LoadNewCUPE20(this);
             SetLastTenColumnVisibility(true);
         }
 

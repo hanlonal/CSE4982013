@@ -73,6 +73,36 @@ namespace IBMConsultantTool
             }
         }
 
+        public static void LoadNewCUPE20(CUPETool cupeForm)
+        {
+            db.ClearCUPE();
+            cupeQuestions = db.GetCUPEQuestionStringDataTen();
+
+            foreach (CupeQuestionStringData cqsd in cupeQuestions)
+            {
+                db.AddCUPE(cqsd.QuestionText, Client.EntityObject);
+            }
+            if (!ClientDataControl.db.SaveChanges())
+            {
+                MessageBox.Show("Failed to create new CUPE for client", "Error");
+            }
+        }
+
+        public static void LoadNewCUPE10(CUPETool cupeForm)
+        {
+            db.ClearCUPE();
+            cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
+
+            foreach (CupeQuestionStringData cqsd in cupeQuestions)
+            {
+                db.AddCUPE(cqsd.QuestionText, Client.EntityObject);
+            }
+            if (!ClientDataControl.db.SaveChanges())
+            {
+                MessageBox.Show("Failed to create new CUPE for client", "Error");
+            }
+        }
+
         public static bool AddParticipant(Person person)
         {
             participants.Add(person);

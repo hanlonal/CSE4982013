@@ -1293,8 +1293,136 @@ namespace IBMConsultantTool
 
         #region CUPE
 
+        public override void ClearCUPE()
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            foreach (XElement grp in client.Element("GROUPS").Elements("GROUP"))
+            {
+                foreach (XElement contact in grp.Element("CONTACTS").Elements("CONTACT"))
+                {
+                    foreach(XElement cupeResponse in grp.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
+                    {
+                        cupeResponse.Remove();
+                    }
+                }
+            }
+            foreach (XElement cupe in client.Element("CUPES").Elements("CUPE"))
+            {
+                cupe.Remove();
+            }
+        }
+
         public override void SaveCUPEParticipants()
         {
+            /*List<Person> personList = ClientDataControl.GetParticipants();
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            XElement busGrp;
+            XElement itGrp;
+            if (!GetGroup("Business", client, out busGrp))
+            {
+                AddGroup("Business", client);
+                GetGroup("Business", client, out busGrp);
+            }
+            if (!GetGroup("IT", client, out itGrp))
+            {
+                AddGroup("IT", client);
+                GetGroup("IT", client, out itGrp);
+            }
+            XElement contact;
+            XElement response;
+            XElement cupe;
+            foreach (Person person in personList)
+            {
+                if (person.Type == Person.EmployeeType.Business)
+                {
+                    if (GetContact(person.Name, busGrp, out contact))
+                    {
+                        contact.EMAIL = person.Email;
+                    }
+
+                    else
+                    {
+                        contact = new CONTACT();
+                        contact.NAME = person.Name;
+                        contact.EMAIL = person.Email;
+                        busGrp.CONTACT.Add(contact);
+                        dbo.AddToCONTACT(contact);
+                    }
+
+                    //Clear out responses in case survey is different
+                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
+                    foreach (CUPERESPONSE responseToDelete in responseList)
+                    {
+                        dbo.DeleteObject(responseToDelete);
+                    }
+
+                    List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
+                    for (int i = 0; i < questionList.Count - 1; i++)
+                    {
+                        CupeQuestionStringData data = questionList[i];
+                        if (!GetCUPE(data.QuestionText, out cupe))
+                        {
+                            MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
+                            continue;
+                        }
+                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
+                        //{
+                        response = new CUPERESPONSE();
+                        response.CONTACT = contact;
+                        response.CUPE = cupe;
+                        dbo.AddToCUPERESPONSE(response);
+                        // }
+
+                        response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                        response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                    }
+                }
+
+                else if (person.Type == Person.EmployeeType.IT)
+                {
+                    if (GetContact(person.Name, itGrp, out contact))
+                    {
+                        contact.EMAIL = person.Email;
+                    }
+
+                    else
+                    {
+                        contact = new CONTACT();
+                        contact.NAME = person.Name;
+                        contact.EMAIL = person.Email;
+                        itGrp.CONTACT.Add(contact);
+                        dbo.AddToCONTACT(contact);
+                    }
+
+                    //Clear out responses in case survey is different
+                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
+                    foreach (CUPERESPONSE responseToDelete in responseList)
+                    {
+                        dbo.DeleteObject(responseToDelete);
+                    }
+
+                    List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
+                    for (int i = 0; i < questionList.Count - 1; i++)
+                    {
+                        CupeQuestionStringData data = questionList[i];
+                        if (!GetCUPE(data.QuestionText, out cupe))
+                        {
+                            MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
+                            continue;
+                        }
+                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
+                        //{
+                        response = new CUPERESPONSE();
+                        response.CONTACT = contact;
+                        response.CUPE = cupe;
+                        dbo.AddToCUPERESPONSE(response);
+                        // }
+
+                        response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                        response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                    }
+                }
+            }*/
             throw new NotImplementedException();
         }
 
