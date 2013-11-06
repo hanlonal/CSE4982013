@@ -1062,6 +1062,23 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPEQuestion
+        public bool GetCUPEQuestion(string cqName, out CUPEQUESTION cupeQuestion)
+        {
+            try
+            {
+                cupeQuestion = (from ent in dbo.CUPEQUESTION
+                                where ent.NAME.TrimEnd() == cqName
+                                select ent).Single();
+            }
+
+            catch
+            {
+                cupeQuestion = null;
+                return false;
+            }
+
+            return true;
+        }
         public override List<CupeQuestionData> GetCUPEQuestionData()
         {
             List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
@@ -2113,6 +2130,222 @@ namespace IBMConsultantTool
         #endregion
 
         #region TrendAnalysis
+        public List<InitiativeTrendAnalysis> GetInitiativeTrendAnalysis(string iniName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        {
+            List<BOM> bomList;
+            DateTime toDate;
+            DateTime fromDate;
+            if(!DateTime.TryParse(fromDateStr, out fromDate))
+            {
+                fromDate = DateTime.MinValue;
+            }
+            if(!DateTime.TryParse(toDateStr, out toDate))
+            {
+                toDate = DateTime.MaxValue;
+            }
+            if (regName != "All")
+            {
+                if (busTypeName != "All")
+                {
+                    bomList = GetBOMSForInitiativeRegionAndBusinessType(iniName, regName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    bomList = GetBOMSForInitiativeRegion(iniName, regName, fromDate, toDate);
+                }
+            }
+
+            else
+            {
+                if (busTypeName != "All")
+                {
+                    bomList = GetBOMSForInitiativeBusinessType(iniName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    bomList = GetBOMSForInitiative(iniName, fromDate, toDate);
+                }
+            }
+
+            List<InitiativeTrendAnalysis> itaList = new List<InitiativeTrendAnalysis>();
+            InitiativeTrendAnalysis ita;
+            CLIENT client;
+            foreach (BOM bom in bomList)
+            {
+                if (bom.EFFECTIVENESS.HasValue && bom.CRITICALITY.HasValue && bom.DIFFERENTIAL.HasValue)
+                {
+                    ita = new InitiativeTrendAnalysis();
+                    client = bom.CLIENT;
+                    ita.Date = client.STARTDATE;
+                    ita.Region = client.REGION.NAME.TrimEnd();
+                    ita.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    ita.Country = ita.Region;
+                    ita.Effectiveness = bom.EFFECTIVENESS.Value;
+                    ita.Criticality = bom.CRITICALITY.Value;
+                    ita.Differentiation = bom.DIFFERENTIAL.Value;
+                    ita.Name = iniName;
+                    itaList.Add(ita);
+                }
+            }
+
+            return itaList;
+        }
+
+        public List<ITAttributeTrendAnalysis> GetITAttributeTrendAnalysis(string attName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        {
+            List<ITCAP> itcapList;
+            DateTime toDate;
+            DateTime fromDate;
+            if (!DateTime.TryParse(fromDateStr, out fromDate))
+            {
+                fromDate = DateTime.MinValue;
+            }
+            if (!DateTime.TryParse(toDateStr, out toDate))
+            {
+                toDate = DateTime.MaxValue;
+            }
+            if (regName != "All")
+            {
+                if (busTypeName != "All")
+                {
+                    itcapList = GetITCAPSForAttributeRegionAndBusinessType(attName, regName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    itcapList = GetITCAPSForAttributeRegion(attName, regName, fromDate, toDate);
+                }
+            }
+
+            else
+            {
+                if (busTypeName != "All")
+                {
+                    itcapList = GetITCAPSForAttributeBusinessType(attName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    itcapList = GetITCAPSForAttribute(attName, fromDate, toDate);
+                }
+            }
+
+            List<ITAttributeTrendAnalysis> itataList = new List<ITAttributeTrendAnalysis>();
+            ITAttributeTrendAnalysis itata;
+            CLIENT client;
+            foreach (ITCAP itcap in itcapList)
+            {
+                if (itcap.ASIS.HasValue && itcap.TOBE.HasValue)
+                {
+                    itata = new ITAttributeTrendAnalysis();
+                    client = itcap.CLIENT;
+                    itata.Date = client.STARTDATE;
+                    itata.Region = client.REGION.NAME.TrimEnd();
+                    itata.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    itata.Country = itata.Region;
+                    itata.AsisScore = itcap.ASIS.Value;
+                    itata.TobeScore = itcap.TOBE.Value;
+                    itata.Name = attName;
+                    itataList.Add(itata);
+                }
+            }
+
+            return itataList;
+        }
+
+        public List<CUPEQuestionTrendAnalysis> GetCUPEQuestionTrendAnalysis(string cqName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        {
+            List<CUPERESPONSE> crList;
+            DateTime toDate;
+            DateTime fromDate;
+            if (!DateTime.TryParse(fromDateStr, out fromDate))
+            {
+                fromDate = DateTime.MinValue;
+            }
+            if (!DateTime.TryParse(toDateStr, out toDate))
+            {
+                toDate = DateTime.MaxValue;
+            }
+            if (regName != "All")
+            {
+                if (busTypeName != "All")
+                {
+                    crList = GetCUPEResponsesForCUPEQuestionRegionAndBusinessType(cqName, regName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    crList = GetCUPEResponsesForCUPEQuestionRegion(cqName, regName, fromDate, toDate);
+                }
+            }
+
+            else
+            {
+                if (busTypeName != "All")
+                {
+                    crList = GetCUPEResponsesForCUPEQuestionBusinessType(cqName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    crList = GetCUPEResponsesForCUPEQuestion(cqName, fromDate, toDate);
+                }
+            }
+
+            List<CUPEQuestionTrendAnalysis> cqtaList = new List<CUPEQuestionTrendAnalysis>();
+            CUPEQuestionTrendAnalysis cqta;
+            CLIENT client;
+            CONTACT contact;
+            foreach (CUPERESPONSE cr in crList)
+            {
+                if (cr.CURRENT != "" && cr.FUTURE != "")
+                {
+                    cqta = new CUPEQuestionTrendAnalysis();
+                    client = cr.CONTACT.GROUP.CLIENT;
+                    cqta.Date = client.STARTDATE;
+                    cqta.Region = client.REGION.NAME.TrimEnd();
+                    cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    cqta.Country = cqta.Region;
+                    cqta.cupeType = cr.CONTACT.GROUP.NAME;
+                    switch (cr.CURRENT)
+                    {
+                        case "a":
+                            cqta.current = 1;
+                            break;
+                        case "b":
+                            cqta.current = 2;
+                            break;
+                        case "c":
+                            cqta.current = 3;
+                            break;
+                        case "d":
+                            cqta.current = 4;
+                            break;
+                    }
+                    switch (cr.FUTURE)
+                    {
+                        case "a":
+                            cqta.future = 1;
+                            break;
+                        case "b":
+                            cqta.future = 2;
+                            break;
+                        case "c":
+                            cqta.future = 3;
+                            break;
+                        case "d":
+                            cqta.future = 4;
+                            break;
+                    }
+                    cqta.Name = cqName;
+                    cqtaList.Add(cqta);
+                }
+            }
+
+            return cqtaList;
+        }
         public List<string> GetObjectivesFromCategory(string catName)
         {
             CATEGORY category;
@@ -2169,12 +2402,15 @@ namespace IBMConsultantTool
                 return new List<string>();
             }
         }
-        public List<BOM> GetBOMSForInitiative(string iniName)
+        public List<BOM> GetBOMSForInitiative(string iniName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
             if(GetInitiative(iniName, out initiative))
             {
-                return initiative.BOM.ToList();
+                return (from ent in initiative.BOM
+                        where ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
             }
 
             else
@@ -2182,14 +2418,16 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeRegion(string iniName, string regionName)
+        public List<BOM> GetBOMSForInitiativeRegion(string iniName, string regionName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
             if (GetInitiative(iniName, out initiative))
             {
                 return (from ent in initiative.BOM
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regionName
+                              ent.CLIENT.REGION.NAME == regionName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
             }
 
@@ -2198,14 +2436,16 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeBusinessType(string iniName, string busTypeName)
+        public List<BOM> GetBOMSForInitiativeBusinessType(string iniName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
             if (GetInitiative(iniName, out initiative))
             {
                 return (from ent in initiative.BOM
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
             }
 
@@ -2214,7 +2454,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string busTypeName)
+        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
             if (GetInitiative(iniName, out initiative))
@@ -2223,7 +2463,89 @@ namespace IBMConsultantTool
                         where ent.CLIENT.REGION != null &&
                               ent.CLIENT.REGION.NAME == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
+        {
+            CUPEQUESTION cupeQuestion;
+            if (GetCUPEQuestion(cqName, out cupeQuestion))
+            {
+                return (from cupe in cupeQuestion.CUPE
+                        where cupe.CLIENT.REGION != null &&
+                              cupe.CLIENT.REGION.NAME == regName &&
+                              cupe.CLIENT.BUSINESSTYPE != null &&
+                              cupe.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              cupe.CLIENT.STARTDATE > fromDate &&
+                              cupe.CLIENT.STARTDATE < toDate
+                        from ent in cupe.CUPERESPONSE
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionBusinessType(string cqName, string busTypeName, DateTime fromDate, DateTime toDate)
+        {
+            CUPEQUESTION cupeQuestion;
+            if (GetCUPEQuestion(cqName, out cupeQuestion))
+            {
+                return (from cupe in cupeQuestion.CUPE
+                        where cupe.CLIENT.BUSINESSTYPE != null &&
+                              cupe.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              cupe.CLIENT.STARTDATE > fromDate &&
+                              cupe.CLIENT.STARTDATE < toDate
+                        from ent in cupe.CUPERESPONSE
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionRegion(string cqName, string regName, DateTime fromDate, DateTime toDate)
+        {
+            CUPEQUESTION cupeQuestion;
+            if (GetCUPEQuestion(cqName, out cupeQuestion))
+            {
+                return (from cupe in cupeQuestion.CUPE
+                        where cupe.CLIENT.REGION != null &&
+                              cupe.CLIENT.REGION.NAME == regName &&
+                              cupe.CLIENT.STARTDATE > fromDate &&
+                              cupe.CLIENT.STARTDATE < toDate
+                        from ent in cupe.CUPERESPONSE
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestion(string cqName, DateTime fromDate, DateTime toDate)
+        {
+            CUPEQUESTION cupeQuestion;
+            if (GetCUPEQuestion(cqName, out cupeQuestion))
+            {
+                return (from cupe in cupeQuestion.CUPE
+                        where cupe.CLIENT.STARTDATE > fromDate &&
+                              cupe.CLIENT.STARTDATE < toDate
+                        from ent in cupe.CUPERESPONSE
                         select ent).ToList();
             }
 
@@ -2317,16 +2639,19 @@ namespace IBMConsultantTool
             }
         }
 
-        public List<ITCAP> GetITCAPSForAttribute(string itcqName)
+        public List<ITCAP> GetITCAPSForAttribute(string itcqName, DateTime fromDate, DateTime toDate)
         {
             ITCAPQUESTION itcq;
             try
             {
                 itcq = (from ent in dbo.ITCAPQUESTION
-                      where ent.NAME.TrimEnd() == itcqName
+                        where ent.NAME.TrimEnd() == itcqName
                       select ent).Single();
 
-                return itcq.ITCAP.ToList();
+                return (from ent in itcq.ITCAP
+                        where ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
 
             }
 
@@ -2335,7 +2660,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<ITCAP> GetITCAPSForAttributeRegion(string itcqName, string regionName)
+        public List<ITCAP> GetITCAPSForAttributeRegion(string itcqName, string regionName, DateTime fromDate, DateTime toDate)
         {
             ITCAPQUESTION itcq;
             try
@@ -2346,7 +2671,9 @@ namespace IBMConsultantTool
 
                 return (from ent in itcq.ITCAP
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regionName
+                              ent.CLIENT.REGION.NAME == regionName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
 
             }
@@ -2356,7 +2683,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<ITCAP> GetITCAPSForAttributeBusinessType(string itcqName, string busTypeName)
+        public List<ITCAP> GetITCAPSForAttributeBusinessType(string itcqName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             ITCAPQUESTION itcq;
             try
@@ -2367,7 +2694,9 @@ namespace IBMConsultantTool
 
                 return (from ent in itcq.ITCAP
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
 
             }
@@ -2377,7 +2706,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<ITCAP> GetITCAPSForAttributeRegionAndBusinessType(string itcqName, string regName, string busTypeName)
+        public List<ITCAP> GetITCAPSForAttributeRegionAndBusinessType(string itcqName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             ITCAPQUESTION itcq;
             try
@@ -2390,7 +2719,9 @@ namespace IBMConsultantTool
                         where ent.CLIENT.REGION != null &&
                               ent.CLIENT.REGION.NAME == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
 
             }
