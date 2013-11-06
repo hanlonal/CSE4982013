@@ -2012,12 +2012,12 @@ namespace IBMConsultantTool
 
         public override void RemoveQuestionToITCAP(string itcqName)
         {
-            /*ITCAP itcapQuestion;
-            if (GetITCAP(itcqName, out itcapQuestion))
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            ITCAP itcap;
+            if (GetITCAP(itcqName, client, out itcap))
             {
-                dbo.RemoveITCAPQUESTION(itcapQuestion);
-                dbo.SaveChanges();
-            }*/
+                dbo.DeleteObject(itcap);
+            }
         }
 
         public override bool ChangeITCAPQuestionDefault(string itcqName, bool isDefault)
@@ -2972,6 +2972,17 @@ namespace IBMConsultantTool
                         }
                         tempCon.Add(cupeConElement);
 
+                        XElement cupeResConElement = new XElement("CUPERESPONSES");
+                        foreach (CUPERESPONSE cupeResponse in contact.CUPERESPONSE)
+                        {
+                            XElement tempCUPERes = new XElement("CUPERESPONSE");
+                            tempCUPERes.Add(new XElement("CUPE", cupeResponse.CUPE.NAME.TrimEnd();
+                            tempCUPERes.Add(new XElement("CURRENT", cupeResponse.CURRENT));
+                            tempCUPERes.Add(new XElement("FUTURE", cupeResponse.FUTURE));
+                            cupeResConElement.Add(tempCUPERes);
+                        }
+                        tempCon.Add(cupeConElement);
+
                         conElement.Add(tempCon);
                     }
 
@@ -3075,6 +3086,19 @@ namespace IBMConsultantTool
                     itcapObjMapElement.Add(tempITCAPObjMap);
                 }
                 temp.Add(itcapObjMapElement);
+
+                XElement capGapInfoElement = new XElement("CAPABILITYGAPINFOS");
+                foreach (CAPABILITYGAPINFO capGapInfo in client.CAPABILITYGAPINFO)
+                {
+                    XElement tempCapGapInfo = new XElement("CAPABILITYGAPINFO");
+                    tempCapGapInfo.Add(new XElement("CAPABILITY", capGapInfo.CAPABILITY.NAME.TrimEnd()));
+                    tempCapGapInfo.Add(new XElement("GAP", capGapInfo.GAP));
+                    tempCapGapInfo.Add(new XElement("GAPTYPE", capGapInfo.GAPTYPE.TrimEnd()));
+                    tempCapGapInfo.Add(new XElement("PRIORITIZEDGAP", capGapInfo.PRIORITIZEDGAP));
+                    tempCapGapInfo.Add(new XElement("PRIORITIZEDGAPTYPE", capGapInfo.PRIORITIZEDGAPTYPE.TrimEnd()));
+                    capGapInfoElement.Add(tempCapGapInfo);
+                }
+                temp.Add(capGapInfoElement);
 
                 clientElement.Add(temp);
             }
@@ -3205,6 +3229,7 @@ namespace IBMConsultantTool
             BOM bom;
             CUPEQUESTION cupeQuestion;
             CUPE cupe;
+            CUPERESPONSE cupeResponse;
             DOMAIN domain;
             CAPABILITY capability;
             ITCAPQUESTION itcapQuestion;

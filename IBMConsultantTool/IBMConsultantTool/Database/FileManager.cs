@@ -293,6 +293,25 @@ namespace IBMConsultantTool
         #endregion
 
         #region Contact
+
+        public bool GetContact(string contactName, XElement grp, out XElement contact)
+        {
+            try
+            {
+                contact = (from ent in grp.Element("CONTACTS").Elements("CONTACT")
+                           where ent.Element("NAME").Value == contactName
+                           select ent).Single();
+            }
+
+            catch
+            {
+                contact = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public override void LoadParticipants()
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
@@ -301,6 +320,9 @@ namespace IBMConsultantTool
             GetGroup("Business", client, out busGrp);
             GetGroup("IT", client, out itGrp);
             Person person;
+            CupeData cupeData;
+            int id = 1;
+            int questionIndex = 0;
             List<XElement> busContacts = busGrp.Element("CONTACTS").Elements("CONTACT").ToList();
             List<XElement> itContacts = itGrp.Element("CONTACTS").Elements("CONTACT").ToList();
             foreach (XElement contact in busContacts)
@@ -309,6 +331,21 @@ namespace IBMConsultantTool
                 person.Name = contact.Element("NAME").Value;
                 person.Email = contact.Element("EMAIL").Value;
                 person.Type = Person.EmployeeType.Business;
+                person.ID = id;
+                cupeData = new CupeData(id);
+                foreach (XElement response in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
+                {
+                    questionIndex = ClientDataControl.cupeQuestions.FindIndex(delegate(CupeQuestionStringData question)
+                    {
+                        return question.QuestionText == response.Element("CUPE").Value;
+                    });
+                    if (questionIndex != -1)
+                    {
+                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.Element("CURRENT").Value[0]);
+                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.Element("FUTURE").Value[0]);
+                    }
+                }
+                person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
             }
 
@@ -318,6 +355,21 @@ namespace IBMConsultantTool
                 person.Name = contact.Element("NAME").Value;
                 person.Email = contact.Element("EMAIL").Value;
                 person.Type = Person.EmployeeType.IT;
+                person.ID = id;
+                cupeData = new CupeData(id);
+                foreach (XElement response in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
+                {
+                    questionIndex = ClientDataControl.cupeQuestions.FindIndex(delegate(CupeQuestionStringData question)
+                    {
+                        return question.QuestionText == response.Element("CUPE").Value;
+                    });
+                    if (questionIndex != -1)
+                    {
+                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.Element("CURRENT").Value[0]);
+                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.Element("FUTURE").Value[0]);
+                    }
+                }
+                person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
             }
         }
@@ -1312,9 +1364,28 @@ namespace IBMConsultantTool
             }
         }
 
+        public bool GetCUPE(string name, out XElement cupe)
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            try
+            {
+                cupe = (from ent in client.Element("CUPES").Elements("CUPE")
+                        where ent.Element("NAME").Value == name
+                        select ent).Single();
+
+                return true;
+            }
+
+            catch
+            {
+                cupe = null;
+                return false;
+            }
+        }
+
         public override void SaveCUPEParticipants()
         {
-            /*List<Person> personList = ClientDataControl.GetParticipants();
+            List<Person> personList = ClientDataControl.GetParticipants();
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             XElement busGrp;
             XElement itGrp;
@@ -1337,23 +1408,23 @@ namespace IBMConsultantTool
                 {
                     if (GetContact(person.Name, busGrp, out contact))
                     {
-                        contact.EMAIL = person.Email;
+                        contact.Element("EMAIL").Value = person.Email;
                     }
 
                     else
                     {
-                        contact = new CONTACT();
-                        contact.NAME = person.Name;
-                        contact.EMAIL = person.Email;
-                        busGrp.CONTACT.Add(contact);
-                        dbo.AddToCONTACT(contact);
+                        contact = new XElement("CONTACT");
+                        contact.Add(new XElement("NAME", person.Name));
+                        contact.Add(new XElement("EMAIL", person.Email));
+                        contact.Add(new XElement("CUPERESPONSES"));
+                        busGrp.Add(contact);
                     }
 
                     //Clear out responses in case survey is different
-                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
-                    foreach (CUPERESPONSE responseToDelete in responseList)
+                    List<XElement> responseList = contact.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
+                    foreach (XElement responseToDelete in responseList)
                     {
-                        dbo.DeleteObject(responseToDelete);
+                        responseToDelete.Remove();
                     }
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
@@ -1365,16 +1436,12 @@ namespace IBMConsultantTool
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
                         }
-                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
-                        //{
-                        response = new CUPERESPONSE();
-                        response.CONTACT = contact;
-                        response.CUPE = cupe;
-                        dbo.AddToCUPERESPONSE(response);
-                        // }
 
-                        response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : "";
-                        response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                        response = new XElement("CUPERESPONSE");
+                        response.Add(new XElement("CUPE", cupe));
+                        response.Add(new XElement("CURRENT", person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : ""));
+                        response.Add(new XElement("FUTURE", person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : ""));
+                        AddCupeResponse(response, contact);
                     }
                 }
 
@@ -1382,23 +1449,23 @@ namespace IBMConsultantTool
                 {
                     if (GetContact(person.Name, itGrp, out contact))
                     {
-                        contact.EMAIL = person.Email;
+                        contact.Element("EMAIL").Value = person.Email;
                     }
 
                     else
                     {
-                        contact = new CONTACT();
-                        contact.NAME = person.Name;
-                        contact.EMAIL = person.Email;
-                        itGrp.CONTACT.Add(contact);
-                        dbo.AddToCONTACT(contact);
+                        contact = new XElement("CONTACT");
+                        contact.Add(new XElement("NAME", person.Name));
+                        contact.Add(new XElement("EMAIL", person.Email));
+                        contact.Add(new XElement("CUPERESPONSES"));
+                        itGrp.Add(contact);
                     }
 
                     //Clear out responses in case survey is different
-                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
-                    foreach (CUPERESPONSE responseToDelete in responseList)
+                    List<XElement> responseList = contact.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
+                    foreach (XElement responseToDelete in responseList)
                     {
-                        dbo.DeleteObject(responseToDelete);
+                        responseToDelete.Remove();
                     }
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
@@ -1410,20 +1477,14 @@ namespace IBMConsultantTool
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
                         }
-                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
-                        //{
-                        response = new CUPERESPONSE();
-                        response.CONTACT = contact;
-                        response.CUPE = cupe;
-                        dbo.AddToCUPERESPONSE(response);
-                        // }
-
-                        response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : "";
-                        response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : "";
+                        response = new XElement("CUPERESPONSE");
+                        response.Add(new XElement("CUPE", cupe));
+                        response.Add(new XElement("CURRENT", person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : ""));
+                        response.Add(new XElement("FUTURE", person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : ""));
+                        AddCupeResponse(response, contact);
                     }
                 }
-            }*/
-            throw new NotImplementedException();
+            }
         }
 
         public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion)
@@ -1612,6 +1673,26 @@ namespace IBMConsultantTool
                     }
                 }
             }
+        }
+        #endregion
+
+        #region CupeResponse
+        public bool AddCupeResponse(XElement cupeResponse, XElement contact)
+        {
+            string cupe = cupeResponse.Element("CUPE").Value;
+            if((from ent in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE")
+                where ent.Element("CUPE").Value == cupe
+                select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            contact.Add(cupeResponse);
+            changeLog.Add("ADD CUPERESPONSE " + contact.Element("NAME").Value.Replace(' ', '~') + " " +
+                          cupe.Replace(' ', '~') + " " +
+                          cupeResponse.Element("CURRENT").Value + " " + 
+                          cupeResponse.Element("FUTURE").Value);
+            return true;
         }
         #endregion
 
@@ -2049,7 +2130,12 @@ namespace IBMConsultantTool
         }
         public override void RemoveQuestionToITCAP(string itcqName)
         {
-            throw new NotImplementedException();
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            XElement itcap;
+            if (GetITCAP(itcqName, client, out itcap))
+            {
+                itcap.Remove();
+            }
         }
 
         public override bool ChangeITCAPQuestionDefault(string itcqName, bool isDefault)
