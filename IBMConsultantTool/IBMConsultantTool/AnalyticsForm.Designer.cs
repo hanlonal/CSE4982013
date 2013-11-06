@@ -50,9 +50,9 @@
             this.toDateCheckBox = new System.Windows.Forms.CheckBox();
             this.regionCheckBox = new System.Windows.Forms.CheckBox();
             this.typeCheckBox = new System.Windows.Forms.CheckBox();
-            this.metricCheckBox = new System.Windows.Forms.CheckBox();
             this.regionComboBox = new System.Windows.Forms.ComboBox();
             this.businessTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.metricCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -148,6 +148,7 @@
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Size = new System.Drawing.Size(240, 705);
             this.filterPanel.TabIndex = 6;
+            //this.filterPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.filterPanel_Paint);
             // 
             // countryCheckBox
             // 
@@ -340,18 +341,6 @@
             this.typeCheckBox.Tag = "All";
             this.typeCheckBox.UseVisualStyleBackColor = true;
             // 
-            // metricCheckBox
-            // 
-            this.metricCheckBox.AutoSize = true;
-            this.metricCheckBox.Checked = true;
-            this.metricCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metricCheckBox.Location = new System.Drawing.Point(556, 331);
-            this.metricCheckBox.Name = "metricCheckBox";
-            this.metricCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.metricCheckBox.TabIndex = 0;
-            this.metricCheckBox.Tag = "All";
-            this.metricCheckBox.UseVisualStyleBackColor = true;
-            // 
             // regionComboBox
             // 
             this.regionComboBox.Enabled = false;
@@ -373,6 +362,18 @@
             this.businessTypeComboBox.TabIndex = 6;
             this.businessTypeComboBox.Tag = "All";
             this.businessTypeComboBox.Text = "<All Business Types>";
+            // 
+            // metricCheckBox
+            // 
+            this.metricCheckBox.AutoSize = true;
+            this.metricCheckBox.Checked = true;
+            this.metricCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metricCheckBox.Location = new System.Drawing.Point(556, 331);
+            this.metricCheckBox.Name = "metricCheckBox";
+            this.metricCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.metricCheckBox.TabIndex = 0;
+            this.metricCheckBox.Tag = "All";
+            this.metricCheckBox.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -407,7 +408,7 @@
             this.dataPanel.Name = "dataPanel";
             this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
-            this.dataPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.dataPanel_Paint);
+           // this.dataPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.dataPanel_Paint);
             // 
             // trendGridView
             // 

@@ -343,8 +343,8 @@ namespace IBMConsultantTool
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
             {
-                InitiativeTrendAnalysis ent = new InitiativeTrendAnalysis();
-                initiatives.Add(ent);
+                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, "All", "All", fromDateText.Text, toDateText.Text);
+                //initiatives.Add(ent);
                 trendGridView.DataSource = null;
                 trendGridView.DataSource = initiatives;
                 trendGridView.Refresh();
@@ -359,6 +359,14 @@ namespace IBMConsultantTool
 
         private void showResultsButton_Click(object sender, EventArgs e)
         {
+            string regionToSearch = regionComboBox.Text;
+            if (regionToSearch == "<All Regions>")
+            {
+                regionToSearch = "All";
+            }
+
+            string businessTypeToSearch = "";
+
             if (state == TrackingState.Capabilities)
                 CreateCapabilityToTrack();
             else if (state == TrackingState.CUPEQuestions)
@@ -366,9 +374,7 @@ namespace IBMConsultantTool
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack();
             else if (state == TrackingState.Initiatives)
-                CreateInitiativeToTrack();
-
-            
+                CreateInitiativeToTrack();            
         }
 
         private void clearGridButton_Click(object sender, EventArgs e)
@@ -387,10 +393,6 @@ namespace IBMConsultantTool
             capabilities.Clear();
         }
 
-        private void dataPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
 
 
