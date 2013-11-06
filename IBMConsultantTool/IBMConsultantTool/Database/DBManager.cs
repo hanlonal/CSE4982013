@@ -2297,7 +2297,6 @@ namespace IBMConsultantTool
             List<CUPEQuestionTrendAnalysis> cqtaList = new List<CUPEQuestionTrendAnalysis>();
             CUPEQuestionTrendAnalysis cqta;
             CLIENT client;
-            CONTACT contact;
             foreach (CUPERESPONSE cr in crList)
             {
                 if (cr.CURRENT != "" && cr.FUTURE != "")
@@ -2308,35 +2307,35 @@ namespace IBMConsultantTool
                     cqta.Region = client.REGION.NAME.TrimEnd();
                     cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
                     cqta.Country = cqta.Region;
-                    cqta.cupeType = cr.CONTACT.GROUP.NAME;
+                    cqta.CupeType = cr.CONTACT.GROUP.NAME;
                     switch (cr.CURRENT)
                     {
                         case "a":
-                            cqta.current = 1;
+                            cqta.CurrentAnswer = 1;
                             break;
                         case "b":
-                            cqta.current = 2;
+                            cqta.CurrentAnswer = 2;
                             break;
                         case "c":
-                            cqta.current = 3;
+                            cqta.CurrentAnswer = 3;
                             break;
                         case "d":
-                            cqta.current = 4;
+                            cqta.CurrentAnswer = 4;
                             break;
                     }
                     switch (cr.FUTURE)
                     {
                         case "a":
-                            cqta.future = 1;
+                            cqta.FutureAnswer = 1;
                             break;
                         case "b":
-                            cqta.future = 2;
+                            cqta.FutureAnswer = 2;
                             break;
                         case "c":
-                            cqta.future = 3;
+                            cqta.FutureAnswer = 3;
                             break;
                         case "d":
-                            cqta.future = 4;
+                            cqta.FutureAnswer = 4;
                             break;
                     }
                     cqta.Name = cqName;
@@ -2345,6 +2344,69 @@ namespace IBMConsultantTool
             }
 
             return cqtaList;
+        }
+        public List<CapabilityTrendAnalysis> GetCapabilityTrendAnalysis(string capName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        {
+            List<CAPABILITYGAPINFO> capGapInfoList;
+            DateTime toDate;
+            DateTime fromDate;
+            if (!DateTime.TryParse(fromDateStr, out fromDate))
+            {
+                fromDate = DateTime.MinValue;
+            }
+            if (!DateTime.TryParse(toDateStr, out toDate))
+            {
+                toDate = DateTime.MaxValue;
+            }
+            if (regName != "All")
+            {
+                if (busTypeName != "All")
+                {
+                    capGapInfoList = GetCapabilityGapInfosFromCapabilityRegionAndBusinessType(capName, regName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    capGapInfoList = GetCapabilityGapInfosFromCapabilityRegion(capName, regName, fromDate, toDate);
+                }
+            }
+
+            else
+            {
+                if (busTypeName != "All")
+                {
+                    capGapInfoList = GetCapabilityGapInfosFromCapabilityBusinessType(capName, busTypeName, fromDate, toDate);
+                }
+
+                else
+                {
+                    capGapInfoList = GetCapabilityGapInfosFromCapability(capName, fromDate, toDate);
+                }
+            }
+
+            List<CapabilityTrendAnalysis> ctaList = new List<CapabilityTrendAnalysis>();
+            CapabilityTrendAnalysis cta;
+            CLIENT client;
+            foreach (CAPABILITYGAPINFO capGapInfo in capGapInfoList)
+            {
+                if (capGapInfo.GAP.HasValue && capGapInfo.PRIORITIZEDGAP.HasValue)
+                {
+                    cta = new CapabilityTrendAnalysis();
+                    client = capGapInfo.CLIENT;
+                    cta.Date = client.STARTDATE;
+                    cta.Region = client.REGION.NAME.TrimEnd();
+                    cta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    cta.Country = cta.Region;
+                    cta.CapabilityGap = capGapInfo.GAP.Value;
+                    cta.PrioritizedCapabilityGap = capGapInfo.PRIORITIZEDGAP.Value;
+                    cta.GapType = capGapInfo.GAPTYPE;
+                    cta.PrioritizedGapType = capGapInfo.PRIORITIZEDGAPTYPE;
+                    cta.Name = capName;
+                    ctaList.Add(cta);
+                }
+            }
+
+            return ctaList;
         }
         public List<string> GetObjectivesFromCategory(string catName)
         {
@@ -2727,6 +2789,78 @@ namespace IBMConsultantTool
             }
 
             catch
+            {
+                return null;
+            }
+        }
+        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapability(string capName, DateTime fromDate, DateTime toDate)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                return (from ent in capability.CAPABILITYGAPINFO
+                        where ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityRegion(string capName, string regName, DateTime fromDate, DateTime toDate)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                return (from ent in capability.CAPABILITYGAPINFO
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityBusinessType(string capName, string busTypeName, DateTime fromDate, DateTime toDate)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                return (from ent in capability.CAPABILITYGAPINFO
+                        where ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityRegionAndBusinessType(string capName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
+        {
+            CAPABILITY capability;
+            if (GetCapability(capName, out capability))
+            {
+                return (from ent in capability.CAPABILITYGAPINFO
+                        where ent.CLIENT.REGION != null &&
+                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.BUSINESSTYPE != null &&
+                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.STARTDATE > fromDate &&
+                              ent.CLIENT.STARTDATE < toDate
+                        select ent).ToList();
+            }
+
+            else
             {
                 return null;
             }
