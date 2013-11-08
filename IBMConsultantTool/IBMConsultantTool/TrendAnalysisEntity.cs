@@ -17,6 +17,8 @@ namespace IBMConsultantTool
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
+
+
         protected string name;
 
         private string country;

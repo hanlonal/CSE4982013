@@ -60,10 +60,12 @@
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.chartPanel = new System.Windows.Forms.Panel();
             this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.testingLabel = new System.Windows.Forms.Label();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
+            this.chartPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toDateText
@@ -148,7 +150,6 @@
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Size = new System.Drawing.Size(240, 705);
             this.filterPanel.TabIndex = 6;
-            //this.filterPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.filterPanel_Paint);
             // 
             // countryCheckBox
             // 
@@ -408,7 +409,6 @@
             this.dataPanel.Name = "dataPanel";
             this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
-           // this.dataPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.dataPanel_Paint);
             // 
             // trendGridView
             // 
@@ -423,6 +423,7 @@
             // 
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.chartPanel.Controls.Add(this.testingLabel);
             this.chartPanel.Location = new System.Drawing.Point(246, 361);
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(745, 356);
@@ -437,6 +438,15 @@
             this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
             this.graphTypeComboBox.TabIndex = 10;
             this.graphTypeComboBox.Text = "<Graph Type>";
+            // 
+            // testingLabel
+            // 
+            this.testingLabel.AutoSize = true;
+            this.testingLabel.Location = new System.Drawing.Point(277, 163);
+            this.testingLabel.Name = "testingLabel";
+            this.testingLabel.Size = new System.Drawing.Size(51, 20);
+            this.testingLabel.TabIndex = 0;
+            this.testingLabel.Text = "label1";
             // 
             // AnalyticsForm
             // 
@@ -462,6 +472,8 @@
             this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
+            this.chartPanel.ResumeLayout(false);
+            this.chartPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -501,5 +513,6 @@
         private System.Windows.Forms.CheckBox countryCheckBox;
         private System.Windows.Forms.ComboBox countryComboBox;
         private System.Windows.Forms.ComboBox graphTypeComboBox;
+        private System.Windows.Forms.Label testingLabel;
     }
 }
