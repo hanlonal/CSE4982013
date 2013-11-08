@@ -260,7 +260,10 @@ namespace IBMConsultantTool
             }
 
             db.SaveCUPEParticipants();
-            db.SaveChanges();
+            if (db.SaveChanges())
+            {
+                ClientDataControl.db.ClientCompletedCUPE(client.EntityObject);
+            }
         }
 
         public static void SaveParticipantsToDB()

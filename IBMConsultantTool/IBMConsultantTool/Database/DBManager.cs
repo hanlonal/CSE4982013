@@ -166,6 +166,22 @@ namespace IBMConsultantTool
 
             return stringList;
         }
+
+        public override void ClientCompletedBOM(object clientObj)
+        {
+            CLIENT client = clientObj as CLIENT;
+            client.BOMCOMPLETE = "Y";
+        }
+        public override void ClientCompletedCUPE(object clientObj)
+        {
+            CLIENT client = clientObj as CLIENT;
+            client.CUPECOMPLETE = "Y";
+        }
+        public override void ClientCompletedITCAP(object clientObj)
+        {
+            CLIENT client = clientObj as CLIENT;
+            client.ITCAPCOMPLETE = "Y";
+        }
         #endregion
 
         #region Region
@@ -3207,7 +3223,7 @@ namespace IBMConsultantTool
         }
         public void CheckChangeLog()
         {
-            bool success = true;
+            List<string> failedChanges = new List<string>();
 
             string line;
             string[] lineArray;
@@ -3291,28 +3307,47 @@ namespace IBMConsultantTool
 
                                 client.BOMCOMPLETE = client.CUPECOMPLETE = client.ITCAPCOMPLETE = "N";
 
-                                AddClient(client);
+                                if (!AddClient(client))
+                                {
+                                    MessageBox.Show("Add Client Instruction Failed: Client already exists\n\n" + line, "Error");
+                                }
                                 break;
 
                             case "REGION":
-                                AddRegion(lineArray[2].Replace('~', ' '));
+                                if (!AddRegion(lineArray[2].Replace('~', ' ')))
+                                {
+                                    MessageBox.Show("Add Region Instruction Failed: Region already exists\n\n" + line, "Error");
+                                }
                                 break;
 
                             case "BUSINESSTYPE":
-                                AddBusinessType(lineArray[2].Replace('~', ' '));
+                                if (!AddBusinessType(lineArray[2].Replace('~', ' ')))
+                                {
+                                    MessageBox.Show("Add BusinessType Instruction Failed: BusinessType already exists\n\n" + line, "Error");
+                                }
                                 break;
 
                             case "GROUP":
                                 if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                 {
-                                    AddGroup(lineArray[2].Replace('~', ' '), client);
+                                    if (!AddGroup(lineArray[2].Replace('~', ' '), client))
+                                    {
+                                        MessageBox.Show("Add Group Instruction Failed: Group already exists\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add Group Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
                             case "CATEGORY":
                                 category = new CATEGORY();
                                 category.NAME = lineArray[2].Replace('~', ' ');
-                                AddCategory(category);
+                                if (!AddCategory(category))
+                                {
+                                    MessageBox.Show("Add Category Instruction Failed: Category already exists\n\n" + line, "Error");
+                                }
                                 break;
 
                             case "BUSINESSOBJECTIVE":
@@ -3321,7 +3356,14 @@ namespace IBMConsultantTool
                                     objective = new BUSINESSOBJECTIVE();
                                     objective.NAME = lineArray[2].Replace('~', ' ');
                                     objective.CATEGORY = category;
-                                    AddObjective(objective);
+                                    if (!AddObjective(objective))
+                                    {
+                                        MessageBox.Show("Add BusinessObjective Instruction Failed: BusinessObjective already exists\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add BusinessObjective Instruction Failed: Category does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3331,7 +3373,14 @@ namespace IBMConsultantTool
                                     initiative = new INITIATIVE();
                                     initiative.NAME = lineArray[2].Replace('~', ' ');
                                     initiative.BUSINESSOBJECTIVE = objective;
-                                    AddInitiative(initiative);
+                                    if (!AddInitiative(initiative))
+                                    {
+                                        MessageBox.Show("Add Initiative Instruction Failed: Initiative already exists\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add Initiative Instruction Failed: BusinessObjective does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3344,8 +3393,19 @@ namespace IBMConsultantTool
                                         {
                                             bom = new BOM();
                                             bom.INITIATIVE = initiative;
-                                            AddBOM(bom, client);
+                                            if (!AddBOM(bom, client))
+                                            {
+                                                MessageBox.Show("Add BOM Instruction Failed: BOM already exists\n\n" + line, "Error");
+                                            }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add BOM Instruction Failed: Initiative does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else if (lineArray[2] == "GROUP")
@@ -3358,9 +3418,24 @@ namespace IBMConsultantTool
                                             {
                                                 bom = new BOM();
                                                 bom.INITIATIVE = initiative;
-                                                AddBOM(bom, grp);
+                                                if (!AddBOM(bom, grp))
+                                                {
+                                                    MessageBox.Show("Add BOM Instruction Failed: BOM already exists\n\n" + line, "Error");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Add BOM Instruction Failed: Initiative does not exist\n\n" + line, "Error");
                                             }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add BOM Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
 
@@ -3376,16 +3451,34 @@ namespace IBMConsultantTool
                                                 {
                                                     bom = new BOM();
                                                     bom.INITIATIVE = initiative;
-                                                    AddBOM(bom, contact);
+                                                    if (!AddBOM(bom, contact))
+                                                    {
+                                                        MessageBox.Show("Add BOM Instruction Failed: BOM already exists\n\n" + line, "Error");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Add BOM Instruction Failed: Initiative does not exist\n\n" + line, "Error");
                                                 }
                                             }
+                                            else
+                                            {
+                                                MessageBox.Show("Add BOM Instruction Failed: Contact does not exist\n\n" + line, "Error");
+                                            }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add BOM Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                    success = false;
+                                    MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3405,8 +3498,24 @@ namespace IBMConsultantTool
                                                 cupeResponse.FUTURE = lineArray[8];
                                                 dbo.AddToCUPERESPONSE(cupeResponse);
                                             }
+                                            else
+                                            {
+                                                MessageBox.Show("Add CUPEResponse Instruction Failed: CUPE does not exist\n\n" + line, "Error");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Contact does not exist\n\n" + line, "Error");
                                         }
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Add CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add CUPEResponse Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3427,8 +3536,19 @@ namespace IBMConsultantTool
                                     {
                                         if (GetCUPEQuestion(lineArray[4].Replace('~', ' '), out cupeQuestion))
                                         {
-                                            AddCUPE(cupeQuestion.NAME.TrimEnd(), client);
+                                            if (!AddCUPE(cupeQuestion.NAME.TrimEnd(), client))
+                                            {
+                                                MessageBox.Show("Add CUPEResponse Instruction Failed: CUPE already exists\n\n" + line, "Error");
+                                            }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add CUPEResponse Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add CUPE Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else if (lineArray[2] == "GROUP")
@@ -3439,9 +3559,24 @@ namespace IBMConsultantTool
                                         {
                                             if (GetCUPEQuestion(lineArray[5].Replace('~', ' '), out cupeQuestion))
                                             {
-                                                AddCUPEToGroup(cupeQuestion.NAME.TrimEnd(), grp);
+                                                if(!AddCUPEToGroup(cupeQuestion.NAME.TrimEnd(), grp))
+                                                {
+                                                    MessageBox.Show("Add CUPEResponse Instruction Failed: CUPE already exists\n\n" + line, "Error");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Add CUPEResponse Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
                                             }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add CUPEResponse Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
 
@@ -3455,16 +3590,34 @@ namespace IBMConsultantTool
                                             {
                                                 if (GetCUPEQuestion(lineArray[6].Replace('~', ' '), out cupeQuestion))
                                                 {
-                                                    AddCUPEToContact(cupeQuestion.NAME.TrimEnd(), contact);
+                                                    if (!AddCUPEToContact(cupeQuestion.NAME.TrimEnd(), contact))
+                                                    {
+                                                        MessageBox.Show("Add CupeResponse Instruction Failed: Cupe already exists\n\n" + line, "Error");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Add CUPEResponse Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
                                                 }
                                             }
+                                            else
+                                            {
+                                                MessageBox.Show("Add CUPEResponse Instruction Failed: Contact does not exist\n\n" + line, "Error");
+                                            }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add CUPEResponse Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                    success = false;
+                                    MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3472,7 +3625,10 @@ namespace IBMConsultantTool
                                 domain = new DOMAIN();
                                 domain.NAME = lineArray[2].Replace('~', ' ');
                                 domain.DEFAULT = "N";
-                                AddDomain(domain);
+                                if (!AddDomain(domain))
+                                {
+                                    MessageBox.Show("Add Domain Instruction Failed: Domain already exists\n\n" + line, "Error");
+                                }
                                 break;
 
                             case "CAPABILITY":
@@ -3482,7 +3638,14 @@ namespace IBMConsultantTool
                                     capability.NAME = lineArray[2].Replace('~', ' ');
                                     capability.DEFAULT = "N";
                                     capability.DOMAIN = domain;
-                                    AddCapability(capability);
+                                    if (!AddCapability(capability))
+                                    {
+                                        MessageBox.Show("Add Capability Instruction Failed: Capability already exists\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add Capability Instruction Failed: Domain does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3493,7 +3656,14 @@ namespace IBMConsultantTool
                                     itcapQuestion.NAME = lineArray[2].Replace('~', ' ');
                                     itcapQuestion.DEFAULT = "N";
                                     itcapQuestion.CAPABILITY = capability;
-                                    AddITCAPQuestion(itcapQuestion);
+                                    if (!AddITCAPQuestion(itcapQuestion))
+                                    {
+                                        MessageBox.Show("Add ITCAPQuestion Instruction Failed: ITCAPQuestion already exists\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add ITCAPQuestion Instruction Failed: Capability does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3506,8 +3676,19 @@ namespace IBMConsultantTool
                                         {
                                             itcap = new ITCAP();
                                             itcap.ITCAPQUESTION = itcapQuestion;
-                                            AddITCAP(itcap, client);
+                                            if (!AddITCAP(itcap, client))
+                                            {
+                                                MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
+                                            }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add ITCAP Instruction Failed: ITCAPQuestion does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else if (lineArray[2] == "GROUP")
@@ -3520,9 +3701,24 @@ namespace IBMConsultantTool
                                             {
                                                 itcap = new ITCAP();
                                                 itcap.ITCAPQUESTION = itcapQuestion;
-                                                AddITCAPToGroup(itcap, grp);
+                                                if (!AddITCAPToGroup(itcap, grp))
+                                                {
+                                                    MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Add ITCAP Instruction Failed: ITCAPQuestion does not exist\n\n" + line, "Error");
                                             }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add ITCAP Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
 
@@ -3538,16 +3734,34 @@ namespace IBMConsultantTool
                                                 {
                                                     itcap = new ITCAP();
                                                     itcap.ITCAPQUESTION = itcapQuestion;
-                                                    AddITCAPToContact(itcap, contact);
+                                                    if(!AddITCAPToContact(itcap, contact))
+                                                    {
+                                                        MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Add ITCAP Instruction Failed: ITCAPPQuestion does not exist\n\n" + line, "Error");
                                                 }
                                             }
+                                            else
+                                            {
+                                                MessageBox.Show("Add ITCAP Instruction Failed: Contact does not exist\n\n" + line, "Error");
+                                            }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Add ITCAP Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                    success = false;
+                                    MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3559,14 +3773,14 @@ namespace IBMConsultantTool
                                     {
                                         if (!GetCapability(lineArray[4].Replace('~', ' '), out capability))
                                         {
-                                            MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                            success = false;
+                                            MessageBox.Show("Add ITCAPOBJMAP Instruction Failed: Capability does not exist\n\n" + line, "Error");
+                                            break;
                                         }
 
                                         if (!GetObjective(lineArray[5].Replace('~', ' '), out objective))
                                         {
-                                            MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                            success = false;
+                                            MessageBox.Show("Add ITCAPOBJMAP Instruction Failed: BusinessObjective does not exist\n\n" + line, "Error");
+                                            break;
                                         }
 
                                         itcapObjMap = new ITCAPOBJMAP();
@@ -3576,6 +3790,14 @@ namespace IBMConsultantTool
                                         itcapObjMap.SCORE = 0;
 
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Add CapabilityObjectiveMap Instruction Failed: CapabilityObjectiveMap already exists\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add CapabilityObjectiveMapping Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "CAPABILITYGAPINFO":
@@ -3592,11 +3814,18 @@ namespace IBMConsultantTool
                                         capGapInfo.PRIORITIZEDGAPTYPE = "None";
                                         dbo.AddToCAPABILITYGAPINFO(capGapInfo);
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Add CapabilityGapInfo Instruction Failed: Capability does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add CapabilityGapInfo Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             default:
-                                MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                success = false;
+                                MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
                                 break;
                         }
                     }
@@ -3605,6 +3834,31 @@ namespace IBMConsultantTool
                     {
                         switch (lineArray[1])
                         {
+                            case "CLIENT":
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                {
+                                    if (lineArray[2] == "BOMCOMPLETE")
+                                    {
+                                        client.BOMCOMPLETE = "Y";
+                                    }
+                                    if (lineArray[2] == "CUPECOMPLETE")
+                                    {
+                                        client.CUPECOMPLETE = "Y";
+                                    }
+                                    if (lineArray[2] == "ITCAPCOMPLETE")
+                                    {
+                                        client.ITCAPCOMPLETE = "Y";
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update Client Instruction Failed: Client does not exist\n\n" + line, "Error");
+                                }
+                                break;
                             case "BOM":
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
@@ -3614,6 +3868,14 @@ namespace IBMConsultantTool
                                         bom.CRITICALITY = Convert.ToSingle(lineArray[5]);
                                         bom.DIFFERENTIAL = Convert.ToSingle(lineArray[6]);
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Update BOM Instruction Failed: BOM does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "CUPE":
@@ -3627,6 +3889,14 @@ namespace IBMConsultantTool
                                         cupe.PARTNER = lineArray[7].Replace('~', ' ');
                                         cupe.ENABLER = lineArray[8].Replace('~', ' ');
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Update CUPE Instruction Failed: CUPE does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update CUPE Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "CUPEQUESTION":
@@ -3635,6 +3905,10 @@ namespace IBMConsultantTool
                                     cupeQuestion.INTWENTY = lineArray[3];
                                     cupeQuestion.INFIFTEEN = lineArray[4];
                                     cupeQuestion.INTEN = lineArray[5];
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update CUPEQuestion Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
                                 }
                                 break;
                            case "ITCAP":
@@ -3646,6 +3920,14 @@ namespace IBMConsultantTool
                                         itcap.TOBE = Convert.ToSingle(lineArray[5]);
                                         itcap.COMMENT = lineArray[6].Replace('~', ' ');
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Update ITCAP Instruction Failed: ITCAP does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "ITCAPOBJMAP":
@@ -3655,6 +3937,14 @@ namespace IBMConsultantTool
                                     {
                                         itcapObjMap.SCORE = Convert.ToInt32(lineArray[6]);
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Update CapabilityObjectiveMap Instruction Failed: CapabilityObjectiveMap does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update CapabilityObjectiveMap Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "CAPABILITYGAPINFO":
@@ -3667,11 +3957,18 @@ namespace IBMConsultantTool
                                         capGapInfo.GAP = Convert.ToSingle(lineArray[7]);
                                         capGapInfo.PRIORITIZEDGAP = Convert.ToSingle(lineArray[8]);
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Update CapabilityGapInfo Instruction Failed: CapabilityGapInfo does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Update CapabilityGapInfo Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             default:
-                                MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                                success = false;
+                                MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
                                 break;
                         }
                     }
@@ -3681,9 +3978,13 @@ namespace IBMConsultantTool
                         switch (lineArray[1])
                         {
                             case "CUPE":
-                                if(GetClient(lineArray[2].Replace('~', ' '), out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
                                     ClearCUPE(client);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Delete CUPE Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "CUPERESPONSE":
@@ -3699,7 +4000,19 @@ namespace IBMConsultantTool
                                                 dbo.DeleteObject(response);
                                             }
                                         }
+                                        else
+                                        {
+                                            MessageBox.Show("Delete CUPEResponse Instruction Failed: Contact does not exist\n\n" + line, "Error");
+                                        }
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Delete CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Delete CUPEResponse Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
                             case "ITCAP":
@@ -3709,30 +4022,41 @@ namespace IBMConsultantTool
                                     {
                                         dbo.DeleteObject(itcap);
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Delete ITCAP Instruction Failed: ITCAP does not exist\n\n" + line, "Error");
+                                    }
                                 }
+                                else
+                                {
+                                    MessageBox.Show("Delete ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
+                                }
+                                break;
+                            default:
+                                MessageBox.Show("Invalid instruction detected\n\n" + line, "Error");
                                 break;
                         }
                     }
 
                     else
                     {
-                        MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
-                        success = false;
+                        MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
                     }
 
                     if (!SaveChanges())
                     {
-                        MessageBox.Show("Instruction failed to execute: \n" + line, "Error");
-                        success = false;
+                        if(MessageBox.Show("Instruction failed to execute: \n" + line +
+                                           "\n\nKeep change in log?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            failedChanges.Add(line);
+                        }
                         break;
                     }
                 }
             }
 
-            if (success)
-            {
-                File.WriteAllText("Resources/Changes.log", string.Empty);
-            }
+            File.WriteAllText("Resources/Changes.log", string.Empty);
+            File.WriteAllLines("Resources/Changes.log", failedChanges);
         }
         #endregion
     }

@@ -195,6 +195,34 @@ namespace IBMConsultantTool
 
             return stringListNoRepeat;
         }
+
+        public override void ClientCompletedBOM(object clientObj)
+        {
+            XElement client = clientObj as XElement;
+            if (client.Element("BOMCOMPLETE").Value == "N")
+            {
+                changeLog.Add("UPDATE CLIENT BOMCOMPLETE " + client.Element("NAME").Value.Replace(' ', '~'));
+            }
+            client.Element("BOMCOMPLETE").Value = "Y";
+        }
+        public override void ClientCompletedCUPE(object clientObj)
+        {
+            XElement client = clientObj as XElement;
+            if (client.Element("CUPECOMPLETE").Value == "N")
+            {
+                changeLog.Add("UPDATE CLIENT CUPECOMPLETE " + client.Element("NAME").Value.Replace(' ', '~'));
+            }
+            client.Element("CUPECOMPLETE").Value = "Y";
+        }
+        public override void ClientCompletedITCAP(object clientObj)
+        {
+            XElement client = clientObj as XElement;
+            if (client.Element("ITCAPCOMPLETE").Value == "N")
+            {
+                changeLog.Add("UPDATE CLIENT ITCAPCOMPLETE " + client.Element("NAME").Value.Replace(' ', '~'));
+            }
+            client.Element("ITCAPCOMPLETE").Value = "Y";
+        }
         #endregion
 
         #region Region

@@ -167,9 +167,7 @@ namespace IBMConsultantTool
 
         private void SendEmailButton_Click(object sender, EventArgs e)
         {
-
             ClientDataControl.SendEmailButton_Click();
-
         }
 
         private void BomSurveyButton_Click(object sender, EventArgs e)
@@ -322,10 +320,18 @@ namespace IBMConsultantTool
                             return;
                         }
                     }
-                    if (ClientDataControl.db.SaveChanges()) { MessageBox.Show("Saved Changes Successfully", "Success"); }
-
-                    else { MessageBox.Show("Failed to save changes", "Error"); }
                 }
+            }
+
+            if (ClientDataControl.db.SaveChanges())
+            {
+                MessageBox.Show("Saved Changes Successfully", "Success");
+                ClientDataControl.db.ClientCompletedBOM(ClientDataControl.Client.EntityObject);
+            }
+
+            else
+            {
+                MessageBox.Show("Failed to save changes", "Error");
             }
         }
 

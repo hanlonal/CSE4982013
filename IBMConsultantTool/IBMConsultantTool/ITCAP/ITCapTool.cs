@@ -803,6 +803,7 @@ namespace IBMConsultantTool
             if (success && ClientDataControl.db.SaveChanges())
             {
                 MessageBox.Show("Saved Changes Successfully", "Success");
+                ClientDataControl.db.ClientCompletedITCAP(ClientDataControl.Client.EntityObject);
             }
 
             else
