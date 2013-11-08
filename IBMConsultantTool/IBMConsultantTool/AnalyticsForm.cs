@@ -478,6 +478,26 @@ namespace IBMConsultantTool
             }
         }
 
+        private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
+                if (ent.Type1 == TrendAnalysisEntity.Type.Master)
+                {
+                    for (int i = 1; i < ent.Children + 1; i++)
+                    {
+                        trendGridView.CurrentCell = null;
+                        
+                        trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
+
+                    }
+
+                }
+
+            }
+        }
+
 
 
 

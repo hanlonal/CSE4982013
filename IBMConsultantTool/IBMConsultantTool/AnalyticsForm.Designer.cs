@@ -450,6 +450,7 @@
             this.trendGridView.ReadOnly = true;
             this.trendGridView.Size = new System.Drawing.Size(740, 288);
             this.trendGridView.TabIndex = 0;
+            this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
             this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
             // 
             // Collapse
