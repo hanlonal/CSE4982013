@@ -339,12 +339,12 @@ namespace IBMConsultantTool
             }
         }
 
-        private void CreateInitiativeToTrack(string region, string business)
+        private void CreateInitiativeToTrack(string region, string business, string from, string to)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
             {
                 List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
-                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, business, fromDateText.Text, toDateText.Text);
+                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, business, from, to);
                 InitiativeTrendAnalysis init = new InitiativeTrendAnalysis();
 
 
@@ -364,6 +364,8 @@ namespace IBMConsultantTool
 
                     initiativesToTrack.Add(init);
                 }
+                else
+                    MessageBox.Show("Query did not return any results");
                 trendGridView.DataSource = null;
                 trendGridView.DataSource = initiativesToTrack;
                 trendGridView.Refresh();
@@ -374,7 +376,7 @@ namespace IBMConsultantTool
                     testingLabel.Text = metricsComboBox.Text;
                 }
 
-                CreateGraphWithData(initiatives);
+                CreateInitiativeGraph(initiatives);
             }
             else
             {
@@ -387,6 +389,22 @@ namespace IBMConsultantTool
         {
             string regionToSearch;
             string businessTypeToSearch;
+            string fromDate;
+            string toDate;
+
+            if (fromDateText.Enabled)
+            {
+                fromDate = fromDateText.Text;
+            }
+            else
+                fromDate = "All";
+
+            if (toDateText.Enabled)
+            {
+                toDate = toDateText.Text;
+            }
+            else
+                toDate = "All";
             if(regionComboBox.Enabled)
                 regionToSearch = regionComboBox.Text.Trim();
             else
@@ -414,7 +432,7 @@ namespace IBMConsultantTool
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack();
             else if (state == TrackingState.Initiatives)
-                CreateInitiativeToTrack(regionToSearch, businessTypeToSearch);            
+                CreateInitiativeToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);            
         }
 
         private void clearGridButton_Click(object sender, EventArgs e)
