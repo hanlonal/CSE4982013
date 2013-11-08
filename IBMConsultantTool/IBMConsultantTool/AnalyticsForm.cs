@@ -15,7 +15,7 @@ namespace IBMConsultantTool
         List<CapabilityTrendAnalysis> capabilities = new List<CapabilityTrendAnalysis>();
         List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
         List<ITAttributeTrendAnalysis> attributes = new List<ITAttributeTrendAnalysis>();
-        List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
+        List<InitiativeTrendAnalysis> initiativesToTrack = new List<InitiativeTrendAnalysis>();
         enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Initiatives, None };
         TrackingState state;
         private DateTime fromTime;
@@ -339,16 +339,42 @@ namespace IBMConsultantTool
             }
         }
 
-        private void CreateInitiativeToTrack()
+        private void CreateInitiativeToTrack(string region, string business)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
             {
-                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, "All", "All", fromDateText.Text, toDateText.Text);
-                //initiatives.Add(ent);
+                List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
+                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, business, fromDateText.Text, toDateText.Text);
+                InitiativeTrendAnalysis init = new InitiativeTrendAnalysis();
+
+
+                if (initiatives.Count > 0)
+                {
+                    float diff = initiatives.Average(d => d.Differentiation);
+                    float crit = initiatives.Average(d => d.Criticality);
+                    float effect = initiatives.Average(d => d.Effectiveness);
+
+                    init.Effectiveness = effect;
+                    init.Criticality = crit;
+                    init.Country = "All";
+                    init.Differentiation = diff;
+                    init.BusinessType = "All";
+                    init.Region = "All";
+                    init.Name = initiativesComboBox.Text;
+
+                    initiativesToTrack.Add(init);
+                }
                 trendGridView.DataSource = null;
-                trendGridView.DataSource = initiatives;
+                trendGridView.DataSource = initiativesToTrack;
                 trendGridView.Refresh();
                 currentlyBeingTracked = "Initiative";
+
+                if (metricsComboBox.Enabled)
+                {
+                    testingLabel.Text = metricsComboBox.Text;
+                }
+
+                CreateGraphWithData(initiatives);
             }
             else
             {
@@ -359,13 +385,27 @@ namespace IBMConsultantTool
 
         private void showResultsButton_Click(object sender, EventArgs e)
         {
-            string regionToSearch = regionComboBox.Text;
+            string regionToSearch;
+            string businessTypeToSearch;
+            if(regionComboBox.Enabled)
+                regionToSearch = regionComboBox.Text.Trim();
+            else
+                regionToSearch = "All";
+
+            if(businessTypeComboBox.Enabled)
+                businessTypeToSearch = businessTypeComboBox.Text.Trim();
+            else
+                businessTypeToSearch = "All";
             if (regionToSearch == "<All Regions>")
             {
                 regionToSearch = "All";
             }
+            if(businessTypeToSearch == "<All Business Types>")
+            {
+                businessTypeToSearch = "All";
+            }
 
-            string businessTypeToSearch = "";
+            
 
             if (state == TrackingState.Capabilities)
                 CreateCapabilityToTrack();
@@ -374,7 +414,7 @@ namespace IBMConsultantTool
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack();
             else if (state == TrackingState.Initiatives)
-                CreateInitiativeToTrack();            
+                CreateInitiativeToTrack(regionToSearch, businessTypeToSearch);            
         }
 
         private void clearGridButton_Click(object sender, EventArgs e)
@@ -394,7 +434,10 @@ namespace IBMConsultantTool
         }
 
 
+        public void CreateInitiativeGraph(List<InitiativeTrendAnalysis> init)
+        {
 
+        }
 
 
 
