@@ -162,6 +162,7 @@ namespace IBMConsultantTool
             diffLabel.AutoSize = true;
             diffLabel.Text = "Differentiation";
             diffLabel.Font = new Font("Arial", 14, FontStyle.Bold);
+            diffLabel.BringToFront();
 
             origin.AutoSize = true;
             origin.Text = "0";
@@ -205,11 +206,13 @@ namespace IBMConsultantTool
             lineX.X2 = panelChart.Width - 20;
             lineX.Y1 = panelChart.Height - 30;
             lineX.Y2 = panelChart.Height - 30;
+            lineX.Enabled = false;
 
             lineY.X1 = 30;
             lineY.X2 = 30;
             lineY.Y1 = 20;
             lineY.Y2 = panelChart.Height - 30;
+            lineY.Enabled = false;
 
             endXLine.X1 = lineX.X2;
             endXLine.X2 = lineX.X2;
@@ -224,6 +227,10 @@ namespace IBMConsultantTool
             origin.Location = new Point(lineX.X1 - origin.Size.Width, lineX.Y1);
             endX.Location = new Point(endXLine.X2 - endX.Size.Width / 2, endXLine.Y2);
             endY.Location = new Point(endYLine.X1 - endY.Size.Width, endYLine.Y1);
+
+            origin.BringToFront();
+            endX.BringToFront();
+            endY.BringToFront();
 
             this.SizeChanged += new EventHandler(BOMChartDynamically_SizeChanged);
             SizeChanged += new EventHandler(panelChart_SizeChanged);
@@ -248,7 +255,10 @@ namespace IBMConsultantTool
             btnClose.Click += new EventHandler(btnClose_Click);
             btnUpdate.Click += new EventHandler(btnUpdate_Click);
 
-            panelChart.Paint += new PaintEventHandler(picBox_Paint);
+            //picBox.Parent = panelChart;
+            
+            //panelChart.Paint += new PaintEventHandler(OnPaintBackground);
+            //picBox.BringToFront();
 
             int rowCount = 0;
             objCount = 0;
@@ -385,6 +395,7 @@ namespace IBMConsultantTool
                 }
                 y += 10;
             }
+            panelChart.Paint += new PaintEventHandler(picBox_Paint);
 
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
@@ -399,7 +410,7 @@ namespace IBMConsultantTool
         }
 
         //private Label criticLabel = new Label();
-        //private PictureBox picBox = new PictureBox();
+        
 
         private void OnPaintBackground(object sender, PaintEventArgs e)
         {
@@ -408,11 +419,11 @@ namespace IBMConsultantTool
             diagonalFillRectangle.Height = lineY.Y2 - lineY.Y1;
 
             LinearGradientBrush brush = new LinearGradientBrush(new Point(lineX.X1, lineY.Y1), new Point(lineX.X2, lineY.Y2),
-                Color.Green, Color.White);
+                Color.LightGreen, Color.White);
 
             Pen pen = new Pen(brush);
 
-            e.Graphics.FillRectangle(brush, diagonalFillRectangle);
+            e.Graphics.FillRectangle(brush, lineX.X1, lineY.Y1, diagonalFillRectangle.Width, diagonalFillRectangle.Height);
 
             //Point(0, 0), Point(this.ClientSize.Width, this.ClientSize.Height), Color.Yellow, Color.Blue);
             //e.Graphics.FillRectangle(
@@ -521,8 +532,12 @@ namespace IBMConsultantTool
             origin.Location = new Point(lineX.X1 - origin.Size.Width, lineX.Y1);
             endX.Location = new Point(endXLine.X2 - endX.Size.Width / 2, endXLine.Y2);
             endY.Location = new Point(endYLine.X1 - endY.Size.Width, endYLine.Y1 - endY.Size.Height / 2);
+            origin.BringToFront();
+            endX.BringToFront();
+            endY.BringToFront();
 
             diffLabel.Location = new Point(panelChart.Width / 2 - diffLabel.Width / 2, panelChart.Height - diffLabel.Height - 5);
+            diffLabel.BringToFront();
 
             for (int cnt = 0; cnt < circleCount; cnt++)
             {
@@ -629,10 +644,10 @@ namespace IBMConsultantTool
                 {
                     if (circle[currentCircle].Location.Y < (panelChart.Height / 2))
                         labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X - circle[currentCircle].Height / 2,
-                            circle[currentCircle].Location.Y + circle[currentCircle].Height);// + circle[currentCircle].Height);
+                            circle[currentCircle].Location.Y + circle[currentCircle].Height);
                     else
                         labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X,
-                            circle[currentCircle].Location.Y - labelInfo[currentCircle].Height);//circle[currentCircle].Height / 2);
+                            circle[currentCircle].Location.Y - labelInfo[currentCircle].Height);
                 }
                 else if (circle[currentCircle].Location.X < (30 + (lineX.X2 - lineX.X1)/2))
                 {
@@ -645,13 +660,12 @@ namespace IBMConsultantTool
                 }
                 else
                 {
-                    //labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X + circle[currentCircle].Height, circle[currentCircle].Location.Y + circle[currentCircle].Height / 2);
                     if (circle[currentCircle].Location.Y < (panelChart.Height / 2))
                         labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X - circle[currentCircle].Height / 2,
-                            circle[currentCircle].Location.Y + circle[currentCircle].Height);//- labelInfo[currentCircle].Height);// + circle[currentCircle].Height);
+                            circle[currentCircle].Location.Y + circle[currentCircle].Height);
                     else
-                        labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X,// + labelInfo[currentCircle].Width / 2,//circle[currentCircle].Height,
-                            circle[currentCircle].Location.Y - labelInfo[currentCircle].Height);// - circle[currentCircle].Height / 2);
+                        labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X,
+                            circle[currentCircle].Location.Y - labelInfo[currentCircle].Height);
 
                 }
 
@@ -842,7 +856,6 @@ namespace IBMConsultantTool
                 {
                     circle[currentCircle].Top = lineY.Y1;
                     circle[currentCircle].Top -= circle[currentCircle].Height / 2;
-                    //circle[i].Top += 860 - circle[i].Height / 2;
                     if ((newX >= lineX.X1 && newX <= lineX.X2))
                     {
                         circle[currentCircle].Left += e.X - circle[currentCircle].Height / 2;
