@@ -2154,6 +2154,8 @@ namespace IBMConsultantTool
         #endregion
 
         #region TrendAnalysis
+
+        #region GetTrendAnalysisObjects
         public List<InitiativeTrendAnalysis> GetInitiativeTrendAnalysis(string iniName, string regName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<BOM> bomList;
@@ -2369,6 +2371,7 @@ namespace IBMConsultantTool
 
             return cqtaList;
         }
+        
         public List<CapabilityTrendAnalysis> GetCapabilityTrendAnalysis(string capName, string regName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<CAPABILITYGAPINFO> capGapInfoList;
@@ -2432,7 +2435,9 @@ namespace IBMConsultantTool
 
             return ctaList;
         }
-        
+        #endregion
+
+        #region Helpers
         public List<string> GetObjectivesFromCategory(string catName)
         {
             CATEGORY category;
@@ -2489,6 +2494,9 @@ namespace IBMConsultantTool
                 return new List<string>();
             }
         }
+        #endregion
+
+        #region GetTrendAnalysisDataFromDB
         public List<BOM> GetBOMSForInitiative(string iniName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
@@ -2512,7 +2520,7 @@ namespace IBMConsultantTool
             {
                 return (from ent in initiative.BOM
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regionName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regionName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2530,7 +2538,7 @@ namespace IBMConsultantTool
             {
                 return (from ent in initiative.BOM
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2548,9 +2556,9 @@ namespace IBMConsultantTool
             {
                 return (from ent in initiative.BOM
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2569,9 +2577,9 @@ namespace IBMConsultantTool
             {
                 return (from cupe in cupeQuestion.CUPE
                         where cupe.CLIENT.REGION != null &&
-                              cupe.CLIENT.REGION.NAME == regName &&
+                              cupe.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               cupe.CLIENT.BUSINESSTYPE != null &&
-                              cupe.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              cupe.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               cupe.CLIENT.STARTDATE > fromDate &&
                               cupe.CLIENT.STARTDATE < toDate
                         from ent in cupe.CUPERESPONSE
@@ -2591,7 +2599,7 @@ namespace IBMConsultantTool
             {
                 return (from cupe in cupeQuestion.CUPE
                         where cupe.CLIENT.BUSINESSTYPE != null &&
-                              cupe.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              cupe.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               cupe.CLIENT.STARTDATE > fromDate &&
                               cupe.CLIENT.STARTDATE < toDate
                         from ent in cupe.CUPERESPONSE
@@ -2611,7 +2619,7 @@ namespace IBMConsultantTool
             {
                 return (from cupe in cupeQuestion.CUPE
                         where cupe.CLIENT.REGION != null &&
-                              cupe.CLIENT.REGION.NAME == regName &&
+                              cupe.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               cupe.CLIENT.STARTDATE > fromDate &&
                               cupe.CLIENT.STARTDATE < toDate
                         from ent in cupe.CUPERESPONSE
@@ -2671,7 +2679,7 @@ namespace IBMConsultantTool
 
                 return (from ent in cq.CUPE
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regionName
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regionName
                         select ent).ToList();
 
             }
@@ -2692,7 +2700,7 @@ namespace IBMConsultantTool
 
                 return (from ent in cq.CUPE
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
                         select ent).ToList();
 
             }
@@ -2713,9 +2721,9 @@ namespace IBMConsultantTool
 
                 return (from ent in cq.CUPE
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
                         select ent).ToList();
 
             }
@@ -2758,7 +2766,7 @@ namespace IBMConsultantTool
 
                 return (from ent in itcq.ITCAP
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regionName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regionName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2781,7 +2789,7 @@ namespace IBMConsultantTool
 
                 return (from ent in itcq.ITCAP
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2804,9 +2812,9 @@ namespace IBMConsultantTool
 
                 return (from ent in itcq.ITCAP
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2841,7 +2849,7 @@ namespace IBMConsultantTool
             {
                 return (from ent in capability.CAPABILITYGAPINFO
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2859,7 +2867,7 @@ namespace IBMConsultantTool
             {
                 return (from ent in capability.CAPABILITYGAPINFO
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2877,9 +2885,9 @@ namespace IBMConsultantTool
             {
                 return (from ent in capability.CAPABILITYGAPINFO
                         where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME == regName &&
+                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME == busTypeName &&
+                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2890,6 +2898,8 @@ namespace IBMConsultantTool
                 return null;
             }
         }
+        #endregion
+        
         #endregion
 
         #region General
