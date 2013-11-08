@@ -9,6 +9,15 @@ namespace IBMConsultantTool
     public class TrendAnalysisEntity : INotifyPropertyChanged
     {
 
+        public enum Type { Master, Child };
+        private Type type;
+        [Browsable(false)]
+        public Type Type1
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string name)
@@ -17,7 +26,13 @@ namespace IBMConsultantTool
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
+        private int children = 0;
 
+        public int Children
+        {
+            get { return children; }
+            set { children = value; }
+        }
 
         protected string name;
 

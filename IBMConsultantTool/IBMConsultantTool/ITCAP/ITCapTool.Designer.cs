@@ -226,7 +226,6 @@
             this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
             this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.loadDataToolStripMenuItem.Text = "Load Data";
-            //this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // sendSurveyToolStripMenuItem
             // 
@@ -411,7 +410,7 @@
             this.standardDeviationToolStripMenuItem,
             this.answersToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
@@ -427,14 +426,14 @@
             // asIsToolStripMenuItem
             // 
             this.asIsToolStripMenuItem.Name = "asIsToolStripMenuItem";
-            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.asIsToolStripMenuItem.Text = "As Is";
             this.asIsToolStripMenuItem.Click += new System.EventHandler(this.asIsToolStripMenuItem_Click);
             // 
             // toBeToolStripMenuItem
             // 
             this.toBeToolStripMenuItem.Name = "toBeToolStripMenuItem";
-            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.toBeToolStripMenuItem.Text = "To Be";
             // 
             // answersToolStripMenuItem
@@ -782,7 +781,6 @@
             this.objectiveMappingGrid.Name = "objectiveMappingGrid";
             this.objectiveMappingGrid.Size = new System.Drawing.Size(673, 80);
             this.objectiveMappingGrid.TabIndex = 2;
-            //this.objectiveMappingGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.objectiveMappingGrid_CellEndEdit);
             // 
             // dataGridViewButtonColumn1
             // 
@@ -825,6 +823,7 @@
             this.loadSurveyFromDataGrid.TabIndex = 21;
             this.loadSurveyFromDataGrid.Visible = false;
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
+            this.loadSurveyFromDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellContentClick);
             this.loadSurveyFromDataGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
             this.loadSurveyFromDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.loadSurveyFromDataGrid_CellMouseDown);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
