@@ -559,9 +559,12 @@ namespace IBMConsultantTool
 
             if (GetITCAP(itcqName, client, out itcap))
             {
-                itcap.RemoveAll();
+                itcap.Remove();
                 return true;
             }
+
+            changeLog.Add("DELETE ITCAP " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                          itcap.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
@@ -1329,8 +1332,10 @@ namespace IBMConsultantTool
                 cupeQuestionEnt.Element("INFIFTEEN").Value = inFifteenStr;
                 cupeQuestionEnt.Element("INTEN").Value = inTenStr;
 
-                changeLog.Add("UPDATE CUPEQUESTION " + inTwentyStr.Replace(' ', '~') + " " +
-                          inFifteenStr.Replace(' ', '~') + " " + inTenStr.Replace(' ', '~'));
+                changeLog.Add("UPDATE CUPEQUESTION " + cupeQuestion + " " +
+                              inTwentyStr.Replace(' ', '~') + " " +
+                              inFifteenStr.Replace(' ', '~') + " " + 
+                              inTenStr.Replace(' ', '~'));
             }
 
             catch (Exception e)
@@ -1345,9 +1350,9 @@ namespace IBMConsultantTool
 
         #region CUPE
 
-        public override void ClearCUPE()
+        public override void ClearCUPE(object clientObj)
         {
-            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            XElement client = clientObj as XElement;
             foreach (XElement grp in client.Element("GROUPS").Elements("GROUP"))
             {
                 foreach (XElement contact in grp.Element("CONTACTS").Elements("CONTACT"))
@@ -1362,6 +1367,7 @@ namespace IBMConsultantTool
             {
                 cupe.Remove();
             }
+            changeLog.Add("DELETE CUPE " + client.Element("NAME").Value.Replace(' ', '~'));
         }
 
         public bool GetCUPE(string name, out XElement cupe)
@@ -1427,6 +1433,10 @@ namespace IBMConsultantTool
                         responseToDelete.Remove();
                     }
 
+                    changeLog.Add("DELETE CUPERESPONSE " + client.Element("NAME").Value.Replace(' ', '~')
+                                  + " Business " + contact.Element("NAME").Value.Replace(' ', '~'));
+                                  
+
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
                     for (int i = 0; i < questionList.Count - 1; i++)
                     {
@@ -1467,6 +1477,9 @@ namespace IBMConsultantTool
                     {
                         responseToDelete.Remove();
                     }
+
+                    changeLog.Add("DELETE CUPERESPONSE " + client.Element("NAME").Value.Replace(' ', '~')
+                                  + " IT " + contact.Element("NAME").Value.Replace(' ', '~'));
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
                     for (int i = 0; i < questionList.Count - 1; i++)
@@ -1688,7 +1701,9 @@ namespace IBMConsultantTool
             }
 
             contact.Add(cupeResponse);
-            changeLog.Add("ADD CUPERESPONSE " + contact.Element("NAME").Value.Replace(' ', '~') + " " +
+            changeLog.Add("ADD CUPERESPONSE " + contact.Parent.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
+                          contact.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
+                          contact.Element("NAME").Value.Replace(' ', '~') + " " +
                           cupe.Replace(' ', '~') + " " +
                           cupeResponse.Element("CURRENT").Value + " " + 
                           cupeResponse.Element("FUTURE").Value);
@@ -1913,6 +1928,9 @@ namespace IBMConsultantTool
                 capGapInfo.Add(new XElement("PRIORITIZEDGAPTYPE", "None"));
                 capGapInfo.Add(new XElement("PRIORITIZEDGAP", "0"));
                 client.Add(capGapInfo);
+
+                changeLog.Add("ADD CAPABILITYGAPINFO " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                              capability.Name.Replace(' ', '~'));
             }
             switch (capability.GapType1)
             {
@@ -1954,6 +1972,13 @@ namespace IBMConsultantTool
 
             capGapInfo.Element("PRIORITIZEDGAP").Value = capability.PrioritizedCapabilityGap.ToString();
             capGapInfo.Element("GAP").Value = capability.CapabilityGap.ToString();
+
+            changeLog.Add("UPDATE CAPABILITYGAPINFO " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                          capability.Name.Replace(' ', '~') + " " +
+                          capGapInfo.Element("GAPTYPE").Value.Replace(' ', '~') + " " +
+                          capGapInfo.Element("PRIORITIZEDGAPTYPE").Value.Replace(' ', '~') + " " +
+                          capGapInfo.Element("GAP").Value + " " +
+                          capGapInfo.Element("PRIORITIZEDGAP").Value);
         }
         #endregion
 

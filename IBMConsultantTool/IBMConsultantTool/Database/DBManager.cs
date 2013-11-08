@@ -1243,9 +1243,9 @@ namespace IBMConsultantTool
 
         #region CUPE
 
-        public override void ClearCUPE()
+        public override void ClearCUPE(object clientObj)
         {
-            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            CLIENT client = clientObj as CLIENT;
             foreach (CUPE cupe in client.CUPE)
             {
                 foreach (CUPERESPONSE cr in cupe.CUPERESPONSE)
@@ -1257,9 +1257,8 @@ namespace IBMConsultantTool
             }
         }
 
-        public bool GetCUPE(string name, out CUPE cupe)
+        public bool GetCUPE(string name, CLIENT client, out CUPE cupe)
         {
-            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             try
             {
                 cupe = (from ent in client.CUPE
@@ -1324,7 +1323,7 @@ namespace IBMConsultantTool
                     for (int i = 0; i < questionList.Count - 1; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
-                        if (!GetCUPE(data.QuestionText, out cupe))
+                        if (!GetCUPE(data.QuestionText, client, out cupe))
                         {
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
@@ -1369,7 +1368,7 @@ namespace IBMConsultantTool
                     for(int i = 0; i < questionList.Count - 1; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
-                        if (!GetCUPE(data.QuestionText, out cupe))
+                        if (!GetCUPE(data.QuestionText, client, out cupe))
                         {
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
@@ -1794,9 +1793,8 @@ namespace IBMConsultantTool
         #endregion
 
         #region CapabilityGapInfo
-        public bool GetCapabilityGapInfo(string capName, out CAPABILITYGAPINFO capGapInfo)
+        public bool GetCapabilityGapInfo(string capName, CLIENT client, out CAPABILITYGAPINFO capGapInfo)
         {
-            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             try
             {
                 capGapInfo = (from ent in client.CAPABILITYGAPINFO
@@ -1814,8 +1812,9 @@ namespace IBMConsultantTool
         }
         public override void SaveCapabilityGapInfo(Capability capability)
         {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             CAPABILITYGAPINFO capGapInfo;
-            if(!GetCapabilityGapInfo(capability.Name, out capGapInfo))
+            if(!GetCapabilityGapInfo(capability.Name, client, out capGapInfo))
             {
                 capGapInfo = new CAPABILITYGAPINFO();
                 capGapInfo.CLIENT = ClientDataControl.Client.EntityObject as CLIENT;
@@ -2091,7 +2090,7 @@ namespace IBMConsultantTool
                 if (!GetCapability(capName, out capability))
                 {
                     MessageBox.Show("Could not create mapping: Capability not found", "Error");
-                    dbo.DeleteObject(itcapObjMap);
+                    dbo.Detach(itcapObjMap);
                     return false;
                 }
 
@@ -2100,7 +2099,7 @@ namespace IBMConsultantTool
                 if (!GetObjective(busName, out objective))
                 {
                     MessageBox.Show("Could not create mapping: Objective not found", "Error");
-                    dbo.DeleteObject(itcapObjMap);
+                    dbo.Detach(itcapObjMap);
                     return false;
                 }
 
@@ -3228,6 +3227,7 @@ namespace IBMConsultantTool
             INITIATIVE initiative;
             BOM bom;
             CUPEQUESTION cupeQuestion;
+            CupeQuestionStringData cupeQuestionStringData;
             CUPE cupe;
             CUPERESPONSE cupeResponse;
             DOMAIN domain;
@@ -3235,6 +3235,7 @@ namespace IBMConsultantTool
             ITCAPQUESTION itcapQuestion;
             ITCAP itcap;
             ITCAPOBJMAP itcapObjMap;
+            CAPABILITYGAPINFO capGapInfo;
 
             if (!Directory.Exists("Resources"))
             {
@@ -3393,6 +3394,85 @@ namespace IBMConsultantTool
                                 }
                                 break;
 
+                            case "CUPERESPONSE":
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                {
+                                    if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                    {
+                                        if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
+                                        {
+                                            if (GetCUPE(lineArray[6].Replace('~', ' '), client, out cupe))
+                                            {
+                                                cupeResponse = new CUPERESPONSE();
+                                                cupeResponse.CONTACT = contact;
+                                                cupeResponse.CUPE = cupe;
+                                                cupeResponse.CURRENT = lineArray[7];
+                                                cupeResponse.FUTURE = lineArray[8];
+                                                dbo.AddToCUPERESPONSE(cupeResponse);
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+
+                            case "CUPEQUESTION":
+                                cupeQuestionStringData = new CupeQuestionStringData();
+                                cupeQuestionStringData.QuestionText = lineArray[2].Replace('~', ' ');
+                                cupeQuestionStringData.ChoiceA = lineArray[3].Replace('~', ' ');
+                                cupeQuestionStringData.ChoiceB = lineArray[4].Replace('~', ' ');
+                                cupeQuestionStringData.ChoiceC = lineArray[5].Replace('~', ' ');
+                                cupeQuestionStringData.ChoiceD = lineArray[6].Replace('~', ' ');
+                                AddCupeQuestion(cupeQuestionStringData);
+                                break;
+
+                            case "CUPE":
+                                if (lineArray[2] == "CLIENT")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetCUPEQuestion(lineArray[4].Replace('~', ' '), out cupeQuestion))
+                                        {
+                                            AddCUPE(cupeQuestion.NAME.TrimEnd(), client);
+                                        }
+                                    }
+                                }
+                                else if (lineArray[2] == "GROUP")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                        {
+                                            if (GetCUPEQuestion(lineArray[5].Replace('~', ' '), out cupeQuestion))
+                                            {
+                                                AddCUPEToGroup(cupeQuestion.NAME.TrimEnd(), grp);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                else if (lineArray[2] == "CONTACT")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                        {
+                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
+                                            {
+                                                if (GetCUPEQuestion(lineArray[6].Replace('~', ' '), out cupeQuestion))
+                                                {
+                                                    AddCUPEToContact(cupeQuestion.NAME.TrimEnd(), contact);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
+                                    success = false;
+                                }
+                                break;
+
                             case "DOMAIN":
                                 domain = new DOMAIN();
                                 domain.NAME = lineArray[2].Replace('~', ' ');
@@ -3503,6 +3583,22 @@ namespace IBMConsultantTool
                                     }
                                 }
                                 break;
+                            case "CAPABILITYGAPINFO":
+                                if (GetClient(lineArray[2], out client))
+                                {
+                                    if (GetCapability(lineArray[3], out capability))
+                                    {
+                                        capGapInfo = new CAPABILITYGAPINFO();
+                                        capGapInfo.CLIENT = client;
+                                        capGapInfo.CAPABILITY = capability;
+                                        capGapInfo.GAP = 0;
+                                        capGapInfo.PRIORITIZEDGAP = 0;
+                                        capGapInfo.GAPTYPE = "None";
+                                        capGapInfo.PRIORITIZEDGAPTYPE = "None";
+                                        dbo.AddToCAPABILITYGAPINFO(capGapInfo);
+                                    }
+                                }
+                                break;
                             default:
                                 MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
                                 success = false;
@@ -3525,6 +3621,27 @@ namespace IBMConsultantTool
                                     }
                                 }
                                 break;
+                            case "CUPE":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    if (GetCUPE(lineArray[3].Replace('~', ' '), client, out cupe))
+                                    {
+                                        cupe.NAME = lineArray[4].Replace('~', ' ');
+                                        cupe.COMMODITY = lineArray[5].Replace('~', ' ');
+                                        cupe.UTILITY = lineArray[6].Replace('~', ' ');
+                                        cupe.PARTNER = lineArray[7].Replace('~', ' ');
+                                        cupe.ENABLER = lineArray[8].Replace('~', ' ');
+                                    }
+                                }
+                                break;
+                            case "CUPEQUESTION":
+                                if (GetCUPEQuestion(lineArray[2].Replace('~', ' '), out cupeQuestion))
+                                {
+                                    cupeQuestion.INTWENTY = lineArray[3];
+                                    cupeQuestion.INFIFTEEN = lineArray[4];
+                                    cupeQuestion.INTEN = lineArray[5];
+                                }
+                                break;
                            case "ITCAP":
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
@@ -3545,9 +3662,59 @@ namespace IBMConsultantTool
                                     }
                                 }
                                 break;
+                            case "CAPABILITYGAPINFO":
+                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                {
+                                    if (GetCapabilityGapInfo(lineArray[4].Replace('~', ' '), client, out capGapInfo))
+                                    {
+                                        capGapInfo.GAPTYPE = lineArray[5];
+                                        capGapInfo.PRIORITIZEDGAPTYPE = lineArray[6];
+                                        capGapInfo.GAP = Convert.ToSingle(lineArray[7]);
+                                        capGapInfo.PRIORITIZEDGAP = Convert.ToSingle(lineArray[8]);
+                                    }
+                                }
+                                break;
                             default:
                                 MessageBox.Show("Invalid instruction detected: \n" + line, "Error");
                                 success = false;
+                                break;
+                        }
+                    }
+
+                    else if (lineArray[0] == "DELETE")
+                    {
+                        switch (lineArray[1])
+                        {
+                            case "CUPE":
+                                if(GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    ClearCUPE(client);
+                                }
+                                break;
+                            case "CUPERESPONSE":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    if (GetGroup(lineArray[3].Replace('~', ' '), client, out grp))
+                                    {
+                                        if (GetContact(lineArray[4].Replace('~', ' '), grp, out contact))
+                                        {
+                                            List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
+                                            foreach (CUPERESPONSE response in responseList)
+                                            {
+                                                dbo.DeleteObject(response);
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            case "ITCAP":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    if (GetITCAP(lineArray[3].Replace('~', ' '), client, out itcap))
+                                    {
+                                        dbo.DeleteObject(itcap);
+                                    }
+                                }
                                 break;
                         }
                     }

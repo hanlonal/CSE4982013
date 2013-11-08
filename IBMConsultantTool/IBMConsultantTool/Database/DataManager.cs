@@ -93,7 +93,7 @@ namespace IBMConsultantTool
         public abstract List<CupeQuestionStringData> GetCUPESForClient();
 
         public abstract void SaveCUPEParticipants();
-        public abstract void ClearCUPE();
+        public abstract void ClearCUPE(object clientObj);
         #endregion
 
         #region CUPEResponse
