@@ -11,10 +11,14 @@ namespace IBMConsultantTool
 {
     public partial class EditParticipants : Form
     {
+
+
+
         public EditParticipants()
         {
-            InitializeComponent();
 
+            InitializeComponent();
+            
             try
             {
                 if (ClientDataControl.GetParticipants().Count() != 0)
@@ -143,6 +147,7 @@ namespace IBMConsultantTool
 
             ClientDataControl.SetParticipants(tempList);
             ClientDataControl.SaveParticipantsToDB();
+            this.Close();
         }
 
         private void participantsGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -156,6 +161,11 @@ namespace IBMConsultantTool
             {
                 participantsGrid.Rows[e.RowIndex].Cells[5].Value = e.RowIndex;
             }
+        }
+
+        private void EditParticipants_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
