@@ -1328,13 +1328,10 @@ namespace IBMConsultantTool
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
                         }
-                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
-                        //{
                         response = new CUPERESPONSE();
                         response.CONTACT = contact;
                         response.CUPE = cupe;
                         dbo.AddToCUPERESPONSE(response);
-                        // }
 
                         response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : "";
                         response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : "";
@@ -1373,13 +1370,11 @@ namespace IBMConsultantTool
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
                         }
-                        //if (!GetCUPEResponse(cupe.NAME.TrimEnd(), contact, out response))
-                        //{
+
                         response = new CUPERESPONSE();
                         response.CONTACT = contact;
                         response.CUPE = cupe;
                         dbo.AddToCUPERESPONSE(response);
-                        // }
 
                         response.CURRENT = person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i+1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i+1).ToString()].ToString() : "";
                         response.FUTURE = person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i+1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i+1).ToString()].ToString() : "";
