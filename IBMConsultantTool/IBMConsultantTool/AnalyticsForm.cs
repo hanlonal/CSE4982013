@@ -65,8 +65,9 @@ namespace IBMConsultantTool
             regionComboBox.SelectedValueChanged +=new EventHandler(regionComboBox_SelectedValueChanged);
             businessTypeComboBox.SelectedValueChanged +=new EventHandler(businessTypeComboBox_SelectedValueChanged);
 
-
-
+            DataGridViewDisableButtonColumn cell = (DataGridViewDisableButtonColumn)trendGridView.Columns["Collapse"];
+            cell.Visible = false;
+            trendGridView.RowHeadersVisible = false;
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -339,12 +340,12 @@ namespace IBMConsultantTool
             }
         }
 
-        private void CreateInitiativeToTrack(string region, string business)
+        private void CreateInitiativeToTrack(string region, string business, string from, string to)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
             {
                 List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
-                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, business, fromDateText.Text, toDateText.Text);
+                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, business, from, to);
                 InitiativeTrendAnalysis init = new InitiativeTrendAnalysis();
 
 
@@ -358,12 +359,21 @@ namespace IBMConsultantTool
                     init.Criticality = crit;
                     init.Country = "All";
                     init.Differentiation = diff;
-                    init.BusinessType = "All";
-                    init.Region = "All";
+                    init.BusinessType = business;
+                    init.Region = region;
                     init.Name = initiativesComboBox.Text;
-
+                    init.Type1 = TrendAnalysisEntity.Type.Master;
                     initiativesToTrack.Add(init);
+                    foreach (InitiativeTrendAnalysis i in initiatives)
+                    {
+                        init.Children++;
+                        i.Type1 = TrendAnalysisEntity.Type.Child;
+                        initiativesToTrack.Add(i);
+                    }
+                    trendGridView.Columns["Collapse"].Visible = true;
                 }
+                else
+                    MessageBox.Show("Query did not return any results");
                 trendGridView.DataSource = null;
                 trendGridView.DataSource = initiativesToTrack;
                 trendGridView.Refresh();
@@ -374,7 +384,7 @@ namespace IBMConsultantTool
                     testingLabel.Text = metricsComboBox.Text;
                 }
 
-                CreateGraphWithData(initiatives);
+                CreateInitiativeGraph(initiatives);
             }
             else
             {
@@ -387,6 +397,22 @@ namespace IBMConsultantTool
         {
             string regionToSearch;
             string businessTypeToSearch;
+            string fromDate;
+            string toDate;
+
+            if (fromDateText.Enabled)
+            {
+                fromDate = fromDateText.Text;
+            }
+            else
+                fromDate = "All";
+
+            if (toDateText.Enabled)
+            {
+                toDate = toDateText.Text;
+            }
+            else
+                toDate = "All";
             if(regionComboBox.Enabled)
                 regionToSearch = regionComboBox.Text.Trim();
             else
@@ -414,7 +440,7 @@ namespace IBMConsultantTool
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack();
             else if (state == TrackingState.Initiatives)
-                CreateInitiativeToTrack(regionToSearch, businessTypeToSearch);            
+                CreateInitiativeToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);            
         }
 
         private void clearGridButton_Click(object sender, EventArgs e)
@@ -437,6 +463,39 @@ namespace IBMConsultantTool
         public void CreateInitiativeGraph(List<InitiativeTrendAnalysis> init)
         {
 
+        }
+
+        private void trendGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in trendGridView.Rows)
+            {
+                TrendAnalysisEntity ent = row.DataBoundItem as TrendAnalysisEntity;
+
+                if (ent.Type1 == TrendAnalysisEntity.Type.Child)
+                {
+                    row.Visible = false;
+                }
+            }
+        }
+
+        private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
+                if (ent.Type1 == TrendAnalysisEntity.Type.Master)
+                {
+                    for (int i = 1; i < ent.Children + 1; i++)
+                    {
+                        trendGridView.CurrentCell = null;
+                        
+                        trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
+
+                    }
+
+                }
+
+            }
         }
 
 

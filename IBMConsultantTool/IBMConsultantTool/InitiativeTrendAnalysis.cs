@@ -9,6 +9,7 @@ namespace IBMConsultantTool
     {
         private float effectiveness;
 
+        
 
         public string Name
         {
