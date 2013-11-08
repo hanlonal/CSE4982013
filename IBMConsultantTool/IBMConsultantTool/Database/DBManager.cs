@@ -3001,7 +3001,7 @@ namespace IBMConsultantTool
                             tempCUPERes.Add(new XElement("FUTURE", cupeResponse.FUTURE));
                             cupeResConElement.Add(tempCUPERes);
                         }
-                        tempCon.Add(cupeConElement);
+                        tempCon.Add(cupeResConElement);
 
                         conElement.Add(tempCon);
                     }

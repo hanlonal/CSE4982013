@@ -310,6 +310,10 @@ namespace IBMConsultantTool
             grp.Add(new XElement("NAME", grpName));
 
             grp.Add(new XElement("BOMS"));
+            grp.Add(new XElement("CUPES"));
+            grp.Add(new XElement("ITCAPS"));
+            grp.Add(new XElement("CONTACTS"));
+
 
             client.Element("GROUPS").Add(grp);
 
@@ -1385,7 +1389,7 @@ namespace IBMConsultantTool
             {
                 foreach (XElement contact in grp.Element("CONTACTS").Elements("CONTACT"))
                 {
-                    foreach(XElement cupeResponse in grp.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
+                    foreach(XElement cupeResponse in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
                     {
                         cupeResponse.Remove();
                     }
@@ -1450,8 +1454,11 @@ namespace IBMConsultantTool
                         contact = new XElement("CONTACT");
                         contact.Add(new XElement("NAME", person.Name));
                         contact.Add(new XElement("EMAIL", person.Email));
+                        contact.Add(new XElement("BOMS"));
+                        contact.Add(new XElement("CUPES"));
+                        contact.Add(new XElement("ITCAPS"));
                         contact.Add(new XElement("CUPERESPONSES"));
-                        busGrp.Add(contact);
+                        busGrp.Element("CONTACTS").Add(contact);
                     }
 
                     //Clear out responses in case survey is different
@@ -1495,8 +1502,11 @@ namespace IBMConsultantTool
                         contact = new XElement("CONTACT");
                         contact.Add(new XElement("NAME", person.Name));
                         contact.Add(new XElement("EMAIL", person.Email));
+                        contact.Add(new XElement("BOMS"));
+                        contact.Add(new XElement("CUPES"));
+                        contact.Add(new XElement("ITCAPS"));
                         contact.Add(new XElement("CUPERESPONSES"));
-                        itGrp.Add(contact);
+                        itGrp.Element("CONTACTS").Add(contact);
                     }
 
                     //Clear out responses in case survey is different
@@ -1728,9 +1738,9 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            contact.Add(cupeResponse);
-            changeLog.Add("ADD CUPERESPONSE " + contact.Parent.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
-                          contact.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
+            contact.Element("CUPERESPONSES").Add(cupeResponse);
+            changeLog.Add("ADD CUPERESPONSE " + contact.Parent.Parent.Parent.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
+                          contact.Parent.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
                           contact.Element("NAME").Value.Replace(' ', '~') + " " +
                           cupe.Replace(' ', '~') + " " +
                           cupeResponse.Element("CURRENT").Value + " " + 
