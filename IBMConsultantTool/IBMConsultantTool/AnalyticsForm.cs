@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.VisualBasic.PowerPacks;
 
 namespace IBMConsultantTool
 {
@@ -23,8 +26,11 @@ namespace IBMConsultantTool
         private string currentlyBeingTracked = "";
         DBManager db = new DBManager();
         TextBox currentBox;
+        Chart lineChart = new Chart();
+
         public AnalyticsForm()
         {
+            lineChart.Parent = this.chartPanel;
             InitializeComponent();
 
             state = TrackingState.None;
@@ -385,6 +391,7 @@ namespace IBMConsultantTool
                 }
 
                 CreateInitiativeGraph(initiatives);
+                CreateLineGraph(initiatives, "Initiatives");
             }
             else
             {
@@ -498,6 +505,93 @@ namespace IBMConsultantTool
             }
         }
 
+        public void CreateLineGraph(List<InitiativeTrendAnalysis> init, string title)
+        {
+            if (lineChart != null)
+            {
+                lineChart.ChartAreas.Clear();
+                lineChart.Series.Clear();
+            }
+            lineChart.Parent = this.chartPanel;
+            lineChart.Size = this.chartPanel.Size;
+            System.Diagnostics.Trace.WriteLine("size: " + lineChart.Size.ToString());
+            lineChart.Visible = true;
+
+            lineChart.ChartAreas.Add(title);
+            lineChart.ChartAreas[title].Visible = true;
+            int cntNum = 0;
+            int[] sameNum = new int[100];
+            sameNum[0] = 1;
+            for (int cnt = 0; cnt < init.Count; cnt++)
+            {
+                string name = init[cnt].Name;
+                
+                
+
+                for (int i = 0; i < cntNum; i++)
+                {
+                    if (cnt == sameNum[i])
+                    {
+                        cntNum = i;
+                        break;
+                    }
+                }
+                if (cnt != sameNum[cntNum])
+                {
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+                    double differentiation = init[cnt].Differentiation;
+                    
+                    double[] diff = new double[100];
+                    diff[cnt] = init[cnt].Differentiation;
+                    int count = 1;
+
+                    DateTime date = init[cnt].Date;
+                    for (int num = (cnt + 1); num < init.Count; num++)
+                    {
+                        if (date == init[num].Date)
+                        {
+                            differentiation += init[num].Differentiation;
+                            sameNum[cntNum] = num;
+                            cntNum++;
+                            count++;
+                        }
+                    }
+
+
+
+                    if (count > 1)
+                    {
+                        differentiation /= count;
+
+                        double temp = Convert.ToDouble(differentiation);
+                        decimal tmp = Convert.ToDecimal(temp);
+                        tmp = Math.Round(tmp, 2);
+                        temp = (double)tmp;
+
+                        lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                    }
+                    else
+                    {
+                        lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Differentiation);
+                    }
+                }
+
+            }
+            /* if (trendGridView.DataSource != null)
+             {
+                 lineChart.Series.Add(trendGridView.Name);
+                 //lineChart.Series[trendGridView.Name].Points.AddXY(trendGridView.
+             }*/
+        }
 
 
 
