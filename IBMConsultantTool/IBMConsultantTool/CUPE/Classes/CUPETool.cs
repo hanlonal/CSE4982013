@@ -73,22 +73,34 @@ namespace IBMConsultantTool
             //CreatePerson();
             ClientDataControl.LoadCUPEQuestions(this);
             ClientDataControl.LoadParticipants();
+            int questionCount = ClientDataControl.GetCupeQuestions().Count;
             foreach (DataGridView view in grids)
             {
                 currentGrid = view;
-                for (int i = 1; i < ClientDataControl.GetCupeQuestions().Count + 1; i++)
+                for (int i = 1; i <= 20; i++)
                 {
-                    DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[0].Clone();
-                    row.Cells[0].Value = "Question " + i;
-                    row.Visible = true;
-                    currentGrid.Rows.Add(row);
-
-                    //Change this if the number of questions changes
-                    if(questions.Count < 20)
+                    if (i <= questionCount)
                     {
-                        questions.Add(row.Cells[0].Value.ToString());
+                        DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[0].Clone();
+                        row.Cells[0].Value = "Question " + i;
+                        row.Visible = true;
+                        currentGrid.Rows.Add(row);
+
+                        //Change this if the number of questions changes
+                        if (questions.Count < 20)
+                        {
+                            questions.Add(row.Cells[0].Value.ToString());
+                        }
+                    }
+                    else
+                    {
+                        DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[0].Clone();
+                        row.Cells[0].Value = "Question " + i;
+                        row.Visible = false;
+                        currentGrid.Rows.Add(row);
                     }
                 }
+
                 CreateStatsRows();
             }
             currentGrid = questionGridBusinessCurrent;
