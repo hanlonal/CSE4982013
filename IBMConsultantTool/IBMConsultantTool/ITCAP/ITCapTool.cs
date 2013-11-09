@@ -849,18 +849,33 @@ namespace IBMConsultantTool
         {
             if (ent.Flagged)
             {
-                row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
+                
                 DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
                 cell.Value = Properties.Resources.exclamation;
             }
             else
             {
-                //row.Cells["AsisStandardDeviation"].Style.BackColor = Color.LawnGreen;
+                
                 DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
                 cell.Style.NullValue = null;
                 cell.Value = null;
             }
         }
+
+        private void CheckStandardDeviations(ITCapQuestion ent, DataGridViewRow row)
+        {
+            if (ent.AsIsHighStandardDeviation)
+                row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
+            else
+                row.Cells["AsisStandardDeviation"].Style.BackColor = Color.White;
+
+            if (ent.TobehighStandardDeviation)
+                row.Cells["TobeStandardDeviation"].Style.BackColor = Color.IndianRed;
+            else
+                row.Cells["TobeStandardDeviation"].Style.BackColor = Color.White;                
+        }
+
+
 
         private void currentGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -871,13 +886,18 @@ namespace IBMConsultantTool
                 if (ent.Type == "domain")
                 {
                     row.DefaultCellStyle.BackColor = Color.DeepSkyBlue;
+
+                    
                     row.ReadOnly = true;
-                    row.Cells["NumZeros"].Style.ForeColor = row.DefaultCellStyle.BackColor;
-                    row.Cells["NumOnes"].Style.ForeColor = row.DefaultCellStyle.BackColor;
-                    row.Cells["NumTwos"].Style.ForeColor = row.DefaultCellStyle.BackColor;
-                    row.Cells["NumThrees"].Style.ForeColor = row.DefaultCellStyle.BackColor;
-                    row.Cells["NumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
-                    row.Cells["NumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["AsIsNumZeros"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["AsIsNumOnes"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["AsIsNumTwos"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["AsIsNumThrees"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["AsIsNumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["AsIsNumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+
+                    row.DefaultCellStyle.SelectionBackColor = row.DefaultCellStyle.BackColor;
+                    row.DefaultCellStyle.SelectionForeColor = row.DefaultCellStyle.ForeColor;
                 }
                 else if (ent.Type == "capability")
                 {
@@ -887,11 +907,15 @@ namespace IBMConsultantTool
                     
 
                     row.ReadOnly = true;
-                    row.Cells["NumOnes"].Style.ForeColor = row.Cells["NumOnes"].Style.BackColor;
-                    row.Cells["NumTwos"].Style.ForeColor = row.Cells["NumTwos"].Style.BackColor;
-                    row.Cells["NumThrees"].Style.ForeColor = row.Cells["NumThrees"].Style.BackColor;
-                    row.Cells["NumFours"].Style.ForeColor = row.Cells["NumFours"].Style.BackColor;
-                    row.Cells["NumFives"].Style.ForeColor = row.Cells["NumFives"].Style.BackColor;
+                    row.Cells["AsIsNumOnes"].Style.ForeColor = row.Cells["AsIsNumOnes"].Style.BackColor;
+                    row.Cells["AsIsNumTwos"].Style.ForeColor = row.Cells["AsIsNumTwos"].Style.BackColor;
+                    row.Cells["AsIsNumThrees"].Style.ForeColor = row.Cells["AsIsNumThrees"].Style.BackColor;
+                    row.Cells["AsIsNumFours"].Style.ForeColor = row.Cells["AsIsNumFours"].Style.BackColor;
+                    row.Cells["AsIsNumFives"].Style.ForeColor = row.Cells["AsIsNumFives"].Style.BackColor;
+
+                    row.DefaultCellStyle.SelectionBackColor = row.DefaultCellStyle.BackColor;
+                    row.DefaultCellStyle.SelectionForeColor = row.DefaultCellStyle.ForeColor;
+
                     if (states == FormStates.Open)
                         row.Visible = false;
                 }
@@ -917,7 +941,7 @@ namespace IBMConsultantTool
                     {
                         if (ent.Flagged)
                         {
-                            row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
+                            //row.Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
                             DataGridViewImageCell cell = (DataGridViewImageCell)row.Cells["Flags"];
                             cell.Value = Properties.Resources.exclamation;
                         }
@@ -928,6 +952,8 @@ namespace IBMConsultantTool
                             cell.Style.NullValue = null;
                         }
                     }
+                    ITCapQuestion ques = (ITCapQuestion)ent;
+                    CheckStandardDeviations(ques, row);
                 }
 
             }
@@ -951,12 +977,18 @@ namespace IBMConsultantTool
                 surveryMakerGrid.Columns["ToBeScore"].Visible = false;
                 surveryMakerGrid.Columns["CapabilityGapText"].Visible = false;
                 surveryMakerGrid.Columns["PrioritizedGap"].Visible = false;
-                surveryMakerGrid.Columns["NumOnes"].Visible = false;
-                surveryMakerGrid.Columns["NumTwos"].Visible = false;
-                surveryMakerGrid.Columns["NumThrees"].Visible = false;
-                surveryMakerGrid.Columns["NumFours"].Visible = false;
-                surveryMakerGrid.Columns["NumFives"].Visible = false;
-                surveryMakerGrid.Columns["NumZeros"].Visible = false;
+                surveryMakerGrid.Columns["AsIsNumOnes"].Visible = false;
+                surveryMakerGrid.Columns["AsIsNumTwos"].Visible = false;
+                surveryMakerGrid.Columns["AsIsNumThrees"].Visible = false;
+                surveryMakerGrid.Columns["AsIsNumFours"].Visible = false;
+                surveryMakerGrid.Columns["AsIsNumFives"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumZeros"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumOnes"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumTwos"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumThrees"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumFours"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumFives"].Visible = false;
+                surveryMakerGrid.Columns["ToBeNumZeros"].Visible = false;
                 surveryMakerGrid.RowHeadersVisible = false;
                 //surveryMakerGrid.Columns["Flags"].Visible = false;
 
@@ -969,18 +1001,35 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                 loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].HeaderText = "As Is Std Dev";
                 loadSurveyFromDataGrid.Columns["TobeStandardDeviation"].HeaderText = "To Be Std Dev";
-                loadSurveyFromDataGrid.Columns["NumOnes"].HeaderText = "1s";
-                loadSurveyFromDataGrid.Columns["NumOnes"].Width = 30;
-                loadSurveyFromDataGrid.Columns["NumTwos"].HeaderText = "2s";
-                loadSurveyFromDataGrid.Columns["NumTwos"].Width = 30;
-                loadSurveyFromDataGrid.Columns["NumThrees"].HeaderText = "3s";
-                loadSurveyFromDataGrid.Columns["NumThrees"].Width = 30;
-                loadSurveyFromDataGrid.Columns["NumFours"].HeaderText = "4s";
-                loadSurveyFromDataGrid.Columns["NumFours"].Width = 30;
-                loadSurveyFromDataGrid.Columns["NumFives"].HeaderText = "5s";
-                loadSurveyFromDataGrid.Columns["NumFives"].Width = 30;
-                loadSurveyFromDataGrid.Columns["NumZeros"].HeaderText = "0s";
-                loadSurveyFromDataGrid.Columns["NumZeros"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsNumOnes"].HeaderText = "1s";
+                loadSurveyFromDataGrid.Columns["AsIsNumOnes"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsNumTwos"].HeaderText = "2s";
+                loadSurveyFromDataGrid.Columns["AsIsNumTwos"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsNumThrees"].HeaderText = "3s";
+                loadSurveyFromDataGrid.Columns["AsIsNumThrees"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsNumFours"].HeaderText = "4s";
+                loadSurveyFromDataGrid.Columns["AsIsNumFours"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsNumFives"].HeaderText = "5s";
+                loadSurveyFromDataGrid.Columns["AsIsNumFives"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsNumFives"].DividerWidth = 3;
+                loadSurveyFromDataGrid.Columns["AsIsNumZeros"].HeaderText = "0s";
+                loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Width = 30;
+
+
+                loadSurveyFromDataGrid.Columns["ToBeNumOnes"].HeaderText = "1s";
+                loadSurveyFromDataGrid.Columns["ToBeNumOnes"].Width = 30;
+                loadSurveyFromDataGrid.Columns["ToBeNumTwos"].HeaderText = "2s";
+                loadSurveyFromDataGrid.Columns["ToBeNumTwos"].Width = 30;
+                loadSurveyFromDataGrid.Columns["ToBeNumThrees"].HeaderText = "3s";
+                loadSurveyFromDataGrid.Columns["ToBeNumThrees"].Width = 30;
+                loadSurveyFromDataGrid.Columns["ToBeNumFours"].HeaderText = "4s";
+                loadSurveyFromDataGrid.Columns["ToBeNumFours"].Width = 30;
+                loadSurveyFromDataGrid.Columns["ToBeNumFives"].HeaderText = "5s";
+                loadSurveyFromDataGrid.Columns["ToBeNumFives"].Width = 30;
+                loadSurveyFromDataGrid.Columns["ToBeNumFives"].DividerWidth = 3;
+                loadSurveyFromDataGrid.Columns["ToBeNumZeros"].HeaderText = "0s";
+                loadSurveyFromDataGrid.Columns["ToBeNumZeros"].Width = 30;
+
 
                 loadSurveyFromDataGrid.Columns["AsIsScore"].ReadOnly = true;
                 loadSurveyFromDataGrid.Columns["ToBeScore"].ReadOnly = true;
@@ -1012,6 +1061,7 @@ namespace IBMConsultantTool
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
             ent.CalculateCapabilityGap();
             ent.Owner.CalculateAsIsAverage();
+            ent.Owner.CalculateToBeAverage();
             if (e.ColumnIndex == 3)
             {
                 ent.CalculateAsIsAverage();
@@ -1036,16 +1086,35 @@ namespace IBMConsultantTool
             {
                 ent.CalculateAsIsAverage();
             }
+            else if (e.ColumnIndex == 9)
+            {
+                ent.CalculateToBeAverage();
+            }
+            else if (e.ColumnIndex == 10)
+            {
+                ent.CalculateToBeAverage();
+            }
+            else if (e.ColumnIndex == 11)
+            {
+                ent.CalculateToBeAverage();
+            }
+            else if (e.ColumnIndex == 12)
+            {
+                ent.CalculateToBeAverage();
+            }
+            else if (e.ColumnIndex == 13)
+            {
+                ent.CalculateToBeAverage();
+            }
+            else if (e.ColumnIndex == 14)
+            {
+                ent.CalculateToBeAverage();
+            }
 
             CheckForeColor(ent, currentGrid.Rows[e.RowIndex]);
             CheckFlags(ent, currentGrid.Rows[e.RowIndex]);
-            if (ent.HighStandardDeviation)
-                currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.IndianRed;
-            else if (!ent.HighStandardDeviation)
-            {
-                //ent.HighStandardDeviation = false;
-                currentGrid.Rows[e.RowIndex].Cells["AsisStandardDeviation"].Style.BackColor = Color.White;
-            }
+            CheckStandardDeviations(ent, currentGrid.Rows[e.RowIndex]);
+            
 
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
@@ -1532,12 +1601,8 @@ namespace IBMConsultantTool
         {
             if (currentGrid == loadSurveyFromDataGrid)
             {
-                loadSurveyFromDataGrid.Columns["NumZeros"].Visible = !loadSurveyFromDataGrid.Columns["NumZeros"].Visible;
-                loadSurveyFromDataGrid.Columns["NumOnes"].Visible = !loadSurveyFromDataGrid.Columns["NumOnes"].Visible;
-                loadSurveyFromDataGrid.Columns["NumTwos"].Visible = !loadSurveyFromDataGrid.Columns["NumTwos"].Visible;
-                loadSurveyFromDataGrid.Columns["NumThrees"].Visible = !loadSurveyFromDataGrid.Columns["NumThrees"].Visible;
-                loadSurveyFromDataGrid.Columns["NumFours"].Visible = !loadSurveyFromDataGrid.Columns["NumFours"].Visible;
-                loadSurveyFromDataGrid.Columns["NumFives"].Visible = !loadSurveyFromDataGrid.Columns["NumFives"].Visible;
+                HideAsIsAnswers();
+                HideToBeAnswers();
             }
         }
 
@@ -1582,7 +1647,41 @@ namespace IBMConsultantTool
 
         }
 
-        
+        private void asIsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (currentGrid == loadSurveyFromDataGrid)
+            {
+                HideAsIsAnswers();
+            }
+        }
+
+        private void HideAsIsAnswers()
+        {
+            loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Visible;
+            loadSurveyFromDataGrid.Columns["AsIsNumOnes"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumOnes"].Visible;
+            loadSurveyFromDataGrid.Columns["AsIsNumTwos"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumTwos"].Visible;
+            loadSurveyFromDataGrid.Columns["AsIsNumThrees"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumThrees"].Visible;
+            loadSurveyFromDataGrid.Columns["AsIsNumFours"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumFours"].Visible;
+            loadSurveyFromDataGrid.Columns["AsIsNumFives"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumFives"].Visible;
+        }
+
+        private void toBeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (currentGrid == loadSurveyFromDataGrid)
+            {
+                HideToBeAnswers();
+            }
+        }
+
+        private void HideToBeAnswers()
+        {
+            loadSurveyFromDataGrid.Columns["ToBeNumZeros"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumZeros"].Visible;
+            loadSurveyFromDataGrid.Columns["ToBeNumOnes"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumOnes"].Visible;
+            loadSurveyFromDataGrid.Columns["ToBeNumTwos"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumTwos"].Visible;
+            loadSurveyFromDataGrid.Columns["ToBeNumThrees"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumThrees"].Visible;
+            loadSurveyFromDataGrid.Columns["ToBeNumFours"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumFours"].Visible;
+            loadSurveyFromDataGrid.Columns["ToBeNumFives"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumFives"].Visible;
+        }
         
 
 
