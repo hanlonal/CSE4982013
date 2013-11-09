@@ -48,7 +48,6 @@ namespace IBMConsultantTool
         private float[] newDiff = new float[1000];
         private float[] newCrit = new float[1000];
         private int[] newEff = new int[1000];
-        
 
         private int circleCount = 0;
         private int MaxCount = 0;
@@ -72,6 +71,9 @@ namespace IBMConsultantTool
         private float[,] effArray = new float[1000, 100];
         private float[,] criArray = new float[1000, 100];
 
+        private string[] catName = new string[1000];
+        private string[] objName = new string[1000];
+
         private int current = 0;
         private int click = 0;
 
@@ -83,19 +85,16 @@ namespace IBMConsultantTool
         private string[,] access1 = new string[1000, 100];
         private string[,] access2 = new string[1000, 100];
 
-        
+        private Panel infoPanel = new Panel();
+        private DataGridView infoGridView = new DataGridView();
+        private Label infoLabel = new Label();
+        string informationOfBubble;
+        private List<string> informationToSelect = new List<string>();
+        private List<string> bubbleName = new List<string>();
+        private List<string> bubbleInformation = new List<string>();
 
         public BOMChartDynamically(BOMTool info)
         {
-            /*if (this.WindowState == FormWindowState.Normal && (base.Height != Height || base.Width != Width))
-            {
-                Size maxWindowTrackSize = SystemInformation.MaxWindowTrackSize;
-                if (Height > maxWindowTrackSize.Height)
-                    Height = maxWindowTrackSize.Height;
-                if (Width > maxWindowTrackSize.Width)
-                    Width = maxWindowTrackSize.Width;
-            }*/
-
             mainForm = info;
             MaxCount = Count();
 
@@ -133,11 +132,11 @@ namespace IBMConsultantTool
             btnUndo.Parent = this;
             btnSave.Parent = this;
             btnUpdate.Parent = this;
+            infoPanel.Parent = this;
 
-            //this.Width = 800;
-            //this.Height = 600;
+            infoGridView.Parent = infoPanel;
+            infoLabel.Parent = infoPanel;
 
-            
             ShapeContainer canvas = new ShapeContainer();
             canvas.Parent = panelChart;
 
@@ -149,13 +148,47 @@ namespace IBMConsultantTool
             endY.Parent = panelChart;
             endXLine.Parent = canvas;
             endYLine.Parent = canvas;
-            //criticLabel.Parent = panelChart;
 
             panelChart.Width = 550;
             panelChart.Height = 550;
 
             panelList.Width = 200;
             panelList.Height = 400;
+
+            infoPanel.Width = 770;
+            infoPanel.Height = 140;
+            infoPanel.AutoScroll = true;
+
+            infoLabel.Width = 770;
+            infoLabel.Height = 20;
+            infoLabel.Font = new Font("Arial", 12);
+            infoLabel.Text = "View Bubble: ";
+
+            infoGridView.Width = 770;
+            infoGridView.Height = 100;
+            infoGridView.AllowUserToAddRows = false;
+            infoGridView.AllowUserToDeleteRows = false;
+            infoGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            DataGridViewCellStyle columnHeaderStyle = new DataGridViewCellStyle();
+            columnHeaderStyle.BackColor = Color.Aqua;
+            columnHeaderStyle.Font = new Font("Verdana", 12, FontStyle.Bold);
+            columnHeaderStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            infoGridView.ColumnHeadersDefaultCellStyle = columnHeaderStyle;
+
+            DataGridViewCellStyle rowStyle = new DataGridViewCellStyle();
+            rowStyle.Font = new Font("Verdana", 12);
+            rowStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            infoGridView.RowsDefaultCellStyle = rowStyle;
+
+            infoGridView.ColumnCount = 4;
+            infoGridView.Columns[0].Name = "Imperative";
+            infoGridView.Columns[1].Name = "Differentiation";
+            infoGridView.Columns[2].Name = "Critically";
+            infoGridView.Columns[3].Name = "Effectiveness";
+
+            infoGridView.RowHeadersVisible = false;
+            infoGridView.AutoSize = true;
 
             panelList.AutoScroll = true;
 
@@ -235,13 +268,17 @@ namespace IBMConsultantTool
             this.SizeChanged += new EventHandler(BOMChartDynamically_SizeChanged);
             SizeChanged += new EventHandler(panelChart_SizeChanged);
             SizeChanged += new EventHandler(panelList_SizeChanged);
+            SizeChanged += new EventHandler(infoPanel_SizeChanged);
 
             panelChart.BackColor = Color.White;
             panelList.BackColor = Color.LightGray;
+            infoPanel.BackColor = Color.DimGray;
 
             panelChart.Location = new Point(5, 5);
-
             panelList.Location = new Point(570, 5);
+            infoPanel.Location = new Point(5, 560);
+            infoLabel.Location = new Point(0, 0);
+            infoGridView.Location = new Point(0, 20);
 
             btnUndo.Location = new Point(570, panelList.Height + 10);
             btnReset.Location = new Point(570 + btnUndo.Width, panelList.Height + 10);
@@ -362,7 +399,8 @@ namespace IBMConsultantTool
 
                             circle[cirCount].Name = (i + 1).ToString() + "." + (j + 1).ToString() + "." + (k + 1).ToString() + " " + name;
 
-                            circle[cirCount].AccessibleName = "Differentiation: " + differentiation.ToString() + "\nCriticality: " + criticality.ToString() + "\nEffectiveness: " + effectiveness.ToString();
+                            circle[cirCount].AccessibleName = "Differentiation: " + differentiation.ToString() + ",  Criticality: " + criticality.ToString()
+                                + ",  Effectiveness: " + effectiveness.ToString();
 
                             //circle[cirCount].AccessibleDescription = circle[cirCount].Name + "\n" + circle[cirCount].AccessibleName;
 
@@ -506,7 +544,7 @@ namespace IBMConsultantTool
         private void panelChart_SizeChanged(object sender, EventArgs e)
         {
             panelChart.Width = this.Width - 250;
-            panelChart.Height = this.Height - 50;
+            panelChart.Height = this.Height - 200;
             panelChart.Location = new Point(5, 5);
 
             lineX.X1 = 30;
@@ -560,13 +598,26 @@ namespace IBMConsultantTool
             //System.Diagnostics.Trace.WriteLine("this.Width: " + this.DesktopBounds.Width.ToString() + "  this.Height: " + this.Height.ToString());
             
             panelList.Width = 200;
-            panelList.Height = this.Height - 200;
+            panelList.Height = this.Height - 350;
             panelList.Location = new Point(this.Width - panelList.Width - 25, 5);
             btnUndo.Location = new Point(this.Width - 225, panelList.Height + 10);
             btnReset.Location = new Point(this.Width - 120, panelList.Height + 10);
             btnUpdate.Location = new Point(this.Width - 225, btnUndo.Location.Y + 38);
             btnSave.Location = new Point(this.Width - 225, btnUpdate.Location.Y + 38);
             btnClose.Location = new Point(this.Width - 225, btnSave.Location.Y + 38);
+        }
+
+        private void infoPanel_SizeChanged(object sender, EventArgs e)
+        {
+            infoPanel.Height = 140;
+            infoPanel.Width = this.Width - 30;
+            infoGridView.Height = 110;
+            infoGridView.Width = infoPanel.Width;
+            infoLabel.Height = 20;
+            infoLabel.Width = infoPanel.Width;
+            infoPanel.Location = new Point(5, panelChart.Location.Y + panelChart.Height + 5);
+            infoLabel.Location = new Point(0, 0);
+            infoGridView.Location = new Point(0, 20);
         }
 
         private void btnUndo_Click(object sender, EventArgs e)
@@ -621,17 +672,101 @@ namespace IBMConsultantTool
             }
         }
 
+        private void infoGridView_RowsAdded(object sender, DataGridViewRowEventArgs e)
+        {
+
+        }
+
+        bool sameNameOfBubble = false;
+        bool sameValueOfBubble = false;
+        
         private void circle_MouseClick(object sender, MouseEventArgs e)
         {
-            circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+            circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
 
-            if (labelInfo[currentCircle].Text == circle[currentCircle].AccessibleDescription)
+            string cat = categoryLabel[catArray[currentCircle]].Text;
+            string obj = objectivesCheckBox[objArray[currentCircle]].Text;
+
+            infoLabel.Text = "View Bubble: " + "Category: " + cat + ",  Objectives: " + obj;
+            infoLabel.BackColor = objectivesCheckBox[objArray[currentCircle]].BackColor;
+
+            infoGridView.Rows.Clear();
+
+            string[] row = new string[]{circle[currentCircle].Name, difArray[currentCircle, count[current]].ToString(),
+                criArray[currentCircle, count[current]].ToString(), effArray[currentCircle, 0].ToString()};
+
+            infoGridView.Rows.Add(row);
+
+            /*if (labelInfo[currentCircle].Text == circle[currentCircle].AccessibleDescription)
             {
                 labelInfo[currentCircle].ResetText();
+                labelInfo[currentCircle].Visible = false;
             }
             else
             {
-                labelInfo[currentCircle].Parent = this.panelChart;
+                
+                int number = 0;
+                int newNumber = 0;
+                informationOfBubble = circle[currentCircle].Name;
+                for (int cnt = 0; cnt < bubbleName.Count; cnt++)
+                {
+                    if (informationOfBubble == bubbleName[cnt])
+                    {
+                        number = cnt;
+                        sameNameOfBubble = true;
+                    }
+                }
+
+                if (!sameNameOfBubble)
+                    bubbleName.Add(informationOfBubble);
+                else
+                {
+                    informationOfBubble = circle[currentCircle].AccessibleName;
+                    for (int cnt = 0; cnt < bubbleInformation.Count; cnt++)
+                    {
+                        if (informationOfBubble == bubbleInformation[cnt])
+                        {
+                            newNumber = cnt;
+                            sameValueOfBubble = true;
+                        }
+                    }
+                }
+
+                if (sameNameOfBubble && !sameValueOfBubble)
+                {
+                    bubbleInformation.Remove(bubbleInformation[newNumber]);
+                    bubbleInformation.Add(informationOfBubble);
+                    informationToSelect.Remove(informationToSelect[number]);
+                    informationOfBubble = circle[currentCircle].AccessibleDescription;
+                    informationToSelect.Add(informationOfBubble);
+                }
+
+                else if (!sameValueOfBubble)
+                {
+                    bubbleInformation.Add(informationOfBubble);
+                    informationOfBubble = circle[currentCircle].AccessibleDescription;
+                    informationToSelect.Add(informationOfBubble);
+                }
+
+                infoGridView.Rows.Clear();
+ 
+                foreach (string info in informationToSelect)
+                {
+                    infoGridView.Rows.Add(info);
+                }
+                infoGridView.Refresh();
+                sameNameOfBubble = false;
+                sameValueOfBubble = false;
+                //infoGridView.RowsAdded += new DataGridViewRowsAddedEventHandler(infoGridView_RowsAdded);
+                /*labelInfo[currentCircle].Parent = this.infoPanel;
+
+                labelInfo[currentCircle].AutoSize = true;
+                labelInfo[currentCircle].Text = circle[currentCircle].AccessibleDescription;
+                labelInfo[currentCircle].Name = circle[currentCircle].Name;
+                labelInfo[currentCircle].BackColor = circle[currentCircle].BackColor;
+                //labelInfo[currentCircle]
+
+                /*labelInfo[currentCircle].Parent = this.panelChart;
 
                 labelInfo[currentCircle].AutoSize = true;
                 labelInfo[currentCircle].Text = circle[currentCircle].AccessibleDescription;
@@ -667,10 +802,10 @@ namespace IBMConsultantTool
                         labelInfo[currentCircle].Location = new Point(circle[currentCircle].Location.X,
                             circle[currentCircle].Location.Y - labelInfo[currentCircle].Height);
 
-                }
+                }*/
 
                 labelCount++;
-            }
+            //}
         }
 
         private int currentCircle;
@@ -742,10 +877,10 @@ namespace IBMConsultantTool
                     decimal crit = Convert.ToDecimal(newCriticality);
                     crit = Math.Round(crit, 2);
 
-                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
-                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + ",  Criticality: "
+                        + crit.ToString() + ",  Effectiveness: " + newEffectiveness.ToString();
 
-                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
                 }
                 else if (newX < lineX.X1)
                 {
@@ -780,9 +915,9 @@ namespace IBMConsultantTool
                     decimal crit = Convert.ToDecimal(newCriticality);
                     crit = Math.Round(crit, 2);
 
-                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
-                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + ",  Criticality: "
+                        + crit.ToString() + ",  Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
                 }
                 else if (newX > lineX.X2)
                 {
@@ -812,9 +947,9 @@ namespace IBMConsultantTool
                     decimal crit = Convert.ToDecimal(newCriticality);
                     crit = Math.Round(crit, 2);
 
-                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
-                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + ",  Criticality: "
+                        + crit.ToString() + ",  Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
                 }
 
                 else if (newY > lineY.Y2)
@@ -847,9 +982,9 @@ namespace IBMConsultantTool
                     decimal crit = Convert.ToDecimal(newCriticality);
                     crit = Math.Round(crit, 2);
 
-                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
-                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + ",  Criticality: "
+                        + crit.ToString() + ",  Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
                 }
 
                 else if (newY < lineY.Y1)
@@ -880,9 +1015,9 @@ namespace IBMConsultantTool
                     decimal crit = Convert.ToDecimal(newCriticality);
                     crit = Math.Round(crit, 2);
 
-                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + "\nCriticality: "
-                        + crit.ToString() + "\nEffectiveness: " + newEffectiveness.ToString();
-                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "\n" + circle[currentCircle].AccessibleName;
+                    circle[currentCircle].AccessibleName = "Differentiation: " + diff.ToString() + ",  Criticality: "
+                        + crit.ToString() + ",  Effectiveness: " + newEffectiveness.ToString();
+                    circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
                 }
             }
             mouseMove = false;
@@ -915,6 +1050,21 @@ namespace IBMConsultantTool
 
             mouseDown = false;
             mouseMove = false;
+
+            circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
+
+            string cat = categoryLabel[catArray[currentCircle]].Text;
+            string obj = objectivesCheckBox[objArray[currentCircle]].Text;
+
+            infoLabel.Text = "View Bubble: " + "Category: " + cat + ",  Objectives: " + obj;
+            infoLabel.BackColor = objectivesCheckBox[objArray[currentCircle]].BackColor;
+
+            infoGridView.Rows.Clear();
+
+            string[] row = new string[]{circle[currentCircle].Name, difArray[currentCircle, count[current]].ToString(),
+                criArray[currentCircle, count[current]].ToString(), effArray[currentCircle, 0].ToString()};
+
+            infoGridView.Rows.Add(row);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
