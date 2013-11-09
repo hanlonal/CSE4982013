@@ -11,9 +11,6 @@ namespace IBMConsultantTool
 {
     public partial class EditParticipants : Form
     {
-
-
-
         public EditParticipants()
         {
 
@@ -32,8 +29,7 @@ namespace IBMConsultantTool
 
                     if(person.Type == Person.EmployeeType.IT)
                     {
-                        participantsGrid.Rows[i].SetValues(person.Name,
-                            person.Email,
+                        participantsGrid.Rows[i].SetValues("",
                             false,
                             true,
                             true,
@@ -42,8 +38,7 @@ namespace IBMConsultantTool
                     }
                     else if (person.Type == Person.EmployeeType.Business)
                     {
-                        participantsGrid.Rows[i].SetValues(person.Name,
-                            person.Email,
+                        participantsGrid.Rows[i].SetValues("",
                             true,
                             false,
                             true,
@@ -54,8 +49,7 @@ namespace IBMConsultantTool
                     {
                         if (person.Type == Person.EmployeeType.IT)
                         {
-                            participantsGrid.Rows[i].SetValues(person.Name,
-                                person.Email,
+                            participantsGrid.Rows[i].SetValues("",
                                 false,
                                 false,
                                 true,
@@ -74,12 +68,12 @@ namespace IBMConsultantTool
 
             if (participantsGrid.Rows.Count == 1)
             {
-                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[5].Value = 0;
+                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[4].Value = 0;
             }
             else
             {
-                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[5].Value =
-                    Convert.ToInt32(participantsGrid.Rows[participantsGrid.Rows.Count - 2].Cells[5].Value) + 1;
+                participantsGrid.Rows[participantsGrid.Rows.Count - 1].Cells[4].Value =
+                    Convert.ToInt32(participantsGrid.Rows[participantsGrid.Rows.Count - 2].Cells[4].Value) + 1;
             }
            
         }
@@ -87,27 +81,34 @@ namespace IBMConsultantTool
 
         private void SaveParticipantButton_Click(object sender, EventArgs e)
         {
+            int count = 1;
             List<Person> tempList = new List<Person>();
             foreach (DataGridViewRow row in participantsGrid.Rows)
             {
+                if(Convert.ToBoolean( row.Cells[2].Value) && Convert.ToBoolean( row.Cells[1].Value))
+                {
+                    MessageBox.Show("Participants must be either Business or IT", "Error");
+                    return;
+                }
+                else if (!Convert.ToBoolean(row.Cells[2].Value) && !Convert.ToBoolean(row.Cells[1].Value))
+                {
+                    continue;
+                }
                 try
                 {
                     //Create the new person
-                    Person tempPerson = new Person();
-                    tempPerson.Name = row.Cells[0].Value.ToString();
+                    Person tempPerson = new Person(count++);
 
-                    if (row.Cells[1].Value != null)
+                    if (row.Cells[0].Value != null)
                     {
-                        tempPerson.Email = row.Cells[1].Value.ToString();
+                        tempPerson.Email = row.Cells[0].Value.ToString();
                     }
 
-                    tempPerson.ID = Convert.ToInt32(row.Cells[5].Value.ToString());
-
-                    if (Convert.ToBoolean( row.Cells[3].Value) == true)
+                    if (Convert.ToBoolean( row.Cells[2].Value) == true)
                     {
                        tempPerson.Type = Person.EmployeeType.IT;
                     }
-                   if ( Convert.ToBoolean( row.Cells[2].Value) == true )
+                    if ( Convert.ToBoolean( row.Cells[1].Value) == true )
                     {
                        tempPerson.Type = Person.EmployeeType.Business;
                     }
@@ -132,9 +133,7 @@ namespace IBMConsultantTool
                        tempPerson.cupeDataHolder = new CupeData(tempPerson.ID);
                    }
 
-
-
-                    tempList.Add(tempPerson);
+                   tempList.Add(tempPerson);
                 }
                 catch
                 {
@@ -146,7 +145,6 @@ namespace IBMConsultantTool
             tempList.OrderBy(o => o.ID);
 
             ClientDataControl.SetParticipants(tempList);
-            ClientDataControl.SaveParticipantsToDB();
             this.Close();
         }
 
@@ -154,12 +152,12 @@ namespace IBMConsultantTool
         {
             if(e.RowIndex != 0)
             {
-                participantsGrid.Rows[e.RowIndex].Cells[5].Value = 
-                    Convert.ToInt32(participantsGrid.Rows[e.RowIndex - 1].Cells[5].Value) + 1;
+                participantsGrid.Rows[e.RowIndex].Cells[4].Value = 
+                    Convert.ToInt32(participantsGrid.Rows[e.RowIndex - 1].Cells[4].Value) + 1;
             }
             else
             {
-                participantsGrid.Rows[e.RowIndex].Cells[5].Value = e.RowIndex;
+                participantsGrid.Rows[e.RowIndex].Cells[4].Value = e.RowIndex;
             }
         }
 

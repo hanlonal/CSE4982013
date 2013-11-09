@@ -213,7 +213,7 @@ namespace IBMConsultantTool
         {
             personCount++;
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-            Person person = new Person();
+            Person person = new Person(personCount);
 
             //person.Type = Person.EmployeeType.Business;
             col.HeaderText = "Person  " + (currentGrid.ColumnCount - 6).ToString();            
@@ -520,7 +520,6 @@ namespace IBMConsultantTool
             questionGridITCurrent.Visible = true;
             currentGrid = questionGridITCurrent;
             UpdateCupeScore();
-
         }
 
         private void busiRadioButton_Click(object sender, EventArgs e)
@@ -1099,19 +1098,18 @@ namespace IBMConsultantTool
             //grids.Add(questionGridITFuture);
             //grids.Add(questionGridBusiFuture);
 
-            
             foreach(Person person in ClientDataControl.GetParticipants())
             {
                 DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
 
-                col.HeaderText =  person.Name;                   
-                col.Name = person.Name;
+                col.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
+                col.Name = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString(); 
                 col.Width = 100;
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
 
                 DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
-                col2.HeaderText = person.Name;
-                col2.Name = person.Name;
+                col2.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
+                col2.Name = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();  
                 col2.Width = 100;
                 col2.SortMode = DataGridViewColumnSortMode.NotSortable;
 
@@ -1161,7 +1159,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
                 }
                 catch
                 {
@@ -1193,7 +1191,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
                 }
                 catch
                 {
@@ -1225,7 +1223,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
                 }
                 catch
                 {
@@ -1256,7 +1254,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
                 }
                 catch
                 {
@@ -1332,10 +1330,17 @@ namespace IBMConsultantTool
 
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var SurveyReader = new SurveyReader();
+            ClientDataControl.SetParticipants(null);
+            ClientDataControl.SetCupeAnswers(null);
 
+            var SurveyReader = new SurveyReader();
             SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
+
+            removePersonColumns();
+            loadColumnNames();
             LoadAnswersFromDataControl();
+            ClientDataControl.SaveCUPE();
+            ClientDataControl.SaveParticipantsToDB();
         }
 
         private void iTCapabilityToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1777,7 +1782,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
                 }
                 catch
                 {
@@ -1838,7 +1843,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.Name == column.Name).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
                 }
                 catch
                 {

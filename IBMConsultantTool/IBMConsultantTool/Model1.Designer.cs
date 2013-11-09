@@ -40,6 +40,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPO_CONT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CONTACT), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "COUNTRY_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.REGION), "COUNTRY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.COUNTRY))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CUPEQUESTION), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPON_CUPE_FK", "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CUPE), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
@@ -223,6 +224,22 @@ namespace IBMConsultantTool
             }
         }
         private ObjectSet<CONTACT> _CONTACT;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<COUNTRY> COUNTRY
+        {
+            get
+            {
+                if ((_COUNTRY == null))
+                {
+                    _COUNTRY = base.CreateObjectSet<COUNTRY>("COUNTRY");
+                }
+                return _COUNTRY;
+            }
+        }
+        private ObjectSet<COUNTRY> _COUNTRY;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -449,6 +466,14 @@ namespace IBMConsultantTool
         public void AddToCONTACT(CONTACT cONTACT)
         {
             base.AddObject("CONTACT", cONTACT);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the COUNTRY EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCOUNTRY(COUNTRY cOUNTRY)
+        {
+            base.AddObject("COUNTRY", cOUNTRY);
         }
     
         /// <summary>
@@ -2075,10 +2100,12 @@ namespace IBMConsultantTool
         /// Create a new CONTACT object.
         /// </summary>
         /// <param name="cONTACTID">Initial value of the CONTACTID property.</param>
-        public static CONTACT CreateCONTACT(global::System.Int32 cONTACTID)
+        /// <param name="id">Initial value of the ID property.</param>
+        public static CONTACT CreateCONTACT(global::System.Int32 cONTACTID, global::System.Int32 id)
         {
             CONTACT cONTACT = new CONTACT();
             cONTACT.CONTACTID = cONTACTID;
+            cONTACT.ID = id;
             return cONTACT;
         }
 
@@ -2115,50 +2142,26 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String NAME
+        public global::System.Int32 ID
         {
             get
             {
-                return _NAME;
+                return _ID;
             }
             set
             {
-                OnNAMEChanging(value);
-                ReportPropertyChanging("NAME");
-                _NAME = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("NAME");
-                OnNAMEChanged();
+                OnIDChanging(value);
+                ReportPropertyChanging("ID");
+                _ID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID");
+                OnIDChanged();
             }
         }
-        private global::System.String _NAME;
-        partial void OnNAMEChanging(global::System.String value);
-        partial void OnNAMEChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String EMAIL
-        {
-            get
-            {
-                return _EMAIL;
-            }
-            set
-            {
-                OnEMAILChanging(value);
-                ReportPropertyChanging("EMAIL");
-                _EMAIL = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("EMAIL");
-                OnEMAILChanged();
-            }
-        }
-        private global::System.String _EMAIL;
-        partial void OnEMAILChanging(global::System.String value);
-        partial void OnEMAILChanged();
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
 
         #endregion
     
@@ -2286,6 +2289,126 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAP>("CAPSTONEModel.ITCAP_CONTACT_FK", "ITCAP", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CAPSTONEModel", Name="COUNTRY")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class COUNTRY : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new COUNTRY object.
+        /// </summary>
+        /// <param name="cOUNTRYID">Initial value of the COUNTRYID property.</param>
+        public static COUNTRY CreateCOUNTRY(global::System.Int32 cOUNTRYID)
+        {
+            COUNTRY cOUNTRY = new COUNTRY();
+            cOUNTRY.COUNTRYID = cOUNTRYID;
+            return cOUNTRY;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 COUNTRYID
+        {
+            get
+            {
+                return _COUNTRYID;
+            }
+            set
+            {
+                if (_COUNTRYID != value)
+                {
+                    OnCOUNTRYIDChanging(value);
+                    ReportPropertyChanging("COUNTRYID");
+                    _COUNTRYID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("COUNTRYID");
+                    OnCOUNTRYIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _COUNTRYID;
+        partial void OnCOUNTRYIDChanging(global::System.Int32 value);
+        partial void OnCOUNTRYIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "COUNTRY_REGION_FK", "REGION")]
+        public REGION REGION
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<REGION>("CAPSTONEModel.COUNTRY_REGION_FK", "REGION").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<REGION>("CAPSTONEModel.COUNTRY_REGION_FK", "REGION").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<REGION> REGIONReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<REGION>("CAPSTONEModel.COUNTRY_REGION_FK", "REGION");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<REGION>("CAPSTONEModel.COUNTRY_REGION_FK", "REGION", value);
                 }
             }
         }
@@ -4330,6 +4453,28 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CLIENT>("CAPSTONEModel.CLIENT_REGION_FK", "CLIENT", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "COUNTRY_REGION_FK", "COUNTRY")]
+        public EntityCollection<COUNTRY> COUNTRY
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<COUNTRY>("CAPSTONEModel.COUNTRY_REGION_FK", "COUNTRY");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<COUNTRY>("CAPSTONEModel.COUNTRY_REGION_FK", "COUNTRY", value);
                 }
             }
         }
