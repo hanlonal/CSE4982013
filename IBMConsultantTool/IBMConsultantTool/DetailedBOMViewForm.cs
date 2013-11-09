@@ -11,9 +11,18 @@ namespace IBMConsultantTool
 {
     public partial class DetailedBOMViewForm : Form
     {
-        public DetailedBOMViewForm()
+        NewObjective owner;
+
+        public DetailedBOMViewForm(NewObjective obj)
         {
             InitializeComponent();
+            this.owner = obj;
+            dataGridView1.RowHeadersVisible = false;
+        }
+
+        private void DetailedBOMViewForm_Load(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = owner.Initiatives;
         }
     }
 }

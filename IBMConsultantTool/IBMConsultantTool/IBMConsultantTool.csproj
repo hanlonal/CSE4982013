@@ -116,9 +116,7 @@
     <Compile Include="BOMChartInfoPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BOM\Classes\NewInitiative.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="BOM\Classes\NewInitiative.cs" />
     <Compile Include="BOM\Classes\NewObjective.cs">
       <SubType>Component</SubType>
     </Compile>
