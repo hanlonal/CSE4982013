@@ -28,6 +28,11 @@ namespace IBMConsultantTool
         public abstract bool AddRegion(string regName);
         #endregion
 
+        #region Country
+        public abstract List<string> GetCountryNames(string regionName = "N/A");
+        public abstract bool AddCountry(string countryName, string regionName);
+        #endregion
+
         #region BusinessType
         public abstract List<string> GetBusinessTypeNames();
         public abstract bool AddBusinessType(string busTypeName);

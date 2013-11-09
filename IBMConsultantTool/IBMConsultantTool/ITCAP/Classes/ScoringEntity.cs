@@ -20,7 +20,9 @@ namespace IBMConsultantTool
         protected int indexInGrid = 0;
         protected string name;
         protected bool isDefault = false;
-        protected string id;
+        private string id;
+
+
         private bool isInGrid = false;
         protected string type;
         protected float prioritizedCapabilityGap = 0;
@@ -93,6 +95,12 @@ namespace IBMConsultantTool
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
+        public string ID
+        {
+            get { return id; }
+            set { id = value; this.NotifyPropertyChanged("ID"); }
         }
 
         public string Name

@@ -31,7 +31,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOB_CAPABI_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPQUE_CAPAB_FK", "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CAPABILITY), "ITCAPQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPQUESTION))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILITY_CLIE_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "CAPABILITYGAPINFO", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITYGAPINFO))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIENT_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.REGION), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIENT_COUNTRY_FK", "COUNTRY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.COUNTRY), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
@@ -40,7 +40,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPO_CONT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CONTACT), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "COUNTRY_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.REGION), "COUNTRY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.COUNTRY))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "COUNTRY_REGION_FK", "REGION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.REGION), "COUNTRY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.COUNTRY))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CUPEQUESTI_FK", "CUPEQUESTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CUPEQUESTION), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPON_CUPE_FK", "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CUPE), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
@@ -1131,11 +1131,13 @@ namespace IBMConsultantTool
         /// </summary>
         /// <param name="cAPABILITYID">Initial value of the CAPABILITYID property.</param>
         /// <param name="nAME">Initial value of the NAME property.</param>
-        public static CAPABILITY CreateCAPABILITY(global::System.Int32 cAPABILITYID, global::System.String nAME)
+        /// <param name="id">Initial value of the ID property.</param>
+        public static CAPABILITY CreateCAPABILITY(global::System.Int32 cAPABILITYID, global::System.String nAME, global::System.String id)
         {
             CAPABILITY cAPABILITY = new CAPABILITY();
             cAPABILITY.CAPABILITYID = cAPABILITYID;
             cAPABILITY.NAME = nAME;
+            cAPABILITY.ID = id;
             return cAPABILITY;
         }
 
@@ -1216,6 +1218,30 @@ namespace IBMConsultantTool
         private global::System.String _DEFAULT;
         partial void OnDEFAULTChanging(global::System.String value);
         partial void OnDEFAULTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                OnIDChanging(value);
+                ReportPropertyChanging("ID");
+                _ID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ID");
+                OnIDChanged();
+            }
+        }
+        private global::System.String _ID;
+        partial void OnIDChanging(global::System.String value);
+        partial void OnIDChanged();
 
         #endregion
     
@@ -1963,16 +1989,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CLIENT_REGION_FK", "REGION")]
-        public REGION REGION
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CLIENT_COUNTRY_FK", "COUNTRY")]
+        public COUNTRY COUNTRY
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<REGION>("CAPSTONEModel.CLIENT_REGION_FK", "REGION").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<COUNTRY>("CAPSTONEModel.CLIENT_COUNTRY_FK", "COUNTRY").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<REGION>("CAPSTONEModel.CLIENT_REGION_FK", "REGION").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<COUNTRY>("CAPSTONEModel.CLIENT_COUNTRY_FK", "COUNTRY").Value = value;
             }
         }
         /// <summary>
@@ -1980,17 +2006,17 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<REGION> REGIONReference
+        public EntityReference<COUNTRY> COUNTRYReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<REGION>("CAPSTONEModel.CLIENT_REGION_FK", "REGION");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<COUNTRY>("CAPSTONEModel.CLIENT_COUNTRY_FK", "COUNTRY");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<REGION>("CAPSTONEModel.CLIENT_REGION_FK", "REGION", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<COUNTRY>("CAPSTONEModel.CLIENT_COUNTRY_FK", "COUNTRY", value);
                 }
             }
         }
@@ -2374,6 +2400,28 @@ namespace IBMConsultantTool
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CLIENT_COUNTRY_FK", "CLIENT")]
+        public EntityCollection<CLIENT> CLIENT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CLIENT>("CAPSTONEModel.CLIENT_COUNTRY_FK", "CLIENT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CLIENT>("CAPSTONEModel.CLIENT_COUNTRY_FK", "CLIENT", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3237,11 +3285,13 @@ namespace IBMConsultantTool
         /// </summary>
         /// <param name="dOMAINID">Initial value of the DOMAINID property.</param>
         /// <param name="nAME">Initial value of the NAME property.</param>
-        public static DOMAIN CreateDOMAIN(global::System.Int32 dOMAINID, global::System.String nAME)
+        /// <param name="id">Initial value of the ID property.</param>
+        public static DOMAIN CreateDOMAIN(global::System.Int32 dOMAINID, global::System.String nAME, global::System.String id)
         {
             DOMAIN dOMAIN = new DOMAIN();
             dOMAIN.DOMAINID = dOMAINID;
             dOMAIN.NAME = nAME;
+            dOMAIN.ID = id;
             return dOMAIN;
         }
 
@@ -3322,6 +3372,30 @@ namespace IBMConsultantTool
         private global::System.String _DEFAULT;
         partial void OnDEFAULTChanging(global::System.String value);
         partial void OnDEFAULTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                OnIDChanging(value);
+                ReportPropertyChanging("ID");
+                _ID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ID");
+                OnIDChanged();
+            }
+        }
+        private global::System.String _ID;
+        partial void OnIDChanging(global::System.String value);
+        partial void OnIDChanged();
 
         #endregion
     
@@ -4202,12 +4276,14 @@ namespace IBMConsultantTool
         /// <param name="nAME">Initial value of the NAME property.</param>
         /// <param name="iTCAPQUESTIONID">Initial value of the ITCAPQUESTIONID property.</param>
         /// <param name="dEFAULT">Initial value of the DEFAULT property.</param>
-        public static ITCAPQUESTION CreateITCAPQUESTION(global::System.String nAME, global::System.Int32 iTCAPQUESTIONID, global::System.String dEFAULT)
+        /// <param name="id">Initial value of the ID property.</param>
+        public static ITCAPQUESTION CreateITCAPQUESTION(global::System.String nAME, global::System.Int32 iTCAPQUESTIONID, global::System.String dEFAULT, global::System.String id)
         {
             ITCAPQUESTION iTCAPQUESTION = new ITCAPQUESTION();
             iTCAPQUESTION.NAME = nAME;
             iTCAPQUESTION.ITCAPQUESTIONID = iTCAPQUESTIONID;
             iTCAPQUESTION.DEFAULT = dEFAULT;
+            iTCAPQUESTION.ID = id;
             return iTCAPQUESTION;
         }
 
@@ -4288,6 +4364,30 @@ namespace IBMConsultantTool
         private global::System.String _DEFAULT;
         partial void OnDEFAULTChanging(global::System.String value);
         partial void OnDEFAULTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                OnIDChanging(value);
+                ReportPropertyChanging("ID");
+                _ID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ID");
+                OnIDChanged();
+            }
+        }
+        private global::System.String _ID;
+        partial void OnIDChanging(global::System.String value);
+        partial void OnIDChanged();
 
         #endregion
     
@@ -4434,28 +4534,6 @@ namespace IBMConsultantTool
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "CLIENT_REGION_FK", "CLIENT")]
-        public EntityCollection<CLIENT> CLIENT
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CLIENT>("CAPSTONEModel.CLIENT_REGION_FK", "CLIENT");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CLIENT>("CAPSTONEModel.CLIENT_REGION_FK", "CLIENT", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

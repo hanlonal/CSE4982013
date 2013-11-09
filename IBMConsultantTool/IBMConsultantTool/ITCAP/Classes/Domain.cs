@@ -97,11 +97,7 @@ namespace IBMConsultantTool
             get { return capabilitiesOwned; }
             set { capabilitiesOwned = value; }
         }
-        public string ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
+
         public int TotalChildren
         {
             get { return totalChildren; }

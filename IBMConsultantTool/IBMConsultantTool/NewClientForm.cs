@@ -39,8 +39,8 @@ namespace IBMConsultantTool
             Client client = new Client();
 
             client.Name = clientNameTextBox.Text;
-            client.Location = countryComboBox.Text;
             client.Region = RegionComboBox.Text;
+            client.Country = countryComboBox.Text;
             client.StartDate = selectedTime;
             client.BusinessType = BusinessTypeComboBox.Text;
 
