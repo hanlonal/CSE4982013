@@ -50,9 +50,9 @@
             this.NewConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.NewConsultButton.Image = ((System.Drawing.Image)(resources.GetObject("NewConsultButton.Image")));
             this.NewConsultButton.Location = new System.Drawing.Point(121, 178);
-            this.NewConsultButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.NewConsultButton.Margin = new System.Windows.Forms.Padding(4);
             this.NewConsultButton.Name = "NewConsultButton";
-            this.NewConsultButton.Size = new System.Drawing.Size(135, 135);
+            this.NewConsultButton.Size = new System.Drawing.Size(158, 158);
             this.NewConsultButton.TabIndex = 3;
             this.NewConsultButton.TabStop = false;
             this.NewConsultButton.Click += new System.EventHandler(this.NewConsultButton_Click);
@@ -86,9 +86,9 @@
             this.TrendAnalysisButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TrendAnalysisButton.Image = ((System.Drawing.Image)(resources.GetObject("TrendAnalysisButton.Image")));
             this.TrendAnalysisButton.Location = new System.Drawing.Point(121, 548);
-            this.TrendAnalysisButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TrendAnalysisButton.Margin = new System.Windows.Forms.Padding(4);
             this.TrendAnalysisButton.Name = "TrendAnalysisButton";
-            this.TrendAnalysisButton.Size = new System.Drawing.Size(135, 135);
+            this.TrendAnalysisButton.Size = new System.Drawing.Size(158, 152);
             this.TrendAnalysisButton.TabIndex = 7;
             this.TrendAnalysisButton.TabStop = false;
             this.TrendAnalysisButton.Click += new System.EventHandler(this.TrendAnalysisButton_Click);
@@ -145,9 +145,9 @@
             this.LoadConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoadConsultButton.Image = global::IBMConsultantTool.Properties.Resources.load_upload_icon;
             this.LoadConsultButton.Location = new System.Drawing.Point(121, 362);
-            this.LoadConsultButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadConsultButton.Margin = new System.Windows.Forms.Padding(4);
             this.LoadConsultButton.Name = "LoadConsultButton";
-            this.LoadConsultButton.Size = new System.Drawing.Size(135, 135);
+            this.LoadConsultButton.Size = new System.Drawing.Size(158, 148);
             this.LoadConsultButton.TabIndex = 13;
             this.LoadConsultButton.TabStop = false;
             this.LoadConsultButton.Click += new System.EventHandler(this.LoadConsultButton_Click);
@@ -195,7 +195,7 @@
             this.Controls.Add(this.NewConsultButton);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TestForm";
             this.Text = "IBM Consultant Toolkit";
             this.Load += new System.EventHandler(this.TestForm_Load);

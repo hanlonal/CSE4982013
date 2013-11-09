@@ -116,14 +116,49 @@ namespace IBMConsultantTool
                         Word.Range cell2Range = oTable.Cell(r, 4).Range;
                         cell2Range.Collapse(ref oMissing);
                         oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                        var inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                        inputText.DropDown.ListEntries.Add("        ");
+                        inputText.DropDown.ListEntries.Add("1");
+                        inputText.DropDown.ListEntries.Add("2");
+                        inputText.DropDown.ListEntries.Add("3");
+                        inputText.DropDown.ListEntries.Add("4");
+                        inputText.DropDown.ListEntries.Add("5");
+                        inputText.DropDown.ListEntries.Add("6");
+                        inputText.DropDown.ListEntries.Add("7");
+                        inputText.DropDown.ListEntries.Add("8");
+                        inputText.DropDown.ListEntries.Add("9");
+                        inputText.DropDown.ListEntries.Add("10");
+
 
                         cell2Range = oTable.Cell(r, 5).Range;
                         cell2Range.Collapse(ref oMissing);
-                        oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                        inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                        inputText.DropDown.ListEntries.Add("        ");
+                        inputText.DropDown.ListEntries.Add("1");
+                        inputText.DropDown.ListEntries.Add("2");
+                        inputText.DropDown.ListEntries.Add("3");
+                        inputText.DropDown.ListEntries.Add("4");
+                        inputText.DropDown.ListEntries.Add("5");
+                        inputText.DropDown.ListEntries.Add("6");
+                        inputText.DropDown.ListEntries.Add("7");
+                        inputText.DropDown.ListEntries.Add("8");
+                        inputText.DropDown.ListEntries.Add("9");
+                        inputText.DropDown.ListEntries.Add("10");
 
                         cell2Range = oTable.Cell(r, 6).Range;
                         cell2Range.Collapse(ref oMissing);
-                        oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                        inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                        inputText.DropDown.ListEntries.Add("        ");
+                        inputText.DropDown.ListEntries.Add("1");
+                        inputText.DropDown.ListEntries.Add("2");
+                        inputText.DropDown.ListEntries.Add("3");
+                        inputText.DropDown.ListEntries.Add("4");
+                        inputText.DropDown.ListEntries.Add("5");
+                        inputText.DropDown.ListEntries.Add("6");
+                        inputText.DropDown.ListEntries.Add("7");
+                        inputText.DropDown.ListEntries.Add("8");
+                        inputText.DropDown.ListEntries.Add("9");
+                        inputText.DropDown.ListEntries.Add("10");
 
 
                         string BaseFormName = TruncateLongString(BomCats[i].Name, 5) + 
@@ -220,16 +255,17 @@ namespace IBMConsultantTool
             oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
             oPara1.Range.InsertParagraphAfter();
 
-            
-
-
             Word.Paragraph oPara2;
             oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            
-            oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormTextInput);
+
+            var inputText = oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormDropDown);
+            inputText.DropDown.ListEntries.Add("Business");
+            inputText.DropDown.ListEntries.Add("IT");
             oPara2.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
-            oPara2.Range.InsertBefore("Name: ");
+            oPara2.Range.InsertBefore("Department: ");
             oPara2.Range.InsertParagraphAfter();
+
+
 
 
             Word.Table oTable;
@@ -262,11 +298,22 @@ namespace IBMConsultantTool
 
                 Word.Range cell2Range = oTable.Cell(r, 2).Range;
                 cell2Range.Collapse(ref oMissing);
-                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                //oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                inputText.DropDown.ListEntries.Add("        ");
+                inputText.DropDown.ListEntries.Add("A");
+                inputText.DropDown.ListEntries.Add("B");
+                inputText.DropDown.ListEntries.Add("C");
+                inputText.DropDown.ListEntries.Add("D");
 
                 cell2Range = oTable.Cell(r, 3).Range;
                 cell2Range.Collapse(ref oMissing);
-                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                inputText.DropDown.ListEntries.Add("        ");
+                inputText.DropDown.ListEntries.Add("A");
+                inputText.DropDown.ListEntries.Add("B");
+                inputText.DropDown.ListEntries.Add("C");
+                inputText.DropDown.ListEntries.Add("D");
 
                 r++;
                 c++;
@@ -380,9 +427,12 @@ namespace IBMConsultantTool
             Word.Paragraph oPara2;
             oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
 
-            oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormTextInput);
+            var inputText = oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormDropDown);
+            inputText.DropDown.ListEntries.Add("Business");
+            inputText.DropDown.ListEntries.Add("IT");
+
             oPara2.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
-            oPara2.Range.InsertBefore("Name: ");
+            oPara2.Range.InsertBefore("Department: ");
             oPara2.Range.InsertParagraphAfter();
 
             Word.Paragraph oPara3;
@@ -432,11 +482,23 @@ namespace IBMConsultantTool
 
                 cell2Range = oTable.Cell(r, 3).Range;
                 cell2Range.Collapse(ref oMissing);
-                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                inputText.DropDown.ListEntries.Add("        ");
+                inputText.DropDown.ListEntries.Add("1");
+                inputText.DropDown.ListEntries.Add("2");
+                inputText.DropDown.ListEntries.Add("3");
+                inputText.DropDown.ListEntries.Add("4");
+                inputText.DropDown.ListEntries.Add("5");
 
                 cell2Range = oTable.Cell(r, 4).Range;
                 cell2Range.Collapse(ref oMissing);
-                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                inputText.DropDown.ListEntries.Add("        ");
+                inputText.DropDown.ListEntries.Add("1");
+                inputText.DropDown.ListEntries.Add("2");
+                inputText.DropDown.ListEntries.Add("3");
+                inputText.DropDown.ListEntries.Add("4");
+                inputText.DropDown.ListEntries.Add("5");
 
                 r++;
                 c++;

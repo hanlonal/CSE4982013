@@ -29,46 +29,46 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.questionGridBusinessCurrent = new System.Windows.Forms.DataGridView();
             this.Header = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalA = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -149,7 +149,6 @@
             this.currentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.futureToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.participantNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numberOfQuestionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -216,9 +215,9 @@
             // 
             // TotalA
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalA.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalA.DefaultCellStyle = dataGridViewCellStyle25;
             this.TotalA.HeaderText = "Total A";
             this.TotalA.Name = "TotalA";
             this.TotalA.ReadOnly = true;
@@ -227,9 +226,9 @@
             // 
             // TotalB
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalB.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalB.DefaultCellStyle = dataGridViewCellStyle26;
             this.TotalB.HeaderText = "Total B";
             this.TotalB.Name = "TotalB";
             this.TotalB.ReadOnly = true;
@@ -238,9 +237,9 @@
             // 
             // TotalC
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalC.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalC.DefaultCellStyle = dataGridViewCellStyle27;
             this.TotalC.HeaderText = "Total C";
             this.TotalC.Name = "TotalC";
             this.TotalC.ReadOnly = true;
@@ -249,9 +248,9 @@
             // 
             // TotalD
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalD.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalD.DefaultCellStyle = dataGridViewCellStyle28;
             this.TotalD.HeaderText = "Total D";
             this.TotalD.Name = "TotalD";
             this.TotalD.ReadOnly = true;
@@ -260,9 +259,9 @@
             // 
             // numAnswers
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numAnswers.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle29.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numAnswers.DefaultCellStyle = dataGridViewCellStyle29;
             this.numAnswers.HeaderText = "Total Answers";
             this.numAnswers.Name = "numAnswers";
             this.numAnswers.ReadOnly = true;
@@ -271,9 +270,9 @@
             // 
             // avgScore
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avgScore.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avgScore.DefaultCellStyle = dataGridViewCellStyle30;
             this.avgScore.HeaderText = "Average Score";
             this.avgScore.Name = "avgScore";
             this.avgScore.ReadOnly = true;
@@ -343,9 +342,9 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle31;
             this.dataGridViewTextBoxColumn2.HeaderText = "Total A";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -353,9 +352,9 @@
             // 
             // dataGridViewTextBoxColumn3
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle32;
             this.dataGridViewTextBoxColumn3.HeaderText = "Total B";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -363,9 +362,9 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle33;
             this.dataGridViewTextBoxColumn4.HeaderText = "Total C";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -373,9 +372,9 @@
             // 
             // dataGridViewTextBoxColumn5
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle34.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle34;
             this.dataGridViewTextBoxColumn5.HeaderText = "Total D";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -383,9 +382,9 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle35;
             this.dataGridViewTextBoxColumn6.HeaderText = "Total Answers";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -393,9 +392,9 @@
             // 
             // dataGridViewTextBoxColumn7
             // 
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle36;
             this.dataGridViewTextBoxColumn7.HeaderText = "Average Score";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
@@ -404,35 +403,35 @@
             // busiCurrentGraph
             // 
             this.busiCurrentGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Area3DStyle.Enable3D = true;
-            chartArea1.Area3DStyle.Inclination = 70;
-            chartArea1.Area3DStyle.IsRightAngleAxes = false;
-            chartArea1.Area3DStyle.Perspective = 40;
-            chartArea1.Area3DStyle.Rotation = 50;
-            chartArea1.BackColor = System.Drawing.SystemColors.Window;
-            chartArea1.BorderWidth = 4;
-            chartArea1.Name = "ChartArea1";
-            this.busiCurrentGraph.ChartAreas.Add(chartArea1);
+            chartArea5.Area3DStyle.Enable3D = true;
+            chartArea5.Area3DStyle.Inclination = 70;
+            chartArea5.Area3DStyle.IsRightAngleAxes = false;
+            chartArea5.Area3DStyle.Perspective = 40;
+            chartArea5.Area3DStyle.Rotation = 50;
+            chartArea5.BackColor = System.Drawing.SystemColors.Window;
+            chartArea5.BorderWidth = 4;
+            chartArea5.Name = "ChartArea1";
+            this.busiCurrentGraph.ChartAreas.Add(chartArea5);
             this.busiCurrentGraph.Cursor = System.Windows.Forms.Cursors.Default;
-            legend1.Name = "Legend1";
-            this.busiCurrentGraph.Legends.Add(legend1);
+            legend5.Name = "Legend1";
+            this.busiCurrentGraph.Legends.Add(legend5);
             this.busiCurrentGraph.Location = new System.Drawing.Point(637, 50);
             this.busiCurrentGraph.Name = "busiCurrentGraph";
             this.busiCurrentGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.EmptyPointStyle.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "BusiCurrent";
-            this.busiCurrentGraph.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series5.EmptyPointStyle.IsVisibleInLegend = false;
+            series5.Legend = "Legend1";
+            series5.Name = "BusiCurrent";
+            this.busiCurrentGraph.Series.Add(series5);
             this.busiCurrentGraph.Size = new System.Drawing.Size(348, 358);
             this.busiCurrentGraph.TabIndex = 5;
             this.busiCurrentGraph.Text = "chart1";
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "Title1";
-            title1.Text = "Business CUPE Responses - Current";
-            title1.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
-            this.busiCurrentGraph.Titles.Add(title1);
+            title5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title5.Name = "Title1";
+            title5.Text = "Business CUPE Responses - Current";
+            title5.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
+            this.busiCurrentGraph.Titles.Add(title5);
             // 
             // label1
             // 
@@ -635,9 +634,9 @@
             // 
             // dataGridViewTextBoxColumn9
             // 
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle37;
             this.dataGridViewTextBoxColumn9.HeaderText = "Total A";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
@@ -645,9 +644,9 @@
             // 
             // dataGridViewTextBoxColumn10
             // 
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle38;
             this.dataGridViewTextBoxColumn10.HeaderText = "Total B";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
@@ -655,9 +654,9 @@
             // 
             // dataGridViewTextBoxColumn11
             // 
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle39.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle39.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle39;
             this.dataGridViewTextBoxColumn11.HeaderText = "Total C";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             this.dataGridViewTextBoxColumn11.ReadOnly = true;
@@ -665,9 +664,9 @@
             // 
             // dataGridViewTextBoxColumn12
             // 
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle40;
             this.dataGridViewTextBoxColumn12.HeaderText = "Total D";
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
@@ -675,9 +674,9 @@
             // 
             // dataGridViewTextBoxColumn13
             // 
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle41;
             this.dataGridViewTextBoxColumn13.HeaderText = "Total Answers";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -685,9 +684,9 @@
             // 
             // dataGridViewTextBoxColumn14
             // 
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle42;
             this.dataGridViewTextBoxColumn14.HeaderText = "Average Score";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -729,9 +728,9 @@
             // 
             // dataGridViewTextBoxColumn16
             // 
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn16.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle43.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn16.DefaultCellStyle = dataGridViewCellStyle43;
             this.dataGridViewTextBoxColumn16.FillWeight = 150F;
             this.dataGridViewTextBoxColumn16.HeaderText = "Total A";
             this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
@@ -740,9 +739,9 @@
             // 
             // dataGridViewTextBoxColumn17
             // 
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle44;
             this.dataGridViewTextBoxColumn17.FillWeight = 150F;
             this.dataGridViewTextBoxColumn17.HeaderText = "Total B";
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
@@ -751,9 +750,9 @@
             // 
             // dataGridViewTextBoxColumn18
             // 
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle45;
             this.dataGridViewTextBoxColumn18.FillWeight = 150F;
             this.dataGridViewTextBoxColumn18.HeaderText = "Total C";
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
@@ -762,9 +761,9 @@
             // 
             // dataGridViewTextBoxColumn19
             // 
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn19.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle46.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle46.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn19.DefaultCellStyle = dataGridViewCellStyle46;
             this.dataGridViewTextBoxColumn19.FillWeight = 150F;
             this.dataGridViewTextBoxColumn19.HeaderText = "Total D";
             this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
@@ -773,9 +772,9 @@
             // 
             // dataGridViewTextBoxColumn20
             // 
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle47.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle47;
             this.dataGridViewTextBoxColumn20.FillWeight = 150F;
             this.dataGridViewTextBoxColumn20.HeaderText = "Total Answers";
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
@@ -784,9 +783,9 @@
             // 
             // dataGridViewTextBoxColumn21
             // 
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn21.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle48.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn21.DefaultCellStyle = dataGridViewCellStyle48;
             this.dataGridViewTextBoxColumn21.FillWeight = 150F;
             this.dataGridViewTextBoxColumn21.HeaderText = "Average Score";
             this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
@@ -796,97 +795,97 @@
             // busiFutureGraph
             // 
             this.busiFutureGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Area3DStyle.Enable3D = true;
-            chartArea2.Area3DStyle.Inclination = 70;
-            chartArea2.Area3DStyle.IsRightAngleAxes = false;
-            chartArea2.Area3DStyle.Perspective = 40;
-            chartArea2.Area3DStyle.Rotation = 50;
-            chartArea2.BackColor = System.Drawing.SystemColors.Window;
-            chartArea2.BorderWidth = 4;
-            chartArea2.Name = "ChartArea1";
-            this.busiFutureGraph.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.busiFutureGraph.Legends.Add(legend2);
+            chartArea6.Area3DStyle.Enable3D = true;
+            chartArea6.Area3DStyle.Inclination = 70;
+            chartArea6.Area3DStyle.IsRightAngleAxes = false;
+            chartArea6.Area3DStyle.Perspective = 40;
+            chartArea6.Area3DStyle.Rotation = 50;
+            chartArea6.BackColor = System.Drawing.SystemColors.Window;
+            chartArea6.BorderWidth = 4;
+            chartArea6.Name = "ChartArea1";
+            this.busiFutureGraph.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.busiFutureGraph.Legends.Add(legend6);
             this.busiFutureGraph.Location = new System.Drawing.Point(637, 50);
             this.busiFutureGraph.Name = "busiFutureGraph";
             this.busiFutureGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "BusiCurrent";
-            this.busiFutureGraph.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series6.Legend = "Legend1";
+            series6.Name = "BusiCurrent";
+            this.busiFutureGraph.Series.Add(series6);
             this.busiFutureGraph.Size = new System.Drawing.Size(348, 358);
             this.busiFutureGraph.TabIndex = 13;
             this.busiFutureGraph.Text = "chart1";
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title2.Name = "Title1";
-            title2.Text = "Business CUPE Responses - Future";
-            title2.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
-            this.busiFutureGraph.Titles.Add(title2);
+            title6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title6.Name = "Title1";
+            title6.Text = "Business CUPE Responses - Future";
+            title6.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
+            this.busiFutureGraph.Titles.Add(title6);
             // 
             // itCurrentGraph
             // 
             this.itCurrentGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.Area3DStyle.Enable3D = true;
-            chartArea3.Area3DStyle.Inclination = 70;
-            chartArea3.Area3DStyle.IsRightAngleAxes = false;
-            chartArea3.Area3DStyle.Perspective = 40;
-            chartArea3.Area3DStyle.Rotation = 50;
-            chartArea3.BackColor = System.Drawing.SystemColors.Window;
-            chartArea3.BorderWidth = 4;
-            chartArea3.Name = "ChartArea1";
-            this.itCurrentGraph.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.itCurrentGraph.Legends.Add(legend3);
+            chartArea7.Area3DStyle.Enable3D = true;
+            chartArea7.Area3DStyle.Inclination = 70;
+            chartArea7.Area3DStyle.IsRightAngleAxes = false;
+            chartArea7.Area3DStyle.Perspective = 40;
+            chartArea7.Area3DStyle.Rotation = 50;
+            chartArea7.BackColor = System.Drawing.SystemColors.Window;
+            chartArea7.BorderWidth = 4;
+            chartArea7.Name = "ChartArea1";
+            this.itCurrentGraph.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.itCurrentGraph.Legends.Add(legend7);
             this.itCurrentGraph.Location = new System.Drawing.Point(636, 50);
             this.itCurrentGraph.Name = "itCurrentGraph";
             this.itCurrentGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "BusiCurrent";
-            this.itCurrentGraph.Series.Add(series3);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series7.Legend = "Legend1";
+            series7.Name = "BusiCurrent";
+            this.itCurrentGraph.Series.Add(series7);
             this.itCurrentGraph.Size = new System.Drawing.Size(348, 358);
             this.itCurrentGraph.TabIndex = 14;
             this.itCurrentGraph.Text = "chart1";
-            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title3.Name = "Title1";
-            title3.Text = "IT CUPE Responses - Current";
-            title3.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
-            this.itCurrentGraph.Titles.Add(title3);
+            title7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title7.Name = "Title1";
+            title7.Text = "IT CUPE Responses - Current";
+            title7.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
+            this.itCurrentGraph.Titles.Add(title7);
             // 
             // itFutureGraph
             // 
             this.itFutureGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea4.Area3DStyle.Enable3D = true;
-            chartArea4.Area3DStyle.Inclination = 70;
-            chartArea4.Area3DStyle.IsRightAngleAxes = false;
-            chartArea4.Area3DStyle.Perspective = 40;
-            chartArea4.Area3DStyle.Rotation = 50;
-            chartArea4.BackColor = System.Drawing.SystemColors.Window;
-            chartArea4.BorderWidth = 4;
-            chartArea4.IsSameFontSizeForAllAxes = true;
-            chartArea4.Name = "ChartArea1";
-            this.itFutureGraph.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.itFutureGraph.Legends.Add(legend4);
+            chartArea8.Area3DStyle.Enable3D = true;
+            chartArea8.Area3DStyle.Inclination = 70;
+            chartArea8.Area3DStyle.IsRightAngleAxes = false;
+            chartArea8.Area3DStyle.Perspective = 40;
+            chartArea8.Area3DStyle.Rotation = 50;
+            chartArea8.BackColor = System.Drawing.SystemColors.Window;
+            chartArea8.BorderWidth = 4;
+            chartArea8.IsSameFontSizeForAllAxes = true;
+            chartArea8.Name = "ChartArea1";
+            this.itFutureGraph.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.itFutureGraph.Legends.Add(legend8);
             this.itFutureGraph.Location = new System.Drawing.Point(636, 50);
             this.itFutureGraph.Name = "itFutureGraph";
             this.itFutureGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series4.Legend = "Legend1";
-            series4.Name = "BusiCurrent";
-            this.itFutureGraph.Series.Add(series4);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series8.Legend = "Legend1";
+            series8.Name = "BusiCurrent";
+            this.itFutureGraph.Series.Add(series8);
             this.itFutureGraph.Size = new System.Drawing.Size(348, 358);
             this.itFutureGraph.TabIndex = 15;
             this.itFutureGraph.Text = "chart1";
-            title4.Alignment = System.Drawing.ContentAlignment.TopCenter;
-            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title4.Name = "Title1";
-            title4.Text = "IT CUPE Respones - Future";
-            title4.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
-            this.itFutureGraph.Titles.Add(title4);
+            title8.Alignment = System.Drawing.ContentAlignment.TopCenter;
+            title8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title8.Name = "Title1";
+            title8.Text = "IT CUPE Respones - Future";
+            title8.TextStyle = System.Windows.Forms.DataVisualization.Charting.TextStyle.Shadow;
+            this.itFutureGraph.Titles.Add(title8);
             // 
             // menuStrip1
             // 
@@ -982,8 +981,7 @@
             this.businessAndITResponsesToolStripMenuItem,
             this.individualAnswerToolStripMenuItem,
             this.cUPEScoreOverallToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.participantNamesToolStripMenuItem});
+            this.toolStripSeparator2});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.viewToolStripMenuItem.Text = "View";
@@ -1117,13 +1115,6 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(368, 6);
-            // 
-            // participantNamesToolStripMenuItem
-            // 
-            this.participantNamesToolStripMenuItem.Name = "participantNamesToolStripMenuItem";
-            this.participantNamesToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
-            this.participantNamesToolStripMenuItem.Text = "Participant Names";
-            this.participantNamesToolStripMenuItem.Click += new System.EventHandler(this.participantNamesToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -1372,7 +1363,6 @@
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTCapabilityToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem questionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem participantNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem numberOfQuestionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
