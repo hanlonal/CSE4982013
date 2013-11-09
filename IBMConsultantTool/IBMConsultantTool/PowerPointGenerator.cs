@@ -130,8 +130,11 @@ namespace IBMConsultantTool
             String strBubblePic = Directory.GetCurrentDirectory() + "\\Charts\\BubbleChart.jpg";
             String strITCUPECurr = Directory.GetCurrentDirectory() + "\\Charts\\IT Current CUPE Responses.jpg";
             String strITCUPEFut = Directory.GetCurrentDirectory() + "\\Charts\\IT Future CUPE Responses.jpg";
-            String strITBUSCurr = Directory.GetCurrentDirectory() + "\\Charts\\Business Current CUPE Responses.jpg";
-            String strITBUSFut = Directory.GetCurrentDirectory() + "\\Charts\\Business Future CUPE Responses.jpg";
+            String strBUSCUPECurr = Directory.GetCurrentDirectory() + "\\Charts\\Business Current CUPE Responses.jpg";
+            String strBUSCUPEFut = Directory.GetCurrentDirectory() + "\\Charts\\Business Future CUPE Responses.jpg";
+            String strITComparisonBar = Directory.GetCurrentDirectory() + "\\Charts\\IT StakeHolders CurrentFuture Comparison.jpg";
+            String strBUSIComparisonBar = Directory.GetCurrentDirectory() + "\\Charts\\Business Leaders CurrentFuture Comparison.jpg";
+            String strHeatMap = Directory.GetCurrentDirectory() + "\\Charts\\HeatMap.jpg";
             strPic = Directory.GetCurrentDirectory() + "\\Resources\\Add record.png";
 
             Power.Slides objSlides;
@@ -204,9 +207,9 @@ namespace IBMConsultantTool
             objShape = objSlide.Shapes[4];
             objShape.Delete();
 
-            objSlide.Shapes.AddPicture(strITBUSCurr, Microsoft.Office.Core.MsoTriState.msoFalse,
+            objSlide.Shapes.AddPicture(strBUSCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
         Microsoft.Office.Core.MsoTriState.msoTrue, 80, 120, 300, 200);
-            objSlide.Shapes.AddPicture(strITBUSFut, Microsoft.Office.Core.MsoTriState.msoFalse,
+            objSlide.Shapes.AddPicture(strBUSCUPEFut, Microsoft.Office.Core.MsoTriState.msoFalse,
         Microsoft.Office.Core.MsoTriState.msoTrue, 80, 320, 300, 200);
             objSlide.Shapes.AddPicture(strITCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
         Microsoft.Office.Core.MsoTriState.msoTrue, 360, 120, 300, 200);
@@ -214,9 +217,44 @@ namespace IBMConsultantTool
         Microsoft.Office.Core.MsoTriState.msoTrue, 360, 320, 300, 200);
 
             ///
+            ///Slide 20
+            ///
+            objSlide = objSlides[20];
+            objShape = objSlide.Shapes[5];
+            objShape.Delete();
+            objShape = objSlide.Shapes[5];
+            objShape.Delete();
+            objShape = objSlide.Shapes[5];
+            objShape.Delete();
+            objShape = objSlide.Shapes[5];
+            objShape.Delete();
+            objShape = objSlide.Shapes[5];
+            objShape.Delete();
+            objShape = objSlide.Shapes[2];
+            objShape.Delete();
+            objShape = objSlide.Shapes[2];
+            objShape.Delete();
 
-            
 
+            objSlide.Shapes.AddPicture(strBUSIComparisonBar, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 0, 100, 350, 380);
+            objSlide.Shapes.AddPicture(strITComparisonBar, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 350, 100, 350, 380);
+
+            ///
+
+            ///
+            ///Slide 26
+            ///
+            objSlide = objSlides[26];
+            objShape = objSlide.Shapes[3];
+            objShape.Delete();
+
+            objSlide.Shapes.AddPicture(strHeatMap, Microsoft.Office.Core.MsoTriState.msoFalse,
+        Microsoft.Office.Core.MsoTriState.msoTrue, 140, 120, 420, 330);
+
+
+            ///
 
 
         }
