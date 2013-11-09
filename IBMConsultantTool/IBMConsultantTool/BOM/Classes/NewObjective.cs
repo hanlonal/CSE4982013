@@ -33,7 +33,7 @@ namespace IBMConsultantTool
             this.Height = baseHeight;
             this.Width = baseWidth;
             this.BorderStyle = BorderStyle.FixedSingle;
-
+            //this.Paint +=new PaintEventHandler(NewObjective_Paint);
         }
 
         public void NewObjective_Click(object sender, EventArgs e)
@@ -41,8 +41,30 @@ namespace IBMConsultantTool
             NewObjective obj = (NewObjective)sender;
             //Console.WriteLine(obj.name);
             owner.LastClicked = obj;
-            //owner.ObjectiveClicked(obj);
+
+            foreach (NewObjective o in owner.Objectives)
+            {
+                o.Refresh();
+            }
+            
+           //owner.ObjectiveClicked(obj);
         }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (owner.LastClicked == this)
+            {
+
+                e.Graphics.DrawRectangle(Pens.Yellow,
+                e.ClipRectangle.Left,
+                e.ClipRectangle.Top,
+                e.ClipRectangle.Width - 1,
+                e.ClipRectangle.Height - 1);
+            }
+            
+            base.OnPaint(e);
+        }
+
         public NewInitiative AddInitiative(string name)
         {
             NewInitiative init = new NewInitiative(this, name);
@@ -50,6 +72,8 @@ namespace IBMConsultantTool
             return init;
            // init.Name = name;
         }
+
+
 
         public void UpdateHeight()
         {
@@ -110,7 +134,21 @@ namespace IBMConsultantTool
                 colorObj.Text = "Objective Color";
                 strip.Items.Add(colorObj);
                 strip.Show(this, e.Location, ToolStripDropDownDirection.BelowRight);
+
+                ToolStripMenuItem detailView = new ToolStripMenuItem();
+                detailView.Click += new EventHandler(detailView_Click);
+                detailView.Text = "Detailed View";
+                strip.Items.Add(detailView);
+                strip.Show(this, e.Location, ToolStripDropDownDirection.BelowRight);
+
+
             }
+        }
+
+        private void detailView_Click(object sender, EventArgs e)
+        {
+
+
         }
 
         private void deleteObj_Click(object sender, EventArgs e)

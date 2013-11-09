@@ -110,6 +110,7 @@ namespace IBMConsultantTool
 
         public void ReadSurveyCUPE(List<Person> people)
         {
+            int count = 1;
             var FD = new System.Windows.Forms.FolderBrowserDialog();
             if (FD.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
@@ -150,17 +151,9 @@ namespace IBMConsultantTool
                         //Find the person and their type
                         if (form.Name == "Name")
                         {
-                            currentPerson = people.Where(x => x.Name == form.Result.ToString()).Single();
-
-                            if(currentPerson != null)
-                            {
-                                currentPerson.cupeDataHolder.CurrentAnswers.Clear();
-                                currentPerson.cupeDataHolder.FutureAnswers.Clear();
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            currentPerson = new Person(count++);
+                            currentPerson.Type = Person.EmployeeType.IT;
+                            break;
                         }
                         else
                         {
@@ -168,7 +161,7 @@ namespace IBMConsultantTool
                         }
                     }
 
-                    int q = 1, c=1;
+                    int q = 1, c = 1;
                     foreach (Word.FormField form in oDoc.FormFields)
                     {
                         if (form.Name != "Name")
@@ -183,7 +176,7 @@ namespace IBMConsultantTool
                                 currentPerson.cupeDataHolder.FutureAnswers.Add("Question " + q, form.Result.ToCharArray()[0]);
                                 c = 1;
                                 q++;
-                            }   
+                            }
 
                         }
                     }
@@ -194,7 +187,6 @@ namespace IBMConsultantTool
                     oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
                 }
             }
-
         }
 
 

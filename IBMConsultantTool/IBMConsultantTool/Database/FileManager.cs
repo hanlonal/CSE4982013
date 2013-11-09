@@ -359,11 +359,8 @@ namespace IBMConsultantTool
             List<XElement> itContacts = itGrp.Element("CONTACTS").Elements("CONTACT").ToList();
             foreach (XElement contact in busContacts)
             {
-                person = new Person();
-                person.Name = contact.Element("NAME").Value;
-                person.Email = contact.Element("EMAIL").Value;
+                person = new Person(id++);
                 person.Type = Person.EmployeeType.Business;
-                person.ID = id;
                 cupeData = new CupeData(id);
                 foreach (XElement response in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
                 {
@@ -383,11 +380,8 @@ namespace IBMConsultantTool
 
             foreach (XElement contact in itContacts)
             {
-                person = new Person();
-                person.Name = contact.Element("NAME").Value;
-                person.Email = contact.Element("EMAIL").Value;
+                person = new Person(id++);
                 person.Type = Person.EmployeeType.IT;
-                person.ID = id;
                 cupeData = new CupeData(id);
                 foreach (XElement response in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
                 {
@@ -1423,6 +1417,7 @@ namespace IBMConsultantTool
 
         public override void SaveCUPEParticipants()
         {
+            Random rnd = new Random();
             List<Person> personList = ClientDataControl.GetParticipants();
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             XElement busGrp;
@@ -1437,6 +1432,15 @@ namespace IBMConsultantTool
                 AddGroup("IT", client);
                 GetGroup("IT", client, out itGrp);
             }
+            foreach (XElement contactToDelete in busGrp.Element("CONTACTS").Elements("CONTACT"))
+            {
+                contactToDelete.Remove();
+            }
+            foreach (XElement contactToDelete in itGrp.Element("CONTACTS").Elements("CONTACT"))
+            {
+                contactToDelete.Remove();
+            }
+            changeLog.Add("DELETE CONTACTS " + client.Element("NAME").Value.Replace(' ', '~'));
             XElement contact;
             XElement response;
             XElement cupe;
@@ -1444,33 +1448,12 @@ namespace IBMConsultantTool
             {
                 if (person.Type == Person.EmployeeType.Business)
                 {
-                    if (GetContact(person.Name, busGrp, out contact))
-                    {
-                        contact.Element("EMAIL").Value = person.Email != null ? person.Email : "";
-                    }
-
-                    else
-                    {
-                        contact = new XElement("CONTACT");
-                        contact.Add(new XElement("NAME", person.Name));
-                        contact.Add(new XElement("EMAIL", person.Email != null ? person.Email : ""));
-                        contact.Add(new XElement("BOMS"));
-                        contact.Add(new XElement("CUPES"));
-                        contact.Add(new XElement("ITCAPS"));
-                        contact.Add(new XElement("CUPERESPONSES"));
-                        busGrp.Element("CONTACTS").Add(contact);
-                    }
-
-                    //Clear out responses in case survey is different
-                    List<XElement> responseList = contact.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
-                    foreach (XElement responseToDelete in responseList)
-                    {
-                        responseToDelete.Remove();
-                    }
-
-                    changeLog.Add("DELETE CUPERESPONSE " + client.Element("NAME").Value.Replace(' ', '~')
-                                  + " Business " + contact.Element("NAME").Value.Replace(' ', '~'));
-                                  
+                    contact = new XElement("CONTACT");
+                    contact.Add(new XElement("ID", rnd.Next()));
+                    contact.Add(new XElement("CUPERESPONSES"));
+                    busGrp.Element("CONTACTS").Add(contact);
+                    changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                                  " Business " + contact.Element("ID").Value.Replace(' ', '~'));
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
                     for (int i = 0; i < questionList.Count - 1; i++)
@@ -1492,32 +1475,12 @@ namespace IBMConsultantTool
 
                 else if (person.Type == Person.EmployeeType.IT)
                 {
-                    if (GetContact(person.Name, itGrp, out contact))
-                    {
-                        contact.Element("EMAIL").Value = person.Email != null ? person.Email : "";
-                    }
-
-                    else
-                    {
-                        contact = new XElement("CONTACT");
-                        contact.Add(new XElement("NAME", person.Name));
-                        contact.Add(new XElement("EMAIL", person.Email != null ? person.Email : ""));
-                        contact.Add(new XElement("BOMS"));
-                        contact.Add(new XElement("CUPES"));
-                        contact.Add(new XElement("ITCAPS"));
-                        contact.Add(new XElement("CUPERESPONSES"));
-                        itGrp.Element("CONTACTS").Add(contact);
-                    }
-
-                    //Clear out responses in case survey is different
-                    List<XElement> responseList = contact.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
-                    foreach (XElement responseToDelete in responseList)
-                    {
-                        responseToDelete.Remove();
-                    }
-
-                    changeLog.Add("DELETE CUPERESPONSE " + client.Element("NAME").Value.Replace(' ', '~')
-                                  + " IT " + contact.Element("NAME").Value.Replace(' ', '~'));
+                    contact = new XElement("CONTACT");
+                    contact.Add(new XElement("ID", rnd.Next()));
+                    contact.Add(new XElement("CUPERESPONSES"));
+                    itGrp.Element("CONTACTS").Add(contact);
+                    changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                                  " IT " + contact.Element("ID").Value.Replace(' ', '~'));
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
                     for (int i = 0; i < questionList.Count - 1; i++)
@@ -1741,7 +1704,7 @@ namespace IBMConsultantTool
             contact.Element("CUPERESPONSES").Add(cupeResponse);
             changeLog.Add("ADD CUPERESPONSE " + contact.Parent.Parent.Parent.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
                           contact.Parent.Parent.Element("NAME").Value.Replace(' ', '~') + " " +
-                          contact.Element("NAME").Value.Replace(' ', '~') + " " +
+                          contact.Element("ID").Value + " " +
                           cupe.Replace(' ', '~') + " " +
                           cupeResponse.Element("CURRENT").Value + " " + 
                           cupeResponse.Element("FUTURE").Value);

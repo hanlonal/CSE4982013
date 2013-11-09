@@ -298,6 +298,41 @@ namespace IBMConsultantTool
 
         #region Contact
 
+        public bool AddContact(int id, GROUP grp)
+        {
+            if ((from ent in grp.CONTACT
+                 where ent.ID == id
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            CONTACT contact = new CONTACT();
+            contact.ID = id;
+            grp.CONTACT.Add(contact);
+            dbo.AddToCONTACT(contact);
+
+            return true;
+        }
+
+        public bool GetContact(int id, out CONTACT contact)
+        {
+            try
+            {
+                contact = (from ent in dbo.CONTACT
+                          where ent.ID == id
+                          select ent).Single();
+            }
+
+            catch
+            {
+                contact = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public override void LoadParticipants()
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
@@ -311,11 +346,8 @@ namespace IBMConsultantTool
             int questionIndex = 0;
             foreach (CONTACT contact in busGrp.CONTACT)
             {
-                person = new Person();
-                person.Name = contact.NAME.TrimEnd();
-                person.Email = contact.EMAIL.TrimEnd();
+                person = new Person(id++);
                 person.Type = Person.EmployeeType.Business;
-                person.ID = id;
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
@@ -331,16 +363,14 @@ namespace IBMConsultantTool
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
-                id++;
             }
+
+            id = 1;
 
             foreach (CONTACT contact in itGrp.CONTACT)
             {
-                person = new Person();
-                person.Name = contact.NAME.TrimEnd();
-                person.Email = contact.EMAIL.TrimEnd();
+                person = new Person(id++);
                 person.Type = Person.EmployeeType.IT;
-                person.ID = id;
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
@@ -356,43 +386,7 @@ namespace IBMConsultantTool
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
-                id++;
             }
-        }
-
-        public bool GetContact(string contactName, GROUP grp, out CONTACT contact)
-        {
-            try
-            {
-                contact = (from ent in grp.CONTACT
-                       where ent.NAME.TrimEnd() == contactName
-                       select ent).Single();
-            }
-
-            catch
-            {
-                contact = null;
-                return false;
-            }
-
-            return true;
-        }
-        public bool AddContact(string contactName, GROUP grp)
-        {
-            if ((from ent in grp.CONTACT
-                 where ent.NAME.TrimEnd() == contactName
-                 select ent).Count() != 0)
-            {
-                return false;
-            }
-
-            CONTACT contact = new CONTACT();
-            contact.NAME = contactName;
-            contact.GROUP = grp;
-
-            dbo.AddToCONTACT(contact);
-
-            return true;
         }
         #endregion
 
@@ -1293,6 +1287,7 @@ namespace IBMConsultantTool
 
         public override void SaveCUPEParticipants()
         {
+            Random rnd = new Random();
             List<Person> personList = ClientDataControl.GetParticipants();
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             GROUP busGrp;
@@ -1310,30 +1305,24 @@ namespace IBMConsultantTool
             CONTACT contact;
             CUPERESPONSE response;
             CUPE cupe;
+
+            foreach (CONTACT contactToDelete in busGrp.CONTACT)
+            {
+                dbo.DeleteObject(contactToDelete);
+            }
+
+            foreach (CONTACT contactToDelete in itGrp.CONTACT)
+            {
+                dbo.DeleteObject(contactToDelete);
+            }
             foreach (Person person in personList)
             {
                 if (person.Type == Person.EmployeeType.Business)
                 {
-                    if (GetContact(person.Name, busGrp, out contact))
-                    {
-                        contact.EMAIL = person.Email != null ? person.Email : "";
-                    }
-
-                    else
-                    {
-                        contact = new CONTACT();
-                        contact.NAME = person.Name;
-                        contact.EMAIL = person.Email != null ? person.Email : "";
-                        busGrp.CONTACT.Add(contact);
-                        dbo.AddToCONTACT(contact);
-                    }
-
-                    //Clear out responses in case survey is different
-                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
-                    foreach (CUPERESPONSE responseToDelete in responseList)
-                    {
-                        dbo.DeleteObject(responseToDelete);
-                    }
+                    contact = new CONTACT();
+                    contact.ID = rnd.Next();
+                    busGrp.CONTACT.Add(contact);
+                    dbo.AddToCONTACT(contact);
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
                     for (int i = 0; i < questionList.Count - 1; i++)
@@ -1344,6 +1333,7 @@ namespace IBMConsultantTool
                             MessageBox.Show("Error: couldn't find cupe: " + data.QuestionText);
                             continue;
                         }
+
                         response = new CUPERESPONSE();
                         response.CONTACT = contact;
                         response.CUPE = cupe;
@@ -1356,26 +1346,10 @@ namespace IBMConsultantTool
 
                 else if(person.Type == Person.EmployeeType.IT)
                 {
-                    if (GetContact(person.Name, itGrp, out contact))
-                    {
-                        contact.EMAIL = person.Email != null ? person.Email : "";
-                    }
-
-                    else
-                    {
-                        contact = new CONTACT();
-                        contact.NAME = person.Name;
-                        contact.EMAIL = person.Email != null ? person.Email : "";
-                        itGrp.CONTACT.Add(contact);
-                        dbo.AddToCONTACT(contact);
-                    }
-
-                    //Clear out responses in case survey is different
-                    List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
-                    foreach (CUPERESPONSE responseToDelete in responseList)
-                    {
-                        dbo.DeleteObject(responseToDelete);
-                    }
+                    contact = new CONTACT();
+                    contact.ID = rnd.Next();
+                    itGrp.CONTACT.Add(contact);
+                    dbo.AddToCONTACT(contact);
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
                     for(int i = 0; i < questionList.Count - 1; i++)
@@ -2268,8 +2242,8 @@ namespace IBMConsultantTool
                     itata = new ITAttributeTrendAnalysis();
                     client = itcap.CLIENT;
                     itata.Date = client.STARTDATE;
-                    itata.Region = client.REGION.NAME.TrimEnd();
-                    itata.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    itata.Region = client.REGION.NAME.Trim();
+                    itata.BusinessType = client.BUSINESSTYPE.NAME.Trim();
                     itata.Country = itata.Region;
                     itata.AsisScore = itcap.ASIS.Value;
                     itata.TobeScore = itcap.TOBE.Value;
@@ -2330,9 +2304,9 @@ namespace IBMConsultantTool
                     cqta = new CUPEQuestionTrendAnalysis();
                     client = cr.CONTACT.GROUP.CLIENT;
                     cqta.Date = client.STARTDATE;
-                    cqta.Region = client.REGION.NAME.TrimEnd();
-                    cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
-                    cqta.Country = cqta.Region;
+                    cqta.Region = client.REGION.NAME.Trim();
+                    cqta.BusinessType = client.BUSINESSTYPE.NAME.Trim();
+                    cqta.Country = cqta.Region.Trim();
                     cqta.CupeType = cr.CONTACT.GROUP.NAME;
                     switch (cr.CURRENT)
                     {
@@ -2948,7 +2922,7 @@ namespace IBMConsultantTool
                     foreach (CONTACT contact in grp.CONTACT)
                     {
                         XElement tempCon = new XElement("CONTACT");
-                        tempCon.Add(new XElement("NAME", contact.NAME.TrimEnd()));
+                        tempCon.Add(new XElement("ID", contact.ID));
 
                         XElement bomConElement = new XElement("BOMS");
                         foreach (BOM bom in contact.BOM)
@@ -3351,6 +3325,27 @@ namespace IBMConsultantTool
                                 }
                                 break;
 
+                            case "CONTACT":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    if (!GetGroup(lineArray[3].Replace('~', ' '), client, out grp))
+                                    {
+                                        if (!AddContact(Convert.ToInt32(lineArray[4]), grp))
+                                        {
+                                            MessageBox.Show("Add Contact Instruction Failed: Contact ID already exists\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add Contact Instruction Failed: Group does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Add Contact Instruction Failed: Client does not exist\n\n" + line, "Error");
+                                }
+                                break;
+
                             case "CATEGORY":
                                 category = new CATEGORY();
                                 category.NAME = lineArray[2].Replace('~', ' ');
@@ -3418,74 +3413,7 @@ namespace IBMConsultantTool
                                         MessageBox.Show("Add BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
-                                else if (lineArray[2] == "GROUP")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetInitiative(lineArray[5].Replace('~', ' '), out initiative))
-                                            {
-                                                bom = new BOM();
-                                                bom.INITIATIVE = initiative;
-                                                if (!AddBOM(bom, grp))
-                                                {
-                                                    MessageBox.Show("Add BOM Instruction Failed: BOM already exists\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add BOM Instruction Failed: Initiative does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add BOM Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
-
-                                else if (lineArray[2] == "CONTACT")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
-                                            {
-                                                if (GetInitiative(lineArray[6].Replace('~', ' '), out initiative))
-                                                {
-                                                    bom = new BOM();
-                                                    bom.INITIATIVE = initiative;
-                                                    if (!AddBOM(bom, contact))
-                                                    {
-                                                        MessageBox.Show("Add BOM Instruction Failed: BOM already exists\n\n" + line, "Error");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Add BOM Instruction Failed: Initiative does not exist\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add BOM Instruction Failed: Contact does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add BOM Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
+                                
                                 else
                                 {
                                     MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
@@ -3497,7 +3425,7 @@ namespace IBMConsultantTool
                                 {
                                     if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
                                     {
-                                        if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
+                                        if (GetContact(Convert.ToInt32(lineArray[5]), out contact))
                                         {
                                             if (GetCUPE(lineArray[6].Replace('~', ' '), client, out cupe))
                                             {
@@ -3515,7 +3443,7 @@ namespace IBMConsultantTool
                                         }
                                         else
                                         {
-                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Contact does not exist\n\n" + line, "Error");
+                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Contact ID does not exist\n\n" + line, "Error");
                                         }
                                     }
                                     else
@@ -3561,70 +3489,7 @@ namespace IBMConsultantTool
                                         MessageBox.Show("Add CUPE Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
-                                else if (lineArray[2] == "GROUP")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetCUPEQuestion(lineArray[5].Replace('~', ' '), out cupeQuestion))
-                                            {
-                                                if(!AddCUPEToGroup(cupeQuestion.NAME.TrimEnd(), grp))
-                                                {
-                                                    MessageBox.Show("Add CUPEResponse Instruction Failed: CUPE already exists\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add CUPEResponse Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add CUPEResponse Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
-
-                                else if (lineArray[2] == "CONTACT")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
-                                            {
-                                                if (GetCUPEQuestion(lineArray[6].Replace('~', ' '), out cupeQuestion))
-                                                {
-                                                    if (!AddCUPEToContact(cupeQuestion.NAME.TrimEnd(), contact))
-                                                    {
-                                                        MessageBox.Show("Add CupeResponse Instruction Failed: Cupe already exists\n\n" + line, "Error");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Add CUPEResponse Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add CUPEResponse Instruction Failed: Contact does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add CUPEResponse Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
+                                
                                 else
                                 {
                                     MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
@@ -3701,74 +3566,7 @@ namespace IBMConsultantTool
                                         MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
-                                else if (lineArray[2] == "GROUP")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetITCAPQuestion(lineArray[5].Replace('~', ' '), out itcapQuestion))
-                                            {
-                                                itcap = new ITCAP();
-                                                itcap.ITCAPQUESTION = itcapQuestion;
-                                                if (!AddITCAPToGroup(itcap, grp))
-                                                {
-                                                    MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add ITCAP Instruction Failed: ITCAPQuestion does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add ITCAP Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
-
-                                else if (lineArray[2] == "CONTACT")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetContact(lineArray[5].Replace('~', ' '), grp, out contact))
-                                            {
-                                                if (GetITCAPQuestion(lineArray[6].Replace('~', ' '), out itcapQuestion))
-                                                {
-                                                    itcap = new ITCAP();
-                                                    itcap.ITCAPQUESTION = itcapQuestion;
-                                                    if(!AddITCAPToContact(itcap, contact))
-                                                    {
-                                                        MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Add ITCAP Instruction Failed: ITCAPPQuestion does not exist\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add ITCAP Instruction Failed: Contact does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add ITCAP Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
+                                
                                 else
                                 {
                                     MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
@@ -3997,27 +3795,15 @@ namespace IBMConsultantTool
                                     MessageBox.Show("Delete CUPE Instruction Failed: Client does not exist\n\n" + line, "Error");
                                 }
                                 break;
-                            case "CUPERESPONSE":
+                            case "CONTACTS":
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetGroup(lineArray[3].Replace('~', ' '), client, out grp))
+                                    foreach (GROUP grpToClear in client.GROUP)
                                     {
-                                        if (GetContact(lineArray[4].Replace('~', ' '), grp, out contact))
+                                        foreach (CONTACT contactToDelete in grpToClear.CONTACT)
                                         {
-                                            List<CUPERESPONSE> responseList = contact.CUPERESPONSE.ToList();
-                                            foreach (CUPERESPONSE response in responseList)
-                                            {
-                                                dbo.DeleteObject(response);
-                                            }
+                                            dbo.DeleteObject(contactToDelete);
                                         }
-                                        else
-                                        {
-                                            MessageBox.Show("Delete CUPEResponse Instruction Failed: Contact does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Delete CUPEResponse Instruction Failed: Group does not exist\n\n" + line, "Error");
                                     }
                                 }
                                 else

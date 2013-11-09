@@ -314,14 +314,12 @@ namespace IBMConsultantTool
 
         private void addPersonButton_Click(object sender, EventArgs e)
         {
-            Person person = new Person();
+            Person person = new Person(persons.Count);
             persons.AddLast(person);
             currentPerson = person;
             person.Owner = this;
-            person.Name =  "Person " + persons.Count.ToString();
-            personNameLabel.Text = person.Name;
+            personNameLabel.Text = "Person " + persons.Count.ToString();
             person.PopulateQuestionData();
-            person.ID = persons.Count - 1;
             ResetQuestions();
             personListBox.Items.Add(person);
             
@@ -400,7 +398,7 @@ namespace IBMConsultantTool
 
         private void ChangePerson()
         {
-            personNameLabel.Text = currentPerson.Name;
+            personNameLabel.Text = "Person " + currentPerson.ID.ToString();
             personListBox.SelectedIndex = currentPerson.ID;
             foreach (CupeQuestion question in mainQuestions)
             {

@@ -148,17 +148,8 @@ namespace IBMConsultantTool
 
         public float Criticality
         {
-            get
-            {
-                return criticality;
-            }
-            set
-            {
-                criticality = value;
-                Console.WriteLine("here");
-                CalculateTotalBOMScore();
-
-            }
+            get { return criticality;     }
+            set { criticality = value; CalculateTotalBOMScore();}
         }
 
         public float Effectiveness

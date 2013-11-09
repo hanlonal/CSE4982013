@@ -29,20 +29,24 @@ namespace IBMConsultantTool
         private bool visible = false;
         protected bool flagged = false;
 
-        protected int numOnes = 0;
-        protected int numTwos = 0;
-        protected int numThrees = 0;
-        protected int numFours = 0;
-        protected int numFives = 0;
-        protected int numZeros = 0;
+        protected int asisnumOnes = 0;
+        protected int asisnumTwos = 0;
+        protected int asisnumThrees = 0;
+        protected int asisnumFours = 0;
+        protected int asisnumFives = 0;
+        protected int asisnumZeros = 0;
+
+        protected int tobeNumZeros = 0;
+        protected int tobeNumOnes = 0;
+        protected int tobeNumTwos = 0;
+        protected int tobeNumThrees = 0;
+        protected int tobeNumFours = 0;
+        protected int tobeNumFives = 0;
 
 
         private string capabilityGapText;
 
-
         private string prioritizedGap;
-
-
 
         protected float capabilityGap = 0;
 
@@ -106,47 +110,83 @@ namespace IBMConsultantTool
 
             }
         }
-        public int NumZeros
+        public int AsIsNumZeros
         {
-            get { return numZeros; }
-            set { numZeros = value; this.NotifyPropertyChanged("NumZeros"); }
+            get { return asisnumZeros; }
+            set { asisnumZeros = value; this.NotifyPropertyChanged("AsIsNumZeros"); }
         }
-        public int NumOnes
+        public int AsIsNumOnes
         {
-            get { return numOnes; }
-            set { numOnes = value; this.NotifyPropertyChanged("NumOnes"); }
+            get { return asisnumOnes; }
+            set { asisnumOnes = value; this.NotifyPropertyChanged("AsIsNumOnes"); }
         }
-        public int NumTwos
+        public int AsIsNumTwos
         {
-            get { return numTwos; }
-            set { numTwos = value; this.NotifyPropertyChanged("NumTwos"); }
+            get { return asisnumTwos; }
+            set { asisnumTwos = value; this.NotifyPropertyChanged("AsIsNumTwos"); }
         }
-        public int NumThrees
+        public int AsIsNumThrees
         {
-            get { return numThrees; }
-            set { numThrees = value; this.NotifyPropertyChanged("NumThrees"); }
+            get { return asisnumThrees; }
+            set { asisnumThrees = value; this.NotifyPropertyChanged("AsIsNumThrees"); }
         }
-        public int NumFours
+        public int AsIsNumFours
         {
-            get { return numFours; }
-            set { numFours = value; this.NotifyPropertyChanged("NumFours"); }
+            get { return asisnumFours; }
+            set { asisnumFours = value; this.NotifyPropertyChanged("AsIsNumFours"); }
         }
-        public int NumFives
+        public int AsIsNumFives
         {
-            get { return numFives; }
-            set { numFives = value; this.NotifyPropertyChanged("NumFives"); }
+            get { return asisnumFives; }
+            set { asisnumFives = value; this.NotifyPropertyChanged("AsIsNumFives"); }
+        }
+
+        public int TobeNumZeros
+        {
+            get { return tobeNumZeros; }
+            set { tobeNumZeros = value; this.NotifyPropertyChanged("ToBeNumZeros"); }
+        }
+
+        public int TobeNumOnes
+        {
+            get { return tobeNumOnes; }
+            set { tobeNumOnes = value; this.NotifyPropertyChanged("ToBeNumOnes"); }
+        }
+
+        public int TobeNumTwos
+        {
+            get { return tobeNumTwos; }
+            set { tobeNumTwos = value; this.NotifyPropertyChanged("ToBeNumTwos"); }
+        }
+
+        public int TobeNumThrees
+        {
+            get { return tobeNumThrees; }
+            set { tobeNumThrees = value; this.NotifyPropertyChanged("ToBeNumThrees"); }
+        }
+
+        public int TobeNumFours
+        {
+            get { return tobeNumFours; }
+            set { tobeNumFours = value; this.NotifyPropertyChanged("ToBeNumFours"); }
+        }
+
+        public int TobeNumFives
+        {
+            get { return tobeNumFives; }
+            set { tobeNumFives = value; this.NotifyPropertyChanged("ToBeNumFives"); }
         }
 
 
         public float AsisStandardDeviation
         {
             get { return asisStandardDeviation; }
-            set { asisStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+            set { asisStandardDeviation = value; this.NotifyPropertyChanged("AsisStandardDeviation"); }
         }
         public float TobeStandardDeviation
         {
             get { return tobeStandardDeviation; }
-            set { tobeStandardDeviation = value; this.NotifyPropertyChanged("AsIsScore"); }
+            set { tobeStandardDeviation = value; this.NotifyPropertyChanged("TobeStandardDeviation"); }
         }
 
 

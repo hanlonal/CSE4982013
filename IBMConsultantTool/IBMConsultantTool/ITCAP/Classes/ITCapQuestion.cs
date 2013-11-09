@@ -17,9 +17,13 @@ namespace IBMConsultantTool
         private List<float> ToBeanswersToAttributes = new List<float>();
         private List<float> asIsAnswers = new List<float>();
         private List<float> toBeAnswers = new List<float>();
-        private int numAnswers = 0;
+        private int numasIsAnswers = 0;
+        private int numtoBeAnswers = 0;
 
-        bool highStandardDeviation = false;
+        bool asishighStandardDeviation = false;
+        bool tobehighStandardDeviation = false;
+
+
 
         private Dictionary<int, int> answers = new Dictionary<int, int>();
         private static float standardDeviationThreshold = 1.00f;
@@ -45,24 +49,22 @@ namespace IBMConsultantTool
         {
             asIsAnswers.Add(num);
             asIsScore = asIsAnswers.Average();
-            numAnswers++;
+            numasIsAnswers++;
             if (num == 0)
-                NumZeros++;
-            if (num == 1)
-            {
-                NumOnes++;
-            }
+                AsIsNumZeros++;
+            if (num == 1)            
+               AsIsNumOnes++;            
             else if (num == 2)
-                NumTwos++;
+                AsIsNumTwos++;
             else if (num == 3)
-                NumThrees++;
+                AsIsNumThrees++;
             else if (num == 4)
-                NumFours++;
+                AsIsNumFours++;
             else if (num == 5)
-                NumFives++;
+                AsIsNumFives++;
 
             StandardAsIsDeviation();
-            asIsScore = (float)(((1 * numOnes) + (2 * numTwos) + (3 * numThrees) + (4 * numFours) + (5 * numFives)) / (float)numAnswers);
+            asIsScore = (float)(((1 * asisnumOnes) + (2 * asisnumTwos) + (3 * asisnumThrees) + (4 * asisnumFours) + (5 * asisnumFives)) / (float)numasIsAnswers);
 
             decimal asIs = Convert.ToDecimal(asIsScore);
             asIs = Math.Round(asIs, 2);
@@ -74,42 +76,60 @@ namespace IBMConsultantTool
         {
             toBeAnswers.Add(num);
             toBeScore = toBeAnswers.Average();
+            numtoBeAnswers++;
+
+            if (num == 0)
+                TobeNumZeros++;
+            if (num == 1)
+                TobeNumOnes++;            
+            else if (num == 2)
+                TobeNumTwos++;
+            else if (num == 3)
+                TobeNumThrees++;
+            else if (num == 4)
+                TobeNumFours++;
+            else if (num == 5)
+                TobeNumFives++;
+
             StandardToBeDeviation();
+            toBeScore = (float)(((1 * tobeNumOnes) + (2 * tobeNumTwos) + (3 * tobeNumThrees) + (4 * tobeNumFours) + (5 * tobeNumFives)) / (float)numtoBeAnswers);
             owner.CalculateToBeAverage();
 
             decimal toBe = Convert.ToDecimal(toBeScore);
             toBe = Math.Round(toBe, 2);
             toBeScore = (float)toBe;
+
+            owner.CalculateToBeAverage();
         }
 
         private void StandardAsIsDeviation()
         {
             float dev = 0;            
-            if (numAnswers > 0)
+            if (numasIsAnswers > 0)
             {
                 float sum = 0;
-                for (int i = 0; i < numOnes; i++)
+                for (int i = 0; i < asisnumOnes; i++)
                 {
                     sum += (float)Math.Pow(1 - asIsScore, 2);
                 }
-                for (int i = 0; i < numTwos; i++)
+                for (int i = 0; i < asisnumTwos; i++)
                 {
                     sum += (float)Math.Pow(2 - asIsScore, 2);
                 }
-                for (int i = 0; i < numThrees; i++)
+                for (int i = 0; i < asisnumThrees; i++)
                 {
                     sum += (float)Math.Pow(3 - asIsScore, 2);
                 }
-                for (int i = 0; i < numFours; i++)
+                for (int i = 0; i < asisnumFours; i++)
                 {
                     sum += (float)Math.Pow(4 - asIsScore, 2);
                 }
-                for (int i = 0; i < numFives; i++)
+                for (int i = 0; i < asisnumFives; i++)
                 {
                     sum += (float)Math.Pow(5 - asIsScore, 2);
                 }
 
-                dev = (float)Math.Sqrt((sum) / (numAnswers - 1));
+                dev = (float)Math.Sqrt((sum) / (numasIsAnswers - 1));
                 asisStandardDeviation = dev;
 
                 // Make two decimals
@@ -125,14 +145,14 @@ namespace IBMConsultantTool
                 {
                     owner.Flagged = true;
                     flagged = true;
-                    highStandardDeviation = true;
+                    asishighStandardDeviation = true;
                 }
                 else
                 {
-                    
-                    flagged = false;
+                    if(!tobehighStandardDeviation)
+                         flagged = false;
                     owner.CheckFlags();
-                    highStandardDeviation = false;
+                    asishighStandardDeviation = false;
                 }
             }
 
@@ -141,16 +161,32 @@ namespace IBMConsultantTool
 
         private void StandardToBeDeviation()
         {
-            float dev = 0;
-            float sum = 0;
-            if (toBeAnswers.Count > 0)
+            float dev = 0;            
+            if (numtoBeAnswers > 0)
             {
-                sum = (float)toBeAnswers.Sum(d => Math.Pow(d - toBeScore, 2));
-
-                dev = (float)Math.Sqrt((sum) / (toBeAnswers.Count - 1));
-            }
-
-            tobeStandardDeviation = dev;
+                float sum = 0;
+                for (int i = 0; i < tobeNumOnes; i++)
+                {
+                    sum += (float)Math.Pow(1 - toBeScore, 2);
+                }
+                for (int i = 0; i < tobeNumTwos; i++)
+                {
+                    sum += (float)Math.Pow(2 - toBeScore, 2);
+                }
+                for (int i = 0; i < tobeNumThrees; i++)
+                {
+                    sum += (float)Math.Pow(3 - toBeScore, 2);
+                }
+                for (int i = 0; i < tobeNumFours; i++)
+                {
+                    sum += (float)Math.Pow(4 - toBeScore, 2);
+                }
+                for (int i = 0; i < tobeNumFives; i++)
+                {
+                    sum += (float)Math.Pow(5 - toBeScore, 2);
+                }
+                dev = (float)Math.Sqrt((sum) / (numtoBeAnswers - 1));
+                tobeStandardDeviation = dev;
 
             // Make two decimals
             if (sum > 0)
@@ -159,11 +195,21 @@ namespace IBMConsultantTool
                 toBedev = Math.Round(toBedev, 2);
                 tobeStandardDeviation = (float)toBedev;
             }
+                owner.CalculateToBeAverage();
 
-            if (tobeStandardDeviation > standardDeviationThreshold)
-            {
-                //owner.Flagged = true;
-                //Flagged = true;
+                if (tobeStandardDeviation > standardDeviationThreshold)
+                {
+                    owner.Flagged = true;                    
+                    flagged = true;
+                    tobehighStandardDeviation = true;
+                }
+                else
+                {
+                    if(!asishighStandardDeviation)
+                        flagged = false;
+                    owner.CheckFlags();
+                    tobehighStandardDeviation = false;
+                }
             }
             
 
@@ -172,8 +218,8 @@ namespace IBMConsultantTool
 
         public override float CalculateAsIsAverage()
         {
-            numAnswers = numOnes + numTwos + numThrees + numFours + numFives + numZeros;
-            asIsScore = (float)(((1 * numOnes) + (2 * numTwos) + (3 * numThrees) + (4 * numFours) + (5 * numFives)) / (float)numAnswers);
+            numasIsAnswers = asisnumOnes + asisnumTwos + asisnumThrees + asisnumFours + asisnumFives + asisnumZeros;
+            asIsScore = (float)(((1 * asisnumOnes) + (2 * asisnumTwos) + (3 * asisnumThrees) + (4 * asisnumFours) + (5 * asisnumFives)) / (float)numasIsAnswers);
 
             StandardAsIsDeviation();
 
@@ -186,7 +232,16 @@ namespace IBMConsultantTool
 
         public override float CalculateToBeAverage()
         {
-            return 0;
+            numtoBeAnswers = tobeNumOnes + tobeNumTwos + tobeNumThrees + tobeNumFours + tobeNumFives + tobeNumZeros;
+            toBeScore = (float)(((1 * tobeNumOnes) + (2 * tobeNumTwos) + (3 * tobeNumThrees) + (4 * tobeNumFours) + (5 * tobeNumFives)) / (float)numtoBeAnswers);
+
+            StandardToBeDeviation();
+
+            decimal toBe = Convert.ToDecimal(toBeScore);
+            toBe = Math.Round(toBe, 2);
+            toBeScore = (float)toBe;
+
+            return toBeScore;
         }
         public override void CalculateCapabilityGap()
         {
@@ -213,10 +268,16 @@ namespace IBMConsultantTool
 
             }
         }
-        public bool HighStandardDeviation
+        public bool AsIsHighStandardDeviation
         {
-            get { return highStandardDeviation; }
-            set { highStandardDeviation = value; }
+            get { return asishighStandardDeviation; }
+            set { asishighStandardDeviation = value; }
+        }
+
+        public bool TobehighStandardDeviation
+        {
+            get { return tobehighStandardDeviation; }
+            set { tobehighStandardDeviation = value; }
         }
         public Capability Owner
         {

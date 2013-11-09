@@ -24,10 +24,9 @@ namespace IBMConsultantTool
         public CupeData cupeDataHolder;
 
         //EmployeeType type = new EmployeeType();
-        string name;
         CupeForm owner;
-        string clientName;
         string email;
+        string clientName;
         int id;
 
 
@@ -46,9 +45,10 @@ namespace IBMConsultantTool
         float CUPECurrentScore;
 
 
-        public Person()
+        public Person(int theID)
         {
-           // PopulateQuestionData();
+            id = theID;
+            cupeDataHolder = new CupeData(id);
         }
         public void ClearCurrentValues()
         {
@@ -162,7 +162,7 @@ namespace IBMConsultantTool
 
         public override string ToString()
         {
-            return name;
+            return "Person " + id.ToString();
         }
 
         public List<CupeQuestionData> Questions
@@ -191,18 +191,6 @@ namespace IBMConsultantTool
             set
             {
                 id = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
             }
         }
 

@@ -25,7 +25,7 @@ namespace IBMConsultantTool
             okButton.Click +=new EventHandler(okButton_Click);
             cancelButton.Click +=new EventHandler(cancelButton_Click);
             startDateText.Click +=new EventHandler(startDateText_Click);
-
+            //countryComboBox.Items.AddRange(ClientDataControl.GetCoutnryNames());
             RegionComboBox.Items.AddRange(ClientDataControl.GetRegionNames());
             BusinessTypeComboBox.Items.AddRange(ClientDataControl.GetBusinessTypeNames());
         }
@@ -39,7 +39,7 @@ namespace IBMConsultantTool
             Client client = new Client();
 
             client.Name = clientNameTextBox.Text;
-            client.Location = locationTextBox.Text;
+            client.Location = countryComboBox.Text;
             client.Region = RegionComboBox.Text;
             client.StartDate = selectedTime;
             client.BusinessType = BusinessTypeComboBox.Text;
