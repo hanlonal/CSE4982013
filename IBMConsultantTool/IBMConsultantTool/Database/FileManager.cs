@@ -102,11 +102,13 @@ namespace IBMConsultantTool
         //Used by ClientDataControl
         public override Client AddClient(Client client)
         {
+            throw new NotImplementedException();
+    /*
             XElement clientEnt = new XElement("CLIENT");
 
             clientEnt.Add(new XElement("NAME", client.Name));
 
-            clientEnt.Add(new XElement("LOCATION", client.Location));
+            clientEnt.Add(new XElement("COUNTRY", client.Country));
 
             XElement region;
             try
@@ -150,12 +152,14 @@ namespace IBMConsultantTool
             clientEnt.Add(new XElement("ITCAPCOMPLETE", "N"));
 
             client.EntityObject = clientEnt;
-            return client;
+            return client;*/
         }
 
         //Used by ClientDataControl
         public override Client LoadClient(string clientName)
         {
+            throw new NotImplementedException();
+            /*
             XElement clientEnt;
 
             if (!GetClient(clientName, out clientEnt))
@@ -174,7 +178,7 @@ namespace IBMConsultantTool
             client.BomCompleted = clientEnt.Element("BOMCOMPLETE").Value == "Y";
             client.CupeCompleted = clientEnt.Element("CUPECOMPLETE").Value == "Y";
             client.ITCapCompleted = clientEnt.Element("ITCAPCOMPLETE").Value == "Y";
-            return client;
+            return client;*/
         }
 
         public override List<string> GetObjectivesFromClientBOM(object clientObj)
@@ -243,9 +247,61 @@ namespace IBMConsultantTool
 
             XElement region = new XElement("REGION");
             region.Add(new XElement("NAME", regName));
+            region.Add(new XElement("COUNTRIES"));
             dbo.Element("REGIONS").Add(region);
 
             changeLog.Add("ADD REGION " + regName.Replace(' ', '~'));
+
+            return true;
+        }
+        #endregion
+
+        #region Country
+        public override List<string> GetCountryNames(string regionName = "N/A")
+        {
+            if (regionName == "N/A")
+            {
+                return (from reg in dbo.Element("REGIONS").Elements("REGION")
+                        from ent in reg.Element("COUNTRIES").Elements("COUNTRY")
+                        select ent.Element("NAME").Value).ToList();
+            }
+
+            else
+            {
+                return (from reg in dbo.Element("REGIONS").Elements("REGION")
+                        where reg.Element("NAME").Value == regionName
+                        from ent in reg.Element("COUNTRIES").Elements("COUNTRY")
+                        select ent.Element("NAME").Value).ToList();
+            }
+        }
+        public override bool AddCountry(string countryName, string regionName)
+        {
+            //If already in DB, return false
+            XElement region;
+            try
+            {
+                region = (from ent in dbo.Element("REGIONS").Elements("REGION")
+                          where ent.Element("NAME").Value == regionName
+                          select ent).Single();
+            }
+
+            catch
+            {
+                return false;
+            }
+
+            if ((from ent in region.Element("COUNTRIES").Elements("COUNTRY")
+                 where ent.Element("NAME").Value == countryName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            XElement country = new XElement("COUNTRY");
+            country.Add(new XElement("NAME", countryName));
+            region.Element("COUNTRIES").Add(country);
+
+            changeLog.Add("ADD COUNTRY " + countryName.Replace(' ', '~') + " " + regionName.Replace(' ', '~'));
 
             return true;
         }

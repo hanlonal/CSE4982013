@@ -8,7 +8,7 @@ namespace IBMConsultantTool
     public class Client
     {
         private string name;
-        private string location;
+        private string country;
         private string region;
         private string businessType;
         private DateTime startDate;
@@ -34,10 +34,10 @@ namespace IBMConsultantTool
             get { return name; }
             set { name = value; }
         }
-        public string Location
+        public string Country
         {
-            get { return location; }
-            set { location = value; }
+            get { return country; }
+            set { country = value; }
         }
         public string Region
         {

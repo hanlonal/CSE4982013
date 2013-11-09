@@ -75,8 +75,6 @@ namespace IBMConsultantTool
             CLIENT clientEnt = new CLIENT();
             
             clientEnt.NAME = client.Name.TrimEnd();
-            
-            clientEnt.LOCATION = client.Location;
 
             string regionName = client.Region;
             REGION region;
@@ -92,7 +90,22 @@ namespace IBMConsultantTool
                 region.NAME = client.Region;
                 dbo.AddToREGION(region);
             }
-            clientEnt.REGION = region;
+
+            string countryName = client.Country;
+            COUNTRY country;
+            try
+            {
+                country = (from ent in region.COUNTRY
+                          where ent.NAME.TrimEnd() == countryName
+                          select ent).Single();
+            }
+            catch
+            {
+                country = new COUNTRY();
+                country.NAME = client.Country;
+                country.REGION = region;
+                dbo.AddToCOUNTRY(country);
+            }
 
             string busTypeName = client.BusinessType;
             BUSINESSTYPE busType;
@@ -137,8 +150,8 @@ namespace IBMConsultantTool
             Client client = new Client();
 
             client.Name = clientEnt.NAME;
-            client.Location = clientEnt.LOCATION.TrimEnd();
-            client.Region = clientEnt.REGION.NAME.TrimEnd();
+            client.Country = clientEnt.COUNTRY.NAME.TrimEnd();
+            client.Region = clientEnt.COUNTRY.REGION.NAME.TrimEnd();
             client.BusinessType = clientEnt.BUSINESSTYPE.NAME.TrimEnd();
             client.StartDate = clientEnt.STARTDATE;
             client.EntityObject = clientEnt;
@@ -203,6 +216,54 @@ namespace IBMConsultantTool
             REGION region = new REGION();
             region.NAME = regName;
             dbo.AddToREGION(region);
+
+            return true;
+        }
+        #endregion
+
+        #region Country
+        public override List<string> GetCountryNames(string regionName = "N/A")
+        {
+            if (regionName == "N/A")
+            {
+                return (from ent in dbo.COUNTRY
+                        select ent.NAME.TrimEnd()).ToList();
+            }
+
+            else
+            {
+                return (from ent in dbo.COUNTRY
+                        where ent.REGION.NAME.TrimEnd() == regionName
+                        select ent.NAME.TrimEnd()).ToList();
+            }
+        }
+        public override bool AddCountry(string countryName, string regionName)
+        {
+            //If already in DB, return false
+            REGION region;
+            try
+            {
+                region = (from ent in dbo.REGION
+                          where ent.NAME.TrimEnd() == regionName
+                          select ent).Single();
+            }
+
+            catch
+            {
+                return false;
+            }
+
+            if ((from ent in region.COUNTRY
+                 where ent.NAME.TrimEnd() == countryName
+                 select ent).Count() != 0)
+            {
+                return false;
+            }
+
+            COUNTRY country = new COUNTRY();
+            country.NAME = countryName;
+            country.REGION = region;
+            dbo.AddToCOUNTRY(country);
 
             return true;
         }
@@ -2222,7 +2283,8 @@ namespace IBMConsultantTool
                     ita = new InitiativeTrendAnalysis();
                     client = bom.CLIENT;
                     ita.Date = client.STARTDATE;
-                    ita.Region = client.REGION.NAME.TrimEnd();
+                    ita.Region = client.COUNTRY.REGION.NAME.TrimEnd();
+                    ita.Country = client.COUNTRY.NAME.TrimEnd();
                     ita.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
                     ita.Country = ita.Region;
                     ita.Effectiveness = bom.EFFECTIVENESS.Value;
@@ -2285,7 +2347,8 @@ namespace IBMConsultantTool
                     itata = new ITAttributeTrendAnalysis();
                     client = itcap.CLIENT;
                     itata.Date = client.STARTDATE;
-                    itata.Region = client.REGION.NAME.Trim();
+                    itata.Country = client.COUNTRY.NAME.Trim();
+                    itata.Region = client.COUNTRY.REGION.NAME.TrimEnd();
                     itata.BusinessType = client.BUSINESSTYPE.NAME.Trim();
                     itata.Country = itata.Region;
                     itata.AsisScore = itcap.ASIS.Value;
@@ -2347,9 +2410,10 @@ namespace IBMConsultantTool
                     cqta = new CUPEQuestionTrendAnalysis();
                     client = cr.CONTACT.GROUP.CLIENT;
                     cqta.Date = client.STARTDATE;
-                    cqta.Region = client.REGION.NAME.Trim();
-                    cqta.BusinessType = client.BUSINESSTYPE.NAME.Trim();
-                    cqta.Country = cqta.Region.Trim();
+                    cqta.Region = client.COUNTRY.REGION.NAME.TrimEnd();
+                    cqta.Country = client.COUNTRY.NAME.TrimEnd();
+                    cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    cqta.Country = cqta.Region.TrimEnd();
                     cqta.CupeType = cr.CONTACT.GROUP.NAME;
                     switch (cr.CURRENT)
                     {
@@ -2438,7 +2502,8 @@ namespace IBMConsultantTool
                     cta = new CapabilityTrendAnalysis();
                     client = capGapInfo.CLIENT;
                     cta.Date = client.STARTDATE;
-                    cta.Region = client.REGION.NAME.TrimEnd();
+                    cta.Country = client.COUNTRY.NAME.TrimEnd();
+                    cta.Region = client.COUNTRY.REGION.NAME.TrimEnd();
                     cta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
                     cta.Country = cta.Region;
                     cta.CapabilityGap = capGapInfo.GAP.Value;
@@ -2536,8 +2601,8 @@ namespace IBMConsultantTool
             if (GetInitiative(iniName, out initiative))
             {
                 return (from ent in initiative.BOM
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regionName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regionName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2572,8 +2637,8 @@ namespace IBMConsultantTool
             if (GetInitiative(iniName, out initiative))
             {
                 return (from ent in initiative.BOM
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
@@ -2593,8 +2658,8 @@ namespace IBMConsultantTool
             if (GetCUPEQuestion(cqName, out cupeQuestion))
             {
                 return (from cupe in cupeQuestion.CUPE
-                        where cupe.CLIENT.REGION != null &&
-                              cupe.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where cupe.CLIENT.COUNTRY != null &&
+                              cupe.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               cupe.CLIENT.BUSINESSTYPE != null &&
                               cupe.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               cupe.CLIENT.STARTDATE > fromDate &&
@@ -2635,8 +2700,8 @@ namespace IBMConsultantTool
             if (GetCUPEQuestion(cqName, out cupeQuestion))
             {
                 return (from cupe in cupeQuestion.CUPE
-                        where cupe.CLIENT.REGION != null &&
-                              cupe.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where cupe.CLIENT.COUNTRY != null &&
+                              cupe.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               cupe.CLIENT.STARTDATE > fromDate &&
                               cupe.CLIENT.STARTDATE < toDate
                         from ent in cupe.CUPERESPONSE
@@ -2695,8 +2760,8 @@ namespace IBMConsultantTool
                       select ent).Single();
 
                 return (from ent in cq.CUPE
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regionName
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regionName
                         select ent).ToList();
 
             }
@@ -2737,8 +2802,8 @@ namespace IBMConsultantTool
                       select ent).Single();
 
                 return (from ent in cq.CUPE
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
                         select ent).ToList();
@@ -2782,8 +2847,8 @@ namespace IBMConsultantTool
                         select ent).Single();
 
                 return (from ent in itcq.ITCAP
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regionName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regionName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2828,8 +2893,8 @@ namespace IBMConsultantTool
                         select ent).Single();
 
                 return (from ent in itcq.ITCAP
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
@@ -2865,8 +2930,8 @@ namespace IBMConsultantTool
             if (GetCapability(capName, out capability))
             {
                 return (from ent in capability.CAPABILITYGAPINFO
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2901,8 +2966,8 @@ namespace IBMConsultantTool
             if (GetCapability(capName, out capability))
             {
                 return (from ent in capability.CAPABILITYGAPINFO
-                        where ent.CLIENT.REGION != null &&
-                              ent.CLIENT.REGION.NAME.TrimEnd() == regName &&
+                        where ent.CLIENT.COUNTRY != null &&
+                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
                               ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
@@ -2950,7 +3015,8 @@ namespace IBMConsultantTool
                 temp.Add(new XElement("NAME", client.NAME.TrimEnd()));
                 temp.Add(new XElement("LOCATION", client.LOCATION.TrimEnd()));
                 temp.Add(new XElement("STARTDATE", client.STARTDATE.ToString()));
-                temp.Add(new XElement("REGION", client.REGION.NAME.TrimEnd()));
+                temp.Add(new XElement("COUNTRY", client.COUNTRY.NAME.TrimEnd()));
+                temp.Add(new XElement("REGION", client.COUNTRY.REGION.NAME.TrimEnd()));
                 temp.Add(new XElement("BUSINESSTYPE", client.BUSINESSTYPE.NAME.TrimEnd()));
                 temp.Add(new XElement("BOMCOMPLETE", client.BOMCOMPLETE));
                 temp.Add(new XElement("CUPECOMPLETE", client.CUPECOMPLETE));
@@ -3141,12 +3207,22 @@ namespace IBMConsultantTool
             }
             root.Add(clientElement);
 
-            List<string> regList = GetRegionNames();
+            List<REGION> regList = dbo.REGION.ToList();
             XElement regElement = new XElement("REGIONS");
-            foreach (string regName in regList)
+            foreach (REGION region in regList)
             {
                 XElement tempReg = new XElement("REGION");
-                tempReg.Add(new XElement("NAME", regName));
+                tempReg.Add(new XElement("NAME", region.NAME.TrimEnd()));
+
+                XElement counElement = new XElement("COUNTRIES");
+                foreach (COUNTRY country in region.COUNTRY)
+                {
+                    XElement tempCoun = new XElement("COUNTRY");
+                    tempCoun.Add(new XElement("NAME", country.NAME.TrimEnd()));
+                    counElement.Add(tempCoun);
+                }
+                tempReg.Add(counElement);
+
                 regElement.Add(tempReg);
             }
             root.Add(regElement);
@@ -3257,6 +3333,7 @@ namespace IBMConsultantTool
 
             CLIENT client;
             REGION region;
+            COUNTRY country;
             BUSINESSTYPE busType;
             GROUP grp;
             CONTACT contact;
@@ -3300,7 +3377,7 @@ namespace IBMConsultantTool
                                 client.NAME = lineArray[2].Replace('~', ' ');
                                 client.LOCATION = lineArray[3].Replace('~', ' ');
 
-                                string regionName = lineArray[4].Replace('~', ' ');
+                                string regionName = lineArray[5].Replace('~', ' ');
                                 try
                                 {
                                     region = (from ent in dbo.REGION
@@ -3313,11 +3390,25 @@ namespace IBMConsultantTool
                                     region.NAME = regionName;
                                     dbo.AddToREGION(region);
                                 }
-                                client.REGION = region;
 
-                                client.STARTDATE = DateTime.Parse(lineArray[5].Replace('~', ' '));
+                                string countryName = lineArray[4].Replace('~', ' ');
+                                try
+                                {
+                                    country = (from ent in dbo.COUNTRY
+                                              where ent.NAME.TrimEnd() == countryName
+                                              select ent).Single();
+                                }
+                                catch
+                                {
+                                    country = new COUNTRY();
+                                    country.NAME = lineArray[5];
+                                    country.REGION = region;
+                                    dbo.AddToREGION(region);
+                                }
 
-                                string busTypeName = lineArray[6].Replace('~', ' ');
+                                client.STARTDATE = DateTime.Parse(lineArray[6].Replace('~', ' '));
+
+                                string busTypeName = lineArray[7].Replace('~', ' ');
                                 try
                                 {
                                     busType = (from ent in dbo.BUSINESSTYPE
