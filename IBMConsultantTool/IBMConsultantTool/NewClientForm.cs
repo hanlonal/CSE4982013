@@ -44,11 +44,18 @@ namespace IBMConsultantTool
             client.StartDate = selectedTime;
             client.BusinessType = BusinessTypeComboBox.Text;
 
+            if (client.Name == null || client.Region == null || client.Country == null || client.StartDate == null || client.BusinessType == null)
+            {
+                MessageBox.Show("All fields required. Please check fields and try again.");
+                return;
+            }
+
             if (!ClientDataControl.NewClient(client))
             {
                 MessageBox.Show("Failed to create new client: " + client.Name + " already exists", "Error");
                 return;
             }
+
 
             owner.Refresh();
             this.Close();
@@ -89,5 +96,7 @@ namespace IBMConsultantTool
         {
 
         }
+
+
     }
 }
