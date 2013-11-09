@@ -1705,17 +1705,15 @@ namespace IBMConsultantTool
         /// </summary>
         /// <param name="cLIENTID">Initial value of the CLIENTID property.</param>
         /// <param name="nAME">Initial value of the NAME property.</param>
-        /// <param name="lOCATION">Initial value of the LOCATION property.</param>
         /// <param name="sTARTDATE">Initial value of the STARTDATE property.</param>
         /// <param name="bOMCOMPLETE">Initial value of the BOMCOMPLETE property.</param>
         /// <param name="cUPECOMPLETE">Initial value of the CUPECOMPLETE property.</param>
         /// <param name="iTCAPCOMPLETE">Initial value of the ITCAPCOMPLETE property.</param>
-        public static CLIENT CreateCLIENT(global::System.Int32 cLIENTID, global::System.String nAME, global::System.String lOCATION, global::System.DateTime sTARTDATE, global::System.String bOMCOMPLETE, global::System.String cUPECOMPLETE, global::System.String iTCAPCOMPLETE)
+        public static CLIENT CreateCLIENT(global::System.Int32 cLIENTID, global::System.String nAME, global::System.DateTime sTARTDATE, global::System.String bOMCOMPLETE, global::System.String cUPECOMPLETE, global::System.String iTCAPCOMPLETE)
         {
             CLIENT cLIENT = new CLIENT();
             cLIENT.CLIENTID = cLIENTID;
             cLIENT.NAME = nAME;
-            cLIENT.LOCATION = lOCATION;
             cLIENT.STARTDATE = sTARTDATE;
             cLIENT.BOMCOMPLETE = bOMCOMPLETE;
             cLIENT.CUPECOMPLETE = cUPECOMPLETE;
@@ -1776,30 +1774,6 @@ namespace IBMConsultantTool
         private global::System.String _NAME;
         partial void OnNAMEChanging(global::System.String value);
         partial void OnNAMEChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LOCATION
-        {
-            get
-            {
-                return _LOCATION;
-            }
-            set
-            {
-                OnLOCATIONChanging(value);
-                ReportPropertyChanging("LOCATION");
-                _LOCATION = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("LOCATION");
-                OnLOCATIONChanged();
-            }
-        }
-        private global::System.String _LOCATION;
-        partial void OnLOCATIONChanging(global::System.String value);
-        partial void OnLOCATIONChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
