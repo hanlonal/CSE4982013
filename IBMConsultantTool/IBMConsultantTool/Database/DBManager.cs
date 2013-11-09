@@ -555,6 +555,32 @@ namespace IBMConsultantTool
                 }
             }
         }
+
+        public override List<string> GetObjectivesFromCurrentClientBOM()
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+
+            List<string> allObjectiveNamesList =  (from bom in client.BOM
+                                                   select bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()).ToList();
+
+            List<string> result = new List<string>();
+            foreach(string objectiveName in allObjectiveNamesList)
+            {
+                if(!result.Contains(objectiveName))
+                {
+                    result.Add(objectiveName);
+                }
+            }
+
+            return result;
+        }
+        public override List<string> GetImperativesFromCurrentClientBOM()
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+
+            return (from bom in client.BOM
+                    select bom.INITIATIVE.NAME.TrimEnd()).ToList();
+        }
         #endregion
 
         #region ITCAP
