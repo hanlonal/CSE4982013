@@ -343,7 +343,7 @@ namespace IBMConsultantTool
             Person person;
             CupeData cupeData;
             int id = 1;
-            int questionIndex = 0;
+            int questionIndex = 1;
             foreach (CONTACT contact in busGrp.CONTACT)
             {
                 person = new Person(id);
@@ -358,8 +358,8 @@ namespace IBMConsultantTool
                                                                               });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.CURRENT[0]);
-                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.FUTURE[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.CURRENT[0]);
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.FUTURE[0]);
                     }
                 }
                 person.cupeDataHolder = cupeData;
@@ -381,8 +381,8 @@ namespace IBMConsultantTool
                                                                               });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.CURRENT[0]);
-                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.FUTURE[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.CURRENT[0]);
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.FUTURE[0]);
                     }
                 }
                 person.cupeDataHolder = cupeData;
