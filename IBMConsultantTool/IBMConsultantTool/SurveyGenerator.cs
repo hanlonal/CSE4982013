@@ -61,8 +61,19 @@ namespace IBMConsultantTool
             oPara1.Range.Text = "Business Optimization Mapping Survey";
             oPara1.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             oPara1.Range.Font.Bold = 1;
-            oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara1.Range.Font.Size = 18;
+            oPara1.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
             oPara1.Range.InsertParagraphAfter();
+
+            Word.Paragraph oPara3;
+            oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara3.Range.Text = "Please fill out this survey by stating your opinion on each of the listed business imperatives. Answers regarding the 'Effectiveness', 'Differentiation', and 'Criticality' for each imperative are required.";
+            oPara3.Range.Font.Size = 12;
+            oPara3.Range.Font.Bold = 1;
+            
+            oPara3.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
+            oPara3.Range.InsertParagraphAfter();
 
             //Insert a paragraph at the end of the document.
             //Word.Paragraph oPara2;
@@ -251,22 +262,33 @@ namespace IBMConsultantTool
             //Insert a paragraph at the beginning of the document.
             Word.Paragraph oPara1;
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara1.Range.Text = "CUPE Survey";
+            oPara1.Range.Text = "IT Provider Relationship Survey";
             oPara1.Range.Font.Bold = 1;
+            oPara1.Range.Font.Size = 18;
             oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara1.Format.LineSpacingRule = Word.WdLineSpacing.wdLineSpaceSingle;
             oPara1.Range.InsertParagraphAfter();
 
             Word.Paragraph oPara2;
             oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
-
+            oPara2.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara2.Range.Font.Size = 12;
             var inputText = oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormDropDown);
             inputText.DropDown.ListEntries.Add("Business");
             inputText.DropDown.ListEntries.Add("IT");
-            oPara2.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara2.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
             oPara2.Range.InsertBefore("Department: ");
             oPara2.Range.InsertParagraphAfter();
 
 
+            Word.Paragraph oPara3;
+            oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara3.Range.Font.Size = 12;
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara3.Range.Text = "Please fill out this survey. Answers for each question are located in the correlated drop down menu. Each question requires a 'Current' answer as well as a 'Future' answer.";
+            oPara3.Range.Font.Bold = 1;
+            oPara3.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
+            oPara3.Range.InsertParagraphAfter();
 
 
             Word.Table oTable;
@@ -417,11 +439,21 @@ namespace IBMConsultantTool
             //Insert a paragraph at the beginning of the document.
             Word.Paragraph oPara1;
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara1.Range.Text = "ITCap Survey";
+            oPara1.Range.Text = "IT Capability Assessment Survey";
             oPara1.Range.Font.Bold = 1;
             oPara1.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
+            oPara1.Format.LineSpacingRule = Word.WdLineSpacing.wdLineSpaceSingle;
             oPara1.Range.InsertParagraphAfter();
 
+            //Insert a paragraph at the beginning of the document.
+            Word.Paragraph oPara3;
+            oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara3.Range.Text = "Please fill out this survey. Answers for each question refer to the truthfulness of each question. An answer must be given for both 'Current' and 'Future' states. Comments regarding why you answered as so can be given in the comment box."; 
+            oPara3.Range.Font.Bold = 1;
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara3.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
+            oPara3.Range.InsertParagraphAfter();
 
 
 
@@ -436,13 +468,13 @@ namespace IBMConsultantTool
             oPara2.Range.InsertBefore("Department: ");
             oPara2.Range.InsertParagraphAfter();
 
-            Word.Paragraph oPara3;
-            oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara3.Range.Text = "5 = Completely True" + " : " + "2 to 4 = Partially True" + ":" + "1 = Not True";
+            Word.Paragraph oPara4;
+            oPara4 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara4.Range.Text = "5 = Completely True" + " : " + "2 to 4 = Partially True" + ":" + "1 = Not True";
 
-            oPara3.Range.Font.Bold = 1;
-            oPara3.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
-            oPara3.Range.InsertParagraphAfter();
+            oPara4.Range.Font.Bold = 1;
+            oPara4.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
+            oPara4.Range.InsertParagraphAfter();
 
             Word.Table oTable;
             Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
