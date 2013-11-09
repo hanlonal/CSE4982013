@@ -83,7 +83,7 @@ namespace IBMConsultantTool
         public static void LoadNewCUPE20(CUPETool cupeForm)
         {
             db.ClearCUPE(Client.EntityObject);
-            cupeQuestions = db.GetCUPEQuestionStringDataTen();
+            cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
 
             foreach (CupeQuestionStringData cqsd in cupeQuestions)
             {
@@ -98,7 +98,7 @@ namespace IBMConsultantTool
         public static void LoadNewCUPE10(CUPETool cupeForm)
         {
             db.ClearCUPE(Client.EntityObject);
-            cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
+            cupeQuestions = db.GetCUPEQuestionStringDataTen();
 
             foreach (CupeQuestionStringData cqsd in cupeQuestions)
             {

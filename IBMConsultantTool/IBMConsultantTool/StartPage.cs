@@ -45,7 +45,9 @@ namespace IBMConsultantTool
                 this.Close();
             }
             //this.Controls.Add(form);
-
+            clientNameLabel.Text = ClientDataControl.Client.Name;
+            clientTypeLabel.Text = ClientDataControl.Client.BusinessType;
+            dateStartedLabel.Text = ClientDataControl.Client.StartDate.ToString();
             
             
         }
@@ -56,8 +58,8 @@ namespace IBMConsultantTool
         }
         private void BindLabels()
         {
-            clientNameLabel.DataBindings.Add("Text", currentClient, "Name");
-            clientLocationLabel.DataBindings.Add("Text", currentClient, "Location");
+            clientNameLabel.DataBindings.Add("Text", ClientDataControl.Client.Name, "Name");
+            //clientLocationLabel.DataBindings.Add("Text", currentClient, "Location");
             clientTypeLabel.DataBindings.Add("Text", currentClient, "BusinessType");
             dateStartedLabel.DataBindings.Add("Text", currentClient, "StartDate");
         }
