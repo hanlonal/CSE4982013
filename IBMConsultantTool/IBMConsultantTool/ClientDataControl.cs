@@ -9,7 +9,8 @@ using System.Windows.Forms;
 namespace IBMConsultantTool
 {
     internal sealed class ClientDataControl
-    {
+    {       
+
         public static bool newClient;
         private static readonly ClientDataControl instance = new ClientDataControl();
         public static DataManager db;
@@ -19,6 +20,10 @@ namespace IBMConsultantTool
         private static List<NewCategory> bomCategories = new List<NewCategory>();
         public static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
         private static Client client;
+
+        private string emailAddress = "";
+        private string emailPassword = "";
+
 
 
 
@@ -149,9 +154,7 @@ namespace IBMConsultantTool
         public static bool SetParticipants(List<Person> people)
         {
             participants = people;
-
             return true;
-
         }
 
         public static bool AddCategory(NewCategory cat)
@@ -164,6 +167,17 @@ namespace IBMConsultantTool
         {
             bomCategories = new List<NewCategory>();
             return true;
+        }
+
+        public string EmailPassword
+        {
+            get { return emailPassword; }
+            set { emailPassword = value; }
+        }
+        public string EmailAddress
+        {
+            get { return emailAddress; }
+            set { emailAddress = value; }
         }
 
 
