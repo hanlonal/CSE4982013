@@ -154,6 +154,12 @@
     <Compile Include="CUPE\Classes\ITProviderRelationshipGraph.Designer.cs">
       <DependentUpon>ITProviderRelationshipGraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetailedBOMViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailedBOMViewForm.Designer.cs">
+      <DependentUpon>DetailedBOMViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmailSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CUPE\Classes\ITProviderRelationshipGraph.resx">
       <DependentUpon>ITProviderRelationshipGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailedBOMViewForm.resx">
+      <DependentUpon>DetailedBOMViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmailSettingsForm.resx">
       <DependentUpon>EmailSettingsForm.cs</DependentUpon>
