@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace IBMConsultantTool
 {
-    public class NewInitiative : Label
+    public class NewInitiative : INotifyPropertyChanged
     {
         private NewObjective owner;
         private string name;
@@ -18,55 +19,40 @@ namespace IBMConsultantTool
         private float effectiveness = 0;
         private float totalBOMScore = 0;
 
-
+       public enum ScoreState { High, Medium, Low, None };
+        ScoreState scoreState;
 
         public static int criticalAmount = 4;
         public static int averageAmount = 7;
         enum RatingsState { Dynamic, Static };
         static RatingsState state = RatingsState.Static;
        // private int goodAmount = 10;
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
 
         public NewInitiative(NewObjective owner, string name)
         {
             this.owner = owner;
-            this.Text = name;
+            //this.Text = name;
             this.name = name;
-            //Console.WriteLine(name + "belongs to " + owner.Name);
-            owner.Controls.Add(this);
-            this.Location = FindLocation();
-            this.Height = baseHeight;
-            this.BackColor = Color.White;
-            this.AutoEllipsis = true;
-            
-            this.Width = owner.Width;
-            this.BorderStyle = BorderStyle.FixedSingle;
+
+
         }
 
         public string Name
         {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
+            get{ return name; }
+            set { name = value; }
         }
 
-        private Point FindLocation()
-        {
 
-            Point p = new Point();
-
-            p.X = 10;
-            p.Y = 30 +(owner.Initiatives.Count) * 30;
-            owner.UpdateHeight();
-            return p;
-            
-        
-        }
         public void CalculateTotalBOMScore()
         {
             if (criticality == 0 || differentiation == 0 || effectiveness == 0)
@@ -82,59 +68,59 @@ namespace IBMConsultantTool
                 {
                     if (criticality == 0)
                     {
-                        BackColor = Color.LightSlateGray;
+                        scoreState = ScoreState.None;
                         return;
                     }
                     if (criticality < criticalAmount)
-                        BackColor = Color.IndianRed;
+                        scoreState = ScoreState.High;
                     if (criticality >= criticalAmount && criticality <= averageAmount)
-                        BackColor = Color.Yellow;
+                        scoreState = ScoreState.Medium;
                     if (criticality > averageAmount)
-                        BackColor = Color.LawnGreen;
+                        scoreState = ScoreState.Low;
                 }
                 if (param == "differentiation")
                 {
                     if (differentiation == 0)
                     {
-                        BackColor = Color.LightSlateGray;
+                        scoreState = ScoreState.None;
                         return;
                     }
                     if (differentiation < criticalAmount)
-                        BackColor = Color.IndianRed;
+                        scoreState = ScoreState.High;
                     if (differentiation >= criticalAmount && differentiation <= averageAmount)
-                        BackColor = Color.Yellow;
+                        scoreState = ScoreState.Medium;
                     if (differentiation > averageAmount)
-                        BackColor = Color.LawnGreen;
+                        scoreState = ScoreState.Low;
                 }
 
                 if (param == "effectiveness")
                 {
                     if (effectiveness == 0)
                     {
-                        BackColor = Color.LightSlateGray;
+                        scoreState = ScoreState.None;
                         return;
                     }
                     if (effectiveness < criticalAmount)
-                        BackColor = Color.IndianRed;
+                        scoreState = ScoreState.High;
                     if (effectiveness >= criticalAmount && effectiveness <= averageAmount)
-                        BackColor = Color.Yellow;
+                        scoreState = ScoreState.Medium;
                     if (effectiveness > averageAmount)
-                        BackColor = Color.LawnGreen;
+                        scoreState = ScoreState.Low;
                 }
 
                 if (param == "bomscore")
                 {
                     if (totalBOMScore == 0)
                     {
-                        BackColor = Color.LightSlateGray;
+                        scoreState = ScoreState.None;
                         return;
                     }
                     if (totalBOMScore < criticalAmount)
-                        BackColor = Color.IndianRed;
+                        scoreState = ScoreState.High;
                     if (totalBOMScore >= criticalAmount && totalBOMScore <= averageAmount)
-                        BackColor = Color.Yellow;
+                        scoreState = ScoreState.Medium;
                     if (totalBOMScore > averageAmount)
-                        BackColor = Color.LawnGreen;
+                        scoreState = ScoreState.Low;
                 }
             }
 
@@ -148,44 +134,32 @@ namespace IBMConsultantTool
 
         public float Criticality
         {
-            get { return criticality;     }
-            set { criticality = value; CalculateTotalBOMScore();}
+            get { return criticality; }
+            set { criticality = value; CalculateTotalBOMScore(); this.NotifyPropertyChanged("Criticality"); }
         }
 
         public float Effectiveness
         {
-            get
-            {
-                return effectiveness;
-            }
-            set
-            {
-                effectiveness = value;
-                Console.WriteLine("here");
-                CalculateTotalBOMScore();
-            }
+            get { return effectiveness; }
+            set { effectiveness = value; CalculateTotalBOMScore(); this.NotifyPropertyChanged("Effectiveness"); }
         }
 
         public float Differentiation
         {
-            get
-            {
-                return differentiation;
-            }
-            set
-            {
-
-                differentiation = value;
-                Console.WriteLine("here");
-                CalculateTotalBOMScore();
-
-            }
+            get { return differentiation; }
+            set { differentiation = value; CalculateTotalBOMScore(); this.NotifyPropertyChanged("Differentiation"); }
         }
 
         public float TotalBOMScore
         {
             get { return totalBOMScore; }
-            set { totalBOMScore = value; }
+            set { totalBOMScore = value; this.NotifyPropertyChanged("TotalBOMScore"); }
+        }
+        [Browsable(false)]
+        public ScoreState ScoreState1
+        {
+            get { return scoreState; }
+            set { scoreState = value; }
         }
     
     }// end class

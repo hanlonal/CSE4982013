@@ -19,8 +19,10 @@ namespace IBMConsultantTool
         private int baseHeight = 90;
         private int baseWidth = 200;
 
-        List<NewInitiative> initiatives = new List<NewInitiative>();
+        
 
+        List<NewInitiative> initiatives = new List<NewInitiative>();
+        private Dictionary<NewInitiative, Label> initiativeToLabelDict = new Dictionary<NewInitiative, Label>();
         public NewObjective(NewCategory owner, string name)
         {
             this.owner = owner;
@@ -68,11 +70,43 @@ namespace IBMConsultantTool
         public NewInitiative AddInitiative(string name)
         {
             NewInitiative init = new NewInitiative(this, name);
+
+            MakeInitiativeLabel(init);
+
             initiatives.Add(init);
             return init;
            // init.Name = name;
         }
 
+        private void MakeInitiativeLabel(NewInitiative init)
+        {
+            Label initiativeLabel = new Label();
+            initiativeToLabelDict[init] = initiativeLabel;
+            initiativeLabel.Location = FindInitiativeLocation();
+            initiativeLabel.Height = baseHeight;
+            initiativeLabel.BackColor = Color.White;
+            initiativeLabel.AutoEllipsis = true;
+            initiativeLabel.Text = init.Name;
+
+            Controls.Add(initiativeLabel);
+
+            initiativeLabel.Width = owner.Width;
+            initiativeLabel.Height = 25;
+
+            initiativeLabel.BorderStyle = BorderStyle.FixedSingle;
+
+        }
+
+        private Point FindInitiativeLocation()
+        {
+
+            Point p = new Point();
+
+            p.X = 10;
+            p.Y = 30 + (Initiatives.Count) * 30;
+            UpdateHeight();
+            return p;
+        }
 
 
         public void UpdateHeight()
@@ -145,10 +179,12 @@ namespace IBMConsultantTool
             }
         }
 
+
         private void detailView_Click(object sender, EventArgs e)
         {
+            DetailedBOMViewForm form = new DetailedBOMViewForm(this);
 
-
+            form.Show();
         }
 
         private void deleteObj_Click(object sender, EventArgs e)
@@ -170,6 +206,7 @@ namespace IBMConsultantTool
             foreach (NewInitiative init in initiatives)
             {
                 init.ChangeColor("differentiation");
+                CheckColor(init);
             }
         }
 
@@ -178,6 +215,7 @@ namespace IBMConsultantTool
             foreach (NewInitiative init in initiatives)
             {
                 init.ChangeColor("effectiveness");
+                CheckColor(init);
             }
         }
 
@@ -186,6 +224,7 @@ namespace IBMConsultantTool
             foreach (NewInitiative init in initiatives)
             {
                 init.ChangeColor("criticality");
+                CheckColor(init);
             }
         }
 
@@ -194,7 +233,20 @@ namespace IBMConsultantTool
             foreach (NewInitiative init in initiatives)
             {
                 init.ChangeColor("bomscore");
+                CheckColor(init);
             }
+        }
+
+        private void CheckColor(NewInitiative init)
+        {
+            if (init.ScoreState1 == NewInitiative.ScoreState.None)
+                initiativeToLabelDict[init].BackColor = Color.LightSlateGray;
+            else if (init.ScoreState1 == NewInitiative.ScoreState.High)
+                initiativeToLabelDict[init].BackColor = Color.LawnGreen;
+            else if (init.ScoreState1 == NewInitiative.ScoreState.Medium)
+                initiativeToLabelDict[init].BackColor = Color.Yellow;
+            else if (init.ScoreState1 == NewInitiative.ScoreState.Low)
+                initiativeToLabelDict[init].BackColor = Color.Red;
         }
 
         public string Name
