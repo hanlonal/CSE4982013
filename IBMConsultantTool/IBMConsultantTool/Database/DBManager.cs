@@ -1316,14 +1316,14 @@ namespace IBMConsultantTool
                 {
                     if (GetContact(person.Name, busGrp, out contact))
                     {
-                        contact.EMAIL = person.Email;
+                        contact.EMAIL = person.Email != null ? person.Email : "";
                     }
 
                     else
                     {
                         contact = new CONTACT();
                         contact.NAME = person.Name;
-                        contact.EMAIL = person.Email;
+                        contact.EMAIL = person.Email != null ? person.Email : "";
                         busGrp.CONTACT.Add(contact);
                         dbo.AddToCONTACT(contact);
                     }
@@ -1358,14 +1358,14 @@ namespace IBMConsultantTool
                 {
                     if (GetContact(person.Name, itGrp, out contact))
                     {
-                        contact.EMAIL = person.Email;
+                        contact.EMAIL = person.Email != null ? person.Email : "";
                     }
 
                     else
                     {
                         contact = new CONTACT();
                         contact.NAME = person.Name;
-                        contact.EMAIL = person.Email;
+                        contact.EMAIL = person.Email != null ? person.Email : "";
                         itGrp.CONTACT.Add(contact);
                         dbo.AddToCONTACT(contact);
                     }

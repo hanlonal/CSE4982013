@@ -1446,14 +1446,14 @@ namespace IBMConsultantTool
                 {
                     if (GetContact(person.Name, busGrp, out contact))
                     {
-                        contact.Element("EMAIL").Value = person.Email;
+                        contact.Element("EMAIL").Value = person.Email != null ? person.Email : "";
                     }
 
                     else
                     {
                         contact = new XElement("CONTACT");
                         contact.Add(new XElement("NAME", person.Name));
-                        contact.Add(new XElement("EMAIL", person.Email));
+                        contact.Add(new XElement("EMAIL", person.Email != null ? person.Email : ""));
                         contact.Add(new XElement("BOMS"));
                         contact.Add(new XElement("CUPES"));
                         contact.Add(new XElement("ITCAPS"));
@@ -1494,14 +1494,14 @@ namespace IBMConsultantTool
                 {
                     if (GetContact(person.Name, itGrp, out contact))
                     {
-                        contact.Element("EMAIL").Value = person.Email;
+                        contact.Element("EMAIL").Value = person.Email != null ? person.Email : "";
                     }
 
                     else
                     {
                         contact = new XElement("CONTACT");
                         contact.Add(new XElement("NAME", person.Name));
-                        contact.Add(new XElement("EMAIL", person.Email));
+                        contact.Add(new XElement("EMAIL", person.Email != null ? person.Email : ""));
                         contact.Add(new XElement("BOMS"));
                         contact.Add(new XElement("CUPES"));
                         contact.Add(new XElement("ITCAPS"));
