@@ -12,8 +12,8 @@ namespace IBMConsultantTool
     public partial class AnalyticsForm : Form
     {
         List<Control> comboBoxControls = new List<Control>();
-        List<CapabilityTrendAnalysis> capabilities = new List<CapabilityTrendAnalysis>();
-        List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
+        List<CapabilityTrendAnalysis> capabilitiesToTrack = new List<CapabilityTrendAnalysis>();
+        List<CUPEQuestionTrendAnalysis> cupeToTrack = new List<CUPEQuestionTrendAnalysis>();
         List<ITAttributeTrendAnalysis> attributes = new List<ITAttributeTrendAnalysis>();
         List<InitiativeTrendAnalysis> initiativesToTrack = new List<InitiativeTrendAnalysis>();
         enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Initiatives, None };
@@ -286,15 +286,38 @@ namespace IBMConsultantTool
             date.BringToFront();
         }
 
-        private void CreateCapabilityToTrack()
+        private void CreateCapabilityToTrack(string region, string busi, string from, string to)
         {
 
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Capability")
             {
+                List<CapabilityTrendAnalysis> capabilities = new List<CapabilityTrendAnalysis>();
+                capabilities = db.GetCapabilityTrendAnalysis(capabilitiesComboBox.Text, region, busi, from, to);
                 CapabilityTrendAnalysis ent = new CapabilityTrendAnalysis();
-                capabilities.Add(ent);
+                if (capabilities.Count > 0)
+                {
+                    float gap = capabilities.Average(d => d.CapabilityGap);
+                    float prior = capabilities.Average(d => d.PrioritizedCapabilityGap);
+
+                    ent.CapabilityGap = gap;
+                    ent.PrioritizedCapabilityGap = prior;
+                    ent.GapType = "---";
+                    ent.PrioritizedGapType = "---";
+                    ent.Type1 = TrendAnalysisEntity.Type.Master;
+                    capabilitiesToTrack.Add(ent);
+                }
+                else
+                    MessageBox.Show("Query returned no results");
+
+                foreach (CapabilityTrendAnalysis cap in capabilitiesToTrack)
+                {
+                    ent.Children++;
+                    cap.Type1 = TrendAnalysisEntity.Type.Child;
+                    capabilitiesToTrack.Add(cap);
+                }
+
                 trendGridView.DataSource = null;
-                trendGridView.DataSource = capabilities;
+                trendGridView.DataSource = capabilitiesToTrack ;
                 trendGridView.Refresh();
                 currentlyBeingTracked = "Capability";
             }
@@ -305,16 +328,39 @@ namespace IBMConsultantTool
 
         }
 
-        private void CreateCUPEQuestionToTrack()
+        private void CreateCUPEQuestionToTrack(string region, string busi, string from, string to)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "CUPE")
             {
-                CUPEQuestionTrendAnalysis ent = new CUPEQuestionTrendAnalysis();
-                cupes.Add(ent);
+                List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
+
+                cupes = db.GetCUPEQuestionTrendAnalysis(cupeQuestionsComboBox.Text, region, busi, from, to);
+
+                float asIsAaverage = cupes.Average(d => d.CurrentAnswer);
+                float futureAnswer = cupes.Average(d => d.FutureAnswer);
+
+                CUPEQuestionTrendAnalysis track = new CUPEQuestionTrendAnalysis();
+                track.CurrentAnswer = asIsAaverage;
+                track.FutureAnswer = futureAnswer;
+                track.Name = cupeQuestionsComboBox.Text;
+                track.BusinessType = busi;
+                track.CupeType = "---";
+                track.Type1 = TrendAnalysisEntity.Type.Master;
+                cupeToTrack.Add(track);
+
+                foreach (CUPEQuestionTrendAnalysis c in cupes)
+                {
+                    track.Children++;
+                    cupeToTrack.Add(c);
+                    c.Type1 = TrendAnalysisEntity.Type.Child;
+                }
+
                 trendGridView.DataSource = null;
-                trendGridView.DataSource = cupes;
+                trendGridView.DataSource = cupeToTrack;
                 trendGridView.Refresh();
                 currentlyBeingTracked = "CUPE";
+
+                CUPEQuestionTrendAnalysis ent = new CUPEQuestionTrendAnalysis();
             }
             else
             {
@@ -434,9 +480,9 @@ namespace IBMConsultantTool
             
 
             if (state == TrackingState.Capabilities)
-                CreateCapabilityToTrack();
+                CreateCapabilityToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);
             else if (state == TrackingState.CUPEQuestions)
-                CreateCUPEQuestionToTrack();
+                CreateCUPEQuestionToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack();
             else if (state == TrackingState.Initiatives)
@@ -455,8 +501,9 @@ namespace IBMConsultantTool
             trendGridView.Refresh();
             currentlyBeingTracked = "";
             attributes.Clear();
-            cupes.Clear();
-            capabilities.Clear();
+            cupeToTrack.Clear();
+            capabilitiesToTrack.Clear();
+            initiativesToTrack.Clear();
         }
 
 
@@ -473,8 +520,11 @@ namespace IBMConsultantTool
 
                 if (ent.Type1 == TrendAnalysisEntity.Type.Child)
                 {
+                    trendGridView.CurrentCell = null;
                     row.Visible = false;
                 }
+                else
+                    row.DefaultCellStyle.BackColor = Color.LightBlue;
             }
         }
 
