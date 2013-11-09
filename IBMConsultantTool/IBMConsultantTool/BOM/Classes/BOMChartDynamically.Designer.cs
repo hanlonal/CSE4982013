@@ -35,8 +35,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(784, 562);
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(784, 712);
+            this.MinimumSize = new System.Drawing.Size(800, 750);
             this.Name = "BOMChartDynamically";
             this.Text = "BOM Bubble Chart";
             this.ResumeLayout(false);

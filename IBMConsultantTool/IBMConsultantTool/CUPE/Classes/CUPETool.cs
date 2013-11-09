@@ -260,7 +260,7 @@ namespace IBMConsultantTool
                         ChangeTotalsByColumn(e.ColumnIndex, e.RowIndex);
                         LoadChartData();
                         UpdateCupeScore();
-
+                        
 
 
                     }
@@ -493,8 +493,14 @@ namespace IBMConsultantTool
                 currentChart.Series["BusiCurrent"].Points[3].SetValueY(numD);
             }
 
-            
-            currentChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + chartName + ".jpg", ChartImageFormat.Jpeg);
+            try
+            {
+                currentChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + chartName + ".jpg", ChartImageFormat.Jpeg);
+            }
+            catch
+            {
+
+            }
         }
 
         public void PersonCellFormatting(int index)
@@ -1090,6 +1096,8 @@ namespace IBMConsultantTool
                 removePersonColumns();
                 loadColumnNames();
                 LoadAnswersFromDataControl();
+                changeAllTotals();
+                UpdateCupeScore();
                 
                 if(HelpEnabled && HelpCurrentStep == 1)
                 {
@@ -1098,7 +1106,7 @@ namespace IBMConsultantTool
                 }
                 return;
             }
-
+            
         }
 
         private void loadColumnNames()
@@ -2944,6 +2952,35 @@ namespace IBMConsultantTool
             form.Show();
         }
 
+        private void changeAllTotals()
+        {
+            var temp = currentGrid;
+            for( int i=1; i< questionGridBusinessCurrent.Columns.Count - 7; i++)
+            {
+                for( int o=0; o< 20; o++)
+                {
+                    currentGrid = questionGridBusinessCurrent;
+                    ChangeTotalsByColumn(i, o);
+                    ChangeTotalsByRow(o);
+                    currentGrid = questionGridBusiFuture;
+                    ChangeTotalsByColumn(i, o);
+                    ChangeTotalsByRow(o);
+                }
+            }
+            for (int i = 1; i < questionGridITCurrent.Columns.Count - 7; i++)
+            {
+                for (int o = 0; o < 20; o++)
+                {
+                    currentGrid = questionGridITCurrent;
+                    ChangeTotalsByColumn(i, o);
+                    ChangeTotalsByRow(o);
+                    currentGrid = questionGridITFuture;
+                    ChangeTotalsByColumn(i, o);
+                    ChangeTotalsByRow(o);
+                }
+            }
+            currentGrid = temp;
+        }
 
     }// end class
 
