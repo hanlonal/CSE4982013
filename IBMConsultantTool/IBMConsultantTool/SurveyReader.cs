@@ -155,10 +155,12 @@ namespace IBMConsultantTool
                             if (form.Result.ToString() == "Business")
                             {
                                 currentPerson.Type = Person.EmployeeType.Business;
+                                currentPerson.CodeName = "Business" + count.ToString();
                             }
                             else
                             {
                                 currentPerson.Type = Person.EmployeeType.IT;
+                                currentPerson.CodeName = "IT" + count.ToString();
                             }
                             ClientDataControl.AddParticipant(currentPerson);
                             break;
