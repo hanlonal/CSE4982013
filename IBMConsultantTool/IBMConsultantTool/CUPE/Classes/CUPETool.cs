@@ -2846,6 +2846,7 @@ namespace IBMConsultantTool
             HelpEnabled = true;
             HelpCurrentStep = 0;
             StartTutorialMode();
+
         }
 
         private void continuteTutorialMode(object sender, EventArgs e)
