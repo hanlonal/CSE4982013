@@ -152,7 +152,15 @@ namespace IBMConsultantTool
                         if (form.Name == "Name")
                         {
                             currentPerson = new Person(count++);
-                            currentPerson.Type = Person.EmployeeType.IT;
+                            if (form.Result.ToString() == "Business")
+                            {
+                                currentPerson.Type = Person.EmployeeType.Business;
+                            }
+                            else
+                            {
+                                currentPerson.Type = Person.EmployeeType.IT;
+                            }
+                            ClientDataControl.AddParticipant(currentPerson);
                             break;
                         }
                         else
@@ -177,9 +185,9 @@ namespace IBMConsultantTool
                                 c = 1;
                                 q++;
                             }
-
                         }
                     }
+                    ClientDataControl.AddCupeAnswers(currentPerson.cupeDataHolder);
                     oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
                 }
                 catch

@@ -1330,8 +1330,8 @@ namespace IBMConsultantTool
 
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClientDataControl.SetParticipants(null);
-            ClientDataControl.SetCupeAnswers(null);
+            ClientDataControl.SetParticipants(new List<Person>());
+            ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
             var SurveyReader = new SurveyReader();
             SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
