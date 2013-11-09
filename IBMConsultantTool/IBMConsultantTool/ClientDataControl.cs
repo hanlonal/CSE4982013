@@ -11,6 +11,8 @@ namespace IBMConsultantTool
     internal sealed class ClientDataControl
     {       
 
+        //why is everything in this static?????? AK
+
         public static bool newClient;
         private static readonly ClientDataControl instance = new ClientDataControl();
         public static DataManager db;
@@ -194,7 +196,7 @@ namespace IBMConsultantTool
 
             System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
 
-            var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
+            var fromAddress = new MailAddress(emailAddress, "Team IBM Capstone");
             var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");
             const string fromPassword = "CSE498-38734";
             const string subject = "IBM Survey Request";
