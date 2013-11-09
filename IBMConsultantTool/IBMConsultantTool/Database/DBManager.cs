@@ -346,8 +346,9 @@ namespace IBMConsultantTool
             int questionIndex = 0;
             foreach (CONTACT contact in busGrp.CONTACT)
             {
-                person = new Person(id++);
+                person = new Person(id);
                 person.Type = Person.EmployeeType.Business;
+                person.CodeName = "Business" + (id).ToString();
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
@@ -363,14 +364,14 @@ namespace IBMConsultantTool
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
-
-            id = 1;
 
             foreach (CONTACT contact in itGrp.CONTACT)
             {
-                person = new Person(id++);
+                person = new Person(id);
                 person.Type = Person.EmployeeType.IT;
+                person.CodeName = "IT" + (id).ToString();
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
@@ -386,6 +387,7 @@ namespace IBMConsultantTool
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
         }
         #endregion
@@ -1306,13 +1308,25 @@ namespace IBMConsultantTool
             CUPERESPONSE response;
             CUPE cupe;
 
-            foreach (CONTACT contactToDelete in busGrp.CONTACT)
+            List<CONTACT> contactsToDelete = busGrp.CONTACT.ToList();
+            List<CUPERESPONSE> responsesToDelete;
+            foreach (CONTACT contactToDelete in contactsToDelete)
             {
+                responsesToDelete = contactToDelete.CUPERESPONSE.ToList();
+                foreach (CUPERESPONSE responseToDelete in responsesToDelete)
+                {
+                    dbo.DeleteObject(responseToDelete);
+                }
                 dbo.DeleteObject(contactToDelete);
             }
-
-            foreach (CONTACT contactToDelete in itGrp.CONTACT)
+            contactsToDelete = itGrp.CONTACT.ToList();
+            foreach (CONTACT contactToDelete in contactsToDelete)
             {
+                responsesToDelete = contactToDelete.CUPERESPONSE.ToList();
+                foreach (CUPERESPONSE responseToDelete in responsesToDelete)
+                {
+                    dbo.DeleteObject(responseToDelete);
+                }
                 dbo.DeleteObject(contactToDelete);
             }
             foreach (Person person in personList)
@@ -1325,7 +1339,7 @@ namespace IBMConsultantTool
                     dbo.AddToCONTACT(contact);
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
-                    for (int i = 0; i < questionList.Count - 1; i++)
+                    for (int i = 0; i < questionList.Count; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
                         if (!GetCUPE(data.QuestionText, client, out cupe))
@@ -1352,7 +1366,7 @@ namespace IBMConsultantTool
                     dbo.AddToCONTACT(contact);
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
-                    for(int i = 0; i < questionList.Count - 1; i++)
+                    for(int i = 0; i < questionList.Count; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
                         if (!GetCUPE(data.QuestionText, client, out cupe))
@@ -3796,12 +3810,20 @@ namespace IBMConsultantTool
                                 }
                                 break;
                             case "CONTACTS":
+                                List<CONTACT> contactsToDelete;
+                                List<CUPERESPONSE> responsesToDelete;
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
                                     foreach (GROUP grpToClear in client.GROUP)
                                     {
-                                        foreach (CONTACT contactToDelete in grpToClear.CONTACT)
+                                        contactsToDelete = grpToClear.CONTACT.ToList();
+                                        foreach (CONTACT contactToDelete in contactsToDelete)
                                         {
+                                            responsesToDelete = contactToDelete.CUPERESPONSE.ToList();
+                                            foreach (CUPERESPONSE responseToDelete in responsesToDelete)
+                                            {
+                                                dbo.DeleteObject(responseToDelete);
+                                            }
                                             dbo.DeleteObject(contactToDelete);
                                         }
                                     }

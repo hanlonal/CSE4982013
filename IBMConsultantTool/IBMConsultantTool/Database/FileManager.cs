@@ -359,8 +359,9 @@ namespace IBMConsultantTool
             List<XElement> itContacts = itGrp.Element("CONTACTS").Elements("CONTACT").ToList();
             foreach (XElement contact in busContacts)
             {
-                person = new Person(id++);
+                person = new Person(id);
                 person.Type = Person.EmployeeType.Business;
+                person.CodeName = "Business" + (id).ToString();
                 cupeData = new CupeData(id);
                 foreach (XElement response in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
                 {
@@ -376,12 +377,14 @@ namespace IBMConsultantTool
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
 
             foreach (XElement contact in itContacts)
             {
-                person = new Person(id++);
+                person = new Person(id);
                 person.Type = Person.EmployeeType.IT;
+                person.CodeName = "IT" + (id).ToString();
                 cupeData = new CupeData(id);
                 foreach (XElement response in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
                 {
@@ -397,6 +400,7 @@ namespace IBMConsultantTool
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
         }
         #endregion
@@ -1432,12 +1436,25 @@ namespace IBMConsultantTool
                 AddGroup("IT", client);
                 GetGroup("IT", client, out itGrp);
             }
-            foreach (XElement contactToDelete in busGrp.Element("CONTACTS").Elements("CONTACT"))
+            List<XElement> contactsToDelete = busGrp.Element("CONTACTS").Elements("CONTACT").ToList();
+            List<XElement> responsesToDelete;
+            foreach (XElement contactToDelete in contactsToDelete)
             {
+                responsesToDelete = contactToDelete.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
+                foreach (XElement responseToDelete in responsesToDelete)
+                {
+                    responseToDelete.Remove();
+                }
                 contactToDelete.Remove();
             }
-            foreach (XElement contactToDelete in itGrp.Element("CONTACTS").Elements("CONTACT"))
+            contactsToDelete = itGrp.Element("CONTACTS").Elements("CONTACT").ToList();
+            foreach (XElement contactToDelete in contactsToDelete)
             {
+                responsesToDelete = contactToDelete.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
+                foreach (XElement responseToDelete in responsesToDelete)
+                {
+                    responseToDelete.Remove();
+                }
                 contactToDelete.Remove();
             }
             changeLog.Add("DELETE CONTACTS " + client.Element("NAME").Value.Replace(' ', '~'));
