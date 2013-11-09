@@ -284,11 +284,8 @@ namespace IBMConsultantTool
             get { return owner; }
             set { owner = value; }
         }
-        public string ID
-        {
-            get { return id; }
-            set { id = owner.ID + "." + (string)value; }
-        }
+
+        
 
         public void AddComment(string comm)
         {

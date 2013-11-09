@@ -337,15 +337,7 @@ namespace IBMConsultantTool
             get { return questionsOwned; }
             set { questionsOwned = value; }
         }
-        public string ID
-        {
-            get { return id; }
-            set
-            {
-                string a = value;
-                id = owner.ID + "." + a;
-            }
-        }
+
         public bool Flagged
         {
             set { flagged = value; owner.Flagged = value; }

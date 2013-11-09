@@ -969,6 +969,7 @@ namespace IBMConsultantTool
                 surveryMakerGrid.Columns["ToBeScore"].Visible = false;
                 surveryMakerGrid.Columns["CapabilityGapText"].Visible = false;
                 surveryMakerGrid.Columns["PrioritizedGap"].Visible = false;
+                surveryMakerGrid.Columns["AsIsNumZeros"].Visible = false;
                 surveryMakerGrid.Columns["AsIsNumOnes"].Visible = false;
                 surveryMakerGrid.Columns["AsIsNumTwos"].Visible = false;
                 surveryMakerGrid.Columns["AsIsNumThrees"].Visible = false;
@@ -1006,6 +1007,8 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.Columns["AsIsNumFives"].DividerWidth = 3;
                 loadSurveyFromDataGrid.Columns["AsIsNumZeros"].HeaderText = "0s";
                 loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Width = 30;
+                loadSurveyFromDataGrid.Columns["AsIsScore"].HeaderText = "Current Score";
+                loadSurveyFromDataGrid.Columns["ToBeScore"].HeaderText = "Future Score";
 
 
                 loadSurveyFromDataGrid.Columns["ToBeNumOnes"].HeaderText = "1s";
