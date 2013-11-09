@@ -3013,7 +3013,6 @@ namespace IBMConsultantTool
             {
                 XElement temp = new XElement("CLIENT");
                 temp.Add(new XElement("NAME", client.NAME.TrimEnd()));
-                temp.Add(new XElement("LOCATION", client.LOCATION.TrimEnd()));
                 temp.Add(new XElement("STARTDATE", client.STARTDATE.ToString()));
                 temp.Add(new XElement("COUNTRY", client.COUNTRY.NAME.TrimEnd()));
                 temp.Add(new XElement("REGION", client.COUNTRY.REGION.NAME.TrimEnd()));
@@ -3375,9 +3374,8 @@ namespace IBMConsultantTool
                             case "CLIENT":
                                 client = new CLIENT();
                                 client.NAME = lineArray[2].Replace('~', ' ');
-                                client.LOCATION = lineArray[3].Replace('~', ' ');
 
-                                string regionName = lineArray[5].Replace('~', ' ');
+                                string regionName = lineArray[4].Replace('~', ' ');
                                 try
                                 {
                                     region = (from ent in dbo.REGION
@@ -3391,7 +3389,7 @@ namespace IBMConsultantTool
                                     dbo.AddToREGION(region);
                                 }
 
-                                string countryName = lineArray[4].Replace('~', ' ');
+                                string countryName = lineArray[3].Replace('~', ' ');
                                 try
                                 {
                                     country = (from ent in dbo.COUNTRY
@@ -3406,9 +3404,9 @@ namespace IBMConsultantTool
                                     dbo.AddToREGION(region);
                                 }
 
-                                client.STARTDATE = DateTime.Parse(lineArray[6].Replace('~', ' '));
+                                client.STARTDATE = DateTime.Parse(lineArray[5].Replace('~', ' '));
 
-                                string busTypeName = lineArray[7].Replace('~', ' ');
+                                string busTypeName = lineArray[6].Replace('~', ' ');
                                 try
                                 {
                                     busType = (from ent in dbo.BUSINESSTYPE
