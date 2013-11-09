@@ -9,16 +9,23 @@ namespace IBMConsultantTool
     public class ObjectiveValues : INotifyPropertyChanged
     {
         private string name;
-        private int value =1;
+        private int value;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(String info)
+        //public event PropertyChangedEventHandler PropertyChanged;
+      /*  private void OnPropertyChanged(String info)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(info));
             }
+        }*/
+
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
         public ObjectiveValues(string name, int value)
@@ -33,7 +40,7 @@ namespace IBMConsultantTool
         public int Value
         {
             get { return this.value; }
-            set { this.value = value; OnPropertyChanged("Value"); }
+            set { this.value = value; this.NotifyPropertyChanged("Value"); }
         }
 
         public string Name

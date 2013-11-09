@@ -9,7 +9,10 @@ using System.Windows.Forms;
 namespace IBMConsultantTool
 {
     internal sealed class ClientDataControl
-    {
+    {       
+
+        //why is everything in this static?????? AK
+
         public static bool newClient;
         private static readonly ClientDataControl instance = new ClientDataControl();
         public static DataManager db;
@@ -19,6 +22,10 @@ namespace IBMConsultantTool
         private static List<NewCategory> bomCategories = new List<NewCategory>();
         public static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
         private static Client client;
+
+        private string emailAddress = "";
+        private string emailPassword = "";
+
 
 
 
@@ -149,9 +156,7 @@ namespace IBMConsultantTool
         public static bool SetParticipants(List<Person> people)
         {
             participants = people;
-
             return true;
-
         }
 
         public static bool AddCategory(NewCategory cat)
@@ -164,6 +169,17 @@ namespace IBMConsultantTool
         {
             bomCategories = new List<NewCategory>();
             return true;
+        }
+
+        public string EmailPassword
+        {
+            get { return emailPassword; }
+            set { emailPassword = value; }
+        }
+        public string EmailAddress
+        {
+            get { return emailAddress; }
+            set { emailAddress = value; }
         }
 
 
@@ -180,7 +196,7 @@ namespace IBMConsultantTool
 
             System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
 
-            var fromAddress = new MailAddress("cse498ibm@gmail.com", "Team IBM Capstone");
+            var fromAddress = new MailAddress("", "Team IBM Capstone");
             var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");
             const string fromPassword = "CSE498-38734";
             const string subject = "IBM Survey Request";

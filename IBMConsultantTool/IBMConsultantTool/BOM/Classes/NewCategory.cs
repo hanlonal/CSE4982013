@@ -38,6 +38,7 @@ namespace IBMConsultantTool
             NewObjective objective = new NewObjective(this, name);
             objective.Click +=new EventHandler(objective_Click);
             objectives.Add(objective);
+            
             return objective;
             
         }

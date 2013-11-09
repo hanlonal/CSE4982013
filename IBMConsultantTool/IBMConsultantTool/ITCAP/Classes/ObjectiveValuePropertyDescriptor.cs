@@ -12,13 +12,13 @@ namespace IBMConsultantTool
         {
         }
 
-        public override bool CanResetValue(object component) { return false; }
+        public override bool CanResetValue(object component) { return true; }
 
         public override Type ComponentType { get { return typeof(ObjectiveValues); } }
 
         public override bool IsReadOnly { get { return false; } }
 
-        public override Type PropertyType { get { return typeof(string); } }
+        public override Type PropertyType { get { return typeof(int); } }
 
         public override void ResetValue(object component) { }
 

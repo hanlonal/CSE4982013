@@ -56,7 +56,7 @@ namespace IBMConsultantTool
                     return;
             }
             flagged = false;
-            
+            owner.CheckFlags();
         }
 
         public override float CalculateAsIsAverage()

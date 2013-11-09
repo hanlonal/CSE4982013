@@ -2242,8 +2242,8 @@ namespace IBMConsultantTool
                     itata = new ITAttributeTrendAnalysis();
                     client = itcap.CLIENT;
                     itata.Date = client.STARTDATE;
-                    itata.Region = client.REGION.NAME.TrimEnd();
-                    itata.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                    itata.Region = client.REGION.NAME.Trim();
+                    itata.BusinessType = client.BUSINESSTYPE.NAME.Trim();
                     itata.Country = itata.Region;
                     itata.AsisScore = itcap.ASIS.Value;
                     itata.TobeScore = itcap.TOBE.Value;
@@ -2304,9 +2304,9 @@ namespace IBMConsultantTool
                     cqta = new CUPEQuestionTrendAnalysis();
                     client = cr.CONTACT.GROUP.CLIENT;
                     cqta.Date = client.STARTDATE;
-                    cqta.Region = client.REGION.NAME.TrimEnd();
-                    cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
-                    cqta.Country = cqta.Region;
+                    cqta.Region = client.REGION.NAME.Trim();
+                    cqta.BusinessType = client.BUSINESSTYPE.NAME.Trim();
+                    cqta.Country = cqta.Region.Trim();
                     cqta.CupeType = cr.CONTACT.GROUP.NAME;
                     switch (cr.CURRENT)
                     {

@@ -2926,6 +2926,12 @@ namespace IBMConsultantTool
             Powah.ReplaceTemplatePowerpoint();
         }
 
+        private void emailPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmailSettingsForm form = new EmailSettingsForm();
+            form.Show();
+        }
+
 
     }// end class
 
