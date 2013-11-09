@@ -651,20 +651,12 @@ namespace IBMConsultantTool
                 label.Width = 100;
                 label.AutoEllipsis = true;
                 label.Text = val.Name;
-                ComboBox combo = new ComboBox();
+                TextBox combo = new TextBox();
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
                 
                 //combo.DataBindings.Add("Text", val, "Value");
-                combo.DataBindings.Add("SelectedIndex", val, "Value", true, DataSourceUpdateMode.OnPropertyChanged);
-                combo.SelectedIndexChanged  +=new EventHandler(combo_SelectedIndexChanged);
-                int x = 1;
-                int y = 2;
-                int z = 3;
-                combo.Items.Add("0");
-                combo.Items.Add("1");
-                combo.Items.Add("2");
-                combo.Items.Add("3");
-                combo.Width = 50;
+                combo.DataBindings.Add("Text", val, "Value");
+
                
                 //combo.ValueMemberChanged +=new EventHandler(combo_ValueMemberChanged);
                 panel1.Controls.Add(combo);
@@ -1162,7 +1154,7 @@ namespace IBMConsultantTool
                 {
                     Capability cap = (Capability)ent;
                     currentcap = cap;
-                   // GetClientObjectives(currentcap);
+                    GetClientObjectives(currentcap);
                 }
             }
         }
