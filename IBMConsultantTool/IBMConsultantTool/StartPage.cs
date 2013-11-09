@@ -48,7 +48,7 @@ namespace IBMConsultantTool
             clientNameLabel.Text = ClientDataControl.Client.Name;
             clientTypeLabel.Text = ClientDataControl.Client.BusinessType;
             dateStartedLabel.Text = ClientDataControl.Client.StartDate.ToString().Split(' ')[0];
-            clientLocationLabel.Text = ClientDataControl.Client.Location.ToString();
+            clientLocationLabel.Text = ClientDataControl.Client.Country.ToString();
             
         }
 
