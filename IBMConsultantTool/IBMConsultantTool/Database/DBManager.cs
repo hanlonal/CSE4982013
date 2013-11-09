@@ -107,6 +107,8 @@ namespace IBMConsultantTool
                 dbo.AddToCOUNTRY(country);
             }
 
+            clientEnt.COUNTRY = country;
+
             string busTypeName = client.BusinessType;
             BUSINESSTYPE busType;
             try
@@ -130,8 +132,6 @@ namespace IBMConsultantTool
             {
                 return null;
             }
-
-            dbo.AddToCLIENT(clientEnt);
 
             client.EntityObject = clientEnt;
             return client;
