@@ -59,6 +59,7 @@ namespace IBMConsultantTool
             Word.Paragraph oPara1;
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
             oPara1.Range.Text = "Business Optimization Mapping Survey";
+            oPara1.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             oPara1.Range.Font.Bold = 1;
             oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
             oPara1.Range.InsertParagraphAfter();
@@ -94,7 +95,7 @@ namespace IBMConsultantTool
             string[] FormNames = new string [(totalRows - 1 ) * 3];
 
             //Current Row and Current FormName position
-            int r = 2, c = 0;
+            int r = 2, c = 0, x = 1;
             //Add the categories, objectives, imperatives
             for (int i = 0; i < BomCats.Count; i++)
             {
@@ -108,14 +109,14 @@ namespace IBMConsultantTool
                         oTable.Cell(r, 2).Range.Font.Size = 7;
                         oTable.Cell(r, 3).Range.Font.Size = 7;
 
-                        oTable.Cell(r, 1).Range.Text = BomCats[i].name;
+                        oTable.Cell(r, 1).Range.Text = x.ToString() + ": " + BomCats[i].name;
                         oTable.Cell(r, 2).Range.Text = BomCats[i].Objectives[j].Name;
                         oTable.Cell(r, 3).Range.Text = BomCats[i].Objectives[j].Initiatives[k].Name;
+                        x++;
 
                         //Add the form fields for each row
                         Word.Range cell2Range = oTable.Cell(r, 4).Range;
                         cell2Range.Collapse(ref oMissing);
-                        oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
                         var inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
                         inputText.DropDown.ListEntries.Add("        ");
                         inputText.DropDown.ListEntries.Add("1");
