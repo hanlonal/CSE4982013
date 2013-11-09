@@ -42,6 +42,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.clientLocationLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             this.clientNameLabel.Location = new System.Drawing.Point(264, 183);
             this.clientNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.clientNameLabel.Name = "clientNameLabel";
-            this.clientNameLabel.Size = new System.Drawing.Size(119, 25);
+            this.clientNameLabel.Size = new System.Drawing.Size(95, 20);
             this.clientNameLabel.TabIndex = 1;
             this.clientNameLabel.Text = "Client Name";
             // 
@@ -62,7 +64,7 @@
             this.clientTypeLabel.Location = new System.Drawing.Point(264, 234);
             this.clientTypeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.clientTypeLabel.Name = "clientTypeLabel";
-            this.clientTypeLabel.Size = new System.Drawing.Size(112, 25);
+            this.clientTypeLabel.Size = new System.Drawing.Size(87, 20);
             this.clientTypeLabel.TabIndex = 3;
             this.clientTypeLabel.Text = "Client Type";
             // 
@@ -72,7 +74,7 @@
             this.dateStartedLabel.Location = new System.Drawing.Point(729, 183);
             this.dateStartedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateStartedLabel.Name = "dateStartedLabel";
-            this.dateStartedLabel.Size = new System.Drawing.Size(121, 25);
+            this.dateStartedLabel.Size = new System.Drawing.Size(101, 20);
             this.dateStartedLabel.TabIndex = 4;
             this.dateStartedLabel.Text = "Date Started";
             // 
@@ -113,16 +115,16 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 696);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 699);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1006, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1006, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(151, 20);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // pictureBox1
@@ -143,7 +145,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(409, 340);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(401, 40);
+            this.label1.Size = new System.Drawing.Size(340, 34);
             this.label1.TabIndex = 12;
             this.label1.Text = "Organize the business objectives and determine the \r\nactions needed to complete t" +
     "hose objectives. (BOM)\r\n";
@@ -154,7 +156,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(409, 430);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(370, 60);
+            this.label2.Size = new System.Drawing.Size(311, 51);
             this.label2.TabIndex = 13;
             this.label2.Text = "Utilize the questionairre to determine the client\'s\r\nas-is and to-be state of var" +
     "ious attributes\r\nthat contribute towards the IT factor. (ITCAP)\r\n";
@@ -165,7 +167,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(409, 545);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(330, 60);
+            this.label3.Size = new System.Drawing.Size(278, 51);
             this.label3.TabIndex = 14;
             this.label3.Text = "Use hueristics and questionairre replies to \r\ndetermine the state between the IT " +
     "and \r\nbusiness branches of the client. (CUPE)\r\n";
@@ -177,7 +179,7 @@
             this.label4.Location = new System.Drawing.Point(34, 183);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(176, 39);
+            this.label4.Size = new System.Drawing.Size(142, 31);
             this.label4.TabIndex = 15;
             this.label4.Text = "Welcome!";
             // 
@@ -187,16 +189,38 @@
             this.label5.Location = new System.Drawing.Point(619, 183);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 25);
+            this.label5.Size = new System.Drawing.Size(84, 20);
             this.label5.TabIndex = 16;
             this.label5.Text = "Start date:";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(619, 234);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 20);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Location";
+            // 
+            // clientLocationLabel
+            // 
+            this.clientLocationLabel.AutoSize = true;
+            this.clientLocationLabel.Location = new System.Drawing.Point(729, 234);
+            this.clientLocationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.clientLocationLabel.Name = "clientLocationLabel";
+            this.clientLocationLabel.Size = new System.Drawing.Size(70, 20);
+            this.clientLocationLabel.TabIndex = 18;
+            this.clientLocationLabel.Text = "Location";
+            // 
             // StartPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1006, 721);
+            this.Controls.Add(this.clientLocationLabel);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -239,5 +263,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label clientLocationLabel;
     }
 }

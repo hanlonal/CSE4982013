@@ -1284,9 +1284,12 @@ namespace IBMConsultantTool
         public override void ClearCUPE(object clientObj)
         {
             CLIENT client = clientObj as CLIENT;
-            foreach (CUPE cupe in client.CUPE)
+            List<CUPE> cupesToDelete = client.CUPE.ToList();
+            List<CUPERESPONSE> responsesToDelete;
+            foreach (CUPE cupe in cupesToDelete)
             {
-                foreach (CUPERESPONSE cr in cupe.CUPERESPONSE)
+                responsesToDelete = cupe.CUPERESPONSE.ToList();
+                foreach (CUPERESPONSE cr in responsesToDelete)
                 {
                     dbo.DeleteObject(cr);
                 }
