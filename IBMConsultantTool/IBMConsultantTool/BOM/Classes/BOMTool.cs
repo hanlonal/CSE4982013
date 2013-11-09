@@ -99,6 +99,12 @@ namespace IBMConsultantTool
             detailInfoPanel.Controls.Add(diffBox);
         }
 
+        public void AddInitiative()
+        {
+
+
+        }
+
 
 
         private void effectbox_TextChanged(object sender, EventArgs e)

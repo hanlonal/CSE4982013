@@ -103,7 +103,6 @@ namespace IBMConsultantTool
 
             loadColumnNames();
             LoadAnswersFromDataControl();
-
         }
 
         private void CreateGraphs()
@@ -216,9 +215,9 @@ namespace IBMConsultantTool
             Person person = new Person(personCount);
 
             //person.Type = Person.EmployeeType.Business;
-            col.HeaderText = "Person  " + (currentGrid.ColumnCount - 6).ToString();            
-           
-            col.Name = "Person" + (currentGrid.ColumnCount -6).ToString(); 
+            col.HeaderText = "Person  " + (currentGrid.ColumnCount - 6).ToString();
+
+            col.Name = person.CodeName; 
             
             col.Width = 60;
          
@@ -1102,14 +1101,15 @@ namespace IBMConsultantTool
             {
                 DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
 
-                col.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
-                col.Name = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString(); 
+                //col.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
+                col.HeaderText = person.CodeName; 
+                col.Name = person.CodeName; 
                 col.Width = 100;
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
 
                 DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
-                col2.HeaderText = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();
-                col2.Name = "Person " + (questionGridITCurrent.Columns.Count - 6).ToString();  
+                col2.HeaderText = person.CodeName; 
+                col2.Name = person.CodeName;  
                 col2.Width = 100;
                 col2.SortMode = DataGridViewColumnSortMode.NotSortable;
 
@@ -1159,7 +1159,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.CodeName == column.Name).Single();
                 }
                 catch
                 {
@@ -1191,7 +1191,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.CodeName == column.Name).Single();
                 }
                 catch
                 {
@@ -1223,7 +1223,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.CodeName == column.Name).Single();
                 }
                 catch
                 {
@@ -1254,7 +1254,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.CodeName == column.Name).Single();
                 }
                 catch
                 {
@@ -1330,8 +1330,8 @@ namespace IBMConsultantTool
 
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClientDataControl.SetParticipants(null);
-            ClientDataControl.SetCupeAnswers(null);
+            ClientDataControl.SetParticipants(new List<Person>());
+            ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
             var SurveyReader = new SurveyReader();
             SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
@@ -1782,7 +1782,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.CodeName == column.Name).Single();
                 }
                 catch
                 {
@@ -1843,7 +1843,7 @@ namespace IBMConsultantTool
                 Person currentPerson = null;
                 try
                 {
-                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.ID == column.Index).Single();
+                    currentPerson = ClientDataControl.GetParticipants().Where(x => x.CodeName == column.Name).Single();
                 }
                 catch
                 {

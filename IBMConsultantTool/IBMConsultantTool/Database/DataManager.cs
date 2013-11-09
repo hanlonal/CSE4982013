@@ -49,6 +49,9 @@ namespace IBMConsultantTool
         public abstract bool AddBOMToContact(object bom, object contact);
 
         public abstract void BuildBOMForm(BOMTool bomForm);
+
+        public abstract List<string> GetObjectivesFromCurrentClientBOM();
+        public abstract List<string> GetImperativesFromCurrentClientBOM();
         #endregion
 
         #region ITCAP

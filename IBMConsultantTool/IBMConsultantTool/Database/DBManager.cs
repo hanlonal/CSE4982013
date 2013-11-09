@@ -343,11 +343,12 @@ namespace IBMConsultantTool
             Person person;
             CupeData cupeData;
             int id = 1;
-            int questionIndex = 0;
+            int questionIndex = 1;
             foreach (CONTACT contact in busGrp.CONTACT)
             {
-                person = new Person(id++);
+                person = new Person(id);
                 person.Type = Person.EmployeeType.Business;
+                person.CodeName = "Business" + (id).ToString();
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
@@ -357,20 +358,20 @@ namespace IBMConsultantTool
                                                                               });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.CURRENT[0]);
-                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.FUTURE[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.CURRENT[0]);
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.FUTURE[0]);
                     }
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
-
-            id = 1;
 
             foreach (CONTACT contact in itGrp.CONTACT)
             {
-                person = new Person(id++);
+                person = new Person(id);
                 person.Type = Person.EmployeeType.IT;
+                person.CodeName = "IT" + (id).ToString();
                 cupeData = new CupeData(id);
                 foreach (CUPERESPONSE response in contact.CUPERESPONSE)
                 {
@@ -380,12 +381,13 @@ namespace IBMConsultantTool
                                                                               });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.CURRENT[0]);
-                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.FUTURE[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.CURRENT[0]);
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.FUTURE[0]);
                     }
                 }
                 person.cupeDataHolder = cupeData;
                 ClientDataControl.AddParticipant(person);
+                id++;
             }
         }
         #endregion
@@ -552,6 +554,32 @@ namespace IBMConsultantTool
                     initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
                 }
             }
+        }
+
+        public override List<string> GetObjectivesFromCurrentClientBOM()
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+
+            List<string> allObjectiveNamesList =  (from bom in client.BOM
+                                                   select bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()).ToList();
+
+            List<string> result = new List<string>();
+            foreach(string objectiveName in allObjectiveNamesList)
+            {
+                if(!result.Contains(objectiveName))
+                {
+                    result.Add(objectiveName);
+                }
+            }
+
+            return result;
+        }
+        public override List<string> GetImperativesFromCurrentClientBOM()
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+
+            return (from bom in client.BOM
+                    select bom.INITIATIVE.NAME.TrimEnd()).ToList();
         }
         #endregion
 
@@ -1306,13 +1334,25 @@ namespace IBMConsultantTool
             CUPERESPONSE response;
             CUPE cupe;
 
-            foreach (CONTACT contactToDelete in busGrp.CONTACT)
+            List<CONTACT> contactsToDelete = busGrp.CONTACT.ToList();
+            List<CUPERESPONSE> responsesToDelete;
+            foreach (CONTACT contactToDelete in contactsToDelete)
             {
+                responsesToDelete = contactToDelete.CUPERESPONSE.ToList();
+                foreach (CUPERESPONSE responseToDelete in responsesToDelete)
+                {
+                    dbo.DeleteObject(responseToDelete);
+                }
                 dbo.DeleteObject(contactToDelete);
             }
-
-            foreach (CONTACT contactToDelete in itGrp.CONTACT)
+            contactsToDelete = itGrp.CONTACT.ToList();
+            foreach (CONTACT contactToDelete in contactsToDelete)
             {
+                responsesToDelete = contactToDelete.CUPERESPONSE.ToList();
+                foreach (CUPERESPONSE responseToDelete in responsesToDelete)
+                {
+                    dbo.DeleteObject(responseToDelete);
+                }
                 dbo.DeleteObject(contactToDelete);
             }
             foreach (Person person in personList)
@@ -1325,7 +1365,7 @@ namespace IBMConsultantTool
                     dbo.AddToCONTACT(contact);
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
-                    for (int i = 0; i < questionList.Count - 1; i++)
+                    for (int i = 0; i < questionList.Count; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
                         if (!GetCUPE(data.QuestionText, client, out cupe))
@@ -1352,7 +1392,7 @@ namespace IBMConsultantTool
                     dbo.AddToCONTACT(contact);
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
-                    for(int i = 0; i < questionList.Count - 1; i++)
+                    for(int i = 0; i < questionList.Count; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
                         if (!GetCUPE(data.QuestionText, client, out cupe))
@@ -3796,12 +3836,20 @@ namespace IBMConsultantTool
                                 }
                                 break;
                             case "CONTACTS":
+                                List<CONTACT> contactsToDelete;
+                                List<CUPERESPONSE> responsesToDelete;
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
                                     foreach (GROUP grpToClear in client.GROUP)
                                     {
-                                        foreach (CONTACT contactToDelete in grpToClear.CONTACT)
+                                        contactsToDelete = grpToClear.CONTACT.ToList();
+                                        foreach (CONTACT contactToDelete in contactsToDelete)
                                         {
+                                            responsesToDelete = contactToDelete.CUPERESPONSE.ToList();
+                                            foreach (CUPERESPONSE responseToDelete in responsesToDelete)
+                                            {
+                                                dbo.DeleteObject(responseToDelete);
+                                            }
                                             dbo.DeleteObject(contactToDelete);
                                         }
                                     }

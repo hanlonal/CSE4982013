@@ -25,6 +25,7 @@ namespace IBMConsultantTool
 
         //EmployeeType type = new EmployeeType();
         CupeForm owner;
+        string codeName;
         string email;
         string clientName;
         int id;
@@ -180,6 +181,18 @@ namespace IBMConsultantTool
                 return questionData;
             }
             
+        }
+
+        public string CodeName
+        {
+            get
+            {
+                return codeName;
+            }
+            set
+            {
+                codeName = value;
+            }
         }
 
         public int ID

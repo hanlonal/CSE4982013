@@ -107,10 +107,12 @@ namespace IBMConsultantTool
                     if (Convert.ToBoolean( row.Cells[2].Value) == true)
                     {
                        tempPerson.Type = Person.EmployeeType.IT;
+                       tempPerson.CodeName = "Business" + count.ToString();
                     }
                     if ( Convert.ToBoolean( row.Cells[1].Value) == true )
                     {
                        tempPerson.Type = Person.EmployeeType.Business;
+                       tempPerson.CodeName = "IT" + count.ToString();
                     }
                    //See if there are answers for the current person
 
