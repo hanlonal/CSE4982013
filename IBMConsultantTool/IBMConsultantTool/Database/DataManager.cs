@@ -111,6 +111,10 @@ namespace IBMConsultantTool
         #region CUPEResponse
         #endregion
 
+        #region ScoringEntity
+        public abstract string GetScoringEntityID(string entName);
+        #endregion
+
         #region Domain
         public abstract string[] GetDomainNames();
         public abstract string[] GetDomainNamesAndDefault();

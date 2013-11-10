@@ -1705,6 +1705,31 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region ScoringEntity
+        public override string GetScoringEntityID(string entName)
+        {
+            DOMAIN domain;
+            if(GetDomain(entName, out domain))
+            {
+                return domain.ID;
+            }
+
+            CAPABILITY capability;
+            if (GetCapability(entName, out capability))
+            {
+                return capability.ID;
+            }
+
+            ITCAPQUESTION itcapQuestion;
+            if (GetITCAPQuestion(entName, out itcapQuestion))
+            {
+                return itcapQuestion.ID;
+            }
+
+            return "";
+        }
+        #endregion
+
         #region Domain
 
         public List<DOMAIN> GetDomains()
