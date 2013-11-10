@@ -295,13 +295,13 @@ namespace IBMConsultantTool
             date.BringToFront();
         }
 
-        private void CreateCapabilityToTrack(string region, string busi, string from, string to)
+        private void CreateCapabilityToTrack(string region, string country, string busi, string from, string to)
         {
 
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Capability")
             {
                 List<CapabilityTrendAnalysis> capabilities = new List<CapabilityTrendAnalysis>();
-                capabilities = db.GetCapabilityTrendAnalysis(capabilitiesComboBox.Text, region, busi, from, to);
+                capabilities = db.GetCapabilityTrendAnalysis(capabilitiesComboBox.Text, region, country, busi, from, to);
                 CapabilityTrendAnalysis ent = new CapabilityTrendAnalysis();
                 if (capabilities.Count > 0)
                 {
@@ -338,13 +338,13 @@ namespace IBMConsultantTool
 
         }
 
-        private void CreateCUPEQuestionToTrack(string region, string busi, string from, string to)
+        private void CreateCUPEQuestionToTrack(string region, string country, string busi, string from, string to)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "CUPE")
             {
                 List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
 
-                cupes = db.GetCUPEQuestionTrendAnalysis(cupeQuestionsComboBox.Text, region, busi, from, to);
+                cupes = db.GetCUPEQuestionTrendAnalysis(cupeQuestionsComboBox.Text, region, country, busi, from, to);
                 if (cupes.Count < 0)
                 {
                     float asIsAaverage = cupes.Average(d => d.CurrentAnswer);
@@ -385,12 +385,12 @@ namespace IBMConsultantTool
 
         }
 
-        private void CreateITAttributeToTrack(string region, string busi, string from, string to)
+        private void CreateITAttributeToTrack(string region, string country, string busi, string from, string to)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Attribute")
             {
                 List<ITAttributeTrendAnalysis> attributes = new List<ITAttributeTrendAnalysis>();
-                attributes = db.GetITAttributeTrendAnalysis(itAttributesComboBox.Text, region, busi, from, to);
+                attributes = db.GetITAttributeTrendAnalysis(itAttributesComboBox.Text, region, country, busi, from, to);
                 ITAttributeTrendAnalysis ent = new ITAttributeTrendAnalysis();
                 if (attributes.Count > 0)
                 {
@@ -420,12 +420,12 @@ namespace IBMConsultantTool
             }
         }
 
-        private void CreateInitiativeToTrack(string region, string business, string from, string to)
+        private void CreateInitiativeToTrack(string region, string country, string business, string from, string to)
         {
             if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
             {
                 List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
-                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, business, from, to);
+                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, country, business, from, to);
                 InitiativeTrendAnalysis init = new InitiativeTrendAnalysis();
 
 
@@ -477,6 +477,7 @@ namespace IBMConsultantTool
         private void showResultsButton_Click(object sender, EventArgs e)
         {
             string regionToSearch;
+            string countryToSearch;
             string businessTypeToSearch;
             string fromDate;
             string toDate;
@@ -494,10 +495,19 @@ namespace IBMConsultantTool
             }
             else
                 toDate = "All";
-            if(regionComboBox.Enabled)
+            if (regionComboBox.Enabled)
+            {
                 regionToSearch = regionComboBox.Text.Trim();
+                if (countryCheckBox.Enabled)
+                    countryToSearch = countryComboBox.Text.Trim();
+                else
+                    countryToSearch = "All";
+            }
             else
+            {
                 regionToSearch = "All";
+                countryToSearch = "All";
+            }
 
             if(businessTypeComboBox.Enabled)
                 businessTypeToSearch = businessTypeComboBox.Text.Trim();
@@ -515,13 +525,13 @@ namespace IBMConsultantTool
             
 
             if (state == TrackingState.Capabilities)
-                CreateCapabilityToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);
+                CreateCapabilityToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);
             else if (state == TrackingState.CUPEQuestions)
-                CreateCUPEQuestionToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);
+                CreateCUPEQuestionToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);
             else if (state == TrackingState.ITAttributes)
-                CreateITAttributeToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);
+                CreateITAttributeToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);
             else if (state == TrackingState.Initiatives)
-                CreateInitiativeToTrack(regionToSearch, businessTypeToSearch, fromDate, toDate);            
+                CreateInitiativeToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);            
         }
 
         private void clearGridButton_Click(object sender, EventArgs e)
@@ -677,6 +687,20 @@ namespace IBMConsultantTool
                  lineChart.Series.Add(trendGridView.Name);
                  //lineChart.Series[trendGridView.Name].Points.AddXY(trendGridView.
              }*/
+        }
+
+        private void regionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            countryComboBox.Items.Clear();
+            countryComboBox.Text = "<All Countries>";
+            countryComboBox.Items.AddRange(db.GetCountryNames(regionComboBox.Text).ToArray());
+        }
+
+        private void regionComboBox_LostFocus(object sender, EventArgs e)
+        {
+            countryComboBox.Items.Clear();
+            countryComboBox.Text = "<All Countries>";
+            countryComboBox.Items.AddRange(db.GetCountryNames(regionComboBox.Text).ToArray());
         }
 
 
