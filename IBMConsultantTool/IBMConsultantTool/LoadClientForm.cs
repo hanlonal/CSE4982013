@@ -12,7 +12,6 @@ namespace IBMConsultantTool
 {
     public partial class LoadClientForm : Form
     {
-        StartPage owner;
         public LoadClientForm()
         {
             InitializeComponent();
@@ -25,7 +24,6 @@ namespace IBMConsultantTool
         {
             if (ClientDataControl.LoadClient(ChooseClientComboBox.Text))
             {
-                owner.Refresh();
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();
             }
@@ -40,12 +38,6 @@ namespace IBMConsultantTool
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
-        }
-
-        public StartPage Owner
-        {
-            get { return owner; }
-            set { owner = value; }
         }
     }
 }

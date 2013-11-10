@@ -11,7 +11,6 @@ namespace IBMConsultantTool
 {
     public partial class NewClientForm : Form
     {
-        StartPage owner;
         DateTime selectedTime;
 
         public NewClientForm()
@@ -56,8 +55,6 @@ namespace IBMConsultantTool
                 return;
             }
 
-
-            owner.Refresh();
             this.Close();
         }
 
@@ -85,12 +82,6 @@ namespace IBMConsultantTool
 
 
         #endregion
-
-        public StartPage Owner
-        {
-            get { return owner; }
-            set { owner = value; }
-        }
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -52,17 +52,20 @@ namespace IBMConsultantTool
 
         private void NewConsultButton_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcMainForm));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
-            this.Close();
-            return;
+            NewClientForm ncf = new NewClientForm();
+            ncf.ShowDialog();
+            if (ClientDataControl.Client != null)
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcMainForm));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+                this.Close();
+            }
         }
 
 
         public static void ThreadProcMainForm()
         {
-            ClientDataControl.newClient = true;
             Application.Run(new StartPage());
         }
 
@@ -90,17 +93,15 @@ namespace IBMConsultantTool
 
         private void LoadConsultButton_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLoad));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
-            this.Close();
-            return;
-        }
-
-        public static void ThreadProcLoad()
-        {
-            ClientDataControl.newClient = false;
-            Application.Run(new StartPage());
+            LoadClientForm lcf = new LoadClientForm();
+            lcf.ShowDialog();
+            if (ClientDataControl.Client != null)
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcMainForm));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+                this.Close();
+            }
         }
 
         private void OnlineModeCheckbox_CheckedChanged(object sender, EventArgs e)
