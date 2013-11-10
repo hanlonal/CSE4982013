@@ -21,29 +21,10 @@ namespace IBMConsultantTool
                 Directory.CreateDirectory("Charts");
             }
             InitializeComponent();
-            if (ClientDataControl.newClient)
-            {
-                NewClientForm form = new NewClientForm();
-                form.Owner = this;
-                form.ShowDialog();
-            }
-
-            else
-            {
-                LoadClientForm form = new LoadClientForm();
-                form.Owner = this;
-                form.ShowDialog();
-            }
         }
 
         private void StartPage_Load(object sender, EventArgs e)
         {
-            if (ClientDataControl.Client == null)
-            {   System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcReset));
-                t.SetApartmentState(System.Threading.ApartmentState.STA);
-                t.Start();
-                this.Close();
-            }
             //this.Controls.Add(form);
             clientNameLabel.Text = ClientDataControl.Client.Name;
             clientTypeLabel.Text = ClientDataControl.Client.BusinessType;

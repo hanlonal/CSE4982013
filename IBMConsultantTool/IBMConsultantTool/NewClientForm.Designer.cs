@@ -102,7 +102,6 @@
             this.startDateText.Name = "startDateText";
             this.startDateText.Size = new System.Drawing.Size(179, 26);
             this.startDateText.TabIndex = 7;
-            this.startDateText.TextChanged += new System.EventHandler(this.startDateText_TextChanged);
             // 
             // BusinessTypeComboBox
             // 
@@ -120,7 +119,6 @@
             this.okButton.TabIndex = 9;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
-           // this.okButton.Click += new System.EventHandler(this.okButton_Click_1);
             // 
             // cancelButton
             // 
@@ -138,6 +136,8 @@
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(179, 28);
             this.RegionComboBox.TabIndex = 12;
+            this.RegionComboBox.SelectedIndexChanged += new System.EventHandler(this.RegionComboBox_SelectedIndexChanged);
+            this.RegionComboBox.LostFocus += new System.EventHandler(this.RegionComboBox_LostFocus);
             // 
             // RegionLabel
             // 

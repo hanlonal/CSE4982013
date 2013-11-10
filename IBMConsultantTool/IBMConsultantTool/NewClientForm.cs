@@ -11,7 +11,6 @@ namespace IBMConsultantTool
 {
     public partial class NewClientForm : Form
     {
-        StartPage owner;
         DateTime selectedTime;
 
         public NewClientForm()
@@ -56,8 +55,6 @@ namespace IBMConsultantTool
                 return;
             }
 
-
-            owner.Refresh();
             this.Close();
         }
 
@@ -86,17 +83,19 @@ namespace IBMConsultantTool
 
         #endregion
 
-        public StartPage Owner
+        private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            get { return owner; }
-            set { owner = value; }
+            countryComboBox.Items.Clear();
+            countryComboBox.Text = "";
+            countryComboBox.Items.AddRange(ClientDataControl.db.GetCountryNames(RegionComboBox.Text).ToArray());
         }
 
-        private void startDateText_TextChanged(object sender, EventArgs e)
+        private void RegionComboBox_LostFocus(object sender, EventArgs e)
         {
-
+            countryComboBox.Items.Clear();
+            countryComboBox.Text = "";
+            countryComboBox.Items.AddRange(ClientDataControl.db.GetCountryNames(RegionComboBox.Text).ToArray());
         }
-
 
     }
 }

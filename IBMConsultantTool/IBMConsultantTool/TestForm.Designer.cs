@@ -40,6 +40,7 @@
             this.LoadConsultButton = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.OnlineModeCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).BeginInit();
@@ -49,10 +50,9 @@
             // 
             this.NewConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.NewConsultButton.Image = ((System.Drawing.Image)(resources.GetObject("NewConsultButton.Image")));
-            this.NewConsultButton.Location = new System.Drawing.Point(121, 178);
-            this.NewConsultButton.Margin = new System.Windows.Forms.Padding(4);
+            this.NewConsultButton.Location = new System.Drawing.Point(91, 145);
             this.NewConsultButton.Name = "NewConsultButton";
-            this.NewConsultButton.Size = new System.Drawing.Size(158, 158);
+            this.NewConsultButton.Size = new System.Drawing.Size(118, 128);
             this.NewConsultButton.TabIndex = 3;
             this.NewConsultButton.TabStop = false;
             this.NewConsultButton.Click += new System.EventHandler(this.NewConsultButton_Click);
@@ -63,10 +63,9 @@
             // 
             this.WelcomeMessage.AutoSize = true;
             this.WelcomeMessage.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WelcomeMessage.Location = new System.Drawing.Point(91, 102);
-            this.WelcomeMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.WelcomeMessage.Location = new System.Drawing.Point(68, 83);
             this.WelcomeMessage.Name = "WelcomeMessage";
-            this.WelcomeMessage.Size = new System.Drawing.Size(704, 28);
+            this.WelcomeMessage.Size = new System.Drawing.Size(563, 21);
             this.WelcomeMessage.TabIndex = 5;
             this.WelcomeMessage.Text = "The IBM Consultant Toolkit makes it easier than ever to perform workshop tasks";
             // 
@@ -74,10 +73,9 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(88, 30);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(66, 24);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(211, 45);
+            this.label4.Size = new System.Drawing.Size(165, 35);
             this.label4.TabIndex = 6;
             this.label4.Text = "WELCOME";
             // 
@@ -85,10 +83,9 @@
             // 
             this.TrendAnalysisButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TrendAnalysisButton.Image = ((System.Drawing.Image)(resources.GetObject("TrendAnalysisButton.Image")));
-            this.TrendAnalysisButton.Location = new System.Drawing.Point(121, 548);
-            this.TrendAnalysisButton.Margin = new System.Windows.Forms.Padding(4);
+            this.TrendAnalysisButton.Location = new System.Drawing.Point(91, 445);
             this.TrendAnalysisButton.Name = "TrendAnalysisButton";
-            this.TrendAnalysisButton.Size = new System.Drawing.Size(158, 152);
+            this.TrendAnalysisButton.Size = new System.Drawing.Size(118, 124);
             this.TrendAnalysisButton.TabIndex = 7;
             this.TrendAnalysisButton.TabStop = false;
             this.TrendAnalysisButton.Click += new System.EventHandler(this.TrendAnalysisButton_Click);
@@ -99,10 +96,9 @@
             // 
             this.NewConsultMessage.AutoSize = true;
             this.NewConsultMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewConsultMessage.Location = new System.Drawing.Point(287, 166);
-            this.NewConsultMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.NewConsultMessage.Location = new System.Drawing.Point(215, 135);
             this.NewConsultMessage.Name = "NewConsultMessage";
-            this.NewConsultMessage.Size = new System.Drawing.Size(274, 36);
+            this.NewConsultMessage.Size = new System.Drawing.Size(219, 29);
             this.NewConsultMessage.TabIndex = 8;
             this.NewConsultMessage.Text = "Start a new Consult";
             // 
@@ -110,10 +106,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(288, 217);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(216, 176);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(673, 25);
+            this.label1.Size = new System.Drawing.Size(547, 20);
             this.label1.TabIndex = 9;
             this.label1.Text = "The new consultant toolkit makes it easier than ever to plan your workshops. ";
             // 
@@ -122,10 +117,9 @@
             this.TrendAnalysisLabel.AutoSize = true;
             this.TrendAnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TrendAnalysisLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.TrendAnalysisLabel.Location = new System.Drawing.Point(287, 559);
-            this.TrendAnalysisLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TrendAnalysisLabel.Location = new System.Drawing.Point(215, 454);
             this.TrendAnalysisLabel.Name = "TrendAnalysisLabel";
-            this.TrendAnalysisLabel.Size = new System.Drawing.Size(214, 36);
+            this.TrendAnalysisLabel.Size = new System.Drawing.Size(172, 29);
             this.TrendAnalysisLabel.TabIndex = 10;
             this.TrendAnalysisLabel.Text = "Trend Analysis";
             // 
@@ -133,10 +127,9 @@
             // 
             this.TrendDescription.AutoSize = true;
             this.TrendDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TrendDescription.Location = new System.Drawing.Point(288, 619);
-            this.TrendDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TrendDescription.Location = new System.Drawing.Point(216, 503);
             this.TrendDescription.Name = "TrendDescription";
-            this.TrendDescription.Size = new System.Drawing.Size(579, 25);
+            this.TrendDescription.Size = new System.Drawing.Size(471, 20);
             this.TrendDescription.TabIndex = 11;
             this.TrendDescription.Text = "Organize past consults in a number of ways to see industry trends";
             // 
@@ -144,10 +137,9 @@
             // 
             this.LoadConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoadConsultButton.Image = global::IBMConsultantTool.Properties.Resources.load_upload_icon;
-            this.LoadConsultButton.Location = new System.Drawing.Point(121, 362);
-            this.LoadConsultButton.Margin = new System.Windows.Forms.Padding(4);
+            this.LoadConsultButton.Location = new System.Drawing.Point(91, 294);
             this.LoadConsultButton.Name = "LoadConsultButton";
-            this.LoadConsultButton.Size = new System.Drawing.Size(158, 148);
+            this.LoadConsultButton.Size = new System.Drawing.Size(118, 120);
             this.LoadConsultButton.TabIndex = 13;
             this.LoadConsultButton.TabStop = false;
             this.LoadConsultButton.Click += new System.EventHandler(this.LoadConsultButton_Click);
@@ -158,10 +150,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(287, 362);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(215, 294);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(323, 36);
+            this.label2.Size = new System.Drawing.Size(256, 29);
             this.label2.TabIndex = 14;
             this.label2.Text = "Load an Active Consult";
             // 
@@ -169,19 +160,31 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(288, 417);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(216, 339);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(319, 25);
+            this.label3.Size = new System.Drawing.Size(259, 20);
             this.label3.TabIndex = 15;
             this.label3.Text = "Load a consult currently in progress";
             // 
+            // OnlineModeCheckbox
+            // 
+            this.OnlineModeCheckbox.AutoSize = true;
+            this.OnlineModeCheckbox.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OnlineModeCheckbox.Location = new System.Drawing.Point(557, 41);
+            this.OnlineModeCheckbox.Name = "OnlineModeCheckbox";
+            this.OnlineModeCheckbox.Size = new System.Drawing.Size(111, 22);
+            this.OnlineModeCheckbox.TabIndex = 17;
+            this.OnlineModeCheckbox.Text = "Online Mode";
+            this.OnlineModeCheckbox.UseVisualStyleBackColor = true;
+            this.OnlineModeCheckbox.CheckedChanged += new System.EventHandler(this.OnlineModeCheckbox_CheckedChanged);
+            // 
             // TestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1032, 729);
+            this.ClientSize = new System.Drawing.Size(774, 592);
+            this.Controls.Add(this.OnlineModeCheckbox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.LoadConsultButton);
@@ -195,10 +198,8 @@
             this.Controls.Add(this.NewConsultButton);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TestForm";
             this.Text = "IBM Consultant Toolkit";
-            this.Load += new System.EventHandler(this.TestForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).EndInit();
@@ -220,5 +221,6 @@
         private System.Windows.Forms.PictureBox LoadConsultButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox OnlineModeCheckbox;
     }
 }
