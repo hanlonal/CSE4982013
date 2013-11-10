@@ -2028,6 +2028,8 @@ namespace IBMConsultantTool
 
         public override void AddQuestionToITCAP(string itcqName, string capName, string domName, ITCapTool itcapForm, out int alreadyExists, out string owner)
         {
+            alreadyExists = 0;
+            owner = "";
             ITCAPQUESTION itcapQuestion;
             if (!GetITCAPQuestion(itcqName, out itcapQuestion))
             {
@@ -2046,19 +2048,11 @@ namespace IBMConsultantTool
                         domain = new DOMAIN();
                         domain.NAME = domName;
                         domain.DEFAULT = "N";
-                        alreadyExists = 0;
-                        owner = "";
                         if (!AddDomain(domain))
                         {
                             MessageBox.Show("Failed to add Domain to Database", "Error");
                             return;
                         }
-                    }
-
-                    else
-                    {
-                        alreadyExists = 1;
-                        owner = domName;
                     }
 
                     capability.DOMAIN = domain;
@@ -2069,12 +2063,6 @@ namespace IBMConsultantTool
                     }
                 }
 
-                else
-                {
-                    alreadyExists = 2;
-                    owner = capName;
-                }
-
                 itcapQuestion.CAPABILITY = capability;
                 if (!AddITCAPQuestion(itcapQuestion))
                 {
@@ -2083,10 +2071,32 @@ namespace IBMConsultantTool
                 }
             }
 
-            else
+            Domain domForSearch = itcapForm.domains.Find(delegate(Domain dom)
+                                            {
+                                                return dom.Name == domName;
+                                            });
+            if (domForSearch != null)
             {
-                alreadyExists = 3;
-                owner = "";
+                alreadyExists = 1;
+                owner = domName;
+                Capability capForSearch = domForSearch.CapabilitiesOwned.Find(delegate(Capability cap)
+                                                                              {
+                                                                                  return cap.Name == capName;
+                                                                              });
+                if (capForSearch != null)
+                {
+                    alreadyExists = 2;
+                    owner = capName;
+                    ITCapQuestion itcqForSearch = capForSearch.QuestionsOwned.Find(delegate(ITCapQuestion itcq)
+                                                                                   {
+                                                                                       return itcq.Name == itcqName;
+                                                                                   });
+                    if (itcqForSearch != null)
+                    {
+                        alreadyExists = 3;
+                        owner = "";
+                    }
+                }
             }
 
             ITCAP itcap = new ITCAP();
