@@ -934,12 +934,15 @@
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
+<<<<<<< HEAD
             // preferencesToolStripMenuItem2
             // 
             //this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
             //this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(172, 22);
             //this.preferencesToolStripMenuItem2.Text = "Preferences";
             //
+=======
+>>>>>>> 2582aa264e07e198c4f93ef80689a03411e00ace
             // createSurveyToolStripMenuItem
             // 
             this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
@@ -1223,7 +1226,10 @@
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
+<<<<<<< HEAD
             this.bOMToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+=======
+>>>>>>> 2582aa264e07e198c4f93ef80689a03411e00ace
             this.bOMToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
@@ -1231,7 +1237,10 @@
             // iTCapabilityToolStripMenuItem1
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
+<<<<<<< HEAD
             this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
+=======
+>>>>>>> 2582aa264e07e198c4f93ef80689a03411e00ace
             this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.iTCapabilityToolStripMenuItem1.Text = "IT Capability";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
@@ -1247,7 +1256,10 @@
             // beginTutorialToolStripMenuItem
             // 
             this.beginTutorialToolStripMenuItem.Name = "beginTutorialToolStripMenuItem";
+<<<<<<< HEAD
             this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+=======
+>>>>>>> 2582aa264e07e198c4f93ef80689a03411e00ace
             this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
             this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
