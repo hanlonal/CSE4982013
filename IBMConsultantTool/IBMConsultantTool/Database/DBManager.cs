@@ -1761,7 +1761,7 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            domain.ID = dbo.DOMAIN.Count().ToString() + ".0.0";
+            domain.ID = (dbo.DOMAIN.Count()+1).ToString() + ".0.0";
             dbo.AddToDOMAIN(domain);
 
             return true;
@@ -1850,7 +1850,7 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            capability.ID = capability.DOMAIN.ID[0] + "." + capability.DOMAIN.CAPABILITY.Count() + ".0";
+            capability.ID = capability.DOMAIN.ID[0] + "." + (capability.DOMAIN.CAPABILITY.Count()+1) + ".0";
 
             dbo.AddToCAPABILITY(capability);
 
@@ -2019,7 +2019,7 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            itcapQuestion.ID = itcapQuestion.CAPABILITY.DOMAIN.ID[0] + "." + itcapQuestion.CAPABILITY.ID[2] + "." + itcapQuestion.CAPABILITY.ITCAPQUESTION.Count();
+            itcapQuestion.ID = itcapQuestion.CAPABILITY.DOMAIN.ID[0] + "." + itcapQuestion.CAPABILITY.ID[2] + "." + (itcapQuestion.CAPABILITY.ITCAPQUESTION.Count()+1);
 
             dbo.AddToITCAPQUESTION(itcapQuestion);
 
