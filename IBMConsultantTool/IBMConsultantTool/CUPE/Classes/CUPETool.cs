@@ -21,8 +21,8 @@ namespace IBMConsultantTool
         List<Chart> charts = new List<Chart>();
         DataGridView currentGrid;
         DataGridView toRemove;
-       // DataGridView view = new DataGridView();
         Chart currentChart;
+
         int personCount = 0;
         bool isAnonymous = true;
         public bool is20Question = true;
@@ -965,17 +965,25 @@ namespace IBMConsultantTool
 
             for (int i = 0; i < currentCount; i++)
             {
-                newChart.Series["Current"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), current[i]);
+                double temp = Convert.ToDouble(current[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
 
+                newChart.Series["Current"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
             }
 
             for (int i = 0; i < futureCount; i++)
             {
-                newChart.Series["Future"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
+                double temp = Convert.ToDouble(future[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["Future"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
             }
 
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
-            //newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void businessLeadersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1119,12 +1127,22 @@ namespace IBMConsultantTool
 
             for (int i = 0; i < currentCount; i++)
             {
-                newChart.Series["Business"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), current[i]);
+                double temp = Convert.ToDouble(current[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["Business"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
             }
 
             for (int i = 0; i < futureCount; i++)
             {
-                newChart.Series["IT"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), future[i]);
+                double temp = Convert.ToDouble(future[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["IT"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
             }
 
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
@@ -1842,10 +1860,33 @@ namespace IBMConsultantTool
 
             index--;
 
-            newChart.Series["Business Future"].Points.AddY(fuBusiness[index]);
-            newChart.Series["Business Current"].Points.AddY(curBusiness[index]);
-            newChart.Series["IT Future"].Points.AddY(fuIT[index]);
-            newChart.Series["IT Current"].Points.AddY(curIT[index]);
+            double temp = Convert.ToDouble(fuBusiness[index]);
+            decimal tmp = Convert.ToDecimal(temp);
+            tmp = Math.Round(tmp, 2);
+            temp = (double)tmp;
+
+            newChart.Series["Business Future"].Points.AddY(temp);
+
+            temp = Convert.ToDouble(curBusiness[index]);
+            tmp = Convert.ToDecimal(temp);
+            tmp = Math.Round(tmp, 2);
+            temp = (double)tmp;
+
+            newChart.Series["Business Current"].Points.AddY(temp);
+
+            temp = Convert.ToDouble(fuIT[index]);
+            tmp = Convert.ToDecimal(temp);
+            tmp = Math.Round(tmp, 2);
+            temp = (double)tmp;
+
+            newChart.Series["IT Future"].Points.AddY(temp);
+
+            temp = Convert.ToDouble(curIT[index]);
+            tmp = Convert.ToDecimal(temp);
+            tmp = Math.Round(tmp, 2);
+            temp = (double)tmp;
+
+            newChart.Series["IT Current"].Points.AddY(temp);
 
             newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
@@ -2257,20 +2298,7 @@ namespace IBMConsultantTool
             ITCurInfo.Add(avgITp);
             ITCurInfo.Add(avgITe);
 
-            /*total = numA + numB + numC + numD + ITc + ITu + ITp + ITe;
-            avgC = (numA + ITc) / total * 100;
-            avgU = (numB + ITu) / total * 100;
-            avgP = (numC + ITp) / total * 100;
-            avgE = (numD + ITe) / total * 100;
-
-            totalCurInfo.Add(avgC);
-            totalCurInfo.Add(avgU);
-            totalCurInfo.Add(avgP);
-            totalCurInfo.Add(avgE);*/
-
             BusITResponsesChart(busCurInfo, ITCurInfo, cupe, name);
-
-            //CurrentBusITChart chart = new CurrentBusITChart();
         }
 
 
@@ -2398,15 +2426,26 @@ namespace IBMConsultantTool
 
             int busCount = bus.Count;
             int itCount = it.Count;
+            double temp;
 
             for (int i = 0; i < busCount; i++)
             {
-                newChart.Series["Business"].Points.AddXY(cupe[i], bus[i]);
+                temp = Convert.ToDouble(bus[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["Business"].Points.AddXY(cupe[i], temp);
             }
 
             for (int i = 0; i < itCount; i++)
             {
-                newChart.Series["IT"].Points.AddXY(cupe[i], it[i]);
+                temp = Convert.ToDouble(it[i]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["IT"].Points.AddXY(cupe[i], temp);
             }
 
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
@@ -2482,11 +2521,6 @@ namespace IBMConsultantTool
             ITCurInfo.Add(avgITp);
             ITCurInfo.Add(avgITe);
 
-            /*total = numA + numB + numC + numD + ITc + ITu + ITp + ITe;
-            avgC = (numA + ITc) / total * 100;
-            avgU = (numB + ITu) / total * 100;
-            avgP = (numC + ITp) / total * 100;
-            avgE = (numD + ITe) / total * 100;*/
             avgC = avgBusC + avgITc;
             avgU = avgBusU + avgITu;
             avgP = avgBusP + avgITp;
@@ -2498,8 +2532,6 @@ namespace IBMConsultantTool
             totalCurInfo.Add(avgE);
 
             OverallChart(busCurInfo, ITCurInfo, totalCurInfo, id, name);
-
-            //CurrentBusITChart chart = new CurrentBusITChart();
         }
 
         private void futureToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -2885,16 +2917,37 @@ namespace IBMConsultantTool
             newChart.Series["Total Enabler"].YValueType = ChartValueType.Double;
 
             int count = commodity.Count;
+            double temp;
 
             for (int cnt = 0; cnt < count; cnt++)
             {
-                newChart.Series["Total Commodity"].Points.AddXY((cnt + 1).ToString(), commodity[cnt]);
+                temp = Convert.ToDouble(commodity[cnt]);
+                decimal tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+ 
+                newChart.Series["Total Commodity"].Points.AddXY((cnt + 1).ToString(), tmp);
 
-                newChart.Series["Total Utility"].Points.AddXY((cnt + 1).ToString(), utility[cnt]);
+                temp = Convert.ToDouble(utility[cnt]);
+                tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
 
-                newChart.Series["Total Partner"].Points.AddXY((cnt + 1).ToString(), partner[cnt]);
+                newChart.Series["Total Utility"].Points.AddXY((cnt + 1).ToString(), temp);
 
-                newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), enabler[cnt]);
+                temp = Convert.ToDouble(partner[cnt]);
+                tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["Total Partner"].Points.AddXY((cnt + 1).ToString(), temp);
+
+                temp = Convert.ToDouble(enabler[cnt]);
+                tmp = Convert.ToDecimal(temp);
+                tmp = Math.Round(tmp, 2);
+                temp = (double)tmp;
+
+                newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), temp);
             }
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
@@ -3178,11 +3231,6 @@ namespace IBMConsultantTool
                 if (count > 0)
                     currentIT = num / count;
 
-                /*if (count > 0)
-                    cupeScoreLabel.Text = (num / count).ToString();
-                else
-                    cupeScoreLabel.Text = " ";*/
-
                 int countA = 0;
                 int countB = 0;
                 int countC = 0;
@@ -3228,7 +3276,6 @@ namespace IBMConsultantTool
                     currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value));
                 }
 
-                //ITProviderRelationshipGraph chart = new ITProviderRelationshipGraph(currentBusinessFloats, futureBusinessFloats, currentITFloats, futureITFloats);
                 ITProviderRelationshipGraph chart = new ITProviderRelationshipGraph(currentBusiness, futureBusiness, currentIT, futureIT);
 
                 chart.Show();
