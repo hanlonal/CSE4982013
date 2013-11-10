@@ -26,6 +26,7 @@ namespace IBMConsultantTool
             if (ClientDataControl.LoadClient(ChooseClientComboBox.Text))
             {
                 owner.Refresh();
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();
             }
 
@@ -37,6 +38,7 @@ namespace IBMConsultantTool
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
         }
 
