@@ -441,13 +441,20 @@ namespace IBMConsultantTool
                 foreach (ITCapQuestion question in cap.QuestionsOwned)
                 {
                     if (entities.Contains(question))
+                    {
                         entities.Remove(question);
+                        ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
+                    }
                 }
                 if (entities.Contains(cap))
+                {
                     entities.Remove(cap);
+                }
 
             }
             entities.Remove(dom);
+            domains.Remove(dom);
+            ClientDataControl.db.SaveChanges();
             LoadChartSurvey();
         }
 
@@ -461,19 +468,43 @@ namespace IBMConsultantTool
                 {
                     question.IsInGrid = false;
                     surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
+                    ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
                 }
             }
             cap.IsInGrid = false;
             surveryMakerGrid.Rows.RemoveAt(cap.IndexInGrid);
+
+            Domain dom = cap.Owner;
+            dom.CapabilitiesOwned.Remove(cap);
+            if (dom.CapabilitiesOwned.Count == 0)
+            {
+                entities.Remove(dom);
+                domains.Remove(dom);
+            }
+            LoadChartSurvey();
         }
 
         private void deleteAttribute_Click(object sender, EventArgs e)
         {
             ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
-
+            entities.Remove(question);
             ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
 
+            Capability cap = question.Owner;
+            cap.QuestionsOwned.Remove(question);
+            if (cap.QuestionsOwned.Count == 0)
+            {
+                entities.Remove(cap);
+                Domain dom = cap.Owner;
+                dom.CapabilitiesOwned.Remove(cap);
+                if (dom.CapabilitiesOwned.Count == 0)
+                {
+                    entities.Remove(dom);
+                    domains.Remove(dom);
+                }
+            }
 
+            LoadChartSurvey();
         }
 
 
@@ -736,7 +767,7 @@ namespace IBMConsultantTool
                 Domain dom = new Domain();
 
                 dom.Name = domainList.Text;
-                dom.IsDefault = false;                
+                dom.IsDefault = false;              
                 dom.Type = "domain";
                 //entities.Add(dom);
                 //LoadCapabilities(dom);

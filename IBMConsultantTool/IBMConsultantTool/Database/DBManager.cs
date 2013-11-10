@@ -651,7 +651,7 @@ namespace IBMConsultantTool
             try
             {
                 itcap = (from ent in client.ITCAP
-                         where ent.ITCAPQUESTION.NAME == itcqName
+                         where ent.ITCAPQUESTION.NAME.TrimEnd() == itcqName
                          select ent).Single();
             }
 
@@ -760,7 +760,7 @@ namespace IBMConsultantTool
                 return true;
             }
             
-            return true;
+            return false;
         }
 
 
