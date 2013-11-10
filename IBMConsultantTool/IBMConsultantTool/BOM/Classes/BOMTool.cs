@@ -99,19 +99,10 @@ namespace IBMConsultantTool
             detailInfoPanel.Controls.Add(diffBox);
         }
 
-        public void AddImperative()
-        {
-
-
-        }
-
-
 
         private void effectbox_TextChanged(object sender, EventArgs e)
         {
             TextBox sendingTextBox = (TextBox)sender;
-
-
         }
 
         public TabControl CategoryWorkspace
@@ -192,9 +183,43 @@ namespace IBMConsultantTool
 
         public void RemoveObjective(NewObjective obj)
         {
+            foreach (NewImperative imp in obj.Imperatives)
+            {
+                ClientDataControl.db.RemoveBOM(imp.Name, ClientDataControl.Client.EntityObject);
+            }
+            obj.Controls.Clear();
             Controls.RemoveByKey(obj.Name);
+            NewCategory cat = obj.owner;
+            if (cat.Objectives.Count == 0)
+            {
+                Controls.Remove(cat);
+                categories.Remove(cat);
+                catWorkspace.TabPages.RemoveByKey(cat.name);
+            }
             obj.Visible = false;
-            
+            ClientDataControl.db.SaveChanges();
+        }
+
+        public void RemoveImperative(NewImperative imp)
+        {
+            Controls.RemoveByKey(imp.Name);
+            NewObjective obj = imp.owner;
+            obj.Imperatives.Remove(imp);
+            if (obj.Imperatives.Count == 0)
+            {
+                Controls.RemoveByKey(obj.Name);
+                NewCategory cat = obj.owner;
+                if (cat.Objectives.Count == 0)
+                {
+                    Controls.Remove(cat);
+                    categories.Remove(cat);
+                    catWorkspace.TabPages.RemoveByKey(cat.name);
+                }
+                obj.Visible = false;
+            }
+
+            ClientDataControl.db.RemoveBOM(imp.Name, ClientDataControl.Client.EntityObject);
+            ClientDataControl.db.SaveChanges();
             Refresh();
         }
 
@@ -302,11 +327,6 @@ namespace IBMConsultantTool
             }
         }
 
-        private void catWorkspace_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveData();
@@ -360,7 +380,6 @@ namespace IBMConsultantTool
                             }
                         }                        
                         this.catWorkspace.TabPages.Remove(clickedPage);
-                        ClientDataControl.db.SaveChanges();
                     }
                 }
 

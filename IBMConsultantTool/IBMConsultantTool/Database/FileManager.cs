@@ -473,6 +473,25 @@ namespace IBMConsultantTool
         #endregion
 
         #region BOM
+
+        public bool GetBOM(string impName, XElement client, out XElement bom)
+        {
+            try
+            {
+                bom = (from ent in client.Element("BOMS").Elements("BOM")
+                       where ent.Element("IMPERATIVE").Value == impName
+                       select ent).Single();
+            }
+
+            catch
+            {
+                bom = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public override bool UpdateBOM(object clientObj, NewImperative ini)
         {
             XElement client = clientObj as XElement;
@@ -593,6 +612,20 @@ namespace IBMConsultantTool
             changeLog.Add("ADD BOM CONTACT " + contact.Element("NAME").Value.Replace(' ', '~') + " " +
                           grp.Element("NAME").Value.Replace(' ', '~') + " " +
                           client.Element("NAME").Value.Replace(' ', '~') + " " + iniXML.Replace(' ', '~'));
+
+            return true;
+        }
+
+        public override bool RemoveBOM(string bomName, object clientObj)
+        {
+            XElement client = clientObj as XElement;
+            XElement bom;
+            if (!GetBOM(bomName, client, out bom))
+            {
+                return false;
+            }
+
+            bom.Remove();
 
             return true;
         }

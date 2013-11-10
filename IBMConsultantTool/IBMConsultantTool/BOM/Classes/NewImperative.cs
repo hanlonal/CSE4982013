@@ -10,7 +10,7 @@ namespace IBMConsultantTool
 {
     public class NewImperative : INotifyPropertyChanged
     {
-        private NewObjective owner;
+        public NewObjective owner;
         private string name;
         private int baseHeight = 20;
 

@@ -55,6 +55,8 @@ namespace IBMConsultantTool
 
         public abstract void BuildBOMForm(BOMTool bomForm);
 
+        public abstract bool RemoveBOM(string bomName, object client);
+
         public abstract List<string> GetObjectivesFromCurrentClientBOM();
         public abstract List<string> GetImperativesFromCurrentClientBOM();
         #endregion

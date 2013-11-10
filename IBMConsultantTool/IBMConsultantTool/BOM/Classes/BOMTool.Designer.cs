@@ -78,7 +78,6 @@
             this.catWorkspace.SelectedIndex = 0;
             this.catWorkspace.Size = new System.Drawing.Size(997, 459);
             this.catWorkspace.TabIndex = 0;
-            this.catWorkspace.SelectedIndexChanged += new System.EventHandler(this.catWorkspace_SelectedIndexChanged);
             this.catWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.catWorkspace_MouseClick);
             // 
             // categoryNames

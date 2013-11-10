@@ -10,7 +10,7 @@ namespace IBMConsultantTool
     public class NewObjective : Panel
     {
 
-        NewCategory owner;
+        public NewCategory owner;
         
         int ID;
         string name;
@@ -189,8 +189,8 @@ namespace IBMConsultantTool
 
         private void deleteObj_Click(object sender, EventArgs e)
         {
-            imperatives.Clear();
-            this.Controls.Clear();
+            //imperatives.Clear();
+            //this.Controls.Clear();
             owner.RemoveObjective(this);
         
         

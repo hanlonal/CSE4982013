@@ -566,6 +566,20 @@ namespace IBMConsultantTool
             return true;
         }
 
+        public override bool RemoveBOM(string bomName, object clientObj)
+        {
+            CLIENT client = clientObj as CLIENT;
+            BOM bom;
+            if (!GetBOM(bomName, client, out bom))
+            {
+                return false;
+            }
+
+            dbo.DeleteObject(bom);
+
+            return true;
+        }
+
         public override void BuildBOMForm(BOMTool bomForm)
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
