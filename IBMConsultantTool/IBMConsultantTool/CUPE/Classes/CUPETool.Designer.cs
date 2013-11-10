@@ -125,7 +125,6 @@
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preferencesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -907,7 +906,6 @@
             this.preferencesToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.loadToolStripMenuItem,
-            this.preferencesToolStripMenuItem2,
             this.createSurveyToolStripMenuItem,
             this.openSurveysToolStripMenuItem,
             this.sendEmailToolStripMenuItem,
@@ -934,12 +932,6 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(201, 24);
             this.loadToolStripMenuItem.Text = "Load";
-            // 
-            // preferencesToolStripMenuItem2
-            // 
-            this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
-            this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(201, 24);
-            this.preferencesToolStripMenuItem2.Text = "Preferences";
             // 
             // createSurveyToolStripMenuItem
             // 
@@ -1223,14 +1215,14 @@
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(161, 24);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
             // iTCapabilityToolStripMenuItem1
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
-            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(161, 24);
+            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.iTCapabilityToolStripMenuItem1.Text = "IT Capability";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
             // 
@@ -1245,7 +1237,7 @@
             // beginTutorialToolStripMenuItem
             // 
             this.beginTutorialToolStripMenuItem.Name = "beginTutorialToolStripMenuItem";
-            this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(171, 24);
+            this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
             this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
             // 
@@ -1326,7 +1318,6 @@
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTStakeHoldersCurrentFutureComparisonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem businessLeadersCurrentFutureComparisonToolStripMenuItem;

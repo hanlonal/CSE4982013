@@ -69,6 +69,9 @@ namespace IBMConsultantTool
 
         private void CUPETool_Load(object sender, EventArgs e)
         {
+            ClientDataControl.cupeQuestions.Clear();
+            ClientDataControl.SetParticipants(new List<Person>());
+            ClientDataControl.SetCupeAnswers(new List<CupeData>());
             //questionGrid.CellValueChanged +=new DataGridViewCellEventHandler(questionGrid_CellValueChanged);
             //CreatePerson();
             ClientDataControl.LoadCUPEQuestions(this);
@@ -260,8 +263,13 @@ namespace IBMConsultantTool
                         ChangeTotalsByColumn(e.ColumnIndex, e.RowIndex);
                         LoadChartData();
                         UpdateCupeScore();
-                        
 
+                        //Help / Tutorial Step
+                        if (HelpEnabled && HelpCurrentStep == 1)
+                        {
+                            HelpCurrentStep = 2;
+                            StartTutorialMode();
+                        }
 
                     }
                     else
@@ -537,6 +545,13 @@ namespace IBMConsultantTool
             questionGridITCurrent.Visible = true;
             currentGrid = questionGridITCurrent;
             UpdateCupeScore();
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 2)
+            {
+                HelpCurrentStep = 3;
+                StartTutorialMode();
+            }
         }
 
         private void busiRadioButton_Click(object sender, EventArgs e)
@@ -554,6 +569,14 @@ namespace IBMConsultantTool
             questionGridBusinessCurrent.Visible = true;
             currentGrid = questionGridBusinessCurrent;
             UpdateCupeScore();
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 2)
+            {
+                HelpCurrentStep = 3;
+                StartTutorialMode();
+            }
+
         }
 
 
@@ -585,6 +608,13 @@ namespace IBMConsultantTool
             questionGridBusiFuture.Visible = true;
             currentGrid = questionGridBusiFuture;
             UpdateCupeScore();
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 2)
+            {
+                HelpCurrentStep = 3;
+                StartTutorialMode();
+            }
         }
 
         private void itFutureRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -602,6 +632,13 @@ namespace IBMConsultantTool
             questionGridITFuture.Visible = true;
             currentGrid = questionGridITFuture;
             UpdateCupeScore();
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 2)
+            {
+                HelpCurrentStep = 3;
+                StartTutorialMode();
+            }
         }
 
         private void questionInfoPanel_Paint(object sender, PaintEventArgs e)
@@ -617,6 +654,14 @@ namespace IBMConsultantTool
                 if (questionFilter.Text == "Highest Cupe Score")
                 {
                     FilterQuestionByHighestScore(questionFilterAmount.Text, averageIndex);
+
+                    //Help / Tutorial Step
+                    if (HelpEnabled && HelpCurrentStep == 5)
+                    {
+                        HelpCurrentStep = 6;
+                        StartTutorialMode();
+                    }
+
                 }
                 if (questionFilter.Text == "Lowest Cupe Score")
                 {
@@ -1098,10 +1143,11 @@ namespace IBMConsultantTool
                 LoadAnswersFromDataControl();
                 changeAllTotals();
                 UpdateCupeScore();
-                
-                if(HelpEnabled && HelpCurrentStep == 1)
+
+                //Help / Tutorial Step
+                if(HelpEnabled && HelpCurrentStep == 0)
                 {
-                    HelpCurrentStep = 2;
+                    HelpCurrentStep = 1;
                     StartTutorialMode();
                 }
                 return;
@@ -1361,6 +1407,13 @@ namespace IBMConsultantTool
             LoadAnswersFromDataControl();
             ClientDataControl.SaveCUPE();
             ClientDataControl.SaveParticipantsToDB();
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 1)
+            {
+                HelpCurrentStep = 2;
+                StartTutorialMode();
+            }
         }
 
         private void iTCapabilityToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1439,6 +1492,12 @@ namespace IBMConsultantTool
                             ClientDataControl.cupeQuestions[indexCurrentQuestionNode].ChoiceD = e.Label;
                         }
 
+                        //Help / Tutorial Step
+                        if (HelpEnabled && HelpCurrentStep == 4)
+                        {
+                            HelpCurrentStep = 5;
+                            StartTutorialMode();
+                        }
 
                     }
                     else
@@ -1989,6 +2048,13 @@ namespace IBMConsultantTool
                 }
             }
             GridClicked(sender, e);
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 3)
+            {
+                HelpCurrentStep = 4;
+                StartTutorialMode();
+            }
         }
 
         private void questionGridBusiFuture_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -2003,6 +2069,13 @@ namespace IBMConsultantTool
                 }
             }
             GridClicked(sender, e);
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 3)
+            {
+                HelpCurrentStep = 4;
+                StartTutorialMode();
+            }
         }
 
         private void questionGridITCurrent_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -2017,6 +2090,13 @@ namespace IBMConsultantTool
                 }
             }
             GridClicked(sender, e);
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 3)
+            {
+                HelpCurrentStep = 4;
+                StartTutorialMode();
+            }
         }
 
         private void questionGridBusinessCurrent_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -2031,6 +2111,13 @@ namespace IBMConsultantTool
                 }
             }
             GridClicked(sender, e);
+
+            //Help / Tutorial Step
+            if (HelpEnabled && HelpCurrentStep == 3)
+            {
+                HelpCurrentStep = 4;
+                StartTutorialMode();
+            }
         }
 
         private void GridClicked(object sender, DataGridViewCellEventArgs e)
@@ -2820,25 +2907,60 @@ namespace IBMConsultantTool
                 myToolTip.IsBalloon = true;
                 myToolTip.Show(string.Empty, this, 0);
                 myToolTip.Show("Begin by adding participants under the Edit->Participants menu",
-                    this, 100, 5, 4000);
+                    this, 100, 5, 8000);
             }
             if (HelpCurrentStep == 1 && HelpEnabled)
             {
                 System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
                 myToolTip.IsBalloon = true;
                 myToolTip.Show(string.Empty, this, 0);
-                myToolTip.Show("Enter answers manually or go to File->Open Surveys",
-                    this, -40, 5, 4000);
+                myToolTip.Show("Enter answers manually or go to File->Open Surveys to open any completed surveys",
+                    this, 100, 5, 8000);
             }
             if (HelpCurrentStep == 2 && HelpEnabled)
             {
                 System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
                 myToolTip.IsBalloon = true;
-                myToolTip.Show("Begin by adding participants under the Edit->Participants menu",
-                    this.menuStrip1, -40, 0, 4000);
+                myToolTip.Show("Change the displayed grid by clicking on one of the radio buttons",
+                    this, 620, 450, 8000);
             }
-
-
+            if (HelpCurrentStep == 3 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show("Select one of the Questions on the grid.",
+                    this, 100, 100, 8000);
+            }
+            if (HelpCurrentStep == 4 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show("The questions can be viewed and altered here. Edit one now by clicking it once and changing it's text.",
+                    this, 600, 600, 8000);
+            }
+            if (HelpCurrentStep == 5 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show("Sorted responses can be viewed here. Try sorting the answers by Highest CUPE Score.",
+                    this, 20, 600, 8000);
+            }
+            if (HelpCurrentStep == 6 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show(string.Empty, this, 0);
+                myToolTip.Show("The pie chart's colors can be changed by going to Edit->Pie Graph Colors->_____. Change the Commodity wedge's colors.",
+                    this, 30, 5, 8000);
+            }
+            if (HelpCurrentStep == 7 && HelpEnabled)
+            {
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show(string.Empty, this, 0);
+                myToolTip.Show("More graphs are listed under the View Menu.",
+                    this, 30, 5, 8000);
+            }
         }
 
         private void beginTutorialToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2871,7 +2993,14 @@ namespace IBMConsultantTool
                 {
                     ch.Series["BusiCurrent"].Points[0].Color = MyDialog.Color;
                 }
-                
+
+                //Help / Tutorial Step
+                if (HelpEnabled && HelpCurrentStep == 6)
+                {
+                    HelpCurrentStep = 7;
+                    StartTutorialMode();
+                }
+
             }
         }
 
