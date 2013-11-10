@@ -57,16 +57,16 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.chartPanel = new System.Windows.Forms.Panel();
-            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.testingLabel = new System.Windows.Forms.Label();
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
+            this.chartPanel = new System.Windows.Forms.Panel();
+            this.testingLabel = new System.Windows.Forms.Label();
+            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
+            this.chartPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toDateText
@@ -353,6 +353,8 @@
             this.regionComboBox.TabIndex = 7;
             this.regionComboBox.Tag = "All";
             this.regionComboBox.Text = "<All Regions>";
+            this.regionComboBox.SelectedIndexChanged += new System.EventHandler(this.regionComboBox_SelectedIndexChanged);
+            this.regionComboBox.LostFocus += new System.EventHandler(this.regionComboBox_LostFocus);
             // 
             // businessTypeComboBox
             // 
@@ -411,35 +413,6 @@
             this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
             // 
-            // chartPanel
-            // 
-            this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.chartPanel.Controls.Add(this.testingLabel);
-            this.chartPanel.Location = new System.Drawing.Point(246, 361);
-            this.chartPanel.Name = "chartPanel";
-            this.chartPanel.Size = new System.Drawing.Size(745, 356);
-            this.chartPanel.TabIndex = 9;
-            // 
-            // graphTypeComboBox
-            // 
-            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.graphTypeComboBox.FormattingEnabled = true;
-            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
-            this.graphTypeComboBox.Name = "graphTypeComboBox";
-            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
-            this.graphTypeComboBox.TabIndex = 10;
-            this.graphTypeComboBox.Text = "<Graph Type>";
-            // 
-            // testingLabel
-            // 
-            this.testingLabel.AutoSize = true;
-            this.testingLabel.Location = new System.Drawing.Point(277, 163);
-            this.testingLabel.Name = "testingLabel";
-            this.testingLabel.Size = new System.Drawing.Size(51, 20);
-            this.testingLabel.TabIndex = 0;
-            this.testingLabel.Text = "label1";
-            // 
             // trendGridView
             // 
             this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -464,6 +437,35 @@
             this.Collapse.UseColumnTextForButtonValue = true;
             this.Collapse.Width = 30;
             // 
+            // chartPanel
+            // 
+            this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.chartPanel.Controls.Add(this.testingLabel);
+            this.chartPanel.Location = new System.Drawing.Point(246, 361);
+            this.chartPanel.Name = "chartPanel";
+            this.chartPanel.Size = new System.Drawing.Size(745, 356);
+            this.chartPanel.TabIndex = 9;
+            // 
+            // testingLabel
+            // 
+            this.testingLabel.AutoSize = true;
+            this.testingLabel.Location = new System.Drawing.Point(277, 163);
+            this.testingLabel.Name = "testingLabel";
+            this.testingLabel.Size = new System.Drawing.Size(51, 20);
+            this.testingLabel.TabIndex = 0;
+            this.testingLabel.Text = "label1";
+            // 
+            // graphTypeComboBox
+            // 
+            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.graphTypeComboBox.FormattingEnabled = true;
+            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
+            this.graphTypeComboBox.Name = "graphTypeComboBox";
+            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
+            this.graphTypeComboBox.TabIndex = 10;
+            this.graphTypeComboBox.Text = "<Graph Type>";
+            // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -487,9 +489,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.chartPanel.ResumeLayout(false);
             this.chartPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
