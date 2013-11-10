@@ -564,7 +564,7 @@
             this.liveDataEntryGrid.TabIndex = 17;
             this.liveDataEntryGrid.Visible = false;
             this.liveDataEntryGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellContentClick);
-            this.liveDataEntryGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellEndEdit);
+            //this.liveDataEntryGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn1
             // 

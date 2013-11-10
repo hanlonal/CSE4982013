@@ -49,7 +49,7 @@ namespace IBMConsultantTool
                 Domain dom = new Domain();
                 dom.Name = domainInfo;
                 dom.IsDefault = true;
-                dom.ID = domCount.ToString();
+                dom.ID = ClientDataControl.db.GetScoringEntityID(dom.Name);
                 dom.Type = "domain";
                 entities.Add(dom);
                 LoadCapabilities(dom);
@@ -74,7 +74,7 @@ namespace IBMConsultantTool
                 capabilities.Add(cap);
                 cap.Owner = dom;
                 cap.Type = "capability";
-                cap.ID = capCount.ToString();
+                cap.ID = ClientDataControl.db.GetScoringEntityID(cap.Name);
                 entities.Add(cap);
                 LoadQuestions(cap);
 
@@ -97,7 +97,7 @@ namespace IBMConsultantTool
                 cap.QuestionsOwned.Add(question);
                 question.Owner = cap;
                 question.Type = "attribute";
-                question.ID = questionCount.ToString();
+                question.ID = ClientDataControl.db.GetScoringEntityID(question.Name);
                 entities.Add(question);
                 questionCount++;
             }
@@ -187,7 +187,7 @@ namespace IBMConsultantTool
                     loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.Prioritization:
-                    MakePrioritizationGrid();
+                    //MakePrioritizationGrid();
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, true);
@@ -256,7 +256,7 @@ namespace IBMConsultantTool
             }
         }
 
-        private void MakePrioritizationGrid()
+     /*   private void MakePrioritizationGrid()
         {
             for (int i = 0; i < numBoms; i++)
             {
@@ -287,7 +287,7 @@ namespace IBMConsultantTool
                     UpdateGapColumns(newrow.Index);
             }
 
-        }
+        }*/
 
         private void UpdateGapColumns(int rowindex)
         {
@@ -328,7 +328,7 @@ namespace IBMConsultantTool
 
         }
         //not used
-        private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        /*private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 2)
             {
@@ -369,7 +369,7 @@ namespace IBMConsultantTool
                     liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "0";
                 }
             }
-        }
+        }*/
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -761,7 +761,7 @@ namespace IBMConsultantTool
             dom.IsDefault = false;
             dom.Type = "domain";
             domains.Add(dom);
-            dom.ID = domains.Count.ToString();
+            dom.ID = ClientDataControl.db.GetScoringEntityID(dom.Name);
             return dom;
         }
 
@@ -774,7 +774,7 @@ namespace IBMConsultantTool
             cap.IsDefault = false;
             cap.Owner = owner;
             cap.Type = "capability";
-            cap.ID = capabilities.Count.ToString();
+            cap.ID = ClientDataControl.db.GetScoringEntityID(cap.Name);
             capabilities.Add(cap);
             return cap;
         }
@@ -788,7 +788,7 @@ namespace IBMConsultantTool
             owner.QuestionsOwned.Add(ques);
             ques.Type = "attribute";
             ques.Owner = owner;
-            ques.ID = questionCount.ToString();
+            ques.ID = ClientDataControl.db.GetScoringEntityID(ques.Name);
             return ques;
         }
 
