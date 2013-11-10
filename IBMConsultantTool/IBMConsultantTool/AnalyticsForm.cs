@@ -133,7 +133,6 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
                     metricsComboBox.Items.Add("Effectiveness");
-                    CreateLineGraph(initiativesToTrack, "Initiatives");
                     break;
 
             }
@@ -146,6 +145,27 @@ namespace IBMConsultantTool
         private void metricsComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             // TODO
+            ComboBox comboBox = (ComboBox)sender;
+
+            string selectedInfo = (string)metricsComboBox.SelectedItem;
+
+            if (state == TrackingState.Capabilities)
+            {
+            }
+            else if (state == TrackingState.CUPEQuestions)
+            {
+            }
+            else if (state == TrackingState.ITAttributes)
+            {
+            }
+            else if (state == TrackingState.Initiatives)
+            {
+                CreateLineGraph(initiativesToTrack, "Initiatives", selectedInfo);
+            }
+
+            int resultIndex = -1;
+
+            resultIndex = metricsComboBox.FindStringExact(selectedInfo);
         }
 
         private void regionComboBox_SelectedValueChanged(object sender, EventArgs e)
@@ -463,10 +483,11 @@ namespace IBMConsultantTool
                 if (metricsComboBox.Enabled)
                 {
                     testingLabel.Text = metricsComboBox.Text;
+                    CreateLineGraph(initiativesToTrack, "Initiatives", metricsComboBox.Text);
                 }
 
                 CreateInitiativeGraph(initiatives);
-                CreateLineGraph(initiatives, "Initiatives");
+                CreateLineGraph(initiativesToTrack, "Initiatives", "");
             }
             else
             {
@@ -586,22 +607,25 @@ namespace IBMConsultantTool
                         trendGridView.CurrentCell = null;
                         
                         trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
-
                     }
-
                 }
-
             }
         }
-
-        public void CreateLineGraph(List<InitiativeTrendAnalysis> init, string title)
+        private int numberOfGraph = 0;
+        public void CreateLineGraph(List<InitiativeTrendAnalysis> init, string title, string boxText)
         {
             testingLabel.Visible = false;
 
+            foreach (InitiativeTrendAnalysis ana in init)
+            {
+                Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
+                    ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
+            }
+            numberOfGraph++;
             if (lineChart != null)
             {
                 lineChart.ChartAreas.Clear();
-                //lineChart.Series.Clear();
+                lineChart.Series.Clear();
             }
             lineChart.Parent = this.chartPanel;
             lineChart.Size = this.chartPanel.Size;
@@ -613,14 +637,9 @@ namespace IBMConsultantTool
             int cntNum = 0;
             int[] sameNum = new int[100];
 
-            if (metricsComboBox.Enabled && metricsComboBox.Text == "Differentitation")
+            if (boxText == "Differentitation")
             {
-                foreach (InitiativeTrendAnalysis ana in init)
-                {
-                    Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
-                        ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
-                }
-
+                int newCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -633,6 +652,7 @@ namespace IBMConsultantTool
                             sameNum[i] = new int();
                         }
                         cntNum = 0;
+                        newCount = 0;
                     }
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
@@ -645,10 +665,11 @@ namespace IBMConsultantTool
                         if (cnt == sameNum[i])
                         {
                             cntNum = i;
+                            newCount = cnt;
                             break;
                         }
                     }
-                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    if (newCount != sameNum[cntNum])
                     {
                         double differentiation = init[cnt].Differentiation;
 
@@ -684,11 +705,11 @@ namespace IBMConsultantTool
                             lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Differentiation);
                         }
                     }
-
+                    newCount++;
                 }
             }
 
-            if (metricsComboBox.Enabled && metricsComboBox.Text == "Criticality")
+            if (boxText == "Criticality")
             {
                 foreach (InitiativeTrendAnalysis ana in init)
                 {
@@ -696,6 +717,7 @@ namespace IBMConsultantTool
                         ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
                 }
 
+                int newCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -708,6 +730,7 @@ namespace IBMConsultantTool
                             sameNum[i] = new int();
                         }
                         cntNum = 0;
+                        newCount = 0;
                     }
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
@@ -720,10 +743,11 @@ namespace IBMConsultantTool
                         if (cnt == sameNum[i])
                         {
                             cntNum = i;
+                            newCount = cnt;
                             break;
                         }
                     }
-                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    if (newCount != sameNum[cntNum])
                     {
                         double criticality = init[cnt].Criticality;
 
@@ -759,16 +783,13 @@ namespace IBMConsultantTool
                             lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Criticality);
                         }
                     }
+                    newCount++;
                 }
             }
 
-            if (metricsComboBox.Enabled && metricsComboBox.Text == "Effectiveness")
+            if (boxText == "Effectiveness")
             {
-                foreach (InitiativeTrendAnalysis ana in init)
-                {
-                    Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
-                        ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
-                }
+                int newCount = 0;
 
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
@@ -782,6 +803,7 @@ namespace IBMConsultantTool
                             sameNum[i] = new int();
                         }
                         cntNum = 0;
+                        newCount = 0;
                     }
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
@@ -794,10 +816,11 @@ namespace IBMConsultantTool
                         if (cnt == sameNum[i])
                         {
                             cntNum = i;
+                            newCount = cnt;
                             break;
                         }
                     }
-                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    if (newCount != sameNum[cntNum])
                     {
                         double effectiveness = init[cnt].Effectiveness;
 
@@ -833,11 +856,13 @@ namespace IBMConsultantTool
                             lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Effectiveness);
                         }
                     }
+                    newCount++;
                 }
             }
 
-            if (metricsComboBox.Enabled && metricsComboBox.Text == "All")
+            if (boxText == "All")
             {
+                int newCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -850,6 +875,7 @@ namespace IBMConsultantTool
                             sameNum[i] = new int();
                         }
                         cntNum = 0;
+                        newCount = 0;
                     }
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
@@ -862,10 +888,11 @@ namespace IBMConsultantTool
                         if (cnt == sameNum[i])
                         {
                             cntNum = i;
+                            newCount = cnt;
                             break;
                         }
                     }
-                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    if (newCount != sameNum[cntNum])
                     {
                         double effectiveness = init[cnt].Effectiveness;
 
@@ -901,11 +928,13 @@ namespace IBMConsultantTool
                             lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Effectiveness);
                         }
                     }
+                    newCount++;
                 }
             }
 
             else
             {
+                int newCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -918,6 +947,7 @@ namespace IBMConsultantTool
                             sameNum[i] = new int();
                         }
                         cntNum = 0;
+                        newCount = 0;
                     }
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
@@ -930,10 +960,11 @@ namespace IBMConsultantTool
                         if (cnt == sameNum[i])
                         {
                             cntNum = i;
+                            newCount = cnt;
                             break;
                         }
                     }
-                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    if (newCount != sameNum[cntNum])
                     {
                         double differentiation = init[cnt].Differentiation;
 
@@ -969,6 +1000,7 @@ namespace IBMConsultantTool
                             lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Differentiation);
                         }
                     }
+                    newCount++;
                 }
             }
         }
@@ -986,11 +1018,6 @@ namespace IBMConsultantTool
             countryComboBox.Text = "<All Countries>";
             countryComboBox.Items.AddRange(db.GetCountryNames(regionComboBox.Text).ToArray());
         }
-
-
-
-
-
 
     }
 }
