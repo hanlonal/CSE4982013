@@ -92,11 +92,19 @@ namespace IBMConsultantTool
             set { owner = value; }
         }
 
-        private void startDateText_TextChanged(object sender, EventArgs e)
+        private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            countryComboBox.Items.Clear();
+            countryComboBox.Text = "";
+            countryComboBox.Items.AddRange(ClientDataControl.db.GetCountryNames(RegionComboBox.Text).ToArray());
         }
 
+        private void RegionComboBox_LostFocus(object sender, EventArgs e)
+        {
+            countryComboBox.Items.Clear();
+            countryComboBox.Text = "";
+            countryComboBox.Items.AddRange(ClientDataControl.db.GetCountryNames(RegionComboBox.Text).ToArray());
+        }
 
     }
 }

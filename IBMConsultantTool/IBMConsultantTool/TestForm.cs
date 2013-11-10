@@ -13,15 +13,11 @@ namespace IBMConsultantTool
 {
     public partial class TestForm : Form
     {
-
-        TextReader reader;
-        string textLine;
-
         public TestForm()
         {
             InitializeComponent();
 
-            ClientDataControl.LoadDatabase();
+            OnlineModeCheckbox.Checked = true;
         }
 
         private void NewConsultButton_MouseLeave(object sender, EventArgs e)
@@ -107,9 +103,18 @@ namespace IBMConsultantTool
             Application.Run(new StartPage());
         }
 
-        private void TestForm_Load(object sender, EventArgs e)
+        private void OnlineModeCheckbox_CheckedChanged(object sender, EventArgs e)
         {
+            if (OnlineModeCheckbox.Checked)
+            {
+                OnlineModeCheckbox.Checked = ClientDataControl.LoadDatabase();
+            }
 
+            else
+            {
+                ClientDataControl.LoadFileSystem();
+                OnlineModeCheckbox.Checked = false;
+            }
         }
 
     }

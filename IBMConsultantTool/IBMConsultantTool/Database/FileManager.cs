@@ -102,13 +102,9 @@ namespace IBMConsultantTool
         //Used by ClientDataControl
         public override Client AddClient(Client client)
         {
-            throw new NotImplementedException();
-    /*
             XElement clientEnt = new XElement("CLIENT");
 
             clientEnt.Add(new XElement("NAME", client.Name));
-
-            clientEnt.Add(new XElement("COUNTRY", client.Country));
 
             XElement region;
             try
@@ -121,9 +117,25 @@ namespace IBMConsultantTool
             {
                 region = new XElement("REGION");
                 region.Add(new XElement("NAME", client.Region));
+                region.Add(new XElement("COUNTRIES"));
                 dbo.Element("REGIONS").Add(region);
             }
-            clientEnt.Add(new XElement("REGION", region.Element("NAME")));
+            clientEnt.Add(new XElement("REGION", client.Region));
+
+            XElement country;
+            try
+            {
+                country = (from ent in region.Element("COUNTRIES").Elements("COUNTRY")
+                           where ent.Element("NAME").Value == client.Country
+                           select ent).Single();
+            }
+            catch
+            {
+                country = new XElement("COUNTRY");
+                country.Add(new XElement("NAME", client.Country));
+                region.Element("COUNTRIES").Add(country);
+            }
+            clientEnt.Add(new XElement("COUNTRY", client.Country));
 
             XElement busType;
             try
@@ -152,14 +164,12 @@ namespace IBMConsultantTool
             clientEnt.Add(new XElement("ITCAPCOMPLETE", "N"));
 
             client.EntityObject = clientEnt;
-            return client;*/
+            return client;
         }
 
         //Used by ClientDataControl
         public override Client LoadClient(string clientName)
         {
-            throw new NotImplementedException();
-            /*
             XElement clientEnt;
 
             if (!GetClient(clientName, out clientEnt))
@@ -170,7 +180,7 @@ namespace IBMConsultantTool
             Client client = new Client();
 
             client.Name = clientEnt.Element("NAME").Value;
-            client.Location = clientEnt.Element("LOCATION").Value;
+            client.Country = clientEnt.Element("COUNTRY").Value;
             client.Region = clientEnt.Element("REGION").Value;
             client.BusinessType = clientEnt.Element("BUSINESSTYPE").Value;
             client.StartDate = DateTime.Parse(clientEnt.Element("STARTDATE").Value);
@@ -178,7 +188,7 @@ namespace IBMConsultantTool
             client.BomCompleted = clientEnt.Element("BOMCOMPLETE").Value == "Y";
             client.CupeCompleted = clientEnt.Element("CUPECOMPLETE").Value == "Y";
             client.ITCapCompleted = clientEnt.Element("ITCAPCOMPLETE").Value == "Y";
-            return client;*/
+            return client;
         }
 
         public override List<string> GetObjectivesFromClientBOM(object clientObj)
