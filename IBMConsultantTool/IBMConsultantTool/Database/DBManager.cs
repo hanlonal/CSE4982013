@@ -4102,6 +4102,23 @@ namespace IBMConsultantTool
                     {
                         switch (lineArray[1])
                         {
+                            case "BOM":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    if (GetBOM(lineArray[3].Replace('~', ' '), client, out bom))
+                                    {
+                                        dbo.DeleteObject(bom);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Delete BOM Instruction Failed: BOM does not exist\n\n" + line, "Error");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Delete BOM Instruction Failed: Client does not exist\n\n" + line, "Error");
+                                }
+                                break;
                             case "CUPE":
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {

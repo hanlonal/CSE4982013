@@ -627,6 +627,9 @@ namespace IBMConsultantTool
 
             bom.Remove();
 
+            changeLog.Add("DELETE BOM " + client.Element("NAME").Value.Replace(' ','~') + " " +
+                          bomName.Replace(' ', '~'));
+
             return true;
         }
 
