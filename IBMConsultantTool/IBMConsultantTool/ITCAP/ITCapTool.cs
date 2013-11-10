@@ -754,6 +754,45 @@ namespace IBMConsultantTool
             ClientDataControl.db.ChangedCapability(this);
         }
 
+        private Domain CreateDomain()
+        {
+            Domain dom = new Domain();
+            dom.Name = domainList.Text;
+            dom.IsDefault = false;
+            dom.Type = "domain";
+            domains.Add(dom);
+            dom.ID = domains.Count.ToString();
+            return dom;
+        }
+
+        private Capability CreateCapability(Domain owner)
+        {
+            Capability cap = new Capability();
+            owner.TotalChildren++;
+            owner.CapabilitiesOwned.Add(cap);
+            cap.Name = capabilitiesList.Text;
+            cap.IsDefault = false;
+            cap.Owner = owner;
+            cap.Type = "capability";
+            cap.ID = capabilities.Count.ToString();
+            capabilities.Add(cap);
+            return cap;
+        }
+        private ITCapQuestion CreateQuestion(Capability owner)
+        {
+            ITCapQuestion ques = new ITCapQuestion();
+            owner.Owner.TotalChildren++;
+            
+            ques.Name = questionList.Text;
+            ques.IsDefault = false;
+            owner.QuestionsOwned.Add(ques);
+            ques.Type = "attribute";
+            ques.Owner = owner;
+            ques.ID = questionCount.ToString();
+            return ques;
+        }
+
+
         private void AddButton_Click(object sender, EventArgs e)
         {
             int value;
@@ -761,41 +800,36 @@ namespace IBMConsultantTool
             ClientDataControl.db.AddQuestionToITCAP(questionList.Text, capabilitiesList.Text, domainList.Text, this, out value, out name);
             if (value == 0)
             {
-
-                ITCapQuestion ques = new ITCapQuestion();
-                Capability cap = new Capability();
-                Domain dom = new Domain();
-
-                dom.Name = domainList.Text;
-                dom.IsDefault = false;              
-                dom.Type = "domain";
-                //entities.Add(dom);
-                //LoadCapabilities(dom);
-                domains.Add(dom);
-                dom.ID = domains.Count.ToString();
-
-                cap.Name = capabilitiesList.Text;
-                cap.IsDefault = false;
-                dom.CapabilitiesOwned.Add(cap);
-                dom.TotalChildren++;
-                capabilities.Add(cap);
-                cap.Owner = dom;
-                cap.Type = "capability";
-                cap.ID = capabilities.Count.ToString();
-               // entities.Add(cap);
-
-
-                ques.Name = questionList.Text;
-                ques.IsDefault = false;
-                cap.QuestionsOwned.Add(ques);
-                ques.Type = "attribute";
-                ques.Owner = cap;
-                ques.ID = questionCount.ToString();
+                Domain dom = CreateDomain();               
+                Capability cap = CreateCapability(dom);
+                ITCapQuestion ques = CreateQuestion(cap);
 
                 entities.Add(dom);
                 entities.Add(cap);
                 entities.Add(ques);
             }
+            if (value == 1)
+            {
+                
+                Domain dom = (Domain)entities.Find(d => d.Name == domainList.Text);
+                int index = entities.FindIndex(d => d.Name == domainList.Text);
+                Capability cap = CreateCapability(dom);
+
+                ITCapQuestion ques = CreateQuestion(cap);
+
+                entities.Insert(index + dom.TotalChildren -1, cap);
+                entities.Insert(index + dom.TotalChildren, ques);
+            }
+            if (value == 2)
+            {
+                int index = entities.FindIndex(d => d.Name == capabilitiesList.Text);
+                Capability cap = (Capability)entities[index];
+
+                ITCapQuestion ques = CreateQuestion(cap);
+
+                entities.Insert(index + cap.QuestionsOwned.Count, ques);
+            }
+
             LoadChartSurvey();
             surveryMakerGrid.Refresh();
         }
