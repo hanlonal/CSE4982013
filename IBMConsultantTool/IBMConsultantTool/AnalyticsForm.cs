@@ -133,6 +133,7 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
                     metricsComboBox.Items.Add("Effectiveness");
+                    CreateLineGraph(initiativesToTrack, "Initiatives");
                     break;
 
             }
@@ -595,14 +596,16 @@ namespace IBMConsultantTool
 
         public void CreateLineGraph(List<InitiativeTrendAnalysis> init, string title)
         {
+            testingLabel.Visible = false;
+
             if (lineChart != null)
             {
                 lineChart.ChartAreas.Clear();
-                lineChart.Series.Clear();
+                //lineChart.Series.Clear();
             }
             lineChart.Parent = this.chartPanel;
             lineChart.Size = this.chartPanel.Size;
-            System.Diagnostics.Trace.WriteLine("size: " + lineChart.Size.ToString());
+            //System.Diagnostics.Trace.WriteLine("size: " + lineChart.Size.ToString());
             lineChart.Visible = true;
 
             lineChart.ChartAreas.Add(title);
@@ -610,83 +613,364 @@ namespace IBMConsultantTool
             int cntNum = 0;
             int[] sameNum = new int[100];
 
-            init.Sort();
-            foreach (InitiativeTrendAnalysis ana in init)
+            if (metricsComboBox.Enabled && metricsComboBox.Text == "Differentitation")
             {
-                Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
-                    ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
-            }
-
-            for (int cnt = 0; cnt < init.Count; cnt++)
-            {
-                string name = init[cnt].Name;
-
-                if (lineChart.Series.FindByName(name) == null)
+                foreach (InitiativeTrendAnalysis ana in init)
                 {
-                    lineChart.Series.Add(name);
+                    Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
+                        ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
+                }
+
+                for (int cnt = 0; cnt < init.Count; cnt++)
+                {
+                    string name = init[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
                     for (int i = 0; i < cntNum; i++)
                     {
-                        sameNum[i] = new int();
-                    }
-                    cntNum = 0;
-                }
-                lineChart.Series[name].ChartArea = title;
-                lineChart.Series[name].ChartType = SeriesChartType.Line;
-                lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                lineChart.Series[name].YValueType = ChartValueType.Double;
-                lineChart.Series[name].BorderWidth = 5;
-
-                for (int i = 0; i < cntNum; i++)
-                {
-                    if (cnt == sameNum[i])
-                    {
-                        cntNum = i;
-                        break;
-                    }
-                }
-                if (cnt != sameNum[cntNum])
-                {
-                    double differentiation = init[cnt].Differentiation;
-                    
-                    double[] diff = new double[100];
-                    diff[cnt] = init[cnt].Differentiation;
-                    int count = 1;
-
-                    DateTime date = init[cnt].Date;
-                    for (int num = (cnt + 1); num < init.Count; num++)
-                    {
-                        if (date == init[num].Date)
+                        if (cnt == sameNum[i])
                         {
-                            differentiation += init[num].Differentiation;
-                            sameNum[cntNum] = num;
-                            cntNum++;
-                            count++;
+                            cntNum = i;
+                            break;
+                        }
+                    }
+                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    {
+                        double differentiation = init[cnt].Differentiation;
+
+                        double[] diff = new double[100];
+                        diff[cnt] = init[cnt].Differentiation;
+                        int count = 1;
+
+                        DateTime date = init[cnt].Date;
+                        for (int num = (cnt + 1); num < init.Count; num++)
+                        {
+                            if (date == init[num].Date)
+                            {
+                                differentiation += init[num].Differentiation;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            differentiation /= count;
+
+                            double temp = Convert.ToDouble(differentiation);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Differentiation);
                         }
                     }
 
-                    if (count > 1)
-                    {
-                        differentiation /= count;
+                }
+            }
 
-                        double temp = Convert.ToDouble(differentiation);
-                        decimal tmp = Convert.ToDecimal(temp);
-                        tmp = Math.Round(tmp, 2);
-                        temp = (double)tmp;
-
-                        lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
-                    }
-                    else
-                    {
-                        lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Differentiation);
-                    }
+            if (metricsComboBox.Enabled && metricsComboBox.Text == "Criticality")
+            {
+                foreach (InitiativeTrendAnalysis ana in init)
+                {
+                    Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
+                        ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
                 }
 
+                for (int cnt = 0; cnt < init.Count; cnt++)
+                {
+                    string name = init[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            break;
+                        }
+                    }
+                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    {
+                        double criticality = init[cnt].Criticality;
+
+                        double[] diff = new double[100];
+                        diff[cnt] = init[cnt].Differentiation;
+                        int count = 1;
+
+                        DateTime date = init[cnt].Date;
+                        for (int num = (cnt + 1); num < init.Count; num++)
+                        {
+                            if (date == init[num].Date)
+                            {
+                                criticality += init[num].Criticality;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            criticality /= count;
+
+                            double temp = Convert.ToDouble(criticality);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Criticality);
+                        }
+                    }
+                }
             }
-            /* if (trendGridView.DataSource != null)
-             {
-                 lineChart.Series.Add(trendGridView.Name);
-                 //lineChart.Series[trendGridView.Name].Points.AddXY(trendGridView.
-             }*/
+
+            if (metricsComboBox.Enabled && metricsComboBox.Text == "Effectiveness")
+            {
+                foreach (InitiativeTrendAnalysis ana in init)
+                {
+                    Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
+                        ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
+                }
+
+                for (int cnt = 0; cnt < init.Count; cnt++)
+                {
+                    string name = init[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            break;
+                        }
+                    }
+                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    {
+                        double effectiveness = init[cnt].Effectiveness;
+
+                        double[] diff = new double[100];
+                        diff[cnt] = init[cnt].Differentiation;
+                        int count = 1;
+
+                        DateTime date = init[cnt].Date;
+                        for (int num = (cnt + 1); num < init.Count; num++)
+                        {
+                            if (date == init[num].Date)
+                            {
+                                effectiveness += init[num].Effectiveness;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            effectiveness /= count;
+
+                            double temp = Convert.ToDouble(effectiveness);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Effectiveness);
+                        }
+                    }
+                }
+            }
+
+            if (metricsComboBox.Enabled && metricsComboBox.Text == "All")
+            {
+                for (int cnt = 0; cnt < init.Count; cnt++)
+                {
+                    string name = init[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            break;
+                        }
+                    }
+                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    {
+                        double effectiveness = init[cnt].Effectiveness;
+
+                        double[] diff = new double[100];
+                        diff[cnt] = init[cnt].Differentiation;
+                        int count = 1;
+
+                        DateTime date = init[cnt].Date;
+                        for (int num = (cnt + 1); num < init.Count; num++)
+                        {
+                            if (date == init[num].Date)
+                            {
+                                effectiveness += init[num].Effectiveness;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            effectiveness /= count;
+
+                            double temp = Convert.ToDouble(effectiveness);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Effectiveness);
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                for (int cnt = 0; cnt < init.Count; cnt++)
+                {
+                    string name = init[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            break;
+                        }
+                    }
+                    if (cnt == 0 || cnt != sameNum[cntNum])
+                    {
+                        double differentiation = init[cnt].Differentiation;
+
+                        double[] diff = new double[100];
+                        diff[cnt] = init[cnt].Differentiation;
+                        int count = 1;
+
+                        DateTime date = init[cnt].Date;
+                        for (int num = (cnt + 1); num < init.Count; num++)
+                        {
+                            if (date == init[num].Date)
+                            {
+                                differentiation += init[num].Differentiation;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            differentiation /= count;
+
+                            double temp = Convert.ToDouble(differentiation);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, init[cnt].Differentiation);
+                        }
+                    }
+                }
+            }
         }
 
         private void regionComboBox_SelectedIndexChanged(object sender, EventArgs e)
