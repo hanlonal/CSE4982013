@@ -477,6 +477,8 @@ namespace IBMConsultantTool
                         i.Type1 = TrendAnalysisEntity.Type.Child;
                         imperativesToTrack.Add(i);
                     }
+
+                    imperativesToTrack.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     trendGridView.Columns["Collapse"].Visible = true;
                 }
                 else
