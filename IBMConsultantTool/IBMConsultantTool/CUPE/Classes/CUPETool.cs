@@ -2983,6 +2983,129 @@ namespace IBMConsultantTool
             currentGrid = temp;
         }
 
+        private void iTProviderRelationshipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (questionGridBusiFuture.ColumnCount > averageIndex && questionGridBusinessCurrent.ColumnCount > averageIndex &&
+                questionGridITCurrent.ColumnCount > averageIndex && questionGridITFuture.ColumnCount > averageIndex)
+            {
+                double currentBusiness = 0;
+                double futureBusiness = 0;
+                double currentIT = 0;
+                double futureIT = 0;
+                int count = 0;
+                string total = "";
+                double num = 0;
+                for (int i = 0; i < 21; i++)
+                {
+                    if (questionGridBusiFuture.Rows[i].Cells[averageIndex + (questionGridBusiFuture.ColumnCount - 7)].Value != null)
+                    {
+                        total = questionGridBusiFuture.Rows[i].Cells[averageIndex + (questionGridBusiFuture.ColumnCount - 7)].Value.ToString();
+                        num += Convert.ToDouble(total);
+                        count++;
+                    }
+                }
+                if (count > 0)
+                    futureBusiness = num / count;
+
+                num = 0;
+                count = 0;
+                for (int i = 0; i < 21; i++)
+                {
+                    if (questionGridBusinessCurrent.Rows[i].Cells[averageIndex + (questionGridBusinessCurrent.ColumnCount - 7)].Value != null)
+                    {
+                        total = questionGridBusinessCurrent.Rows[i].Cells[averageIndex + (questionGridBusinessCurrent.ColumnCount - 7)].Value.ToString();
+                        num += Convert.ToDouble(total);
+                        count++;
+                    }
+                }
+                if (count > 0)
+                    currentBusiness = num / count;
+
+                num = 0;
+                count = 0;
+                for (int i = 0; i < 21; i++)
+                {
+                    if (questionGridITFuture.Rows[i].Cells[averageIndex + (questionGridITFuture.ColumnCount - 7)].Value != null)
+                    {
+                        total = questionGridITFuture.Rows[i].Cells[averageIndex + (questionGridITFuture.ColumnCount - 7)].Value.ToString();
+                        num += Convert.ToDouble(total);
+                        count++;
+                    }
+                }
+                if (count > 0)
+                    futureIT = num / count;
+
+                num = 0;
+                count = 0;
+                for (int i = 0; i < 21; i++)
+                {
+                    if (questionGridITCurrent.Rows[i].Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value != null)
+                    {
+                        total = questionGridITCurrent.Rows[i].Cells[averageIndex + (questionGridITCurrent.ColumnCount - 7)].Value.ToString();
+                        num += Convert.ToDouble(total);
+                        count++;
+                    }
+                }
+                if (count > 0)
+                    currentIT = num / count;
+
+                /*if (count > 0)
+                    cupeScoreLabel.Text = (num / count).ToString();
+                else
+                    cupeScoreLabel.Text = " ";*/
+
+                int countA = 0;
+                int countB = 0;
+                int countC = 0;
+                int countD = 0;
+                count = 0;
+
+                List<float> futureBusinessFloats = new List<float>();
+                List<float> futureITFloats = new List<float>();
+                List<float> currentBusinessFloats = new List<float>();
+                List<float> currentITFloats = new List<float>();
+
+                foreach (DataGridViewRow row in questionGridBusiFuture.Rows)
+                {
+                    if (row.Cells[0].Value == null)
+                        break;
+                    countA++;
+                    futureBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusiFuture.ColumnCount - 7].Value));
+                }
+                count = countA;
+                foreach (DataGridViewRow row in questionGridITFuture.Rows)
+                {
+                    if (row.Cells[0].Value == null)
+                        break;
+                    countB++;
+                    futureITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITFuture.ColumnCount - 7].Value));
+                }
+                if (count < countB)
+                    count = countB;
+                foreach (DataGridViewRow row in questionGridBusinessCurrent.Rows)
+                {
+                    if (row.Cells[0].Value == null)
+                        break;
+                    countC++;
+                    currentBusinessFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridBusinessCurrent.ColumnCount - 7].Value));
+                }
+                if (count < countC)
+                    count = countC;
+                foreach (DataGridViewRow row in questionGridITCurrent.Rows)
+                {
+                    if (row.Cells[0].Value == null)
+                        break;
+                    countD++;
+                    currentITFloats.Add((float)Convert.ToDouble(row.Cells[averageIndex + questionGridITCurrent.ColumnCount - 7].Value));
+                }
+
+                //ITProviderRelationshipGraph chart = new ITProviderRelationshipGraph(currentBusinessFloats, futureBusinessFloats, currentITFloats, futureITFloats);
+                ITProviderRelationshipGraph chart = new ITProviderRelationshipGraph(currentBusiness, futureBusiness, currentIT, futureIT);
+
+                chart.Show();
+            }
+        }
+
     }// end class
 
 

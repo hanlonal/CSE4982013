@@ -599,12 +599,32 @@ namespace IBMConsultantTool
             lineChart.ChartAreas[title].Visible = true;
             int cntNum = 0;
             int[] sameNum = new int[100];
-            sameNum[0] = 1;
+
+            init.Sort();
+            foreach (InitiativeTrendAnalysis ana in init)
+            {
+                Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
+                    ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
+            }
+
             for (int cnt = 0; cnt < init.Count; cnt++)
             {
                 string name = init[cnt].Name;
-                
-                
+
+                if (lineChart.Series.FindByName(name) == null)
+                {
+                    lineChart.Series.Add(name);
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        sameNum[i] = new int();
+                    }
+                    cntNum = 0;
+                }
+                lineChart.Series[name].ChartArea = title;
+                lineChart.Series[name].ChartType = SeriesChartType.Line;
+                lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                lineChart.Series[name].YValueType = ChartValueType.Double;
+                lineChart.Series[name].BorderWidth = 5;
 
                 for (int i = 0; i < cntNum; i++)
                 {
@@ -616,16 +636,6 @@ namespace IBMConsultantTool
                 }
                 if (cnt != sameNum[cntNum])
                 {
-
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                    }
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
                     double differentiation = init[cnt].Differentiation;
                     
                     double[] diff = new double[100];
@@ -643,8 +653,6 @@ namespace IBMConsultantTool
                             count++;
                         }
                     }
-
-
 
                     if (count > 1)
                     {

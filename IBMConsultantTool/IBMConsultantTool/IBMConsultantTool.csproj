@@ -572,6 +572,10 @@
     <None Include="Resources\startpage logo.png" />
     <None Include="Resources\exclamation.gif" />
     <None Include="Resources\ibm_logo.png" />
+    <Content Include="Resources\markBusinessCurrent.png" />
+    <Content Include="Resources\markBusinessFuture.png" />
+    <Content Include="Resources\markITCurrent.png" />
+    <Content Include="Resources\markITFuture.png" />
     <Content Include="Resources\Questions10.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
