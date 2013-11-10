@@ -154,9 +154,11 @@ namespace IBMConsultantTool
             }
             else if (state == TrackingState.CUPEQuestions)
             {
+                CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
             }
             else if (state == TrackingState.ITAttributes)
             {
+                CreateITAttributeGraph(attributesToTrack, "IT Attributes", selectedInfo);
             }
             else if (state == TrackingState.Imperatives)
             {
@@ -637,6 +639,8 @@ namespace IBMConsultantTool
             int cntNum = 0;
             int[] sameNum = new int[100];
 
+            #region Differentiation Line Graph
+
             if (boxText == "Differentitation")
             {
                 int newCount = 0;
@@ -709,7 +713,11 @@ namespace IBMConsultantTool
                 }
             }
 
-            if (boxText == "Criticality")
+            #endregion
+
+            #region Criticality Line Graph
+
+            else if (boxText == "Criticality")
             {
                 foreach (ImperativeTrendAnalysis ana in init)
                 {
@@ -787,7 +795,11 @@ namespace IBMConsultantTool
                 }
             }
 
-            if (boxText == "Effectiveness")
+            #endregion
+
+            #region Effectiveness Line Graph
+
+            else if (boxText == "Effectiveness")
             {
                 int newCount = 0;
 
@@ -860,7 +872,11 @@ namespace IBMConsultantTool
                 }
             }
 
-            if (boxText == "All")
+            #endregion
+
+            #region All Line Graph
+
+            else if (boxText == "All")
             {
                 int newCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
@@ -931,6 +947,10 @@ namespace IBMConsultantTool
                     newCount++;
                 }
             }
+
+            #endregion
+
+            #region Default Line Graph
 
             else
             {
@@ -1003,6 +1023,8 @@ namespace IBMConsultantTool
                     newCount++;
                 }
             }
+
+            #endregion
         }
 
         private void regionComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1019,5 +1041,701 @@ namespace IBMConsultantTool
             countryComboBox.Items.AddRange(db.GetCountryNames(regionComboBox.Text).ToArray());
         }
 
+        public void CreateITAttributeGraph(List<ITAttributeTrendAnalysis> itAtt, string title, string boxText)
+        {
+            testingLabel.Visible = false;
+
+            /*foreach (ITAttributeTrendAnalysis ana in itAtt)
+            {
+                Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", as is: " + ana.AsisScore.ToString()
+                    + ", to be: " + ana.TobeScore.ToString() + ", " + ana.BusinessType.ToString());
+            }*/
+
+            if (lineChart != null)
+            {
+                lineChart.ChartAreas.Clear();
+                lineChart.Series.Clear();
+            }
+            lineChart.Parent = this.chartPanel;
+            lineChart.Size = this.chartPanel.Size;
+            lineChart.Visible = true;
+
+            lineChart.ChartAreas.Add(title);
+            lineChart.ChartAreas[title].Visible = true;
+            int cntNum = 0;
+            int[] sameNum = new int[100];
+
+            if (boxText == "All")
+            {
+            }
+
+            else if (boxText == "Average As Is Score")
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < itAtt.Count; cnt++)
+                {
+                    string name = itAtt[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+                    if (newCount != sameNum[cntNum])
+                    {
+                        double asIsScore = itAtt[cnt].AsisScore;
+
+                        double[] asIs = new double[100];
+                        asIs[cnt] = itAtt[cnt].AsisScore;
+                        int count = 1;
+
+                        DateTime date = itAtt[cnt].Date;
+                        for (int num = (cnt + 1); num < itAtt.Count; num++)
+                        {
+                            if (date == itAtt[num].Date)
+                            {
+                                asIsScore += itAtt[num].AsisScore;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            asIsScore /= count;
+
+                            double temp = Convert.ToDouble(asIsScore);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(itAtt[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(itAtt[cnt].Date, itAtt[cnt].AsisScore);
+                        }
+                    }
+                    newCount++;
+                }
+            }
+            else if (boxText == "Average To Be Score")
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < itAtt.Count; cnt++)
+                {
+                    string name = itAtt[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+                    if (newCount != sameNum[cntNum])
+                    {
+                        double toBeScore = itAtt[cnt].TobeScore;
+
+                        double[] toBe = new double[100];
+                        toBe[cnt] = itAtt[cnt].TobeScore;
+                        int count = 1;
+
+                        DateTime date = itAtt[cnt].Date;
+                        for (int num = (cnt + 1); num < itAtt.Count; num++)
+                        {
+                            if (date == itAtt[num].Date)
+                            {
+                                toBeScore += itAtt[num].AsisScore;
+                                sameNum[cntNum] = num;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            toBeScore /= count;
+
+                            double temp = Convert.ToDouble(toBeScore);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(itAtt[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(itAtt[cnt].Date, itAtt[cnt].TobeScore);
+                        }
+                    }
+                    newCount++;
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        public void CreateObjectivesGraph(List<ITAttributeTrendAnalysis> itAtt, string title, string boxText)
+        {
+            testingLabel.Visible = false;
+
+            /*foreach (ITAttributeTrendAnalysis ana in itAtt)
+            {
+                Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", as is: " + ana.AsisScore.ToString()
+                    + ", to be: " + ana.TobeScore.ToString() + ", " + ana.BusinessType.ToString());
+            }*/
+
+            if (lineChart != null)
+            {
+                lineChart.ChartAreas.Clear();
+                lineChart.Series.Clear();
+            }
+            lineChart.Parent = this.chartPanel;
+            lineChart.Size = this.chartPanel.Size;
+            lineChart.Visible = true;
+
+            lineChart.ChartAreas.Add(title);
+            lineChart.ChartAreas[title].Visible = true;
+            int cntNum = 0;
+            int[] sameNum = new int[100];
+        }
+
+        public void CreateCUPEGraph(List<CUPEQuestionTrendAnalysis> cupe, string title, string boxText)
+        {
+            testingLabel.Visible = false;
+
+            if (lineChart != null)
+            {
+                lineChart.ChartAreas.Clear();
+                lineChart.Series.Clear();
+            }
+
+            lineChart.Parent = this.chartPanel;
+            lineChart.Size = this.chartPanel.Size;
+            lineChart.Visible = true;
+
+            lineChart.ChartAreas.Add(title);
+            lineChart.ChartAreas[title].Visible = true;
+
+            int cntNum = 0;
+            int[] sameNum = new int[100];
+
+            #region Business Future Line Graph
+
+            if (boxText == "Business Future")
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < cupe.Count; cnt++)
+                {
+                    string name = cupe[cnt].Name;
+
+                    if (cupe[cnt].BusinessType == "Business")
+                    {
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            if (cnt == sameNum[i])
+                            {
+                                cntNum = i;
+                                newCount = cnt;
+                                break;
+                            }
+                        }
+                        if (newCount != sameNum[cntNum])
+                        {
+                            double futureScore = cupe[cnt].FutureAnswer;
+
+                            double[] future = new double[100];
+                            future[cnt] = cupe[cnt].FutureAnswer;
+                            int count = 1;
+
+                            DateTime date = cupe[cnt].Date;
+                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            {
+                                if (date == cupe[num].Date)
+                                {
+                                    futureScore += cupe[num].FutureAnswer;
+                                    sameNum[cntNum] = num;
+                                    cntNum++;
+                                    count++;
+                                }
+                            }
+
+                            if (count > 1)
+                            {
+                                futureScore /= count;
+
+                                double temp = Convert.ToDouble(futureScore);
+                                decimal tmp = Convert.ToDecimal(temp);
+                                tmp = Math.Round(tmp, 2);
+                                temp = (double)tmp;
+
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                            }
+                            else
+                            {
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                            }
+                        }
+                        newCount++;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Business Current Line Graph
+
+            else if (boxText == "Business Current")
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < cupe.Count; cnt++)
+                {
+                    string name = cupe[cnt].Name;
+
+                    if (cupe[cnt].BusinessType == "Business")
+                    {
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            if (cnt == sameNum[i])
+                            {
+                                cntNum = i;
+                                newCount = cnt;
+                                break;
+                            }
+                        }
+                        if (newCount != sameNum[cntNum])
+                        {
+                            double currentScore = cupe[cnt].CurrentAnswer;
+
+                            double[] current = new double[100];
+                            current[cnt] = cupe[cnt].CurrentAnswer;
+                            int count = 1;
+
+                            DateTime date = cupe[cnt].Date;
+                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            {
+                                if (date == cupe[num].Date)
+                                {
+                                    currentScore += cupe[num].CurrentAnswer;
+                                    sameNum[cntNum] = num;
+                                    cntNum++;
+                                    count++;
+                                }
+                            }
+
+                            if (count > 1)
+                            {
+                                currentScore /= count;
+
+                                double temp = Convert.ToDouble(currentScore);
+                                decimal tmp = Convert.ToDecimal(temp);
+                                tmp = Math.Round(tmp, 2);
+                                temp = (double)tmp;
+
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                            }
+                            else
+                            {
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                            }
+                        }
+                        newCount++;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region IT Future Line Graph
+
+            else if (boxText == "IT Future")
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < cupe.Count; cnt++)
+                {
+                    string name = cupe[cnt].Name;
+
+                    if (cupe[cnt].BusinessType == "IT")
+                    {
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            if (cnt == sameNum[i])
+                            {
+                                cntNum = i;
+                                newCount = cnt;
+                                break;
+                            }
+                        }
+                        if (newCount != sameNum[cntNum])
+                        {
+                            double futureScore = cupe[cnt].FutureAnswer;
+
+                            double[] future = new double[100];
+                            future[cnt] = cupe[cnt].FutureAnswer;
+                            int count = 1;
+
+                            DateTime date = cupe[cnt].Date;
+                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            {
+                                if (date == cupe[num].Date)
+                                {
+                                    futureScore += cupe[num].FutureAnswer;
+                                    sameNum[cntNum] = num;
+                                    cntNum++;
+                                    count++;
+                                }
+                            }
+
+                            if (count > 1)
+                            {
+                                futureScore /= count;
+
+                                double temp = Convert.ToDouble(futureScore);
+                                decimal tmp = Convert.ToDecimal(temp);
+                                tmp = Math.Round(tmp, 2);
+                                temp = (double)tmp;
+
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                            }
+                            else
+                            {
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                            }
+                        }
+                        newCount++;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region IT Current Line Graph
+
+            else if (boxText == "IT Current")
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < cupe.Count; cnt++)
+                {
+                    string name = cupe[cnt].Name;
+
+                    if (cupe[cnt].BusinessType == "IT")
+                    {
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            if (cnt == sameNum[i])
+                            {
+                                cntNum = i;
+                                newCount = cnt;
+                                break;
+                            }
+                        }
+                        if (newCount != sameNum[cntNum])
+                        {
+                            double currentScore = cupe[cnt].CurrentAnswer;
+
+                            double[] current = new double[100];
+                            current[cnt] = cupe[cnt].CurrentAnswer;
+                            int count = 1;
+
+                            DateTime date = cupe[cnt].Date;
+                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            {
+                                if (date == cupe[num].Date)
+                                {
+                                    currentScore += cupe[num].CurrentAnswer;
+                                    sameNum[cntNum] = num;
+                                    cntNum++;
+                                    count++;
+                                }
+                            }
+
+                            if (count > 1)
+                            {
+                                currentScore /= count;
+
+                                double temp = Convert.ToDouble(currentScore);
+                                decimal tmp = Convert.ToDecimal(temp);
+                                tmp = Math.Round(tmp, 2);
+                                temp = (double)tmp;
+
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                            }
+                            else
+                            {
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                            }
+                        }
+                        newCount++;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region All Line Graph
+
+            else if (boxText == "All")
+            {
+            }
+
+            #endregion
+
+            #region Default Line Graph
+
+            else
+            {
+                int newCount = 0;
+                for (int cnt = 0; cnt < cupe.Count; cnt++)
+                {
+                    string name = cupe[cnt].Name;
+
+                    if (cupe[cnt].BusinessType == "Business")
+                    {
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            if (cnt == sameNum[i])
+                            {
+                                cntNum = i;
+                                newCount = cnt;
+                                break;
+                            }
+                        }
+                        if (newCount != sameNum[cntNum])
+                        {
+                            double futureScore = cupe[cnt].FutureAnswer;
+
+                            double[] future = new double[100];
+                            future[cnt] = cupe[cnt].FutureAnswer;
+                            int count = 1;
+
+                            DateTime date = cupe[cnt].Date;
+                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            {
+                                if (date == cupe[num].Date)
+                                {
+                                    futureScore += cupe[num].FutureAnswer;
+                                    sameNum[cntNum] = num;
+                                    cntNum++;
+                                    count++;
+                                }
+                            }
+
+                            if (count > 1)
+                            {
+                                futureScore /= count;
+
+                                double temp = Convert.ToDouble(futureScore);
+                                decimal tmp = Convert.ToDecimal(temp);
+                                tmp = Math.Round(tmp, 2);
+                                temp = (double)tmp;
+
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                            }
+                            else
+                            {
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                            }
+                        }
+                        newCount++;
+                    }
+
+                    if (cupe[cnt].BusinessType == "IT")
+                    {
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            if (cnt == sameNum[i])
+                            {
+                                cntNum = i;
+                                newCount = cnt;
+                                break;
+                            }
+                        }
+                        if (newCount != sameNum[cntNum])
+                        {
+                            double futureScore = cupe[cnt].FutureAnswer;
+
+                            double[] future = new double[100];
+                            future[cnt] = cupe[cnt].FutureAnswer;
+                            int count = 1;
+
+                            DateTime date = cupe[cnt].Date;
+                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            {
+                                if (date == cupe[num].Date)
+                                {
+                                    futureScore += cupe[num].FutureAnswer;
+                                    sameNum[cntNum] = num;
+                                    cntNum++;
+                                    count++;
+                                }
+                            }
+
+                            if (count > 1)
+                            {
+                                futureScore /= count;
+
+                                double temp = Convert.ToDouble(futureScore);
+                                decimal tmp = Convert.ToDecimal(temp);
+                                tmp = Math.Round(tmp, 2);
+                                temp = (double)tmp;
+
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                            }
+                            else
+                            {
+                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                            }
+                        }
+                        newCount++;
+                    }
+                }
+            }
+
+            #endregion
+        }
     }
 }
