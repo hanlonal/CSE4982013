@@ -15,6 +15,11 @@ namespace IBMConsultantTool
     {
         public TestForm()
         {
+            if (!Directory.Exists("Charts"))
+            {
+                Directory.CreateDirectory("Charts");
+            }
+
             InitializeComponent();
 
             OnlineModeCheckbox.Checked = true;

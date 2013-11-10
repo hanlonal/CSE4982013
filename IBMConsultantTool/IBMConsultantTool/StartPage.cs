@@ -16,10 +16,6 @@ namespace IBMConsultantTool
 
         public StartPage()
         {
-            if (!Directory.Exists("Charts"))
-            {
-                Directory.CreateDirectory("Charts");
-            }
             InitializeComponent();
         }
 
