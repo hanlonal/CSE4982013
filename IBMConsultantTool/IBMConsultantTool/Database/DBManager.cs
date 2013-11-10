@@ -61,10 +61,10 @@ namespace IBMConsultantTool
                 return false;
             }
 
+            dbo.AddToCLIENT(client);
+
             AddGroup("Business", client);
             AddGroup("IT", client);
-
-            dbo.AddToCLIENT(client);
 
             return true;
         }
@@ -3521,7 +3521,7 @@ namespace IBMConsultantTool
                                 client = new CLIENT();
                                 client.NAME = lineArray[2].Replace('~', ' ');
 
-                                string regionName = lineArray[4].Replace('~', ' ');
+                                string regionName = lineArray[3].Replace('~', ' ');
                                 try
                                 {
                                     region = (from ent in dbo.REGION
@@ -3535,7 +3535,7 @@ namespace IBMConsultantTool
                                     dbo.AddToREGION(region);
                                 }
 
-                                string countryName = lineArray[3].Replace('~', ' ');
+                                string countryName = lineArray[4].Replace('~', ' ');
                                 try
                                 {
                                     country = (from ent in dbo.COUNTRY
@@ -3545,7 +3545,7 @@ namespace IBMConsultantTool
                                 catch
                                 {
                                     country = new COUNTRY();
-                                    country.NAME = lineArray[5];
+                                    country.NAME = countryName;
                                     country.REGION = region;
                                     dbo.AddToREGION(region);
                                 }

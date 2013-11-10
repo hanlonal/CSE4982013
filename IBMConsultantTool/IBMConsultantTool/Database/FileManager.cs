@@ -82,8 +82,6 @@ namespace IBMConsultantTool
             }
 
             client.Add(new XElement("GROUPS"));
-            AddGroup("Business", client);
-            AddGroup("IT", client);
             client.Add(new XElement("BOMS"));
             client.Add(new XElement("CUPES"));
             client.Add(new XElement("ITCAPS"));
@@ -91,10 +89,13 @@ namespace IBMConsultantTool
             dbo.Element("CLIENTS").Add(client);
 
             changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
-                           client.Element("LOCATION").Value.Replace(' ', '~') + " " +
                            client.Element("REGION").Value.Replace(' ', '~') + " " +
+                           client.Element("COUNTRY").Value.Replace(' ', '~') + " " +
                            client.Element("STARTDATE").Value.Replace(' ', '~') + " " +
                            client.Element("BUSINESSTYPE").Value.Replace(' ', '~'));
+
+            AddGroup("Business", client);
+            AddGroup("IT", client);
 
             return true;
         }
