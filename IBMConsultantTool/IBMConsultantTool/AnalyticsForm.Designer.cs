@@ -416,8 +416,7 @@
             // trendGridView
             // 
             this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Collapse});
+            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.Collapse});
             this.trendGridView.Location = new System.Drawing.Point(3, 8);
             this.trendGridView.Name = "trendGridView";
             this.trendGridView.ReadOnly = true;
