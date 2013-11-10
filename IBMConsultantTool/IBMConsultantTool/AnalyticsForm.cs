@@ -1103,11 +1103,11 @@ namespace IBMConsultantTool
         {
             testingLabel.Visible = false;
 
-            /*foreach (ITAttributeTrendAnalysis ana in itAtt)
+            foreach (ITAttributeTrendAnalysis ana in itAtt)
             {
-                Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", as is: " + ana.AsisScore.ToString()
+                Console.WriteLine("Date: " + ana.Date.ToString() + ", as is: " + ana.AsisScore.ToString()
                     + ", to be: " + ana.TobeScore.ToString() + ", " + ana.BusinessType.ToString());
-            }*/
+            }
 
             string saveName = boxText;
 
@@ -1125,9 +1125,15 @@ namespace IBMConsultantTool
             int cntNum = 0;
             int[] sameNum = new int[100];
 
+            #region All Line Graph
+
             if (boxText == "All")
             {
             }
+
+            #endregion
+
+            #region Average Current Score Line Graph
 
             else if (boxText == "Average As Is Score")
             {
@@ -1200,6 +1206,11 @@ namespace IBMConsultantTool
                     newCount++;
                 }
             }
+
+            #endregion
+
+            #region Average Future Score Line Graph
+
             else if (boxText == "Average To Be Score")
             {
                 int newCount = 0;
@@ -1271,10 +1282,17 @@ namespace IBMConsultantTool
                     newCount++;
                 }
             }
+
+            #endregion
+
+            #region Default Line Graph
+
             else
             {
                 saveName = "Default";
             }
+
+            #endregion
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
