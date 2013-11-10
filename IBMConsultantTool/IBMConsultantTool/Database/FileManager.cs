@@ -1476,17 +1476,20 @@ namespace IBMConsultantTool
         public override void ClearCUPE(object clientObj)
         {
             XElement client = clientObj as XElement;
+            List<XElement> responsesToDelete;
             foreach (XElement grp in client.Element("GROUPS").Elements("GROUP"))
             {
                 foreach (XElement contact in grp.Element("CONTACTS").Elements("CONTACT"))
                 {
-                    foreach(XElement cupeResponse in contact.Element("CUPERESPONSES").Elements("CUPERESPONSE"))
+                    responsesToDelete = contact.Element("CUPERESPONSES").Elements("CUPERESPONSE").ToList();
+                    foreach(XElement cupeResponse in responsesToDelete)
                     {
                         cupeResponse.Remove();
                     }
                 }
             }
-            foreach (XElement cupe in client.Element("CUPES").Elements("CUPE"))
+            List<XElement> cupesToDelete = client.Element("CUPES").Elements("CUPE").ToList();
+            foreach (XElement cupe in cupesToDelete)
             {
                 cupe.Remove();
             }
