@@ -37,6 +37,26 @@ namespace IBMConsultantTool
 
         private void SaveChangesButton_Click(object sender, EventArgs e)
         {
+            int inTwenty = 0;
+            int inTen = 0;
+            foreach (DataGridViewRow row in CUPEQuestionDataGridView.Rows)
+            {
+                if (row.Cells[3].Value != null)
+                {
+                    inTwenty += (bool)row.Cells[0].Value ? 1 : 0;
+                    inTen += (bool)row.Cells[2].Value ? 1 : 0;
+                }
+            }
+            if (inTwenty != 20)
+            {
+                MessageBox.Show("Must choose 20 questions for default 20-question survey", "Error");
+                return;
+            }
+            if (inTen != 10)
+            {
+                MessageBox.Show("Must choose 10 questions for default 10-question survey", "Error");
+                return;
+            }
             foreach (DataGridViewRow row in CUPEQuestionDataGridView.Rows)
             {
                 if (row.Cells[3].Value != null)
