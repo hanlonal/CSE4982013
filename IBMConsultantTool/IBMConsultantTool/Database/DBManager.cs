@@ -1761,6 +1761,7 @@ namespace IBMConsultantTool
                 return false;
             }
 
+            domain.ID = (dbo.DOMAIN.Count()+1).ToString() + ".0.0";
             dbo.AddToDOMAIN(domain);
 
             return true;
@@ -1848,6 +1849,8 @@ namespace IBMConsultantTool
                 dbo.Detach(capability);
                 return false;
             }
+
+            capability.ID = capability.DOMAIN.ID[0] + "." + (capability.DOMAIN.CAPABILITY.Count()+1) + ".0";
 
             dbo.AddToCAPABILITY(capability);
 
@@ -2015,6 +2018,8 @@ namespace IBMConsultantTool
                 dbo.Detach(itcapQuestion);
                 return false;
             }
+
+            itcapQuestion.ID = itcapQuestion.CAPABILITY.DOMAIN.ID[0] + "." + itcapQuestion.CAPABILITY.ID[2] + "." + (itcapQuestion.CAPABILITY.ITCAPQUESTION.Count()+1);
 
             dbo.AddToITCAPQUESTION(itcapQuestion);
 
@@ -2234,7 +2239,7 @@ namespace IBMConsultantTool
         #region TrendAnalysis
 
         #region GetTrendAnalysisObjects
-        public List<InitiativeTrendAnalysis> GetInitiativeTrendAnalysis(string iniName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        public List<InitiativeTrendAnalysis> GetInitiativeTrendAnalysis(string iniName, string regName, string counName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<BOM> bomList;
             DateTime toDate;
@@ -2251,12 +2256,12 @@ namespace IBMConsultantTool
             {
                 if (busTypeName != "All")
                 {
-                    bomList = GetBOMSForInitiativeRegionAndBusinessType(iniName, regName, busTypeName, fromDate, toDate);
+                    bomList = GetBOMSForInitiativeRegionAndBusinessType(iniName, regName, counName, busTypeName, fromDate, toDate);
                 }
 
                 else
                 {
-                    bomList = GetBOMSForInitiativeRegion(iniName, regName, fromDate, toDate);
+                    bomList = GetBOMSForInitiativeRegion(iniName, regName, counName, fromDate, toDate);
                 }
             }
 
@@ -2298,7 +2303,7 @@ namespace IBMConsultantTool
             return itaList;
         }
 
-        public List<ITAttributeTrendAnalysis> GetITAttributeTrendAnalysis(string attName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        public List<ITAttributeTrendAnalysis> GetITAttributeTrendAnalysis(string attName, string regName, string counName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<ITCAP> itcapList;
             DateTime toDate;
@@ -2315,12 +2320,12 @@ namespace IBMConsultantTool
             {
                 if (busTypeName != "All")
                 {
-                    itcapList = GetITCAPSForAttributeRegionAndBusinessType(attName, regName, busTypeName, fromDate, toDate);
+                    itcapList = GetITCAPSForAttributeRegionAndBusinessType(attName, regName, counName, busTypeName, fromDate, toDate);
                 }
 
                 else
                 {
-                    itcapList = GetITCAPSForAttributeRegion(attName, regName, fromDate, toDate);
+                    itcapList = GetITCAPSForAttributeRegion(attName, regName, counName, fromDate, toDate);
                 }
             }
 
@@ -2361,7 +2366,7 @@ namespace IBMConsultantTool
             return itataList;
         }
 
-        public List<CUPEQuestionTrendAnalysis> GetCUPEQuestionTrendAnalysis(string cqName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        public List<CUPEQuestionTrendAnalysis> GetCUPEQuestionTrendAnalysis(string cqName, string regName, string counName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<CUPERESPONSE> crList;
             DateTime toDate;
@@ -2378,12 +2383,12 @@ namespace IBMConsultantTool
             {
                 if (busTypeName != "All")
                 {
-                    crList = GetCUPEResponsesForCUPEQuestionRegionAndBusinessType(cqName, regName, busTypeName, fromDate, toDate);
+                    crList = GetCUPEResponsesForCUPEQuestionRegionAndBusinessType(cqName, regName, counName, busTypeName, fromDate, toDate);
                 }
 
                 else
                 {
-                    crList = GetCUPEResponsesForCUPEQuestionRegion(cqName, regName, fromDate, toDate);
+                    crList = GetCUPEResponsesForCUPEQuestionRegion(cqName, regName, counName, fromDate, toDate);
                 }
             }
 
@@ -2453,7 +2458,7 @@ namespace IBMConsultantTool
             return cqtaList;
         }
         
-        public List<CapabilityTrendAnalysis> GetCapabilityTrendAnalysis(string capName, string regName, string busTypeName, string fromDateStr, string toDateStr)
+        public List<CapabilityTrendAnalysis> GetCapabilityTrendAnalysis(string capName, string regName, string counName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<CAPABILITYGAPINFO> capGapInfoList;
             DateTime toDate;
@@ -2470,12 +2475,12 @@ namespace IBMConsultantTool
             {
                 if (busTypeName != "All")
                 {
-                    capGapInfoList = GetCapabilityGapInfosFromCapabilityRegionAndBusinessType(capName, regName, busTypeName, fromDate, toDate);
+                    capGapInfoList = GetCapabilityGapInfosFromCapabilityRegionAndBusinessType(capName, regName, counName, busTypeName, fromDate, toDate);
                 }
 
                 else
                 {
-                    capGapInfoList = GetCapabilityGapInfosFromCapabilityRegion(capName, regName, fromDate, toDate);
+                    capGapInfoList = GetCapabilityGapInfosFromCapabilityRegion(capName, regName, counName, fromDate, toDate);
                 }
             }
 
@@ -2595,17 +2600,29 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeRegion(string iniName, string regionName, DateTime fromDate, DateTime toDate)
+        public List<BOM> GetBOMSForInitiativeRegion(string iniName, string regionName, string counName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
             if (GetInitiative(iniName, out initiative))
             {
-                return (from ent in initiative.BOM
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regionName &&
-                              ent.CLIENT.STARTDATE > fromDate &&
-                              ent.CLIENT.STARTDATE < toDate
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from ent in initiative.BOM
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from ent in initiative.BOM
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regionName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
             }
 
             else
@@ -2631,19 +2648,33 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
+        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string counName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             INITIATIVE initiative;
             if (GetInitiative(iniName, out initiative))
             {
-                return (from ent in initiative.BOM
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
-                              ent.CLIENT.STARTDATE > fromDate &&
-                              ent.CLIENT.STARTDATE < toDate
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from ent in initiative.BOM
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from ent in initiative.BOM
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
             }
 
             else
@@ -2652,20 +2683,35 @@ namespace IBMConsultantTool
             }
         }
 
-        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
+        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string counName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             CUPEQUESTION cupeQuestion;
             if (GetCUPEQuestion(cqName, out cupeQuestion))
             {
-                return (from cupe in cupeQuestion.CUPE
-                        where cupe.CLIENT.COUNTRY != null &&
-                              cupe.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              cupe.CLIENT.BUSINESSTYPE != null &&
-                              cupe.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
-                              cupe.CLIENT.STARTDATE > fromDate &&
-                              cupe.CLIENT.STARTDATE < toDate
-                        from ent in cupe.CUPERESPONSE
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from cupe in cupeQuestion.CUPE
+                            where cupe.CLIENT.COUNTRY != null &&
+                                  cupe.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  cupe.CLIENT.BUSINESSTYPE != null &&
+                                  cupe.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  cupe.CLIENT.STARTDATE > fromDate &&
+                                  cupe.CLIENT.STARTDATE < toDate
+                            from ent in cupe.CUPERESPONSE
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from cupe in cupeQuestion.CUPE
+                            where cupe.CLIENT.COUNTRY.REGION != null &&
+                                  cupe.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  cupe.CLIENT.BUSINESSTYPE != null &&
+                                  cupe.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  cupe.CLIENT.STARTDATE > fromDate &&
+                                  cupe.CLIENT.STARTDATE < toDate
+                            from ent in cupe.CUPERESPONSE
+                            select ent).ToList();
+                }
             }
 
             else
@@ -2694,18 +2740,31 @@ namespace IBMConsultantTool
             }
         }
 
-        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionRegion(string cqName, string regName, DateTime fromDate, DateTime toDate)
+        public List<CUPERESPONSE> GetCUPEResponsesForCUPEQuestionRegion(string cqName, string regName, string counName, DateTime fromDate, DateTime toDate)
         {
             CUPEQUESTION cupeQuestion;
             if (GetCUPEQuestion(cqName, out cupeQuestion))
             {
-                return (from cupe in cupeQuestion.CUPE
-                        where cupe.CLIENT.COUNTRY != null &&
-                              cupe.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              cupe.CLIENT.STARTDATE > fromDate &&
-                              cupe.CLIENT.STARTDATE < toDate
-                        from ent in cupe.CUPERESPONSE
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from cupe in cupeQuestion.CUPE
+                            where cupe.CLIENT.COUNTRY != null &&
+                                  cupe.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  cupe.CLIENT.STARTDATE > fromDate &&
+                                  cupe.CLIENT.STARTDATE < toDate
+                            from ent in cupe.CUPERESPONSE
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from cupe in cupeQuestion.CUPE
+                            where cupe.CLIENT.COUNTRY.REGION != null &&
+                                  cupe.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  cupe.CLIENT.STARTDATE > fromDate &&
+                                  cupe.CLIENT.STARTDATE < toDate
+                            from ent in cupe.CUPERESPONSE
+                            select ent).ToList();
+                }
             }
 
             else
@@ -2750,7 +2809,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<CUPE> GetCUPESForCUPEQuestionRegion(string cqName, string regionName)
+        public List<CUPE> GetCUPESForCUPEQuestionRegion(string cqName, string regionName, string counName)
         {
             CUPEQUESTION cq;
             try
@@ -2759,10 +2818,20 @@ namespace IBMConsultantTool
                       where ent.NAME.TrimEnd() == cqName
                       select ent).Single();
 
-                return (from ent in cq.CUPE
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regionName
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from ent in cq.CUPE
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from ent in cq.CUPE
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regionName
+                            select ent).ToList(); 
+                }
 
             }
 
@@ -2782,9 +2851,8 @@ namespace IBMConsultantTool
 
                 return (from ent in cq.CUPE
                         where ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
+                                ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
                         select ent).ToList();
-
             }
 
             catch
@@ -2792,7 +2860,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<CUPE> GetCUPESForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string busTypeName)
+        public List<CUPE> GetCUPESForCUPEQuestionRegionAndBusinessType(string cqName, string regName, string counName, string busTypeName)
         {
             CUPEQUESTION cq;
             try
@@ -2801,12 +2869,24 @@ namespace IBMConsultantTool
                       where ent.NAME.TrimEnd() == cqName
                       select ent).Single();
 
-                return (from ent in cq.CUPE
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from ent in cq.CUPE
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from ent in cq.CUPE
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName
+                            select ent).ToList();
+                }
 
             }
 
@@ -2837,7 +2917,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<ITCAP> GetITCAPSForAttributeRegion(string itcqName, string regionName, DateTime fromDate, DateTime toDate)
+        public List<ITCAP> GetITCAPSForAttributeRegion(string itcqName, string regionName, string counName, DateTime fromDate, DateTime toDate)
         {
             ITCAPQUESTION itcq;
             try
@@ -2846,12 +2926,26 @@ namespace IBMConsultantTool
                         where ent.NAME.TrimEnd() == itcqName
                         select ent).Single();
 
-                return (from ent in itcq.ITCAP
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regionName &&
-                              ent.CLIENT.STARTDATE > fromDate &&
-                              ent.CLIENT.STARTDATE < toDate
-                        select ent).ToList();
+
+                if (counName != "All")
+                {
+                    return (from ent in itcq.ITCAP
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
+
+                else
+                {
+                    return (from ent in itcq.ITCAP
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regionName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
 
             }
 
@@ -2883,7 +2977,7 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<ITCAP> GetITCAPSForAttributeRegionAndBusinessType(string itcqName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
+        public List<ITCAP> GetITCAPSForAttributeRegionAndBusinessType(string itcqName, string regName, string counName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             ITCAPQUESTION itcq;
             try
@@ -2892,14 +2986,28 @@ namespace IBMConsultantTool
                         where ent.NAME.TrimEnd() == itcqName
                         select ent).Single();
 
-                return (from ent in itcq.ITCAP
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
-                              ent.CLIENT.STARTDATE > fromDate &&
-                              ent.CLIENT.STARTDATE < toDate
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from ent in itcq.ITCAP
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from ent in itcq.ITCAP
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
 
             }
 
@@ -2924,17 +3032,30 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityRegion(string capName, string regName, DateTime fromDate, DateTime toDate)
+        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityRegion(string capName, string regName, string counName, DateTime fromDate, DateTime toDate)
         {
             CAPABILITY capability;
             if (GetCapability(capName, out capability))
             {
-                return (from ent in capability.CAPABILITYGAPINFO
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              ent.CLIENT.STARTDATE > fromDate &&
-                              ent.CLIENT.STARTDATE < toDate
-                        select ent).ToList();
+
+                if (counName != "All")
+                {
+                    return (from ent in capability.CAPABILITYGAPINFO
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
+                else
+                {
+                    return (from ent in capability.CAPABILITYGAPINFO
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
             }
 
             else
@@ -2960,19 +3081,34 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityRegionAndBusinessType(string capName, string regName, string busTypeName, DateTime fromDate, DateTime toDate)
+        public List<CAPABILITYGAPINFO> GetCapabilityGapInfosFromCapabilityRegionAndBusinessType(string capName, string regName, string counName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
             CAPABILITY capability;
             if (GetCapability(capName, out capability))
             {
-                return (from ent in capability.CAPABILITYGAPINFO
-                        where ent.CLIENT.COUNTRY != null &&
-                              ent.CLIENT.COUNTRY.NAME.TrimEnd() == regName &&
-                              ent.CLIENT.BUSINESSTYPE != null &&
-                              ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
-                              ent.CLIENT.STARTDATE > fromDate &&
-                              ent.CLIENT.STARTDATE < toDate
-                        select ent).ToList();
+                if (counName != "All")
+                {
+                    return (from ent in capability.CAPABILITYGAPINFO
+                            where ent.CLIENT.COUNTRY != null &&
+                                  ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
+
+                else
+                {
+                    return (from ent in capability.CAPABILITYGAPINFO
+                            where ent.CLIENT.COUNTRY.REGION != null &&
+                                  ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
+                                  ent.CLIENT.BUSINESSTYPE != null &&
+                                  ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
+                                  ent.CLIENT.STARTDATE > fromDate &&
+                                  ent.CLIENT.STARTDATE < toDate
+                            select ent).ToList();
+                }
             }
 
             else
