@@ -28,46 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AnalyzeInitiativeButton = new System.Windows.Forms.Button();
-            this.CrossClientInitiativeLabel = new System.Windows.Forms.Label();
-            this.InitiativeComboBox = new System.Windows.Forms.ComboBox();
+            this.AnalyzeImperativeButton = new System.Windows.Forms.Button();
+            this.CrossClientImperativeLabel = new System.Windows.Forms.Label();
+            this.ImperativeComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // AnalyzeInitiativeButton
+            // AnalyzeImperativeButton
             // 
-            this.AnalyzeInitiativeButton.Location = new System.Drawing.Point(11, 63);
-            this.AnalyzeInitiativeButton.Name = "AnalyzeInitiativeButton";
-            this.AnalyzeInitiativeButton.Size = new System.Drawing.Size(179, 23);
-            this.AnalyzeInitiativeButton.TabIndex = 8;
-            this.AnalyzeInitiativeButton.Text = "Analyze Initiative";
-            this.AnalyzeInitiativeButton.UseVisualStyleBackColor = true;
-            this.AnalyzeInitiativeButton.Click += new System.EventHandler(this.AnalyzeInitiativeButton_Click);
+            this.AnalyzeImperativeButton.Location = new System.Drawing.Point(11, 63);
+            this.AnalyzeImperativeButton.Name = "AnalyzeImperativeButton";
+            this.AnalyzeImperativeButton.Size = new System.Drawing.Size(179, 23);
+            this.AnalyzeImperativeButton.TabIndex = 8;
+            this.AnalyzeImperativeButton.Text = "Analyze Imperative";
+            this.AnalyzeImperativeButton.UseVisualStyleBackColor = true;
+            this.AnalyzeImperativeButton.Click += new System.EventHandler(this.AnalyzeImperativeButton_Click);
             // 
-            // CrossClientInitiativeLabel
+            // CrossClientImperativeLabel
             // 
-            this.CrossClientInitiativeLabel.AutoSize = true;
-            this.CrossClientInitiativeLabel.Location = new System.Drawing.Point(71, 9);
-            this.CrossClientInitiativeLabel.Name = "CrossClientInitiativeLabel";
-            this.CrossClientInitiativeLabel.Size = new System.Drawing.Size(46, 13);
-            this.CrossClientInitiativeLabel.TabIndex = 7;
-            this.CrossClientInitiativeLabel.Text = "Initiative";
+            this.CrossClientImperativeLabel.AutoSize = true;
+            this.CrossClientImperativeLabel.Location = new System.Drawing.Point(71, 9);
+            this.CrossClientImperativeLabel.Name = "CrossClientImperativeLabel";
+            this.CrossClientImperativeLabel.Size = new System.Drawing.Size(46, 13);
+            this.CrossClientImperativeLabel.TabIndex = 7;
+            this.CrossClientImperativeLabel.Text = "Imperative";
             // 
-            // InitiativeComboBox
+            // ImperativeComboBox
             // 
-            this.InitiativeComboBox.FormattingEnabled = true;
-            this.InitiativeComboBox.Location = new System.Drawing.Point(10, 35);
-            this.InitiativeComboBox.Name = "InitiativeComboBox";
-            this.InitiativeComboBox.Size = new System.Drawing.Size(180, 21);
-            this.InitiativeComboBox.TabIndex = 6;
+            this.ImperativeComboBox.FormattingEnabled = true;
+            this.ImperativeComboBox.Location = new System.Drawing.Point(10, 35);
+            this.ImperativeComboBox.Name = "ImperativeComboBox";
+            this.ImperativeComboBox.Size = new System.Drawing.Size(180, 21);
+            this.ImperativeComboBox.TabIndex = 6;
             // 
             // CrossClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(729, 414);
-            this.Controls.Add(this.AnalyzeInitiativeButton);
-            this.Controls.Add(this.CrossClientInitiativeLabel);
-            this.Controls.Add(this.InitiativeComboBox);
+            this.Controls.Add(this.AnalyzeImperativeButton);
+            this.Controls.Add(this.CrossClientImperativeLabel);
+            this.Controls.Add(this.ImperativeComboBox);
             this.Name = "CrossClientForm";
             this.Text = "CrossClient";
             this.Load += new System.EventHandler(this.CrossClientForm_Load);
@@ -78,8 +78,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button AnalyzeInitiativeButton;
-        private System.Windows.Forms.Label CrossClientInitiativeLabel;
-        private System.Windows.Forms.ComboBox InitiativeComboBox;
+        private System.Windows.Forms.Button AnalyzeImperativeButton;
+        private System.Windows.Forms.Label CrossClientImperativeLabel;
+        private System.Windows.Forms.ComboBox ImperativeComboBox;
     }
 }

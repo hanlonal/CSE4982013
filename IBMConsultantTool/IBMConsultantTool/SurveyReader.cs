@@ -58,13 +58,13 @@ namespace IBMConsultantTool
                 //This is going to be ugly.
                 foreach (Word.FormField form in oDoc.FormFields)
                 {
-                    //compare name of form to each category/obj/initiative that exists
+                    //compare name of form to each category/obj/imperative that exists
                     //if theres a match set the correct value
                     foreach (NewCategory cat in BomCats)
                     {
                         foreach (NewObjective obj in cat.Objectives)
                         {
-                            foreach (NewInitiative ini in obj.Initiatives)
+                            foreach (NewImperative ini in obj.Imperatives)
                             {
                                 string BaseIniName = TruncateLongString(cat.Name, 5) +
                                 TruncateLongString(obj.Name, 5) +
@@ -96,7 +96,7 @@ namespace IBMConsultantTool
             {
                 foreach (NewObjective obj in cat.Objectives)
                 {
-                    foreach (NewInitiative ini in obj.Initiatives)
+                    foreach (NewImperative ini in obj.Imperatives)
                     {
                         var temp = Convert.ToSingle(files.Count()) - badFiles;
                         ini.Effectiveness = ini.Effectiveness / temp;

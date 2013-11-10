@@ -20,6 +20,7 @@
           <EntitySet Name="CUPERESPONSE" EntityType="CAPSTONEModel.Store.CUPERESPONSE" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="DOMAIN" EntityType="CAPSTONEModel.Store.DOMAIN" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="GROUP" EntityType="CAPSTONEModel.Store.GROUP" store:Type="Tables" Schema="SCHEMA" />
+          <EntitySet Name="IMPERATIVE" EntityType="CAPSTONEModel.Store.IMPERATIVE" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="INITIATIVE" EntityType="CAPSTONEModel.Store.INITIATIVE" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="ITCAP" EntityType="CAPSTONEModel.Store.ITCAP" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="ITCAPOBJMAP" EntityType="CAPSTONEModel.Store.ITCAPOBJMAP" store:Type="Tables" Schema="SCHEMA" />
@@ -37,8 +38,8 @@
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
-          <AssociationSet Name="BOM_INITIATIVE_FK" Association="CAPSTONEModel.Store.BOM_INITIATIVE_FK">
-            <End Role="INITIATIVE" EntitySet="INITIATIVE" />
+          <AssociationSet Name="BOM_IMPERATIVE_FK" Association="CAPSTONEModel.Store.BOM_IMPERATIVE_FK">
+            <End Role="IMPERATIVE" EntitySet="IMPERATIVE" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           <AssociationSet Name="BUSINESSOB_CATE_FK" Association="CAPSTONEModel.Store.BUSINESSOB_CATE_FK">
@@ -101,9 +102,9 @@
             <End Role="CLIENT" EntitySet="CLIENT" />
             <End Role="GROUP" EntitySet="GROUP" />
           </AssociationSet>
-          <AssociationSet Name="INIT_BUSINESSOB_FK" Association="CAPSTONEModel.Store.INIT_BUSINESSOB_FK">
+          <AssociationSet Name="IMPE_BUSINESSOB_FK" Association="CAPSTONEModel.Store.IMPE_BUSINESSOB_FK">
             <End Role="BUSINESSOBJECTIVE" EntitySet="BUSINESSOBJECTIVE" />
-            <End Role="INITIATIVE" EntitySet="INITIATIVE" />
+            <End Role="IMPERATIVE" EntitySet="IMPERATIVE" />
           </AssociationSet>
           <AssociationSet Name="ITCA_BUSINESSOB_FK" Association="CAPSTONEModel.Store.ITCA_BUSINESSOB_FK">
             <End Role="BUSINESSOBJECTIVE" EntitySet="BUSINESSOBJECTIVE" />
@@ -148,7 +149,7 @@
           <Property Name="BOMID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUPID" Type="integer" />
-          <Property Name="INITIATIVEID" Type="integer" Nullable="false" />
+          <Property Name="IMPERATIVEID" Type="integer" Nullable="false" />
           <Property Name="CONTACTID" Type="integer" />
         </EntityType>
         <EntityType Name="BUSINESSOBJECTIVE">
@@ -280,6 +281,14 @@
           <Property Name="NAME" Type="character" Nullable="false" MaxLength="30" />
           <Property Name="CLIENTID" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="IMPERATIVE">
+          <Key>
+            <PropertyRef Name="IMPERATIVEID" />
+          </Key>
+          <Property Name="NAME" Type="character" Nullable="false" MaxLength="80" />
+          <Property Name="IMPERATIVEID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BUSINESSOBJECTIVE" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="INITIATIVE">
           <Key>
             <PropertyRef Name="INITIATIVEID" />
@@ -370,17 +379,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BOM_INITIATIVE_FK">
-          <End Role="INITIATIVE" Type="CAPSTONEModel.Store.INITIATIVE" Multiplicity="1">
+        <Association Name="BOM_IMPERATIVE_FK">
+          <End Role="IMPERATIVE" Type="CAPSTONEModel.Store.IMPERATIVE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="BOM" Type="CAPSTONEModel.Store.BOM" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INITIATIVE">
-              <PropertyRef Name="INITIATIVEID" />
+            <Principal Role="IMPERATIVE">
+              <PropertyRef Name="IMPERATIVEID" />
             </Principal>
             <Dependent Role="BOM">
-              <PropertyRef Name="INITIATIVEID" />
+              <PropertyRef Name="IMPERATIVEID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -594,16 +603,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="INIT_BUSINESSOB_FK">
+        <Association Name="IMPE_BUSINESSOB_FK">
           <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.Store.BUSINESSOBJECTIVE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="INITIATIVE" Type="CAPSTONEModel.Store.INITIATIVE" Multiplicity="*" />
+          <End Role="IMPERATIVE" Type="CAPSTONEModel.Store.IMPERATIVE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BUSINESSOBJECTIVE">
               <PropertyRef Name="BUSINESSOBJECTIVEID" />
             </Principal>
-            <Dependent Role="INITIATIVE">
+            <Dependent Role="IMPERATIVE">
               <PropertyRef Name="BUSINESSOBJECTIVE" />
             </Dependent>
           </ReferentialConstraint>
@@ -740,6 +749,7 @@
           <EntitySet Name="CUPERESPONSE" EntityType="CAPSTONEModel.CUPERESPONSE" />
           <EntitySet Name="DOMAIN" EntityType="CAPSTONEModel.DOMAIN" />
           <EntitySet Name="GROUP" EntityType="CAPSTONEModel.GROUP" />
+          <EntitySet Name="IMPERATIVE" EntityType="CAPSTONEModel.IMPERATIVE" />
           <EntitySet Name="INITIATIVE" EntityType="CAPSTONEModel.INITIATIVE" />
           <EntitySet Name="ITCAP" EntityType="CAPSTONEModel.ITCAP" />
           <EntitySet Name="ITCAPOBJMAP" EntityType="CAPSTONEModel.ITCAPOBJMAP" />
@@ -757,17 +767,17 @@
             <End Role="GROUP" EntitySet="GROUP" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
-          <AssociationSet Name="BOM_INITIATIVE_FK" Association="CAPSTONEModel.BOM_INITIATIVE_FK">
-            <End Role="INITIATIVE" EntitySet="INITIATIVE" />
+          <AssociationSet Name="BOM_IMPERATIVE_FK" Association="CAPSTONEModel.BOM_IMPERATIVE_FK">
+            <End Role="IMPERATIVE" EntitySet="IMPERATIVE" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           <AssociationSet Name="BUSINESSOB_CATE_FK" Association="CAPSTONEModel.BUSINESSOB_CATE_FK">
             <End Role="CATEGORY" EntitySet="CATEGORY" />
             <End Role="BUSINESSOBJECTIVE" EntitySet="BUSINESSOBJECTIVE" />
           </AssociationSet>
-          <AssociationSet Name="INIT_BUSINESSOB_FK" Association="CAPSTONEModel.INIT_BUSINESSOB_FK">
+          <AssociationSet Name="IMPE_BUSINESSOB_FK" Association="CAPSTONEModel.IMPE_BUSINESSOB_FK">
             <End Role="BUSINESSOBJECTIVE" EntitySet="BUSINESSOBJECTIVE" />
-            <End Role="INITIATIVE" EntitySet="INITIATIVE" />
+            <End Role="IMPERATIVE" EntitySet="IMPERATIVE" />
           </AssociationSet>
           <AssociationSet Name="ITCA_BUSINESSOB_FK" Association="CAPSTONEModel.ITCA_BUSINESSOB_FK">
             <End Role="BUSINESSOBJECTIVE" EntitySet="BUSINESSOBJECTIVE" />
@@ -869,7 +879,7 @@
           <NavigationProperty Name="CLIENT" Relationship="CAPSTONEModel.BOM_CLIENT_FK" FromRole="BOM" ToRole="CLIENT" />
           <NavigationProperty Name="CONTACT" Relationship="CAPSTONEModel.BOM_CONTACT_FK" FromRole="BOM" ToRole="CONTACT" />
           <NavigationProperty Name="GROUP" Relationship="CAPSTONEModel.BOM_GROUP_FK" FromRole="BOM" ToRole="GROUP" />
-          <NavigationProperty Name="INITIATIVE" Relationship="CAPSTONEModel.BOM_INITIATIVE_FK" FromRole="BOM" ToRole="INITIATIVE" />
+          <NavigationProperty Name="IMPERATIVE" Relationship="CAPSTONEModel.BOM_IMPERATIVE_FK" FromRole="BOM" ToRole="IMPERATIVE" />
         </EntityType>
         <EntityType Name="BUSINESSOBJECTIVE">
           <Key>
@@ -878,7 +888,7 @@
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="true" />
           <Property Name="BUSINESSOBJECTIVEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="CATEGORY" Relationship="CAPSTONEModel.BUSINESSOB_CATE_FK" FromRole="BUSINESSOBJECTIVE" ToRole="CATEGORY" />
-          <NavigationProperty Name="INITIATIVE" Relationship="CAPSTONEModel.INIT_BUSINESSOB_FK" FromRole="BUSINESSOBJECTIVE" ToRole="INITIATIVE" />
+          <NavigationProperty Name="IMPERATIVE" Relationship="CAPSTONEModel.IMPE_BUSINESSOB_FK" FromRole="BUSINESSOBJECTIVE" ToRole="IMPERATIVE" />
           <NavigationProperty Name="ITCAPOBJMAP" Relationship="CAPSTONEModel.ITCA_BUSINESSOB_FK" FromRole="BUSINESSOBJECTIVE" ToRole="ITCAPOBJMAP" />
         </EntityType>
         <EntityType Name="BUSINESSTYPE">
@@ -1025,14 +1035,22 @@
           <NavigationProperty Name="CUPE" Relationship="CAPSTONEModel.CUPE_GROUP_FK" FromRole="GROUP" ToRole="CUPE" />
           <NavigationProperty Name="ITCAP" Relationship="CAPSTONEModel.ITCAP_GROUP_FK" FromRole="GROUP" ToRole="ITCAP" />
         </EntityType>
+        <EntityType Name="IMPERATIVE">
+          <Key>
+            <PropertyRef Name="IMPERATIVEID" />
+          </Key>
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="true" />
+          <Property Name="IMPERATIVEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="BOM" Relationship="CAPSTONEModel.BOM_IMPERATIVE_FK" FromRole="IMPERATIVE" ToRole="BOM" />
+          <NavigationProperty Name="BUSINESSOBJECTIVE" Relationship="CAPSTONEModel.IMPE_BUSINESSOB_FK" FromRole="IMPERATIVE" ToRole="BUSINESSOBJECTIVE" />
+        </EntityType>
         <EntityType Name="INITIATIVE">
           <Key>
             <PropertyRef Name="INITIATIVEID" />
           </Key>
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="true" />
           <Property Name="INITIATIVEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="BOM" Relationship="CAPSTONEModel.BOM_INITIATIVE_FK" FromRole="INITIATIVE" ToRole="BOM" />
-          <NavigationProperty Name="BUSINESSOBJECTIVE" Relationship="CAPSTONEModel.INIT_BUSINESSOB_FK" FromRole="INITIATIVE" ToRole="BUSINESSOBJECTIVE" />
+          <Property Name="BUSINESSOBJECTIVE" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ITCAP">
           <Key>
@@ -1094,8 +1112,8 @@
           </End>
           <End Role="BOM" Type="CAPSTONEModel.BOM" Multiplicity="*" />
         </Association>
-        <Association Name="BOM_INITIATIVE_FK">
-          <End Role="INITIATIVE" Type="CAPSTONEModel.INITIATIVE" Multiplicity="1">
+        <Association Name="BOM_IMPERATIVE_FK">
+          <End Role="IMPERATIVE" Type="CAPSTONEModel.IMPERATIVE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="BOM" Type="CAPSTONEModel.BOM" Multiplicity="*" />
@@ -1106,11 +1124,11 @@
           </End>
           <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.BUSINESSOBJECTIVE" Multiplicity="*" />
         </Association>
-        <Association Name="INIT_BUSINESSOB_FK">
+        <Association Name="IMPE_BUSINESSOB_FK">
           <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.BUSINESSOBJECTIVE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="INITIATIVE" Type="CAPSTONEModel.INITIATIVE" Multiplicity="*" />
+          <End Role="IMPERATIVE" Type="CAPSTONEModel.IMPERATIVE" Multiplicity="*" />
         </Association>
         <Association Name="ITCA_BUSINESSOB_FK">
           <End Role="BUSINESSOBJECTIVE" Type="CAPSTONEModel.BUSINESSOBJECTIVE" Multiplicity="1">
@@ -1331,9 +1349,14 @@
             <ScalarProperty Name="GROUPID" ColumnName="GROUPID" />
             <ScalarProperty Name="NAME" ColumnName="NAME" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="IMPERATIVE"><EntityTypeMapping TypeName="CAPSTONEModel.IMPERATIVE"><MappingFragment StoreEntitySet="IMPERATIVE">
+            <ScalarProperty Name="NAME" ColumnName="NAME" />
+            <ScalarProperty Name="IMPERATIVEID" ColumnName="IMPERATIVEID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="INITIATIVE"><EntityTypeMapping TypeName="CAPSTONEModel.INITIATIVE"><MappingFragment StoreEntitySet="INITIATIVE">
             <ScalarProperty Name="NAME" ColumnName="NAME" />
             <ScalarProperty Name="INITIATIVEID" ColumnName="INITIATIVEID" />
+            <ScalarProperty Name="BUSINESSOBJECTIVE" ColumnName="BUSINESSOBJECTIVE" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="ITCAP"><EntityTypeMapping TypeName="CAPSTONEModel.ITCAP"><MappingFragment StoreEntitySet="ITCAP">
             <ScalarProperty Name="ITCAPID" ColumnName="ITCAPID" />
@@ -1382,9 +1405,9 @@
             </EndProperty>
             <Condition ColumnName="GROUPID" IsNull="false" />
           </AssociationSetMapping>
-          <AssociationSetMapping Name="BOM_INITIATIVE_FK" TypeName="CAPSTONEModel.BOM_INITIATIVE_FK" StoreEntitySet="BOM">
-            <EndProperty Name="INITIATIVE">
-              <ScalarProperty Name="INITIATIVEID" ColumnName="INITIATIVEID" />
+          <AssociationSetMapping Name="BOM_IMPERATIVE_FK" TypeName="CAPSTONEModel.BOM_IMPERATIVE_FK" StoreEntitySet="BOM">
+            <EndProperty Name="IMPERATIVE">
+              <ScalarProperty Name="IMPERATIVEID" ColumnName="IMPERATIVEID" />
             </EndProperty>
             <EndProperty Name="BOM">
               <ScalarProperty Name="BOMID" ColumnName="BOMID" />
@@ -1398,12 +1421,12 @@
               <ScalarProperty Name="BUSINESSOBJECTIVEID" ColumnName="BUSINESSOBJECTIVEID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="INIT_BUSINESSOB_FK" TypeName="CAPSTONEModel.INIT_BUSINESSOB_FK" StoreEntitySet="INITIATIVE">
+          <AssociationSetMapping Name="IMPE_BUSINESSOB_FK" TypeName="CAPSTONEModel.IMPE_BUSINESSOB_FK" StoreEntitySet="IMPERATIVE">
             <EndProperty Name="BUSINESSOBJECTIVE">
               <ScalarProperty Name="BUSINESSOBJECTIVEID" ColumnName="BUSINESSOBJECTIVE" />
             </EndProperty>
-            <EndProperty Name="INITIATIVE">
-              <ScalarProperty Name="INITIATIVEID" ColumnName="INITIATIVEID" />
+            <EndProperty Name="IMPERATIVE">
+              <ScalarProperty Name="IMPERATIVEID" ColumnName="IMPERATIVEID" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="ITCA_BUSINESSOB_FK" TypeName="CAPSTONEModel.ITCA_BUSINESSOB_FK" StoreEntitySet="ITCAPOBJMAP">
@@ -1627,7 +1650,8 @@
         <EntityTypeShape EntityType="CAPSTONEModel.CUPERESPONSE" Width="1.5" PointX="17.25" PointY="16.25" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.DOMAIN" Width="1.5" PointX="3" PointY="12.75" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.GROUP" Width="1.5" PointX="7.5" PointY="18.5" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.INITIATIVE" Width="1.5" PointX="9.75" PointY="13.375" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.IMPERATIVE" Width="1.5" PointX="9.75" PointY="13.375" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.INITIATIVE" Width="1.5" PointX="7.75" PointY="0.75" Height="1.5956835937500031" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.ITCAP" Width="1.5" PointX="15" PointY="10" Height="2.5571907552083388" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.ITCAPOBJMAP" Width="1.5" PointX="7.5" PointY="5.375" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.ITCAPQUESTION" Width="1.5" PointX="12.75" PointY="9.125" Height="2.172587890624996" IsExpanded="true" />
@@ -1651,7 +1675,7 @@
           <ConnectorPoint PointX="8.25" PointY="15.391337890625" />
           <ConnectorPoint PointX="12" PointY="15.391337890625" />
         </AssociationConnector>
-        <AssociationConnector Association="CAPSTONEModel.BOM_INITIATIVE_FK" ManuallyRouted="false">
+        <AssociationConnector Association="CAPSTONEModel.BOM_IMPERATIVE_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="11.25" PointY="14.268992513020834" />
           <ConnectorPoint PointX="12" PointY="14.268992513020834" />
         </AssociationConnector>
@@ -1659,7 +1683,7 @@
           <ConnectorPoint PointX="4.5" PointY="3.797841796875" />
           <ConnectorPoint PointX="5.25" PointY="3.797841796875" />
         </AssociationConnector>
-        <AssociationConnector Association="CAPSTONEModel.INIT_BUSINESSOB_FK" ManuallyRouted="false">
+        <AssociationConnector Association="CAPSTONEModel.IMPE_BUSINESSOB_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="3.7401432291666667" />
           <ConnectorPoint PointX="10.5" PointY="3.7401432291666667" />
           <ConnectorPoint PointX="10.5" PointY="13.375" />

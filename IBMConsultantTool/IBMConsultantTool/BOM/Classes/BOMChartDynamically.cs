@@ -63,7 +63,7 @@ namespace IBMConsultantTool
         private bool mouseDown = false;
         private bool[] labelHide = new bool[1000];
 
-        private int initiativesCount = 0;
+        private int imperativesCount = 0;
         private int[] catArray = new int[1000];
         private int[] objArray = new int[1000];
         private int[] iniArray = new int[1000];
@@ -364,12 +364,12 @@ namespace IBMConsultantTool
                     valOfCount++;
                     //if (objectivesCheckBox[objectivesCount].Checked)
                     //{
-                        for (int k = 0; k < mainForm.Categories[i].Objectives[j].Initiatives.Count; k++)
+                        for (int k = 0; k < mainForm.Categories[i].Objectives[j].Imperatives.Count; k++)
                         {
-                            name = mainForm.Categories[i].Objectives[j].Initiatives[k].Name;
-                            criticality = mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality;
-                            differentiation = mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation;
-                            effectiveness = mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness;
+                            name = mainForm.Categories[i].Objectives[j].Imperatives[k].Name;
+                            criticality = mainForm.Categories[i].Objectives[j].Imperatives[k].Criticality;
+                            differentiation = mainForm.Categories[i].Objectives[j].Imperatives[k].Differentiation;
+                            effectiveness = mainForm.Categories[i].Objectives[j].Imperatives[k].Effectiveness;
 
                             catArray[cirCount] = i;
                             objArray[cirCount] = j;
@@ -424,7 +424,7 @@ namespace IBMConsultantTool
                             rowCount++;
                             circleCount++;
                             cirCount++;
-                            initiativesCount++;
+                            imperativesCount++;
 
                         }
                     //}*/
@@ -526,7 +526,7 @@ namespace IBMConsultantTool
             int count = 0;
             for (int i = 0; i < mainForm.Categories.Count; i++)
                 for (int j = 0; j < mainForm.Categories[i].Objectives.Count; j++)
-                    for (int k = 0; k < mainForm.Categories[i].Objectives[j].Initiatives.Count; k++)
+                    for (int k = 0; k < mainForm.Categories[i].Objectives[j].Imperatives.Count; k++)
                         count++;
             return count;
         }
@@ -1071,8 +1071,8 @@ namespace IBMConsultantTool
         {
             for (int cnt = 0; cnt < circleCount; cnt++)
             {
-                mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Initiatives[iniArray[cnt]].Criticality = criArray[cnt, count[cnt]];
-                mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Initiatives[iniArray[cnt]].Differentiation = difArray[cnt, count[cnt]];
+                mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Imperatives[iniArray[cnt]].Criticality = criArray[cnt, count[cnt]];
+                mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Imperatives[iniArray[cnt]].Differentiation = difArray[cnt, count[cnt]];
             }
 
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
@@ -1097,7 +1097,7 @@ namespace IBMConsultantTool
                 //bmp.Save(@"C:\Temp\Test.bmp");
                 //Image image = this.panelChart.
                 //this.panelChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
-                // this.initiativeChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
+                // this.imperativeChart.SaveImage(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
             //}
         }
 
@@ -1155,12 +1155,12 @@ namespace IBMConsultantTool
                     rowCount++;
                     if (objectivesCheckBox[objectivesCount].Checked)
                     {
-                        for (int k = 0; k < mainForm.Categories[i].Objectives[j].Initiatives.Count; k++)
+                        for (int k = 0; k < mainForm.Categories[i].Objectives[j].Imperatives.Count; k++)
                         {
-                            name = mainForm.Categories[i].Objectives[j].Initiatives[k].Name;
-                            criticality = mainForm.Categories[i].Objectives[j].Initiatives[k].Criticality;
-                            differentiation = mainForm.Categories[i].Objectives[j].Initiatives[k].Differentiation;
-                            effectiveness = mainForm.Categories[i].Objectives[j].Initiatives[k].Effectiveness;
+                            name = mainForm.Categories[i].Objectives[j].Imperatives[k].Name;
+                            criticality = mainForm.Categories[i].Objectives[j].Imperatives[k].Criticality;
+                            differentiation = mainForm.Categories[i].Objectives[j].Imperatives[k].Differentiation;
+                            effectiveness = mainForm.Categories[i].Objectives[j].Imperatives[k].Effectiveness;
 
                             catArray[cirCount] = i;
                             objArray[cirCount] = j;

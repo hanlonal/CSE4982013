@@ -28,7 +28,7 @@ namespace IBMConsultantTool
 
         private void DetailedBOMViewForm_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = owner.Initiatives;
+            dataGridView1.DataSource = owner.Imperatives;
         }
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

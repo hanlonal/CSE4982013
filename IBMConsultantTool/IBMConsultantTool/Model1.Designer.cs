@@ -21,9 +21,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BOM_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BOM_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BOM_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "BOM_INITIATIVE_FK", "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.INITIATIVE), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "BOM_IMPERATIVE_FK", "IMPERATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.IMPERATIVE), "BOM", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BOM))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "BUSINESSOB_CATE_FK", "CATEGORY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CATEGORY), "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.BUSINESSOBJECTIVE))]
-[assembly: EdmRelationshipAttribute("CAPSTONEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "INITIATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.INITIATIVE))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "IMPE_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "IMPERATIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.IMPERATIVE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCA_BUSINESSOB_FK", "BUSINESSOBJECTIVE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSOBJECTIVE), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CLIE_BUSINESSTY_FK", "BUSINESSTYPE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.BUSINESSTYPE), "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CLIENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CAPABILIT_DOMAI_FK", "DOMAIN", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.DOMAIN), "CAPABILITY", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CAPABILITY))]
@@ -324,6 +324,22 @@ namespace IBMConsultantTool
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<IMPERATIVE> IMPERATIVE
+        {
+            get
+            {
+                if ((_IMPERATIVE == null))
+                {
+                    _IMPERATIVE = base.CreateObjectSet<IMPERATIVE>("IMPERATIVE");
+                }
+                return _IMPERATIVE;
+            }
+        }
+        private ObjectSet<IMPERATIVE> _IMPERATIVE;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<INITIATIVE> INITIATIVE
         {
             get
@@ -514,6 +530,14 @@ namespace IBMConsultantTool
         public void AddToGROUP(GROUP gROUP)
         {
             base.AddObject("GROUP", gROUP);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IMPERATIVE EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIMPERATIVE(IMPERATIVE iMPERATIVE)
+        {
+            base.AddObject("IMPERATIVE", iMPERATIVE);
         }
     
         /// <summary>
@@ -811,16 +835,16 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "BOM_INITIATIVE_FK", "INITIATIVE")]
-        public INITIATIVE INITIATIVE
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "BOM_IMPERATIVE_FK", "IMPERATIVE")]
+        public IMPERATIVE IMPERATIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("CAPSTONEModel.BOM_INITIATIVE_FK", "INITIATIVE").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<IMPERATIVE>("CAPSTONEModel.BOM_IMPERATIVE_FK", "IMPERATIVE").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("CAPSTONEModel.BOM_INITIATIVE_FK", "INITIATIVE").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<IMPERATIVE>("CAPSTONEModel.BOM_IMPERATIVE_FK", "IMPERATIVE").Value = value;
             }
         }
         /// <summary>
@@ -828,17 +852,17 @@ namespace IBMConsultantTool
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<INITIATIVE> INITIATIVEReference
+        public EntityReference<IMPERATIVE> IMPERATIVEReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<INITIATIVE>("CAPSTONEModel.BOM_INITIATIVE_FK", "INITIATIVE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<IMPERATIVE>("CAPSTONEModel.BOM_IMPERATIVE_FK", "IMPERATIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<INITIATIVE>("CAPSTONEModel.BOM_INITIATIVE_FK", "INITIATIVE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<IMPERATIVE>("CAPSTONEModel.BOM_IMPERATIVE_FK", "IMPERATIVE", value);
                 }
             }
         }
@@ -971,18 +995,18 @@ namespace IBMConsultantTool
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "INIT_BUSINESSOB_FK", "INITIATIVE")]
-        public EntityCollection<INITIATIVE> INITIATIVE
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "IMPE_BUSINESSOB_FK", "IMPERATIVE")]
+        public EntityCollection<IMPERATIVE> IMPERATIVE
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<INITIATIVE>("CAPSTONEModel.INIT_BUSINESSOB_FK", "INITIATIVE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IMPERATIVE>("CAPSTONEModel.IMPE_BUSINESSOB_FK", "IMPERATIVE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<INITIATIVE>("CAPSTONEModel.INIT_BUSINESSOB_FK", "INITIATIVE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IMPERATIVE>("CAPSTONEModel.IMPE_BUSINESSOB_FK", "IMPERATIVE", value);
                 }
             }
         }
@@ -3613,6 +3637,150 @@ namespace IBMConsultantTool
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CAPSTONEModel", Name="IMPERATIVE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IMPERATIVE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IMPERATIVE object.
+        /// </summary>
+        /// <param name="nAME">Initial value of the NAME property.</param>
+        /// <param name="iMPERATIVEID">Initial value of the IMPERATIVEID property.</param>
+        public static IMPERATIVE CreateIMPERATIVE(global::System.String nAME, global::System.Int32 iMPERATIVEID)
+        {
+            IMPERATIVE iMPERATIVE = new IMPERATIVE();
+            iMPERATIVE.NAME = nAME;
+            iMPERATIVE.IMPERATIVEID = iMPERATIVEID;
+            return iMPERATIVE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IMPERATIVEID
+        {
+            get
+            {
+                return _IMPERATIVEID;
+            }
+            set
+            {
+                if (_IMPERATIVEID != value)
+                {
+                    OnIMPERATIVEIDChanging(value);
+                    ReportPropertyChanging("IMPERATIVEID");
+                    _IMPERATIVEID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("IMPERATIVEID");
+                    OnIMPERATIVEIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _IMPERATIVEID;
+        partial void OnIMPERATIVEIDChanging(global::System.Int32 value);
+        partial void OnIMPERATIVEIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "BOM_IMPERATIVE_FK", "BOM")]
+        public EntityCollection<BOM> BOM
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BOM>("CAPSTONEModel.BOM_IMPERATIVE_FK", "BOM");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BOM>("CAPSTONEModel.BOM_IMPERATIVE_FK", "BOM", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "IMPE_BUSINESSOB_FK", "BUSINESSOBJECTIVE")]
+        public BUSINESSOBJECTIVE BUSINESSOBJECTIVE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.IMPE_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.IMPE_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BUSINESSOBJECTIVE> BUSINESSOBJECTIVEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.IMPE_BUSINESSOB_FK", "BUSINESSOBJECTIVE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.IMPE_BUSINESSOB_FK", "BUSINESSOBJECTIVE", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="CAPSTONEModel", Name="INITIATIVE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -3625,11 +3793,13 @@ namespace IBMConsultantTool
         /// </summary>
         /// <param name="nAME">Initial value of the NAME property.</param>
         /// <param name="iNITIATIVEID">Initial value of the INITIATIVEID property.</param>
-        public static INITIATIVE CreateINITIATIVE(global::System.String nAME, global::System.Int32 iNITIATIVEID)
+        /// <param name="bUSINESSOBJECTIVE">Initial value of the BUSINESSOBJECTIVE property.</param>
+        public static INITIATIVE CreateINITIATIVE(global::System.String nAME, global::System.Int32 iNITIATIVEID, global::System.Int32 bUSINESSOBJECTIVE)
         {
             INITIATIVE iNITIATIVE = new INITIATIVE();
             iNITIATIVE.NAME = nAME;
             iNITIATIVE.INITIATIVEID = iNITIATIVEID;
+            iNITIATIVE.BUSINESSOBJECTIVE = bUSINESSOBJECTIVE;
             return iNITIATIVE;
         }
 
@@ -3686,72 +3856,33 @@ namespace IBMConsultantTool
         private global::System.Int32 _INITIATIVEID;
         partial void OnINITIATIVEIDChanging(global::System.Int32 value);
         partial void OnINITIATIVEIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BUSINESSOBJECTIVE
+        {
+            get
+            {
+                return _BUSINESSOBJECTIVE;
+            }
+            set
+            {
+                OnBUSINESSOBJECTIVEChanging(value);
+                ReportPropertyChanging("BUSINESSOBJECTIVE");
+                _BUSINESSOBJECTIVE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BUSINESSOBJECTIVE");
+                OnBUSINESSOBJECTIVEChanged();
+            }
+        }
+        private global::System.Int32 _BUSINESSOBJECTIVE;
+        partial void OnBUSINESSOBJECTIVEChanging(global::System.Int32 value);
+        partial void OnBUSINESSOBJECTIVEChanged();
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "BOM_INITIATIVE_FK", "BOM")]
-        public EntityCollection<BOM> BOM
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BOM>("CAPSTONEModel.BOM_INITIATIVE_FK", "BOM");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BOM>("CAPSTONEModel.BOM_INITIATIVE_FK", "BOM", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE")]
-        public BUSINESSOBJECTIVE BUSINESSOBJECTIVE
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<BUSINESSOBJECTIVE> BUSINESSOBJECTIVEReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BUSINESSOBJECTIVE>("CAPSTONEModel.INIT_BUSINESSOB_FK", "BUSINESSOBJECTIVE", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>

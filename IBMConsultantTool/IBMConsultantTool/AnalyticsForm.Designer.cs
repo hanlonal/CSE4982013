@@ -36,7 +36,7 @@
             this.countryCheckBox = new System.Windows.Forms.CheckBox();
             this.countryComboBox = new System.Windows.Forms.ComboBox();
             this.submitQueryButton = new System.Windows.Forms.Button();
-            this.initiativesComboBox = new System.Windows.Forms.ComboBox();
+            this.imperativesComboBox = new System.Windows.Forms.ComboBox();
             this.clearGridButton = new System.Windows.Forms.Button();
             this.itAttributesComboBox = new System.Windows.Forms.ComboBox();
             this.cupeTimeFrameComboBox = new System.Windows.Forms.ComboBox();
@@ -101,7 +101,7 @@
             this.analyticsListBox.ItemHeight = 20;
             this.analyticsListBox.Items.AddRange(new object[] {
             "Capabilities",
-            "Initiatives",
+            "Imperatives",
             "CUPE Questions",
             "Objectives",
             "IT Attribues"});
@@ -127,7 +127,7 @@
             this.filterPanel.Controls.Add(this.countryCheckBox);
             this.filterPanel.Controls.Add(this.countryComboBox);
             this.filterPanel.Controls.Add(this.submitQueryButton);
-            this.filterPanel.Controls.Add(this.initiativesComboBox);
+            this.filterPanel.Controls.Add(this.imperativesComboBox);
             this.filterPanel.Controls.Add(this.clearGridButton);
             this.filterPanel.Controls.Add(this.itAttributesComboBox);
             this.filterPanel.Controls.Add(this.cupeTimeFrameComboBox);
@@ -185,16 +185,16 @@
             this.submitQueryButton.Text = "Submit Query";
             this.submitQueryButton.UseVisualStyleBackColor = true;
             // 
-            // initiativesComboBox
+            // imperativesComboBox
             // 
-            this.initiativesComboBox.FormattingEnabled = true;
-            this.initiativesComboBox.Location = new System.Drawing.Point(15, 148);
-            this.initiativesComboBox.Name = "initiativesComboBox";
-            this.initiativesComboBox.Size = new System.Drawing.Size(216, 28);
-            this.initiativesComboBox.TabIndex = 22;
-            this.initiativesComboBox.Tag = "Initiatives";
-            this.initiativesComboBox.Text = "<Initiatives>";
-            this.initiativesComboBox.Visible = false;
+            this.imperativesComboBox.FormattingEnabled = true;
+            this.imperativesComboBox.Location = new System.Drawing.Point(15, 148);
+            this.imperativesComboBox.Name = "imperativesComboBox";
+            this.imperativesComboBox.Size = new System.Drawing.Size(216, 28);
+            this.imperativesComboBox.TabIndex = 22;
+            this.imperativesComboBox.Tag = "Imperatives";
+            this.imperativesComboBox.Text = "<Imperatives>";
+            this.imperativesComboBox.Visible = false;
             // 
             // clearGridButton
             // 
@@ -526,7 +526,7 @@
         private System.Windows.Forms.DataGridView trendGridView;
         private System.Windows.Forms.ComboBox itAttributesComboBox;
         private System.Windows.Forms.Button clearGridButton;
-        private System.Windows.Forms.ComboBox initiativesComboBox;
+        private System.Windows.Forms.ComboBox imperativesComboBox;
         private System.Windows.Forms.Button submitQueryButton;
         private System.Windows.Forms.CheckBox countryCheckBox;
         private System.Windows.Forms.ComboBox countryComboBox;

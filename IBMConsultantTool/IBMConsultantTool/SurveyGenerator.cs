@@ -33,7 +33,7 @@ namespace IBMConsultantTool
             {
                 for (int j = 0; j < BomCats[i].Objectives.Count; j++)
                 {
-                    for (int k = 0; k < BomCats[i].Objectives[j].Initiatives.Count; k++)
+                    for (int k = 0; k < BomCats[i].Objectives[j].Imperatives.Count; k++)
                     {
                         totalRows++;
                     }
@@ -114,7 +114,7 @@ namespace IBMConsultantTool
                 for (int j = 0; j < BomCats[i].Objectives.Count; j++)
                 {
                     
-                    for (int k = 0; k < BomCats[i].Objectives[j].Initiatives.Count; k++)
+                    for (int k = 0; k < BomCats[i].Objectives[j].Imperatives.Count; k++)
                     {
                         oTable.Cell(r, 1).Range.Font.Size = 7;
                         oTable.Cell(r, 2).Range.Font.Size = 7;
@@ -122,7 +122,7 @@ namespace IBMConsultantTool
 
                         oTable.Cell(r, 1).Range.Text = x.ToString() + ": " + BomCats[i].name;
                         oTable.Cell(r, 2).Range.Text = BomCats[i].Objectives[j].Name;
-                        oTable.Cell(r, 3).Range.Text = BomCats[i].Objectives[j].Initiatives[k].Name;
+                        oTable.Cell(r, 3).Range.Text = BomCats[i].Objectives[j].Imperatives[k].Name;
                         x++;
 
                         //Add the form fields for each row
@@ -175,7 +175,7 @@ namespace IBMConsultantTool
 
                         string BaseFormName = TruncateLongString(BomCats[i].Name, 5) + 
                             TruncateLongString(BomCats[i].Objectives[j].Name, 5) +
-                            TruncateLongString(BomCats[i].Objectives[j].Initiatives[k].Name, 5);
+                            TruncateLongString(BomCats[i].Objectives[j].Imperatives[k].Name, 5);
 
                         FormNames[c] = BaseFormName + "Eff";
                         c++;

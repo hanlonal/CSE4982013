@@ -5,11 +5,9 @@ using System.Text;
 
 namespace IBMConsultantTool
 {
-    public class InitiativeTrendAnalysis : TrendAnalysisEntity
+    public class ImperativeTrendAnalysis : TrendAnalysisEntity
     {
         private float effectiveness;
-
-        
 
         public string Name
         {

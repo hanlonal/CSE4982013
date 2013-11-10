@@ -116,7 +116,7 @@
     <Compile Include="BOMChartInfoPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BOM\Classes\NewInitiative.cs" />
+    <Compile Include="BOM\Classes\NewImperative.cs" />
     <Compile Include="BOM\Classes\NewObjective.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -164,7 +164,7 @@
     <Compile Include="EmailSettingsForm.Designer.cs">
       <DependentUpon>EmailSettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InitiativeTrendAnalysis.cs" />
+    <Compile Include="ImperativeTrendAnalysis.cs" />
     <Compile Include="ITAttributeTrendAnalysis.cs" />
     <Compile Include="LoadClientForm.cs">
       <SubType>Form</SubType>

@@ -21,8 +21,8 @@ namespace IBMConsultantTool
 
         
 
-        List<NewInitiative> initiatives = new List<NewInitiative>();
-        private Dictionary<NewInitiative, Label> initiativeToLabelDict = new Dictionary<NewInitiative, Label>();
+        List<NewImperative> imperatives = new List<NewImperative>();
+        private Dictionary<NewImperative, Label> imperativeToLabelDict = new Dictionary<NewImperative, Label>();
         public NewObjective(NewCategory owner, string name)
         {
             this.owner = owner;
@@ -67,43 +67,43 @@ namespace IBMConsultantTool
             base.OnPaint(e);
         }
 
-        public NewInitiative AddInitiative(string name)
+        public NewImperative AddImperative(string name)
         {
-            NewInitiative init = new NewInitiative(this, name);
+            NewImperative init = new NewImperative(this, name);
 
-            MakeInitiativeLabel(init);
+            MakeImperativeLabel(init);
 
-            initiatives.Add(init);
+            imperatives.Add(init);
             return init;
            // init.Name = name;
         }
 
-        private void MakeInitiativeLabel(NewInitiative init)
+        private void MakeImperativeLabel(NewImperative init)
         {
-            Label initiativeLabel = new Label();
-            initiativeToLabelDict[init] = initiativeLabel;
-            initiativeLabel.Location = FindInitiativeLocation();
-            initiativeLabel.Height = baseHeight;
-            initiativeLabel.BackColor = Color.White;
-            initiativeLabel.AutoEllipsis = true;
-            initiativeLabel.Text = init.Name;
+            Label imperativeLabel = new Label();
+            imperativeToLabelDict[init] = imperativeLabel;
+            imperativeLabel.Location = FindImperativeLocation();
+            imperativeLabel.Height = baseHeight;
+            imperativeLabel.BackColor = Color.White;
+            imperativeLabel.AutoEllipsis = true;
+            imperativeLabel.Text = init.Name;
 
-            Controls.Add(initiativeLabel);
+            Controls.Add(imperativeLabel);
 
-            initiativeLabel.Width = owner.Width;
-            initiativeLabel.Height = 25;
+            imperativeLabel.Width = owner.Width;
+            imperativeLabel.Height = 25;
 
-            initiativeLabel.BorderStyle = BorderStyle.FixedSingle;
+            imperativeLabel.BorderStyle = BorderStyle.FixedSingle;
 
         }
 
-        private Point FindInitiativeLocation()
+        private Point FindImperativeLocation()
         {
 
             Point p = new Point();
 
             p.X = 10;
-            p.Y = 30 + (Initiatives.Count) * 30;
+            p.Y = 30 + (Imperatives.Count) * 30;
             UpdateHeight();
             return p;
         }
@@ -111,7 +111,7 @@ namespace IBMConsultantTool
 
         public void UpdateHeight()
         {
-            this.Height = baseHeight + 30*initiatives.Count;
+            this.Height = baseHeight + 30*imperatives.Count;
         }
 
         private Point FindLocation()
@@ -189,7 +189,7 @@ namespace IBMConsultantTool
 
         private void deleteObj_Click(object sender, EventArgs e)
         {
-            initiatives.Clear();
+            imperatives.Clear();
             this.Controls.Clear();
             owner.RemoveObjective(this);
         
@@ -203,7 +203,7 @@ namespace IBMConsultantTool
 
         public void ColorByDifferentiation()
         {
-            foreach (NewInitiative init in initiatives)
+            foreach (NewImperative init in imperatives)
             {
                 init.ChangeColor("differentiation");
                 CheckColor(init);
@@ -212,7 +212,7 @@ namespace IBMConsultantTool
 
         public void ColorByEffectiveness()
         {
-            foreach (NewInitiative init in initiatives)
+            foreach (NewImperative init in imperatives)
             {
                 init.ChangeColor("effectiveness");
                 CheckColor(init);
@@ -221,7 +221,7 @@ namespace IBMConsultantTool
 
         public void ColorByCriticality()
         {
-            foreach (NewInitiative init in initiatives)
+            foreach (NewImperative init in imperatives)
             {
                 init.ChangeColor("criticality");
                 CheckColor(init);
@@ -230,23 +230,23 @@ namespace IBMConsultantTool
 
         public void ColorByBOMScore()
         {
-            foreach (NewInitiative init in initiatives)
+            foreach (NewImperative init in imperatives)
             {
                 init.ChangeColor("bomscore");
                 CheckColor(init);
             }
         }
 
-        private void CheckColor(NewInitiative init)
+        private void CheckColor(NewImperative init)
         {
-            if (init.ScoreState1 == NewInitiative.ScoreState.None)
-                initiativeToLabelDict[init].BackColor = Color.LightSlateGray;
-            else if (init.ScoreState1 == NewInitiative.ScoreState.High)
-                initiativeToLabelDict[init].BackColor = Color.LawnGreen;
-            else if (init.ScoreState1 == NewInitiative.ScoreState.Medium)
-                initiativeToLabelDict[init].BackColor = Color.Yellow;
-            else if (init.ScoreState1 == NewInitiative.ScoreState.Low)
-                initiativeToLabelDict[init].BackColor = Color.Red;
+            if (init.ScoreState1 == NewImperative.ScoreState.None)
+                imperativeToLabelDict[init].BackColor = Color.LightSlateGray;
+            else if (init.ScoreState1 == NewImperative.ScoreState.High)
+                imperativeToLabelDict[init].BackColor = Color.LawnGreen;
+            else if (init.ScoreState1 == NewImperative.ScoreState.Medium)
+                imperativeToLabelDict[init].BackColor = Color.Yellow;
+            else if (init.ScoreState1 == NewImperative.ScoreState.Low)
+                imperativeToLabelDict[init].BackColor = Color.Red;
         }
 
         public string Name
@@ -257,11 +257,11 @@ namespace IBMConsultantTool
             }
         }
 
-        public List<NewInitiative> Initiatives
+        public List<NewImperative> Imperatives
         {
             get
             {
-                return initiatives;
+                return imperatives;
             }
         }
     }

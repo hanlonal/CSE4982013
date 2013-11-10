@@ -17,16 +17,16 @@ namespace IBMConsultantTool
             InitializeComponent();
         }
 
-        private void AnalyzeInitiativeButton_Click(object sender, EventArgs e)
+        private void AnalyzeImperativeButton_Click(object sender, EventArgs e)
         {
-            INITIATIVE initiative;
-            if(!db.GetInitiative(InitiativeComboBox.Text, out initiative))
+            IMPERATIVE imperative;
+            if(!db.GetImperative(ImperativeComboBox.Text, out imperative))
             {
-                MessageBox.Show("Initiative not found in database", "Error");
+                MessageBox.Show("Imperative not found in database", "Error");
                 return;
             }
 
-            List<BOM> bomList = initiative.BOM.ToList();
+            List<BOM> bomList = imperative.BOM.ToList();
             int eCount = 0;
             int cCount = 0;
             int dCount = 0;
@@ -62,7 +62,7 @@ namespace IBMConsultantTool
             try
             {
                 db = new DBManager();
-                InitiativeComboBox.Items.AddRange(db.GetInitiativeNames());
+                ImperativeComboBox.Items.AddRange(db.GetImperativeNames());
             }
             catch (Exception ex)
             {

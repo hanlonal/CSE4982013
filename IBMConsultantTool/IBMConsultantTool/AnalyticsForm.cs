@@ -18,8 +18,8 @@ namespace IBMConsultantTool
         List<CapabilityTrendAnalysis> capabilitiesToTrack = new List<CapabilityTrendAnalysis>();
         List<CUPEQuestionTrendAnalysis> cupeToTrack = new List<CUPEQuestionTrendAnalysis>();
         List<ITAttributeTrendAnalysis> attributesToTrack = new List<ITAttributeTrendAnalysis>();
-        List<InitiativeTrendAnalysis> initiativesToTrack = new List<InitiativeTrendAnalysis>();
-        enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Initiatives, None };
+        List<ImperativeTrendAnalysis> imperativesToTrack = new List<ImperativeTrendAnalysis>();
+        enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Imperatives, None };
         TrackingState state;
         private DateTime fromTime;
         private DateTime toTime;
@@ -127,8 +127,8 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Average As Is Score");
                     metricsComboBox.Items.Add("Average To Be Score");
                     break;
-                case TrackingState.Initiatives:
-                    ClearControls("Initiatives");
+                case TrackingState.Imperatives:
+                    ClearControls("Imperatives");
                     metricsComboBox.Items.Add("All");
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
@@ -158,9 +158,9 @@ namespace IBMConsultantTool
             else if (state == TrackingState.ITAttributes)
             {
             }
-            else if (state == TrackingState.Initiatives)
+            else if (state == TrackingState.Imperatives)
             {
-                CreateLineGraph(initiativesToTrack, "Initiatives", selectedInfo);
+                CreateLineGraph(imperativesToTrack, "Imperatives", selectedInfo);
             }
 
             int resultIndex = -1;
@@ -235,11 +235,11 @@ namespace IBMConsultantTool
                 domainsComboBox.Text = "<Domains>";
                 domainsComboBox.SelectedValueChanged += new EventHandler(domainsComboBox_SelectedValueChanged);
             }
-            if (value == "Initiatives")
+            if (value == "Imperatives")
             {
-                ChangeState(TrackingState.Initiatives);
-                names = db.GetInitiativeNames().ToList();
-                initiativesComboBox.DataSource = names;
+                ChangeState(TrackingState.Imperatives);
+                names = db.GetImperativeNames().ToList();
+                imperativesComboBox.DataSource = names;
             }
 
         }
@@ -441,20 +441,20 @@ namespace IBMConsultantTool
             }
         }
 
-        private void CreateInitiativeToTrack(string region, string country, string business, string from, string to)
+        private void CreateImperativeToTrack(string region, string country, string business, string from, string to)
         {
-            if (currentlyBeingTracked == "" || currentlyBeingTracked == "Initiative")
+            if (currentlyBeingTracked == "" || currentlyBeingTracked == "Imperative")
             {
-                List<InitiativeTrendAnalysis> initiatives = new List<InitiativeTrendAnalysis>();
-                initiatives = db.GetInitiativeTrendAnalysis(initiativesComboBox.Text, region, country, business, from, to);
-                InitiativeTrendAnalysis init = new InitiativeTrendAnalysis();
+                List<ImperativeTrendAnalysis> imperatives = new List<ImperativeTrendAnalysis>();
+                imperatives = db.GetImperativeTrendAnalysis(imperativesComboBox.Text, region, country, business, from, to);
+                ImperativeTrendAnalysis init = new ImperativeTrendAnalysis();
 
 
-                if (initiatives.Count > 0)
+                if (imperatives.Count > 0)
                 {
-                    float diff = initiatives.Average(d => d.Differentiation);
-                    float crit = initiatives.Average(d => d.Criticality);
-                    float effect = initiatives.Average(d => d.Effectiveness);
+                    float diff = imperatives.Average(d => d.Differentiation);
+                    float crit = imperatives.Average(d => d.Criticality);
+                    float effect = imperatives.Average(d => d.Effectiveness);
 
                     init.Effectiveness = effect;
                     init.Criticality = crit;
@@ -462,32 +462,32 @@ namespace IBMConsultantTool
                     init.Differentiation = diff;
                     init.BusinessType = business;
                     init.Region = region;
-                    init.Name = initiativesComboBox.Text;
+                    init.Name = imperativesComboBox.Text;
                     init.Type1 = TrendAnalysisEntity.Type.Master;
-                    initiativesToTrack.Add(init);
-                    foreach (InitiativeTrendAnalysis i in initiatives)
+                    imperativesToTrack.Add(init);
+                    foreach (ImperativeTrendAnalysis i in imperatives)
                     {
                         init.Children++;
                         i.Type1 = TrendAnalysisEntity.Type.Child;
-                        initiativesToTrack.Add(i);
+                        imperativesToTrack.Add(i);
                     }
                     trendGridView.Columns["Collapse"].Visible = true;
                 }
                 else
                     MessageBox.Show("Query did not return any results");
                 trendGridView.DataSource = null;
-                trendGridView.DataSource = initiativesToTrack;
+                trendGridView.DataSource = imperativesToTrack;
                 trendGridView.Refresh();
-                currentlyBeingTracked = "Initiative";
+                currentlyBeingTracked = "Imperative";
 
                 if (metricsComboBox.Enabled)
                 {
                     testingLabel.Text = metricsComboBox.Text;
-                    CreateLineGraph(initiativesToTrack, "Initiatives", metricsComboBox.Text);
+                    CreateLineGraph(imperativesToTrack, "Imperatives", metricsComboBox.Text);
                 }
 
-                CreateInitiativeGraph(initiatives);
-                CreateLineGraph(initiativesToTrack, "Initiatives", "");
+                CreateImperativeGraph(imperatives);
+                CreateLineGraph(imperativesToTrack, "Imperatives", "");
             }
             else
             {
@@ -552,8 +552,8 @@ namespace IBMConsultantTool
                 CreateCUPEQuestionToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);
             else if (state == TrackingState.ITAttributes)
                 CreateITAttributeToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);
-            else if (state == TrackingState.Initiatives)
-                CreateInitiativeToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);            
+            else if (state == TrackingState.Imperatives)
+                CreateImperativeToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);            
         }
 
         private void clearGridButton_Click(object sender, EventArgs e)
@@ -570,11 +570,11 @@ namespace IBMConsultantTool
             attributesToTrack.Clear();
             cupeToTrack.Clear();
             capabilitiesToTrack.Clear();
-            initiativesToTrack.Clear();
+            imperativesToTrack.Clear();
         }
 
 
-        public void CreateInitiativeGraph(List<InitiativeTrendAnalysis> init)
+        public void CreateImperativeGraph(List<ImperativeTrendAnalysis> init)
         {
 
         }
@@ -612,11 +612,11 @@ namespace IBMConsultantTool
             }
         }
         private int numberOfGraph = 0;
-        public void CreateLineGraph(List<InitiativeTrendAnalysis> init, string title, string boxText)
+        public void CreateLineGraph(List<ImperativeTrendAnalysis> init, string title, string boxText)
         {
             testingLabel.Visible = false;
 
-            foreach (InitiativeTrendAnalysis ana in init)
+            foreach (ImperativeTrendAnalysis ana in init)
             {
                 Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
                     ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
@@ -711,7 +711,7 @@ namespace IBMConsultantTool
 
             if (boxText == "Criticality")
             {
-                foreach (InitiativeTrendAnalysis ana in init)
+                foreach (ImperativeTrendAnalysis ana in init)
                 {
                     Console.WriteLine(ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
                         ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());

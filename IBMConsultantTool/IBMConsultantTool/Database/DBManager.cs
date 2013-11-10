@@ -166,7 +166,7 @@ namespace IBMConsultantTool
             CLIENT client = clientObj as CLIENT;
 
             List<BUSINESSOBJECTIVE> entList = (from ent in client.BOM
-                                               select ent.INITIATIVE.BUSINESSOBJECTIVE).ToList();
+                                               select ent.IMPERATIVE.BUSINESSOBJECTIVE).ToList();
 
             List<string> stringList = new List<string>();
             foreach (BUSINESSOBJECTIVE busObj in entList)
@@ -465,7 +465,7 @@ namespace IBMConsultantTool
             try
             {
                 bom = (from ent in client.BOM
-                       where ent.INITIATIVE.NAME.TrimEnd() == iniName
+                       where ent.IMPERATIVE.NAME.TrimEnd() == iniName
                        select ent).Single();
             }
 
@@ -478,14 +478,14 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool UpdateBOM(object clientObj, NewInitiative ini)
+        public override bool UpdateBOM(object clientObj, NewImperative ini)
         {
             CLIENT client = clientObj as CLIENT;
             Console.WriteLine(ini.Effectiveness.ToString());
             try
             {
                 BOM bom = (from ent in client.BOM
-                           where ent.INITIATIVE.NAME.TrimEnd() == ini.Name
+                           where ent.IMPERATIVE.NAME.TrimEnd() == ini.Name
                            select ent).Single();
 
                 bom.EFFECTIVENESS = (float)ini.Effectiveness;
@@ -508,9 +508,9 @@ namespace IBMConsultantTool
             BOM bom = bomObj as BOM;
             CLIENT client = clientObj as CLIENT;
 
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in client.BOM
-                 where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
+                 where ent.IMPERATIVE.NAME.TrimEnd() == bom.IMPERATIVE.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
                 dbo.Detach(bom);
@@ -529,9 +529,9 @@ namespace IBMConsultantTool
             BOM bom = bomObj as BOM;
             GROUP grp = groupObj as GROUP;
 
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in grp.BOM
-                 where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
+                 where ent.IMPERATIVE.NAME.TrimEnd() == bom.IMPERATIVE.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
                 dbo.Detach(bom);
@@ -550,9 +550,9 @@ namespace IBMConsultantTool
             BOM bom = bomObj as BOM;
             CONTACT contact = contactObj as CONTACT;
 
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in contact.BOM
-                 where ent.INITIATIVE.NAME.TrimEnd() == bom.INITIATIVE.NAME.TrimEnd()
+                 where ent.IMPERATIVE.NAME.TrimEnd() == bom.IMPERATIVE.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
                 dbo.Detach(bom);
@@ -576,11 +576,11 @@ namespace IBMConsultantTool
 
             NewCategory category;
             NewObjective objective;
-            NewInitiative initiative;
+            NewImperative imperative;
 
             foreach (BOM bom in client.BOM)
             {
-                catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
+                catName = bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
                 category = bomForm.Categories.Find(delegate(NewCategory cat)
                 {
                     return cat.name == catName;
@@ -592,7 +592,7 @@ namespace IBMConsultantTool
 
                 bomForm.CategoryWorkspace.SelectTab(category.name);
 
-                busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                busName = bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                 objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
                     return bus.Name == busName;
@@ -602,17 +602,17 @@ namespace IBMConsultantTool
                     objective = category.AddObjective(busName);
                 }
 
-                iniName = bom.INITIATIVE.NAME.TrimEnd();
-                initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
+                iniName = bom.IMPERATIVE.NAME.TrimEnd();
+                imperative = objective.Imperatives.Find(delegate(NewImperative ini)
                 {
                     return ini.Name == iniName;
                 });
-                if (initiative == null)
+                if (imperative == null)
                 {
-                    initiative = objective.AddInitiative(iniName);
-                    initiative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
-                    initiative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
-                    initiative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
+                    imperative = objective.AddImperative(iniName);
+                    imperative.Effectiveness = bom.EFFECTIVENESS.HasValue ? bom.EFFECTIVENESS.Value : 0;
+                    imperative.Criticality = bom.CRITICALITY.HasValue ? bom.CRITICALITY.Value : 0;
+                    imperative.Differentiation = bom.DIFFERENTIAL.HasValue ? bom.DIFFERENTIAL.Value : 0;
                 }
             }
         }
@@ -622,7 +622,7 @@ namespace IBMConsultantTool
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
 
             List<string> allObjectiveNamesList =  (from bom in client.BOM
-                                                   select bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()).ToList();
+                                                   select bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()).ToList();
 
             List<string> result = new List<string>();
             foreach(string objectiveName in allObjectiveNamesList)
@@ -640,7 +640,7 @@ namespace IBMConsultantTool
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
 
             return (from bom in client.BOM
-                    select bom.INITIATIVE.NAME.TrimEnd()).ToList();
+                    select bom.IMPERATIVE.NAME.TrimEnd()).ToList();
         }
         #endregion
 
@@ -691,7 +691,7 @@ namespace IBMConsultantTool
             ITCAP itcap = itcqObject as ITCAP;
             CLIENT client = clientObj as CLIENT;
 
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in client.ITCAP
                  where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
                  select ent).Count() != 0)
@@ -712,7 +712,7 @@ namespace IBMConsultantTool
             ITCAP itcap = itcqObject as ITCAP;
             GROUP grp = groupObj as GROUP;
 
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in grp.ITCAP
                  where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
                  select ent).Count() != 0)
@@ -733,7 +733,7 @@ namespace IBMConsultantTool
             ITCAP itcap = itcqObject as ITCAP;
             CONTACT contact = contactObj as CONTACT;
 
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in contact.ITCAP
                  where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
                  select ent).Count() != 0)
@@ -951,8 +951,8 @@ namespace IBMConsultantTool
         {
             bomForm.objectiveNames.Items.Clear();
             bomForm.objectiveNames.Text = "<Select Objective>";
-            bomForm.initiativeNames.Items.Clear();
-            bomForm.initiativeNames.Text = "";
+            bomForm.imperativeNames.Items.Clear();
+            bomForm.imperativeNames.Text = "";
             CATEGORY category;
             if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
             {
@@ -1005,71 +1005,71 @@ namespace IBMConsultantTool
 
         public override void ChangedObjective(BOMTool bomForm)
         {
-            bomForm.initiativeNames.Items.Clear();
-            bomForm.initiativeNames.Text = "<Select Initiative>";
+            bomForm.imperativeNames.Items.Clear();
+            bomForm.imperativeNames.Text = "<Select Imperative>";
             BUSINESSOBJECTIVE objective;
             if (GetObjective(bomForm.objectiveNames.Text.Trim(), out objective))
             {
-                bomForm.initiativeNames.Items.AddRange((from ent in objective.INITIATIVE
+                bomForm.imperativeNames.Items.AddRange((from ent in objective.IMPERATIVE
                                                 select ent.NAME.TrimEnd()).ToArray());
             }
         }
         #endregion
 
-        #region Initiative
-        public List<INITIATIVE> GetInitiatives()
+        #region Imperative
+        public List<IMPERATIVE> GetImperatives()
         {
-            return (from ent in dbo.INITIATIVE
+            return (from ent in dbo.IMPERATIVE
                     select ent).ToList();
         }
 
-        public string[] GetInitiativeNames()
+        public string[] GetImperativeNames()
         {
-            return (from ent in dbo.INITIATIVE
+            return (from ent in dbo.IMPERATIVE
                     select ent.NAME.TrimEnd()).ToArray();
         }
 
-        public bool GetInitiative(string iniName, out INITIATIVE Initiative)
+        public bool GetImperative(string iniName, out IMPERATIVE Imperative)
         {
             try
             {
-                Initiative = (from ent in dbo.INITIATIVE
+                Imperative = (from ent in dbo.IMPERATIVE
                           where ent.NAME.TrimEnd() == iniName
                           select ent).Single();
             }
 
             catch
             {
-                Initiative = null;
+                Imperative = null;
                 return false;
             }
 
             return true;
         }
 
-        public bool AddInitiative(INITIATIVE initiative)
+        public bool AddImperative(IMPERATIVE imperative)
         {
             //If already in DB, return false
-            if ((from ent in dbo.INITIATIVE
-                 where ent.NAME.TrimEnd() == initiative.NAME.TrimEnd()
+            if ((from ent in dbo.IMPERATIVE
+                 where ent.NAME.TrimEnd() == imperative.NAME.TrimEnd()
                  select ent).Count() != 0)
             {
-                dbo.Detach(initiative);
+                dbo.Detach(imperative);
                 return false;
             }
 
-            dbo.AddToINITIATIVE(initiative);
+            dbo.AddToIMPERATIVE(imperative);
 
             return true;
         }
 
-        public override bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override bool AddImperativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
         {
-            INITIATIVE initiative;
-            if (!GetInitiative(iniName, out initiative))
+            IMPERATIVE imperative;
+            if (!GetImperative(iniName, out imperative))
             {
-                initiative = new INITIATIVE();
-                initiative.NAME = iniName;
+                imperative = new IMPERATIVE();
+                imperative.NAME = iniName;
                 BUSINESSOBJECTIVE objective;
                 if (!GetObjective(busName, out objective))
                 {
@@ -1095,19 +1095,19 @@ namespace IBMConsultantTool
                     }
                 }
 
-                initiative.BUSINESSOBJECTIVE = objective;
-                if (!AddInitiative(initiative))
+                imperative.BUSINESSOBJECTIVE = objective;
+                if (!AddImperative(imperative))
                 {
-                    MessageBox.Show("Failed to add Initiative to Database", "Error");
+                    MessageBox.Show("Failed to add Imperative to Database", "Error");
                     return false;
                 }
             }
 
             BOM bom = new BOM();
-            bom.INITIATIVE = initiative;
+            bom.IMPERATIVE = imperative;
             if (!AddBOM(bom, ClientDataControl.Client.EntityObject))
             {
-                MessageBox.Show("Failed to add Initiative to BOM", "Error");
+                MessageBox.Show("Failed to add Imperative to BOM", "Error");
                 return false;
             }
             if (!SaveChanges())
@@ -1119,7 +1119,7 @@ namespace IBMConsultantTool
             else
             {
                 //Successfully added to database, update GUI
-                catName = bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
+                catName = bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd();
                 NewCategory category = bomForm.Categories.Find(delegate(NewCategory cat)
                 {
                     return cat.name == catName;
@@ -1131,7 +1131,7 @@ namespace IBMConsultantTool
 
                 bomForm.CategoryWorkspace.SelectTab(category.name);
 
-                busName = bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                busName = bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                 NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
                     return bus.Name == busName;
@@ -1141,18 +1141,18 @@ namespace IBMConsultantTool
                     objective = category.AddObjective(busName);
                 }
 
-                iniName = bom.INITIATIVE.NAME.TrimEnd();
-                NewInitiative initiativeObj = objective.Initiatives.Find(delegate(NewInitiative ini)
+                iniName = bom.IMPERATIVE.NAME.TrimEnd();
+                NewImperative imperativeObj = objective.Imperatives.Find(delegate(NewImperative ini)
                 {
                     return ini.Name == iniName;
                 });
-                if (initiativeObj == null)
+                if (imperativeObj == null)
                 {
-                    initiativeObj = objective.AddInitiative(iniName);
+                    imperativeObj = objective.AddImperative(iniName);
                 }
                 else
                 {
-                    MessageBox.Show("Initiative already exists in BOM", "Error");
+                    MessageBox.Show("Imperative already exists in BOM", "Error");
                 }
             }
 
@@ -2249,7 +2249,7 @@ namespace IBMConsultantTool
         #region TrendAnalysis
 
         #region GetTrendAnalysisObjects
-        public List<InitiativeTrendAnalysis> GetInitiativeTrendAnalysis(string iniName, string regName, string counName, string busTypeName, string fromDateStr, string toDateStr)
+        public List<ImperativeTrendAnalysis> GetImperativeTrendAnalysis(string iniName, string regName, string counName, string busTypeName, string fromDateStr, string toDateStr)
         {
             List<BOM> bomList;
             DateTime toDate;
@@ -2266,12 +2266,12 @@ namespace IBMConsultantTool
             {
                 if (busTypeName != "All")
                 {
-                    bomList = GetBOMSForInitiativeRegionAndBusinessType(iniName, regName, counName, busTypeName, fromDate, toDate);
+                    bomList = GetBOMSForImperativeRegionAndBusinessType(iniName, regName, counName, busTypeName, fromDate, toDate);
                 }
 
                 else
                 {
-                    bomList = GetBOMSForInitiativeRegion(iniName, regName, counName, fromDate, toDate);
+                    bomList = GetBOMSForImperativeRegion(iniName, regName, counName, fromDate, toDate);
                 }
             }
 
@@ -2279,23 +2279,23 @@ namespace IBMConsultantTool
             {
                 if (busTypeName != "All")
                 {
-                    bomList = GetBOMSForInitiativeBusinessType(iniName, busTypeName, fromDate, toDate);
+                    bomList = GetBOMSForImperativeBusinessType(iniName, busTypeName, fromDate, toDate);
                 }
 
                 else
                 {
-                    bomList = GetBOMSForInitiative(iniName, fromDate, toDate);
+                    bomList = GetBOMSForImperative(iniName, fromDate, toDate);
                 }
             }
 
-            List<InitiativeTrendAnalysis> itaList = new List<InitiativeTrendAnalysis>();
-            InitiativeTrendAnalysis ita;
+            List<ImperativeTrendAnalysis> itaList = new List<ImperativeTrendAnalysis>();
+            ImperativeTrendAnalysis ita;
             CLIENT client;
             foreach (BOM bom in bomList)
             {
                 if (bom.EFFECTIVENESS.HasValue && bom.CRITICALITY.HasValue && bom.DIFFERENTIAL.HasValue)
                 {
-                    ita = new InitiativeTrendAnalysis();
+                    ita = new ImperativeTrendAnalysis();
                     client = bom.CLIENT;
                     ita.Date = client.STARTDATE;
                     ita.Region = client.COUNTRY.REGION.NAME.TrimEnd();
@@ -2549,12 +2549,12 @@ namespace IBMConsultantTool
                 return new List<string>();
             }
         }
-        public List<string> GetInitiativesFromObjective(string busName)
+        public List<string> GetImperativesFromObjective(string busName)
         {
             BUSINESSOBJECTIVE objective;
             if (GetObjective(busName, out objective))
             {
-                return ((from ent in objective.INITIATIVE
+                return ((from ent in objective.IMPERATIVE
                          select ent.NAME.TrimEnd()).ToList());
             }
 
@@ -2594,12 +2594,12 @@ namespace IBMConsultantTool
         #endregion
 
         #region GetTrendAnalysisDataFromDB
-        public List<BOM> GetBOMSForInitiative(string iniName, DateTime fromDate, DateTime toDate)
+        public List<BOM> GetBOMSForImperative(string iniName, DateTime fromDate, DateTime toDate)
         {
-            INITIATIVE initiative;
-            if(GetInitiative(iniName, out initiative))
+            IMPERATIVE imperative;
+            if(GetImperative(iniName, out imperative))
             {
-                return (from ent in initiative.BOM
+                return (from ent in imperative.BOM
                         where ent.CLIENT.STARTDATE > fromDate &&
                               ent.CLIENT.STARTDATE < toDate
                         select ent).ToList();
@@ -2610,14 +2610,14 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeRegion(string iniName, string regionName, string counName, DateTime fromDate, DateTime toDate)
+        public List<BOM> GetBOMSForImperativeRegion(string iniName, string regionName, string counName, DateTime fromDate, DateTime toDate)
         {
-            INITIATIVE initiative;
-            if (GetInitiative(iniName, out initiative))
+            IMPERATIVE imperative;
+            if (GetImperative(iniName, out imperative))
             {
                 if (counName != "All")
                 {
-                    return (from ent in initiative.BOM
+                    return (from ent in imperative.BOM
                             where ent.CLIENT.COUNTRY != null &&
                                   ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
                                   ent.CLIENT.STARTDATE > fromDate &&
@@ -2626,7 +2626,7 @@ namespace IBMConsultantTool
                 }
                 else
                 {
-                    return (from ent in initiative.BOM
+                    return (from ent in imperative.BOM
                             where ent.CLIENT.COUNTRY.REGION != null &&
                                   ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regionName &&
                                   ent.CLIENT.STARTDATE > fromDate &&
@@ -2640,12 +2640,12 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeBusinessType(string iniName, string busTypeName, DateTime fromDate, DateTime toDate)
+        public List<BOM> GetBOMSForImperativeBusinessType(string iniName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
-            INITIATIVE initiative;
-            if (GetInitiative(iniName, out initiative))
+            IMPERATIVE imperative;
+            if (GetImperative(iniName, out imperative))
             {
-                return (from ent in initiative.BOM
+                return (from ent in imperative.BOM
                         where ent.CLIENT.BUSINESSTYPE != null &&
                               ent.CLIENT.BUSINESSTYPE.NAME.TrimEnd() == busTypeName &&
                               ent.CLIENT.STARTDATE > fromDate &&
@@ -2658,14 +2658,14 @@ namespace IBMConsultantTool
                 return null;
             }
         }
-        public List<BOM> GetBOMSForInitiativeRegionAndBusinessType(string iniName, string regName, string counName, string busTypeName, DateTime fromDate, DateTime toDate)
+        public List<BOM> GetBOMSForImperativeRegionAndBusinessType(string iniName, string regName, string counName, string busTypeName, DateTime fromDate, DateTime toDate)
         {
-            INITIATIVE initiative;
-            if (GetInitiative(iniName, out initiative))
+            IMPERATIVE imperative;
+            if (GetImperative(iniName, out imperative))
             {
                 if (counName != "All")
                 {
-                    return (from ent in initiative.BOM
+                    return (from ent in imperative.BOM
                             where ent.CLIENT.COUNTRY != null &&
                                   ent.CLIENT.COUNTRY.NAME.TrimEnd() == counName &&
                                   ent.CLIENT.BUSINESSTYPE != null &&
@@ -2676,7 +2676,7 @@ namespace IBMConsultantTool
                 }
                 else
                 {
-                    return (from ent in initiative.BOM
+                    return (from ent in imperative.BOM
                             where ent.CLIENT.COUNTRY.REGION != null &&
                                   ent.CLIENT.COUNTRY.REGION.NAME.TrimEnd() == regName &&
                                   ent.CLIENT.BUSINESSTYPE != null &&
@@ -3182,9 +3182,9 @@ namespace IBMConsultantTool
                         foreach (BOM bom in contact.BOM)
                         {
                             XElement tempBom = new XElement("BOM");
-                            tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd()));
-                            tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
-                            tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
+                            tempBom.Add(new XElement("IMPERATIVE", bom.IMPERATIVE.NAME.TrimEnd()));
+                            tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
+                            tempBom.Add(new XElement("CATEGORY", bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
                             tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
                             tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
                             tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
@@ -3240,9 +3240,9 @@ namespace IBMConsultantTool
                     foreach (BOM bom in grp.BOM)
                     {
                         XElement tempBom = new XElement("BOM");
-                        tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd()));
-                        tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
-                        tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
+                        tempBom.Add(new XElement("IMPERATIVE", bom.IMPERATIVE.NAME.TrimEnd()));
+                        tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
+                        tempBom.Add(new XElement("CATEGORY", bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
                         tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
                         tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
                         tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
@@ -3286,9 +3286,9 @@ namespace IBMConsultantTool
                 foreach (BOM bom in client.BOM)
                 {
                     XElement tempBom = new XElement("BOM");
-                    tempBom.Add(new XElement("INITIATIVE", bom.INITIATIVE.NAME.TrimEnd()));
-                    tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.INITIATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
-                    tempBom.Add(new XElement("CATEGORY", bom.INITIATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
+                    tempBom.Add(new XElement("IMPERATIVE", bom.IMPERATIVE.NAME.TrimEnd()));
+                    tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
+                    tempBom.Add(new XElement("CATEGORY", bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
                     tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
                     tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
                     tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
@@ -3395,11 +3395,11 @@ namespace IBMConsultantTool
                     XElement tempBus = new XElement("BUSINESSOBJECTIVE");
                     tempBus.Add(new XElement("NAME", objective.NAME.TrimEnd()));
 
-                    XElement iniElement = new XElement("INITIATIVES");
-                    foreach (INITIATIVE initiative in objective.INITIATIVE)
+                    XElement iniElement = new XElement("IMPERATIVES");
+                    foreach (IMPERATIVE imperative in objective.IMPERATIVE)
                     {
-                        XElement tempIni = new XElement("INITIATIVE");
-                        tempIni.Add(new XElement("NAME", initiative.NAME.TrimEnd()));
+                        XElement tempIni = new XElement("IMPERATIVE");
+                        tempIni.Add(new XElement("NAME", imperative.NAME.TrimEnd()));
                         iniElement.Add(tempIni);
                     }
                     tempBus.Add(iniElement);
@@ -3484,7 +3484,7 @@ namespace IBMConsultantTool
             CONTACT contact;
             CATEGORY category;
             BUSINESSOBJECTIVE objective;
-            INITIATIVE initiative;
+            IMPERATIVE imperative;
             BOM bom;
             CUPEQUESTION cupeQuestion;
             CupeQuestionStringData cupeQuestionStringData;
@@ -3650,20 +3650,20 @@ namespace IBMConsultantTool
                                 }
                                 break;
 
-                            case "INITIATIVE":
+                            case "IMPERATIVE":
                                 if (GetObjective(lineArray[3].Replace('~', ' '), out objective))
                                 {
-                                    initiative = new INITIATIVE();
-                                    initiative.NAME = lineArray[2].Replace('~', ' ');
-                                    initiative.BUSINESSOBJECTIVE = objective;
-                                    if (!AddInitiative(initiative))
+                                    imperative = new IMPERATIVE();
+                                    imperative.NAME = lineArray[2].Replace('~', ' ');
+                                    imperative.BUSINESSOBJECTIVE = objective;
+                                    if (!AddImperative(imperative))
                                     {
-                                        MessageBox.Show("Add Initiative Instruction Failed: Initiative already exists\n\n" + line, "Error");
+                                        MessageBox.Show("Add Imperative Instruction Failed: Imperative already exists\n\n" + line, "Error");
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Add Initiative Instruction Failed: BusinessObjective does not exist\n\n" + line, "Error");
+                                    MessageBox.Show("Add Imperative Instruction Failed: BusinessObjective does not exist\n\n" + line, "Error");
                                 }
                                 break;
 
@@ -3672,10 +3672,10 @@ namespace IBMConsultantTool
                                 {
                                     if (GetClient(lineArray[3].Replace('~', ' '), out client))
                                     {
-                                        if (GetInitiative(lineArray[4].Replace('~', ' '), out initiative))
+                                        if (GetImperative(lineArray[4].Replace('~', ' '), out imperative))
                                         {
                                             bom = new BOM();
-                                            bom.INITIATIVE = initiative;
+                                            bom.IMPERATIVE = imperative;
                                             if (!AddBOM(bom, client))
                                             {
                                                 MessageBox.Show("Add BOM Instruction Failed: BOM already exists\n\n" + line, "Error");
@@ -3683,7 +3683,7 @@ namespace IBMConsultantTool
                                         }
                                         else
                                         {
-                                            MessageBox.Show("Add BOM Instruction Failed: Initiative does not exist\n\n" + line, "Error");
+                                            MessageBox.Show("Add BOM Instruction Failed: Imperative does not exist\n\n" + line, "Error");
                                         }
                                     }
                                     else

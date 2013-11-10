@@ -47,7 +47,7 @@ namespace IBMConsultantTool
         #endregion
 
         #region BOM
-        public abstract bool UpdateBOM(object clientObj, NewInitiative ini);
+        public abstract bool UpdateBOM(object clientObj, NewImperative ini);
 
         public abstract bool AddBOM(object bom, object client);
         public abstract bool AddBOMToGroup(object bom, object group);
@@ -80,8 +80,8 @@ namespace IBMConsultantTool
         public abstract void ChangedObjective(BOMTool bomForm);
         #endregion
 
-        #region Initiative
-        public abstract bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm);
+        #region Imperative
+        public abstract bool AddImperativeToBOM(string iniName, string busName, string catName, BOMTool bomForm);
         #endregion
 
         #region CUPEQuestion

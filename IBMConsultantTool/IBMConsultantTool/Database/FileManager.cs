@@ -364,7 +364,7 @@ namespace IBMConsultantTool
         }
         public bool AddGroup(string grpName, XElement client)
         {
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in client.Element("GROUPS").Elements("GROUP")
                  where ent.Element("NAME") != null &&
                        ent.Element("NAME").Value == grpName
@@ -473,13 +473,13 @@ namespace IBMConsultantTool
         #endregion
 
         #region BOM
-        public override bool UpdateBOM(object clientObj, NewInitiative ini)
+        public override bool UpdateBOM(object clientObj, NewImperative ini)
         {
             XElement client = clientObj as XElement;
             try
             {
                 XElement bom = (from ent in client.Element("BOMS").Elements("BOM")
-                                where ent.Element("INITIATIVE").Value == ini.Name
+                                where ent.Element("IMPERATIVE").Value == ini.Name
                                 select ent).Single();
 
                 bom.Element("EFFECTIVENESS").Value = ini.Effectiveness.ToString();
@@ -503,16 +503,16 @@ namespace IBMConsultantTool
         {
             XElement bom = bomObj as XElement;
             XElement client = clientObj as XElement;
-            string iniXML = bom.Element("INITIATIVE").Value;
+            string iniXML = bom.Element("IMPERATIVE").Value;
             string busXML = bom.Element("BUSINESSOBJECTIVE").Value;
             string catXML = bom.Element("CATEGORY").Value;
 
             List<XElement> bomList = client.Element("BOMS").Elements("BOM").ToList();
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in bomList
                  where ent != null &&
-                       ent.Element("INITIATIVE") != null &&
-                       ent.Element("INITIATIVE").Value == iniXML
+                       ent.Element("IMPERATIVE") != null &&
+                       ent.Element("IMPERATIVE").Value == iniXML
                  select ent).Count() != 0)
             {
                 return false;
@@ -533,16 +533,16 @@ namespace IBMConsultantTool
         {
             XElement bom = bomObj as XElement;
             XElement grp = groupObj as XElement;
-            string iniXML = bom.Element("INITIATIVE").Value;
+            string iniXML = bom.Element("IMPERATIVE").Value;
             string busXML = bom.Element("BUSINESSOBJECTIVE").Value;
             string catXML = bom.Element("CATEGORY").Value;
 
             List<XElement> bomList = grp.Element("BOMS").Elements("BOM").ToList();
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in bomList
                  where ent != null &&
-                       ent.Element("INITIATIVE") != null &&
-                       ent.Element("INITIATIVE").Value == iniXML
+                       ent.Element("IMPERATIVE") != null &&
+                       ent.Element("IMPERATIVE").Value == iniXML
                  select ent).Count() != 0)
             {
                 return false;
@@ -566,16 +566,16 @@ namespace IBMConsultantTool
         {
             XElement bom = bomObj as XElement;
             XElement contact = contactObj as XElement;
-            string iniXML = bom.Element("INITIATIVE").Value;
+            string iniXML = bom.Element("IMPERATIVE").Value;
             string busXML = bom.Element("BUSINESSOBJECTIVE").Value;
             string catXML = bom.Element("CATEGORY").Value;
 
             List<XElement> bomList = contact.Element("BOMS").Elements("BOM").ToList();
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in bomList
                  where ent != null &&
-                       ent.Element("INITIATIVE") != null &&
-                       ent.Element("INITIATIVE").Value == iniXML
+                       ent.Element("IMPERATIVE") != null &&
+                       ent.Element("IMPERATIVE").Value == iniXML
                  select ent).Count() != 0)
             {
                 return false;
@@ -607,7 +607,7 @@ namespace IBMConsultantTool
 
             NewCategory category;
             NewObjective objective;
-            NewInitiative initiative;
+            NewImperative imperative;
 
             foreach (XElement bom in client.Element("BOMS").Elements("BOM"))
             {
@@ -631,17 +631,17 @@ namespace IBMConsultantTool
                     objective = category.AddObjective(busName);
                 }
 
-                iniName = bom.Element("INITIATIVE").Value.TrimEnd();
-                initiative = objective.Initiatives.Find(delegate(NewInitiative ini)
+                iniName = bom.Element("IMPERATIVE").Value.TrimEnd();
+                imperative = objective.Imperatives.Find(delegate(NewImperative ini)
                 {
                     return ini.Name == iniName;
                 });
-                if (initiative == null)
+                if (imperative == null)
                 {
-                    initiative = objective.AddInitiative(iniName);
-                    initiative.Effectiveness = Convert.ToSingle(bom.Element("EFFECTIVENESS").Value);
-                    initiative.Criticality = Convert.ToSingle(bom.Element("CRITICALITY").Value);
-                    initiative.Differentiation = Convert.ToSingle(bom.Element("DIFFERENTIAL").Value);
+                    imperative = objective.AddImperative(iniName);
+                    imperative.Effectiveness = Convert.ToSingle(bom.Element("EFFECTIVENESS").Value);
+                    imperative.Criticality = Convert.ToSingle(bom.Element("CRITICALITY").Value);
+                    imperative.Differentiation = Convert.ToSingle(bom.Element("DIFFERENTIAL").Value);
                 }
             }
         }
@@ -669,7 +669,7 @@ namespace IBMConsultantTool
             XElement client = ClientDataControl.Client.EntityObject as XElement;
 
             return (from bom in client.Element("BOMS").Elements("BOM")
-                    select bom.Element("INITIATIVE").Value).ToList();
+                    select bom.Element("IMPERATIVE").Value).ToList();
 
         }
         #endregion
@@ -728,7 +728,7 @@ namespace IBMConsultantTool
             string domXML = itcap.Element("DOMAIN").Value;
 
             List<XElement> itcapList = client.Element("ITCAPS").Elements("ITCAP").ToList();
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in itcapList
                  where ent != null &&
                        ent.Element("ITCAPQUESTION") != null &&
@@ -758,7 +758,7 @@ namespace IBMConsultantTool
             string domXML = itcap.Element("DOMAIN").Value;
 
             List<XElement> itcapList = grp.Element("ITCAPS").Elements("ITCAP").ToList();
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in itcapList
                  where ent != null &&
                        ent.Element("ITCAPQUESTION") != null &&
@@ -788,7 +788,7 @@ namespace IBMConsultantTool
             string domXML = itcap.Element("DOMAIN").Value;
 
             List<XElement> itcapList = contact.Element("ITCAPS").Elements("ITCAP").ToList();
-            //If Client points to 2 BOMs with same Initiative, return false
+            //If Client points to 2 BOMs with same Imperative, return false
             if ((from ent in itcapList
                  where ent != null &&
                        ent.Element("ITCAPQUESTION") != null &&
@@ -1025,8 +1025,8 @@ namespace IBMConsultantTool
         {
             bomForm.objectiveNames.Items.Clear();
             bomForm.objectiveNames.Text = "<Select Objective>";
-            bomForm.initiativeNames.Items.Clear();
-            bomForm.initiativeNames.Text = "";
+            bomForm.imperativeNames.Items.Clear();
+            bomForm.imperativeNames.Text = "";
             XElement category;
             if (GetCategory(bomForm.categoryNames.Text.Trim(), out category))
             {
@@ -1088,7 +1088,7 @@ namespace IBMConsultantTool
                 return false;
             }
 
-            objective.Add(new XElement("INITIATIVES"));
+            objective.Add(new XElement("IMPERATIVES"));
 
             category.Element("BUSINESSOBJECTIVES").Add(objective);
 
@@ -1100,83 +1100,83 @@ namespace IBMConsultantTool
 
         public override void ChangedObjective(BOMTool bomForm)
         {
-            bomForm.initiativeNames.Items.Clear();
-            bomForm.initiativeNames.Text = "<Select Initiative>";
+            bomForm.imperativeNames.Items.Clear();
+            bomForm.imperativeNames.Text = "<Select Imperative>";
             XElement objective;
             if (GetObjective(bomForm.objectiveNames.Text.Trim(), out objective))
             {
-                bomForm.initiativeNames.Items.AddRange((from ent in objective.Element("INITIATIVES").Elements("INITIATIVE")
+                bomForm.imperativeNames.Items.AddRange((from ent in objective.Element("IMPERATIVES").Elements("IMPERATIVE")
                                                         select ent.Element("NAME").Value).ToArray());
             }
         }
 
         #endregion
 
-        #region Initiative
-        public bool GetInitiative(string iniName, out XElement Initiative)
+        #region Imperative
+        public bool GetImperative(string iniName, out XElement Imperative)
         {
             try
             {
-                Initiative = (from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
+                Imperative = (from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
                               from bus in cat.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
-                              from ent in bus.Element("INITIATIVES").Elements("INITIATIVE")
+                              from ent in bus.Element("IMPERATIVES").Elements("IMPERATIVE")
                               where ent.Element("NAME").Value == iniName
                               select ent).Single();
             }
 
             catch
             {
-                Initiative = null;
+                Imperative = null;
                 return false;
             }
 
             return true;
         }
 
-        public bool GetInitiative(int iniID, out XElement Initiative)
+        public bool GetImperative(int iniID, out XElement Imperative)
         {
             try
             {
-                Initiative = (from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
+                Imperative = (from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
                               from bus in cat.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
-                              from ent in bus.Element("INITIATIVES").Elements("INITIATIVE")
-                              where ent.Element("INITIATIVEID").Value == iniID.ToString()
+                              from ent in bus.Element("IMPERATIVES").Elements("IMPERATIVE")
+                              where ent.Element("IMPERATIVEID").Value == iniID.ToString()
                               select ent).Single();
             }
 
             catch
             {
-                Initiative = null;
+                Imperative = null;
                 return false;
             }
 
             return true;
         }
 
-        public bool AddInitiative(XElement initiative, XElement objective, XElement category)
+        public bool AddImperative(XElement imperative, XElement objective, XElement category)
         {
             //If already in DB, return 1
             if ((from cat in dbo.Element("CATEGORIES").Elements("CATEGORY")
                  where cat.Element("NAME").Value == category.Element("NAME").Value
                  from bus in cat.Element("BUSINESSOBJECTIVES").Elements("BUSINESSOBJECTIVE")
                  where bus.Element("NAME").Value == objective.Element("NAME").Value
-                 from ent in bus.Element("INITIATIVES").Elements("INITIATIVE")
-                 where ent.Element("NAME").Value == initiative.Element("NAME").Value
+                 from ent in bus.Element("IMPERATIVES").Elements("IMPERATIVE")
+                 where ent.Element("NAME").Value == imperative.Element("NAME").Value
                  select ent).Count() != 0)
             {
                 return false;
             }
 
-            objective.Element("INITIATIVES").Add(initiative);
+            objective.Element("IMPERATIVES").Add(imperative);
 
-            changeLog.Add("ADD INITIATIVE " + initiative.Element("NAME").Value.Replace(' ', '~') + " " +
+            changeLog.Add("ADD IMPERATIVE " + imperative.Element("NAME").Value.Replace(' ', '~') + " " +
                             objective.Element("NAME").Value.Replace(' ', '~') + " " +
                             category.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
 
-        public override bool AddInitiativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
+        public override bool AddImperativeToBOM(string iniName, string busName, string catName, BOMTool bomForm)
         {
             XElement categoryXML;
             if (!GetCategory(catName, out categoryXML))
@@ -1202,27 +1202,27 @@ namespace IBMConsultantTool
                 }
             }
 
-            XElement initiativeXML;
-            if (!GetInitiative(iniName, out initiativeXML))
+            XElement imperativeXML;
+            if (!GetImperative(iniName, out imperativeXML))
             {
-                initiativeXML = new XElement("INITIATIVE");
-                initiativeXML.Add(new XElement("NAME", iniName));
-                if (!AddInitiative(initiativeXML, objectiveXML, categoryXML))
+                imperativeXML = new XElement("IMPERATIVE");
+                imperativeXML.Add(new XElement("NAME", iniName));
+                if (!AddImperative(imperativeXML, objectiveXML, categoryXML))
                 {
-                    MessageBox.Show("Failed to add Initiative to File", "Error");
+                    MessageBox.Show("Failed to add Imperative to File", "Error");
                     return false;
                 }
             }
 
             XElement bom = new XElement("BOM");
-            bom.Add(new XElement("INITIATIVE", initiativeXML.Element("NAME").Value));
+            bom.Add(new XElement("IMPERATIVE", imperativeXML.Element("NAME").Value));
             bom.Add(new XElement("BUSINESSOBJECTIVE", objectiveXML.Element("NAME").Value));
             bom.Add(new XElement("CATEGORY", categoryXML.Element("NAME").Value));
 
 
             if (!AddBOM(bom, ClientDataControl.Client.EntityObject))
             {
-                MessageBox.Show("Failed to add Initiative to BOM", "Error");
+                MessageBox.Show("Failed to add Imperative to BOM", "Error");
                 return false;
             }
 
@@ -1253,17 +1253,17 @@ namespace IBMConsultantTool
                     objective = category.AddObjective(busName);
                 }
 
-                NewInitiative initiativeObj = objective.Initiatives.Find(delegate(NewInitiative ini)
+                NewImperative imperativeObj = objective.Imperatives.Find(delegate(NewImperative ini)
                 {
                     return ini.Name == iniName;
                 });
-                if (initiativeObj == null)
+                if (imperativeObj == null)
                 {
-                    initiativeObj = objective.AddInitiative(iniName);
+                    imperativeObj = objective.AddImperative(iniName);
                 }
                 else
                 {
-                    MessageBox.Show("Initiative already exists in BOM", "Error");
+                    MessageBox.Show("Imperative already exists in BOM", "Error");
                 }
             }
 

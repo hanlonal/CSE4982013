@@ -31,8 +31,8 @@
             this.catWorkspace = new System.Windows.Forms.TabControl();
             this.categoryNames = new System.Windows.Forms.ComboBox();
             this.objectiveNames = new System.Windows.Forms.ComboBox();
-            this.initiativeNames = new System.Windows.Forms.ComboBox();
-            this.AddInitiativeButton = new System.Windows.Forms.Button();
+            this.imperativeNames = new System.Windows.Forms.ComboBox();
+            this.AddImperativeButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,31 +111,31 @@
             this.objectiveNames.SelectedIndexChanged += new System.EventHandler(this.objectiveNames_SelectedIndexChanged);
             this.objectiveNames.LostFocus += new System.EventHandler(this.objectiveNames_LostFocus);
             // 
-            // initiativeNames
+            // imperativeNames
             // 
-            this.initiativeNames.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.initiativeNames.DropDownWidth = 250;
-            this.initiativeNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.initiativeNames.FormattingEnabled = true;
-            this.initiativeNames.Location = new System.Drawing.Point(577, 512);
-            this.initiativeNames.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.initiativeNames.Name = "initiativeNames";
-            this.initiativeNames.Size = new System.Drawing.Size(261, 33);
-            this.initiativeNames.TabIndex = 13;
-            this.initiativeNames.Text = "<Business Imperative>";
+            this.imperativeNames.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.imperativeNames.DropDownWidth = 250;
+            this.imperativeNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.imperativeNames.FormattingEnabled = true;
+            this.imperativeNames.Location = new System.Drawing.Point(577, 512);
+            this.imperativeNames.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
+            this.imperativeNames.Name = "imperativeNames";
+            this.imperativeNames.Size = new System.Drawing.Size(261, 33);
+            this.imperativeNames.TabIndex = 13;
+            this.imperativeNames.Text = "<Business Imperative>";
             // 
-            // AddInitiativeButton
+            // AddImperativeButton
             // 
-            this.AddInitiativeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.AddInitiativeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddInitiativeButton.Location = new System.Drawing.Point(869, 512);
-            this.AddInitiativeButton.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.AddInitiativeButton.Name = "AddInitiativeButton";
-            this.AddInitiativeButton.Size = new System.Drawing.Size(128, 35);
-            this.AddInitiativeButton.TabIndex = 14;
-            this.AddInitiativeButton.Text = "Add Imperative";
-            this.AddInitiativeButton.UseVisualStyleBackColor = true;
-            this.AddInitiativeButton.Click += new System.EventHandler(this.AddInitiativeButton_Click);
+            this.AddImperativeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddImperativeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddImperativeButton.Location = new System.Drawing.Point(869, 512);
+            this.AddImperativeButton.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
+            this.AddImperativeButton.Name = "AddImperativeButton";
+            this.AddImperativeButton.Size = new System.Drawing.Size(128, 35);
+            this.AddImperativeButton.TabIndex = 14;
+            this.AddImperativeButton.Text = "Add Imperative";
+            this.AddImperativeButton.UseVisualStyleBackColor = true;
+            this.AddImperativeButton.Click += new System.EventHandler(this.AddImperativeButton_Click);
             // 
             // menuStrip1
             // 
@@ -411,9 +411,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.AddInitiativeButton);
+            this.Controls.Add(this.AddImperativeButton);
             this.Controls.Add(this.detailInfoPanel);
-            this.Controls.Add(this.initiativeNames);
+            this.Controls.Add(this.imperativeNames);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.objectiveNames);
             this.Controls.Add(this.catWorkspace);
@@ -436,8 +436,8 @@
         private System.Windows.Forms.TabControl catWorkspace;
         public System.Windows.Forms.ComboBox categoryNames;
         public System.Windows.Forms.ComboBox objectiveNames;
-        public System.Windows.Forms.ComboBox initiativeNames;
-        private System.Windows.Forms.Button AddInitiativeButton;
+        public System.Windows.Forms.ComboBox imperativeNames;
+        private System.Windows.Forms.Button AddImperativeButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vieToolStripMenuItem;

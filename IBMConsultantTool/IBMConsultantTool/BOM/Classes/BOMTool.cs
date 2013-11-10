@@ -34,9 +34,9 @@ namespace IBMConsultantTool
             int heightBetween = 30;
             seperatorLabel.Text = "View Data: " + obj.Name;
             ClearDetailPanel();
-            for (int i = 0; i < obj.Initiatives.Count; i++)
+            for (int i = 0; i < obj.Imperatives.Count; i++)
             {
-                NewInitiative init = obj.Initiatives[i];
+                NewImperative init = obj.Imperatives[i];
                 CreateDataLabels(55 + (i * heightBetween), init);
             }
         }
@@ -64,7 +64,7 @@ namespace IBMConsultantTool
             return category;
         }
 
-        private void CreateDataLabels(int yValue, NewInitiative init)
+        private void CreateDataLabels(int yValue, NewImperative init)
         {
             int nameXValue = 25;
             int effectivenessXValue = 351;
@@ -99,7 +99,7 @@ namespace IBMConsultantTool
             detailInfoPanel.Controls.Add(diffBox);
         }
 
-        public void AddInitiative()
+        public void AddImperative()
         {
 
 
@@ -122,9 +122,9 @@ namespace IBMConsultantTool
             }
         }
 
-        private void newInitiativeButton_Click(object sender, EventArgs e)
+        private void newImperativeButton_Click(object sender, EventArgs e)
         {
-            categories[catWorkspace.SelectedIndex].AddInitiative(initiativeNames.Text);
+            categories[catWorkspace.SelectedIndex].AddImperative(imperativeNames.Text);
         }
 
         public List<NewCategory> Categories
@@ -162,13 +162,13 @@ namespace IBMConsultantTool
             ClientDataControl.db.ChangedObjective(this);
         }
 
-        private void AddInitiativeButton_Click(object sender, EventArgs e)
+        private void AddImperativeButton_Click(object sender, EventArgs e)
         {
             string catName = categoryNames.Text.Trim();
             string busName = objectiveNames.Text.Trim();
-            string iniName = initiativeNames.Text.Trim();
+            string iniName = imperativeNames.Text.Trim();
 
-            ClientDataControl.db.AddInitiativeToBOM(iniName, busName, catName, this);
+            ClientDataControl.db.AddImperativeToBOM(iniName, busName, catName, this);
         }
 
         private void SendEmailButton_Click(object sender, EventArgs e)
@@ -220,7 +220,7 @@ namespace IBMConsultantTool
             {
                 foreach (NewObjective obj in cat.Objectives)
                 {
-                    foreach (NewInitiative ini in obj.Initiatives)
+                    foreach (NewImperative ini in obj.Imperatives)
                     {
                         ini.Differentiation = 0;
                         ini.Criticality = 0;
@@ -318,7 +318,7 @@ namespace IBMConsultantTool
             {
                 foreach (NewObjective obj in cat.Objectives)
                 {
-                    foreach (NewInitiative init in obj.Initiatives)
+                    foreach (NewImperative init in obj.Imperatives)
                     {
                         if (!ClientDataControl.db.UpdateBOM(ClientDataControl.Client.EntityObject, init))
                         {
@@ -395,8 +395,8 @@ namespace IBMConsultantTool
             upperBoundBox.Name = "UpperBox";
             thresholdsForm.Controls.Add(lowerBoundBox);
             thresholdsForm.Controls.Add(upperBoundBox);
-            upperBoundBox.Text = NewInitiative.criticalAmount.ToString();
-            lowerBoundBox.Text = NewInitiative.averageAmount.ToString();
+            upperBoundBox.Text = NewImperative.criticalAmount.ToString();
+            lowerBoundBox.Text = NewImperative.averageAmount.ToString();
 
             Label heading = new Label();
             heading.AutoSize = true;
@@ -444,8 +444,8 @@ namespace IBMConsultantTool
             Control[] text2 = butt.Parent.Controls.Find("LowerBox", true);
             TextBox box2 = (TextBox)text2[0];
 
-            NewInitiative.averageAmount = Convert.ToInt32(box.Text);
-            NewInitiative.criticalAmount = Convert.ToInt32(box2.Text);
+            NewImperative.averageAmount = Convert.ToInt32(box.Text);
+            NewImperative.criticalAmount = Convert.ToInt32(box2.Text);
             butt.Parent.Hide();
         }
         private void cancelButton_Click(object sender, EventArgs e)

@@ -183,7 +183,7 @@ namespace IBMConsultantTool
 
             tempString = string.Empty + "Business Imperatives:\v\v ";
 
-            //TODO: Replace with initiatives
+            //TODO: Replace with imperatives
             foreach(String s in ClientDataControl.db.GetDomainNames())
             {
                 tempString += s + "\t\t";

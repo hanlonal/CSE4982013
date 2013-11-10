@@ -44,14 +44,14 @@ namespace IBMConsultantTool
                    dataGrid.Rows[rowCount].ReadOnly = true;
                    rowCount++;
 
-                   //for (int k = 0; k < mainForm.Categories[i].Objectives[j].InitiativesCount; k++)
-                    foreach(NewInitiative initiative in objective.Initiatives)
+                   //for (int k = 0; k < mainForm.Categories[i].Objectives[j].ImperativesCount; k++)
+                    foreach(NewImperative imperative in objective.Imperatives)
                    {
                        dataGrid.Rows.Add(1);
-                       dataGrid.Rows[rowCount].Cells[2].Value = initiative.Name;
-                       dataGrid.Rows[rowCount].Cells[3].Value = initiative.Effectiveness;
-                       dataGrid.Rows[rowCount].Cells[4].Value = initiative.Criticality;
-                       dataGrid.Rows[rowCount].Cells[5].Value = initiative.Differentiation;
+                       dataGrid.Rows[rowCount].Cells[2].Value = imperative.Name;
+                       dataGrid.Rows[rowCount].Cells[3].Value = imperative.Effectiveness;
+                       dataGrid.Rows[rowCount].Cells[4].Value = imperative.Criticality;
+                       dataGrid.Rows[rowCount].Cells[5].Value = imperative.Differentiation;
                        //test = (int)dataGrid.Rows[rowCount].Cells[5].Value;
                        rowCount++;
                        
@@ -74,16 +74,16 @@ namespace IBMConsultantTool
                 foreach(NewObjective objective in category.Objectives)
                 {
                     rowCount++;
-                    //for (int k = 0; k < mainForm.Categories[i].Objectives[j].InitiativesCount; k++)
-                    foreach(NewInitiative initiative in objective.Initiatives)
+                    //for (int k = 0; k < mainForm.Categories[i].Objectives[j].ImperativesCount; k++)
+                    foreach(NewImperative imperative in objective.Imperatives)
                     {
-                        initiative.Effectiveness = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[3].Value);
-                        initiative.Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
-                        initiative.Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
+                        imperative.Effectiveness = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[3].Value);
+                        imperative.Criticality = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[4].Value);
+                        imperative.Differentiation = (float)Convert.ToDouble(dataGrid.Rows[rowCount].Cells[5].Value);
 
-                        if (!ClientDataControl.db.UpdateBOM(ClientDataControl.Client.EntityObject, initiative))
+                        if (!ClientDataControl.db.UpdateBOM(ClientDataControl.Client.EntityObject, imperative))
                         {
-                            MessageBox.Show("BOM \"" + initiative.Name + "\" could not be saved to database", "Error");
+                            MessageBox.Show("BOM \"" + imperative.Name + "\" could not be saved to database", "Error");
                             return;
                         }
 

@@ -67,9 +67,9 @@ namespace IBMConsultantTool
             owner.ObjectiveClicked(obj);
         }
 
-        public void AddInitiative(string name)
+        public void AddImperative(string name)
         {
-            lastClicked.AddInitiative(name);
+            lastClicked.AddImperative(name);
         }
 
         public List<NewObjective> Objectives

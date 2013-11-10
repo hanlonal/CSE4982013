@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace IBMConsultantTool
 {
-    public class NewInitiative : INotifyPropertyChanged
+    public class NewImperative : INotifyPropertyChanged
     {
         private NewObjective owner;
         private string name;
@@ -37,7 +37,7 @@ namespace IBMConsultantTool
         }
 
 
-        public NewInitiative(NewObjective owner, string name)
+        public NewImperative(NewObjective owner, string name)
         {
             this.owner = owner;
             //this.Text = name;

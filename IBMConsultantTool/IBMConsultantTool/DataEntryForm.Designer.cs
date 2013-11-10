@@ -31,7 +31,7 @@
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Objective = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Initiative = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Imperative = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Effectiveness = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Criticality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Differentiality = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +46,7 @@
             this.dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Category,
             this.Objective,
-            this.Initiative,
+            this.Imperative,
             this.Effectiveness,
             this.Criticality,
             this.Differentiality});
@@ -67,11 +67,11 @@
             this.Objective.Name = "Objective";
             this.Objective.ReadOnly = true;
             // 
-            // Initiative
+            // Imperative
             // 
-            this.Initiative.HeaderText = "Initiative";
-            this.Initiative.Name = "Initiative";
-            this.Initiative.ReadOnly = true;
+            this.Imperative.HeaderText = "Imperative";
+            this.Imperative.Name = "Imperative";
+            this.Imperative.ReadOnly = true;
             // 
             // Effectiveness
             // 
@@ -119,7 +119,7 @@
         private System.Windows.Forms.Button saveDataButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
         private System.Windows.Forms.DataGridViewTextBoxColumn Objective;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Initiative;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Imperative;
         private System.Windows.Forms.DataGridViewTextBoxColumn Effectiveness;
         private System.Windows.Forms.DataGridViewTextBoxColumn Criticality;
         private System.Windows.Forms.DataGridViewTextBoxColumn Differentiality;
