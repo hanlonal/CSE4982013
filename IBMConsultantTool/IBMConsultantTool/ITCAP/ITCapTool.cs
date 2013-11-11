@@ -1076,15 +1076,13 @@ namespace IBMConsultantTool
 
         private void currentGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
             ent.CalculateCapabilityGap();
             ent.Owner.CalculateAsIsAverage();
             ent.Owner.CalculateToBeAverage();
-            if (e.ColumnIndex == 3)
-            {
-                ent.CalculateAsIsAverage();
-            }
-            else if (e.ColumnIndex == 4)
+
+            if (e.ColumnIndex == 4)
             {
                 ent.CalculateAsIsAverage();
             }
@@ -1106,7 +1104,7 @@ namespace IBMConsultantTool
             }
             else if (e.ColumnIndex == 9)
             {
-                ent.CalculateToBeAverage();
+                ent.CalculateAsIsAverage();
             }
             else if (e.ColumnIndex == 10)
             {
@@ -1125,6 +1123,10 @@ namespace IBMConsultantTool
                 ent.CalculateToBeAverage();
             }
             else if (e.ColumnIndex == 14)
+            {
+                ent.CalculateToBeAverage();
+            }
+            else if (e.ColumnIndex == 15)
             {
                 ent.CalculateToBeAverage();
             }

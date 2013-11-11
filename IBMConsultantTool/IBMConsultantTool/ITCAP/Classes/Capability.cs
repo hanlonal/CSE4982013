@@ -192,8 +192,11 @@ namespace IBMConsultantTool
                                 pair.Key.gapType = GapType.High;
                             }
                         }
-                        if (pair.Value == 0)
+                        if (pair.Value == 0.00)
+                        {
                             pair.Key.gapType = GapType.None;
+                            pair.Key.CapabilityGapText = "No Focus";
+                        }
                         
                         count++;
                     }
