@@ -1423,10 +1423,10 @@ namespace IBMConsultantTool
                // this.statusBar1.Text = "Done.";
 
                 // close the splash form
-               // if (this.frmSplash != null)
-               // {
-               //     frmSplash.Close();
-              //  }
+                if (this.loadingScreen != null)
+                {
+                    loadingScreen.Close();
+                }
             }
             else
             {
