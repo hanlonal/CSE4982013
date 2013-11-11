@@ -45,7 +45,6 @@
             this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveyDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createPowerPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -180,7 +179,6 @@
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.sendSurveyToolStripMenuItem,
             this.createSurveyDocumentToolStripMenuItem,
             this.openSurveyDocumentsToolStripMenuItem,
             this.createPowerPointToolStripMenuItem});
@@ -231,12 +229,6 @@
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // sendSurveyToolStripMenuItem
-            // 
-            this.sendSurveyToolStripMenuItem.Name = "sendSurveyToolStripMenuItem";
-            this.sendSurveyToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.sendSurveyToolStripMenuItem.Text = "Send Survey";
             // 
             // createSurveyDocumentToolStripMenuItem
             // 
@@ -971,7 +963,6 @@
         private System.Windows.Forms.ToolStripMenuItem governmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem businessToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem otherToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sendSurveyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cUPEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;

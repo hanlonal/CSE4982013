@@ -127,7 +127,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generatePowerpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -917,7 +916,6 @@
             this.saveToolStripMenuItem,
             this.createSurveyToolStripMenuItem,
             this.openSurveysToolStripMenuItem,
-            this.sendEmailToolStripMenuItem,
             this.generatePowerpointToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -949,13 +947,6 @@
             this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.openSurveysToolStripMenuItem.Text = "Open Surveys";
             this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.openSurveysToolStripMenuItem_Click);
-            // 
-            // sendEmailToolStripMenuItem
-            // 
-            this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.sendEmailToolStripMenuItem.Text = "Send Email";
-            this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.sendEmailToolStripMenuItem_Click);
             // 
             // generatePowerpointToolStripMenuItem
             // 
@@ -1359,7 +1350,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
         private System.Windows.Forms.TreeView QuestionView;
-        private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTCapabilityToolStripMenuItem1;

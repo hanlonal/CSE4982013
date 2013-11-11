@@ -35,7 +35,6 @@
             this.AddImperativeButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,20 +153,12 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sendEmailToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.createSurveyToolStripMenuItem1,
             this.openSurveysToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
-            // 
-            // sendEmailToolStripMenuItem
-            // 
-            this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sendEmailToolStripMenuItem.Text = "Send Email";
-            this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.SendEmailButton_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -435,7 +426,6 @@
         private System.Windows.Forms.ToolStripMenuItem vieToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem participantsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
         private System.Windows.Forms.Panel detailInfoPanel;
         private System.Windows.Forms.Label seperatorLabel;
         private System.Windows.Forms.ToolStripMenuItem workshopToolStripMenuItem;

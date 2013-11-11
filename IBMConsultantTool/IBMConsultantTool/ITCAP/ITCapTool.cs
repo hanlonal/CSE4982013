@@ -1720,5 +1720,6 @@ namespace IBMConsultantTool
                 MessageBox.Show("Failed to save changes", "Error");
             }
         }
+
     }// end class
 }
