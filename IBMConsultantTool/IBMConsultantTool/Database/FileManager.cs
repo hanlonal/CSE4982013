@@ -782,20 +782,20 @@ namespace IBMConsultantTool
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             if(GetITCAP(question.Name, client, out itcap))
             {
-                question.AsIsNumZeros = Convert.ToInt32(itcap.Element("ASISZEROS").Value);
-                question.AsIsNumOnes = Convert.ToInt32(itcap.Element("ASISONES").Value);
-                question.AsIsNumTwos = Convert.ToInt32(itcap.Element("ASISTWOS").Value);
-                question.AsIsNumThrees = Convert.ToInt32(itcap.Element("ASISTHREES").Value);
-                question.AsIsNumFours = Convert.ToInt32(itcap.Element("ASISFOURS").Value);
-                question.AsIsNumFives = Convert.ToInt32(itcap.Element("ASISFIVES").Value);
-                question.AsIsScore = Convert.ToInt32(itcap.Element("ASIS").Value);
-                question.TobeNumZeros = Convert.ToInt32(itcap.Element("TOBEZEROS").Value);
-                question.TobeNumOnes = Convert.ToInt32(itcap.Element("TOBEONES").Value);
-                question.TobeNumTwos = Convert.ToInt32(itcap.Element("TOBETWOS").Value);
-                question.TobeNumThrees = Convert.ToInt32(itcap.Element("TOBETHREES").Value);
-                question.TobeNumFours = Convert.ToInt32(itcap.Element("TOBEFOURS").Value);
-                question.TobeNumFives = Convert.ToInt32(itcap.Element("TOBEFIVES").Value);
-                question.ToBeScore = Convert.ToInt32(itcap.Element("TOBE").Value);
+                question.AsIsNumZeros = Convert.ToInt32(itcap.Element("ASISZEROS").Value != null ? itcap.Element("ASISZEROS").Value : "0");
+                question.AsIsNumOnes = Convert.ToInt32(itcap.Element("ASISONES").Value != null ? itcap.Element("ASISONES").Value : "0");
+                question.AsIsNumTwos = Convert.ToInt32(itcap.Element("ASISTWOS").Value != null ? itcap.Element("ASISTWOS").Value : "0");
+                question.AsIsNumThrees = Convert.ToInt32(itcap.Element("ASISTHREES").Value != null ? itcap.Element("ASISTHREES").Value : "0");
+                question.AsIsNumFours = Convert.ToInt32(itcap.Element("ASISFOURS").Value != null ? itcap.Element("ASISFOURS").Value : "0");
+                question.AsIsNumFives = Convert.ToInt32(itcap.Element("ASISFIVES").Value != null ? itcap.Element("ASISFIVES").Value : "0");
+                question.AsIsScore = Convert.ToInt32(itcap.Element("ASIS").Value != null ? itcap.Element("ASIS").Value : "0");
+                question.TobeNumZeros = Convert.ToInt32(itcap.Element("TOBEZEROS").Value != null ? itcap.Element("TOBEZEROS").Value : "0");
+                question.TobeNumOnes = Convert.ToInt32(itcap.Element("TOBEONES").Value != null ? itcap.Element("TOBEONES").Value : "0");
+                question.TobeNumTwos = Convert.ToInt32(itcap.Element("TOBETWOS").Value != null ? itcap.Element("TOBETWOS").Value : "0");
+                question.TobeNumThrees = Convert.ToInt32(itcap.Element("TOBETHREES").Value != null ? itcap.Element("TOBETHREES").Value : "0");
+                question.TobeNumFours = Convert.ToInt32(itcap.Element("TOBEFOURS").Value != null ? itcap.Element("TOBEFOURS").Value : "0");
+                question.TobeNumFives = Convert.ToInt32(itcap.Element("TOBEFIVES").Value != null ? itcap.Element("TOBEFIVES").Value : "0");
+                question.ToBeScore = Convert.ToInt32(itcap.Element("TOBE").Value != null ? itcap.Element("TOBE").Value : "0");
             }
 
             else
@@ -1017,6 +1017,8 @@ namespace IBMConsultantTool
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             client.Element("ITCAPS").RemoveAll();
             client.Element("CAPABILITYGAPINFOS").RemoveAll();
+
+            changeLog.Add("CLEAR ITCAP " + client.Element("NAME").Value.Replace(' ', '~'));
 
             XElement itcapEnt = new XElement("ITCAP");
             XElement itcqEnt;
@@ -2173,7 +2175,7 @@ namespace IBMConsultantTool
                 capGapInfo.Add(new XElement("GAP", "0"));
                 capGapInfo.Add(new XElement("PRIORITIZEDGAPTYPE", "None"));
                 capGapInfo.Add(new XElement("PRIORITIZEDGAP", "0"));
-                client.Add(capGapInfo);
+                client.Element("CAPABILITYGAPINFOS").Add(capGapInfo);
 
                 changeLog.Add("ADD CAPABILITYGAPINFO " + client.Element("NAME").Value.Replace(' ', '~') + " " +
                               capability.Name.Replace(' ', '~'));

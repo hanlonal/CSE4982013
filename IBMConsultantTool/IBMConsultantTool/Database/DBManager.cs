@@ -4296,6 +4296,37 @@ namespace IBMConsultantTool
                         }
                     }
 
+                    else if (lineArray[0] == "CLEAR")
+                    {
+                        switch (lineArray[1])
+                        {
+                            case "ITCAP":
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
+                                {
+                                    List<ITCAP> itcapsToDelete = client.ITCAP.ToList();
+                                    foreach (ITCAP itcapToDelete in itcapsToDelete)
+                                    {
+                                        dbo.DeleteObject(itcapToDelete);
+                                    }
+
+                                    List<CAPABILITYGAPINFO> capGapInfosToDelete = client.CAPABILITYGAPINFO.ToList();
+                                    foreach (CAPABILITYGAPINFO capGapInfoToDelete in capGapInfosToDelete)
+                                    {
+                                        dbo.DeleteObject(capGapInfoToDelete);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Delete ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
+                                }
+                                break;
+                            default:
+                                MessageBox.Show("Invalid instruction detected\n\n" + line, "Error");
+                                break;
+                        }
+ 
+                    }
+
                     else
                     {
                         MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");
