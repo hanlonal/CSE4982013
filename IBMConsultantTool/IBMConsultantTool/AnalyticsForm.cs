@@ -1192,7 +1192,7 @@ namespace IBMConsultantTool
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
             lineChart.ChartAreas[title].AxisX.LabelStyle.Enabled = false;
-            lineChart.ChartAreas[title].AxisY.LabelStyle.IsEndLabelVisible = false;
+            lineChart.ChartAreas[title].AxisY.Maximum = 10;
 
             string saveName = metricsComboBox.Text + " " + chartType;
 
