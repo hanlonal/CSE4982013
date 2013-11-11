@@ -46,7 +46,6 @@ namespace IBMConsultantTool
                 //throw new Exception();
                 db = new DBManager();
                 isOnline = true;
-                MessageBox.Show("Online Mode Set", "Success");
             }
             catch (Exception e)
             {
@@ -62,7 +61,6 @@ namespace IBMConsultantTool
         {
             db = new FileManager();
             isOnline = false;
-            MessageBox.Show("Offline Mode Set", "Success");
         }
 
         public static void LoadParticipants()
