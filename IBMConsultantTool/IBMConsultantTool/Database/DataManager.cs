@@ -64,6 +64,8 @@ namespace IBMConsultantTool
         #region ITCAP
         public abstract bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion);
 
+        public abstract bool LoadITCAP(ref ITCapQuestion question);
+
         public abstract bool OpenITCAP(ITCapTool itcapForm);
         public abstract bool AddITCAP(object itcap, object client);
         public abstract bool AddITCAPToGroup(object itcap, object grp);
