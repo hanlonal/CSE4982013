@@ -4007,6 +4007,294 @@ namespace IBMConsultantTool
         private global::System.String _COMMENT;
         partial void OnCOMMENTChanging(global::System.String value);
         partial void OnCOMMENTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ASISZEROS
+        {
+            get
+            {
+                return _ASISZEROS;
+            }
+            set
+            {
+                OnASISZEROSChanging(value);
+                ReportPropertyChanging("ASISZEROS");
+                _ASISZEROS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASISZEROS");
+                OnASISZEROSChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ASISZEROS;
+        partial void OnASISZEROSChanging(Nullable<global::System.Int32> value);
+        partial void OnASISZEROSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ASISONES
+        {
+            get
+            {
+                return _ASISONES;
+            }
+            set
+            {
+                OnASISONESChanging(value);
+                ReportPropertyChanging("ASISONES");
+                _ASISONES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASISONES");
+                OnASISONESChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ASISONES;
+        partial void OnASISONESChanging(Nullable<global::System.Int32> value);
+        partial void OnASISONESChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ASISTWOS
+        {
+            get
+            {
+                return _ASISTWOS;
+            }
+            set
+            {
+                OnASISTWOSChanging(value);
+                ReportPropertyChanging("ASISTWOS");
+                _ASISTWOS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASISTWOS");
+                OnASISTWOSChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ASISTWOS;
+        partial void OnASISTWOSChanging(Nullable<global::System.Int32> value);
+        partial void OnASISTWOSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ASISTHREES
+        {
+            get
+            {
+                return _ASISTHREES;
+            }
+            set
+            {
+                OnASISTHREESChanging(value);
+                ReportPropertyChanging("ASISTHREES");
+                _ASISTHREES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASISTHREES");
+                OnASISTHREESChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ASISTHREES;
+        partial void OnASISTHREESChanging(Nullable<global::System.Int32> value);
+        partial void OnASISTHREESChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ASISFOURS
+        {
+            get
+            {
+                return _ASISFOURS;
+            }
+            set
+            {
+                OnASISFOURSChanging(value);
+                ReportPropertyChanging("ASISFOURS");
+                _ASISFOURS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASISFOURS");
+                OnASISFOURSChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ASISFOURS;
+        partial void OnASISFOURSChanging(Nullable<global::System.Int32> value);
+        partial void OnASISFOURSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ASISFIVES
+        {
+            get
+            {
+                return _ASISFIVES;
+            }
+            set
+            {
+                OnASISFIVESChanging(value);
+                ReportPropertyChanging("ASISFIVES");
+                _ASISFIVES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASISFIVES");
+                OnASISFIVESChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ASISFIVES;
+        partial void OnASISFIVESChanging(Nullable<global::System.Int32> value);
+        partial void OnASISFIVESChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOBEZEROS
+        {
+            get
+            {
+                return _TOBEZEROS;
+            }
+            set
+            {
+                OnTOBEZEROSChanging(value);
+                ReportPropertyChanging("TOBEZEROS");
+                _TOBEZEROS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOBEZEROS");
+                OnTOBEZEROSChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOBEZEROS;
+        partial void OnTOBEZEROSChanging(Nullable<global::System.Int32> value);
+        partial void OnTOBEZEROSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOBEONES
+        {
+            get
+            {
+                return _TOBEONES;
+            }
+            set
+            {
+                OnTOBEONESChanging(value);
+                ReportPropertyChanging("TOBEONES");
+                _TOBEONES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOBEONES");
+                OnTOBEONESChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOBEONES;
+        partial void OnTOBEONESChanging(Nullable<global::System.Int32> value);
+        partial void OnTOBEONESChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOBETWOS
+        {
+            get
+            {
+                return _TOBETWOS;
+            }
+            set
+            {
+                OnTOBETWOSChanging(value);
+                ReportPropertyChanging("TOBETWOS");
+                _TOBETWOS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOBETWOS");
+                OnTOBETWOSChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOBETWOS;
+        partial void OnTOBETWOSChanging(Nullable<global::System.Int32> value);
+        partial void OnTOBETWOSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOBETHREES
+        {
+            get
+            {
+                return _TOBETHREES;
+            }
+            set
+            {
+                OnTOBETHREESChanging(value);
+                ReportPropertyChanging("TOBETHREES");
+                _TOBETHREES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOBETHREES");
+                OnTOBETHREESChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOBETHREES;
+        partial void OnTOBETHREESChanging(Nullable<global::System.Int32> value);
+        partial void OnTOBETHREESChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOBEFOURS
+        {
+            get
+            {
+                return _TOBEFOURS;
+            }
+            set
+            {
+                OnTOBEFOURSChanging(value);
+                ReportPropertyChanging("TOBEFOURS");
+                _TOBEFOURS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOBEFOURS");
+                OnTOBEFOURSChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOBEFOURS;
+        partial void OnTOBEFOURSChanging(Nullable<global::System.Int32> value);
+        partial void OnTOBEFOURSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TOBEFIVES
+        {
+            get
+            {
+                return _TOBEFIVES;
+            }
+            set
+            {
+                OnTOBEFIVESChanging(value);
+                ReportPropertyChanging("TOBEFIVES");
+                _TOBEFIVES = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TOBEFIVES");
+                OnTOBEFIVESChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TOBEFIVES;
+        partial void OnTOBEFIVESChanging(Nullable<global::System.Int32> value);
+        partial void OnTOBEFIVESChanged();
 
         #endregion
     

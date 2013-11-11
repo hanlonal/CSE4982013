@@ -707,36 +707,18 @@ namespace IBMConsultantTool
 
                 itcap.ASIS = itcapQuestion.AsIsScore;
                 itcap.TOBE = itcapQuestion.ToBeScore;
-
-                GROUP grp;
-                if (GetGroup("ITCAP", client, out grp))
-                {
-                    List<CONTACT> contactsToDelete = grp.CONTACT.ToList();
-                    foreach(CONTACT contactToDelete in contactsToDelete)
-                    {
-                        dbo.DeleteObject(contactToDelete);
-                    }
-
-                    ITCAP contactITCAP;
-                    CONTACT contact;
-                    for (int i = 0; i < itcapQuestion.asIsAnswers.Count; i++)
-                    {
-                        contactITCAP = new ITCAP();
-                        contactITCAP.ITCAPQUESTION = itcap.ITCAPQUESTION;
-                        contactITCAP.ASIS = itcapQuestion.asIsAnswers[i];
-                        contactITCAP.TOBE = itcapQuestion.toBeAnswers[i];
-                        contactITCAP.COMMENT = "";
-
-                        contact = new CONTACT();
-                        contact.ID = rnd.Next();
-                        contact.GROUP = grp;
-
-                        contactITCAP.CONTACT = contact;
-
-                        dbo.AddToCONTACT(contact);
-                        dbo.AddToITCAP(contactITCAP);
-                    }
-                }
+                itcap.ASISZEROS = itcapQuestion.AsIsNumZeros;
+                itcap.ASISONES = itcapQuestion.AsIsNumOnes;
+                itcap.ASISTWOS = itcapQuestion.AsIsNumTwos;
+                itcap.ASISTHREES = itcapQuestion.AsIsNumThrees;
+                itcap.ASISFOURS = itcapQuestion.AsIsNumFours;
+                itcap.ASISFIVES = itcapQuestion.AsIsNumFives;
+                itcap.TOBEZEROS = itcapQuestion.TobeNumZeros;
+                itcap.TOBEONES = itcapQuestion.TobeNumOnes;
+                itcap.TOBETWOS = itcapQuestion.TobeNumTwos;
+                itcap.TOBETHREES = itcapQuestion.TobeNumThrees;
+                itcap.TOBEFOURS = itcapQuestion.TobeNumFours;
+                itcap.TOBEFIVES = itcapQuestion.TobeNumFives;
             }
 
             catch
@@ -750,15 +732,24 @@ namespace IBMConsultantTool
 
         public override bool LoadITCAP(ref ITCapQuestion question)
         {
+            ITCAP itcap;
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
-            List<ITCAP> itcaps = GetITCAPs(question.Name, client);
-            if (itcaps != null)
+            if (GetITCAP(question.Name, client, out itcap))
             {
-                foreach (ITCAP itcap in itcaps)
-                {
-                    question.AddAsIsAnswer(itcap.ASIS.HasValue ? itcap.ASIS.Value : 0);
-                    question.AddToBeAnswer(itcap.TOBE.HasValue ? itcap.TOBE.Value : 0);
-                }
+                question.AsIsNumZeros = itcap.ASISZEROS.HasValue ? itcap.ASISZEROS.Value : 0;
+                question.AsIsNumOnes = itcap.ASISONES.HasValue ? itcap.ASISONES.Value : 0;
+                question.AsIsNumTwos = itcap.ASISTWOS.HasValue ? itcap.ASISTWOS.Value : 0;
+                question.AsIsNumThrees = itcap.ASISTHREES.HasValue ? itcap.ASISTHREES.Value : 0;
+                question.AsIsNumFours = itcap.ASISFOURS.HasValue ? itcap.ASISFOURS.Value : 0;
+                question.AsIsNumFives = itcap.ASISFIVES.HasValue ? itcap.ASISFIVES.Value : 0;
+                question.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
+                question.TobeNumZeros = itcap.TOBEZEROS.HasValue ? itcap.TOBEZEROS.Value : 0;
+                question.TobeNumOnes = itcap.TOBEONES.HasValue ? itcap.TOBEONES.Value : 0;
+                question.TobeNumTwos = itcap.TOBETWOS.HasValue ? itcap.TOBETWOS.Value : 0;
+                question.TobeNumThrees = itcap.TOBETHREES.HasValue ? itcap.TOBETHREES.Value : 0;
+                question.TobeNumFours = itcap.TOBEFOURS.HasValue ? itcap.TOBEFOURS.Value : 0;
+                question.TobeNumFives = itcap.TOBEFIVES.HasValue ? itcap.TOBEFIVES.Value : 0;
+                question.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
             }
 
             else
@@ -4155,7 +4146,18 @@ namespace IBMConsultantTool
                                     {
                                         itcap.ASIS = Convert.ToSingle(lineArray[4]);
                                         itcap.TOBE = Convert.ToSingle(lineArray[5]);
-                                        itcap.COMMENT = lineArray[6].Replace('~', ' ');
+                                        itcap.ASISZEROS = Convert.ToInt32(lineArray[6]);
+                                        itcap.TOBEZEROS = Convert.ToInt32(lineArray[7]);
+                                        itcap.ASISONES = Convert.ToInt32(lineArray[8]);
+                                        itcap.TOBEONES = Convert.ToInt32(lineArray[9]);
+                                        itcap.ASISTWOS = Convert.ToInt32(lineArray[10]);
+                                        itcap.TOBETWOS = Convert.ToInt32(lineArray[11]);
+                                        itcap.ASISTHREES = Convert.ToInt32(lineArray[12]);
+                                        itcap.TOBETHREES = Convert.ToInt32(lineArray[13]);
+                                        itcap.ASISFOURS = Convert.ToInt32(lineArray[14]);
+                                        itcap.TOBEFOURS = Convert.ToInt32(lineArray[15]);
+                                        itcap.ASISFIVES = Convert.ToInt32(lineArray[16]);
+                                        itcap.TOBEFIVES = Convert.ToInt32(lineArray[17]);
                                     }
                                     else
                                     {
