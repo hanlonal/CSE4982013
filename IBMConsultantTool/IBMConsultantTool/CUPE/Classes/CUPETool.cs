@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.IO;
+using System.Threading;
 
 namespace IBMConsultantTool
 {
@@ -23,6 +24,8 @@ namespace IBMConsultantTool
         DataGridView toRemove;
         Chart currentChart;
 
+        private LoadingScreen loadingScreen;
+
         int personCount = 0;
         bool isAnonymous = true;
         public bool is20Question = true;
@@ -35,6 +38,8 @@ namespace IBMConsultantTool
         int totalDIndex = 4;
         int averageIndex = 6;
         int totalAnswers = 5;
+
+        public delegate void UpdateUIDelegate(bool IsDataLoaded);
 
         int numberOfIT = 0;
         int numerOfBusi = 0;
@@ -1411,14 +1416,47 @@ namespace IBMConsultantTool
             SurveyGenerator generator = new SurveyGenerator();
             generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions);
         }
+        private void UpdateUI(bool IsDataLoaded)
+        {
+            if (IsDataLoaded)
+            {
+               // this.statusBar1.Text = "Done.";
 
+                // close the splash form
+               // if (this.frmSplash != null)
+               // {
+               //     frmSplash.Close();
+              //  }
+            }
+            else
+            {
+                //this.statusBar1.Text = "Loading data ...";
+            }
+        }
+
+        private void LoadSurveys()
+        {
+            var SurveyReader = new SurveyReader();
+            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
+
+            Invoke(new UpdateUIDelegate(UpdateUI), new object[] { true });
+        }
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientDataControl.SetParticipants(new List<Person>());
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
-            var SurveyReader = new SurveyReader();
-            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
+            
+
+            UpdateUI(false);
+            loadingScreen = new LoadingScreen(this);
+
+            Thread t = new Thread(new ThreadStart(LoadSurveys));
+            t.IsBackground = true;
+            t.Start();
+            
+
+
 
             removePersonColumns();
             loadColumnNames();
