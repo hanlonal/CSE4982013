@@ -748,6 +748,7 @@ namespace IBMConsultantTool
                     {
                         childrenCount = init[cnt].Children;
                         eachClients = init[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                     }
 
                     lineChart.Series[name].ChartArea = title;
@@ -860,6 +861,7 @@ namespace IBMConsultantTool
                     {
                         childrenCount = init[cnt].Children;
                         eachClients = init[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                     }
 
                     lineChart.Series[name].ChartArea = title;
@@ -972,6 +974,8 @@ namespace IBMConsultantTool
                     {
                         childrenCount = init[cnt].Children;
                         eachClients = init[cnt].Children;
+
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                     }
 
                     lineChart.Series[name].ChartArea = title;
@@ -1084,6 +1088,8 @@ namespace IBMConsultantTool
                     {
                         childrenCount = init[cnt].Children;
                         eachClients = init[cnt].Children;
+
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                     }
 
                     lineChart.Series[name].ChartArea = title;
@@ -1267,7 +1273,7 @@ namespace IBMConsultantTool
 
                             point[index] = new DataPoint();
                             point[index].SetValueXY(name, init[cnt].Differentiation);
-                            //point.Color = DataGridView.
+                            point[index].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                             lineChart.Series["Bar"].Points.Add(point[index]);
                             index++;
 
@@ -1326,7 +1332,7 @@ namespace IBMConsultantTool
 
                             point[index] = new DataPoint();
                             point[index].SetValueXY(name, init[cnt].Criticality);
-                            //point.Color = DataGridView.
+                            point[index].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                             lineChart.Series["Bar"].Points.Add(point[index]);
                             index++;
                         }
@@ -1384,7 +1390,7 @@ namespace IBMConsultantTool
 
                             point[index] = new DataPoint();
                             point[index].SetValueXY(name, init[cnt].Effectiveness);
-                            //point.Color = DataGridView.
+                            point[index].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                             lineChart.Series["Bar"].Points.Add(point[index]);
                             index++;
                         }
@@ -1443,7 +1449,7 @@ namespace IBMConsultantTool
 
                             point[index] = new DataPoint();
                             point[index].SetValueXY(name, init[cnt].Differentiation);
-                            //point.Color = DataGridView.
+                            point[index].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                             lineChart.Series["Bar"].Points.Add(point[index]);
                             index++;
                         }
@@ -1464,6 +1470,11 @@ namespace IBMConsultantTool
 
             //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
             //saveName + ".jpg", ChartImageFormat.Jpeg);
+
+            if (chartType == "Line Graph")
+            {
+                CreateLineGraph(init, title, metricsComboBox.Text);
+            }
         }
 
         private void regionComboBox_SelectedIndexChanged(object sender, EventArgs e)
