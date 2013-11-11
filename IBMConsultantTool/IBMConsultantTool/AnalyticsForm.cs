@@ -102,41 +102,35 @@ namespace IBMConsultantTool
             switch (state)
             {
                 case TrackingState.Capabilities:
-                    ClearControls("Capabilities");
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("Capabilities");                    
                     metricsComboBox.Items.Add("Capability Gap Type");
                     metricsComboBox.Items.Add("Prioritized Capability Gap Type");
                     metricsComboBox.Items.Add("Capability Gap Amount");
                     metricsComboBox.Items.Add("Prioritized Capability Gap Amount");
                     break;
                 case TrackingState.CUPEQuestions:
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("CUPE");
                     metricsComboBox.Items.Add("Business Future");
                     metricsComboBox.Items.Add("Business Current");
                     metricsComboBox.Items.Add("IT Future");
-                    metricsComboBox.Items.Add("IT Current");
-                    ClearControls("CUPE");
+                    metricsComboBox.Items.Add("IT Current");                    
                     break;
                 case TrackingState.Objectives:
                     ClearControls("Objectives");
                     metricsComboBox.Items.Add("Total Priority");
                     break;
                 case TrackingState.ITAttributes:
-                    ClearControls("Capabilities");
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("Capabilities");                    
                     metricsComboBox.Items.Add("Average As Is Score");
                     metricsComboBox.Items.Add("Average To Be Score");
                     break;
                 case TrackingState.Imperatives:
-                    ClearControls("Imperatives");
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("Imperatives");                    
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
                     metricsComboBox.Items.Add("Effectiveness");
                     break;
-
             }
-
         }
 
 
@@ -332,6 +326,7 @@ namespace IBMConsultantTool
                 CapabilityTrendAnalysis ent = new CapabilityTrendAnalysis();
                 if (capabilities.Count > 0)
                 {
+                    capabilities.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float gap = capabilities.Average(d => d.CapabilityGap);
                     float prior = capabilities.Average(d => d.PrioritizedCapabilityGap);
 
@@ -351,6 +346,8 @@ namespace IBMConsultantTool
                     cap.Type1 = TrendAnalysisEntity.Type.Child;
                     capabilitiesToTrack.Add(cap);
                 }
+
+                
 
                 trendGridView.DataSource = null;
                 trendGridView.DataSource = capabilitiesToTrack ;
@@ -374,6 +371,7 @@ namespace IBMConsultantTool
                 cupes = db.GetCUPEQuestionTrendAnalysis(cupeQuestionsComboBox.Text, region, country, busi, from, to);
                 if (cupes.Count < 0)
                 {
+                    cupes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float asIsAaverage = cupes.Average(d => d.CurrentAnswer);
                     float futureAnswer = cupes.Average(d => d.FutureAnswer);
 
@@ -392,6 +390,8 @@ namespace IBMConsultantTool
                         cupeToTrack.Add(c);
                         c.Type1 = TrendAnalysisEntity.Type.Child;
                     }
+
+                    
                 }
                 else
                     MessageBox.Show("Query returned no results.");
@@ -421,6 +421,7 @@ namespace IBMConsultantTool
                 ITAttributeTrendAnalysis ent = new ITAttributeTrendAnalysis();
                 if (attributes.Count > 0)
                 {
+                    attributes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     ent.AsisScore = attributes.Average(d => d.AsisScore);
                     ent.TobeScore = attributes.Average(d => d.TobeScore);
                     ent.Type1 = TrendAnalysisEntity.Type.Master;
@@ -437,6 +438,8 @@ namespace IBMConsultantTool
                         ent.Children++;
                         attributesToTrack.Add(attr);
                     }
+
+                    
                 }
                 else
                     MessageBox.Show("Query returned no results.");
@@ -458,6 +461,7 @@ namespace IBMConsultantTool
 
                 if (imperatives.Count > 0)
                 {
+                    imperatives.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float diff = imperatives.Average(d => d.Differentiation);
                     float crit = imperatives.Average(d => d.Criticality);
                     float effect = imperatives.Average(d => d.Effectiveness);
@@ -478,7 +482,7 @@ namespace IBMConsultantTool
                         imperativesToTrack.Add(i);
                     }
 
-                    imperativesToTrack.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
+                   
                     trendGridView.Columns["Collapse"].Visible = true;
                 }
                 else
@@ -611,9 +615,7 @@ namespace IBMConsultantTool
                 if (ent.Type1 == TrendAnalysisEntity.Type.Master)
                 {
                     for (int i = 1; i < ent.Children + 1; i++)
-                    {
-                        trendGridView.CurrentCell = null;
-                        
+                    {                       
                         trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
                     }
                 }
@@ -1082,8 +1084,8 @@ namespace IBMConsultantTool
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-                saveName + ".jpg", ChartImageFormat.Jpeg);
+            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+                //saveName + ".jpg", ChartImageFormat.Jpeg);
         
         }
 
