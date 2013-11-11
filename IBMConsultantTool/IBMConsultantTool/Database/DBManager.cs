@@ -3474,6 +3474,7 @@ namespace IBMConsultantTool
             {
                 XElement temp = new XElement("DOMAIN");
                 temp.Add(new XElement("NAME", domain.NAME.TrimEnd()));
+                temp.Add(new XElement("ID", domain.ID.TrimEnd()));
                 temp.Add(new XElement("DEFAULT", domain.DEFAULT));
 
                 XElement capElement = new XElement("CAPABILITIES");
@@ -3481,6 +3482,7 @@ namespace IBMConsultantTool
                 {
                     XElement tempCap = new XElement("CAPABILITY");
                     tempCap.Add(new XElement("NAME", capability.NAME.TrimEnd()));
+                    tempCap.Add(new XElement("ID", capability.ID.TrimEnd()));
                     tempCap.Add(new XElement("DEFAULT", capability.DEFAULT));
 
                     XElement questionElement = new XElement("ITCAPQUESTIONS");
@@ -3488,6 +3490,7 @@ namespace IBMConsultantTool
                     {
                         XElement tempItcq = new XElement("ITCAPQUESTION");
                         tempItcq.Add(new XElement("NAME", itcapQuestion.NAME.TrimEnd()));
+                        tempItcq.Add(new XElement("ID", itcapQuestion.ID.TrimEnd()));
                         tempItcq.Add(new XElement("DEFAULT", itcapQuestion.DEFAULT));
                         questionElement.Add(tempItcq);
                     }
@@ -3645,7 +3648,7 @@ namespace IBMConsultantTool
                             case "CONTACT":
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (!GetGroup(lineArray[3].Replace('~', ' '), client, out grp))
+                                    if (GetGroup(lineArray[3].Replace('~', ' '), client, out grp))
                                     {
                                         if (!AddContact(Convert.ToInt32(lineArray[4]), grp))
                                         {
@@ -3738,19 +3741,19 @@ namespace IBMConsultantTool
                                 break;
 
                             case "CUPERESPONSE":
-                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                    if (GetGroup(lineArray[3].Replace('~', ' '), client, out grp))
                                     {
-                                        if (GetContact(Convert.ToInt32(lineArray[5]), out contact))
+                                        if (GetContact(Convert.ToInt32(lineArray[4]), out contact))
                                         {
-                                            if (GetCUPE(lineArray[6].Replace('~', ' '), client, out cupe))
+                                            if (GetCUPE(lineArray[5].Replace('~', ' '), client, out cupe))
                                             {
                                                 cupeResponse = new CUPERESPONSE();
                                                 cupeResponse.CONTACT = contact;
                                                 cupeResponse.CUPE = cupe;
-                                                cupeResponse.CURRENT = lineArray[7];
-                                                cupeResponse.FUTURE = lineArray[8];
+                                                cupeResponse.CURRENT = lineArray[6];
+                                                cupeResponse.FUTURE = lineArray[7];
                                                 dbo.AddToCUPERESPONSE(cupeResponse);
                                             }
                                             else
@@ -4008,11 +4011,11 @@ namespace IBMConsultantTool
                                 {
                                     if (GetCUPE(lineArray[3].Replace('~', ' '), client, out cupe))
                                     {
-                                        cupe.NAME = lineArray[4].Replace('~', ' ');
-                                        cupe.COMMODITY = lineArray[5].Replace('~', ' ');
-                                        cupe.UTILITY = lineArray[6].Replace('~', ' ');
-                                        cupe.PARTNER = lineArray[7].Replace('~', ' ');
-                                        cupe.ENABLER = lineArray[8].Replace('~', ' ');
+                                        cupe.NAME = lineArray[3].Replace('~', ' ');
+                                        cupe.COMMODITY = lineArray[4].Replace('~', ' ');
+                                        cupe.UTILITY = lineArray[5].Replace('~', ' ');
+                                        cupe.PARTNER = lineArray[6].Replace('~', ' ');
+                                        cupe.ENABLER = lineArray[7].Replace('~', ' ');
                                     }
                                     else
                                     {

@@ -1602,11 +1602,11 @@ namespace IBMConsultantTool
                     contact.Add(new XElement("ID", rnd.Next()));
                     contact.Add(new XElement("CUPERESPONSES"));
                     busGrp.Element("CONTACTS").Add(contact);
-                    changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                    changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') +
                                   " Business " + contact.Element("ID").Value.Replace(' ', '~'));
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
-                    for (int i = 0; i < questionList.Count - 1; i++)
+                    for (int i = 0; i < questionList.Count; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
                         if (!GetCUPE(data.QuestionText, out cupe))
@@ -1616,7 +1616,7 @@ namespace IBMConsultantTool
                         }
 
                         response = new XElement("CUPERESPONSE");
-                        response.Add(new XElement("CUPE", cupe));
+                        response.Add(new XElement("CUPE", cupe.Element("NAME").Value));
                         response.Add(new XElement("CURRENT", person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : ""));
                         response.Add(new XElement("FUTURE", person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : ""));
                         AddCupeResponse(response, contact);
@@ -1629,11 +1629,11 @@ namespace IBMConsultantTool
                     contact.Add(new XElement("ID", rnd.Next()));
                     contact.Add(new XElement("CUPERESPONSES"));
                     itGrp.Element("CONTACTS").Add(contact);
-                    changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                    changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') +
                                   " IT " + contact.Element("ID").Value.Replace(' ', '~'));
 
                     List<CupeQuestionStringData> questionList = ClientDataControl.GetCupeQuestions();
-                    for (int i = 0; i < questionList.Count - 1; i++)
+                    for (int i = 0; i < questionList.Count; i++)
                     {
                         CupeQuestionStringData data = questionList[i];
                         if (!GetCUPE(data.QuestionText, out cupe))
@@ -1642,7 +1642,7 @@ namespace IBMConsultantTool
                             continue;
                         }
                         response = new XElement("CUPERESPONSE");
-                        response.Add(new XElement("CUPE", cupe));
+                        response.Add(new XElement("CUPE", cupe.Element("NAME").Value));
                         response.Add(new XElement("CURRENT", person.cupeDataHolder.CurrentAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.CurrentAnswers["Question " + (i + 1).ToString()].ToString() : ""));
                         response.Add(new XElement("FUTURE", person.cupeDataHolder.FutureAnswers.ContainsKey("Question " + (i + 1).ToString()) ? person.cupeDataHolder.FutureAnswers["Question " + (i + 1).ToString()].ToString() : ""));
                         AddCupeResponse(response, contact);
@@ -1665,7 +1665,8 @@ namespace IBMConsultantTool
                 cupe.Element("PARTNER").Value = cupeQuestion.ChoiceC;
                 cupe.Element("ENABLER").Value = cupeQuestion.ChoiceD;
 
-                changeLog.Add("UPDATE CUPE " + cupeQuestion.QuestionText.Replace(' ', '~') + " " +
+                changeLog.Add("UPDATE CUPE " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                              cupeQuestion.QuestionText.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceA.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceB.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceC.Replace(' ', '~') + " " +
