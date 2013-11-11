@@ -180,6 +180,8 @@ namespace IBMConsultantTool
             label4.BringToFront();
 
             DrawStars(busCurrent, busFuture, ITCurrent, ITFuture);
+
+            this.FormClosing += new FormClosingEventHandler(ITProviderRelationshipGraph_FormClosing);
         }
 
         public void DrawStars(double curB, double futB, double itCur, double itFu)
@@ -535,6 +537,22 @@ namespace IBMConsultantTool
                 this.pic4.Location = four;
 
             #endregion
+
+            
+        }
+
+        private void ITProviderRelationshipGraph_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Rectangle form = this.Bounds;
+            using (Bitmap bitmap = new Bitmap(this.Width, this.Height))
+            {
+                using (Graphics graphic = Graphics.FromImage(bitmap))
+                {
+                    graphic.CopyFromScreen(this.Location, Point.Empty, this.Size);
+                }
+                bitmap.Save(Directory.GetCurrentDirectory() + @"/Charts/" +
+                    "IT Provider Relationship.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
         }
     }
 }

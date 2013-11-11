@@ -18,6 +18,7 @@ namespace IBMConsultantTool
         private int labelWidth = 50;
         private int baseHeight = 90;
         private int baseWidth = 200;
+        NewImperative currentImperative;
 
         
 
@@ -81,7 +82,9 @@ namespace IBMConsultantTool
         private void MakeImperativeLabel(NewImperative init)
         {
             Label imperativeLabel = new Label();
+            imperativeLabel.Click +=new EventHandler(imperativeLabel_Click);
             imperativeToLabelDict[init] = imperativeLabel;
+            imperativeLabel.MouseDown +=new MouseEventHandler(imperativeLabel_MouseDown);
             imperativeLabel.Location = FindImperativeLocation();
             imperativeLabel.Height = baseHeight;
             imperativeLabel.BackColor = Color.White;
@@ -95,6 +98,41 @@ namespace IBMConsultantTool
 
             imperativeLabel.BorderStyle = BorderStyle.FixedSingle;
 
+        }
+
+        private void imperativeLabel_Click(object sender, EventArgs e)
+        {
+            owner.LastClicked = this;
+            foreach (NewObjective o in owner.Objectives)
+            {
+                o.Refresh();
+            }
+        }
+
+        private void imperativeLabel_MouseDown(object sender, MouseEventArgs e)
+        {
+            Label label = (Label)sender;
+            if (e.Button == MouseButtons.Right)
+            {
+                foreach (NewImperative imp in this.imperatives)
+                {
+                    if (imp.Name == label.Text)
+                        currentImperative = imp;
+                }
+            }
+
+            ContextMenuStrip strip = new ContextMenuStrip();
+            ToolStripMenuItem delete = new ToolStripMenuItem();
+            delete.Text = "Delete Imperative";
+            delete.Click +=new EventHandler(delete_Click);
+            strip.Items.Add(delete);
+            strip.Show(label, e.Location, ToolStripDropDownDirection.BelowRight);
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            this.Controls.Remove(imperativeToLabelDict[currentImperative]);
+            this.imperatives.Remove(currentImperative);
         }
 
         private Point FindImperativeLocation()
@@ -149,8 +187,6 @@ namespace IBMConsultantTool
             label.BorderStyle = BorderStyle.Fixed3D;
             label.Location = new Point(0, 0);
             //label.BackColor = Color.Teal;
-            
-
         }
 
         private void label_MouseDown(object sender, MouseEventArgs e)           
@@ -174,8 +210,6 @@ namespace IBMConsultantTool
                 detailView.Text = "Detailed View";
                 strip.Items.Add(detailView);
                 strip.Show(this, e.Location, ToolStripDropDownDirection.BelowRight);
-
-
             }
         }
 
