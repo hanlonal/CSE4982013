@@ -34,21 +34,25 @@
             this.imperativeNames = new System.Windows.Forms.ComboBox();
             this.AddImperativeButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.staticMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dynamicMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ratingThresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectivenessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.criticalityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.differentiationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,10 +63,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.createSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -140,8 +140,8 @@
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem,
             this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.vieToolStripMenuItem,
             this.workshopToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -150,36 +150,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sendEmailToolStripMenuItem,
-            this.saveToolStripMenuItem,
-            this.loadToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // sendEmailToolStripMenuItem
-            // 
-            this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.sendEmailToolStripMenuItem.Text = "Send Email";
-            this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.SendEmailButton_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.loadToolStripMenuItem.Text = "Load";
             // 
             // editToolStripMenuItem
             // 
@@ -231,6 +201,50 @@
             this.ratingThresholdsToolStripMenuItem.Text = "Rating Thresholds";
             this.ratingThresholdsToolStripMenuItem.Click += new System.EventHandler(this.ratingThresholdsToolStripMenuItem_Click);
             // 
+            // createSurveyToolStripMenuItem
+            // 
+            this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
+            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(196, 24);
+            this.createSurveyToolStripMenuItem.Text = "Create Survey";
+            this.createSurveyToolStripMenuItem.Click += new System.EventHandler(this.BomSurveyButton_Click);
+            // 
+            // openSurveysToolStripMenuItem
+            // 
+            this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
+            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(196, 24);
+            this.openSurveysToolStripMenuItem.Text = "Open Surveys";
+            this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.OpenSurvey_Clicked);
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sendEmailToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.loadToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // sendEmailToolStripMenuItem
+            // 
+            this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.sendEmailToolStripMenuItem.Text = "Send Email";
+            this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.SendEmailButton_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.loadToolStripMenuItem.Text = "Load";
+            // 
             // vieToolStripMenuItem
             // 
             this.vieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -271,6 +285,18 @@
             this.bOMScoreToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.bOMScoreToolStripMenuItem.Text = "BOM Score";
             this.bOMScoreToolStripMenuItem.Click += new System.EventHandler(this.bOMScoreToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(172, 6);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(175, 24);
+            this.toolStripMenuItem2.Text = "Bubble Chart";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.btnLoadChart_Click);
             // 
             // workshopToolStripMenuItem
             // 
@@ -378,32 +404,6 @@
             this.seperatorLabel.TabIndex = 0;
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
-            // 
-            // createSurveyToolStripMenuItem
-            // 
-            this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
-            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(196, 24);
-            this.createSurveyToolStripMenuItem.Text = "Create Survey";
-            this.createSurveyToolStripMenuItem.Click += new System.EventHandler(this.BomSurveyButton_Click);
-            // 
-            // openSurveysToolStripMenuItem
-            // 
-            this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
-            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(196, 24);
-            this.openSurveysToolStripMenuItem.Text = "Open Surveys";
-            this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.OpenSurvey_Clicked);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(172, 6);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(175, 24);
-            this.toolStripMenuItem2.Text = "Bubble Chart";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.btnLoadChart_Click);
             // 
             // BOMTool
             // 

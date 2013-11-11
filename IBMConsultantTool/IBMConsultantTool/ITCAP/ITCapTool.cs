@@ -370,10 +370,6 @@ namespace IBMConsultantTool
             }
         }*/
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Console.WriteLine(e.RowIndex.ToString());
-        }
 
         private void surveryMakerGrid_MouseDown(object sender, MouseEventArgs e)
         {
