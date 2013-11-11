@@ -33,6 +33,13 @@
             this.analyticsListBox = new System.Windows.Forms.ListBox();
             this.metricsComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.testingLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.countryCheckBox = new System.Windows.Forms.CheckBox();
             this.countryComboBox = new System.Windows.Forms.ComboBox();
             this.imperativesComboBox = new System.Windows.Forms.ComboBox();
@@ -56,23 +63,16 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.chartPanel = new System.Windows.Forms.Panel();
-            this.testingLabel = new System.Windows.Forms.Label();
-            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
+            this.chartPanel = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
+            this.chartPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toDateText
@@ -163,6 +163,77 @@
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Size = new System.Drawing.Size(240, 705);
             this.filterPanel.TabIndex = 6;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(40, 425);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(112, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Tag = "All";
+            this.label6.Text = "Business Type";
+            // 
+            // testingLabel
+            // 
+            this.testingLabel.AutoSize = true;
+            this.testingLabel.Location = new System.Drawing.Point(40, 368);
+            this.testingLabel.Name = "testingLabel";
+            this.testingLabel.Size = new System.Drawing.Size(64, 20);
+            this.testingLabel.TabIndex = 0;
+            this.testingLabel.Tag = "All";
+            this.testingLabel.Text = "Country";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(40, 314);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Tag = "All";
+            this.label3.Text = "Region";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(40, 482);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 20);
+            this.label7.TabIndex = 5;
+            this.label7.Tag = "All";
+            this.label7.Text = "Start Date";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 294);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(224, 20);
+            this.label2.TabIndex = 27;
+            this.label2.Tag = "All";
+            this.label2.Text = "-------------------------------------------";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(40, 274);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 20);
+            this.label1.TabIndex = 26;
+            this.label1.Tag = "All";
+            this.label1.Text = "Filters";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(40, 540);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Tag = "All";
+            this.label5.Text = "End Date";
             // 
             // countryCheckBox
             // 
@@ -405,106 +476,6 @@
             this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
             // 
-            // chartPanel
-            // 
-            this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.chartPanel.Controls.Add(this.label4);
-            this.chartPanel.Location = new System.Drawing.Point(246, 361);
-            this.chartPanel.Name = "chartPanel";
-            this.chartPanel.Size = new System.Drawing.Size(745, 356);
-            this.chartPanel.TabIndex = 9;
-            // 
-            // testingLabel
-            // 
-            this.testingLabel.AutoSize = true;
-            this.testingLabel.Location = new System.Drawing.Point(40, 368);
-            this.testingLabel.Name = "testingLabel";
-            this.testingLabel.Size = new System.Drawing.Size(64, 20);
-            this.testingLabel.TabIndex = 0;
-            this.testingLabel.Tag = "All";
-            this.testingLabel.Text = "Country";
-            // 
-            // graphTypeComboBox
-            // 
-            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.graphTypeComboBox.FormattingEnabled = true;
-            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
-            this.graphTypeComboBox.Name = "graphTypeComboBox";
-            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
-            this.graphTypeComboBox.TabIndex = 10;
-            this.graphTypeComboBox.Text = "<Graph Type>";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(40, 274);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 20);
-            this.label1.TabIndex = 26;
-            this.label1.Tag = "All";
-            this.label1.Text = "Filters";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 294);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(224, 20);
-            this.label2.TabIndex = 27;
-            this.label2.Tag = "All";
-            this.label2.Text = "-------------------------------------------";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 314);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Tag = "All";
-            this.label3.Text = "Region";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(345, 166);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 20);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "label4";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(40, 540);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 20);
-            this.label5.TabIndex = 3;
-            this.label5.Tag = "All";
-            this.label5.Text = "End Date";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(40, 425);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(112, 20);
-            this.label6.TabIndex = 4;
-            this.label6.Tag = "All";
-            this.label6.Text = "Business Type";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(40, 482);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 20);
-            this.label7.TabIndex = 5;
-            this.label7.Tag = "All";
-            this.label7.Text = "Start Date";
-            // 
             // trendGridView
             // 
             this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -516,6 +487,7 @@
             this.trendGridView.Size = new System.Drawing.Size(740, 288);
             this.trendGridView.TabIndex = 0;
             this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
+            this.trendGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.trendGridView_CellMouseDown);
             this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
             // 
             // Collapse
@@ -528,6 +500,35 @@
             this.Collapse.Text = "+";
             this.Collapse.UseColumnTextForButtonValue = true;
             this.Collapse.Width = 30;
+            // 
+            // chartPanel
+            // 
+            this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.chartPanel.Controls.Add(this.label4);
+            this.chartPanel.Location = new System.Drawing.Point(246, 361);
+            this.chartPanel.Name = "chartPanel";
+            this.chartPanel.Size = new System.Drawing.Size(745, 356);
+            this.chartPanel.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(345, 166);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "label4";
+            // 
+            // graphTypeComboBox
+            // 
+            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.graphTypeComboBox.FormattingEnabled = true;
+            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
+            this.graphTypeComboBox.Name = "graphTypeComboBox";
+            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
+            this.graphTypeComboBox.TabIndex = 10;
+            this.graphTypeComboBox.Text = "<Graph Type>";
             // 
             // AnalyticsForm
             // 
@@ -552,9 +553,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.chartPanel.ResumeLayout(false);
             this.chartPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

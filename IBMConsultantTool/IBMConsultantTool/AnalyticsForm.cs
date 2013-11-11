@@ -609,7 +609,7 @@ namespace IBMConsultantTool
 
         private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 && e.RowIndex >0)
             {
                 TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
                 if (ent.Type1 == TrendAnalysisEntity.Type.Master)
@@ -1872,6 +1872,34 @@ namespace IBMConsultantTool
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        private void trendGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hit = trendGridView.HitTest(e.X, e.Y);
+                if (hit.ColumnIndex > 0 && hit.RowIndex >0)
+                {
+                    TrendAnalysisEntity ent = trendGridView.Rows[hit.RowIndex].DataBoundItem as TrendAnalysisEntity;
+
+                    ContextMenuStrip strip = new ContextMenuStrip();
+                    ToolStripMenuItem color = new ToolStripMenuItem();
+                    strip.Items.Add(color);
+                    color.Click +=new EventHandler(color_Click);
+                    color.Text = "Change Color";
+
+
+                    strip.Show(trendGridView, e.Location, ToolStripDropDownDirection.BelowRight);
+
+                }
+
+            }
+        }
+
+        private void color_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
