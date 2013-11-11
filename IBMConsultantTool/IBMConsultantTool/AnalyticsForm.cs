@@ -459,12 +459,9 @@ namespace IBMConsultantTool
                     ent.AsisScore = attributes.Average(d => d.AsisScore);
                     ent.TobeScore = attributes.Average(d => d.TobeScore);
                     ent.Type1 = TrendAnalysisEntity.Type.Master;
-
+                    ent.Name = itAttributesComboBox.Text;
                     attributesToTrack.Add(ent);
-                    trendGridView.DataSource = null;
-                    trendGridView.DataSource = attributes;
-                    trendGridView.Refresh();
-                    currentlyBeingTracked = "Attribute";
+                    
 
                     foreach (ITAttributeTrendAnalysis attr in attributes)
                     {
@@ -473,7 +470,13 @@ namespace IBMConsultantTool
                         attributesToTrack.Add(attr);
                     }
 
-                    
+                    trendGridView.DataSource = null;
+                    trendGridView.DataSource = attributesToTrack;
+                    trendGridView.Refresh();
+                    currentlyBeingTracked = "Attribute";
+                    trendGridView.Columns["Collapse"].Visible = true;
+
+                    CreateITAttributeGraph(attributesToTrack, "Attribute", metricsComboBox.Text);
                 }
                 else
                     MessageBox.Show("Query returned no results.");
@@ -1495,11 +1498,7 @@ namespace IBMConsultantTool
         {
             testingLabel.Visible = false;
 
-            foreach (ITAttributeTrendAnalysis ana in itAtt)
-            {
-                Console.WriteLine("Date: " + ana.Date.ToString() + ", as is: " + ana.AsisScore.ToString()
-                    + ", to be: " + ana.TobeScore.ToString() + ", " + ana.BusinessType.ToString());
-            }
+            numberOfGraph = 0;
 
             string saveName = boxText;
 
@@ -1517,19 +1516,16 @@ namespace IBMConsultantTool
             int cntNum = 0;
             int[] sameNum = new int[100];
 
-            #region All Line Graph
+            string seriesName = "";
 
-            if (boxText == "All")
-            {
-            }
-
-            #endregion
+            int eachClients = 0;
 
             #region Average Current Score Line Graph
 
-            else if (boxText == "Average As Is Score")
+            if (boxText == "Average As Is Score")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < itAtt.Count; cnt++)
                 {
                     string name = itAtt[cnt].Name;
@@ -1537,6 +1533,7 @@ namespace IBMConsultantTool
                     if (lineChart.Series.FindByName(name) == null)
                     {
                         lineChart.Series.Add(name);
+                        seriesName = name;
                         for (int i = 0; i < cntNum; i++)
                         {
                             sameNum[i] = new int();
@@ -1544,6 +1541,34 @@ namespace IBMConsultantTool
                         cntNum = 0;
                         newCount = 0;
                     }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (itAtt[cnt].Children > 0)
+                    {
+                        childrenCount = itAtt[cnt].Children;
+                        eachClients = itAtt[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                    }
+
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
                     lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -1568,12 +1593,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = itAtt[cnt].Date;
-                        for (int num = (cnt + 1); num < itAtt.Count; num++)
+                        for (int num = 1; num < childrenCount; num++)
                         {
-                            if (date == itAtt[num].Date)
+                            if (date == itAtt[num+cnt].Date)
                             {
-                                asIsScore += itAtt[num].AsisScore;
-                                sameNum[cntNum] = num;
+                                asIsScore += itAtt[num+cnt].AsisScore;
+                                sameNum[cntNum] = num+cnt;
                                 cntNum++;
                                 count++;
                             }
@@ -1596,6 +1621,7 @@ namespace IBMConsultantTool
                         }
                     }
                     newCount++;
+                    childrenCount--;
                 }
             }
 
@@ -1606,6 +1632,7 @@ namespace IBMConsultantTool
             else if (boxText == "Average To Be Score")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < itAtt.Count; cnt++)
                 {
                     string name = itAtt[cnt].Name;
@@ -1613,6 +1640,7 @@ namespace IBMConsultantTool
                     if (lineChart.Series.FindByName(name) == null)
                     {
                         lineChart.Series.Add(name);
+                        seriesName = name;
                         for (int i = 0; i < cntNum; i++)
                         {
                             sameNum[i] = new int();
@@ -1620,6 +1648,34 @@ namespace IBMConsultantTool
                         cntNum = 0;
                         newCount = 0;
                     }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (itAtt[cnt].Children > 0)
+                    {
+                        childrenCount = itAtt[cnt].Children;
+                        eachClients = itAtt[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                    }
+
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
                     lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -1644,12 +1700,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = itAtt[cnt].Date;
-                        for (int num = (cnt + 1); num < itAtt.Count; num++)
+                        for (int num = 1; num < childrenCount; num++)
                         {
-                            if (date == itAtt[num].Date)
+                            if (date == itAtt[num+cnt].Date)
                             {
-                                toBeScore += itAtt[num].AsisScore;
-                                sameNum[cntNum] = num;
+                                toBeScore += itAtt[num+cnt].AsisScore;
+                                sameNum[cntNum] = num+cnt;
                                 cntNum++;
                                 count++;
                             }
@@ -1672,6 +1728,7 @@ namespace IBMConsultantTool
                         }
                     }
                     newCount++;
+                    childrenCount--;
                 }
             }
 
@@ -1681,7 +1738,118 @@ namespace IBMConsultantTool
 
             else
             {
-                saveName = "Default";
+                saveName = "Default Current";
+
+                int newCount = 0;
+                int childrenCount = 0;
+                for (int cnt = 0; cnt < itAtt.Count; cnt++)
+                {
+                    string name = itAtt[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        seriesName = name;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (itAtt[cnt].Children > 0)
+                    {
+                        childrenCount = itAtt[cnt].Children;
+                        eachClients = itAtt[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                    }
+
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            cntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+                    if (newCount != sameNum[cntNum])
+                    {
+                        double asIsScore = itAtt[cnt].AsisScore;
+
+                        double[] asIs = new double[100];
+                        asIs[cnt] = itAtt[cnt].AsisScore;
+                        int count = 1;
+
+                        DateTime date = itAtt[cnt].Date;
+                        for (int num = 1; num < childrenCount; num++)
+                        {
+                            if (date == itAtt[num+cnt].Date)
+                            {
+                                asIsScore += itAtt[num+cnt].AsisScore;
+                                sameNum[cntNum] = num+cnt;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (childrenCount == 1)
+                        {
+                            if (date == itAtt[childrenCount + 1].Date)
+                            {
+                                asIsScore += itAtt[childrenCount + 1].AsisScore;
+                                sameNum[cntNum] = childrenCount + cnt;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            asIsScore /= count;
+
+                            double temp = Convert.ToDouble(asIsScore);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(itAtt[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(itAtt[cnt].Date, itAtt[cnt].AsisScore);
+                        }
+                    }
+                    newCount++;
+                    childrenCount--;
+                }
             }
 
             #endregion
