@@ -609,7 +609,7 @@ namespace IBMConsultantTool
 
         private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >0)
+            if (e.ColumnIndex == 0 && e.RowIndex >=0)
             {
                 TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
                 if (ent.Type1 == TrendAnalysisEntity.Type.Master)
@@ -1876,17 +1876,40 @@ namespace IBMConsultantTool
 
         private void trendGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
+            
+        }
+
+        private void color_Click(object sender, EventArgs e)
+        {
+            ColorDialog clrDialog = new ColorDialog();
+
+            clrDialog.AllowFullOpen = false;
+
+            clrDialog.ShowHelp = true;
+
+            clrDialog.Color = trendGridView.SelectedRows[0].DefaultCellStyle.BackColor;
+
+            if (clrDialog.ShowDialog() == DialogResult.OK)
+            {
+                trendGridView.SelectedRows[0].DefaultCellStyle.BackColor = clrDialog.Color;
+            }
+
+        }
+
+        private void trendGridView_MouseDown(object sender, MouseEventArgs e)
+        {
             if (e.Button == MouseButtons.Right)
             {
-                DataGridView.HitTestInfo hit = trendGridView.HitTest(e.X, e.Y);
-                if (hit.ColumnIndex > 0 && hit.RowIndex >0)
+                int currentMouseOverColumn = trendGridView.HitTest(e.X, e.Y).ColumnIndex;
+                int currentMouseOverRow = trendGridView.HitTest(e.X, e.Y).RowIndex;
+                if (currentMouseOverColumn > 0 && currentMouseOverRow >= 0)
                 {
-                    TrendAnalysisEntity ent = trendGridView.Rows[hit.RowIndex].DataBoundItem as TrendAnalysisEntity;
-
+                    TrendAnalysisEntity ent = trendGridView.Rows[currentMouseOverRow].DataBoundItem as TrendAnalysisEntity;
+                    trendGridView.Rows[currentMouseOverRow].Selected = true;
                     ContextMenuStrip strip = new ContextMenuStrip();
                     ToolStripMenuItem color = new ToolStripMenuItem();
                     strip.Items.Add(color);
-                    color.Click +=new EventHandler(color_Click);
+                    color.Click += new EventHandler(color_Click);
                     color.Text = "Change Color";
 
 
@@ -1895,11 +1918,6 @@ namespace IBMConsultantTool
                 }
 
             }
-        }
-
-        private void color_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

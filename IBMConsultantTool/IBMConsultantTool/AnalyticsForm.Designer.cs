@@ -63,16 +63,16 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.trendGridView = new System.Windows.Forms.DataGridView();
-            this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.chartPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.trendGridView = new System.Windows.Forms.DataGridView();
+            this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.chartPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // toDateText
@@ -476,31 +476,6 @@
             this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
             // 
-            // trendGridView
-            // 
-            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Collapse});
-            this.trendGridView.Location = new System.Drawing.Point(3, 8);
-            this.trendGridView.Name = "trendGridView";
-            this.trendGridView.ReadOnly = true;
-            this.trendGridView.Size = new System.Drawing.Size(740, 288);
-            this.trendGridView.TabIndex = 0;
-            this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
-            this.trendGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.trendGridView_CellMouseDown);
-            this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
-            // 
-            // Collapse
-            // 
-            this.Collapse.HeaderText = "";
-            this.Collapse.Name = "Collapse";
-            this.Collapse.ReadOnly = true;
-            this.Collapse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Collapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Collapse.Text = "+";
-            this.Collapse.UseColumnTextForButtonValue = true;
-            this.Collapse.Width = 30;
-            // 
             // chartPanel
             // 
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -530,6 +505,32 @@
             this.graphTypeComboBox.TabIndex = 10;
             this.graphTypeComboBox.Text = "<Graph Type>";
             // 
+            // trendGridView
+            // 
+            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Collapse});
+            this.trendGridView.Location = new System.Drawing.Point(3, 8);
+            this.trendGridView.Name = "trendGridView";
+            this.trendGridView.ReadOnly = true;
+            this.trendGridView.Size = new System.Drawing.Size(740, 288);
+            this.trendGridView.TabIndex = 0;
+            this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
+            this.trendGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.trendGridView_CellMouseDown);
+            this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
+            this.trendGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trendGridView_MouseDown);
+            // 
+            // Collapse
+            // 
+            this.Collapse.HeaderText = "";
+            this.Collapse.Name = "Collapse";
+            this.Collapse.ReadOnly = true;
+            this.Collapse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Collapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Collapse.Text = "+";
+            this.Collapse.UseColumnTextForButtonValue = true;
+            this.Collapse.Width = 30;
+            // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -553,9 +554,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.chartPanel.ResumeLayout(false);
             this.chartPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
