@@ -1436,19 +1436,15 @@ namespace IBMConsultantTool
 
         private void LoadSurveys()
         {
-
-            UpdateUI(false);
             loadingScreen = new LoadingScreen(this);
-            Invoke(new UpdateUIDelegate(UpdateUI), new object[] { true });
+            UpdateUI(false);
+            
+            
         }
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientDataControl.SetParticipants(new List<Person>());
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
-
-            
-
-
 
             Thread t = new Thread(new ThreadStart(LoadSurveys));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
@@ -1464,6 +1460,7 @@ namespace IBMConsultantTool
             LoadAnswersFromDataControl();
             ClientDataControl.SaveCUPE();
             ClientDataControl.SaveParticipantsToDB();
+            UpdateUI(true);
 
             //Help / Tutorial Step
             if (HelpEnabled && HelpCurrentStep == 1)
