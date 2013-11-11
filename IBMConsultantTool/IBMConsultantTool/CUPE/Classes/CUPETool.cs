@@ -1230,13 +1230,6 @@ namespace IBMConsultantTool
                 }
             }
         }
-        
-        //load the data in the cupe Charts to the ClientDataControl
-        private void loadCupeDataValues()
-        {
-
-
-        }
 
         //Saves the table values to the clientdatacontrol
         private void saveCupeDataValues()

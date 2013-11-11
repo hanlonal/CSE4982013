@@ -37,7 +37,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createSurveyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSurveysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,16 +62,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.createSurveyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSurveysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // catWorkspace
             // 
-            this.catWorkspace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.catWorkspace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.catWorkspace.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.catWorkspace.ItemSize = new System.Drawing.Size(0, 35);
             this.catWorkspace.Location = new System.Drawing.Point(11, 34);
@@ -157,7 +156,6 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sendEmailToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.loadToolStripMenuItem,
             this.createSurveyToolStripMenuItem1,
             this.openSurveysToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -178,11 +176,19 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // loadToolStripMenuItem
+            // createSurveyToolStripMenuItem1
             // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadToolStripMenuItem.Text = "Load";
+            this.createSurveyToolStripMenuItem1.Name = "createSurveyToolStripMenuItem1";
+            this.createSurveyToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.createSurveyToolStripMenuItem1.Text = "Create Survey";
+            this.createSurveyToolStripMenuItem1.Click += new System.EventHandler(this.BomSurveyButton_Click);
+            // 
+            // openSurveysToolStripMenuItem1
+            // 
+            this.openSurveysToolStripMenuItem1.Name = "openSurveysToolStripMenuItem1";
+            this.openSurveysToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.openSurveysToolStripMenuItem1.Text = "Open Surveys";
+            this.openSurveysToolStripMenuItem1.Click += new System.EventHandler(this.OpenSurvey_Clicked);
             // 
             // editToolStripMenuItem
             // 
@@ -317,9 +323,9 @@
             // 
             // detailInfoPanel
             // 
-            this.detailInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.detailInfoPanel.AutoScroll = true;
             this.detailInfoPanel.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.detailInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -392,20 +398,6 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
             // 
-            // createSurveyToolStripMenuItem1
-            // 
-            this.createSurveyToolStripMenuItem1.Name = "createSurveyToolStripMenuItem1";
-            this.createSurveyToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.createSurveyToolStripMenuItem1.Text = "Create Survey";
-            this.createSurveyToolStripMenuItem1.Click += new System.EventHandler(this.BomSurveyButton_Click);
-            // 
-            // openSurveysToolStripMenuItem1
-            // 
-            this.openSurveysToolStripMenuItem1.Name = "openSurveysToolStripMenuItem1";
-            this.openSurveysToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.openSurveysToolStripMenuItem1.Text = "Open Surveys";
-            this.openSurveysToolStripMenuItem1.Click += new System.EventHandler(this.OpenSurvey_Clicked);
-            // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -458,7 +450,6 @@
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTCapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMScoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem staticMenuItem;
