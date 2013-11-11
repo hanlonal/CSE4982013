@@ -85,6 +85,8 @@ namespace IBMConsultantTool
             client.Add(new XElement("BOMS"));
             client.Add(new XElement("CUPES"));
             client.Add(new XElement("ITCAPS"));
+            client.Add(new XElement("ITCAPOBJMAPS"));
+            client.Add(new XElement("CAPABILITYGAPINFOS"));
 
             dbo.Element("CLIENTS").Add(client);
 
@@ -763,42 +765,6 @@ namespace IBMConsultantTool
                                 itcapQuestion.AsIsNumThrees + " " + itcapQuestion.TobeNumThrees + " " +
                                 itcapQuestion.AsIsNumFours + " " + itcapQuestion.TobeNumFours + " " +
                                 itcapQuestion.AsIsNumFives + " " + itcapQuestion.TobeNumFives);
-
-                XElement grp;
-                if (GetGroup("ITCAP", client, out grp))
-                {
-                    List<XElement> contactsToDelete = grp.Element("CONTACTS").Elements("CONTACT").ToList();
-                    foreach (XElement contactToDelete in contactsToDelete)
-                    {
-                        contactToDelete.Remove();
-                    }
-
-                    changeLog.Add("DELETE CONTACTITCAPS " + client.Element("NAME").Value.Replace(' ', '~'));
-
-                    XElement contactITCAP;
-                    XElement contact;
-                    for (int i = 0; i < itcapQuestion.asIsAnswers.Count; i++)
-                    {
-                        contactITCAP = new XElement("ITCAP");
-                        contactITCAP.Add(new XElement("ITCAPQUESTION", itcapQuestion.Name));
-                        contactITCAP.Add(new XElement("ASIS", itcapQuestion.asIsAnswers[i]));
-                        contactITCAP.Add(new XElement("TOBE", itcapQuestion.toBeAnswers[i]));
-                        contactITCAP.Add(new XElement("COMMENT", ""));
-
-                        contact = new XElement("CONTACT");
-                        contact.Add(new XElement("ID", rnd.Next()));
-                        grp.Element("CONTACTS").Add(contact);
-
-                        contact.Element("ITCAPS").Add(contactITCAP);
-                        changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') +
-                            " ITCAP " + contact.Element("ID").Value.Replace(' ', '~'));
-
-                        changeLog.Add("ADD ITCAP CONTACT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
-                            " ITCAP " + contact.Element("ID").Value.Replace(' ', '~') + " " +
-                            itcapQuestion.Name.Replace(' ', '~') + contactITCAP.Element("ASIS").Value
-                            + " " + contactITCAP.Element("TOBE").Value);
-                    }
-                }
             }
 
             catch
@@ -1050,6 +1016,7 @@ namespace IBMConsultantTool
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             client.Element("ITCAPS").RemoveAll();
+            client.Element("CAPABILITYGAPINFOS").RemoveAll();
 
             XElement itcapEnt = new XElement("ITCAP");
             XElement itcqEnt;

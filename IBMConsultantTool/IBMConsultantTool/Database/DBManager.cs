@@ -935,6 +935,12 @@ namespace IBMConsultantTool
                 dbo.DeleteObject(itcap);
             }
 
+            List<CAPABILITYGAPINFO> capGapInfoList = client.CAPABILITYGAPINFO.ToList();
+            foreach (CAPABILITYGAPINFO capGapInfo in capGapInfoList)
+            {
+                dbo.DeleteObject(capGapInfo);
+            }
+
             SaveChanges();
 
             ITCAP itcapEnt;
