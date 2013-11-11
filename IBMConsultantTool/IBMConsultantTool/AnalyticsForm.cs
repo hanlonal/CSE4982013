@@ -1482,14 +1482,14 @@ namespace IBMConsultantTool
         private void regionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             countryComboBox.Items.Clear();
-            countryComboBox.Text = "<All Countries>";
+            countryComboBox.Text = "All";
             countryComboBox.Items.AddRange(db.GetCountryNames(regionComboBox.Text).ToArray());
         }
 
         private void regionComboBox_LostFocus(object sender, EventArgs e)
         {
             countryComboBox.Items.Clear();
-            countryComboBox.Text = "<All Countries>";
+            countryComboBox.Text = "All";
             countryComboBox.Items.AddRange(db.GetCountryNames(regionComboBox.Text).ToArray());
         }
 

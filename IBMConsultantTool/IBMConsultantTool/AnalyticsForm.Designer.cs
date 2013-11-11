@@ -252,7 +252,7 @@
             this.countryComboBox.Size = new System.Drawing.Size(184, 28);
             this.countryComboBox.TabIndex = 24;
             this.countryComboBox.Tag = "All";
-            this.countryComboBox.Text = "<All Countries>";
+            this.countryComboBox.Text = "All";
             // 
             // imperativesComboBox
             // 
