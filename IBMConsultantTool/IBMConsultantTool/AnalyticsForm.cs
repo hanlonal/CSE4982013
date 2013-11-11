@@ -403,7 +403,7 @@ namespace IBMConsultantTool
                 List<CUPEQuestionTrendAnalysis> cupes = new List<CUPEQuestionTrendAnalysis>();
 
                 cupes = db.GetCUPEQuestionTrendAnalysis(cupeQuestionsComboBox.Text, region, country, busi, from, to);
-                if (cupes.Count < 0)
+                if (cupes.Count > 0)
                 {
                     cupes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float asIsAaverage = cupes.Average(d => d.CurrentAnswer);
