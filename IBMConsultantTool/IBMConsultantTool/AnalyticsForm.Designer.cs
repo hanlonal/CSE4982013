@@ -35,7 +35,6 @@
             this.filterPanel = new System.Windows.Forms.Panel();
             this.countryCheckBox = new System.Windows.Forms.CheckBox();
             this.countryComboBox = new System.Windows.Forms.ComboBox();
-            this.submitQueryButton = new System.Windows.Forms.Button();
             this.imperativesComboBox = new System.Windows.Forms.ComboBox();
             this.clearGridButton = new System.Windows.Forms.Button();
             this.itAttributesComboBox = new System.Windows.Forms.ComboBox();
@@ -57,23 +56,30 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.trendGridView = new System.Windows.Forms.DataGridView();
-            this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.chartPanel = new System.Windows.Forms.Panel();
             this.testingLabel = new System.Windows.Forms.Label();
             this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.trendGridView = new System.Windows.Forms.DataGridView();
+            this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.chartPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // toDateText
             // 
             this.toDateText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.toDateText.Enabled = false;
-            this.toDateText.Location = new System.Drawing.Point(44, 502);
+            this.toDateText.Location = new System.Drawing.Point(44, 563);
             this.toDateText.Name = "toDateText";
             this.toDateText.ReadOnly = true;
             this.toDateText.Size = new System.Drawing.Size(184, 26);
@@ -86,7 +92,7 @@
             // 
             this.fromDateText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.fromDateText.Enabled = false;
-            this.fromDateText.Location = new System.Drawing.Point(44, 454);
+            this.fromDateText.Location = new System.Drawing.Point(44, 505);
             this.fromDateText.Name = "fromDateText";
             this.fromDateText.ReadOnly = true;
             this.fromDateText.Size = new System.Drawing.Size(184, 26);
@@ -124,9 +130,15 @@
             // filterPanel
             // 
             this.filterPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.filterPanel.Controls.Add(this.label6);
+            this.filterPanel.Controls.Add(this.testingLabel);
+            this.filterPanel.Controls.Add(this.label3);
+            this.filterPanel.Controls.Add(this.label7);
+            this.filterPanel.Controls.Add(this.label2);
+            this.filterPanel.Controls.Add(this.label1);
+            this.filterPanel.Controls.Add(this.label5);
             this.filterPanel.Controls.Add(this.countryCheckBox);
             this.filterPanel.Controls.Add(this.countryComboBox);
-            this.filterPanel.Controls.Add(this.submitQueryButton);
             this.filterPanel.Controls.Add(this.imperativesComboBox);
             this.filterPanel.Controls.Add(this.clearGridButton);
             this.filterPanel.Controls.Add(this.itAttributesComboBox);
@@ -155,9 +167,7 @@
             // countryCheckBox
             // 
             this.countryCheckBox.AutoSize = true;
-            this.countryCheckBox.Checked = true;
-            this.countryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.countryCheckBox.Location = new System.Drawing.Point(12, 352);
+            this.countryCheckBox.Location = new System.Drawing.Point(12, 394);
             this.countryCheckBox.Name = "countryCheckBox";
             this.countryCheckBox.Size = new System.Drawing.Size(15, 14);
             this.countryCheckBox.TabIndex = 25;
@@ -168,27 +178,17 @@
             // 
             this.countryComboBox.Enabled = false;
             this.countryComboBox.FormattingEnabled = true;
-            this.countryComboBox.Location = new System.Drawing.Point(44, 352);
+            this.countryComboBox.Location = new System.Drawing.Point(44, 394);
             this.countryComboBox.Name = "countryComboBox";
             this.countryComboBox.Size = new System.Drawing.Size(184, 28);
             this.countryComboBox.TabIndex = 24;
             this.countryComboBox.Tag = "All";
             this.countryComboBox.Text = "<All Countries>";
             // 
-            // submitQueryButton
-            // 
-            this.submitQueryButton.Location = new System.Drawing.Point(44, 597);
-            this.submitQueryButton.Name = "submitQueryButton";
-            this.submitQueryButton.Size = new System.Drawing.Size(139, 31);
-            this.submitQueryButton.TabIndex = 23;
-            this.submitQueryButton.Tag = "All";
-            this.submitQueryButton.Text = "Submit Query";
-            this.submitQueryButton.UseVisualStyleBackColor = true;
-            // 
             // imperativesComboBox
             // 
             this.imperativesComboBox.FormattingEnabled = true;
-            this.imperativesComboBox.Location = new System.Drawing.Point(15, 148);
+            this.imperativesComboBox.Location = new System.Drawing.Point(12, 133);
             this.imperativesComboBox.Name = "imperativesComboBox";
             this.imperativesComboBox.Size = new System.Drawing.Size(216, 28);
             this.imperativesComboBox.TabIndex = 22;
@@ -198,7 +198,7 @@
             // 
             // clearGridButton
             // 
-            this.clearGridButton.Location = new System.Drawing.Point(44, 646);
+            this.clearGridButton.Location = new System.Drawing.Point(44, 662);
             this.clearGridButton.Name = "clearGridButton";
             this.clearGridButton.Size = new System.Drawing.Size(139, 31);
             this.clearGridButton.TabIndex = 21;
@@ -210,7 +210,7 @@
             // itAttributesComboBox
             // 
             this.itAttributesComboBox.FormattingEnabled = true;
-            this.itAttributesComboBox.Location = new System.Drawing.Point(12, 250);
+            this.itAttributesComboBox.Location = new System.Drawing.Point(9, 235);
             this.itAttributesComboBox.Name = "itAttributesComboBox";
             this.itAttributesComboBox.Size = new System.Drawing.Size(216, 28);
             this.itAttributesComboBox.TabIndex = 20;
@@ -221,7 +221,7 @@
             // cupeTimeFrameComboBox
             // 
             this.cupeTimeFrameComboBox.FormattingEnabled = true;
-            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(44, 250);
+            this.cupeTimeFrameComboBox.Location = new System.Drawing.Point(41, 235);
             this.cupeTimeFrameComboBox.Name = "cupeTimeFrameComboBox";
             this.cupeTimeFrameComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeTimeFrameComboBox.TabIndex = 19;
@@ -232,7 +232,7 @@
             // cupeAnswerTypeComboBox
             // 
             this.cupeAnswerTypeComboBox.FormattingEnabled = true;
-            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(44, 198);
+            this.cupeAnswerTypeComboBox.Location = new System.Drawing.Point(41, 183);
             this.cupeAnswerTypeComboBox.Name = "cupeAnswerTypeComboBox";
             this.cupeAnswerTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.cupeAnswerTypeComboBox.TabIndex = 18;
@@ -243,7 +243,7 @@
             // capabilitiesComboBox
             // 
             this.capabilitiesComboBox.FormattingEnabled = true;
-            this.capabilitiesComboBox.Location = new System.Drawing.Point(12, 198);
+            this.capabilitiesComboBox.Location = new System.Drawing.Point(9, 183);
             this.capabilitiesComboBox.Name = "capabilitiesComboBox";
             this.capabilitiesComboBox.Size = new System.Drawing.Size(216, 28);
             this.capabilitiesComboBox.TabIndex = 17;
@@ -254,7 +254,7 @@
             // cupeQuestionsComboBox
             // 
             this.cupeQuestionsComboBox.FormattingEnabled = true;
-            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(12, 148);
+            this.cupeQuestionsComboBox.Location = new System.Drawing.Point(9, 133);
             this.cupeQuestionsComboBox.Name = "cupeQuestionsComboBox";
             this.cupeQuestionsComboBox.Size = new System.Drawing.Size(216, 28);
             this.cupeQuestionsComboBox.TabIndex = 16;
@@ -265,7 +265,7 @@
             // objectiveNamesComboBox
             // 
             this.objectiveNamesComboBox.FormattingEnabled = true;
-            this.objectiveNamesComboBox.Location = new System.Drawing.Point(12, 148);
+            this.objectiveNamesComboBox.Location = new System.Drawing.Point(9, 133);
             this.objectiveNamesComboBox.Name = "objectiveNamesComboBox";
             this.objectiveNamesComboBox.Size = new System.Drawing.Size(216, 28);
             this.objectiveNamesComboBox.TabIndex = 15;
@@ -275,7 +275,7 @@
             // 
             // showResultsButton
             // 
-            this.showResultsButton.Location = new System.Drawing.Point(44, 549);
+            this.showResultsButton.Location = new System.Drawing.Point(44, 610);
             this.showResultsButton.Name = "showResultsButton";
             this.showResultsButton.Size = new System.Drawing.Size(139, 31);
             this.showResultsButton.TabIndex = 14;
@@ -287,7 +287,7 @@
             // domainsComboBox
             // 
             this.domainsComboBox.FormattingEnabled = true;
-            this.domainsComboBox.Location = new System.Drawing.Point(12, 148);
+            this.domainsComboBox.Location = new System.Drawing.Point(9, 133);
             this.domainsComboBox.Name = "domainsComboBox";
             this.domainsComboBox.Size = new System.Drawing.Size(216, 28);
             this.domainsComboBox.TabIndex = 12;
@@ -298,9 +298,7 @@
             // fromDateCheckBox
             // 
             this.fromDateCheckBox.AutoSize = true;
-            this.fromDateCheckBox.Checked = true;
-            this.fromDateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 454);
+            this.fromDateCheckBox.Location = new System.Drawing.Point(12, 505);
             this.fromDateCheckBox.Name = "fromDateCheckBox";
             this.fromDateCheckBox.Size = new System.Drawing.Size(15, 14);
             this.fromDateCheckBox.TabIndex = 11;
@@ -310,9 +308,7 @@
             // toDateCheckBox
             // 
             this.toDateCheckBox.AutoSize = true;
-            this.toDateCheckBox.Checked = true;
-            this.toDateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toDateCheckBox.Location = new System.Drawing.Point(12, 502);
+            this.toDateCheckBox.Location = new System.Drawing.Point(12, 563);
             this.toDateCheckBox.Name = "toDateCheckBox";
             this.toDateCheckBox.Size = new System.Drawing.Size(15, 14);
             this.toDateCheckBox.TabIndex = 10;
@@ -322,9 +318,7 @@
             // regionCheckBox
             // 
             this.regionCheckBox.AutoSize = true;
-            this.regionCheckBox.Checked = true;
-            this.regionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.regionCheckBox.Location = new System.Drawing.Point(12, 307);
+            this.regionCheckBox.Location = new System.Drawing.Point(12, 337);
             this.regionCheckBox.Name = "regionCheckBox";
             this.regionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.regionCheckBox.TabIndex = 9;
@@ -334,9 +328,7 @@
             // typeCheckBox
             // 
             this.typeCheckBox.AutoSize = true;
-            this.typeCheckBox.Checked = true;
-            this.typeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.typeCheckBox.Location = new System.Drawing.Point(12, 403);
+            this.typeCheckBox.Location = new System.Drawing.Point(12, 451);
             this.typeCheckBox.Name = "typeCheckBox";
             this.typeCheckBox.Size = new System.Drawing.Size(15, 14);
             this.typeCheckBox.TabIndex = 8;
@@ -347,7 +339,7 @@
             // 
             this.regionComboBox.Enabled = false;
             this.regionComboBox.FormattingEnabled = true;
-            this.regionComboBox.Location = new System.Drawing.Point(44, 307);
+            this.regionComboBox.Location = new System.Drawing.Point(44, 337);
             this.regionComboBox.Name = "regionComboBox";
             this.regionComboBox.Size = new System.Drawing.Size(184, 28);
             this.regionComboBox.TabIndex = 7;
@@ -360,7 +352,7 @@
             // 
             this.businessTypeComboBox.Enabled = false;
             this.businessTypeComboBox.FormattingEnabled = true;
-            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 403);
+            this.businessTypeComboBox.Location = new System.Drawing.Point(44, 451);
             this.businessTypeComboBox.Name = "businessTypeComboBox";
             this.businessTypeComboBox.Size = new System.Drawing.Size(184, 28);
             this.businessTypeComboBox.TabIndex = 6;
@@ -413,10 +405,111 @@
             this.dataPanel.Size = new System.Drawing.Size(750, 298);
             this.dataPanel.TabIndex = 8;
             // 
+            // chartPanel
+            // 
+            this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.chartPanel.Controls.Add(this.label4);
+            this.chartPanel.Location = new System.Drawing.Point(246, 361);
+            this.chartPanel.Name = "chartPanel";
+            this.chartPanel.Size = new System.Drawing.Size(745, 356);
+            this.chartPanel.TabIndex = 9;
+            // 
+            // testingLabel
+            // 
+            this.testingLabel.AutoSize = true;
+            this.testingLabel.Location = new System.Drawing.Point(40, 368);
+            this.testingLabel.Name = "testingLabel";
+            this.testingLabel.Size = new System.Drawing.Size(64, 20);
+            this.testingLabel.TabIndex = 0;
+            this.testingLabel.Tag = "All";
+            this.testingLabel.Text = "Country";
+            // 
+            // graphTypeComboBox
+            // 
+            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.graphTypeComboBox.FormattingEnabled = true;
+            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
+            this.graphTypeComboBox.Name = "graphTypeComboBox";
+            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
+            this.graphTypeComboBox.TabIndex = 10;
+            this.graphTypeComboBox.Text = "<Graph Type>";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(40, 274);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 20);
+            this.label1.TabIndex = 26;
+            this.label1.Tag = "All";
+            this.label1.Text = "Filters";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 294);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(224, 20);
+            this.label2.TabIndex = 27;
+            this.label2.Tag = "All";
+            this.label2.Text = "-------------------------------------------";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(40, 314);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Tag = "All";
+            this.label3.Text = "Region";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(345, 166);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "label4";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(40, 540);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Tag = "All";
+            this.label5.Text = "End Date";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(40, 425);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(112, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Tag = "All";
+            this.label6.Text = "Business Type";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(40, 482);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 20);
+            this.label7.TabIndex = 5;
+            this.label7.Tag = "All";
+            this.label7.Text = "Start Date";
+            // 
             // trendGridView
             // 
             this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.Collapse});
+            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Collapse});
             this.trendGridView.Location = new System.Drawing.Point(3, 8);
             this.trendGridView.Name = "trendGridView";
             this.trendGridView.ReadOnly = true;
@@ -424,6 +517,7 @@
             this.trendGridView.TabIndex = 0;
             this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
             this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
+            this.trendGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trendGridView_MouseDown);
             // 
             // Collapse
             // 
@@ -435,35 +529,6 @@
             this.Collapse.Text = "+";
             this.Collapse.UseColumnTextForButtonValue = true;
             this.Collapse.Width = 30;
-            // 
-            // chartPanel
-            // 
-            this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.chartPanel.Controls.Add(this.testingLabel);
-            this.chartPanel.Location = new System.Drawing.Point(246, 361);
-            this.chartPanel.Name = "chartPanel";
-            this.chartPanel.Size = new System.Drawing.Size(745, 356);
-            this.chartPanel.TabIndex = 9;
-            // 
-            // testingLabel
-            // 
-            this.testingLabel.AutoSize = true;
-            this.testingLabel.Location = new System.Drawing.Point(277, 163);
-            this.testingLabel.Name = "testingLabel";
-            this.testingLabel.Size = new System.Drawing.Size(51, 20);
-            this.testingLabel.TabIndex = 0;
-            this.testingLabel.Text = "label1";
-            // 
-            // graphTypeComboBox
-            // 
-            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.graphTypeComboBox.FormattingEnabled = true;
-            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
-            this.graphTypeComboBox.Name = "graphTypeComboBox";
-            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
-            this.graphTypeComboBox.TabIndex = 10;
-            this.graphTypeComboBox.Text = "<Graph Type>";
             // 
             // AnalyticsForm
             // 
@@ -488,9 +553,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.chartPanel.ResumeLayout(false);
             this.chartPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,11 +591,17 @@
         private System.Windows.Forms.ComboBox itAttributesComboBox;
         private System.Windows.Forms.Button clearGridButton;
         private System.Windows.Forms.ComboBox imperativesComboBox;
-        private System.Windows.Forms.Button submitQueryButton;
         private System.Windows.Forms.CheckBox countryCheckBox;
         private System.Windows.Forms.ComboBox countryComboBox;
         private System.Windows.Forms.ComboBox graphTypeComboBox;
         private System.Windows.Forms.Label testingLabel;
         private DataGridViewDisableButtonColumn Collapse;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
     }
 }
