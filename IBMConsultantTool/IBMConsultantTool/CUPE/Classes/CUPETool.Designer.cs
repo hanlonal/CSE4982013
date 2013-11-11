@@ -96,6 +96,7 @@
             this.busiFutureRadioButton = new System.Windows.Forms.RadioButton();
             this.itFutureRadioButton = new System.Windows.Forms.RadioButton();
             this.questionInfoPanel = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.QuestionView = new System.Windows.Forms.TreeView();
             this.filterQuestionsGo = new System.Windows.Forms.Button();
             this.questionFilterAmount = new System.Windows.Forms.ComboBox();
@@ -166,7 +167,6 @@
             this.iTCapabilityToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beginTutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.busiCurrentGraph)).BeginInit();
@@ -299,7 +299,7 @@
             this.itCurrentRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.itCurrentRadioButton.AutoSize = true;
             this.itCurrentRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.itCurrentRadioButton.Location = new System.Drawing.Point(657, 498);
+            this.itCurrentRadioButton.Location = new System.Drawing.Point(649, 498);
             this.itCurrentRadioButton.Name = "itCurrentRadioButton";
             this.itCurrentRadioButton.Size = new System.Drawing.Size(110, 17);
             this.itCurrentRadioButton.TabIndex = 3;
@@ -493,7 +493,7 @@
             this.itFutureRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.itFutureRadioButton.AutoSize = true;
             this.itFutureRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.itFutureRadioButton.Location = new System.Drawing.Point(860, 498);
+            this.itFutureRadioButton.Location = new System.Drawing.Point(851, 498);
             this.itFutureRadioButton.Name = "itFutureRadioButton";
             this.itFutureRadioButton.Size = new System.Drawing.Size(110, 17);
             this.itFutureRadioButton.TabIndex = 5;
@@ -522,6 +522,14 @@
             this.questionInfoPanel.Size = new System.Drawing.Size(1006, 195);
             this.questionInfoPanel.TabIndex = 10;
             this.questionInfoPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.questionInfoPanel_Paint);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(100, 171);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(904, 22);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // QuestionView
             // 
@@ -1251,14 +1259,6 @@
             this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
             this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(100, 171);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(904, 22);
-            this.statusStrip1.TabIndex = 10;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // CUPETool
             // 

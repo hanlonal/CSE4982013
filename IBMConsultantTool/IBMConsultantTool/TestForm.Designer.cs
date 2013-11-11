@@ -50,9 +50,9 @@
             // 
             this.NewConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.NewConsultButton.Image = ((System.Drawing.Image)(resources.GetObject("NewConsultButton.Image")));
-            this.NewConsultButton.Location = new System.Drawing.Point(91, 145);
+            this.NewConsultButton.Location = new System.Drawing.Point(78, 135);
             this.NewConsultButton.Name = "NewConsultButton";
-            this.NewConsultButton.Size = new System.Drawing.Size(118, 128);
+            this.NewConsultButton.Size = new System.Drawing.Size(132, 132);
             this.NewConsultButton.TabIndex = 3;
             this.NewConsultButton.TabStop = false;
             this.NewConsultButton.Click += new System.EventHandler(this.NewConsultButton_Click);
@@ -83,9 +83,9 @@
             // 
             this.TrendAnalysisButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TrendAnalysisButton.Image = ((System.Drawing.Image)(resources.GetObject("TrendAnalysisButton.Image")));
-            this.TrendAnalysisButton.Location = new System.Drawing.Point(91, 445);
+            this.TrendAnalysisButton.Location = new System.Drawing.Point(78, 454);
             this.TrendAnalysisButton.Name = "TrendAnalysisButton";
-            this.TrendAnalysisButton.Size = new System.Drawing.Size(118, 124);
+            this.TrendAnalysisButton.Size = new System.Drawing.Size(132, 132);
             this.TrendAnalysisButton.TabIndex = 7;
             this.TrendAnalysisButton.TabStop = false;
             this.TrendAnalysisButton.Click += new System.EventHandler(this.TrendAnalysisButton_Click);
@@ -137,9 +137,9 @@
             // 
             this.LoadConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoadConsultButton.Image = global::IBMConsultantTool.Properties.Resources.load_upload_icon;
-            this.LoadConsultButton.Location = new System.Drawing.Point(91, 294);
+            this.LoadConsultButton.Location = new System.Drawing.Point(78, 294);
             this.LoadConsultButton.Name = "LoadConsultButton";
-            this.LoadConsultButton.Size = new System.Drawing.Size(118, 120);
+            this.LoadConsultButton.Size = new System.Drawing.Size(132, 132);
             this.LoadConsultButton.TabIndex = 13;
             this.LoadConsultButton.TabStop = false;
             this.LoadConsultButton.Click += new System.EventHandler(this.LoadConsultButton_Click);
