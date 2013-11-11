@@ -59,18 +59,18 @@
             this.regionComboBox = new System.Windows.Forms.ComboBox();
             this.businessTypeComboBox = new System.Windows.Forms.ComboBox();
             this.metricCheckBox = new System.Windows.Forms.CheckBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
+            this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterPanel.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toDateText
@@ -440,30 +440,6 @@
             this.metricCheckBox.Tag = "All";
             this.metricCheckBox.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
-            this.menuStrip1.TabIndex = 7;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
-            this.toolStripMenuItem1.Text = "File";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
-            // 
             // dataPanel
             // 
             this.dataPanel.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -482,16 +458,6 @@
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(745, 356);
             this.chartPanel.TabIndex = 9;
-            // 
-            // graphTypeComboBox
-            // 
-            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.graphTypeComboBox.FormattingEnabled = true;
-            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
-            this.graphTypeComboBox.Name = "graphTypeComboBox";
-            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
-            this.graphTypeComboBox.TabIndex = 10;
-            this.graphTypeComboBox.Text = "<Graph Type>";
             // 
             // trendGridView
             // 
@@ -520,6 +486,41 @@
             this.Collapse.UseColumnTextForButtonValue = true;
             this.Collapse.Width = 30;
             // 
+            // graphTypeComboBox
+            // 
+            this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.graphTypeComboBox.FormattingEnabled = true;
+            this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
+            this.graphTypeComboBox.Name = "graphTypeComboBox";
+            this.graphTypeComboBox.Size = new System.Drawing.Size(173, 28);
+            this.graphTypeComboBox.TabIndex = 10;
+            this.graphTypeComboBox.Text = "<Graph Type>";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -540,10 +541,10 @@
             this.Load += new System.EventHandler(this.AnalyticsForm_Load);
             this.filterPanel.ResumeLayout(false);
             this.filterPanel.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -556,9 +557,6 @@
         private System.Windows.Forms.ListBox analyticsListBox;
         private System.Windows.Forms.ComboBox metricsComboBox;
         private System.Windows.Forms.Panel filterPanel;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.Panel dataPanel;
         private System.Windows.Forms.CheckBox fromDateCheckBox;
         private System.Windows.Forms.CheckBox toDateCheckBox;
@@ -581,7 +579,6 @@
         private System.Windows.Forms.ComboBox imperativesComboBox;
         private System.Windows.Forms.CheckBox countryCheckBox;
         private System.Windows.Forms.ComboBox countryComboBox;
-        private System.Windows.Forms.ComboBox graphTypeComboBox;
         private System.Windows.Forms.Label testingLabel;
         private DataGridViewDisableButtonColumn Collapse;
         private System.Windows.Forms.Label label6;
@@ -590,5 +587,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox graphTypeComboBox;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }

@@ -1923,5 +1923,19 @@ namespace IBMConsultantTool
 
             }
         }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RunTestForm));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RunTestForm()
+        {
+            Application.Run(new TestForm());
+        }
     }
 }

@@ -325,7 +325,6 @@ namespace IBMConsultantTool
         {
             currentGrid.DataSource = null;
             currentGrid.DataSource = entities;
-
         }
         //not used
         /*private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
