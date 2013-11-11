@@ -64,14 +64,12 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
             this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.trendGridView = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -480,20 +478,10 @@
             // 
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.chartPanel.Controls.Add(this.label4);
             this.chartPanel.Location = new System.Drawing.Point(246, 361);
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(745, 356);
             this.chartPanel.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(345, 166);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 20);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "label4";
             // 
             // graphTypeComboBox
             // 
@@ -511,6 +499,7 @@
             this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Collapse});
             this.trendGridView.Location = new System.Drawing.Point(3, 8);
+            this.trendGridView.MultiSelect = false;
             this.trendGridView.Name = "trendGridView";
             this.trendGridView.ReadOnly = true;
             this.trendGridView.Size = new System.Drawing.Size(740, 288);
@@ -554,8 +543,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.dataPanel.ResumeLayout(false);
-            this.chartPanel.ResumeLayout(false);
-            this.chartPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -603,6 +590,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
     }
 }

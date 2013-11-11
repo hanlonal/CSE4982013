@@ -129,6 +129,10 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
                     metricsComboBox.Items.Add("Effectiveness");
+
+                    graphTypeComboBox.Items.Clear();
+                    graphTypeComboBox.Items.Add("Line Graph");
+                    graphTypeComboBox.Items.Add("Bar Graph");
                     break;
             }
         }
