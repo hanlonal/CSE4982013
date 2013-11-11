@@ -1418,15 +1418,11 @@ namespace IBMConsultantTool
         }
         private void UpdateUI(bool IsDataLoaded)
         {
-            if (IsDataLoaded)
+            if (IsDataLoaded && this.loadingScreen != null)
             {
                 this.statusStrip1.Text = "Done.";
 
-                // close the splash form
-                if (this.loadingScreen != null)
-                {
-                    loadingScreen.Close();
-                }
+                loadingScreen.Close();
             }
             else
             {
@@ -1447,8 +1443,9 @@ namespace IBMConsultantTool
             ClientDataControl.SetParticipants(new List<Person>());
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
-            UpdateUI(false);
+            
             loadingScreen = new LoadingScreen(this);
+            UpdateUI(false);
             
             Thread t = new Thread(new ThreadStart(LoadSurveys));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
