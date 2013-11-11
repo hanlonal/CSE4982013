@@ -736,20 +736,98 @@ namespace IBMConsultantTool
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             if (GetITCAP(question.Name, client, out itcap))
             {
-                question.AsIsNumZeros = itcap.ASISZEROS.HasValue ? itcap.ASISZEROS.Value : 0;
-                question.AsIsNumOnes = itcap.ASISONES.HasValue ? itcap.ASISONES.Value : 0;
-                question.AsIsNumTwos = itcap.ASISTWOS.HasValue ? itcap.ASISTWOS.Value : 0;
-                question.AsIsNumThrees = itcap.ASISTHREES.HasValue ? itcap.ASISTHREES.Value : 0;
-                question.AsIsNumFours = itcap.ASISFOURS.HasValue ? itcap.ASISFOURS.Value : 0;
-                question.AsIsNumFives = itcap.ASISFIVES.HasValue ? itcap.ASISFIVES.Value : 0;
-                question.AsIsScore = itcap.ASIS.HasValue ? itcap.ASIS.Value : 0;
-                question.TobeNumZeros = itcap.TOBEZEROS.HasValue ? itcap.TOBEZEROS.Value : 0;
-                question.TobeNumOnes = itcap.TOBEONES.HasValue ? itcap.TOBEONES.Value : 0;
-                question.TobeNumTwos = itcap.TOBETWOS.HasValue ? itcap.TOBETWOS.Value : 0;
-                question.TobeNumThrees = itcap.TOBETHREES.HasValue ? itcap.TOBETHREES.Value : 0;
-                question.TobeNumFours = itcap.TOBEFOURS.HasValue ? itcap.TOBEFOURS.Value : 0;
-                question.TobeNumFives = itcap.TOBEFIVES.HasValue ? itcap.TOBEFIVES.Value : 0;
-                question.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
+                if (itcap.ASISZEROS.HasValue)
+                {
+                    for (int i = 0; i < itcap.ASISZEROS.Value; i++)
+                    {
+                        question.AddAsIsAnswer(0);
+                    }
+                }
+                if (itcap.ASISONES.HasValue)
+                {
+                    for (int i = 0; i < itcap.ASISONES.Value; i++)
+                    {
+                        question.AddAsIsAnswer(1);
+                    }
+                }
+                if (itcap.ASISTWOS.HasValue)
+                {
+                    for (int i = 0; i < itcap.ASISTWOS.Value; i++)
+                    {
+                        question.AddAsIsAnswer(2);
+                    }
+                }
+                if (itcap.ASISTHREES.HasValue)
+                {
+                    for (int i = 0; i < itcap.ASISTHREES.Value; i++)
+                    {
+                        question.AddAsIsAnswer(3);
+                    }
+                }
+                if (itcap.ASISFOURS.HasValue)
+                {
+                    for (int i = 0; i < itcap.ASISFOURS.Value; i++)
+                    {
+                        question.AddAsIsAnswer(4);
+                    }
+                }
+                if (itcap.ASISFIVES.HasValue)
+                {
+                    for (int i = 0; i < itcap.ASISFIVES.Value; i++)
+                    {
+                        question.AddAsIsAnswer(5);
+                    }
+                }
+                if (itcap.ASIS.HasValue)
+                {
+                    question.AsIsScore = itcap.ASIS.Value;
+                }
+                if (itcap.TOBEZEROS.HasValue)
+                {
+                    for (int i = 0; i < itcap.TOBEZEROS.Value; i++)
+                    {
+                        question.AddToBeAnswer(0);
+                    }
+                }
+                if (itcap.TOBEONES.HasValue)
+                {
+                    for (int i = 0; i < itcap.TOBEONES.Value; i++)
+                    {
+                        question.AddToBeAnswer(1);
+                    }
+                }
+                if (itcap.TOBETWOS.HasValue)
+                {
+                    for (int i = 0; i < itcap.TOBETWOS.Value; i++)
+                    {
+                        question.AddToBeAnswer(2);
+                    }
+                }
+                if (itcap.TOBETHREES.HasValue)
+                {
+                    for (int i = 0; i < itcap.TOBETHREES.Value; i++)
+                    {
+                        question.AddToBeAnswer(3);
+                    }
+                }
+                if (itcap.TOBEFOURS.HasValue)
+                {
+                    for (int i = 0; i < itcap.TOBEFOURS.Value; i++)
+                    {
+                        question.AddToBeAnswer(4);
+                    }
+                }
+                if (itcap.TOBEFIVES.HasValue)
+                {
+                    for (int i = 0; i < itcap.TOBEFIVES.Value; i++)
+                    {
+                        question.AddToBeAnswer(5);
+                    }
+                }
+                if (itcap.TOBE.HasValue)
+                {
+                    question.ToBeScore = itcap.TOBE.Value;
+                }
             }
 
             else

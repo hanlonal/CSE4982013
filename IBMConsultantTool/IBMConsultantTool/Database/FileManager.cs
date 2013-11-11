@@ -782,20 +782,98 @@ namespace IBMConsultantTool
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             if(GetITCAP(question.Name, client, out itcap))
             {
-                question.AsIsNumZeros = Convert.ToInt32(itcap.Element("ASISZEROS").Value != null ? itcap.Element("ASISZEROS").Value : "0");
-                question.AsIsNumOnes = Convert.ToInt32(itcap.Element("ASISONES").Value != null ? itcap.Element("ASISONES").Value : "0");
-                question.AsIsNumTwos = Convert.ToInt32(itcap.Element("ASISTWOS").Value != null ? itcap.Element("ASISTWOS").Value : "0");
-                question.AsIsNumThrees = Convert.ToInt32(itcap.Element("ASISTHREES").Value != null ? itcap.Element("ASISTHREES").Value : "0");
-                question.AsIsNumFours = Convert.ToInt32(itcap.Element("ASISFOURS").Value != null ? itcap.Element("ASISFOURS").Value : "0");
-                question.AsIsNumFives = Convert.ToInt32(itcap.Element("ASISFIVES").Value != null ? itcap.Element("ASISFIVES").Value : "0");
-                question.AsIsScore = Convert.ToInt32(itcap.Element("ASIS").Value != null ? itcap.Element("ASIS").Value : "0");
-                question.TobeNumZeros = Convert.ToInt32(itcap.Element("TOBEZEROS").Value != null ? itcap.Element("TOBEZEROS").Value : "0");
-                question.TobeNumOnes = Convert.ToInt32(itcap.Element("TOBEONES").Value != null ? itcap.Element("TOBEONES").Value : "0");
-                question.TobeNumTwos = Convert.ToInt32(itcap.Element("TOBETWOS").Value != null ? itcap.Element("TOBETWOS").Value : "0");
-                question.TobeNumThrees = Convert.ToInt32(itcap.Element("TOBETHREES").Value != null ? itcap.Element("TOBETHREES").Value : "0");
-                question.TobeNumFours = Convert.ToInt32(itcap.Element("TOBEFOURS").Value != null ? itcap.Element("TOBEFOURS").Value : "0");
-                question.TobeNumFives = Convert.ToInt32(itcap.Element("TOBEFIVES").Value != null ? itcap.Element("TOBEFIVES").Value : "0");
-                question.ToBeScore = Convert.ToInt32(itcap.Element("TOBE").Value != null ? itcap.Element("TOBE").Value : "0");
+                if (itcap.Element("ASISZEROS").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISZEROS").Value); i++)
+                    {
+                        question.AddAsIsAnswer(0);
+                    }
+                }
+                if (itcap.Element("ASISONES").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISONES").Value); i++)
+                    {
+                        question.AddAsIsAnswer(1);
+                    }
+                }
+                if (itcap.Element("ASISTWOS").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISTWOS").Value); i++)
+                    {
+                        question.AddAsIsAnswer(2);
+                    }
+                }
+                if (itcap.Element("ASISTHREES").Value != null)
+                    {
+                        for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISTHREES").Value); i++)
+                        {
+                            question.AddAsIsAnswer(3);
+                        }
+                    }
+                if (itcap.Element("ASISFOURS").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISFOURS").Value); i++)
+                    {
+                        question.AddAsIsAnswer(4);
+                    }
+                }
+                if (itcap.Element("ASISFIVES").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISFIVES").Value); i++)
+                    {
+                        question.AddAsIsAnswer(5);
+                    }
+                }
+                if (itcap.Element("ASISZEROS").Value != null)
+                {
+                    question.AsIsScore = Convert.ToInt32(itcap.Element("ASISZEROS").Value);
+                }
+                if (itcap.Element("TOBEZEROS").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEZEROS").Value); i++)
+                    {
+                        question.AddToBeAnswer(0);
+                    }
+                }
+                if (itcap.Element("TOBEONES").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEONES").Value); i++)
+                    {
+                        question.AddToBeAnswer(1);
+                    }
+                }
+                if (itcap.Element("TOBETWOS").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBETWOS").Value); i++)
+                    {
+                        question.AddToBeAnswer(2);
+                    }
+                }
+                if (itcap.Element("TOBETHREES").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBETHREES").Value); i++)
+                    {
+                        question.AddToBeAnswer(3);
+                    }
+                }
+                if (itcap.Element("TOBEFOURS").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEFOURS").Value); i++)
+                    {
+                        question.AddToBeAnswer(4);
+                    }
+                }
+                if (itcap.Element("TOBEFIVES").Value != null)
+                {
+                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEFIVES").Value); i++)
+                    {
+                        question.AddToBeAnswer(5);
+                    }
+                }
+                if (itcap.Element("TOBE").Value != null)
+                {
+                    question.ToBeScore = Convert.ToInt32(itcap.Element("TOBE").Value);
+                }
             }
 
             else
