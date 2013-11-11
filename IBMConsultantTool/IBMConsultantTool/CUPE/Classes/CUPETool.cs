@@ -1430,14 +1430,15 @@ namespace IBMConsultantTool
             }
             else
             {
+                loadingScreen.Show();
                 this.statusStrip1.Text = "Loading data ...";
             }
         }
 
         private void LoadSurveys()
         {
-            loadingScreen = new LoadingScreen(this);
-            UpdateUI(false);
+            
+            
             
             
         }
@@ -1446,6 +1447,9 @@ namespace IBMConsultantTool
             ClientDataControl.SetParticipants(new List<Person>());
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
+            UpdateUI(false);
+            loadingScreen = new LoadingScreen(this);
+            
             Thread t = new Thread(new ThreadStart(LoadSurveys));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.IsBackground = true;
