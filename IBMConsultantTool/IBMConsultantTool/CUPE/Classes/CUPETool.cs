@@ -1452,6 +1452,7 @@ namespace IBMConsultantTool
             loadingScreen = new LoadingScreen(this);
 
             Thread t = new Thread(new ThreadStart(LoadSurveys));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.IsBackground = true;
             t.Start();
             
