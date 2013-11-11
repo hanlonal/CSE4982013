@@ -1420,7 +1420,7 @@ namespace IBMConsultantTool
         {
             if (IsDataLoaded)
             {
-               // this.statusBar1.Text = "Done.";
+                this.statusStrip1.Text = "Done.";
 
                 // close the splash form
                 if (this.loadingScreen != null)
@@ -1430,7 +1430,7 @@ namespace IBMConsultantTool
             }
             else
             {
-                //this.statusBar1.Text = "Loading data ...";
+                this.statusStrip1.Text = "Loading data ...";
             }
         }
 
