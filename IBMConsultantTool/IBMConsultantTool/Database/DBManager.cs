@@ -2534,7 +2534,7 @@ namespace IBMConsultantTool
                     cqta.Country = client.COUNTRY.NAME.TrimEnd();
                     cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
                     cqta.Country = cqta.Region.TrimEnd();
-                    cqta.CupeType = cr.CONTACT.GROUP.NAME;
+                    cqta.CupeType = cr.CONTACT.GROUP.NAME.TrimEnd();
                     switch (cr.CURRENT)
                     {
                         case "a":
