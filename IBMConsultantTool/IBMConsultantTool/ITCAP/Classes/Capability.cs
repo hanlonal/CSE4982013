@@ -35,7 +35,7 @@ namespace IBMConsultantTool
 
         public Capability()
         {
-            Console.WriteLine("capability created");
+            //Console.WriteLine("capability created");
             sortType = SortTpe.Dynamic;
         }
 
@@ -97,10 +97,15 @@ namespace IBMConsultantTool
                     CapabilityGapText = "Medium Gap";
                     gapType = GapType.Middle;
                 }
-                else
+                else if (capabilityGap < staticLowGapThreshold)
                 {
                     CapabilityGapText = "Low/No Gap";
                     gapType = GapType.Low;
+                }
+                else
+                {
+                    CapabilityGapText = "No Focus";
+                    gapType = GapType.None;
                 }
             }
             else if (sortType == SortTpe.Dynamic)
