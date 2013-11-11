@@ -1436,9 +1436,9 @@ namespace IBMConsultantTool
 
         private void LoadSurveys()
         {
-            var SurveyReader = new SurveyReader();
-            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
 
+            UpdateUI(false);
+            loadingScreen = new LoadingScreen(this);
             Invoke(new UpdateUIDelegate(UpdateUI), new object[] { true });
         }
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1448,15 +1448,15 @@ namespace IBMConsultantTool
 
             
 
-            UpdateUI(false);
-            loadingScreen = new LoadingScreen(this);
+
 
             Thread t = new Thread(new ThreadStart(LoadSurveys));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.IsBackground = true;
             t.Start();
-            
 
+            var SurveyReader = new SurveyReader();
+            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
 
 
             removePersonColumns();
