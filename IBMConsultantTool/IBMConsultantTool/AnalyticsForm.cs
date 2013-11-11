@@ -102,41 +102,35 @@ namespace IBMConsultantTool
             switch (state)
             {
                 case TrackingState.Capabilities:
-                    ClearControls("Capabilities");
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("Capabilities");                    
                     metricsComboBox.Items.Add("Capability Gap Type");
                     metricsComboBox.Items.Add("Prioritized Capability Gap Type");
                     metricsComboBox.Items.Add("Capability Gap Amount");
                     metricsComboBox.Items.Add("Prioritized Capability Gap Amount");
                     break;
                 case TrackingState.CUPEQuestions:
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("CUPE");
                     metricsComboBox.Items.Add("Business Future");
                     metricsComboBox.Items.Add("Business Current");
                     metricsComboBox.Items.Add("IT Future");
-                    metricsComboBox.Items.Add("IT Current");
-                    ClearControls("CUPE");
+                    metricsComboBox.Items.Add("IT Current");                    
                     break;
                 case TrackingState.Objectives:
                     ClearControls("Objectives");
                     metricsComboBox.Items.Add("Total Priority");
                     break;
                 case TrackingState.ITAttributes:
-                    ClearControls("Capabilities");
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("Capabilities");                    
                     metricsComboBox.Items.Add("Average As Is Score");
                     metricsComboBox.Items.Add("Average To Be Score");
                     break;
                 case TrackingState.Imperatives:
-                    ClearControls("Imperatives");
-                    metricsComboBox.Items.Add("All");
+                    ClearControls("Imperatives");                    
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
                     metricsComboBox.Items.Add("Effectiveness");
                     break;
-
             }
-
         }
 
 
@@ -332,6 +326,7 @@ namespace IBMConsultantTool
                 CapabilityTrendAnalysis ent = new CapabilityTrendAnalysis();
                 if (capabilities.Count > 0)
                 {
+                    capabilities.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float gap = capabilities.Average(d => d.CapabilityGap);
                     float prior = capabilities.Average(d => d.PrioritizedCapabilityGap);
 
@@ -351,6 +346,8 @@ namespace IBMConsultantTool
                     cap.Type1 = TrendAnalysisEntity.Type.Child;
                     capabilitiesToTrack.Add(cap);
                 }
+
+                
 
                 trendGridView.DataSource = null;
                 trendGridView.DataSource = capabilitiesToTrack ;
@@ -374,6 +371,7 @@ namespace IBMConsultantTool
                 cupes = db.GetCUPEQuestionTrendAnalysis(cupeQuestionsComboBox.Text, region, country, busi, from, to);
                 if (cupes.Count < 0)
                 {
+                    cupes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float asIsAaverage = cupes.Average(d => d.CurrentAnswer);
                     float futureAnswer = cupes.Average(d => d.FutureAnswer);
 
@@ -392,6 +390,8 @@ namespace IBMConsultantTool
                         cupeToTrack.Add(c);
                         c.Type1 = TrendAnalysisEntity.Type.Child;
                     }
+
+                    
                 }
                 else
                     MessageBox.Show("Query returned no results.");
@@ -421,6 +421,7 @@ namespace IBMConsultantTool
                 ITAttributeTrendAnalysis ent = new ITAttributeTrendAnalysis();
                 if (attributes.Count > 0)
                 {
+                    attributes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     ent.AsisScore = attributes.Average(d => d.AsisScore);
                     ent.TobeScore = attributes.Average(d => d.TobeScore);
                     ent.Type1 = TrendAnalysisEntity.Type.Master;
@@ -437,6 +438,8 @@ namespace IBMConsultantTool
                         ent.Children++;
                         attributesToTrack.Add(attr);
                     }
+
+                    
                 }
                 else
                     MessageBox.Show("Query returned no results.");
@@ -458,6 +461,7 @@ namespace IBMConsultantTool
 
                 if (imperatives.Count > 0)
                 {
+                    imperatives.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
                     float diff = imperatives.Average(d => d.Differentiation);
                     float crit = imperatives.Average(d => d.Criticality);
                     float effect = imperatives.Average(d => d.Effectiveness);
@@ -478,7 +482,7 @@ namespace IBMConsultantTool
                         imperativesToTrack.Add(i);
                     }
 
-                    imperativesToTrack.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
+                   
                     trendGridView.Columns["Collapse"].Visible = true;
                 }
                 else
@@ -611,9 +615,7 @@ namespace IBMConsultantTool
                 if (ent.Type1 == TrendAnalysisEntity.Type.Master)
                 {
                     for (int i = 1; i < ent.Children + 1; i++)
-                    {
-                        trendGridView.CurrentCell = null;
-                        
+                    {                       
                         trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
                     }
                 }
@@ -629,7 +631,8 @@ namespace IBMConsultantTool
                 Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
                     ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
             }
-            numberOfGraph++;
+
+            numberOfGraph = 0;
             if (lineChart != null)
             {
                 lineChart.ChartAreas.Clear();
@@ -644,12 +647,9 @@ namespace IBMConsultantTool
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
 
-            lineChart.Legends.Add("legend");
-            lineChart.Legends["legend"].Enabled = true;
-
             string saveName = boxText;
 
-            string seriesName;
+            string seriesName = "";
 
             int numberOfSeries = 0;
 
@@ -659,16 +659,20 @@ namespace IBMConsultantTool
                     numberOfSeries++;
             }
 
-            int eachClients = init.Count / numberOfSeries;
+            int eachClients = 1;
+
+            if (numberOfSeries > 0)
+                eachClients = init.Count / numberOfSeries;
 
             int cntNum = 0;
             int[] sameNum = new int[100];
 
             #region Differentiation Line Graph
 
-            if (boxText == "Differentitation")
+            if (boxText == "Differentiation")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -676,6 +680,7 @@ namespace IBMConsultantTool
                     if (lineChart.Series.FindByName(name) == null)
                     {
                         lineChart.Series.Add(name);
+                        seriesName = name;
                         for (int i = 0; i < cntNum; i++)
                         {
                             sameNum[i] = new int();
@@ -683,6 +688,33 @@ namespace IBMConsultantTool
                         cntNum = 0;
                         newCount = 0;
                     }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (init[cnt].Children > 0)
+                    {
+                        childrenCount = init[cnt].Children;
+                        eachClients = init[cnt].Children;
+                    }
+
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
                     lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -698,6 +730,7 @@ namespace IBMConsultantTool
                             break;
                         }
                     }
+
                     if (newCount != sameNum[cntNum])
                     {
                         double differentiation = init[cnt].Differentiation;
@@ -707,12 +740,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < eachClients; num++)
+                        for (int num = 1; num < childrenCount; num++)
                         {
-                            if (date == init[num+cnt].Date)
+                            if (date == init[num + cnt].Date)
                             {
-                                differentiation += init[num+cnt].Differentiation;
-                                sameNum[cntNum] = num+cnt;
+                                differentiation += init[num + cnt].Differentiation;
+                                sameNum[cntNum] = num + cnt;
                                 cntNum++;
                                 count++;
                             }
@@ -740,6 +773,7 @@ namespace IBMConsultantTool
                         }
                     }
                     newCount++;
+                    childrenCount--;
                 }
             }
 
@@ -750,6 +784,7 @@ namespace IBMConsultantTool
             else if (boxText == "Criticality")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -757,6 +792,7 @@ namespace IBMConsultantTool
                     if (lineChart.Series.FindByName(name) == null)
                     {
                         lineChart.Series.Add(name);
+                        seriesName = name;
                         for (int i = 0; i < cntNum; i++)
                         {
                             sameNum[i] = new int();
@@ -764,6 +800,33 @@ namespace IBMConsultantTool
                         cntNum = 0;
                         newCount = 0;
                     }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (init[cnt].Children > 0)
+                    {
+                        childrenCount = init[cnt].Children;
+                        eachClients = init[cnt].Children;
+                    }
+
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
                     lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -789,12 +852,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < eachClients; num++)
+                        for (int num = 1; num < childrenCount; num++)
                         {
-                            if (date == init[num+cnt].Date)
+                            if (date == init[num + cnt].Date)
                             {
-                                criticality += init[num+cnt].Criticality;
-                                sameNum[cntNum] = num+cnt;
+                                criticality += init[num + cnt].Criticality;
+                                sameNum[cntNum] = num + cnt;
                                 cntNum++;
                                 count++;
                             }
@@ -822,6 +885,7 @@ namespace IBMConsultantTool
                         }
                     }
                     newCount++;
+                    childrenCount--;
                 }
             }
 
@@ -832,7 +896,7 @@ namespace IBMConsultantTool
             else if (boxText == "Effectiveness")
             {
                 int newCount = 0;
-
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
@@ -840,6 +904,7 @@ namespace IBMConsultantTool
                     if (lineChart.Series.FindByName(name) == null)
                     {
                         lineChart.Series.Add(name);
+                        seriesName = name;
                         for (int i = 0; i < cntNum; i++)
                         {
                             sameNum[i] = new int();
@@ -847,6 +912,33 @@ namespace IBMConsultantTool
                         cntNum = 0;
                         newCount = 0;
                     }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (init[cnt].Children > 0)
+                    {
+                        childrenCount = init[cnt].Children;
+                        eachClients = init[cnt].Children;
+                    }
+
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
                     lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -871,12 +963,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < eachClients; num++)
+                        for (int num = 1; num < childrenCount; num++)
                         {
-                            if (date == init[num+cnt].Date)
+                            if (date == init[num + cnt].Date)
                             {
-                                effectiveness += init[num+cnt].Effectiveness;
-                                sameNum[cntNum] = num+cnt;
+                                effectiveness += init[num + cnt].Effectiveness;
+                                sameNum[cntNum] = num + cnt;
                                 cntNum++;
                                 count++;
                             }
@@ -904,87 +996,7 @@ namespace IBMConsultantTool
                         }
                     }
                     newCount++;
-                }
-            }
-
-            #endregion
-
-            #region All Line Graph
-
-            else if (boxText == "All")
-            {
-                int newCount = 0;
-                for (int cnt = 0; cnt < init.Count; cnt++)
-                {
-                    string name = init[cnt].Name;
-
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
-
-                    for (int i = 0; i < cntNum; i++)
-                    {
-                        if (cnt == sameNum[i])
-                        {
-                            cntNum = i;
-                            newCount = cnt;
-                            break;
-                        }
-                    }
-                    if (newCount != sameNum[cntNum])
-                    {
-                        double effectiveness = init[cnt].Effectiveness;
-
-                        double[] diff = new double[100];
-                        diff[cnt] = init[cnt].Effectiveness;
-                        int count = 1;
-
-                        DateTime date = init[cnt].Date;
-                        for (int num = 1; num < eachClients; num++)
-                        {
-                            if (date == init[num+cnt].Date)
-                            {
-                                effectiveness += init[num+cnt].Effectiveness;
-                                sameNum[cntNum] = num+cnt;
-                                cntNum++;
-                                count++;
-                            }
-                        }
-
-                        if (count > 1)
-                        {
-                            effectiveness /= count;
-
-                            double temp = Convert.ToDouble(effectiveness);
-                            decimal tmp = Convert.ToDecimal(temp);
-                            tmp = Math.Round(tmp, 2);
-                            temp = (double)tmp;
-
-                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
-                        }
-                        else
-                        {
-                            double temp = Convert.ToDouble(init[cnt].Effectiveness);
-                            decimal tmp = Convert.ToDecimal(temp);
-                            tmp = Math.Round(tmp, 2);
-                            temp = (double)tmp;
-
-                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
-                        }
-                    }
-                    newCount++;
+                    childrenCount--;
                 }
             }
 
@@ -996,15 +1008,15 @@ namespace IBMConsultantTool
             {
                 saveName = "Default Differentiation";
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < init.Count; cnt++)
                 {
                     string name = init[cnt].Name;
 
-                    seriesName = name;
-
                     if (lineChart.Series.FindByName(name) == null)
                     {
                         lineChart.Series.Add(name);
+                        seriesName = name;
                         for (int i = 0; i < cntNum; i++)
                         {
                             sameNum[i] = new int();
@@ -1012,11 +1024,37 @@ namespace IBMConsultantTool
                         cntNum = 0;
                         newCount = 0;
                     }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (init[cnt].Children > 0)
+                    {
+                        childrenCount = init[cnt].Children;
+                        eachClients = init[cnt].Children;
+                    }
+
                     lineChart.Series[name].ChartArea = title;
                     lineChart.Series[name].ChartType = SeriesChartType.Line;
                     lineChart.Series[name].XValueType = ChartValueType.DateTime;
                     lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].IsValueShownAsLabel = true;
                     lineChart.Series[name].BorderWidth = 5;
 
                     for (int i = 0; i < cntNum; i++)
@@ -1038,12 +1076,14 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < eachClients; num++)
+                        for (int num = 1; num < childrenCount; num++)
                         {
-                            if (date == init[num].Date)
+                            if (cnt > num + childrenCount)
+                                break;
+                            if (date == init[num + cnt].Date)
                             {
-                                differentiation += init[num].Differentiation;
-                                sameNum[cntNum] = num;
+                                differentiation += init[num + cnt].Differentiation;
+                                sameNum[cntNum] = num + cnt;
                                 cntNum++;
                                 count++;
                             }
@@ -1071,6 +1111,7 @@ namespace IBMConsultantTool
                         }
                     }
                     newCount++;
+                    childrenCount--;
                 }
             }
 
@@ -1082,9 +1123,8 @@ namespace IBMConsultantTool
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-                saveName + ".jpg", ChartImageFormat.Jpeg);
-        
+            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+            //saveName + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void regionComboBox_SelectedIndexChanged(object sender, EventArgs e)
