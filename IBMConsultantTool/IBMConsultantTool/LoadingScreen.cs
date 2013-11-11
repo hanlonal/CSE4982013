@@ -33,22 +33,23 @@ namespace IBMConsultantTool
             this.Visible = false;
 
             AdjustLocation();
+            InitializeComponent();
         }
 
         private void owner_Deactivate(object sender, EventArgs e)
         {
-            if (!this.isClosed)
-            {
-                this.Visible = false;
-            }
+            //if (!this.isClosed)
+            //{
+            //    this.Visible = false;
+            //}
         }
 
         private void owner_Activated(object sender, EventArgs e)
         {
-            if (!this.isClosed)
-            {
-                this.Visible = true;
-            }
+            //if (!this.isClosed)
+            //{
+            //    this.Visible = true;
+            //}
         }
 
         private void owner_Move(object sender, EventArgs e)

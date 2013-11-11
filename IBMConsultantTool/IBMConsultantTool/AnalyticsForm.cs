@@ -28,6 +28,8 @@ namespace IBMConsultantTool
         TextBox currentBox;
         Chart lineChart = new Chart();
 
+        private string graphType = "Line Graph";
+
         public AnalyticsForm()
         {
             lineChart.Parent = this.chartPanel;
@@ -161,7 +163,7 @@ namespace IBMConsultantTool
             }
             else if (state == TrackingState.Imperatives)
             {
-                CreateLineGraph(imperativesToTrack, "Imperatives", selectedInfo);
+                CreateBarGraph(imperativesToTrack, "Imperatives", graphType);
             }
             else if (state == TrackingState.Objectives)
             {
@@ -188,6 +190,7 @@ namespace IBMConsultantTool
             ComboBox comboBox = (ComboBox)sender;
 
             string selectedInfo = (string)graphTypeComboBox.SelectedItem;
+            graphType = selectedInfo;
 
             if (state == TrackingState.Capabilities)
             {
@@ -203,10 +206,6 @@ namespace IBMConsultantTool
             else if (state == TrackingState.Imperatives)
             {
                 CreateBarGraph(imperativesToTrack, "Imperatives", selectedInfo);
-            }
-            else if (state == TrackingState.Objectives)
-            {
-                CreateObjectivesGraph(attributesToTrack, "Objectives", selectedInfo);
             }
 
             int resultIndex = -1;
@@ -1192,7 +1191,8 @@ namespace IBMConsultantTool
 
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
-            lineChart.ChartAreas[title].AxisX.Interval = 1;
+            lineChart.ChartAreas[title].AxisX.LabelStyle.Enabled = false;
+            lineChart.ChartAreas[title].AxisY.Maximum = 10;
 
             string saveName = metricsComboBox.Text + " " + chartType;
 
@@ -2242,6 +2242,7 @@ namespace IBMConsultantTool
             if (clrDialog.ShowDialog() == DialogResult.OK)
             {
                 trendGridView.SelectedRows[0].DefaultCellStyle.BackColor = clrDialog.Color;
+                CreateBarGraph(imperativesToTrack, "Imperatives", graphType);
             }
 
         }

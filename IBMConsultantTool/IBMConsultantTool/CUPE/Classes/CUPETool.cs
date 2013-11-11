@@ -1418,28 +1418,25 @@ namespace IBMConsultantTool
         }
         private void UpdateUI(bool IsDataLoaded)
         {
-            if (IsDataLoaded)
+            if (IsDataLoaded && this.loadingScreen != null)
             {
-               // this.statusBar1.Text = "Done.";
+                this.statusStrip1.Text = "Done.";
 
-                // close the splash form
-                if (this.loadingScreen != null)
-                {
-                    loadingScreen.Close();
-                }
+                loadingScreen.Close();
             }
             else
             {
-                //this.statusBar1.Text = "Loading data ...";
+                loadingScreen.Show();
+                this.statusStrip1.Text = "Loading data ...";
             }
         }
 
         private void LoadSurveys()
         {
-            var SurveyReader = new SurveyReader();
-            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
-
-            Invoke(new UpdateUIDelegate(UpdateUI), new object[] { true });
+            
+            
+            
+            
         }
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1447,16 +1444,16 @@ namespace IBMConsultantTool
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
             
-
-            UpdateUI(false);
             loadingScreen = new LoadingScreen(this);
-
+            UpdateUI(false);
+            
             Thread t = new Thread(new ThreadStart(LoadSurveys));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.IsBackground = true;
             t.Start();
-            
 
+            var SurveyReader = new SurveyReader();
+            SurveyReader.ReadSurveyCUPE(ClientDataControl.GetParticipants());
 
 
             removePersonColumns();
@@ -1464,6 +1461,7 @@ namespace IBMConsultantTool
             LoadAnswersFromDataControl();
             ClientDataControl.SaveCUPE();
             ClientDataControl.SaveParticipantsToDB();
+            UpdateUI(true);
 
             //Help / Tutorial Step
             if (HelpEnabled && HelpCurrentStep == 1)

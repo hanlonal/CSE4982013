@@ -96,6 +96,7 @@
             this.busiFutureRadioButton = new System.Windows.Forms.RadioButton();
             this.itFutureRadioButton = new System.Windows.Forms.RadioButton();
             this.questionInfoPanel = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.QuestionView = new System.Windows.Forms.TreeView();
             this.filterQuestionsGo = new System.Windows.Forms.Button();
             this.questionFilterAmount = new System.Windows.Forms.ComboBox();
@@ -148,6 +149,7 @@
             this.currentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.futureToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.iTProviderRelationshipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numberOfQuestionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,7 +167,6 @@
             this.iTCapabilityToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beginTutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iTProviderRelationshipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.busiCurrentGraph)).BeginInit();
@@ -181,8 +182,8 @@
             // 
             // questionGridBusinessCurrent
             // 
-            this.questionGridBusinessCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridBusinessCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridBusinessCurrent.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridBusinessCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridBusinessCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -298,7 +299,7 @@
             this.itCurrentRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.itCurrentRadioButton.AutoSize = true;
             this.itCurrentRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.itCurrentRadioButton.Location = new System.Drawing.Point(657, 498);
+            this.itCurrentRadioButton.Location = new System.Drawing.Point(649, 498);
             this.itCurrentRadioButton.Name = "itCurrentRadioButton";
             this.itCurrentRadioButton.Size = new System.Drawing.Size(110, 17);
             this.itCurrentRadioButton.TabIndex = 3;
@@ -308,8 +309,8 @@
             // 
             // questionGridITCurrent
             // 
-            this.questionGridITCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridITCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridITCurrent.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridITCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridITCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -492,7 +493,7 @@
             this.itFutureRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.itFutureRadioButton.AutoSize = true;
             this.itFutureRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.itFutureRadioButton.Location = new System.Drawing.Point(860, 498);
+            this.itFutureRadioButton.Location = new System.Drawing.Point(851, 498);
             this.itFutureRadioButton.Name = "itFutureRadioButton";
             this.itFutureRadioButton.Size = new System.Drawing.Size(110, 17);
             this.itFutureRadioButton.TabIndex = 5;
@@ -503,11 +504,12 @@
             // 
             // questionInfoPanel
             // 
-            this.questionInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionInfoPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.questionInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.questionInfoPanel.Controls.Add(this.statusStrip1);
             this.questionInfoPanel.Controls.Add(this.QuestionView);
             this.questionInfoPanel.Controls.Add(this.filterQuestionsGo);
             this.questionInfoPanel.Controls.Add(this.questionFilterAmount);
@@ -521,10 +523,18 @@
             this.questionInfoPanel.TabIndex = 10;
             this.questionInfoPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.questionInfoPanel_Paint);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(100, 171);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(904, 22);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // QuestionView
             // 
-            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionView.Cursor = System.Windows.Forms.Cursors.Default;
             this.QuestionView.LabelEdit = true;
             this.QuestionView.Location = new System.Drawing.Point(565, 6);
@@ -601,8 +611,8 @@
             // 
             // questionGridBusiFuture
             // 
-            this.questionGridBusiFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridBusiFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridBusiFuture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridBusiFuture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridBusiFuture.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -694,8 +704,8 @@
             // 
             // questionGridITFuture
             // 
-            this.questionGridITFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridITFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridITFuture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridITFuture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridITFuture.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -934,12 +944,6 @@
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
-            // preferencesToolStripMenuItem2
-            // 
-            //this.preferencesToolStripMenuItem2.Name = "preferencesToolStripMenuItem2";
-            //this.preferencesToolStripMenuItem2.Size = new System.Drawing.Size(172, 22);
-            //this.preferencesToolStripMenuItem2.Text = "Preferences";
-            //
             // createSurveyToolStripMenuItem
             // 
             this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
@@ -1116,6 +1120,13 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(309, 6);
             // 
+            // iTProviderRelationshipToolStripMenuItem
+            // 
+            this.iTProviderRelationshipToolStripMenuItem.Name = "iTProviderRelationshipToolStripMenuItem";
+            this.iTProviderRelationshipToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.iTProviderRelationshipToolStripMenuItem.Text = "IT Provider Relationship";
+            this.iTProviderRelationshipToolStripMenuItem.Click += new System.EventHandler(this.iTProviderRelationshipToolStripMenuItem_Click);
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1224,7 +1235,6 @@
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
             this.bOMToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
@@ -1232,7 +1242,6 @@
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
             this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
-            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.iTCapabilityToolStripMenuItem1.Text = "IT Capability";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
             // 
@@ -1248,16 +1257,8 @@
             // 
             this.beginTutorialToolStripMenuItem.Name = "beginTutorialToolStripMenuItem";
             this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
             this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
-            // 
-            // iTProviderRelationshipToolStripMenuItem
-            // 
-            this.iTProviderRelationshipToolStripMenuItem.Name = "iTProviderRelationshipToolStripMenuItem";
-            this.iTProviderRelationshipToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
-            this.iTProviderRelationshipToolStripMenuItem.Text = "IT Provider Relationship";
-            this.iTProviderRelationshipToolStripMenuItem.Click += new System.EventHandler(this.iTProviderRelationshipToolStripMenuItem_Click);
             // 
             // CUPETool
             // 
@@ -1406,5 +1407,6 @@
         private System.Windows.Forms.ToolStripMenuItem generatePowerpointToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem emailPreferencesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTProviderRelationshipToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
