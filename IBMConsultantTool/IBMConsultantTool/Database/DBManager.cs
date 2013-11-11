@@ -65,6 +65,7 @@ namespace IBMConsultantTool
 
             AddGroup("Business", client);
             AddGroup("IT", client);
+            AddGroup("ITCAP", client);
 
             return true;
         }
@@ -678,8 +679,25 @@ namespace IBMConsultantTool
             return true;
         }
 
+        public List<ITCAP> GetITCAPs(string itcqName, CLIENT client)
+        {
+            GROUP grp;
+            if (GetGroup("ITCAP", client, out grp))
+            {
+                return (from con in grp.CONTACT
+                        from ent in con.ITCAP
+                        where ent.ITCAPQUESTION.NAME.TrimEnd() == itcqName
+                        select ent).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
         {
+            Random rnd = new Random();
             CLIENT client = clientObj as CLIENT;
             try
             {
@@ -689,6 +707,36 @@ namespace IBMConsultantTool
 
                 itcap.ASIS = itcapQuestion.AsIsScore;
                 itcap.TOBE = itcapQuestion.ToBeScore;
+
+                GROUP grp;
+                if (GetGroup("ITCAP", client, out grp))
+                {
+                    List<CONTACT> contactsToDelete = grp.CONTACT.ToList();
+                    foreach(CONTACT contactToDelete in contactsToDelete)
+                    {
+                        dbo.DeleteObject(contactToDelete);
+                    }
+
+                    ITCAP contactITCAP;
+                    CONTACT contact;
+                    for (int i = 0; i < itcapQuestion.asIsAnswers.Count; i++)
+                    {
+                        contactITCAP = new ITCAP();
+                        contactITCAP.ITCAPQUESTION = itcap.ITCAPQUESTION;
+                        contactITCAP.ASIS = itcapQuestion.asIsAnswers[i];
+                        contactITCAP.TOBE = itcapQuestion.toBeAnswers[i];
+                        contactITCAP.COMMENT = "";
+
+                        contact = new CONTACT();
+                        contact.ID = rnd.Next();
+                        contact.GROUP = grp;
+
+                        contactITCAP.CONTACT = contact;
+
+                        dbo.AddToCONTACT(contact);
+                        dbo.AddToITCAP(contactITCAP);
+                    }
+                }
             }
 
             catch
@@ -696,6 +744,27 @@ namespace IBMConsultantTool
                 return false;
             }
 
+
+            return true;
+        }
+
+        public override bool LoadITCAP(ref ITCapQuestion question)
+        {
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            List<ITCAP> itcaps = GetITCAPs(question.Name, client);
+            if (itcaps != null)
+            {
+                foreach (ITCAP itcap in itcaps)
+                {
+                    question.AddAsIsAnswer(itcap.ASIS.HasValue ? itcap.ASIS.Value : 0);
+                    question.AddToBeAnswer(itcap.TOBE.HasValue ? itcap.TOBE.Value : 0);
+                }
+            }
+
+            else
+            {
+                return false;
+            }
 
             return true;
         }
@@ -3879,6 +3948,46 @@ namespace IBMConsultantTool
                                         else
                                         {
                                             MessageBox.Show("Add ITCAP Instruction Failed: ITCAPQuestion does not exist\n\n" + line, "Error");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
+                                    }
+                                }
+
+                                else if (lineArray[2] == "CONTACT")
+                                {
+                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                    {
+                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
+                                        {
+                                            if (GetContact(Convert.ToInt32(lineArray[5]), out contact))
+                                            {
+                                                if (GetITCAPQuestion(lineArray[6].Replace('~', ' '), out itcapQuestion))
+                                                {
+                                                    itcap = new ITCAP();
+                                                    itcap.ITCAPQUESTION = itcapQuestion;
+                                                    itcap.ASIS = Convert.ToSingle(lineArray[7]);
+                                                    itcap.TOBE = Convert.ToSingle(lineArray[8]);
+                                                    if (!AddITCAP(itcap, client))
+                                                    {
+                                                        MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Add ITCAP Instruction Failed: ITCAPQuestion does not exist\n\n" + line, "Error");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Add ITCAP Instruction Failed: Contact ID does not exist\n\n" + line, "Error");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Add ITCAP Instruction Failed: Group does not exist\n\n" + line, "Error");
                                         }
                                     }
                                     else

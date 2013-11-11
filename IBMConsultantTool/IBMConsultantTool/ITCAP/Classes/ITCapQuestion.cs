@@ -13,10 +13,10 @@ namespace IBMConsultantTool
 
         public List<string> comment;
 
-        private List<float> AsIsanswersToAttributes = new List<float>();
-        private List<float> ToBeanswersToAttributes = new List<float>();
-        private List<float> asIsAnswers = new List<float>();
-        private List<float> toBeAnswers = new List<float>();
+        /*private List<float> AsIsanswersToAttributes = new List<float>();
+        private List<float> ToBeanswersToAttributes = new List<float>();*/
+        public List<float> asIsAnswers = new List<float>();
+        public List<float> toBeAnswers = new List<float>();
         private int numasIsAnswers = 0;
         private int numtoBeAnswers = 0;
 
@@ -220,10 +220,31 @@ namespace IBMConsultantTool
         {
             numasIsAnswers = asisnumOnes + asisnumTwos + asisnumThrees + asisnumFours + asisnumFives + asisnumZeros;
             asIsScore = (float)(((1 * asisnumOnes) + (2 * asisnumTwos) + (3 * asisnumThrees) + (4 * asisnumFours) + (5 * asisnumFives)) / (float)numasIsAnswers);
+            asIsAnswers.Clear();
+            for (int i = 0; i < asisnumOnes; i++)
+            {
+                asIsAnswers.Add(1);
+            }
+            for (int i = 0; i < asisnumTwos; i++)
+            {
+                asIsAnswers.Add(2);
+            }
+            for (int i = 0; i < asisnumThrees; i++)
+            {
+                asIsAnswers.Add(3);
+            }
+            for (int i = 0; i < asisnumFours; i++)
+            {
+                asIsAnswers.Add(4);
+            }
+            for (int i = 0; i < asisnumFives; i++)
+            {
+                asIsAnswers.Add(5);
+            }
 
             StandardAsIsDeviation();
 
-            decimal asIs = Convert.ToDecimal(asIsScore);
+            decimal asIs = Convert.ToDecimal(!float.IsNaN(asIsScore) ? asIsScore : 0);
             asIs = Math.Round(asIs, 2);
             asIsScore = (float)asIs;
 
@@ -235,9 +256,30 @@ namespace IBMConsultantTool
             numtoBeAnswers = tobeNumOnes + tobeNumTwos + tobeNumThrees + tobeNumFours + tobeNumFives + tobeNumZeros;
             toBeScore = (float)(((1 * tobeNumOnes) + (2 * tobeNumTwos) + (3 * tobeNumThrees) + (4 * tobeNumFours) + (5 * tobeNumFives)) / (float)numtoBeAnswers);
 
+            for (int i = 0; i < tobeNumOnes; i++)
+            {
+                toBeAnswers.Add(1);
+            }
+            for (int i = 0; i < tobeNumTwos; i++)
+            {
+                toBeAnswers.Add(2);
+            }
+            for (int i = 0; i < tobeNumThrees; i++)
+            {
+                toBeAnswers.Add(3);
+            }
+            for (int i = 0; i < tobeNumFours; i++)
+            {
+                toBeAnswers.Add(4);
+            }
+            for (int i = 0; i < tobeNumFives; i++)
+            {
+                toBeAnswers.Add(5);
+            }
+
             StandardToBeDeviation();
 
-            decimal toBe = Convert.ToDecimal(toBeScore);
+            decimal toBe = Convert.ToDecimal(!float.IsNaN(toBeScore) ? toBeScore : 0);
             toBe = Math.Round(toBe, 2);
             toBeScore = (float)toBe;
 

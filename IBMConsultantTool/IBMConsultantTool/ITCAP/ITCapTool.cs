@@ -610,25 +610,13 @@ namespace IBMConsultantTool
 
         private void GetAnswers()
         {
-            Random rand = new Random();
-
+            ITCapQuestion question;
             foreach (ScoringEntity ent in entities)
             {
                 if (ent.GetType() == typeof(ITCapQuestion))
                 {
-                    ITCapQuestion ques = (ITCapQuestion)ent;
-                    ques.AddAsIsAnswer((float)rand.Next(4));
-                    ques.AddAsIsAnswer((float)rand.Next(4));
-                    ques.AddAsIsAnswer((float)rand.Next(4));
-                    ques.AddAsIsAnswer((float)rand.Next(4));
-                    ques.AddAsIsAnswer((float)rand.Next(4));
-                    ques.AddAsIsAnswer((float)rand.Next(4));
-
-
-                    ques.AddToBeAnswer((float)rand.Next(5));
-                    ques.AddToBeAnswer((float)rand.Next(5));
-                    ques.AddToBeAnswer((float)rand.Next(5));
-                    ques.AddToBeAnswer((float)rand.Next(5));
+                    question = ent as ITCapQuestion;
+                    ClientDataControl.db.LoadITCAP(ref question);
                 }
             }
         }

@@ -96,6 +96,7 @@ namespace IBMConsultantTool
 
             AddGroup("Business", client);
             AddGroup("IT", client);
+            AddGroup("ITCAP", client);
 
             return true;
         }
@@ -731,19 +732,55 @@ namespace IBMConsultantTool
 
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
         {
+            Random rnd = new Random();
             XElement client = clientObj as XElement;
-            string formattedName = itcapQuestion.Name;
             try
             {
                 XElement itcap = (from ent in client.Element("ITCAPS").Elements("ITCAP")
-                                where ent.Element("ITCAPQUESTION").Value == formattedName
+                                where ent.Element("ITCAPQUESTION").Value == itcapQuestion.Name
                                 select ent).Single();
 
                 itcap.Element("ASIS").Value = itcapQuestion.AsIsScore.ToString();
                 itcap.Element("TOBE").Value = itcapQuestion.ToBeScore.ToString();
 
-                changeLog.Add("UPDATE ITCAP " + client.Element("NAME").Value.Replace(' ', '~') + " " + formattedName.Replace(' ', '~') + " " +
+                changeLog.Add("UPDATE ITCAP " + client.Element("NAME").Value.Replace(' ', '~') + " " + itcapQuestion.Name.Replace(' ', '~') + " " +
                                 itcapQuestion.AsIsScore + " " + itcapQuestion.ToBeScore);
+
+                XElement grp;
+                if (GetGroup("ITCAP", client, out grp))
+                {
+                    List<XElement> contactsToDelete = grp.Element("CONTACTS").Elements("CONTACT").ToList();
+                    foreach (XElement contactToDelete in contactsToDelete)
+                    {
+                        contactToDelete.Remove();
+                    }
+
+                    changeLog.Add("DELETE CONTACTITCAPS " + client.Element("NAME").Value.Replace(' ', '~'));
+
+                    XElement contactITCAP;
+                    XElement contact;
+                    for (int i = 0; i < itcapQuestion.asIsAnswers.Count; i++)
+                    {
+                        contactITCAP = new XElement("ITCAP");
+                        contactITCAP.Add(new XElement("ITCAPQUESTION", itcapQuestion.Name));
+                        contactITCAP.Add(new XElement("ASIS", itcapQuestion.asIsAnswers[i]));
+                        contactITCAP.Add(new XElement("TOBE", itcapQuestion.toBeAnswers[i]));
+                        contactITCAP.Add(new XElement("COMMENT", ""));
+
+                        contact = new XElement("CONTACT");
+                        contact.Add(new XElement("ID", rnd.Next()));
+                        grp.Element("CONTACTS").Add(contact);
+
+                        contact.Element("ITCAPS").Add(contactITCAP);
+                        changeLog.Add("ADD CONTACT " + client.Element("NAME").Value.Replace(' ', '~') +
+                            " ITCAP " + contact.Element("ID").Value.Replace(' ', '~'));
+
+                        changeLog.Add("ADD ITCAP CONTACT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                            " ITCAP " + contact.Element("ID").Value.Replace(' ', '~') + " " +
+                            itcapQuestion.Name.Replace(' ', '~') + contactITCAP.Element("ASIS").Value
+                            + " " + contactITCAP.Element("TOBE").Value);
+                    }
+                }
             }
 
             catch
@@ -751,6 +788,28 @@ namespace IBMConsultantTool
                 return false;
             }
 
+
+            return true;
+        }
+
+        public override bool LoadITCAP(ref ITCapQuestion question)
+        {
+            XElement client = ClientDataControl.Client.EntityObject as XElement;
+            List<XElement> itcaps = GetITCAPs(question.Name, client);
+
+            if (itcaps != null)
+            {
+                foreach (XElement itcap in itcaps)
+                {
+                    question.AddAsIsAnswer(Convert.ToSingle(itcap.Element("ASIS").Value));
+                    question.AddToBeAnswer(Convert.ToSingle(itcap.Element("TOBE").Value));
+                }
+            }
+
+            else
+            {
+                return false;
+            }
 
             return true;
         }
@@ -2182,6 +2241,22 @@ namespace IBMConsultantTool
             }
 
             return true;
+        }
+
+        public List<XElement> GetITCAPs(string itcqName, XElement client)
+        {
+            XElement grp;
+            if (GetGroup("ITCAP", client, out grp))
+            {
+                return (from con in grp.Element("CONTACTS").Elements("CONTACT")
+                        from ent in con.Element("ITCAPS").Elements("ITCAP")
+                        where ent.Element("ITCAPQUESTION").Value == itcqName
+                        select ent).ToList();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public override string[] GetITCAPQuestionNames(string capName, string domName)
