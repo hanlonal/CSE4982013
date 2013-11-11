@@ -834,41 +834,6 @@ namespace IBMConsultantTool
             surveryMakerGrid.Refresh();
         }
 
-        private void SaveITCAPButton_Click(object sender, EventArgs e)
-        {
-            bool success = true;
-            foreach (ITCapQuestion question in questionsArray)
-            {
-                if (question != null)
-                {
-                    if (!ClientDataControl.db.UpdateITCAP(ClientDataControl.Client.EntityObject, question))
-                    {
-                        success = false;
-                        break;
-                    }
-                }
-            }
-
-            foreach (Capability capability in capabilities)
-            {
-                if (capability != null)
-                {
-                    ClientDataControl.db.SaveCapabilityGapInfo(capability);
-                }
-            }
-
-            if (success && ClientDataControl.db.SaveChanges())
-            {
-                MessageBox.Show("Saved Changes Successfully", "Success");
-                ClientDataControl.db.ClientCompletedITCAP(ClientDataControl.Client.EntityObject);
-            }
-
-            else
-            {
-                MessageBox.Show("Failed to save changes", "Error");
-            }
-        }
-
         private void changeDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ChangeITCAPDefaults(this).ShowDialog();
@@ -1741,6 +1706,44 @@ namespace IBMConsultantTool
             loadSurveyFromDataGrid.Columns["ToBeNumThrees"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumThrees"].Visible;
             loadSurveyFromDataGrid.Columns["ToBeNumFours"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumFours"].Visible;
             loadSurveyFromDataGrid.Columns["ToBeNumFives"].Visible = !loadSurveyFromDataGrid.Columns["ToBeNumFives"].Visible;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool success = true;
+            foreach (Domain domain in domains)
+            {
+                foreach (Capability capability in domain.CapabilitiesOwned)
+                {
+                    if (capability != null)
+                    {
+                        ClientDataControl.db.SaveCapabilityGapInfo(capability);
+                    }
+
+                    foreach (ITCapQuestion question in capability.QuestionsOwned)
+                    {
+                        if (question != null)
+                        {
+                            if (!ClientDataControl.db.UpdateITCAP(ClientDataControl.Client.EntityObject, question))
+                            {
+                                success = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (success && ClientDataControl.db.SaveChanges())
+            {
+                MessageBox.Show("Saved Changes Successfully", "Success");
+                ClientDataControl.db.ClientCompletedITCAP(ClientDataControl.Client.EntityObject);
+            }
+
+            else
+            {
+                MessageBox.Show("Failed to save changes", "Error");
+            }
         }
         
 

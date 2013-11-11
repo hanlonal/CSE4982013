@@ -438,8 +438,8 @@ namespace IBMConsultantTool
                     });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.Element("CURRENT").Value[0]);
-                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.Element("FUTURE").Value[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("CURRENT").Value[0]);
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("FUTURE").Value[0]);
                     }
                 }
                 person.cupeDataHolder = cupeData;
@@ -461,8 +461,8 @@ namespace IBMConsultantTool
                     });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + questionIndex.ToString(), response.Element("CURRENT").Value[0]);
-                        cupeData.FutureAnswers.Add("Question " + questionIndex.ToString(), response.Element("FUTURE").Value[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("CURRENT").Value[0]);
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("FUTURE").Value[0]);
                     }
                 }
                 person.cupeDataHolder = cupeData;
