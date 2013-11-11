@@ -1078,9 +1078,7 @@ namespace IBMConsultantTool
         {
             
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
-            ent.CalculateCapabilityGap();
-            ent.Owner.CalculateAsIsAverage();
-            ent.Owner.CalculateToBeAverage();
+
 
             if (e.ColumnIndex == 4)
             {
@@ -1130,6 +1128,10 @@ namespace IBMConsultantTool
             {
                 ent.CalculateToBeAverage();
             }
+
+            ent.CalculateCapabilityGap();
+            ent.Owner.CalculateAsIsAverage();
+            ent.Owner.CalculateToBeAverage();
 
             CheckForeColor(ent, currentGrid.Rows[e.RowIndex]);
             CheckFlags(ent, currentGrid.Rows[e.RowIndex]);

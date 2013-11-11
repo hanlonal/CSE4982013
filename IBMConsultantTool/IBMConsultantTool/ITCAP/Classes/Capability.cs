@@ -85,7 +85,7 @@ namespace IBMConsultantTool
         public override void CalculateCapabilityGap()
         {
             base.CalculateCapabilityGap();
-            if (sortType == SortTpe.Static)
+            if (sortType == SortTpe.Static || dynamicCapabilityGaps.Count <3)
             {
                 if (capabilityGap >= staticHighGapThreshold)
                 {
