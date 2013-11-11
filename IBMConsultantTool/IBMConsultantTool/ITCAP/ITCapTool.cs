@@ -901,6 +901,13 @@ namespace IBMConsultantTool
                     row.Cells["AsIsNumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
                     row.Cells["AsIsNumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
 
+                    row.Cells["TobeNumZeros"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["TobeNumOnes"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["TobeNumTwos"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["TobeNumThrees"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["TobeNumFours"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+                    row.Cells["TobeNumFives"].Style.ForeColor = row.DefaultCellStyle.BackColor;
+
                     row.DefaultCellStyle.SelectionBackColor = row.DefaultCellStyle.BackColor;
                     row.DefaultCellStyle.SelectionForeColor = row.DefaultCellStyle.ForeColor;
                 }
@@ -1041,6 +1048,9 @@ namespace IBMConsultantTool
 
                 loadSurveyFromDataGrid.Columns["AsIsScore"].ReadOnly = true;
                 loadSurveyFromDataGrid.Columns["ToBeScore"].ReadOnly = true;
+                loadSurveyFromDataGrid.Columns["AsisStandardDeviation"].ReadOnly = true;
+                loadSurveyFromDataGrid.Columns["TobeStandardDeviation"].ReadOnly = true;
+                loadSurveyFromDataGrid.Columns["CapabilityGapText"].ReadOnly = true;
 
 
                 //loadSurveyFromDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
