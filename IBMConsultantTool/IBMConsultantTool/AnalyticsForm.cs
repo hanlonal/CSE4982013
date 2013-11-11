@@ -703,6 +703,7 @@ namespace IBMConsultantTool
 
             int cntNum = 0;
             int[] sameNum = new int[100];
+            int newCntNum = 0;
 
             #region Differentiation Line Graph
 
@@ -763,13 +764,13 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
                     }
 
-                    if (newCount != sameNum[cntNum])
+                    if (newCount != sameNum[newCntNum])
                     {
                         double differentiation = init[cnt].Differentiation;
 
@@ -778,12 +779,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
                             if (date == init[num + cnt].Date)
                             {
-                                differentiation += init[num + cnt].Differentiation;
-                                sameNum[cntNum] = num + cnt;
+                                differentiation += init[num + cnt + 1].Differentiation;
+                                sameNum[cntNum] = num + cnt + 1;
                                 cntNum++;
                                 count++;
                             }
@@ -876,13 +877,13 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
                     }
 
-                    if (newCount != sameNum[cntNum])
+                    if (newCount != sameNum[newCntNum])
                     {
                         double criticality = init[cnt].Criticality;
 
@@ -891,11 +892,11 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
-                            if (date == init[num + cnt].Date)
+                            if (date == init[num + cnt + 1].Date)
                             {
-                                criticality += init[num + cnt].Criticality;
+                                criticality += init[num + cnt + 1].Criticality;
                                 sameNum[cntNum] = num + cnt;
                                 cntNum++;
                                 count++;
@@ -990,7 +991,7 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
@@ -1004,12 +1005,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
-                            if (date == init[num + cnt].Date)
+                            if (date == init[num + cnt + 1].Date)
                             {
-                                effectiveness += init[num + cnt].Effectiveness;
-                                sameNum[cntNum] = num + cnt;
+                                effectiveness += init[num + cnt + 1].Effectiveness;
+                                sameNum[cntNum] = num + cnt + 1;
                                 cntNum++;
                                 count++;
                             }
@@ -1104,12 +1105,12 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
                     }
-                    if (newCount != sameNum[cntNum])
+                    if (newCount != sameNum[newCntNum])
                     {
                         System.Diagnostics.Trace.WriteLine(init[cnt].Date + ", diff: " + init[cnt].Differentiation.ToString());
                         double differentiation = init[cnt].Differentiation;
@@ -1119,14 +1120,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = init[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
-                            if (cnt > num + childrenCount)
-                                break;
-                            if (date == init[num + cnt].Date)
+                            if (date == init[num + cnt + 1].Date)
                             {
-                                differentiation += init[num + cnt].Differentiation;
-                                sameNum[cntNum] = num + cnt;
+                                differentiation += init[num + cnt + 1].Differentiation;
+                                sameNum[cntNum] = num + cnt + 1;
                                 cntNum++;
                                 count++;
                             }
@@ -1515,6 +1514,7 @@ namespace IBMConsultantTool
             lineChart.ChartAreas[title].Visible = true;
             int cntNum = 0;
             int[] sameNum = new int[100];
+            int newCntNum = 0;
 
             string seriesName = "";
 
@@ -1579,12 +1579,13 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
                     }
-                    if (newCount != sameNum[cntNum])
+
+                    if (newCount != sameNum[newCntNum])
                     {
                         double asIsScore = itAtt[cnt].AsisScore;
 
@@ -1593,12 +1594,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = itAtt[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
-                            if (date == itAtt[num+cnt].Date)
+                            if (date == itAtt[num+cnt+1].Date)
                             {
-                                asIsScore += itAtt[num+cnt].AsisScore;
-                                sameNum[cntNum] = num+cnt;
+                                asIsScore += itAtt[num+cnt+1].AsisScore;
+                                sameNum[cntNum] = num+cnt+1;
                                 cntNum++;
                                 count++;
                             }
@@ -1622,6 +1623,7 @@ namespace IBMConsultantTool
                     }
                     newCount++;
                     childrenCount--;
+                    int aa = cntNum;
                 }
             }
 
@@ -1686,12 +1688,12 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
                     }
-                    if (newCount != sameNum[cntNum])
+                    if (newCount != sameNum[newCntNum])
                     {
                         double toBeScore = itAtt[cnt].TobeScore;
 
@@ -1700,12 +1702,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = itAtt[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
-                            if (date == itAtt[num+cnt].Date)
+                            if (date == itAtt[num+cnt+1].Date)
                             {
-                                toBeScore += itAtt[num+cnt].AsisScore;
-                                sameNum[cntNum] = num+cnt;
+                                toBeScore += itAtt[num+cnt+1].AsisScore;
+                                sameNum[cntNum] = num+cnt+1;
                                 cntNum++;
                                 count++;
                             }
@@ -1795,12 +1797,12 @@ namespace IBMConsultantTool
                     {
                         if (cnt == sameNum[i])
                         {
-                            cntNum = i;
+                            newCntNum = i;
                             newCount = cnt;
                             break;
                         }
                     }
-                    if (newCount != sameNum[cntNum])
+                    if (newCount != sameNum[newCntNum])
                     {
                         double asIsScore = itAtt[cnt].AsisScore;
 
@@ -1809,23 +1811,12 @@ namespace IBMConsultantTool
                         int count = 1;
 
                         DateTime date = itAtt[cnt].Date;
-                        for (int num = 1; num < childrenCount; num++)
+                        for (int num = 0; num < childrenCount; num++)
                         {
-                            if (date == itAtt[num+cnt].Date)
+                            if (date == itAtt[num+cnt+1].Date)
                             {
-                                asIsScore += itAtt[num+cnt].AsisScore;
-                                sameNum[cntNum] = num+cnt;
-                                cntNum++;
-                                count++;
-                            }
-                        }
-
-                        if (childrenCount == 1)
-                        {
-                            if (date == itAtt[childrenCount + 1].Date)
-                            {
-                                asIsScore += itAtt[childrenCount + 1].AsisScore;
-                                sameNum[cntNum] = childrenCount + cnt;
+                                asIsScore += itAtt[num+cnt+1].AsisScore;
+                                sameNum[cntNum] = num+cnt+1;
                                 cntNum++;
                                 count++;
                             }
@@ -1862,12 +1853,6 @@ namespace IBMConsultantTool
         {
             testingLabel.Visible = false;
 
-            /*foreach (ITAttributeTrendAnalysis ana in itAtt)
-            {
-                Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", as is: " + ana.AsisScore.ToString()
-                    + ", to be: " + ana.TobeScore.ToString() + ", " + ana.BusinessType.ToString());
-            }*/
-
             string saveName = "Total Priority";
 
             if (lineChart != null)
@@ -1892,6 +1877,8 @@ namespace IBMConsultantTool
         {
             testingLabel.Visible = false;
 
+            numberOfGraph = 0;
+
             string saveName = boxText;
 
             if (lineChart != null)
@@ -1907,26 +1894,30 @@ namespace IBMConsultantTool
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
 
-            
+            string seriesName = "";
+
+            int eachClients = 0;
 
             int cntNum = 0;
             int[] sameNum = new int[100];
+            int newCntNum = 0;
 
             #region Business Future Line Graph
 
             if (boxText == "Business Future")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < cupe.Count; cnt++)
                 {
                     string name = cupe[cnt].Name;
 
-                    if (cupe[cnt].BusinessType == "Business")
+                    if (cupe[cnt].CupeType == "Business")
                     {
-
                         if (lineChart.Series.FindByName(name) == null)
                         {
                             lineChart.Series.Add(name);
+                            seriesName = name;
                             for (int i = 0; i < cntNum; i++)
                             {
                                 sameNum[i] = new int();
@@ -1934,6 +1925,34 @@ namespace IBMConsultantTool
                             cntNum = 0;
                             newCount = 0;
                         }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
                         lineChart.Series[name].ChartArea = title;
                         lineChart.Series[name].ChartType = SeriesChartType.Line;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -1944,12 +1963,12 @@ namespace IBMConsultantTool
                         {
                             if (cnt == sameNum[i])
                             {
-                                cntNum = i;
+                                newCntNum = i;
                                 newCount = cnt;
                                 break;
                             }
                         }
-                        if (newCount != sameNum[cntNum])
+                        if (newCount != sameNum[newCntNum])
                         {
                             double futureScore = cupe[cnt].FutureAnswer;
 
@@ -1958,12 +1977,12 @@ namespace IBMConsultantTool
                             int count = 1;
 
                             DateTime date = cupe[cnt].Date;
-                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            for (int num = 0; num < childrenCount; num++)
                             {
-                                if (date == cupe[num].Date)
+                                if (cupe[num+cnt+1].CupeType == "Business" && date == cupe[num+cnt+1].Date)
                                 {
-                                    futureScore += cupe[num].FutureAnswer;
-                                    sameNum[cntNum] = num;
+                                    futureScore += cupe[num+cnt+1].FutureAnswer;
+                                    sameNum[cntNum] = num+cnt+1;
                                     cntNum++;
                                     count++;
                                 }
@@ -1987,6 +2006,7 @@ namespace IBMConsultantTool
                         }
                         newCount++;
                     }
+                    childrenCount--;
                 }
             }
 
@@ -1997,16 +2017,18 @@ namespace IBMConsultantTool
             else if (boxText == "Business Current")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < cupe.Count; cnt++)
                 {
                     string name = cupe[cnt].Name;
 
-                    if (cupe[cnt].BusinessType == "Business")
+                    if (cupe[cnt].CupeType == "Business")
                     {
 
                         if (lineChart.Series.FindByName(name) == null)
                         {
                             lineChart.Series.Add(name);
+                            seriesName = name;
                             for (int i = 0; i < cntNum; i++)
                             {
                                 sameNum[i] = new int();
@@ -2014,6 +2036,34 @@ namespace IBMConsultantTool
                             cntNum = 0;
                             newCount = 0;
                         }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
                         lineChart.Series[name].ChartArea = title;
                         lineChart.Series[name].ChartType = SeriesChartType.Line;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -2024,12 +2074,13 @@ namespace IBMConsultantTool
                         {
                             if (cnt == sameNum[i])
                             {
-                                cntNum = i;
+                                newCntNum = i;
                                 newCount = cnt;
                                 break;
                             }
                         }
-                        if (newCount != sameNum[cntNum])
+
+                        if (newCount != sameNum[newCntNum])
                         {
                             double currentScore = cupe[cnt].CurrentAnswer;
 
@@ -2038,12 +2089,12 @@ namespace IBMConsultantTool
                             int count = 1;
 
                             DateTime date = cupe[cnt].Date;
-                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            for (int num = 0; num < childrenCount; num++)
                             {
-                                if (date == cupe[num].Date)
+                                if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
                                 {
-                                    currentScore += cupe[num].CurrentAnswer;
-                                    sameNum[cntNum] = num;
+                                    currentScore += cupe[num+cnt+1].CurrentAnswer;
+                                    sameNum[cntNum] = num+cnt+1;
                                     cntNum++;
                                     count++;
                                 }
@@ -2067,6 +2118,7 @@ namespace IBMConsultantTool
                         }
                         newCount++;
                     }
+                    childrenCount--;
                 }
             }
 
@@ -2077,16 +2129,22 @@ namespace IBMConsultantTool
             else if (boxText == "IT Future")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < cupe.Count; cnt++)
                 {
                     string name = cupe[cnt].Name;
 
-                    if (cupe[cnt].BusinessType == "IT")
+                    if (cupe[cnt].CupeType == "IT")
                     {
+                        foreach (CUPEQuestionTrendAnalysis cu in cupe)
+                        {
+                            System.Diagnostics.Trace.WriteLine("IT: " + cu.CupeType.ToString() + ", Future score: " + cu.FutureAnswer.ToString());
+                        }
 
                         if (lineChart.Series.FindByName(name) == null)
                         {
                             lineChart.Series.Add(name);
+                            seriesName = name;
                             for (int i = 0; i < cntNum; i++)
                             {
                                 sameNum[i] = new int();
@@ -2094,6 +2152,34 @@ namespace IBMConsultantTool
                             cntNum = 0;
                             newCount = 0;
                         }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
                         lineChart.Series[name].ChartArea = title;
                         lineChart.Series[name].ChartType = SeriesChartType.Line;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -2104,12 +2190,13 @@ namespace IBMConsultantTool
                         {
                             if (cnt == sameNum[i])
                             {
-                                cntNum = i;
+                                newCntNum = i;
                                 newCount = cnt;
                                 break;
                             }
                         }
-                        if (newCount != sameNum[cntNum])
+
+                        if (newCount != sameNum[newCntNum])
                         {
                             double futureScore = cupe[cnt].FutureAnswer;
 
@@ -2118,12 +2205,12 @@ namespace IBMConsultantTool
                             int count = 1;
 
                             DateTime date = cupe[cnt].Date;
-                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            for (int num = 0; num < childrenCount; num++)
                             {
-                                if (date == cupe[num].Date)
+                                if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
                                 {
-                                    futureScore += cupe[num].FutureAnswer;
-                                    sameNum[cntNum] = num;
+                                    futureScore += cupe[num+cnt+1].FutureAnswer;
+                                    sameNum[cntNum] = num+cnt+1;
                                     cntNum++;
                                     count++;
                                 }
@@ -2147,6 +2234,7 @@ namespace IBMConsultantTool
                         }
                         newCount++;
                     }
+                    childrenCount--;
                 }
             }
 
@@ -2157,16 +2245,18 @@ namespace IBMConsultantTool
             else if (boxText == "IT Current")
             {
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < cupe.Count; cnt++)
                 {
                     string name = cupe[cnt].Name;
 
-                    if (cupe[cnt].BusinessType == "IT")
+                    if (cupe[cnt].CupeType == "IT")
                     {
 
                         if (lineChart.Series.FindByName(name) == null)
                         {
                             lineChart.Series.Add(name);
+                            seriesName = name;
                             for (int i = 0; i < cntNum; i++)
                             {
                                 sameNum[i] = new int();
@@ -2174,6 +2264,34 @@ namespace IBMConsultantTool
                             cntNum = 0;
                             newCount = 0;
                         }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
                         lineChart.Series[name].ChartArea = title;
                         lineChart.Series[name].ChartType = SeriesChartType.Line;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -2184,12 +2302,13 @@ namespace IBMConsultantTool
                         {
                             if (cnt == sameNum[i])
                             {
-                                cntNum = i;
+                                newCntNum = i;
                                 newCount = cnt;
                                 break;
                             }
                         }
-                        if (newCount != sameNum[cntNum])
+
+                        if (newCount != sameNum[newCntNum])
                         {
                             double currentScore = cupe[cnt].CurrentAnswer;
 
@@ -2198,12 +2317,12 @@ namespace IBMConsultantTool
                             int count = 1;
 
                             DateTime date = cupe[cnt].Date;
-                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            for (int num = 0; num < childrenCount; num++)
                             {
-                                if (date == cupe[num].Date)
+                                if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
                                 {
-                                    currentScore += cupe[num].CurrentAnswer;
-                                    sameNum[cntNum] = num;
+                                    currentScore += cupe[num+cnt+1].CurrentAnswer;
+                                    sameNum[cntNum] = num+cnt+1;
                                     cntNum++;
                                     count++;
                                 }
@@ -2227,15 +2346,8 @@ namespace IBMConsultantTool
                         }
                         newCount++;
                     }
+                    childrenCount--;
                 }
-            }
-
-            #endregion
-
-            #region All Line Graph
-
-            else if (boxText == "All")
-            {
             }
 
             #endregion
@@ -2244,8 +2356,9 @@ namespace IBMConsultantTool
 
             else
             {
-                saveName = "Default";
+                saveName = "Default Future";
                 int newCount = 0;
+                int childrenCount = 0;
                 for (int cnt = 0; cnt < cupe.Count; cnt++)
                 {
                     string name = cupe[cnt].Name;
@@ -2256,6 +2369,7 @@ namespace IBMConsultantTool
                         if (lineChart.Series.FindByName(name) == null)
                         {
                             lineChart.Series.Add(name);
+                            seriesName = name;
                             for (int i = 0; i < cntNum; i++)
                             {
                                 sameNum[i] = new int();
@@ -2263,6 +2377,34 @@ namespace IBMConsultantTool
                             cntNum = 0;
                             newCount = 0;
                         }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
                         lineChart.Series[name].ChartArea = title;
                         lineChart.Series[name].ChartType = SeriesChartType.Line;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
@@ -2273,12 +2415,13 @@ namespace IBMConsultantTool
                         {
                             if (cnt == sameNum[i])
                             {
-                                cntNum = i;
+                                newCntNum = i;
                                 newCount = cnt;
                                 break;
                             }
                         }
-                        if (newCount != sameNum[cntNum])
+
+                        if (newCount != sameNum[newCntNum])
                         {
                             double futureScore = cupe[cnt].FutureAnswer;
 
@@ -2287,12 +2430,12 @@ namespace IBMConsultantTool
                             int count = 1;
 
                             DateTime date = cupe[cnt].Date;
-                            for (int num = (cnt + 1); num < cupe.Count; num++)
+                            for (int num = 0; num < childrenCount; num++)
                             {
-                                if (date == cupe[num].Date)
+                                if (date == cupe[num+cnt+1].Date)
                                 {
-                                    futureScore += cupe[num].FutureAnswer;
-                                    sameNum[cntNum] = num;
+                                    futureScore += cupe[num+cnt+1].FutureAnswer;
+                                    sameNum[cntNum] = num+cnt+1;
                                     cntNum++;
                                     count++;
                                 }
@@ -2315,9 +2458,10 @@ namespace IBMConsultantTool
                             }
                         }
                         newCount++;
+                        childrenCount--;
                     }
 
-                    if (cupe[cnt].BusinessType == "IT")
+                    /*if (cupe[cnt].BusinessType == "IT")
                     {
 
                         if (lineChart.Series.FindByName(name) == null)
@@ -2382,7 +2526,8 @@ namespace IBMConsultantTool
                             }
                         }
                         newCount++;
-                    }
+                        childrenCount--;
+                    }*/
                 }
             }
 
