@@ -152,6 +152,7 @@ namespace IBMConsultantTool
 
             if (state == TrackingState.Capabilities)
             {
+                CreateCapabilityGraph(capabilitiesToTrack, "Capability", selectedInfo);
             }
             else if (state == TrackingState.CUPEQuestions)
             {
@@ -369,12 +370,13 @@ namespace IBMConsultantTool
                     ent.GapType = "---";
                     ent.PrioritizedGapType = "---";
                     ent.Type1 = TrendAnalysisEntity.Type.Master;
+                    ent.Name = capabilitiesComboBox.Text;
                     capabilitiesToTrack.Add(ent);
                 }
                 else
                     MessageBox.Show("Query returned no results");
 
-                foreach (CapabilityTrendAnalysis cap in capabilitiesToTrack)
+                foreach (CapabilityTrendAnalysis cap in capabilities)
                 {
                     ent.Children++;
                     cap.Type1 = TrendAnalysisEntity.Type.Child;
@@ -2735,6 +2737,142 @@ namespace IBMConsultantTool
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        public void CreateCapabilityGraph(List<CapabilityTrendAnalysis> cap, string title, string boxText)
+        {
+            testingLabel.Visible = false;
+
+            numberOfGraph = 0;
+
+            string saveName = boxText;
+
+            if (lineChart != null)
+            {
+                lineChart.ChartAreas.Clear();
+                lineChart.Series.Clear();
+            }
+
+            lineChart.Parent = this.chartPanel;
+            lineChart.Size = this.chartPanel.Size;
+            lineChart.Visible = true;
+
+            lineChart.ChartAreas.Add(title);
+            lineChart.ChartAreas[title].Visible = true;
+
+            string seriesName = "";
+
+            int eachClients = 0;
+
+            int cntNum = 0;
+            int[] sameNum = new int[100];
+            int newCntNum = 0;
+
+            #region Business Future Line Graph
+
+            if (boxText == "Capability Gap Amount")
+            {
+                int newCount = 0;
+                int childrenCount = 0;
+                for (int cnt = 0; cnt < cap.Count; cnt++)
+                {
+                    string name = cap[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        seriesName = name;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (cap[cnt].Children > 0)
+                    {
+                        childrenCount = cap[cnt].Children;
+                        eachClients = cap[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                    }
+
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            newCntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+
+                    if (newCount != sameNum[newCntNum])
+                    {
+                        double futureScore = cap[cnt].CapabilityGap;
+
+                        double[] future = new double[100];
+                        future[cnt] = cap[cnt].CapabilityGap;
+                        int count = 1;
+
+                        DateTime date = cap[cnt].Date;
+                        for (int num = 0; num < childrenCount; num++)
+                        {
+                            if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            {
+                                futureScore += cap[num + cnt + 1].CapabilityGap;
+                                sameNum[cntNum] = num + cnt + 1;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            futureScore /= count;
+
+                            double temp = Convert.ToDouble(futureScore);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(cap[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(cap[cnt].Date, cap[cnt].CapabilityGap);
+                        }
+                    }
+                    newCount++;
+                    childrenCount--;
+                }
+            }
+            #endregion
         }
 
         private void trendGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
