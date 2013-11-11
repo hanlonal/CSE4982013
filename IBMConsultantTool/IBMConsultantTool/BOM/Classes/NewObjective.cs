@@ -276,11 +276,11 @@ namespace IBMConsultantTool
             if (init.ScoreState1 == NewImperative.ScoreState.None)
                 imperativeToLabelDict[init].BackColor = Color.LightSlateGray;
             else if (init.ScoreState1 == NewImperative.ScoreState.High)
-                imperativeToLabelDict[init].BackColor = Color.LawnGreen;
+                imperativeToLabelDict[init].BackColor = Color.IndianRed;
             else if (init.ScoreState1 == NewImperative.ScoreState.Medium)
                 imperativeToLabelDict[init].BackColor = Color.Yellow;
             else if (init.ScoreState1 == NewImperative.ScoreState.Low)
-                imperativeToLabelDict[init].BackColor = Color.Red;
+                imperativeToLabelDict[init].BackColor = Color.LawnGreen;
         }
 
         public string Name
