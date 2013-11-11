@@ -70,6 +70,7 @@ namespace IBMConsultantTool
             metricsComboBox.SelectedValueChanged +=new EventHandler(metricsComboBox_SelectedValueChanged);
             regionComboBox.SelectedValueChanged +=new EventHandler(regionComboBox_SelectedValueChanged);
             businessTypeComboBox.SelectedValueChanged +=new EventHandler(businessTypeComboBox_SelectedValueChanged);
+            graphTypeComboBox.SelectedValueChanged += new EventHandler(graphTypeComboBox_SelectedValueChanged);
 
             DataGridViewDisableButtonColumn cell = (DataGridViewDisableButtonColumn)trendGridView.Columns["Collapse"];
             cell.Visible = false;
@@ -129,6 +130,10 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Differentiation");
                     metricsComboBox.Items.Add("Criticality");
                     metricsComboBox.Items.Add("Effectiveness");
+
+                    graphTypeComboBox.Items.Clear();
+                    graphTypeComboBox.Items.Add("Line Graph");
+                    graphTypeComboBox.Items.Add("Bar Graph");
                     break;
             }
         }
@@ -177,7 +182,37 @@ namespace IBMConsultantTool
             //TODO
         }
 
+        private void graphTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            // TODO
+            ComboBox comboBox = (ComboBox)sender;
 
+            string selectedInfo = (string)graphTypeComboBox.SelectedItem;
+
+            if (state == TrackingState.Capabilities)
+            {
+            }
+            else if (state == TrackingState.CUPEQuestions)
+            {
+                CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
+            }
+            else if (state == TrackingState.ITAttributes)
+            {
+                CreateITAttributeGraph(attributesToTrack, "IT Attributes", selectedInfo);
+            }
+            else if (state == TrackingState.Imperatives)
+            {
+                CreateBarGraph(imperativesToTrack, "Imperatives", selectedInfo);
+            }
+            else if (state == TrackingState.Objectives)
+            {
+                CreateObjectivesGraph(attributesToTrack, "Objectives", selectedInfo);
+            }
+
+            int resultIndex = -1;
+
+            resultIndex = metricsComboBox.FindStringExact(selectedInfo);
+        }
 
         private void analyticsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -609,7 +644,7 @@ namespace IBMConsultantTool
 
         private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 && e.RowIndex >=0)
             {
                 TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
                 if (ent.Type1 == TrendAnalysisEntity.Type.Master)
@@ -1116,6 +1151,310 @@ namespace IBMConsultantTool
             }
 
             #endregion
+
+            lineChart.Titles.Add("title");
+            lineChart.Titles[0].Name = "title";
+            lineChart.Titles["title"].Visible = true;
+            lineChart.Titles["title"].Text = title + " - " + saveName;
+            lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+            //saveName + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        public void CreateBarGraph(List<ImperativeTrendAnalysis> init, string title, string chartType)
+        {
+            testingLabel.Visible = false;
+
+            foreach (ImperativeTrendAnalysis ana in init)
+            {
+                Console.WriteLine(numberOfGraph.ToString() + ", Date: " + ana.Date.ToString() + ", diff: " + ana.Differentiation.ToString() +
+                    ", crit: " + ana.Criticality.ToString() + ", eff: " + ana.Effectiveness.ToString());
+            }
+
+            numberOfGraph = 0;
+            if (lineChart != null)
+            {
+                lineChart.ChartAreas.Clear();
+                lineChart.Series.Clear();
+                lineChart.Legends.Clear();
+                lineChart.Titles.Clear();
+            }
+            lineChart.Parent = this.chartPanel;
+            lineChart.Size = this.chartPanel.Size;
+            lineChart.Visible = true;
+
+            lineChart.ChartAreas.Add(title);
+            lineChart.ChartAreas[title].Visible = true;
+            lineChart.ChartAreas[title].AxisX.Interval = 1;
+
+            string saveName = metricsComboBox.Text + " " + chartType;
+
+            string seriesName = "";
+
+            int numberOfSeries = 0;
+
+            for (int cnt = 0; cnt < init.Count; cnt++)
+            {
+                if (lineChart.Series.FindByName(init[cnt].Name) == null)
+                    numberOfSeries++;
+            }
+
+            int eachClients = 1;
+
+            if (numberOfSeries > 0)
+                eachClients = init.Count / numberOfSeries;
+
+            int cntNum = 0;
+            int[] sameNum = new int[100];
+
+            if (chartType == "Bar Graph")
+            {
+                lineChart.Series.Add("Bar");
+                lineChart.Series["Bar"].ChartArea = title;
+                lineChart.Series["Bar"].ChartType = SeriesChartType.Bar;
+                lineChart.Series["Bar"].XValueType = ChartValueType.Auto;
+                lineChart.Series["Bar"].YValueType = ChartValueType.Double;
+                lineChart.Series["Bar"].BorderWidth = 5;
+
+                DataPoint[] point = new DataPoint[100];
+                int index = 0;
+
+                #region Differentiation Bar Graph
+
+                if (metricsComboBox.Text == "Differentiation")
+                {
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < init.Count; cnt++)
+                    {
+                        string name = init[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount == -1)
+                        {
+                            seriesName = name + (numberOfGraph + 1).ToString();
+                            name = name + (numberOfGraph + 1).ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (init[cnt].Children > 0)
+                        {
+                            childrenCount = init[cnt].Children;
+                            eachClients = init[cnt].Children;
+
+                            point[index] = new DataPoint();
+                            point[index].SetValueXY(name, init[cnt].Differentiation);
+                            //point.Color = DataGridView.
+                            lineChart.Series["Bar"].Points.Add(point[index]);
+                            index++;
+
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+                }
+
+                #endregion
+
+                #region Criticality Bar Graph
+
+                else if (metricsComboBox.Text == "Criticality")
+                {
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < init.Count; cnt++)
+                    {
+                        string name = init[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount == -1)
+                        {
+                            seriesName = name + (numberOfGraph + 1).ToString();
+                            name = name + (numberOfGraph + 1).ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (init[cnt].Children > 0)
+                        {
+                            childrenCount = init[cnt].Children;
+                            eachClients = init[cnt].Children;
+
+                            point[index] = new DataPoint();
+                            point[index].SetValueXY(name, init[cnt].Criticality);
+                            //point.Color = DataGridView.
+                            lineChart.Series["Bar"].Points.Add(point[index]);
+                            index++;
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+                }
+
+                #endregion
+
+                #region Effectiveness Bar Graph
+
+                else if (metricsComboBox.Text == "Effectiveness")
+                {
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < init.Count; cnt++)
+                    {
+                        string name = init[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount == -1)
+                        {
+                            seriesName = name + (numberOfGraph + 1).ToString();
+                            name = name + (numberOfGraph + 1).ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (init[cnt].Children > 0)
+                        {
+                            childrenCount = init[cnt].Children;
+                            eachClients = init[cnt].Children;
+
+                            point[index] = new DataPoint();
+                            point[index].SetValueXY(name, init[cnt].Effectiveness);
+                            //point.Color = DataGridView.
+                            lineChart.Series["Bar"].Points.Add(point[index]);
+                            index++;
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+                }
+
+                #endregion
+
+                #region Default Bar Graph
+
+                else
+                {
+                    saveName = "Default Differentiation";
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < init.Count; cnt++)
+                    {
+                        string name = init[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount == -1)
+                        {
+                            seriesName = name + (numberOfGraph + 1).ToString();
+                            name = name + (numberOfGraph + 1).ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (init[cnt].Children > 0)
+                        {
+                            childrenCount = init[cnt].Children;
+                            eachClients = init[cnt].Children;
+
+                            point[index] = new DataPoint();
+                            point[index].SetValueXY(name, init[cnt].Differentiation);
+                            //point.Color = DataGridView.
+                            lineChart.Series["Bar"].Points.Add(point[index]);
+                            index++;
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+                }
+
+                #endregion
+
+            }
 
             lineChart.Titles.Add("title");
             lineChart.Titles[0].Name = "title";
@@ -1872,6 +2211,66 @@ namespace IBMConsultantTool
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
+        }
+
+        private void trendGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            
+        }
+
+        private void color_Click(object sender, EventArgs e)
+        {
+            ColorDialog clrDialog = new ColorDialog();
+
+            clrDialog.AllowFullOpen = false;
+
+            clrDialog.ShowHelp = true;
+
+            clrDialog.Color = trendGridView.SelectedRows[0].DefaultCellStyle.BackColor;
+
+            if (clrDialog.ShowDialog() == DialogResult.OK)
+            {
+                trendGridView.SelectedRows[0].DefaultCellStyle.BackColor = clrDialog.Color;
+            }
+
+        }
+
+        private void trendGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int currentMouseOverColumn = trendGridView.HitTest(e.X, e.Y).ColumnIndex;
+                int currentMouseOverRow = trendGridView.HitTest(e.X, e.Y).RowIndex;
+                if (currentMouseOverColumn > 0 && currentMouseOverRow >= 0)
+                {
+                    TrendAnalysisEntity ent = trendGridView.Rows[currentMouseOverRow].DataBoundItem as TrendAnalysisEntity;
+                    trendGridView.Rows[currentMouseOverRow].Selected = true;
+                    ContextMenuStrip strip = new ContextMenuStrip();
+                    ToolStripMenuItem color = new ToolStripMenuItem();
+                    strip.Items.Add(color);
+                    color.Click += new EventHandler(color_Click);
+                    color.Text = "Change Color";
+
+
+                    strip.Show(trendGridView, e.Location, ToolStripDropDownDirection.BelowRight);
+
+                }
+
+            }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RunTestForm));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            this.Close();
+            return;
+        }
+
+        private void RunTestForm()
+        {
+            Application.Run(new TestForm());
         }
     }
 }

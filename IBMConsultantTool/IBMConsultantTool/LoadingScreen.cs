@@ -11,36 +11,65 @@ namespace IBMConsultantTool
 {
     public partial class LoadingScreen : Form
     {
-        AnalyticsForm owner;
+        
         Panel panel;
         Label label;
         Container container;
+        CUPETool owner;
 
-        public LoadingScreen()
+        private bool isClosed = false;
+
+        public LoadingScreen(CUPETool form)
         {
-            InitializeComponent();
+            owner = form;
+            //InitializeComponent();
+
+            owner.Deactivate +=new EventHandler(owner_Deactivate);
+            owner.Activated +=new EventHandler(owner_Activated);
+            owner.Move +=new EventHandler(owner_Move);
+            this.ShowInTaskbar = false;
+            this.TopMost = true;
+            this.StartPosition = FormStartPosition.Manual;
+            this.Visible = false;
+
+            AdjustLocation();
         }
 
-    }
+        private void owner_Deactivate(object sender, EventArgs e)
+        {
+            if (!this.isClosed)
+            {
+                this.Visible = false;
+            }
+        }
 
-   // public LoadingScreen(AnalyticsForm form):this() 
-   // {
-      // Store the reference to parent form
-     // this.owner = form;
+        private void owner_Activated(object sender, EventArgs e)
+        {
+            if (!this.isClosed)
+            {
+                this.Visible = true;
+            }
+        }
 
-      // Attach to parent form events
-     // owner.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
-      //owner.Activated += new System.EventHandler(this.MainForm_Activated);
-      ////owner.Move += new System.EventHandler(this.MainForm_Move);
+        private void owner_Move(object sender, EventArgs e)
+        {
+            AdjustLocation();
+        }
 
-      // Adjust appearance
-     // this.ShowInTaskbar = false; // do not show form in task bar
-      //this.TopMost = true; // show splash form on top of main form
-     // this.StartPosition = FormStartPosition.Manual;
-     // this.Visible = false;
+        private void LoadingScreen_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            isClosed = true;
+        }
 
-      // Adjust location
-      //AdjustLocation();
-   // }
-    
+        private void AdjustLocation()
+        {
+            // Adjust the position relative to main form
+            int dx = (owner.Width - this.Width) / 2;
+            int dy = (owner.Height - this.Height) / 2;
+            Point loc = new Point(owner.Location.X, owner.Location.Y);
+            loc.Offset(dx, dy);
+            this.Location = loc;
+        }
+
+    }// end class   
 }

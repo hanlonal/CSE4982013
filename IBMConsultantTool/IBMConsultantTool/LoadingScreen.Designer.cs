@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "LoadingScreen";
             this.Text = "LoadingScreen";
-            //this.Load += new System.EventHandler(this.LoadingScreen_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoadingScreen_FormClosed);
             this.ResumeLayout(false);
 
         }
