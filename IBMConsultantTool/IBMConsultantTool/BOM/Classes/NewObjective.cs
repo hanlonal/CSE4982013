@@ -132,6 +132,7 @@ namespace IBMConsultantTool
         private void delete_Click(object sender, EventArgs e)
         {
             this.Controls.Remove(imperativeToLabelDict[currentImperative]);
+            this.imperatives.Remove(currentImperative);
         }
 
         private Point FindImperativeLocation()
