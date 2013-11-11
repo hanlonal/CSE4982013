@@ -119,8 +119,8 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
             surverymakercontrols.Add(addEntityButton);
-            surverymakercontrols.Add(editQuestionTextbox);
-            surverymakercontrols.Add(changeTextButton);
+            //surverymakercontrols.Add(editQuestionTextbox);
+            //surverymakercontrols.Add(changeTextButton);
 
             liveDataEntryControls.Add(liveDataEntryGrid);
             liveDataEntryControls.Add(LiveDataSaveITCAPButton);
@@ -402,13 +402,13 @@ namespace IBMConsultantTool
                     activequestion = (ITCapQuestion)ent;
                     ContextMenuStrip strip = new ContextMenuStrip();
                     ToolStripMenuItem deletecapability = new ToolStripMenuItem();
-                    ToolStripMenuItem editQuestionText = new ToolStripMenuItem();
-                    editQuestionText.Click += new EventHandler(editQuestionText_Click);
+                    //ToolStripMenuItem editQuestionText = new ToolStripMenuItem();
+                    //editQuestionText.Click += new EventHandler(editQuestionText_Click);
                     deletecapability.Click += new EventHandler(deleteAttribute_Click);
                     deletecapability.Text = "Delete Attribute";
-                    editQuestionText.Text = "Edit Question Text";
+                    //editQuestionText.Text = "Edit Question Text";
                     strip.Items.Add(deletecapability);
-                    strip.Items.Add(editQuestionText);
+                    //strip.Items.Add(editQuestionText);
                     strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                 }
 
@@ -822,11 +822,6 @@ namespace IBMConsultantTool
             new ChangeITCAPDefaults(this).ShowDialog();
         }
 
-        private void prioritizationGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void CheckBackColor(ScoringEntity ent, DataGridViewRow row)
         {
             if (ent.GapType1 == ScoringEntity.GapType.High)
@@ -884,6 +879,7 @@ namespace IBMConsultantTool
 
         private void currentGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            currentGrid.CurrentCell = null;
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
                 ScoringEntity ent = row.DataBoundItem as ScoringEntity;                
@@ -1643,30 +1639,12 @@ namespace IBMConsultantTool
                     {
                         ContextMenuStrip strip = new ContextMenuStrip();
                         ToolStripMenuItem addToDebate = new ToolStripMenuItem();
-                        addToDebate.Click += new EventHandler(addToDebate_Click);
                         addToDebate.Text = "Add to Discussion";
                         strip.Items.Add(addToDebate);
                         strip.Show(loadSurveyFromDataGrid, e.Location, ToolStripDropDownDirection.BelowRight);
-
                     }
-
                 }
             }
-        }
-
-        private void addToDebate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void asIsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void loadSurveyFromDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void asIsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1742,6 +1720,5 @@ namespace IBMConsultantTool
                 MessageBox.Show("Failed to save changes", "Error");
             }
         }
-
     }// end class
 }

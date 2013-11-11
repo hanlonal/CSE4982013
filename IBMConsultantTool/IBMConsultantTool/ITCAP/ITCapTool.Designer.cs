@@ -433,7 +433,6 @@
             this.asIsToolStripMenuItem.Name = "asIsToolStripMenuItem";
             this.asIsToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.asIsToolStripMenuItem.Text = "As Is";
-            this.asIsToolStripMenuItem.Click += new System.EventHandler(this.asIsToolStripMenuItem_Click);
             // 
             // toBeToolStripMenuItem
             // 
@@ -654,7 +653,6 @@
             this.prioritizationGrid.Size = new System.Drawing.Size(938, 529);
             this.prioritizationGrid.TabIndex = 18;
             this.prioritizationGrid.Visible = false;
-            this.prioritizationGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.prioritizationGrid_CellContentClick);
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -851,7 +849,6 @@
             this.loadSurveyFromDataGrid.TabIndex = 21;
             this.loadSurveyFromDataGrid.Visible = false;
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
-            this.loadSurveyFromDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellContentClick);
             this.loadSurveyFromDataGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
             this.loadSurveyFromDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.loadSurveyFromDataGrid_CellMouseDown);
             this.loadSurveyFromDataGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
