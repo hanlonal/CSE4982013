@@ -1119,12 +1119,15 @@ namespace IBMConsultantTool
             newChart.Series["Business"].ChartType = SeriesChartType.Bar;
             newChart.Series["Business"].IsValueShownAsLabel = true;
             newChart.Series["Business"].IsVisibleInLegend = true;
+            newChart.Series["Business"].LabelBorderWidth = 20;
             newChart.Series["Business"].YValueType = ChartValueType.Double;
             newChart.Series.Add("IT");
             newChart.Series["IT"].ChartArea = "chart1";
             newChart.Series["IT"].ChartType = SeriesChartType.Bar;
             newChart.Series["IT"].IsValueShownAsLabel = true;
             newChart.Series["IT"].IsVisibleInLegend = true;
+            newChart.Series["IT"].LabelBorderWidth = 20;
+
             newChart.Series["IT"].YValueType = ChartValueType.Double;
 
             int currentCount = current.Count;
@@ -1136,6 +1139,8 @@ namespace IBMConsultantTool
                 decimal tmp = Convert.ToDecimal(temp);
                 tmp = Math.Round(tmp, 2);
                 temp = (double)tmp;
+                
+
 
                 newChart.Series["Business"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
             }

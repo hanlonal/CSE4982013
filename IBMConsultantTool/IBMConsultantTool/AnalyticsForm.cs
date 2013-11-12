@@ -2768,7 +2768,7 @@ namespace IBMConsultantTool
             int[] sameNum = new int[100];
             int newCntNum = 0;
 
-            #region Business Future Line Graph
+            #region Capability Gap Amount Line Graph
 
             if (boxText == "Capability Gap Amount")
             {
@@ -2834,7 +2834,7 @@ namespace IBMConsultantTool
 
                     if (newCount != sameNum[newCntNum])
                     {
-                        double futureScore = cap[cnt].CapabilityGap;
+                        double gap = cap[cnt].CapabilityGap;
 
                         double[] future = new double[100];
                         future[cnt] = cap[cnt].CapabilityGap;
@@ -2845,7 +2845,7 @@ namespace IBMConsultantTool
                         {
                             if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
                             {
-                                futureScore += cap[num + cnt + 1].CapabilityGap;
+                                gap += cap[num + cnt + 1].CapabilityGap;
                                 sameNum[cntNum] = num + cnt + 1;
                                 cntNum++;
                                 count++;
@@ -2854,9 +2854,9 @@ namespace IBMConsultantTool
 
                         if (count > 1)
                         {
-                            futureScore /= count;
+                            gap /= count;
 
-                            double temp = Convert.ToDouble(futureScore);
+                            double temp = Convert.ToDouble(gap);
                             decimal tmp = Convert.ToDecimal(temp);
                             tmp = Math.Round(tmp, 2);
                             temp = (double)tmp;
@@ -2872,6 +2872,128 @@ namespace IBMConsultantTool
                     childrenCount--;
                 }
             }
+            #endregion
+
+            #region Prioritized Capability Gap Amount
+
+            if (boxText == "Prioritized Capability Gap Amount")
+            {
+                int newCount = 0;
+                int childrenCount = 0;
+                for (int cnt = 0; cnt < cap.Count; cnt++)
+                {
+                    string name = cap[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        seriesName = name;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (cap[cnt].Children > 0)
+                    {
+                        childrenCount = cap[cnt].Children;
+                        eachClients = cap[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                    }
+
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            newCntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+
+                    if (newCount != sameNum[newCntNum])
+                    {
+                        double prioritizedGap = cap[cnt].PrioritizedCapabilityGap;
+
+                        double[] future = new double[100];
+                        future[cnt] = cap[cnt].PrioritizedCapabilityGap;
+                        int count = 1;
+
+                        DateTime date = cap[cnt].Date;
+                        for (int num = 0; num < childrenCount; num++)
+                        {
+                            if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            {
+                                prioritizedGap += cap[num + cnt + 1].PrioritizedCapabilityGap;
+                                sameNum[cntNum] = num + cnt + 1;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            prioritizedGap /= count;
+
+                            double temp = Convert.ToDouble(prioritizedGap);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(cap[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(cap[cnt].Date, cap[cnt].PrioritizedCapabilityGap);
+                        }
+                    }
+                    newCount++;
+                    childrenCount--;
+                }
+            }
+            #endregion
+
+            #region Capability Gap Type Graph
+
+            if (boxText == "Capability Gap Type")
+            {
+            }
+
+            #endregion
+
+            #region Prioritized Capability Gap Type
+
+            if (boxText == "Prioritized Capability Gap Type")
+            {
+            }
+
             #endregion
         }
 
