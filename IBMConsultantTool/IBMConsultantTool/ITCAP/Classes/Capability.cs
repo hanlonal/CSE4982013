@@ -229,7 +229,7 @@ namespace IBMConsultantTool
                         if (count == 0)
                         {
                             pair.Key.CapabilityGapText = "Low Gap";
-                            pair.Key.GapType1 = GapType.High;
+                            pair.Key.GapType1 = GapType.Low;
                         }
                         else if (count == 1)
                         {

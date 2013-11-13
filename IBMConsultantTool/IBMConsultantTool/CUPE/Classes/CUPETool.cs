@@ -130,7 +130,7 @@ namespace IBMConsultantTool
             foreach (Chart chart in charts)
             {
                 currentChart = chart;
-                
+
                 DataPoint point = new DataPoint();
                 point.Color = Color.Fuchsia;
                 point.BackGradientStyle = GradientStyle.Center;
@@ -460,7 +460,10 @@ namespace IBMConsultantTool
             }
 
             for (int cnt = 0; cnt < 4; cnt++)
+            {
                 currentChart.Series["BusiCurrent"].Points[cnt].SetDefault(true);
+                
+            }
 
             if (currentGrid == questionGridBusiFuture)
                 chartName = "Business Future CUPE Responses";

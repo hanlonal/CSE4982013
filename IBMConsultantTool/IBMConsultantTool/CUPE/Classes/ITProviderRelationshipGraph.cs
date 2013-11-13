@@ -93,10 +93,7 @@ namespace IBMConsultantTool
             pic3.Image = Properties.Resources.markITCurrent;
             pic4.Image = Properties.Resources.markITFuture;
 
-            pic1.BackColor = Color.Transparent;
-            pic2.BackColor = Color.Transparent;
-            pic3.BackColor = Color.Transparent;
-            pic4.BackColor = Color.Transparent;
+            
 
             pic1.Visible = true;
             pic2.Visible = true;
@@ -538,7 +535,56 @@ namespace IBMConsultantTool
 
             #endregion
 
-            
+
+            pic1.BackColor = Color.Transparent;
+            pic2.BackColor = Color.Transparent;
+            pic3.BackColor = Color.Transparent;
+            pic4.BackColor = Color.Transparent;
+
+            List<double> value = new List<double>();
+            value.Add(curB);
+            value.Add(futB);
+            value.Add(itCur);
+            value.Add(itFu);
+
+            value.Sort();
+            System.Diagnostics.Trace.WriteLine("sorted: " + value[0].ToString() + ", " + value[1].ToString() + ", " + value[2].ToString() + ", " + value[3].ToString());
+
+            if (value[0] == curB)
+                pic1.BringToFront();
+            else if (value[0] == futB)
+                pic2.BringToFront();
+            else if (value[0] == itCur)
+                pic3.BringToFront();
+            else if (value[0] == itFu)
+                pic4.BringToFront();
+
+            if (value[1] == curB)
+                pic1.BringToFront();
+            else if (value[1] == futB)
+                pic2.BringToFront();
+            else if (value[1] == itCur)
+                pic3.BringToFront();
+            else if (value[1] == itFu)
+                pic4.BringToFront();
+
+            if (value[2] == curB)
+                pic1.BringToFront();
+            else if (value[2] == futB)
+                pic2.BringToFront();
+            else if (value[2] == itCur)
+                pic3.BringToFront();
+            else if (value[2] == itFu)
+                pic4.BringToFront();
+
+            if (value[3] == curB)
+                pic1.BringToFront();
+            else if (value[3] == futB)
+                pic2.BringToFront();
+            else if (value[3] == itCur)
+                pic3.BringToFront();
+            else if (value[3] == itFu)
+                pic4.BringToFront();
         }
 
         private void ITProviderRelationshipGraph_FormClosing(object sender, FormClosingEventArgs e)
