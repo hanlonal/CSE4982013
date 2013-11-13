@@ -975,7 +975,14 @@ namespace IBMConsultantTool
                 tmp = Math.Round(tmp, 2);
                 temp = (double)tmp;
 
-                newChart.Series["Current"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
+                string questionOfCupe = ClientDataControl.cupeQuestions[i].QuestionText;
+                if (questionOfCupe.Length > length_label)
+                {
+                    questionOfCupe = questionOfCupe.Remove(length_label);
+                    questionOfCupe += "...";
+                }
+
+                newChart.Series["Current"].Points.AddXY(questionOfCupe, temp);
             }
 
             for (int i = 0; i < futureCount; i++)
@@ -985,7 +992,14 @@ namespace IBMConsultantTool
                 tmp = Math.Round(tmp, 2);
                 temp = (double)tmp;
 
-                newChart.Series["Future"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
+                string questionOfCupe = ClientDataControl.cupeQuestions[i].QuestionText;
+                if (questionOfCupe.Length > length_label)
+                {
+                    questionOfCupe = questionOfCupe.Remove(length_label);
+                    questionOfCupe += "...";
+                }
+
+                newChart.Series["Future"].Points.AddXY(questionOfCupe, temp);
             }
 
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
@@ -1064,6 +1078,8 @@ namespace IBMConsultantTool
                 CreateChartITVsBussiness(futureBusinessFloats, futureITFloats, "IT vs Business Leaders Future Comparison");
         }
 
+        private const int length_label = 30;
+
         public void CreateChartITVsBussiness(List<float> current, List<float> future, string name)
         {
             Form formChart = new Form();
@@ -1102,6 +1118,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisY.Maximum = 4;
             newChart.ChartAreas["chart1"].AxisX.Interval = 1;
+            newChart.ChartAreas["chart1"].AxisX.LabelStyle.Format = "^.{10}";
             //newChart.ChartAreas["chart1"].AxisY.
 
             newChart.Legends.Add("legend");
@@ -1119,16 +1136,14 @@ namespace IBMConsultantTool
             newChart.Series["Business"].ChartType = SeriesChartType.Bar;
             newChart.Series["Business"].IsValueShownAsLabel = true;
             newChart.Series["Business"].IsVisibleInLegend = true;
-            newChart.Series["Business"].LabelBorderWidth = 20;
             newChart.Series["Business"].YValueType = ChartValueType.Double;
             newChart.Series.Add("IT");
             newChart.Series["IT"].ChartArea = "chart1";
             newChart.Series["IT"].ChartType = SeriesChartType.Bar;
             newChart.Series["IT"].IsValueShownAsLabel = true;
             newChart.Series["IT"].IsVisibleInLegend = true;
-            newChart.Series["IT"].LabelBorderWidth = 20;
-
             newChart.Series["IT"].YValueType = ChartValueType.Double;
+            //newChart.Series["IT"
 
             int currentCount = current.Count;
             int futureCount = future.Count;
@@ -1139,10 +1154,15 @@ namespace IBMConsultantTool
                 decimal tmp = Convert.ToDecimal(temp);
                 tmp = Math.Round(tmp, 2);
                 temp = (double)tmp;
-                
 
+                string questionOfCupe = ClientDataControl.cupeQuestions[i].QuestionText;
+                if (questionOfCupe.Length > length_label)
+                {
+                    questionOfCupe = questionOfCupe.Remove(length_label);
+                    questionOfCupe += "...";
+                }
 
-                newChart.Series["Business"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
+                newChart.Series["Business"].Points.AddXY(questionOfCupe, temp);
             }
 
             for (int i = 0; i < futureCount; i++)
@@ -1152,7 +1172,14 @@ namespace IBMConsultantTool
                 tmp = Math.Round(tmp, 2);
                 temp = (double)tmp;
 
-                newChart.Series["IT"].Points.AddXY(ClientDataControl.cupeQuestions[i].QuestionText.ToString(), temp);
+                string questionOfCupe = ClientDataControl.cupeQuestions[i].QuestionText;
+                if (questionOfCupe.Length > length_label)
+                {
+                    questionOfCupe = questionOfCupe.Remove(length_label);
+                    questionOfCupe += "...";
+                }
+
+                newChart.Series["IT"].Points.AddXY(questionOfCupe, temp);
             }
 
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
@@ -1848,6 +1875,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisX.Title = "Question";
             newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
+            newChart.ChartAreas["chart1"].AxisX.LabelStyle.IsEndLabelVisible = false;
             //newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
             newChart.ChartAreas["chart1"].AxisY.Title = "CUPE Profile Score";
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
@@ -1856,7 +1884,10 @@ namespace IBMConsultantTool
 
             newChart.Legends.Add("legend");
             newChart.Legends["legend"].Enabled = true;
-            //newChart.Legends["legend"].LegendStyle = LegendStyle.Table;
+            newChart.Legends["legend"].LegendStyle = LegendStyle.Table;
+            newChart.Legends["legend"].TableStyle = LegendTableStyle.Wide;
+            newChart.Legends["legend"].Docking = Docking.Bottom;
+            newChart.Legends["legend"].Alignment = StringAlignment.Center;
 
             newChart.Titles.Add("title");
             newChart.Titles[0].Name = "title";
@@ -1864,6 +1895,11 @@ namespace IBMConsultantTool
             newChart.Titles["title"].Text = "Q" + index + ": IT and Business Responses";
             newChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
+            newChart.Titles.Add("subtitle");
+            newChart.Titles[1].Name = "subtitle";
+            newChart.Titles["subtitle"].Visible = true;
+            newChart.Titles["subtitle"].Text = ClientDataControl.cupeQuestions[index].QuestionText;
+            newChart.Titles["subtitle"].Font = new Font("Time New Roman", 11);
 
             newChart.Series.Add("Business Future");
             newChart.Series["Business Future"].ChartArea = "chart1";
