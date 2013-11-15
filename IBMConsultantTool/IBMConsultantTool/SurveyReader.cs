@@ -24,6 +24,18 @@ namespace IBMConsultantTool
             return str.Substring(0, Math.Min(str.Length, maxLength));
         }
 
+        public string RemoveCharacters( string st)
+        {
+            string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
+
+            string tempString = st;
+            foreach (char p in removeChars)
+            {
+                tempString = tempString.Replace(p.ToString(), string.Empty);
+            }
+            return tempString;
+        }
+
         public void ReadSurvey(List<NewCategory> BomCats)
         {
             var FD = new System.Windows.Forms.FolderBrowserDialog();
@@ -37,6 +49,7 @@ namespace IBMConsultantTool
             var badFiles = 0;
             foreach (var file in files)
             {
+
 
                 if (file.Contains("~$")) 
                 {
@@ -54,6 +67,11 @@ namespace IBMConsultantTool
                     Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                     Type.Missing, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 //oWord.Activate();
+
+                if (oDoc.Paragraphs.First.Range.Text != "Business Optimization Mapping Survey")
+                {
+                    continue;
+                }
 
                 //This is going to be ugly.
                 foreach (Word.FormField form in oDoc.FormFields)
@@ -144,6 +162,12 @@ namespace IBMConsultantTool
                 //Loop through the forms. If the person doesn't exist in the participant list then create a new person
                 try
                 {
+
+                    if (oDoc.Paragraphs.First.Range.Text != "IT Provider Relationship Survey")
+                    {
+                        continue;
+                    }
+
                     //Find the person object the form is related to, otherwise create a new one
                     Person currentPerson = null;
                     foreach (Word.FormField form in oDoc.FormFields)
@@ -237,13 +261,28 @@ namespace IBMConsultantTool
 
                     ScoringEntity currentQuestion = null;
 
-
+                    if (oDoc.Paragraphs.First.Range.Text != "IT Capability Assessment Survey\r")
+                    {
+                        continue;
+                    }
                     int q = 1, c = 1;
                     foreach (Word.FormField form in oDoc.FormFields)
                     {
                         if (form.Name != "Name")
                         {
-                            currentQuestion = questions.Where(x => x.Name == form.Name).Single();
+                            foreach ( var f in questions)
+                            {
+                                var asdfasdfasf = RemoveCharacters(TruncateLongString(f.Name, 19));
+                            }
+                            try
+                            {
+                                currentQuestion = questions.Where(x => RemoveCharacters(TruncateLongString(x.Name, 19)) == form.Name).First();
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+
                             ITCapQuestion temp = (ITCapQuestion)currentQuestion;
 
                             if (c == 1)
