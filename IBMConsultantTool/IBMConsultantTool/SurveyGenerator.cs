@@ -503,15 +503,21 @@ namespace IBMConsultantTool
                 {
                     continue;
                 }
-                FormNames[c] = TruncateLongString(question.Name, 14);
+                FormNames[c] = TruncateLongString(question.Name, 19);
                 c++;
-                FormNames[c] = TruncateLongString(question.Name, 14);
+                FormNames[c] = TruncateLongString(question.Name, 19);
                 c++;
-                FormNames[c] = TruncateLongString(question.Name, 14);
+                FormNames[c] = TruncateLongString(question.Name, 19);
 
                 Word.Range cell2Range = oTable.Cell(r, 2).Range;
                 cell2Range.Collapse(ref oMissing);
-                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                inputText.DropDown.ListEntries.Add("        ");
+                inputText.DropDown.ListEntries.Add("1");
+                inputText.DropDown.ListEntries.Add("2");
+                inputText.DropDown.ListEntries.Add("3");
+                inputText.DropDown.ListEntries.Add("4");
+                inputText.DropDown.ListEntries.Add("5");
 
                 cell2Range = oTable.Cell(r, 3).Range;
                 cell2Range.Collapse(ref oMissing);
@@ -584,7 +590,7 @@ namespace IBMConsultantTool
                     r++;
                     continue;
                 }
-                //form.Name = FormNames[c].ToString();
+
                 string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
 
                 string name = FormNames[c];
