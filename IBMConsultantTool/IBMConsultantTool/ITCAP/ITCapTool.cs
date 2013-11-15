@@ -618,37 +618,53 @@ namespace IBMConsultantTool
 
         private void GetClientObjectives(Capability cap)
         {
-            objectiveMappingGrid.DataSource = null;
-            coll.Clear();
+           // objectiveMappingGrid.DataSource = null;
+            //coll.Clear();
             //Some kind of function like this is needed
             //ClientDataControl.db.GetClientObjectives();
             //DataGrid grid = new DataGrid();
             capabilityNameLabel.Visible = true;
-            coll.Add(cap);
+            //coll.Add(cap);
             
-            coll.CalculatePropertyDescriptors();
+            //coll.CalculatePropertyDescriptors();
             //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
 
             //objectiveMappingGrid.DataSource = coll;
             //objectiveMappingGrid.Columns[0].ReadOnly = true;
             BuildObjectiveMappingArea();
             //objectiveMappingGrid.RowHeadersVisible = false;
+        }
 
+        private void ClearBottomPanel()
+        {
+            foreach (Control con in panel1.Controls)
+            {
+                //Console.Write(con.Name + "\n");
+                if ((string)con.Tag != "permenant")
+                {
+                    con.DataBindings.Clear();
+                    panel1.Controls.Remove(con);
+                }
+            }
 
+            for (int i = 0; i < panel1.Controls.Count; i++)
+            {
+                Console.WriteLine(panel1.Controls[i].Name + "\n");
+                if (panel1.Controls[i].Name == "Testing")
+                {
+                    panel1.Controls[i].DataBindings.Clear();
+                    panel1.Controls.RemoveAt(i);
+                }
+            }
 
         }
 
         private void BuildObjectiveMappingArea()
         {
             Font font = new Font("Arial", 12, FontStyle.Underline | FontStyle.Bold);
-            
-            foreach (Control con in panel1.Controls)
-            {
-                if ((string)con.Tag != "permenant")
-                {
-                    panel1.Controls.Remove(con);
-                }
-            }
+
+            ClearBottomPanel();
+
             int count = 1;
             Label nameLabel = new Label();
             //nameLabel.Font = font;
@@ -666,28 +682,62 @@ namespace IBMConsultantTool
                 label.AutoEllipsis = true;
                 label.Text = val.Name;
                 TextBox combo = new TextBox();
+                combo.Name = "Testing";
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
-                
+                combo.DataBindings.Clear();
                 //combo.DataBindings.Add("Text", val, "Value");
                 combo.DataBindings.Add("Text", val, "Value");
-
-               
+               // combo.TextChanged +=new EventHandler(combo_TextChanged);
+                combo.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+                combo.LostFocus +=new EventHandler(combo_LostFocus);
                 //combo.ValueMemberChanged +=new EventHandler(combo_ValueMemberChanged);
                 panel1.Controls.Add(combo);
-               
+                combo.Tag = " ";
                 panel1.Controls.Add(label);
                 width += label.Width;
                 label.Location = new Point(width, capabilityNameLabel.Location.Y);
                 combo.Location = new Point(label.Location.X, label.Location.Y + 50);
-                
+                combo.ControlRemoved +=new ControlEventHandler(combo_ControlRemoved);
                 count++;
             }
+        }
 
+
+        private void combo_LostFocus(object sender, EventArgs e)
+        {
+            currentcap.CalculatePrioritizedCapabilityGap();
+            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+            }
+
+
+            currentGrid.Refresh();
+        }
+        private void combo_TextChanged(object sender, EventArgs e)
+        {
+            
+            
+        }
+        private void combo_ControlRemoved(object sender, EventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            box.Visible = false;
+            box.DataBindings.Clear();
         }
 
         private void combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentcap.CalculatePrioritizedCapabilityGap();
+          /*  currentcap.CalculatePrioritizedCapabilityGap();
             currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
             if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
             {
@@ -703,7 +753,7 @@ namespace IBMConsultantTool
             }
 
                 
-            currentGrid.Refresh();
+            currentGrid.Refresh();*/
         }
 
 
@@ -1181,6 +1231,10 @@ namespace IBMConsultantTool
                     Capability cap = (Capability)ent;
                     currentcap = cap;
                     GetClientObjectives(currentcap);
+                }
+                else
+                {
+                    ClearBottomPanel();
                 }
             }
         }

@@ -264,7 +264,12 @@ namespace IBMConsultantTool
         public float PrioritizedCapabilityGap
         {
             get { return prioritizedCapabilityGap; }
-            set { prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); }
+            set 
+            {
+                
+                prioritizedCapabilityGap = value; this.NotifyPropertyChanged("PrioritizedCapabilityGap"); 
+            
+            }
         }
         [Browsable(false)]
         public PrioritizedGapType PrioritizedGapType1

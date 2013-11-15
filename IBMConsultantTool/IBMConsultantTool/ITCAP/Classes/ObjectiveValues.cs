@@ -40,7 +40,16 @@ namespace IBMConsultantTool
         public int Value
         {
             get { return this.value; }
-            set { this.value = value; this.NotifyPropertyChanged("Value"); }
+            set 
+            {
+                int val = Convert.ToInt32(value);
+                this.value = val; this.NotifyPropertyChanged("Value"); 
+            }
+        }
+
+        public override string ToString()
+        {
+            return value.ToString();
         }
 
         public string Name

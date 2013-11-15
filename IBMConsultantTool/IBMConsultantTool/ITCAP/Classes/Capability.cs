@@ -294,7 +294,7 @@ namespace IBMConsultantTool
         public void AddObjectiveToTrack(string name)
         {
             //OBJECTIVESCORES.Add(name, 0);
-            ObjectiveValues val = new ObjectiveValues(name, 0);
+            ObjectiveValues val = new ObjectiveValues(name, 2);
             objectiveCollection.Add(val);
         }
 
@@ -311,21 +311,28 @@ namespace IBMConsultantTool
 
         public void CalculatePrioritizedGapText()
         {
-            if (prioritizedCapabilityGap >= 4)
+            if (prioritizedCapabilityGap >= 6)
             {
                 PrioritizedGap = "High Gap";
                 PrioritizedGapType1 = PrioritizedGapType.High;
             }
-            else if (prioritizedCapabilityGap > 2 && prioritizedCapabilityGap < 4)
+            else if (prioritizedCapabilityGap > 4 && prioritizedCapabilityGap < 6)
             {
                 PrioritizedGap = "Medium Gap";
                 PrioritizedGapType1 = PrioritizedGapType.Middle;
             }
-            else
+            else if (prioritizedCapabilityGap <= 4)
             {
                 PrioritizedGap = "Low Gap";
                 PrioritizedGapType1 = PrioritizedGapType.Low;
             }
+            else
+            {
+                PrioritizedGap = "No Gap";
+                PrioritizedGapType1 = PrioritizedGapType.None;
+            }
+
+            //Console.WriteLine("GAP = == " + prioritizedCapabilityGap);
         }
 
 

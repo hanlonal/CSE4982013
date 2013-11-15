@@ -106,6 +106,7 @@
             this.seperatorLabel = new System.Windows.Forms.Label();
             this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
@@ -781,7 +782,7 @@
             this.seperatorLabel.Name = "seperatorLabel";
             this.seperatorLabel.Size = new System.Drawing.Size(1008, 20);
             this.seperatorLabel.TabIndex = 1;
-            this.seperatorLabel.Tag = "permanent";
+            this.seperatorLabel.Tag = "permenant";
             this.seperatorLabel.Text = "Business Objective Mapping";
             // 
             // objectiveMappingGrid
@@ -801,6 +802,14 @@
             this.dataGridViewButtonColumn1.Text = "+";
             this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn1.Width = 30;
+            // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
             // 
             // loadSurveyFromDataGrid
             // 
