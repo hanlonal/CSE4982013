@@ -99,7 +99,7 @@ namespace IBMConsultantTool
         #endregion
 
         #region CUPE
-        public abstract bool UpdateCUPE(CupeQuestionStringData cupeQuestion);
+        public abstract string UpdateCUPE(CupeQuestionStringData cupeQuestion);
 
         public abstract bool AddCUPE(string question, object clientObj);
         public abstract bool AddCUPEToGroup(string question, object groupObj);

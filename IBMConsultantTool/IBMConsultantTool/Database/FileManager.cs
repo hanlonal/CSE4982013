@@ -1465,6 +1465,24 @@ namespace IBMConsultantTool
 
         #region CUPEQuestion
 
+        public bool GetCUPEQuestion(string cqName, out XElement cupeQuestion)
+        {
+            try
+            {
+                cupeQuestion = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
+                                where ent.Element("NAME").Value == cqName
+                                select ent).Single();
+            }
+
+            catch
+            {
+                cupeQuestion = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public override List<CupeQuestionData> GetCUPEQuestionData()
         {
             List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1619,7 +1637,8 @@ namespace IBMConsultantTool
             foreach (XElement cupe in cupeList)
             {
                 data = new CupeQuestionStringData();
-                data.QuestionText = data.OriginalQuestionText = cupe.Element("CUPEQUESTION").Value;
+                data.QuestionText = cupe.Element("NAME").Value;
+                data.OriginalQuestionText = cupe.Element("CUPEQUESTION").Value;
                 data.ChoiceA = cupe.Element("COMMODITY").Value;
                 data.ChoiceB = cupe.Element("UTILITY").Value;
                 data.ChoiceC = cupe.Element("PARTNER").Value;
@@ -1806,7 +1825,7 @@ namespace IBMConsultantTool
             }
         }
 
-        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion)
+        public override string UpdateCUPE(CupeQuestionStringData cupeQuestion)
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             try
@@ -1820,21 +1839,50 @@ namespace IBMConsultantTool
                 cupe.Element("PARTNER").Value = cupeQuestion.ChoiceC;
                 cupe.Element("ENABLER").Value = cupeQuestion.ChoiceD;
 
-                changeLog.Add("UPDATE CUPE " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                if (cupe.Element("NAME").Value != cupe.Element("CUPEQUESTION").Value)
+                {
+                    XElement cupeQuestionEnt;
+                    if (!GetCUPEQuestion(cupe.Element("NAME").Value, out cupeQuestionEnt))
+                    {
+                        string question = cupe.Element("NAME").Value;
+                        string commodity = cupe.Element("COMMODITY").Value;
+                        string utility = cupe.Element("UTILITY").Value;
+                        string partner = cupe.Element("PARTNER").Value;
+                        string enabler = cupe.Element("ENABLER").Value;
+
+                        cupeQuestionEnt = new XElement("CUPEQUESTION");
+                        cupeQuestionEnt.Add(new XElement("NAME", question));
+                        cupeQuestionEnt.Add(new XElement("COMMODITY", commodity));
+                        cupeQuestionEnt.Add(new XElement("UTILITY", utility));
+                        cupeQuestionEnt.Add(new XElement("PARTNER", partner));
+                        cupeQuestionEnt.Add(new XElement("ENABLER", enabler));
+                        cupeQuestionEnt.Add(new XElement("INTWENTY", "N"));
+                        cupeQuestionEnt.Add(new XElement("INFIFTEEN", "N"));
+                        cupeQuestionEnt.Add(new XElement("INTEN", "N"));
+
+
+                        changeLog.Add("ADD CUPEQUESTION " + question.Replace(' ', '~') + " " +
+                                      commodity.Replace(' ', '~') + " " + utility.Replace(' ', '~') + " " +
+                                      partner.Replace(' ', '~') + " " + enabler.Replace(' ', '~'));
+                    }
+
+                    cupe.Element("CUPEQUESTION").Value = cupeQuestion.OriginalQuestionText = cupeQuestionEnt.Element("NAME").Value;
+
+                    changeLog.Add("UPDATE CUPE " + client.Element("NAME").Value.Replace(' ', '~') + " " +
                               cupeQuestion.QuestionText.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceA.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceB.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceC.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceD.Replace(' ', '~'));
+                }
             }
 
             catch
             {
-                return false;
             }
 
 
-            return true;   
+            return cupeQuestion.OriginalQuestionText;   
         }
         public override bool AddCUPE(string question, object clientObj)
         {
