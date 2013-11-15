@@ -7,14 +7,12 @@ using System.Drawing;
 
 namespace IBMConsultantTool
 {
-
-
     public class NewCategory : TabPage
     {
         float[] heights = new float[4];
         NewObjective lastClicked;
         private BOMTool owner;
-        List<NewObjective> objectives = new List<NewObjective>();
+        public List<NewObjective> objectives = new List<NewObjective>();
         private int ID;
         public string name;
 
@@ -85,6 +83,14 @@ namespace IBMConsultantTool
             get
             {
                 return owner.CategoryWorkspace.SelectedTab;
+            }
+        }
+
+        public BOMTool bomTool
+        {
+            get
+            {
+                return owner;
             }
         }
         public NewObjective LastClicked

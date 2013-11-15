@@ -190,6 +190,7 @@ namespace IBMConsultantTool
             obj.Controls.Clear();
             Controls.RemoveByKey(obj.Name);
             NewCategory cat = obj.owner;
+            cat.objectives.Remove(obj);
             if (cat.Objectives.Count == 0)
             {
                 Controls.Remove(cat);

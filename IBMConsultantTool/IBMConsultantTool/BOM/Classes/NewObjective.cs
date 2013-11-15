@@ -112,13 +112,10 @@ namespace IBMConsultantTool
         private void imperativeLabel_MouseDown(object sender, MouseEventArgs e)
         {
             Label label = (Label)sender;
-            if (e.Button == MouseButtons.Right)
+            foreach (NewImperative imp in this.imperatives)
             {
-                foreach (NewImperative imp in this.imperatives)
-                {
-                    if (imp.Name == label.Text)
-                        currentImperative = imp;
-                }
+                if (imp.Name == label.Text)
+                    currentImperative = imp;
             }
 
             ContextMenuStrip strip = new ContextMenuStrip();
@@ -133,6 +130,11 @@ namespace IBMConsultantTool
         {
             this.Controls.Remove(imperativeToLabelDict[currentImperative]);
             this.imperatives.Remove(currentImperative);
+            ClientDataControl.db.RemoveBOM(currentImperative.Name, ClientDataControl.Client.EntityObject);
+            if (imperatives.Count == 0)
+            {
+                owner.bomTool.RemoveObjective(this);
+            }
         }
 
         private Point FindImperativeLocation()
@@ -226,8 +228,6 @@ namespace IBMConsultantTool
             //imperatives.Clear();
             //this.Controls.Clear();
             owner.RemoveObjective(this);
-        
-        
         }
 
         private void colorObj_Click(object sender, EventArgs e)
