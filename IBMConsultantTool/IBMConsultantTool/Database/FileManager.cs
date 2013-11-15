@@ -1494,8 +1494,7 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestionStringData = new CupeQuestionStringData();
-                cupeQuestionStringData.OriginalQuestionText = cupeQuestionEnt.Element("CUPEQUESTION").Value;
-                cupeQuestionStringData.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestionStringData.OriginalQuestionText = cupeQuestionStringData.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestionStringData.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestionStringData.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestionStringData.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
@@ -1521,7 +1520,7 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.OriginalQuestionText = cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
@@ -1542,7 +1541,7 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.OriginalQuestionText = cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
@@ -1563,7 +1562,7 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.OriginalQuestionText = cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
@@ -1584,7 +1583,7 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestion.OriginalQuestionText = cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;

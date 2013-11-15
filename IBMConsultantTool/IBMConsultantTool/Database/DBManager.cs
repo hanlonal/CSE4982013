@@ -4218,13 +4218,13 @@ namespace IBMConsultantTool
                                 {
                                     if (GetCUPE(lineArray[3].Replace('~', ' '), client, out cupe))
                                     {
-                                        if (GetCUPEQuestion(cupe.NAME.TrimEnd(), out cupeQuestion))
+                                        if (GetCUPEQuestion(lineArray[4].Replace('~', ' '), out cupeQuestion))
                                         {
-                                            cupe.NAME = lineArray[3].Replace('~', ' ');
-                                            cupe.COMMODITY = lineArray[4].Replace('~', ' ');
-                                            cupe.UTILITY = lineArray[5].Replace('~', ' ');
-                                            cupe.PARTNER = lineArray[6].Replace('~', ' ');
-                                            cupe.ENABLER = lineArray[7].Replace('~', ' ');
+                                            cupe.NAME = lineArray[4].Replace('~', ' ');
+                                            cupe.COMMODITY = lineArray[5].Replace('~', ' ');
+                                            cupe.UTILITY = lineArray[6].Replace('~', ' ');
+                                            cupe.PARTNER = lineArray[7].Replace('~', ' ');
+                                            cupe.ENABLER = lineArray[8].Replace('~', ' ');
                                             cupe.CUPEQUESTION = cupeQuestion;
                                         }
                                         else
