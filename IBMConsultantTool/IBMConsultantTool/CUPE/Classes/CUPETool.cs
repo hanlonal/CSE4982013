@@ -1613,11 +1613,11 @@ namespace IBMConsultantTool
             string path;
             if(is20Question)
             {
-                path = @"Resources/Questions.txt";
+                path = @"Resources\Questions.txt";
             }
             else
             {
-                path = @"Resources/Questions10.txt";
+                path = @"Resources\Questions10.txt";
             }
             foreach (string line in File.ReadLines(path))
             {

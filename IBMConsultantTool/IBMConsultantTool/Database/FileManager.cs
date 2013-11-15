@@ -17,13 +17,12 @@ namespace IBMConsultantTool
         {
             try
             {
-                dbo = XElement.Load("Resources/Data.xml");
+                dbo = XElement.Load(@"Resources\Data.xml");
             }
 
             catch
             {
                 dbo = new XElement("root");
-                dbo.Add(new XElement("CLIENTS"));
                 dbo.Add(new XElement("REGIONS"));
                 dbo.Add(new XElement("BUSINESSTYPES"));
                 dbo.Add(new XElement("CATEGORIES"));
@@ -34,7 +33,7 @@ namespace IBMConsultantTool
                     Directory.CreateDirectory("Resources");
                 }
 
-                dbo.Save("Resources/Data.xml");
+                dbo.Save(@"Resources\Data.xml");
             }
 
             changeLog = new List<string>();
@@ -43,23 +42,35 @@ namespace IBMConsultantTool
         #region Client
         public List<XElement> GetClients()
         {
-            return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                    select ent).ToList();
+            /*return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
+                    select ent).ToList();*/
+            List<XElement> clients = new List<XElement>();
+            foreach (string fileName in Directory.GetFiles(@"Resources\Clients"))
+            {
+                clients.Add(XElement.Load(fileName));
+            }
+
+            return clients;
         }
 
         public override string[] GetClientNames()
         {
-            return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                    select ent.Element("NAME").Value).ToArray();
+            /*return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
+                    select ent.Element("NAME").Value).ToArray();*/
+            return (from ent in Directory.GetFiles(@"Resources\Clients")
+                    select Path.GetFileNameWithoutExtension(ent)).ToArray();
         }
 
         public bool GetClient(string cntName, out XElement client)
         {
             try
             {
-                client = (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
+                /*client = (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
                           where ent.Element("NAME").Value == cntName
-                          select ent).Single();
+                          select ent).Single();*/
+                client = (from ent in Directory.GetFiles(@"Resources\Clients")
+                          where Path.GetFileNameWithoutExtension(ent) == cntName
+                          select XElement.Load(ent)).Single();
             }
 
             catch
@@ -74,8 +85,8 @@ namespace IBMConsultantTool
         public bool AddClient(XElement client)
         {
             //If already in DB, return false
-            if ((from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                 where ent.Element("NAME").Value == client.Element("NAME").Value
+            if ((from ent in Directory.GetFiles(@"Resources\Clients")
+                 where Path.GetFileNameWithoutExtension(ent) == client.Element("NAME").Value
                  select ent).Count() != 0)
             {
                 return false;
@@ -88,7 +99,7 @@ namespace IBMConsultantTool
             client.Add(new XElement("ITCAPOBJMAPS"));
             client.Add(new XElement("CAPABILITYGAPINFOS"));
 
-            dbo.Element("CLIENTS").Add(client);
+            client.Save(@"Resources\Clients\" + client.Element("NAME").Value + ".xml");
 
             changeLog.Add("ADD CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " +
                            client.Element("REGION").Value.Replace(' ', '~') + " " +
@@ -2641,15 +2652,18 @@ namespace IBMConsultantTool
                     Directory.CreateDirectory("Resources");
                 }
 
-                dbo.Save("Resources/Data.xml");
+                dbo.Save(@"Resources\Data.xml");
 
-                if (!File.Exists("Resources/Changes.log"))
+                XElement client = ClientDataControl.Client.EntityObject as XElement;
+                client.Save(@"Resources\Clients/" + client.Element("NAME").Value + ".xml");
+
+                if (!File.Exists(@"Resources\Changes.log"))
                 {
-                    FileStream file = File.Create("Resources/Changes.log");
+                    FileStream file = File.Create(@"Resources\Changes.log");
                     file.Close();
                 }
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Resources/Changes.log", true))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Resources\Changes.log", true))
                 {
                     foreach (string change in changeLog)
                     {

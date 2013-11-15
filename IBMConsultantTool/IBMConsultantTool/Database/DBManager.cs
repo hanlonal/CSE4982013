@@ -3334,10 +3334,13 @@ namespace IBMConsultantTool
         
         public void UpdateDataFile()
         {
-            XElement root = new XElement("root");
+            if (Directory.Exists(@"Resources\Clients"))
+            {
+                Directory.Delete(@"Resources\Clients", true);
+            }
+            Directory.CreateDirectory(@"Resources\Clients");
 
             List<CLIENT> clientList = GetClients();
-            XElement clientElement = new XElement("CLIENTS");
             foreach (CLIENT client in clientList)
             {
                 XElement temp = new XElement("CLIENT");
@@ -3531,9 +3534,10 @@ namespace IBMConsultantTool
                 }
                 temp.Add(capGapInfoElement);
 
-                clientElement.Add(temp);
+                temp.Save(@"Resources\Clients\" + client.NAME.TrimEnd() + ".xml");
             }
-            root.Add(clientElement);
+
+            XElement root = new XElement("root");
 
             List<REGION> regList = dbo.REGION.ToList();
             XElement regElement = new XElement("REGIONS");
@@ -3653,7 +3657,7 @@ namespace IBMConsultantTool
                 Directory.CreateDirectory("Resources");
             }
 
-            root.Save("Resources/Data.xml");
+            root.Save(@"Resources\Data.xml");
         }
         public void CheckChangeLog()
         {
@@ -3688,13 +3692,13 @@ namespace IBMConsultantTool
                 Directory.CreateDirectory("Resources");
             }
 
-            else if (!File.Exists("Resources/Changes.log"))
+            else if (!File.Exists(@"Resources\Changes.log"))
             {
-                FileStream file = File.Create("Resources/Changes.log");
+                FileStream file = File.Create(@"Resources\Changes.log");
                 file.Close();
             }
 
-            using (System.IO.StreamReader file = new System.IO.StreamReader("Resources/Changes.log"))
+            using (System.IO.StreamReader file = new System.IO.StreamReader(@"Resources\Changes.log"))
             {
                 while ((line = file.ReadLine()) != null)
                 {
@@ -3724,7 +3728,7 @@ namespace IBMConsultantTool
                                 string countryName = lineArray[4].Replace('~', ' ');
                                 try
                                 {
-                                    country = (from ent in dbo.COUNTRY
+                                    country = (from ent in region.COUNTRY
                                               where ent.NAME.TrimEnd() == countryName
                                               select ent).Single();
                                 }
@@ -3733,8 +3737,10 @@ namespace IBMConsultantTool
                                     country = new COUNTRY();
                                     country.NAME = countryName;
                                     country.REGION = region;
-                                    dbo.AddToREGION(region);
+                                    dbo.AddToCOUNTRY(country);
                                 }
+
+                                client.COUNTRY = country;
 
                                 client.STARTDATE = DateTime.Parse(lineArray[5].Replace('~', ' '));
 
@@ -4422,8 +4428,8 @@ namespace IBMConsultantTool
                 }
             }
 
-            File.WriteAllText("Resources/Changes.log", string.Empty);
-            File.WriteAllLines("Resources/Changes.log", failedChanges);
+            File.WriteAllText(@"Resources\Changes.log", string.Empty);
+            File.WriteAllLines(@"Resources\Changes.log", failedChanges);
         }
         #endregion
     }

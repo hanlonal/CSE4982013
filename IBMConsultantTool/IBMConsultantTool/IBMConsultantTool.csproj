@@ -426,7 +426,9 @@
     <EmbeddedResource Include="TestITCap.resx">
       <DependentUpon>TestITCap.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="IBMConsultantTool_TemporaryKey.pfx" />
     <EntityDeploy Include="Model1.edmx">
