@@ -452,8 +452,8 @@ namespace IBMConsultantTool
                     });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("CURRENT").Value[0]);
-                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("FUTURE").Value[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("CURRENT").Value != "" ? response.Element("CURRENT").Value[0] : ' ');
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("FUTURE").Value != "" ? response.Element("FUTURE").Value[0] : ' ');
                     }
                 }
                 person.cupeDataHolder = cupeData;
@@ -475,8 +475,8 @@ namespace IBMConsultantTool
                     });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("CURRENT").Value[0]);
-                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.Element("FUTURE").Value[0]);
+                        cupeData.CurrentAnswers.Add("Question " + (questionIndex + 1).ToString(), response.Element("CURRENT").Value != "" ? response.Element("CURRENT").Value[0] : ' ');
+                        cupeData.FutureAnswers.Add("Question " + (questionIndex + 1).ToString(), response.Element("FUTURE").Value != "" ? response.Element("FUTURE").Value[0] : ' ');
                     }
                 }
                 person.cupeDataHolder = cupeData;
@@ -1494,7 +1494,8 @@ namespace IBMConsultantTool
             foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
             {
                 cupeQuestionStringData = new CupeQuestionStringData();
-                cupeQuestionStringData.OriginalQuestionText = cupeQuestionStringData.QuestionText = cupeQuestionEnt.Element("NAME").Value;
+                cupeQuestionStringData.OriginalQuestionText = cupeQuestionEnt.Element("CUPEQUESTION").Value;
+                cupeQuestionStringData.QuestionText = cupeQuestionEnt.Element("NAME").Value;
                 cupeQuestionStringData.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
                 cupeQuestionStringData.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
                 cupeQuestionStringData.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
@@ -1866,14 +1867,15 @@ namespace IBMConsultantTool
                                       partner.Replace(' ', '~') + " " + enabler.Replace(' ', '~'));
                     }
 
-                    cupe.Element("CUPEQUESTION").Value = cupeQuestion.OriginalQuestionText = cupeQuestionEnt.Element("NAME").Value;
-
                     changeLog.Add("UPDATE CUPE " + client.Element("NAME").Value.Replace(' ', '~') + " " +
+                              cupeQuestion.OriginalQuestionText.Replace(' ', '~') + " " +
                               cupeQuestion.QuestionText.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceA.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceB.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceC.Replace(' ', '~') + " " +
                               cupeQuestion.ChoiceD.Replace(' ', '~'));
+
+                    cupe.Element("CUPEQUESTION").Value = cupeQuestion.OriginalQuestionText = cupeQuestionEnt.Element("NAME").Value;
                 }
             }
 

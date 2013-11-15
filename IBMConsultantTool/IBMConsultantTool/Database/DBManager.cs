@@ -4176,11 +4176,11 @@ namespace IBMConsultantTool
                                     {
                                         client.BOMCOMPLETE = "Y";
                                     }
-                                    if (lineArray[2] == "CUPECOMPLETE")
+                                    else if (lineArray[2] == "CUPECOMPLETE")
                                     {
                                         client.CUPECOMPLETE = "Y";
                                     }
-                                    if (lineArray[2] == "ITCAPCOMPLETE")
+                                    else if (lineArray[2] == "ITCAPCOMPLETE")
                                     {
                                         client.ITCAPCOMPLETE = "Y";
                                     }
@@ -4218,7 +4218,6 @@ namespace IBMConsultantTool
                                 {
                                     if (GetCUPE(lineArray[3].Replace('~', ' '), client, out cupe))
                                     {
-                                        
                                         if (GetCUPEQuestion(cupe.NAME.TrimEnd(), out cupeQuestion))
                                         {
                                             cupe.NAME = lineArray[3].Replace('~', ' ');
