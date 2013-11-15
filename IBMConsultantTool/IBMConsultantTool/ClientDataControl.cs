@@ -278,7 +278,7 @@ namespace IBMConsultantTool
         {
             foreach (CupeQuestionStringData stringData in cupeQuestions)
             {
-                db.UpdateCUPE(stringData);
+                stringData.OriginalQuestionText = db.UpdateCUPE(stringData);
             }
 
             db.SaveCUPEParticipants();

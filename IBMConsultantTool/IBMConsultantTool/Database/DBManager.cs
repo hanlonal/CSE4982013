@@ -1656,7 +1656,7 @@ namespace IBMConsultantTool
             return cupeQuestions;
         }
 
-        public override bool UpdateCUPE(CupeQuestionStringData cupeQuestion)
+        public override string UpdateCUPE(CupeQuestionStringData cupeQuestion)
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             try
@@ -1670,15 +1670,32 @@ namespace IBMConsultantTool
                 cupe.UTILITY = cupeQuestion.ChoiceB;
                 cupe.PARTNER = cupeQuestion.ChoiceC;
                 cupe.ENABLER = cupeQuestion.ChoiceD;
+
+                if (cupe.NAME.TrimEnd() != cupe.CUPEQUESTION.NAME.TrimEnd())
+                {
+                    CUPEQUESTION cupeQuestionEnt;
+                    if(!GetCUPEQuestion(cupe.NAME.TrimEnd(), out cupeQuestionEnt))
+                    {
+                        cupeQuestionEnt = new CUPEQUESTION();
+                        cupeQuestionEnt.NAME = cupe.NAME;
+                        cupeQuestionEnt.COMMODITY = cupe.COMMODITY;
+                        cupeQuestionEnt.UTILITY = cupe.UTILITY;
+                        cupeQuestionEnt.PARTNER = cupe.PARTNER;
+                        cupeQuestionEnt.ENABLER = cupe.ENABLER;
+                        cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INFIFTEEN = cupeQuestionEnt.INTEN = "N";
+                    }
+
+                    cupe.CUPEQUESTION = cupeQuestionEnt;
+                    cupeQuestion.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
+                }
             }
 
             catch
             {
-                return false;
             }
 
 
-            return true;
+            return cupeQuestion.OriginalQuestionText;
         }
         public override bool AddCUPE(string question, object clientObj)
         {
@@ -4159,11 +4176,11 @@ namespace IBMConsultantTool
                                     {
                                         client.BOMCOMPLETE = "Y";
                                     }
-                                    if (lineArray[2] == "CUPECOMPLETE")
+                                    else if (lineArray[2] == "CUPECOMPLETE")
                                     {
                                         client.CUPECOMPLETE = "Y";
                                     }
-                                    if (lineArray[2] == "ITCAPCOMPLETE")
+                                    else if (lineArray[2] == "ITCAPCOMPLETE")
                                     {
                                         client.ITCAPCOMPLETE = "Y";
                                     }
@@ -4201,11 +4218,19 @@ namespace IBMConsultantTool
                                 {
                                     if (GetCUPE(lineArray[3].Replace('~', ' '), client, out cupe))
                                     {
-                                        cupe.NAME = lineArray[3].Replace('~', ' ');
-                                        cupe.COMMODITY = lineArray[4].Replace('~', ' ');
-                                        cupe.UTILITY = lineArray[5].Replace('~', ' ');
-                                        cupe.PARTNER = lineArray[6].Replace('~', ' ');
-                                        cupe.ENABLER = lineArray[7].Replace('~', ' ');
+                                        if (GetCUPEQuestion(cupe.NAME.TrimEnd(), out cupeQuestion))
+                                        {
+                                            cupe.NAME = lineArray[3].Replace('~', ' ');
+                                            cupe.COMMODITY = lineArray[4].Replace('~', ' ');
+                                            cupe.UTILITY = lineArray[5].Replace('~', ' ');
+                                            cupe.PARTNER = lineArray[6].Replace('~', ' ');
+                                            cupe.ENABLER = lineArray[7].Replace('~', ' ');
+                                            cupe.CUPEQUESTION = cupeQuestion;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Update CUPE Instruction Failed: CUPEQuestion does not exist\n\n" + line, "Error");
+                                        }
                                     }
                                     else
                                     {
