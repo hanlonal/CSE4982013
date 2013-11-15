@@ -3100,6 +3100,107 @@ namespace IBMConsultantTool
 
             if (boxText == "Prioritized Capability Gap Type")
             {
+                int newCount = 0;
+                int childrenCount = 0;
+                for (int cnt = 0; cnt < cap.Count; cnt++)
+                {
+                    string name = cap[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        seriesName = name;
+                        lineChart.Series.Add(seriesName);
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                        high = 0;
+                        mid = 0;
+                        low = 0;
+                        none = 0;
+                    }
+
+                    else if (childrenCount == -1)
+                    {
+                        seriesName = name + (numberOfGraph + 1).ToString();
+                        name = name + (numberOfGraph + 1).ToString();
+
+                        lineChart.Series.Add(seriesName);
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                        high = 0;
+                        mid = 0;
+                        low = 0;
+                        none = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (cap[cnt].Children > 0)
+                    {
+                        childrenCount = cap[cnt].Children;
+                        eachClients = cap[cnt].Children;
+                    }
+
+                    lineChart.Series[seriesName].ChartArea = title;
+                    lineChart.Series[seriesName].ChartType = SeriesChartType.Bar;
+                    lineChart.Series[seriesName].XValueType = ChartValueType.Auto;
+                    lineChart.Series[seriesName].YValueType = ChartValueType.Double;
+                    lineChart.Series[seriesName].BorderWidth = 5;
+
+                    if (cap[cnt].Children == 0 && childrenCount >= 0)
+                    {
+                        if (cap[cnt].PrioritizedGapType == "High")
+                            high++;
+                        else if (cap[cnt].PrioritizedGapType == "Middle")
+                            mid++;
+                        else if (cap[cnt].PrioritizedGapType == "Low")
+                            low++;
+                        else
+                            none++;
+                    }
+
+                    newCount++;
+                    childrenCount--;
+
+                    if (childrenCount == -1)
+                    {
+                        point[index] = new DataPoint();
+                        point[index].SetValueXY("High", high);
+                        point[index].Color = trendGridView.Rows[cnt - eachClients].DefaultCellStyle.BackColor;
+                        lineChart.Series[seriesName].Points.Add(point[index]);
+                        index++;
+
+                        point[index] = new DataPoint();
+                        point[index].SetValueXY("Middle", mid);
+                        point[index].Color = trendGridView.Rows[cnt - eachClients].DefaultCellStyle.BackColor;
+                        lineChart.Series[seriesName].Points.Add(point[index]);
+                        index++;
+
+                        point[index] = new DataPoint();
+                        point[index].SetValueXY("Low", low);
+                        point[index].Color = trendGridView.Rows[cnt - eachClients].DefaultCellStyle.BackColor;
+                        lineChart.Series[seriesName].Points.Add(point[index]);
+                        index++;
+
+                        point[index] = new DataPoint();
+                        point[index].SetValueXY("None", none);
+                        point[index].Color = trendGridView.Rows[cnt - eachClients].DefaultCellStyle.BackColor;
+                        lineChart.Series[seriesName].Points.Add(point[index]);
+                        index++;
+                    }
+                }
             }
 
             #endregion
