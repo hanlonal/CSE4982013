@@ -2228,7 +2228,7 @@ namespace IBMConsultantTool
         {
             currentGrid = questionGridBusinessCurrent;
             currentChart = busiCurrentGraph;
-            if (e.RowIndex != -1)
+            if (e.RowIndex != -1 && e.ColumnIndex != -1)
             {
                 if (currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                 {

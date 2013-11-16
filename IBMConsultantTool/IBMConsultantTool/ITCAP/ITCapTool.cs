@@ -477,7 +477,14 @@ namespace IBMConsultantTool
 
         private void LiveDataEntry_Click(object sender, EventArgs e)
         {
-            //ChangeStates(FormStates.LiveDataEntry);
+            ResetSurveyGrid();
+
+            ClientDataControl.db.OpenITCAP(this);
+
+            GetAnswers();
+            ChangeStates(FormStates.Open);
+            //GetClientObjectives();
+            PopulateCapabilitiesWithObjectives();
         }
 
         private void SurveryMaker_Click(object sender, EventArgs e)
