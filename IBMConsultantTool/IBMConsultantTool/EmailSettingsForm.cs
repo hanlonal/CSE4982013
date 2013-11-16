@@ -13,6 +13,7 @@ namespace IBMConsultantTool
     {
         string originalEmail;
         string originalPassword;
+        string originalDisplay;
 
         public EmailSettingsForm()
         {
@@ -23,9 +24,12 @@ namespace IBMConsultantTool
         {
             emailTextBox.DataBindings.Add("Text", ClientDataControl.Instance, "EmailAddress");
             passwordTextBox.DataBindings.Add("Text", ClientDataControl.Instance, "EmailPassword");
-
+            emailDisplayTextBox.DataBindings.Add("Text", ClientDataControl.Instance, "EmailDisplay");
             originalEmail = emailTextBox.Text;
             originalPassword = passwordTextBox.Text;
+            originalDisplay = emailDisplayTextBox.Text;
+            passwordTextBox.UseSystemPasswordChar = true;
+            passwordTextBox.PasswordChar = '*';
         }
 
         //cancel button
@@ -33,6 +37,7 @@ namespace IBMConsultantTool
         {
             ClientDataControl.Instance.EmailAddress = originalEmail;
             ClientDataControl.Instance.EmailPassword = originalPassword;
+            ClientDataControl.Instance.EmailDisplay = originalDisplay;
             this.Close();
         }
         //save button

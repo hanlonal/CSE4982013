@@ -779,7 +779,7 @@ namespace IBMConsultantTool
                 
                 XElement commentsElement = itcap.Element("COMMENTS");
                 commentsElement.RemoveAll();
-                foreach (string comment in itcapQuestion.comments)
+                foreach (string comment in itcapQuestion.comment)
                 {
                     commentsElement.Add(new XElement("COMMENT", comment));
                     changeLogString += (" " + comment.Replace(' ', '~'));
@@ -805,95 +805,95 @@ namespace IBMConsultantTool
             {
                 if (itcap.Element("ASISZEROS").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISZEROS").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("ASISZEROS").Value); i++)
                     {
                         question.AddAsIsAnswer(0);
                     }
                 }
                 if (itcap.Element("ASISONES").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISONES").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("ASISONES").Value); i++)
                     {
                         question.AddAsIsAnswer(1);
                     }
                 }
                 if (itcap.Element("ASISTWOS").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISTWOS").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("ASISTWOS").Value); i++)
                     {
                         question.AddAsIsAnswer(2);
                     }
                 }
                 if (itcap.Element("ASISTHREES").Value != null)
                     {
-                        for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISTHREES").Value); i++)
+                        for (int i = 0; i < Convert.ToSingle(itcap.Element("ASISTHREES").Value); i++)
                         {
                             question.AddAsIsAnswer(3);
                         }
                     }
                 if (itcap.Element("ASISFOURS").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISFOURS").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("ASISFOURS").Value); i++)
                     {
                         question.AddAsIsAnswer(4);
                     }
                 }
                 if (itcap.Element("ASISFIVES").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("ASISFIVES").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("ASISFIVES").Value); i++)
                     {
                         question.AddAsIsAnswer(5);
                     }
                 }
                 if (itcap.Element("ASISZEROS").Value != null)
                 {
-                    question.AsIsScore = Convert.ToInt32(itcap.Element("ASISZEROS").Value);
+                    question.AsIsScore = Convert.ToSingle(itcap.Element("ASISZEROS").Value);
                 }
                 if (itcap.Element("TOBEZEROS").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEZEROS").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("TOBEZEROS").Value); i++)
                     {
                         question.AddToBeAnswer(0);
                     }
                 }
                 if (itcap.Element("TOBEONES").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEONES").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("TOBEONES").Value); i++)
                     {
                         question.AddToBeAnswer(1);
                     }
                 }
                 if (itcap.Element("TOBETWOS").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBETWOS").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("TOBETWOS").Value); i++)
                     {
                         question.AddToBeAnswer(2);
                     }
                 }
                 if (itcap.Element("TOBETHREES").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBETHREES").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("TOBETHREES").Value); i++)
                     {
                         question.AddToBeAnswer(3);
                     }
                 }
                 if (itcap.Element("TOBEFOURS").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEFOURS").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("TOBEFOURS").Value); i++)
                     {
                         question.AddToBeAnswer(4);
                     }
                 }
                 if (itcap.Element("TOBEFIVES").Value != null)
                 {
-                    for (int i = 0; i < Convert.ToInt32(itcap.Element("TOBEFIVES").Value); i++)
+                    for (int i = 0; i < Convert.ToSingle(itcap.Element("TOBEFIVES").Value); i++)
                     {
                         question.AddToBeAnswer(5);
                     }
                 }
                 if (itcap.Element("TOBE").Value != null)
                 {
-                    question.ToBeScore = Convert.ToInt32(itcap.Element("TOBE").Value);
+                    question.ToBeScore = Convert.ToSingle(itcap.Element("TOBE").Value);
                 }
                 foreach (XElement comment in itcap.Element("COMMENTS").Elements("COMMENT"))
                 {

@@ -9,8 +9,6 @@ namespace IBMConsultantTool
     {
         private Capability owner;
 
-        public List<string> comments = new List<string>();
-
         public List<string> comment;
 
         /*private List<float> AsIsanswersToAttributes = new List<float>();

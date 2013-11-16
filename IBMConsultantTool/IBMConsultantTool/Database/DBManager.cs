@@ -728,11 +728,12 @@ namespace IBMConsultantTool
                 itcap.TOBETHREES = itcapQuestion.TobeNumThrees;
                 itcap.TOBEFOURS = itcapQuestion.TobeNumFours;
                 itcap.TOBEFIVES = itcapQuestion.TobeNumFives;
-                foreach (COMMENT commentEntToDelete in itcap.COMMENT)
+                List<COMMENT> commentsToDelete = itcap.COMMENT.ToList();
+                foreach (COMMENT commentEntToDelete in commentsToDelete)
                 {
                     dbo.DeleteObject(commentEntToDelete);
                 }
-                foreach (string comment in itcapQuestion.comments)
+                foreach (string comment in itcapQuestion.comment)
                 {
                     commentEnt = new COMMENT();
                     commentEnt.NAME = comment;
@@ -3419,48 +3420,6 @@ namespace IBMConsultantTool
                         XElement tempCon = new XElement("CONTACT");
                         tempCon.Add(new XElement("ID", contact.ID));
 
-                        XElement bomConElement = new XElement("BOMS");
-                        foreach (BOM bom in contact.BOM)
-                        {
-                            XElement tempBom = new XElement("BOM");
-                            tempBom.Add(new XElement("IMPERATIVE", bom.IMPERATIVE.NAME.TrimEnd()));
-                            tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
-                            tempBom.Add(new XElement("CATEGORY", bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
-                            tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
-                            tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
-                            tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
-                            bomConElement.Add(tempBom);
-                        }
-                        tempCon.Add(bomConElement);
-
-                        XElement itcapConElement = new XElement("ITCAPS");
-                        foreach (ITCAP itcap in contact.ITCAP)
-                        {
-                            XElement tempItcap = new XElement("ITCAP");
-                            tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd()));
-                            tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd()));
-                            tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd()));
-                            tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
-                            tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
-                            //tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
-                            itcapConElement.Add(tempItcap);
-                        }
-                        tempCon.Add(itcapConElement);
-
-                        XElement cupeConElement = new XElement("CUPES");
-                        foreach (CUPE cupe in contact.CUPE)
-                        {
-                            XElement tempCUPE = new XElement("CUPE");
-                            tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd()));
-                            tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd()));
-                            tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd()));
-                            tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd()));
-                            tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER.TrimEnd()));
-                            tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER.TrimEnd()));
-                            itcapConElement.Add(tempCUPE);
-                        }
-                        tempCon.Add(cupeConElement);
-
                         XElement cupeResConElement = new XElement("CUPERESPONSES");
                         foreach (CUPERESPONSE cupeResponse in contact.CUPERESPONSE)
                         {
@@ -3474,50 +3433,7 @@ namespace IBMConsultantTool
 
                         conElement.Add(tempCon);
                     }
-
                     tempGrp.Add(conElement);
-
-                    XElement bomGrpElement = new XElement("BOMS");
-                    foreach (BOM bom in grp.BOM)
-                    {
-                        XElement tempBom = new XElement("BOM");
-                        tempBom.Add(new XElement("IMPERATIVE", bom.IMPERATIVE.NAME.TrimEnd()));
-                        tempBom.Add(new XElement("BUSINESSOBJECTIVE", bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd()));
-                        tempBom.Add(new XElement("CATEGORY", bom.IMPERATIVE.BUSINESSOBJECTIVE.CATEGORY.NAME.TrimEnd()));
-                        tempBom.Add(new XElement("EFFECTIVENESS", bom.EFFECTIVENESS != null ? bom.EFFECTIVENESS : 0));
-                        tempBom.Add(new XElement("CRITICALITY", bom.CRITICALITY != null ? bom.CRITICALITY : 0));
-                        tempBom.Add(new XElement("DIFFERENTIAL", bom.DIFFERENTIAL != null ? bom.DIFFERENTIAL : 0));
-                        bomGrpElement.Add(tempBom);
-                    }
-                    tempGrp.Add(bomGrpElement);
-
-                    XElement itcapGrpElement = new XElement("ITCAPS");
-                    foreach (ITCAP itcap in grp.ITCAP)
-                    {
-                        XElement tempItcap = new XElement("ITCAP");
-                        tempItcap.Add(new XElement("ITCAPQUESTION", itcap.ITCAPQUESTION.NAME.TrimEnd()));
-                        tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd()));
-                        tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd()));
-                        tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
-                        tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
-                        //tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
-                        itcapGrpElement.Add(tempItcap);
-                    }
-                    tempGrp.Add(itcapGrpElement);
-
-                    XElement cupeGrpElement = new XElement("CUPES");
-                    foreach (CUPE cupe in grp.CUPE)
-                    {
-                        XElement tempCUPE = new XElement("CUPE");
-                        tempCUPE.Add(new XElement("CUPEQUESTION", cupe.CUPEQUESTION.NAME.TrimEnd()));
-                        tempCUPE.Add(new XElement("NAME", cupe.NAME.TrimEnd()));
-                        tempCUPE.Add(new XElement("COMMODITY", cupe.COMMODITY.TrimEnd()));
-                        tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd()));
-                        tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER.TrimEnd()));
-                        tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER.TrimEnd()));
-                        itcapGrpElement.Add(tempCUPE);
-                    }
-                    tempGrp.Add(cupeGrpElement);
 
                     grpElement.Add(tempGrp);
                 }
@@ -3545,8 +3461,27 @@ namespace IBMConsultantTool
                     tempItcap.Add(new XElement("CAPABILITY", itcap.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd()));
                     tempItcap.Add(new XElement("DOMAIN", itcap.ITCAPQUESTION.CAPABILITY.DOMAIN.NAME.TrimEnd()));
                     tempItcap.Add(new XElement("ASIS", itcap.ASIS != null ? itcap.ASIS : 0));
+                    tempItcap.Add(new XElement("ASISZEROS", itcap.ASISZEROS != null ? itcap.ASISZEROS : 0));
+                    tempItcap.Add(new XElement("ASISONES", itcap.ASISONES != null ? itcap.ASISONES : 0));
+                    tempItcap.Add(new XElement("ASISTWOS", itcap.ASISTWOS != null ? itcap.ASISTWOS : 0));
+                    tempItcap.Add(new XElement("ASISTHREES", itcap.ASISTHREES != null ? itcap.ASISTHREES : 0));
+                    tempItcap.Add(new XElement("ASISFOURS", itcap.ASISFOURS != null ? itcap.ASISFOURS : 0));
+                    tempItcap.Add(new XElement("ASISFIVES", itcap.ASISFIVES != null ? itcap.ASISFIVES : 0));
                     tempItcap.Add(new XElement("TOBE", itcap.TOBE != null ? itcap.TOBE : 0));
-                    //tempItcap.Add(new XElement("COMMENT", itcap.COMMENT));
+                    tempItcap.Add(new XElement("TOBEZEROS", itcap.TOBEZEROS != null ? itcap.TOBEZEROS : 0));
+                    tempItcap.Add(new XElement("TOBEONES", itcap.TOBEONES != null ? itcap.TOBEONES : 0));
+                    tempItcap.Add(new XElement("TOBETWOS", itcap.TOBETWOS != null ? itcap.TOBETWOS : 0));
+                    tempItcap.Add(new XElement("TOBETHREES", itcap.TOBETHREES != null ? itcap.TOBETHREES : 0));
+                    tempItcap.Add(new XElement("TOBEFOURS", itcap.TOBEFOURS != null ? itcap.TOBEFOURS : 0));
+                    tempItcap.Add(new XElement("TOBEFIVES", itcap.TOBEFIVES != null ? itcap.TOBEFIVES : 0));
+                    
+                    XElement commentsElement = new XElement("COMMENTS");
+                    foreach (COMMENT comment in itcap.COMMENT)
+                    {
+                        commentsElement.Add(new XElement("COMMENT", comment.NAME.TrimEnd()));
+                    }
+                    tempItcap.Add(commentsElement);
+
                     itcapElement.Add(tempItcap);
                 }
                 temp.Add(itcapElement);
@@ -4336,11 +4271,11 @@ namespace IBMConsultantTool
                                 }
                                 break;
                             case "ITCAPOBJMAP":
-                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetITCAPOBJMAP(client, lineArray[4].Replace('~', ' '), lineArray[5].Replace('~', ' '), out itcapObjMap))
+                                    if (GetITCAPOBJMAP(client, lineArray[3].Replace('~', ' '), lineArray[4].Replace('~', ' '), out itcapObjMap))
                                     {
-                                        itcapObjMap.SCORE = Convert.ToInt32(lineArray[6]);
+                                        itcapObjMap.SCORE = Convert.ToInt32(lineArray[5]);
                                     }
                                     else
                                     {
@@ -4353,14 +4288,14 @@ namespace IBMConsultantTool
                                 }
                                 break;
                             case "CAPABILITYGAPINFO":
-                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetCapabilityGapInfo(lineArray[4].Replace('~', ' '), client, out capGapInfo))
+                                    if (GetCapabilityGapInfo(lineArray[3].Replace('~', ' '), client, out capGapInfo))
                                     {
-                                        capGapInfo.GAPTYPE = lineArray[5];
-                                        capGapInfo.PRIORITIZEDGAPTYPE = lineArray[6];
-                                        capGapInfo.GAP = Convert.ToSingle(lineArray[7]);
-                                        capGapInfo.PRIORITIZEDGAP = Convert.ToSingle(lineArray[8]);
+                                        capGapInfo.GAPTYPE = lineArray[4];
+                                        capGapInfo.PRIORITIZEDGAPTYPE = lineArray[5];
+                                        capGapInfo.GAP = Convert.ToSingle(lineArray[6]);
+                                        capGapInfo.PRIORITIZEDGAP = Convert.ToSingle(lineArray[7]);
                                     }
                                     else
                                     {
