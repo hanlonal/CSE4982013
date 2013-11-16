@@ -225,7 +225,8 @@ namespace IBMConsultantTool
                 domTitle[i].AutoSize = true;
                 domTitle[i].Text = domains[i];
                 domTitle[i].Font = new Font("Arial", 14, FontStyle.Bold);
-                domTitle[i].BackColor = Color.FromArgb(70, 107, 176); // Color.LightGreen;
+                domTitle[i].ForeColor = Color.White;
+                domTitle[i].BackColor = Color.DodgerBlue; // Color.FromArgb(70, 107, 176);
 
                 ShapeContainer con = new ShapeContainer();
                 con.Parent = panelChart;
@@ -325,7 +326,7 @@ namespace IBMConsultantTool
 
                 rectangle[i].Enabled = false;
                 rectangle[i].FillStyle = FillStyle.Solid;
-                rectangle[i].FillColor = Color.FromArgb(70, 107, 176);// #466BB0; //Color.RoyalBlue;
+                rectangle[i].FillColor = Color.DodgerBlue; //Color.FromArgb(70, 107, 176);// #466BB0; //Color.RoyalBlue;
                 rectangle[i].FillGradientStyle = FillGradientStyle.Vertical;
                 rectangle[i].FillGradientColor = Color.White;
                 rectangle[i].SendToBack();

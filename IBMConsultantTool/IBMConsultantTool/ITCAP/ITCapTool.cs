@@ -1471,13 +1471,6 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].Visible = true;
             newChart.ChartAreas["chart1"].AxisX.MajorGrid.Enabled = false;
             newChart.ChartAreas["chart1"].AxisY.MajorGrid.Enabled = false;
-            /*newChart.ChartAreas["chart1"].AxisX.Title = "Question";
-            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
-            newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
-            newChart.ChartAreas["chart1"].AxisY.Title = "Score";
-            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
-            newChart.ChartAreas["chart1"].AxisY.Maximum = 4;*/
-            //newChart.ChartAreas["chart1"].AxisY.
 
             newChart.Legends.Add("legend");
             newChart.Legends["legend"].Enabled = true;
