@@ -221,6 +221,7 @@ namespace IBMConsultantTool
             numasIsAnswers = asisnumOnes + asisnumTwos + asisnumThrees + asisnumFours + asisnumFives + asisnumZeros;
             asIsScore = (float)(((1 * asisnumOnes) + (2 * asisnumTwos) + (3 * asisnumThrees) + (4 * asisnumFours) + (5 * asisnumFives)) / (float)numasIsAnswers);
             asIsAnswers.Clear();
+            owner.GetNumberOfAsIsAnswers();
             for (int i = 0; i < asisnumOnes; i++)
             {
                 asIsAnswers.Add(1);
@@ -255,7 +256,7 @@ namespace IBMConsultantTool
         {
             numtoBeAnswers = tobeNumOnes + tobeNumTwos + tobeNumThrees + tobeNumFours + tobeNumFives + tobeNumZeros;
             toBeScore = (float)(((1 * tobeNumOnes) + (2 * tobeNumTwos) + (3 * tobeNumThrees) + (4 * tobeNumFours) + (5 * tobeNumFives)) / (float)numtoBeAnswers);
-
+            owner.GetNumberOfToBeAnswers();
             for (int i = 0; i < tobeNumOnes; i++)
             {
                 toBeAnswers.Add(1);
