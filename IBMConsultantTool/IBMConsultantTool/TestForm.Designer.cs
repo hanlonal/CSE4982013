@@ -48,6 +48,8 @@
             // 
             // NewConsultButton
             // 
+            this.NewConsultButton.BackColor = System.Drawing.Color.Transparent;
+            this.NewConsultButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.NewConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.NewConsultButton.Image = ((System.Drawing.Image)(resources.GetObject("NewConsultButton.Image")));
             this.NewConsultButton.Location = new System.Drawing.Point(78, 135);
@@ -62,6 +64,7 @@
             // WelcomeMessage
             // 
             this.WelcomeMessage.AutoSize = true;
+            this.WelcomeMessage.BackColor = System.Drawing.Color.Transparent;
             this.WelcomeMessage.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WelcomeMessage.Location = new System.Drawing.Point(68, 83);
             this.WelcomeMessage.Name = "WelcomeMessage";
@@ -72,6 +75,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(66, 24);
             this.label4.Name = "label4";
@@ -81,6 +85,7 @@
             // 
             // TrendAnalysisButton
             // 
+            this.TrendAnalysisButton.BackColor = System.Drawing.Color.Transparent;
             this.TrendAnalysisButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TrendAnalysisButton.Image = ((System.Drawing.Image)(resources.GetObject("TrendAnalysisButton.Image")));
             this.TrendAnalysisButton.Location = new System.Drawing.Point(78, 454);
@@ -95,6 +100,7 @@
             // NewConsultMessage
             // 
             this.NewConsultMessage.AutoSize = true;
+            this.NewConsultMessage.BackColor = System.Drawing.Color.Transparent;
             this.NewConsultMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewConsultMessage.Location = new System.Drawing.Point(215, 135);
             this.NewConsultMessage.Name = "NewConsultMessage";
@@ -105,6 +111,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(216, 176);
             this.label1.Name = "label1";
@@ -115,6 +122,7 @@
             // TrendAnalysisLabel
             // 
             this.TrendAnalysisLabel.AutoSize = true;
+            this.TrendAnalysisLabel.BackColor = System.Drawing.Color.Transparent;
             this.TrendAnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TrendAnalysisLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.TrendAnalysisLabel.Location = new System.Drawing.Point(215, 454);
@@ -126,8 +134,9 @@
             // TrendDescription
             // 
             this.TrendDescription.AutoSize = true;
+            this.TrendDescription.BackColor = System.Drawing.Color.Transparent;
             this.TrendDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TrendDescription.Location = new System.Drawing.Point(216, 503);
+            this.TrendDescription.Location = new System.Drawing.Point(216, 529);
             this.TrendDescription.Name = "TrendDescription";
             this.TrendDescription.Size = new System.Drawing.Size(471, 20);
             this.TrendDescription.TabIndex = 11;
@@ -135,6 +144,7 @@
             // 
             // LoadConsultButton
             // 
+            this.LoadConsultButton.BackColor = System.Drawing.Color.Transparent;
             this.LoadConsultButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoadConsultButton.Image = global::IBMConsultantTool.Properties.Resources.load_upload_icon;
             this.LoadConsultButton.Location = new System.Drawing.Point(78, 294);
@@ -149,6 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(215, 294);
             this.label2.Name = "label2";
@@ -159,6 +170,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(216, 339);
             this.label3.Name = "label3";
@@ -169,13 +181,14 @@
             // OnlineModeCheckbox
             // 
             this.OnlineModeCheckbox.AutoSize = true;
+            this.OnlineModeCheckbox.BackColor = System.Drawing.Color.Transparent;
             this.OnlineModeCheckbox.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OnlineModeCheckbox.Location = new System.Drawing.Point(557, 41);
             this.OnlineModeCheckbox.Name = "OnlineModeCheckbox";
             this.OnlineModeCheckbox.Size = new System.Drawing.Size(111, 22);
             this.OnlineModeCheckbox.TabIndex = 17;
             this.OnlineModeCheckbox.Text = "Online Mode";
-            this.OnlineModeCheckbox.UseVisualStyleBackColor = true;
+            this.OnlineModeCheckbox.UseVisualStyleBackColor = false;
             this.OnlineModeCheckbox.CheckedChanged += new System.EventHandler(this.OnlineModeCheckbox_CheckedChanged);
             // 
             // TestForm
@@ -183,6 +196,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(774, 592);
             this.Controls.Add(this.OnlineModeCheckbox);
             this.Controls.Add(this.label3);
