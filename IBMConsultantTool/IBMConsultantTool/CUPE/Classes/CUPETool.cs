@@ -2515,21 +2515,28 @@ namespace IBMConsultantTool
             for (int i = 0; i < busCount; i++)
             {
                 temp = Convert.ToDouble(bus[i]);
-                decimal tmp = Convert.ToDecimal(temp);
-                tmp = Math.Round(tmp, 2);
-                temp = (double)tmp;
+                if (!Double.IsNaN(temp))
+                {
+                    decimal tmp = Convert.ToDecimal(temp);
+                    tmp = Math.Round(tmp, 2);
+                    temp = (double)tmp;
 
-                newChart.Series["Business"].Points.AddXY(cupe[i], temp);
+                    newChart.Series["Business"].Points.AddXY(cupe[i], temp);
+                }
             }
 
             for (int i = 0; i < itCount; i++)
             {
                 temp = Convert.ToDouble(it[i]);
-                decimal tmp = Convert.ToDecimal(temp);
-                tmp = Math.Round(tmp, 2);
-                temp = (double)tmp;
+                if (!Double.IsNaN(temp) )
+                {
+                    decimal tmp = Convert.ToDecimal(temp);
+                    tmp = Math.Round(tmp, 2);
+                    temp = (double)tmp;
 
-                newChart.Series["IT"].Points.AddXY(cupe[i], temp);
+                    newChart.Series["IT"].Points.AddXY(cupe[i], temp);
+                }
+
             }
 
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
