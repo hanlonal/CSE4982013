@@ -142,15 +142,20 @@ namespace IBMConsultantTool
         private List<CUPEQuestionTrendAnalysis> FilterCUPEGraphContents(string type)
         {
             List<CUPEQuestionTrendAnalysis> filter = new List<CUPEQuestionTrendAnalysis>();
-            if (type == "Business Future")
+            if (type == "Business Future" || type == "Business Current")
             {
-                //filter = cupeToTrack.FindAll(d => d.CupeType == "Business" && d.
-
+                filter = cupeToTrack.FindAll(d => d.CupeType == "Business");
             }
-
-
+            else if (type == "IT Future" || type == "IT Current")
+            {
+                filter = cupeToTrack.FindAll(d => d.CupeType == "IT");
+            }
             return filter;
+        }
 
+        private List<CapabilityTrendAnalysis> FilterCapabilityContents(string type)
+        {
+            return null;
         }
 
         #region Event Handlers
@@ -170,7 +175,7 @@ namespace IBMConsultantTool
             {
                 List<CUPEQuestionTrendAnalysis> filters = FilterCUPEGraphContents(selectedInfo);
 
-                CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
+                CreateCUPEGraph(filters, "CUPE Question", selectedInfo);
 
             }
             else if (state == TrackingState.ITAttributes)
@@ -210,6 +215,7 @@ namespace IBMConsultantTool
 
             if (state == TrackingState.Capabilities)
             {
+                CreateCapabilityGraph(capabilitiesToTrack, "Capabilities", selectedInfo);
             }
             else if (state == TrackingState.CUPEQuestions)
             {
@@ -541,7 +547,7 @@ namespace IBMConsultantTool
                 }
                 else
                     MessageBox.Show("Query did not return any results");
-                trendGridView.DataSource = null;
+                //trendGridView.DataSource = null;
                 trendGridView.DataSource = imperativesToTrack;
                 trendGridView.Refresh();
                 currentlyBeingTracked = "Imperative";
@@ -659,6 +665,8 @@ namespace IBMConsultantTool
                 else
                     row.DefaultCellStyle.BackColor = Color.LightBlue;
             }
+
+            trendGridView.Columns["Children"].HeaderText = "Entries";
         }
 
         private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
