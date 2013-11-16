@@ -131,6 +131,14 @@ namespace IBMConsultantTool
             }
         }
 
+        private void TestForm_MouseEnter(object sender, EventArgs e)
+        {
+            TrendAnalysisButton.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            LoadConsultButton.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            NewConsultButton.BorderStyle = System.Windows.Forms.BorderStyle.None;
+
+        }
+
     }
    
 }

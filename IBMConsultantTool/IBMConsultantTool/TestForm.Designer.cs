@@ -200,6 +200,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "TestForm";
             this.Text = "IBM Consultant Toolkit";
+            this.MouseEnter += new System.EventHandler(this.TestForm_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).EndInit();
