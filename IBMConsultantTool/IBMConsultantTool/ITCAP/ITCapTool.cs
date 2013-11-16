@@ -254,42 +254,9 @@ namespace IBMConsultantTool
                 liveDataEntryGrid.Rows[dom.IndexInGrid].Cells[2].Value = dom.CalculateAsIsAverage();
                 liveDataEntryGrid.Rows[dom.IndexInGrid].Cells[3].Value = dom.CalculateToBeAverage();
             }
-        }
+        }   
 
-     /*   private void MakePrioritizationGrid()
-        {
-            for (int i = 0; i < numBoms; i++)
-            {
-                DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-                col.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                prioritizationGrid.Columns.Add(col);
-            }
-            foreach (DataGridViewRow row in liveDataEntryGrid.Rows)
-            {
-                if ((string)row.Cells[6].Value == "domain" || (string)row.Cells[6].Value == "capability")
-                {
-                    DataGridViewRow rowCopy = (DataGridViewRow)prioritizationGrid.Rows[0].Clone();
-                    rowCopy.Cells[0].Value = row.Cells[1].Value;
-                    rowCopy.Cells[1].Value = row.Cells[2].Value;
-                    rowCopy.Cells[2].Value = row.Cells[3].Value;
-                    if ((string)row.Cells[6].Value == "domain")
-                        rowCopy.DefaultCellStyle.BackColor = Color.Orange;
-                    else
-                        rowCopy.DefaultCellStyle.BackColor = Color.GhostWhite;
-
-                    prioritizationGrid.Rows.Add(rowCopy);
-                }
-            }
-            foreach (DataGridViewRow newrow in prioritizationGrid.Rows)
-            {
-                if (newrow.Cells[0].Value != null)
-                    UpdateGapColumns(newrow.Index);
-            }
-
-        }*/
-
-        private void UpdateGapColumns(int rowindex)
+     /*   private void UpdateGapColumns(int rowindex)
         {
             DataGridViewRow row = prioritizationGrid.Rows[rowindex];
             float asis = row.Cells[1].Value != null ? (float)Convert.ToDouble(row.Cells[1].Value.ToString()) : 0;
@@ -311,7 +278,7 @@ namespace IBMConsultantTool
                 row.Cells[3].Style.BackColor = Color.LawnGreen;
                 row.Cells[3].Value = "Small Gap";
             }
-        }
+        }*/
 
         private void ToggleControlsVisible(List<Control> controls, bool value)
         {
@@ -326,50 +293,6 @@ namespace IBMConsultantTool
             currentGrid.DataSource = null;
             currentGrid.DataSource = entities;
         }
-        //not used
-        /*private void liveDataEntryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 2)
-            {
-                if ((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "1" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "2" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "3" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "4" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "5")
-                {
-                    questionsArray[e.RowIndex].AsIsScore = (float)Convert.ToDouble((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-                    float value = questionsArray[e.RowIndex].Owner.CalculateAsIsAverage();
-                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.IndexInGrid].Cells[2].Value = value;
-                    value = questionsArray[e.RowIndex].Owner.Owner.CalculateAsIsAverage();
-                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.Owner.IndexInGrid].Cells[2].Value = value;
-                }
-                else
-                {
-                    liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "0";
-                }
-
-            }
-            if (e.ColumnIndex == 3)
-            {
-                if ((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "1" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "2" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "3" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "4" ||
-                    (string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "5")
-                {
-                    questionsArray[e.RowIndex].ToBeScore = (float)Convert.ToDouble((string)liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-                    float value = questionsArray[e.RowIndex].Owner.CalculateToBeAverage();
-                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.IndexInGrid].Cells[3].Value = value;
-                    value = questionsArray[e.RowIndex].Owner.Owner.CalculateToBeAverage();
-                    liveDataEntryGrid.Rows[questionsArray[e.RowIndex].Owner.Owner.IndexInGrid].Cells[3].Value = value;
-                }
-                else
-                {
-                    liveDataEntryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "0";
-                }
-            }
-        }*/
-
 
         private void surveryMakerGrid_MouseDown(object sender, MouseEventArgs e)
         {
@@ -392,9 +315,13 @@ namespace IBMConsultantTool
                 {
                     ContextMenuStrip strip = new ContextMenuStrip();
                     ToolStripMenuItem deletecapability = new ToolStripMenuItem();
+                    ToolStripMenuItem addAttribute = new ToolStripMenuItem();
                     deletecapability.Click += new EventHandler(deleteCapability_Click);
+                    addAttribute.Click +=new EventHandler(addAttribute_Click);
                     deletecapability.Text = "Delete Capability";
+                    addAttribute.Text = "Add Attribute";
                     strip.Items.Add(deletecapability);
+                    strip.Items.Add(addAttribute);
                     strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                 }
                 if (ent.Type == "attribute")
@@ -410,10 +337,7 @@ namespace IBMConsultantTool
                     strip.Items.Add(deletecapability);
                     //strip.Items.Add(editQuestionText);
                     strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
-                }
-
-
-                Console.WriteLine(hit.ToString());
+                }                
             }
         }
 
@@ -424,6 +348,13 @@ namespace IBMConsultantTool
             editQuestionTextbox.Text = question.Name;
             changeTextButton.Enabled = true;
 
+        }
+
+        private void addAttribute_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+
+            
         }
 
         private void deleteDomain_Click(object sender, EventArgs e)
@@ -618,21 +549,8 @@ namespace IBMConsultantTool
 
         private void GetClientObjectives(Capability cap)
         {
-           // objectiveMappingGrid.DataSource = null;
-            //coll.Clear();
-            //Some kind of function like this is needed
-            //ClientDataControl.db.GetClientObjectives();
-            //DataGrid grid = new DataGrid();
             capabilityNameLabel.Visible = true;
-            //coll.Add(cap);
-            
-            //coll.CalculatePropertyDescriptors();
-            //currentcap.ObjectiveCollection.CalculatePropertyDescriptors();
-
-            //objectiveMappingGrid.DataSource = coll;
-            //objectiveMappingGrid.Columns[0].ReadOnly = true;
             BuildObjectiveMappingArea();
-            //objectiveMappingGrid.RowHeadersVisible = false;
         }
 
         private void ClearBottomPanel()
@@ -737,23 +655,7 @@ namespace IBMConsultantTool
 
         private void combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-          /*  currentcap.CalculatePrioritizedCapabilityGap();
-            currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
 
-                
-            currentGrid.Refresh();*/
         }
 
 
@@ -1049,6 +951,7 @@ namespace IBMConsultantTool
                 surveryMakerGrid.Columns["ToBeNumFives"].Visible = false;
                 surveryMakerGrid.Columns["ToBeNumZeros"].Visible = false;
                 surveryMakerGrid.RowHeadersVisible = false;
+                surveryMakerGrid.ReadOnly = true;
                 //surveryMakerGrid.Columns["Flags"].Visible = false;
 
             }
@@ -1075,6 +978,7 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Width = 30;
                 loadSurveyFromDataGrid.Columns["AsIsScore"].HeaderText = "Current Score";
                 loadSurveyFromDataGrid.Columns["ToBeScore"].HeaderText = "Future Score";
+                loadSurveyFromDataGrid.Columns["Name"].ReadOnly = true;
 
 
                 loadSurveyFromDataGrid.Columns["ToBeNumOnes"].HeaderText = "1s";
