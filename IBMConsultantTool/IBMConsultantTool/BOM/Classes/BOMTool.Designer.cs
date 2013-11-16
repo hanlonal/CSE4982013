@@ -53,7 +53,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.workshopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailInfoPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -163,21 +162,21 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // createSurveyToolStripMenuItem1
             // 
             this.createSurveyToolStripMenuItem1.Name = "createSurveyToolStripMenuItem1";
-            this.createSurveyToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.createSurveyToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.createSurveyToolStripMenuItem1.Text = "Create Survey";
             this.createSurveyToolStripMenuItem1.Click += new System.EventHandler(this.BomSurveyButton_Click);
             // 
             // openSurveysToolStripMenuItem1
             // 
             this.openSurveysToolStripMenuItem1.Name = "openSurveysToolStripMenuItem1";
-            this.openSurveysToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.openSurveysToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.openSurveysToolStripMenuItem1.Text = "Open Surveys";
             this.openSurveysToolStripMenuItem1.Click += new System.EventHandler(this.OpenSurvey_Clicked);
             // 
@@ -286,7 +285,6 @@
             // 
             this.workshopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cUPEToolStripMenuItem,
-            this.bOMToolStripMenuItem,
             this.iTCapToolStripMenuItem});
             this.workshopToolStripMenuItem.Name = "workshopToolStripMenuItem";
             this.workshopToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -295,21 +293,15 @@
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
-            // 
-            // bOMToolStripMenuItem
-            // 
-            this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.bOMToolStripMenuItem.Text = "BOM";
             // 
             // iTCapToolStripMenuItem
             // 
             this.iTCapToolStripMenuItem.Name = "iTCapToolStripMenuItem";
-            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.iTCapToolStripMenuItem.Text = "ITCap";
+            this.iTCapToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iTCapToolStripMenuItem.Text = "ITCAP";
             this.iTCapToolStripMenuItem.Click += new System.EventHandler(this.iTCapToolStripMenuItem_Click);
             // 
             // detailInfoPanel
@@ -437,7 +429,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTCapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMScoreToolStripMenuItem;

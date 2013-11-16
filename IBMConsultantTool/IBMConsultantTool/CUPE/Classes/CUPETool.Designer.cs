@@ -1217,15 +1217,15 @@
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
             // iTCapabilityToolStripMenuItem1
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
-            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
-            this.iTCapabilityToolStripMenuItem1.Text = "IT Capability";
+            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.iTCapabilityToolStripMenuItem1.Text = "ITCAP";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
             // 
             // helpToolStripMenuItem
@@ -1239,7 +1239,7 @@
             // beginTutorialToolStripMenuItem
             // 
             this.beginTutorialToolStripMenuItem.Name = "beginTutorialToolStripMenuItem";
-            this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
             this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
             // 
