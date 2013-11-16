@@ -2581,23 +2581,27 @@ namespace IBMConsultantTool
             List<ITAttributeTrendAnalysis> itataList = new List<ITAttributeTrendAnalysis>();
             ITAttributeTrendAnalysis itata;
             CLIENT client;
-            foreach (ITCAP itcap in itcapList)
+            if (itcapList != null)
             {
-                if (itcap.ASIS.HasValue && itcap.TOBE.HasValue)
+                foreach (ITCAP itcap in itcapList)
                 {
-                    itata = new ITAttributeTrendAnalysis();
-                    client = itcap.CLIENT;
-                    itata.Date = client.STARTDATE;
-                    itata.Country = client.COUNTRY.NAME.Trim();
-                    itata.Region = client.COUNTRY.REGION.NAME.TrimEnd();
-                    itata.BusinessType = client.BUSINESSTYPE.NAME.Trim();
-                    itata.Country = itata.Region;
-                    itata.AsisScore = itcap.ASIS.Value;
-                    itata.TobeScore = itcap.TOBE.Value;
-                    itata.Name = attName;
-                    itataList.Add(itata);
+                    if (itcap.ASIS.HasValue && itcap.TOBE.HasValue)
+                    {
+                        itata = new ITAttributeTrendAnalysis();
+                        client = itcap.CLIENT;
+                        itata.Date = client.STARTDATE;
+                        itata.Country = client.COUNTRY.NAME.Trim();
+                        itata.Region = client.COUNTRY.REGION.NAME.TrimEnd();
+                        itata.BusinessType = client.BUSINESSTYPE.NAME.Trim();
+                        itata.Country = itata.Region;
+                        itata.AsisScore = itcap.ASIS.Value;
+                        itata.TobeScore = itcap.TOBE.Value;
+                        itata.Name = attName;
+                        itataList.Add(itata);
+                    }
                 }
             }
+
 
             return itataList;
         }
@@ -2644,52 +2648,56 @@ namespace IBMConsultantTool
             List<CUPEQuestionTrendAnalysis> cqtaList = new List<CUPEQuestionTrendAnalysis>();
             CUPEQuestionTrendAnalysis cqta;
             CLIENT client;
-            foreach (CUPERESPONSE cr in crList)
+            if(crList != null)
             {
-                if (cr.CURRENT != "" && cr.FUTURE != "")
+                foreach (CUPERESPONSE cr in crList)
                 {
-                    cqta = new CUPEQuestionTrendAnalysis();
-                    client = cr.CONTACT.GROUP.CLIENT;
-                    cqta.Date = client.STARTDATE;
-                    cqta.Region = client.COUNTRY.REGION.NAME.TrimEnd();
-                    cqta.Country = client.COUNTRY.NAME.TrimEnd();
-                    cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
-                    cqta.Country = cqta.Region.TrimEnd();
-                    cqta.CupeType = cr.CONTACT.GROUP.NAME.TrimEnd();
-                    switch (cr.CURRENT)
+                    if (cr.CURRENT != "" && cr.FUTURE != "")
                     {
-                        case "a":
-                            cqta.CurrentAnswer = 1;
-                            break;
-                        case "b":
-                            cqta.CurrentAnswer = 2;
-                            break;
-                        case "c":
-                            cqta.CurrentAnswer = 3;
-                            break;
-                        case "d":
-                            cqta.CurrentAnswer = 4;
-                            break;
+                        cqta = new CUPEQuestionTrendAnalysis();
+                        client = cr.CONTACT.GROUP.CLIENT;
+                        cqta.Date = client.STARTDATE;
+                        cqta.Region = client.COUNTRY.REGION.NAME.TrimEnd();
+                        cqta.Country = client.COUNTRY.NAME.TrimEnd();
+                        cqta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                        cqta.Country = cqta.Region.TrimEnd();
+                        cqta.CupeType = cr.CONTACT.GROUP.NAME.TrimEnd();
+                        switch (cr.CURRENT)
+                        {
+                            case "a":
+                                cqta.CurrentAnswer = 1;
+                                break;
+                            case "b":
+                                cqta.CurrentAnswer = 2;
+                                break;
+                            case "c":
+                                cqta.CurrentAnswer = 3;
+                                break;
+                            case "d":
+                                cqta.CurrentAnswer = 4;
+                                break;
+                        }
+                        switch (cr.FUTURE)
+                        {
+                            case "a":
+                                cqta.FutureAnswer = 1;
+                                break;
+                            case "b":
+                                cqta.FutureAnswer = 2;
+                                break;
+                            case "c":
+                                cqta.FutureAnswer = 3;
+                                break;
+                            case "d":
+                                cqta.FutureAnswer = 4;
+                                break;
+                        }
+                        cqta.Name = cqName;
+                        cqtaList.Add(cqta);
                     }
-                    switch (cr.FUTURE)
-                    {
-                        case "a":
-                            cqta.FutureAnswer = 1;
-                            break;
-                        case "b":
-                            cqta.FutureAnswer = 2;
-                            break;
-                        case "c":
-                            cqta.FutureAnswer = 3;
-                            break;
-                        case "d":
-                            cqta.FutureAnswer = 4;
-                            break;
-                    }
-                    cqta.Name = cqName;
-                    cqtaList.Add(cqta);
                 }
             }
+
 
             return cqtaList;
         }
@@ -2736,25 +2744,29 @@ namespace IBMConsultantTool
             List<CapabilityTrendAnalysis> ctaList = new List<CapabilityTrendAnalysis>();
             CapabilityTrendAnalysis cta;
             CLIENT client;
-            foreach (CAPABILITYGAPINFO capGapInfo in capGapInfoList)
+            if (capGapInfoList != null)
             {
-                if (capGapInfo.GAP.HasValue && capGapInfo.PRIORITIZEDGAP.HasValue)
+                foreach (CAPABILITYGAPINFO capGapInfo in capGapInfoList)
                 {
-                    cta = new CapabilityTrendAnalysis();
-                    client = capGapInfo.CLIENT;
-                    cta.Date = client.STARTDATE;
-                    cta.Country = client.COUNTRY.NAME.TrimEnd();
-                    cta.Region = client.COUNTRY.REGION.NAME.TrimEnd();
-                    cta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
-                    cta.Country = cta.Region;
-                    cta.CapabilityGap = capGapInfo.GAP.Value;
-                    cta.PrioritizedCapabilityGap = capGapInfo.PRIORITIZEDGAP.Value;
-                    cta.GapType = capGapInfo.GAPTYPE.TrimEnd();
-                    cta.PrioritizedGapType = capGapInfo.PRIORITIZEDGAPTYPE.TrimEnd();
-                    cta.Name = capName;
-                    ctaList.Add(cta);
+                    if (capGapInfo.GAP.HasValue && capGapInfo.PRIORITIZEDGAP.HasValue)
+                    {
+                        cta = new CapabilityTrendAnalysis();
+                        client = capGapInfo.CLIENT;
+                        cta.Date = client.STARTDATE;
+                        cta.Country = client.COUNTRY.NAME.TrimEnd();
+                        cta.Region = client.COUNTRY.REGION.NAME.TrimEnd();
+                        cta.BusinessType = client.BUSINESSTYPE.NAME.TrimEnd();
+                        cta.Country = cta.Region;
+                        cta.CapabilityGap = capGapInfo.GAP.Value;
+                        cta.PrioritizedCapabilityGap = capGapInfo.PRIORITIZEDGAP.Value;
+                        cta.GapType = capGapInfo.GAPTYPE.TrimEnd();
+                        cta.PrioritizedGapType = capGapInfo.PRIORITIZEDGAPTYPE.TrimEnd();
+                        cta.Name = capName;
+                        ctaList.Add(cta);
+                    }
                 }
             }
+
 
             return ctaList;
         }

@@ -671,16 +671,23 @@ namespace IBMConsultantTool
 
         private void trendGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >=0)
+            try
             {
-                TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
-                if (ent.Type1 == TrendAnalysisEntity.Type.Master)
+                if (e.ColumnIndex == 0 && e.RowIndex >= 0)
                 {
-                    for (int i = 1; i < ent.Children + 1; i++)
-                    {                       
-                        trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
+                    TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
+                    if (ent.Type1 == TrendAnalysisEntity.Type.Master)
+                    {
+                        for (int i = 1; i < ent.Children + 1; i++)
+                        {
+                            trendGridView.Rows[e.RowIndex + i].Visible = !trendGridView.Rows[e.RowIndex + i].Visible;
+                        }
                     }
                 }
+            }
+            catch
+            {
+
             }
         }
         private int numberOfGraph = 0;
@@ -1117,7 +1124,11 @@ namespace IBMConsultantTool
                         childrenCount = init[cnt].Children;
                         eachClients = init[cnt].Children;
 
-                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        if (cnt < trendGridView.Rows.Count)
+                        {
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+                        
                     }
 
                     lineChart.Series[name].ChartArea = title;

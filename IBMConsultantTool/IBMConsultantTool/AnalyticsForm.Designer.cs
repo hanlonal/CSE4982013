@@ -61,16 +61,16 @@
             this.metricCheckBox = new System.Windows.Forms.CheckBox();
             this.dataPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.trendGridView = new System.Windows.Forms.DataGridView();
-            this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.graphTypeComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trendGridView = new System.Windows.Forms.DataGridView();
+            this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.filterPanel.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // toDateText
@@ -267,7 +267,7 @@
             // 
             // clearGridButton
             // 
-            this.clearGridButton.Location = new System.Drawing.Point(44, 662);
+            this.clearGridButton.Location = new System.Drawing.Point(44, 642);
             this.clearGridButton.Name = "clearGridButton";
             this.clearGridButton.Size = new System.Drawing.Size(139, 31);
             this.clearGridButton.TabIndex = 21;
@@ -344,7 +344,7 @@
             // 
             // showResultsButton
             // 
-            this.showResultsButton.Location = new System.Drawing.Point(44, 610);
+            this.showResultsButton.Location = new System.Drawing.Point(44, 605);
             this.showResultsButton.Name = "showResultsButton";
             this.showResultsButton.Size = new System.Drawing.Size(139, 31);
             this.showResultsButton.TabIndex = 14;
@@ -442,6 +442,8 @@
             // 
             // dataPanel
             // 
+            this.dataPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.dataPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataPanel.Controls.Add(this.trendGridView);
@@ -452,38 +454,14 @@
             // 
             // chartPanel
             // 
+            this.chartPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.chartPanel.Location = new System.Drawing.Point(246, 361);
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(745, 356);
             this.chartPanel.TabIndex = 9;
-            // 
-            // trendGridView
-            // 
-            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.Collapse});
-            this.trendGridView.Location = new System.Drawing.Point(3, 8);
-            this.trendGridView.MultiSelect = false;
-            this.trendGridView.Name = "trendGridView";
-            this.trendGridView.ReadOnly = true;
-            this.trendGridView.Size = new System.Drawing.Size(740, 288);
-            this.trendGridView.TabIndex = 0;
-            this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
-            this.trendGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.trendGridView_CellMouseDown);
-            this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
-            this.trendGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trendGridView_MouseDown);
-            // 
-            // Collapse
-            // 
-            this.Collapse.HeaderText = "";
-            this.Collapse.Name = "Collapse";
-            this.Collapse.ReadOnly = true;
-            this.Collapse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Collapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Collapse.Text = "+";
-            this.Collapse.UseColumnTextForButtonValue = true;
-            this.Collapse.Width = 30;
             // 
             // graphTypeComboBox
             // 
@@ -516,9 +494,38 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // trendGridView
+            // 
+            this.trendGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Collapse});
+            this.trendGridView.Location = new System.Drawing.Point(3, 8);
+            this.trendGridView.MultiSelect = false;
+            this.trendGridView.Name = "trendGridView";
+            this.trendGridView.ReadOnly = true;
+            this.trendGridView.Size = new System.Drawing.Size(740, 288);
+            this.trendGridView.TabIndex = 0;
+            this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
+            this.trendGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.trendGridView_CellMouseDown);
+            this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
+            this.trendGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trendGridView_MouseDown);
+            // 
+            // Collapse
+            // 
+            this.Collapse.HeaderText = "";
+            this.Collapse.Name = "Collapse";
+            this.Collapse.ReadOnly = true;
+            this.Collapse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Collapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Collapse.Text = "+";
+            this.Collapse.UseColumnTextForButtonValue = true;
+            this.Collapse.Width = 30;
             // 
             // AnalyticsForm
             // 
@@ -541,9 +548,9 @@
             this.filterPanel.ResumeLayout(false);
             this.filterPanel.PerformLayout();
             this.dataPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trendGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
