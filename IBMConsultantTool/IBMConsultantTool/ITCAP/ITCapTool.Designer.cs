@@ -87,7 +87,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,7 +109,9 @@
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.createCommentsDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -181,7 +182,8 @@
             this.saveToolStripMenuItem,
             this.createSurveyDocumentToolStripMenuItem,
             this.openSurveyDocumentsToolStripMenuItem,
-            this.createPowerPointToolStripMenuItem});
+            this.createPowerPointToolStripMenuItem,
+            this.createCommentsDocumentToolStripMenuItem});
             this.File.Name = "File";
             this.File.Size = new System.Drawing.Size(37, 19);
             this.File.Text = "File";
@@ -193,7 +195,7 @@
             this.businessToolStripMenuItem,
             this.otherToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.newToolStripMenuItem.Text = "New Default Survey";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -219,35 +221,35 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // createSurveyDocumentToolStripMenuItem
             // 
             this.createSurveyDocumentToolStripMenuItem.Name = "createSurveyDocumentToolStripMenuItem";
-            this.createSurveyDocumentToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.createSurveyDocumentToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.createSurveyDocumentToolStripMenuItem.Text = "Create Survey Document";
             this.createSurveyDocumentToolStripMenuItem.Click += new System.EventHandler(this.createSurveyDocumentToolStripMenuItem_Click);
             // 
             // openSurveyDocumentsToolStripMenuItem
             // 
             this.openSurveyDocumentsToolStripMenuItem.Name = "openSurveyDocumentsToolStripMenuItem";
-            this.openSurveyDocumentsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.openSurveyDocumentsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.openSurveyDocumentsToolStripMenuItem.Text = "Open Survey Documents";
             this.openSurveyDocumentsToolStripMenuItem.Click += new System.EventHandler(this.openSurveyDocumentsToolStripMenuItem_Click);
             // 
             // createPowerPointToolStripMenuItem
             // 
             this.createPowerPointToolStripMenuItem.Name = "createPowerPointToolStripMenuItem";
-            this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.createPowerPointToolStripMenuItem.Text = "Create PowerPoint";
             this.createPowerPointToolStripMenuItem.Click += new System.EventHandler(this.createPowerPointToolStripMenuItem_Click);
             // 
@@ -303,19 +305,19 @@
             // domainToolStripMenuItem
             // 
             this.domainToolStripMenuItem.Name = "domainToolStripMenuItem";
-            this.domainToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.domainToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.domainToolStripMenuItem.Text = "Domain";
             // 
             // capabilityToolStripMenuItem
             // 
             this.capabilityToolStripMenuItem.Name = "capabilityToolStripMenuItem";
-            this.capabilityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.capabilityToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.capabilityToolStripMenuItem.Text = "Capability";
             // 
             // questionToolStripMenuItem
             // 
             this.questionToolStripMenuItem.Name = "questionToolStripMenuItem";
-            this.questionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.questionToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.questionToolStripMenuItem.Text = "Question";
             // 
             // ChangeDefaults
@@ -383,14 +385,14 @@
             // cUPEToolStripMenuItem
             // 
             this.cUPEToolStripMenuItem.Name = "cUPEToolStripMenuItem";
-            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cUPEToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.cUPEToolStripMenuItem.Text = "CUPE";
             this.cUPEToolStripMenuItem.Click += new System.EventHandler(this.cUPEToolStripMenuItem_Click);
             // 
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
@@ -408,7 +410,7 @@
             this.standardDeviationToolStripMenuItem,
             this.answersToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
@@ -595,14 +597,6 @@
             this.Comments.HeaderText = "Comments";
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
-            // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -866,6 +860,14 @@
             this.Flags.ReadOnly = true;
             this.Flags.Width = 50;
             // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
+            // 
             // dataGridViewButtonColumn2
             // 
             this.dataGridViewButtonColumn2.HeaderText = "";
@@ -873,6 +875,13 @@
             this.dataGridViewButtonColumn2.Text = "+";
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 30;
+            // 
+            // createCommentsDocumentToolStripMenuItem
+            // 
+            this.createCommentsDocumentToolStripMenuItem.Name = "createCommentsDocumentToolStripMenuItem";
+            this.createCommentsDocumentToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.createCommentsDocumentToolStripMenuItem.Text = "Create Comments Document";
+            this.createCommentsDocumentToolStripMenuItem.Click += new System.EventHandler(this.createCommentsDocumentToolStripMenuItem_Click);
             // 
             // ITCapTool
             // 
@@ -993,6 +1002,7 @@
         private System.Windows.Forms.ToolStripMenuItem asIsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toBeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createCommentsDocumentToolStripMenuItem;
 
 
     }

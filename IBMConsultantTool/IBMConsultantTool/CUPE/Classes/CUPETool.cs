@@ -3363,6 +3363,10 @@ namespace IBMConsultantTool
                 ITProviderRelationshipGraph chart = new ITProviderRelationshipGraph(currentBusiness, futureBusiness, currentIT, futureIT);
 
                 chart.Show();
+
+                Bitmap bmp = new Bitmap(chart.Width, chart.Height);
+                chart.DrawToBitmap(bmp, new Rectangle(Point.Empty, bmp.Size));
+                bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "IT Provider Relationship.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }
 

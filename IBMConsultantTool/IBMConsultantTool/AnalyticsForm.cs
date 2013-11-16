@@ -3080,7 +3080,9 @@ namespace IBMConsultantTool
                     lineChart.Series[seriesName].ChartArea = title;
                     lineChart.Series[seriesName].ChartType = SeriesChartType.Bar;
                     lineChart.Series[seriesName].XValueType = ChartValueType.Auto;
-                    lineChart.Series[seriesName].YValueType = ChartValueType.Double;
+                    lineChart.Series[seriesName].YValueType = ChartValueType.Auto;
+                    lineChart.Series[seriesName].IsValueShownAsLabel = true;
+                    //lineChart.Series[seriesName]
                     lineChart.Series[seriesName].BorderWidth = 5;
 
                     if (cap[cnt].Children == 0 && childrenCount >= 0)
@@ -3189,7 +3191,7 @@ namespace IBMConsultantTool
                     lineChart.Series[seriesName].ChartArea = title;
                     lineChart.Series[seriesName].ChartType = SeriesChartType.Bar;
                     lineChart.Series[seriesName].XValueType = ChartValueType.Auto;
-                    lineChart.Series[seriesName].YValueType = ChartValueType.Double;
+                    lineChart.Series[seriesName].YValueType = ChartValueType.Auto;
                     lineChart.Series[seriesName].BorderWidth = 5;
 
                     if (cap[cnt].Children == 0 && childrenCount >= 0)

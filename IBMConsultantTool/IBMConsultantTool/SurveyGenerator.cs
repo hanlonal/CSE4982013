@@ -463,14 +463,6 @@ namespace IBMConsultantTool
             Word.Paragraph oPara2;
             oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
 
-            var inputText = oDoc.FormFields.Add(oPara2.Range, Word.WdFieldType.wdFieldFormDropDown);
-            inputText.DropDown.ListEntries.Add("Business");
-            inputText.DropDown.ListEntries.Add("IT");
-
-            oPara2.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
-            oPara2.Range.InsertBefore("Department: ");
-            oPara2.Range.InsertParagraphAfter();
-
             Word.Paragraph oPara4;
             oPara4 = oDoc.Content.Paragraphs.Add(ref oMissing);
             oPara4.Range.Text = "5 = Completely True" + " : " + "2 to 4 = Partially True" + ":" + "1 = Not True";
@@ -514,7 +506,7 @@ namespace IBMConsultantTool
 
                 Word.Range cell2Range = oTable.Cell(r, 2).Range;
                 cell2Range.Collapse(ref oMissing);
-                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
+                var inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
                 inputText.DropDown.ListEntries.Add("        ");
                 inputText.DropDown.ListEntries.Add("1");
                 inputText.DropDown.ListEntries.Add("2");
@@ -534,13 +526,8 @@ namespace IBMConsultantTool
 
                 cell2Range = oTable.Cell(r, 4).Range;
                 cell2Range.Collapse(ref oMissing);
-                inputText = oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormDropDown);
-                inputText.DropDown.ListEntries.Add("        ");
-                inputText.DropDown.ListEntries.Add("1");
-                inputText.DropDown.ListEntries.Add("2");
-                inputText.DropDown.ListEntries.Add("3");
-                inputText.DropDown.ListEntries.Add("4");
-                inputText.DropDown.ListEntries.Add("5");
+                oDoc.FormFields.Add(cell2Range, Word.WdFieldType.wdFieldFormTextInput);
+
 
                 r++;
                 c++;
@@ -584,15 +571,8 @@ namespace IBMConsultantTool
 
 
             c = 0;
-            r = 0;
             foreach (Word.FormField form in oDoc.FormFields)
             {
-                if (r == 0)
-                {
-                    form.Name = "Name";
-                    r++;
-                    continue;
-                }
 
                 string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
 
@@ -620,6 +600,85 @@ namespace IBMConsultantTool
             
         }
 
+        public void CreateCommentDoc(List<ScoringEntity> questions)
+        {
+            //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
+            var totalRows = questions.Count + 1;
+
+            //Creating the document
+            //
+            object oMissing = System.Reflection.Missing.Value;
+            object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+
+            //Start Word and create a new document.
+            Word._Application oWord;
+            Word._Document oDoc;
+            oWord = new Word.Application();
+            oWord.Visible = true;
+            oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
+                ref oMissing, ref oMissing);
+            oWord.Activate();
+            System.Threading.Thread.Sleep(3000);
+
+            //Insert a paragraph at the beginning of the document.
+            Word.Paragraph oPara1;
+            oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara1.Range.Text = "IT Capability Assessment Survey Comments";
+            oPara1.Range.Font.Bold = 1;
+            oPara1.Format.SpaceAfter = 12;    //24 pt spacing after paragraph.
+            oPara1.Format.LineSpacingRule = Word.WdLineSpacing.wdLineSpaceSingle;
+            oPara1.Range.InsertParagraphAfter();
+
+            //Insert a paragraph at the beginning of the document.
+            Word.Paragraph oPara3;
+            oPara3 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara3.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            oPara3.Format.SpaceAfter = 8;    //24 pt spacing after paragraph.
+            oPara3.Range.Font.Size = 8;
+            oPara3.Range.InsertParagraphAfter();
+
+
+
+
+
+            System.Threading.Thread.Sleep(3000);
+
+            //Create an array for the questions for the formfields
+            string[] FormNames = new string[(totalRows - 1) * 3];
+
+
+            //Add the question text
+            foreach (ScoringEntity question in questions)
+            {
+                if (question.Type != "attribute")
+                {
+                    continue;
+                }
+                ITCapQuestion temp = question as ITCapQuestion;
+                oPara3.Range.Text = oPara3.Range.Text + question.Name;
+                foreach( string comment in temp.comment)
+                {
+                    oPara3.Range.Text = oPara3.Range.Text + '\t' + comment.ToString();
+                }
+            }
+
+
+
+            oDoc.Protect(Word.WdProtectionType.wdAllowOnlyFormFields, false, string.Empty, false, false);
+
+
+            try
+            {
+                oDoc.SaveAs("ITCap Comments", Word.WdSaveFormat.wdFormatDocument);
+            }
+            catch (Exception)
+            {
+                //just in case one is thrown for no reason
+            }
+
+
+        }
 
 
 
