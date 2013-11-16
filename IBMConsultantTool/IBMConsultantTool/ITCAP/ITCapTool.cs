@@ -1114,7 +1114,7 @@ namespace IBMConsultantTool
         private void loadSurveyFromDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Console.WriteLine(e.RowIndex.ToString());
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 && e.RowIndex != -1)
             {
                 DataGridViewButtonCell cell = (DataGridViewButtonCell)loadSurveyFromDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.UseColumnTextForButtonValue = false;
@@ -1749,6 +1749,18 @@ namespace IBMConsultantTool
 
             HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap, capGapType);
             chart.Show();
+        }
+
+        private void createCommentsDocumentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SurveyGenerator generator = new SurveyGenerator();
+            List<ITCapQuestion> questionTempList = new List<ITCapQuestion>();
+            foreach (ITCapQuestion question in questionsArray)
+            {
+                questionTempList.Add(question);
+            }
+
+            generator.CreateCommentDoc(entities);
         }
 
     }// end class
