@@ -420,8 +420,16 @@ namespace IBMConsultantTool
                                                                               });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.CURRENT[0]);
-                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.FUTURE[0]);
+                        try
+                        {
+                            cupeData.CurrentAnswers.Add("Question " + (questionIndex + 1).ToString(), response.CURRENT[0]);
+                            cupeData.FutureAnswers.Add("Question " + (questionIndex + 1).ToString(), response.FUTURE[0]);
+                        }
+                        catch
+                        {
+
+                        }
+                        
                     }
                 }
                 person.cupeDataHolder = cupeData;

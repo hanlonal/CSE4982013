@@ -315,9 +315,13 @@ namespace IBMConsultantTool
                 {
                     ContextMenuStrip strip = new ContextMenuStrip();
                     ToolStripMenuItem deletecapability = new ToolStripMenuItem();
+                    ToolStripMenuItem addAttribute = new ToolStripMenuItem();
                     deletecapability.Click += new EventHandler(deleteCapability_Click);
+                    addAttribute.Click +=new EventHandler(addAttribute_Click);
                     deletecapability.Text = "Delete Capability";
+                    addAttribute.Text = "Add Attribute";
                     strip.Items.Add(deletecapability);
+                    strip.Items.Add(addAttribute);
                     strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                 }
                 if (ent.Type == "attribute")
@@ -344,6 +348,13 @@ namespace IBMConsultantTool
             editQuestionTextbox.Text = question.Name;
             changeTextButton.Enabled = true;
 
+        }
+
+        private void addAttribute_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = (DataGridViewRow)surveryMakerGrid.Rows[0].Clone();
+
+            
         }
 
         private void deleteDomain_Click(object sender, EventArgs e)
@@ -940,6 +951,7 @@ namespace IBMConsultantTool
                 surveryMakerGrid.Columns["ToBeNumFives"].Visible = false;
                 surveryMakerGrid.Columns["ToBeNumZeros"].Visible = false;
                 surveryMakerGrid.RowHeadersVisible = false;
+                surveryMakerGrid.ReadOnly = true;
                 //surveryMakerGrid.Columns["Flags"].Visible = false;
 
             }

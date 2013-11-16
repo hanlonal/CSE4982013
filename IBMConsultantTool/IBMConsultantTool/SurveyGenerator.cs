@@ -239,7 +239,7 @@ namespace IBMConsultantTool
 
         }
 
-        public void CreateCupeSurvey(List<Person> people, List<string> questions)
+        public void CreateCupeSurvey(List<Person> people, List<string> questions, bool istwenty)
         {
             //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
             var totalRows = questions.Count + 1;
@@ -302,7 +302,10 @@ namespace IBMConsultantTool
             oTable.Cell(1, 2).Range.Text = "Current Value";
             oTable.Cell(1, 3).Range.Text = "Future Value";
 
-
+            if(!istwenty)
+            {
+                questions.RemoveRange(10, 10);
+            }
 
             System.Threading.Thread.Sleep(3000);
 

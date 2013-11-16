@@ -1354,9 +1354,18 @@ namespace IBMConsultantTool
                     {
                         if (row.Cells[0].Value != null && row.Cells[column.Index].Value != null)
                         {
-                            currentPerson.cupeDataHolder.CurrentAnswers.Add(
-                                row.Cells[0].Value.ToString(),
-                                 row.Cells[column.Index].Value.ToString()[0]);
+                            if (row.Cells[column.Index].Value.ToString().Length > 0)
+                            {
+                                currentPerson.cupeDataHolder.CurrentAnswers.Add(
+                                    row.Cells[0].Value.ToString(),
+                                     row.Cells[column.Index].Value.ToString()[0]);
+                            }
+                            else
+                            {
+                                currentPerson.cupeDataHolder.CurrentAnswers.Add(
+                                    row.Cells[0].Value.ToString(), ' ');
+                            }
+
                         }
                         else if (row.Cells[0].Value == null)
                         {
@@ -1434,6 +1443,7 @@ namespace IBMConsultantTool
             saveCupeDataValues();
             //Store everyone's answers in the clientdatacontroller
             saveCupeAnswersToClientDataControl();
+            changesMade = false;
 
             ClientDataControl.SaveCUPE();
             changesMade = false;
@@ -1442,7 +1452,7 @@ namespace IBMConsultantTool
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SurveyGenerator generator = new SurveyGenerator();
-            generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions);
+            generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions, is20Question);
         }
         private void UpdateUI(bool IsDataLoaded)
         {
@@ -3354,6 +3364,24 @@ namespace IBMConsultantTool
 
                 chart.Show();
             }
+        }
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach( DataGridView grid in grids )
+            {
+                grid.Rows.Clear();
+            }
+            foreach( Chart ch in charts)
+            {
+                ch.Series["BusiCurrent"].Points.Clear();
+            }
+            CUPETool_Load(sender, e);
+            loadColumnNames();
+            changeAllTotals();
+            UpdateCupeScore();
+            ClientDataControl.SetParticipants(new List<Person>());
+            removePersonColumns();
         }
 
     }// end class
