@@ -43,8 +43,10 @@ namespace IBMConsultantTool
         ShapeContainer linePacks = new ShapeContainer();
 
         public HeatMapChart(List<string> dom, List<string> cap, List<int> capNum, List<float> gap, 
-            float avgGap, List<bool> notFocus, float totalGap, int numGap, List<string> gapType) //, string capName)
+            float avgGap, List<bool> notFocus, float totalGap, int numGap, List<string> gapType, string capName)
         {
+            this.Text = capName;
+
             panelChart.Parent = this;
             panelList.Parent = this;
 
@@ -62,7 +64,7 @@ namespace IBMConsultantTool
             this.avgGap = avgGap;
             this.gapNum = numGap;
             this.gapType = gapType;
-            //this.capGapName = capName;
+            this.capGapName = capName;
 
             for (int i = 0; i < domCount; i++)
             {
@@ -83,11 +85,11 @@ namespace IBMConsultantTool
             this.SizeChanged += new EventHandler(HeatMapChart_SizeChanged);
             SizeChanged += new EventHandler(panelList_SizeChanged);
             SizeChanged += new EventHandler(panelChart_SizeChanged);
-            //this.Load += new EventHandler(HeatMapChart_Load);
+            this.Load += new EventHandler(HeatMapChart_Load);
 
             InitializeComponent();
 
-            this.FormClosing += new FormClosingEventHandler(HeatMapChart_FormClosing);
+            //this.FormClosing += new FormClosingEventHandler(HeatMapChart_FormClosing);
         }
 
         private void HeatMapChart_SizeChanged(object sender, EventArgs e)
@@ -111,27 +113,6 @@ namespace IBMConsultantTool
             panelChart.Width = this.Width - 16;
             panelChart.Height = this.Height - 77;
             HeatMapChart_Load(sender, e);
-
-            Save();
-            
-        }
-
-        public void Save()
-        {
-            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
-            panelChart.DrawToBitmap(bmp, panelChart.Bounds);
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            /*Rectangle form = this.Bounds;
-            using (Bitmap bitmap = new Bitmap(this.Width, this.Height))
-            {
-                using (Graphics graphic = Graphics.FromImage(bitmap))
-                {
-                    graphic.CopyFromScreen(this.Location, Point.Empty, this.Size);
-                }
-                bitmap.Save(Directory.GetCurrentDirectory() + @"/Charts/" +
-                    "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-            }*/
         }
 
         private void HeatMapChart_Load(object sender, EventArgs e)
@@ -222,7 +203,7 @@ namespace IBMConsultantTool
             System.Diagnostics.Trace.WriteLine("size: " + notFocus.Height.ToString());
 
             title.Parent = panelChart;
-            title.Text = "Capability Gap";
+            title.Text = capGapName; //"Capability Gap";
             title.Font = new Font("Arial", 16, FontStyle.Bold);
             title.AutoSize = true;
             title.Location = new Point(panelChart.Width / 2 - title.Width / 2, 5);
@@ -258,6 +239,11 @@ namespace IBMConsultantTool
 
                 rectangle[i] = new RectangleShape();
                 rectangle[i].Parent = con;
+                rectangle[i].Enabled = false;
+                rectangle[i].FillStyle = FillStyle.Solid;
+                rectangle[i].FillColor = Color.DodgerBlue; //Color.FromArgb(70, 107, 176);// #466BB0; //Color.RoyalBlue;
+                rectangle[i].FillGradientStyle = FillGradientStyle.Vertical;
+                rectangle[i].FillGradientColor = Color.White;
 
                 if (lastVal != 0)
                     domTitle[i].Location = new Point(panelChart.Width / 2 - domTitle[i].Width / 2, 10 + rectangle[i-1].Bottom);
@@ -270,6 +256,7 @@ namespace IBMConsultantTool
                 for (int j = 0; j < counting; j++)
                 {
                     capTitle[j+lastVal] = new Button();
+                    //capTitle[j + lastVal] = new Label();
                     capTitle[j+lastVal].Parent = panelChart;
                     capTitle[j + lastVal].Width = panelChart.Width / 2 - 20;
                     capTitle[j + lastVal].Height = 25;
@@ -318,26 +305,6 @@ namespace IBMConsultantTool
                     capTitle[j + lastVal].BringToFront();
 
                     capTitle[j + lastVal].Click += new EventHandler(HeatMapChart_Click);
-                    //if (gap[j + lastVal] > avgGap)
-                    /*if (gap[j + lastVal] >= redGap)
-                    {
-                        //System.Diagnostics.Trace.WriteLine("red: ");
-                        capTitle[j + lastVal].BackColor = Color.OrangeRed;
-                    }
-                    //else if (gap[j + lastVal] == 0)
-                    else if (gap[j + lastVal] < redGap && gap[j + lastVal] >= yellowGap)
-                    {
-                        //System.Diagnostics.Trace.WriteLine("yellow: ");
-                        capTitle[j + lastVal].BackColor = Color.Yellow;
-                    }
-                    else if (gap[j + lastVal] < yellowGap && gap[j + lastVal] >= greenGap)
-                    {
-                        //System.Diagnostics.Trace.WriteLine("green: " + yellowGap.ToString() + ", gap: " + gap[j+lastVal].ToString());
-                        capTitle[j + lastVal].BackColor = Color.GreenYellow;
-                    }
-                    else
-                        capTitle[j + lastVal].BackColor = Color.White;
-                    //heightBox += capTitle[j + lastVal].Height;*/
                 }
                 lastVal += counting;
 
@@ -349,17 +316,14 @@ namespace IBMConsultantTool
                     rectangle[i].Location = new Point(5, locBoxY);
                 locBoxY = rectangle[i].Bottom;
 
-                rectangle[i].Enabled = false;
-                rectangle[i].FillStyle = FillStyle.Solid;
-                rectangle[i].FillColor = Color.DodgerBlue; //Color.FromArgb(70, 107, 176);// #466BB0; //Color.RoyalBlue;
-                rectangle[i].FillGradientStyle = FillGradientStyle.Vertical;
-                rectangle[i].FillGradientColor = Color.White;
+                
                 rectangle[i].SendToBack();
+
+                for (int num = 0; num < lastVal; num++)
+                    capTitle[num].BringToFront();
 
                 //panelChart.Refresh();
             }
-
-            Save();
             
         }
 
@@ -379,10 +343,6 @@ namespace IBMConsultantTool
             }
             string info = "Domain:  " + nameOfDomain[current] + "\nCapability:  " + nameOfCap[current] + "\nGap:  " 
                 + capabilityGap[current].ToString() + "\nGapType:  " + capabilityGapType[current];
-
-            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
-            panelChart.DrawToBitmap(bmp, panelChart.Bounds);
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
             MessageBox.Show(info);
         }
