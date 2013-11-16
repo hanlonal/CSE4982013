@@ -768,14 +768,24 @@ namespace IBMConsultantTool
                 itcap.Element("ASISFIVES").Value = itcapQuestion.AsIsNumFives.ToString();
                 itcap.Element("TOBEFIVES").Value = itcapQuestion.TobeNumFives.ToString();
 
-                changeLog.Add("UPDATE ITCAP " + client.Element("NAME").Value.Replace(' ', '~') + " " + itcapQuestion.Name.Replace(' ', '~') + " " +
-                                itcapQuestion.AsIsScore + " " + itcapQuestion.ToBeScore + " " +
-                                itcapQuestion.AsIsNumZeros + " " + itcapQuestion.TobeNumZeros + " " +
-                                itcapQuestion.AsIsNumOnes + " " + itcapQuestion.TobeNumOnes + " " +
-                                itcapQuestion.AsIsNumTwos + " " + itcapQuestion.TobeNumTwos + " " +
-                                itcapQuestion.AsIsNumThrees + " " + itcapQuestion.TobeNumThrees + " " +
-                                itcapQuestion.AsIsNumFours + " " + itcapQuestion.TobeNumFours + " " +
-                                itcapQuestion.AsIsNumFives + " " + itcapQuestion.TobeNumFives);
+                string changeLogString = ("UPDATE ITCAP " + client.Element("NAME").Value.Replace(' ', '~') + " " + itcapQuestion.Name.Replace(' ', '~') + " " +
+                                           itcapQuestion.AsIsScore + " " + itcapQuestion.ToBeScore + " " +
+                                           itcapQuestion.AsIsNumZeros + " " + itcapQuestion.TobeNumZeros + " " +
+                                           itcapQuestion.AsIsNumOnes + " " + itcapQuestion.TobeNumOnes + " " +
+                                           itcapQuestion.AsIsNumTwos + " " + itcapQuestion.TobeNumTwos + " " +
+                                           itcapQuestion.AsIsNumThrees + " " + itcapQuestion.TobeNumThrees + " " +
+                                           itcapQuestion.AsIsNumFours + " " + itcapQuestion.TobeNumFours + " " +
+                                           itcapQuestion.AsIsNumFives + " " + itcapQuestion.TobeNumFives);
+                
+                XElement commentsElement = itcap.Element("COMMENTS");
+                commentsElement.RemoveAll();
+                foreach (string comment in itcapQuestion.comments)
+                {
+                    commentsElement.Add(new XElement("COMMENT", comment));
+                    changeLogString += (" " + comment.Replace(' ', '~'));
+                }
+
+                changeLog.Add(changeLogString);
             }
 
             catch
@@ -885,6 +895,10 @@ namespace IBMConsultantTool
                 {
                     question.ToBeScore = Convert.ToInt32(itcap.Element("TOBE").Value);
                 }
+                foreach (XElement comment in itcap.Element("COMMENTS").Elements("COMMENT"))
+                {
+                    question.AddComment(comment.Value);
+                }
             }
 
             else
@@ -928,7 +942,7 @@ namespace IBMConsultantTool
             itcap.Add(new XElement("TOBEFOURS", 0));
             itcap.Add(new XElement("ASISFIVES", 0));
             itcap.Add(new XElement("TOBEFIVES", 0));
-            itcap.Add(new XElement("COMMENT", ""));
+            itcap.Add(new XElement("COMMENTS"));
 
             client.Element("ITCAPS").Add(itcap);
 

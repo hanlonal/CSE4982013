@@ -699,6 +699,7 @@ namespace IBMConsultantTool
         {
             Random rnd = new Random();
             CLIENT client = clientObj as CLIENT;
+            COMMENT commentEnt;
             try
             {
                 ITCAP itcap = (from ent in client.ITCAP
@@ -719,6 +720,17 @@ namespace IBMConsultantTool
                 itcap.TOBETHREES = itcapQuestion.TobeNumThrees;
                 itcap.TOBEFOURS = itcapQuestion.TobeNumFours;
                 itcap.TOBEFIVES = itcapQuestion.TobeNumFives;
+                foreach (COMMENT commentEntToDelete in itcap.COMMENT)
+                {
+                    dbo.DeleteObject(commentEntToDelete);
+                }
+                foreach (string comment in itcapQuestion.comments)
+                {
+                    commentEnt = new COMMENT();
+                    commentEnt.NAME = comment;
+                    commentEnt.ITCAP = itcap;
+                    dbo.AddToCOMMENT(commentEnt);
+                }
             }
 
             catch
@@ -828,6 +840,10 @@ namespace IBMConsultantTool
                 {
                     question.ToBeScore = itcap.TOBE.Value;
                 }
+                foreach (COMMENT comment in itcap.COMMENT)
+                {
+                    question.AddComment(comment.NAME.TrimEnd());
+                }
             }
 
             else
@@ -908,6 +924,7 @@ namespace IBMConsultantTool
             
             if(GetITCAP(itcqName, client, out itcap))
             {
+                //Should delete related comments as well
                 dbo.DeleteObject(itcap);
                 return true;
             }
@@ -3701,6 +3718,7 @@ namespace IBMConsultantTool
             CAPABILITY capability;
             ITCAPQUESTION itcapQuestion;
             ITCAP itcap;
+            COMMENT comment;
             ITCAPOBJMAP itcapObjMap;
             CAPABILITYGAPINFO capGapInfo;
 
@@ -4273,6 +4291,18 @@ namespace IBMConsultantTool
                                         itcap.TOBEFOURS = Convert.ToInt32(lineArray[15]);
                                         itcap.ASISFIVES = Convert.ToInt32(lineArray[16]);
                                         itcap.TOBEFIVES = Convert.ToInt32(lineArray[17]);
+                                        List<COMMENT> commentsToDelete = itcap.COMMENT.ToList();
+                                        foreach (COMMENT commentToDelete in commentsToDelete)
+                                        {
+                                            dbo.DeleteObject(commentToDelete);
+                                        }
+                                        for (int i = 18; i < lineArray.Count(); i++)
+                                        {
+                                            comment = new COMMENT();
+                                            comment.NAME = lineArray[i].Replace('~', ' ');
+                                            comment.ITCAP = itcap;
+                                            dbo.AddToCOMMENT(comment);
+                                        }
                                     }
                                     else
                                     {

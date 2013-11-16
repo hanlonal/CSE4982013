@@ -13,6 +13,7 @@
           <EntitySet Name="CAPABILITYGAPINFO" EntityType="CAPSTONEModel.Store.CAPABILITYGAPINFO" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="CATEGORY" EntityType="CAPSTONEModel.Store.CATEGORY" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="CLIENT" EntityType="CAPSTONEModel.Store.CLIENT" store:Type="Tables" Schema="SCHEMA" />
+          <EntitySet Name="COMMENT" EntityType="CAPSTONEModel.Store.COMMENT" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="CONTACT" EntityType="CAPSTONEModel.Store.CONTACT" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="COUNTRY" EntityType="CAPSTONEModel.Store.COUNTRY" store:Type="Tables" Schema="SCHEMA" />
           <EntitySet Name="CUPE" EntityType="CAPSTONEModel.Store.CUPE" store:Type="Tables" Schema="SCHEMA" />
@@ -65,6 +66,10 @@
           <AssociationSet Name="CLIENT_COUNTRY_FK" Association="CAPSTONEModel.Store.CLIENT_COUNTRY_FK">
             <End Role="COUNTRY" EntitySet="COUNTRY" />
             <End Role="CLIENT" EntitySet="CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="COMMENT_ITCAP_FK" Association="CAPSTONEModel.Store.COMMENT_ITCAP_FK">
+            <End Role="ITCAP" EntitySet="ITCAP" />
+            <End Role="COMMENT" EntitySet="COMMENT" />
           </AssociationSet>
           <AssociationSet Name="CONTACT_GROUP_FK" Association="CAPSTONEModel.Store.CONTACT_GROUP_FK">
             <End Role="GROUP" EntitySet="GROUP" />
@@ -209,6 +214,14 @@
           <Property Name="BUSINESSTYPEID" Type="integer" Nullable="false" />
           <Property Name="COUNTRYID" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="COMMENT">
+          <Key>
+            <PropertyRef Name="COMMENTID" />
+          </Key>
+          <Property Name="COMMENTID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="character" MaxLength="200" />
+          <Property Name="ITCAPID" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="CONTACT">
           <Key>
             <PropertyRef Name="CONTACTID" />
@@ -305,10 +318,9 @@
           <Property Name="CLIENTID" Type="integer" />
           <Property Name="GROUP" Type="integer" />
           <Property Name="CONTACTID" Type="integer" />
+          <Property Name="ITCAPQUESTIONID" Type="integer" Nullable="false" />
           <Property Name="ASIS" Type="real" />
           <Property Name="TOBE" Type="real" />
-          <Property Name="COMMENT" Type="character" MaxLength="150" />
-          <Property Name="ITCAPQUESTIONID" Type="integer" Nullable="false" />
           <Property Name="ASISZEROS" Type="integer" />
           <Property Name="ASISONES" Type="integer" />
           <Property Name="ASISTWOS" Type="integer" />
@@ -486,6 +498,20 @@
             </Principal>
             <Dependent Role="CLIENT">
               <PropertyRef Name="COUNTRYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMMENT_ITCAP_FK">
+          <End Role="ITCAP" Type="CAPSTONEModel.Store.ITCAP" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="COMMENT" Type="CAPSTONEModel.Store.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITCAP">
+              <PropertyRef Name="ITCAPID" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="ITCAPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -754,6 +780,7 @@
           <EntitySet Name="CAPABILITYGAPINFO" EntityType="CAPSTONEModel.CAPABILITYGAPINFO" />
           <EntitySet Name="CATEGORY" EntityType="CAPSTONEModel.CATEGORY" />
           <EntitySet Name="CLIENT" EntityType="CAPSTONEModel.CLIENT" />
+          <EntitySet Name="COMMENT" EntityType="CAPSTONEModel.COMMENT" />
           <EntitySet Name="CONTACT" EntityType="CAPSTONEModel.CONTACT" />
           <EntitySet Name="COUNTRY" EntityType="CAPSTONEModel.COUNTRY" />
           <EntitySet Name="CUPE" EntityType="CAPSTONEModel.CUPE" />
@@ -838,6 +865,10 @@
           <AssociationSet Name="ITCAPOBJM_CLIE_FK" Association="CAPSTONEModel.ITCAPOBJM_CLIE_FK">
             <End Role="CLIENT" EntitySet="CLIENT" />
             <End Role="ITCAPOBJMAP" EntitySet="ITCAPOBJMAP" />
+          </AssociationSet>
+          <AssociationSet Name="COMMENT_ITCAP_FK" Association="CAPSTONEModel.COMMENT_ITCAP_FK">
+            <End Role="ITCAP" EntitySet="ITCAP" />
+            <End Role="COMMENT" EntitySet="COMMENT" />
           </AssociationSet>
           <AssociationSet Name="CONTACT_GROUP_FK" Association="CAPSTONEModel.CONTACT_GROUP_FK">
             <End Role="GROUP" EntitySet="GROUP" />
@@ -963,6 +994,14 @@
           <NavigationProperty Name="ITCAP" Relationship="CAPSTONEModel.ITCAP_CLIENT_FK" FromRole="CLIENT" ToRole="ITCAP" />
           <NavigationProperty Name="ITCAPOBJMAP" Relationship="CAPSTONEModel.ITCAPOBJM_CLIE_FK" FromRole="CLIENT" ToRole="ITCAPOBJMAP" />
         </EntityType>
+        <EntityType Name="COMMENT">
+          <Key>
+            <PropertyRef Name="COMMENTID" />
+          </Key>
+          <Property Name="COMMENTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="200" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="ITCAP" Relationship="CAPSTONEModel.COMMENT_ITCAP_FK" FromRole="COMMENT" ToRole="ITCAP" />
+        </EntityType>
         <EntityType Name="CONTACT">
           <Key>
             <PropertyRef Name="CONTACTID" />
@@ -1071,7 +1110,6 @@
           <Property Name="ITCAPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ASIS" Type="Single" />
           <Property Name="TOBE" Type="Single" />
-          <Property Name="COMMENT" Type="String" MaxLength="150" Unicode="false" FixedLength="true" />
           <Property Name="ASISZEROS" Type="Int32" />
           <Property Name="ASISONES" Type="Int32" />
           <Property Name="ASISTWOS" Type="Int32" />
@@ -1085,6 +1123,7 @@
           <Property Name="TOBEFOURS" Type="Int32" />
           <Property Name="TOBEFIVES" Type="Int32" />
           <NavigationProperty Name="CLIENT" Relationship="CAPSTONEModel.ITCAP_CLIENT_FK" FromRole="ITCAP" ToRole="CLIENT" />
+          <NavigationProperty Name="COMMENT" Relationship="CAPSTONEModel.COMMENT_ITCAP_FK" FromRole="ITCAP" ToRole="COMMENT" />
           <NavigationProperty Name="CONTACT" Relationship="CAPSTONEModel.ITCAP_CONTACT_FK" FromRole="ITCAP" ToRole="CONTACT" />
           <NavigationProperty Name="GROUP" Relationship="CAPSTONEModel.ITCAP_GROUP_FK" FromRole="ITCAP" ToRole="GROUP" />
           <NavigationProperty Name="ITCAPQUESTION" Relationship="CAPSTONEModel.ITCA_ITCAPQUEST_FK" FromRole="ITCAP" ToRole="ITCAPQUESTION" />
@@ -1226,6 +1265,12 @@
           </End>
           <End Role="ITCAPOBJMAP" Type="CAPSTONEModel.ITCAPOBJMAP" Multiplicity="*" />
         </Association>
+        <Association Name="COMMENT_ITCAP_FK">
+          <End Role="ITCAP" Type="CAPSTONEModel.ITCAP" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="COMMENT" Type="CAPSTONEModel.COMMENT" Multiplicity="*" />
+        </Association>
         <Association Name="CONTACT_GROUP_FK">
           <End Role="GROUP" Type="CAPSTONEModel.GROUP" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1331,6 +1376,10 @@
             <ScalarProperty Name="CUPECOMPLETE" ColumnName="CUPECOMPLETE" />
             <ScalarProperty Name="ITCAPCOMPLETE" ColumnName="ITCAPCOMPLETE" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="COMMENT"><EntityTypeMapping TypeName="CAPSTONEModel.COMMENT"><MappingFragment StoreEntitySet="COMMENT">
+            <ScalarProperty Name="COMMENTID" ColumnName="COMMENTID" />
+            <ScalarProperty Name="NAME" ColumnName="NAME" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CONTACT"><EntityTypeMapping TypeName="CAPSTONEModel.CONTACT"><MappingFragment StoreEntitySet="CONTACT">
             <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
             <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1386,7 +1435,6 @@
             <ScalarProperty Name="ITCAPID" ColumnName="ITCAPID" />
             <ScalarProperty Name="ASIS" ColumnName="ASIS" />
             <ScalarProperty Name="TOBE" ColumnName="TOBE" />
-            <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
             <ScalarProperty Name="ASISZEROS" ColumnName="ASISZEROS" />
             <ScalarProperty Name="ASISONES" ColumnName="ASISONES" />
             <ScalarProperty Name="ASISTWOS" ColumnName="ASISTWOS" />
@@ -1565,6 +1613,14 @@
               <ScalarProperty Name="ITCAPOBJMAPID" ColumnName="ITCAPOBJMAPID" />
             </EndProperty>
           </AssociationSetMapping>
+          <AssociationSetMapping Name="COMMENT_ITCAP_FK" TypeName="CAPSTONEModel.COMMENT_ITCAP_FK" StoreEntitySet="COMMENT">
+            <EndProperty Name="ITCAP">
+              <ScalarProperty Name="ITCAPID" ColumnName="ITCAPID" />
+            </EndProperty>
+            <EndProperty Name="COMMENT">
+              <ScalarProperty Name="COMMENTID" ColumnName="COMMENTID" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="CONTACT_GROUP_FK" TypeName="CAPSTONEModel.CONTACT_GROUP_FK" StoreEntitySet="CONTACT">
             <EndProperty Name="GROUP">
               <ScalarProperty Name="GROUPID" ColumnName="GROUPID" />
@@ -1672,18 +1728,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="CAPSTONEModel.BOM" Width="1.5" PointX="12" PointY="14.25" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.BOM" Width="1.5" PointX="12" PointY="14.25" Height="2.5571907552083335" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="5.25" PointY="4" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSTYPE" Width="1.5" PointX="3" PointY="6.875" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITY" Width="1.5" PointX="5.25" PointY="13.75" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITYGAPINFO" Width="1.5" PointX="7.5" PointY="9.5" Height="2.3648893229166639" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITYGAPINFO" Width="1.5" PointX="7.5" PointY="9.5" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CATEGORY" Width="1.5" PointX="3" PointY="4.25" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CLIENT" Width="1.5" PointX="5.25" PointY="8.875" Height="3.7109993489583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.COMMENT" Width="1.5" PointX="17.25" PointY="10.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CONTACT" Width="1.5" PointX="9.75" PointY="19.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.COUNTRY" Width="1.5" PointX="3" PointY="9.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPE" Width="1.5" PointX="15" PointY="14.875" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPE" Width="1.5" PointX="15" PointY="14.875" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CUPEQUESTION" Width="1.5" PointX="12.75" PointY="18" Height="2.9417936197916745" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPERESPONSE" Width="1.5" PointX="17.25" PointY="17.5" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPERESPONSE" Width="1.5" PointX="17.25" PointY="17.5" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.DOMAIN" Width="1.5" PointX="3" PointY="14" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.GROUP" Width="1.5" PointX="7.5" PointY="19.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.IMPERATIVE" Width="1.5" PointX="9.75" PointY="14.625" Height="1.7879850260416674" IsExpanded="true" />
@@ -1743,7 +1800,7 @@
           <ConnectorPoint PointX="7.197916666666667" PointY="15.028595377604166" />
           <ConnectorPoint PointX="7.364583333333333" PointY="15.028595377604166" />
           <ConnectorPoint PointX="8.25" PointY="15.028595377604166" />
-          <ConnectorPoint PointX="8.25" PointY="11.864889322916664" />
+          <ConnectorPoint PointX="8.25" PointY="11.864889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPOB_CAPABI_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="13.751152846153847" />
@@ -1752,23 +1809,23 @@
           <ConnectorPoint PointX="7.5" PointY="7.6151432291666694" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPQUE_CAPAB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="7.197916666666667" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="7.364583333333333" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="14.000578923076924" />
-          <ConnectorPoint PointX="13.90625" PointY="14.000578923076924" />
+          <ConnectorPoint PointX="6.75" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="7.197916666666667" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="7.364583333333333" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="14.000578923076922" />
+          <ConnectorPoint PointX="13.90625" PointY="14.000578923076922" />
           <ConnectorPoint PointX="13.90625" PointY="12.547587890624996" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CAPABILITY_CLIE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="10.682444661458332" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="10.682444661458332" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="10.682444661458332" />
-          <ConnectorPoint PointX="7.5" PointY="10.682444661458332" />
+          <ConnectorPoint PointX="6.75" PointY="10.682444661458334" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="10.682444661458334" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="10.682444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="10.682444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CLIENT_COUNTRY_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="10.643992513020834" />
@@ -1816,6 +1873,10 @@
           <ConnectorPoint PointX="7.208333333333333" PointY="8.1390641276041684" />
           <ConnectorPoint PointX="7.5" PointY="8.1390641276041684" />
         </AssociationConnector>
+        <AssociationConnector Association="CAPSTONEModel.COMMENT_ITCAP_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="16.5" PointY="11.547841796875" />
+          <ConnectorPoint PointX="17.25" PointY="11.547841796875" />
+        </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CONTACT_GROUP_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="9" PointY="20.932444661458334" />
           <ConnectorPoint PointX="9.75" PointY="20.932444661458334" />
@@ -1830,7 +1891,7 @@
         <AssociationConnector Association="CAPSTONEModel.CUPERESPO_CONT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="11.25" PointY="21.868492897135418" />
           <ConnectorPoint PointX="18" PointY="21.868492897135418" />
-          <ConnectorPoint PointX="18" PointY="19.480286458333332" />
+          <ConnectorPoint PointX="18" PointY="19.480286458333339" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_CONTACT_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="11.25" PointY="20.46909302278646" />

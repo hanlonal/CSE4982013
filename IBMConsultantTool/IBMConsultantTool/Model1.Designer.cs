@@ -36,6 +36,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "GROUP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.GROUP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAP_CLIENT_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CLIENT), "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAP))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "ITCAPOBJM_CLIE_FK", "CLIENT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CLIENT), "ITCAPOBJMAP", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.ITCAPOBJMAP))]
+[assembly: EdmRelationshipAttribute("CAPSTONEModel", "COMMENT_ITCAP_FK", "ITCAP", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.ITCAP), "COMMENT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.COMMENT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CONTACT_GROUP_FK", "GROUP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.GROUP), "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CONTACT))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPE_CONTACT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(IBMConsultantTool.CONTACT), "CUPE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPE))]
 [assembly: EdmRelationshipAttribute("CAPSTONEModel", "CUPERESPO_CONT_FK", "CONTACT", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IBMConsultantTool.CONTACT), "CUPERESPONSE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IBMConsultantTool.CUPERESPONSE))]
@@ -208,6 +209,22 @@ namespace IBMConsultantTool
             }
         }
         private ObjectSet<CLIENT> _CLIENT;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<COMMENT> COMMENT
+        {
+            get
+            {
+                if ((_COMMENT == null))
+                {
+                    _COMMENT = base.CreateObjectSet<COMMENT>("COMMENT");
+                }
+                return _COMMENT;
+            }
+        }
+        private ObjectSet<COMMENT> _COMMENT;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -474,6 +491,14 @@ namespace IBMConsultantTool
         public void AddToCLIENT(CLIENT cLIENT)
         {
             base.AddObject("CLIENT", cLIENT);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the COMMENT EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCOMMENT(COMMENT cOMMENT)
+        {
+            base.AddObject("COMMENT", cOMMENT);
         }
     
         /// <summary>
@@ -2103,6 +2128,126 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ITCAPOBJMAP>("CAPSTONEModel.ITCAPOBJM_CLIE_FK", "ITCAPOBJMAP", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CAPSTONEModel", Name="COMMENT")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class COMMENT : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new COMMENT object.
+        /// </summary>
+        /// <param name="cOMMENTID">Initial value of the COMMENTID property.</param>
+        public static COMMENT CreateCOMMENT(global::System.Int32 cOMMENTID)
+        {
+            COMMENT cOMMENT = new COMMENT();
+            cOMMENT.COMMENTID = cOMMENTID;
+            return cOMMENT;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 COMMENTID
+        {
+            get
+            {
+                return _COMMENTID;
+            }
+            set
+            {
+                if (_COMMENTID != value)
+                {
+                    OnCOMMENTIDChanging(value);
+                    ReportPropertyChanging("COMMENTID");
+                    _COMMENTID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("COMMENTID");
+                    OnCOMMENTIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _COMMENTID;
+        partial void OnCOMMENTIDChanging(global::System.Int32 value);
+        partial void OnCOMMENTIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NAME
+        {
+            get
+            {
+                return _NAME;
+            }
+            set
+            {
+                OnNAMEChanging(value);
+                ReportPropertyChanging("NAME");
+                _NAME = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NAME");
+                OnNAMEChanged();
+            }
+        }
+        private global::System.String _NAME;
+        partial void OnNAMEChanging(global::System.String value);
+        partial void OnNAMEChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "COMMENT_ITCAP_FK", "ITCAP")]
+        public ITCAP ITCAP
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAP>("CAPSTONEModel.COMMENT_ITCAP_FK", "ITCAP").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAP>("CAPSTONEModel.COMMENT_ITCAP_FK", "ITCAP").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ITCAP> ITCAPReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ITCAP>("CAPSTONEModel.COMMENT_ITCAP_FK", "ITCAP");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ITCAP>("CAPSTONEModel.COMMENT_ITCAP_FK", "ITCAP", value);
                 }
             }
         }
@@ -3989,30 +4134,6 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String COMMENT
-        {
-            get
-            {
-                return _COMMENT;
-            }
-            set
-            {
-                OnCOMMENTChanging(value);
-                ReportPropertyChanging("COMMENT");
-                _COMMENT = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("COMMENT");
-                OnCOMMENTChanged();
-            }
-        }
-        private global::System.String _COMMENT;
-        partial void OnCOMMENTChanging(global::System.String value);
-        partial void OnCOMMENTChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> ASISZEROS
         {
             get
@@ -4334,6 +4455,28 @@ namespace IBMConsultantTool
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CLIENT>("CAPSTONEModel.ITCAP_CLIENT_FK", "CLIENT", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CAPSTONEModel", "COMMENT_ITCAP_FK", "COMMENT")]
+        public EntityCollection<COMMENT> COMMENT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<COMMENT>("CAPSTONEModel.COMMENT_ITCAP_FK", "COMMENT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<COMMENT>("CAPSTONEModel.COMMENT_ITCAP_FK", "COMMENT", value);
                 }
             }
         }
