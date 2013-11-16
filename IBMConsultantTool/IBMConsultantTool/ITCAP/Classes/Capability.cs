@@ -85,6 +85,22 @@ namespace IBMConsultantTool
         public override void CalculateCapabilityGap()
         {
             base.CalculateCapabilityGap();
+
+            if (dynamicCapabilityGaps.ContainsKey(this))
+            {
+                dynamicCapabilityGaps[this] = capabilityGap;
+            }
+            else
+            {
+                if (this.asIsScore == 0.00 && this.toBeScore == 0.00)
+                {
+                    this.gapType = GapType.None;
+                    return;
+                }
+                dynamicCapabilityGaps.Add(this, capabilityGap);
+            }
+
+
             if (sortType == SortTpe.Static || dynamicCapabilityGaps.Count <3)
             {
                 if (capabilityGap >= staticHighGapThreshold)
@@ -110,22 +126,6 @@ namespace IBMConsultantTool
             }
             else if (sortType == SortTpe.Dynamic)
             {
-                if (dynamicCapabilityGaps.ContainsKey(this))
-                {
-                    dynamicCapabilityGaps[this] = capabilityGap;
-                }
-                else
-                {
-                    if (this.asIsScore == 0.00 && this.toBeScore == 0.00)
-                    {
-                        this.gapType = GapType.None;
-                        return;
-                    }
-                    dynamicCapabilityGaps.Add(this, capabilityGap);
-                }
-
-
-
                 var items = from pair in dynamicCapabilityGaps
                             orderby pair.Value ascending
                             select pair;
@@ -290,6 +290,61 @@ namespace IBMConsultantTool
 
             return toBeScore;
         }
+
+        public void GetNumberOfAsIsAnswers()
+        {
+            int zeros = 0;
+            int ones = 0;
+            int twos = 0;
+            int threes = 0;
+            int fours = 0;
+            int fives = 0; 
+            foreach (ITCapQuestion ques in questionsOwned)
+            {
+                zeros += ques.AsIsNumZeros;
+                ones += ques.AsIsNumOnes;
+                twos += ques.AsIsNumTwos;
+                threes += ques.AsIsNumThrees;
+                fours += ques.AsIsNumFours;
+                fives += ques.AsIsNumFives;
+            }
+
+            asisnumZeros = zeros;
+            asisnumOnes = ones;
+            asisnumTwos = twos;
+            asisnumThrees = threes;
+            asisnumFours = fours;
+            asisnumFives = fives;
+
+        }
+
+        public void GetNumberOfToBeAnswers()
+        {
+            int zeros = 0;
+            int ones = 0;
+            int twos = 0;
+            int threes = 0;
+            int fours = 0;
+            int fives = 0;
+            foreach (ITCapQuestion ques in questionsOwned)
+            {
+                zeros += ques.TobeNumZeros;
+                ones += ques.TobeNumOnes;
+                twos += ques.TobeNumTwos;
+                threes += ques.TobeNumThrees;
+                fours += ques.TobeNumFours;
+                fives += ques.TobeNumFives;
+            }
+
+            tobeNumZeros = zeros;
+            tobeNumOnes = ones;
+            tobeNumTwos = twos;
+            tobeNumThrees = threes;
+            tobeNumFours = fours;
+            tobeNumFives = fives;
+        }
+
+
 
         public void AddObjectiveToTrack(string name)
         {
