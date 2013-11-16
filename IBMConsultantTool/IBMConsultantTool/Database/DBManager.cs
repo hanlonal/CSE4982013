@@ -978,9 +978,9 @@ namespace IBMConsultantTool
                     domain.IsDefault = domEnt.DEFAULT == "Y";
                     domain.Type = "domain";
                     domain.Visible = true;
+                    domain.ID = domEnt.ID.TrimEnd();
                     //itcapForm.LoadCapabilities(dom);
                     itcapForm.domains.Add(domain);
-                    domain.ID = itcapForm.domains.Count.ToString();
                 }
 
                 capability = itcapForm.capabilities.Find(delegate(Capability cap)
@@ -995,9 +995,9 @@ namespace IBMConsultantTool
                     domain.CapabilitiesOwned.Add(capability);
                     domain.TotalChildren++;
                     capability.Type = "capability";
+                    capability.ID = capEnt.ID.TrimEnd();
                     itcapForm.capabilities.Add(capability);
                     capability.Owner = domain;
-                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
                     //LoadQuestions(cap);
                 }
 
@@ -1008,10 +1008,10 @@ namespace IBMConsultantTool
                 itcapQuestion.ToBeScore = itcap.TOBE.HasValue ? itcap.TOBE.Value : 0;
                 //itcapQuestion.AddComment(itcap.COMMENT);
                 itcapQuestion.Type = "attribute";
+                itcapQuestion.ID = itcqEnt.ID.TrimEnd();
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
-                itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
             }
 
             foreach (Domain domain in itcapForm.domains)
@@ -1717,6 +1717,7 @@ namespace IBMConsultantTool
 
             catch
             {
+                MessageBox.Show("Failed to update CUPE: " + cupeQuestion.QuestionText, "Error");
             }
 
 
@@ -1911,19 +1912,19 @@ namespace IBMConsultantTool
             DOMAIN domain;
             if(GetDomain(entName, out domain))
             {
-                return domain.ID;
+                return domain.ID.TrimEnd();
             }
 
             CAPABILITY capability;
             if (GetCapability(entName, out capability))
             {
-                return capability.ID;
+                return capability.ID.TrimEnd();
             }
 
             ITCAPQUESTION itcapQuestion;
             if (GetITCAPQuestion(entName, out itcapQuestion))
             {
-                return itcapQuestion.ID;
+                return itcapQuestion.ID.TrimEnd();
             }
 
             return "";
@@ -2748,8 +2749,8 @@ namespace IBMConsultantTool
                     cta.Country = cta.Region;
                     cta.CapabilityGap = capGapInfo.GAP.Value;
                     cta.PrioritizedCapabilityGap = capGapInfo.PRIORITIZEDGAP.Value;
-                    cta.GapType = capGapInfo.GAPTYPE;
-                    cta.PrioritizedGapType = capGapInfo.PRIORITIZEDGAPTYPE;
+                    cta.GapType = capGapInfo.GAPTYPE.TrimEnd();
+                    cta.PrioritizedGapType = capGapInfo.PRIORITIZEDGAPTYPE.TrimEnd();
                     cta.Name = capName;
                     ctaList.Add(cta);
                 }

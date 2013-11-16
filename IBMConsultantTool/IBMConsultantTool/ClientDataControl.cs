@@ -22,6 +22,7 @@ namespace IBMConsultantTool
         private static List<NewCategory> bomCategories = new List<NewCategory>();
         public static List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
         private static Client client;
+        public static List<ScoringEntity> itcapQuestionsForDiscussion = new List<ScoringEntity>();
 
         private string emailAddress = "";
         private string emailPassword = "";
