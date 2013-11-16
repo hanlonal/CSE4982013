@@ -68,7 +68,7 @@ namespace IBMConsultantTool
                     Type.Missing, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 //oWord.Activate();
 
-                if (oDoc.Paragraphs.First.Range.Text != "Business Optimization Mapping Survey")
+                if (oDoc.Paragraphs.First.Range.Text != "Business Optimization Mapping Survey\r")
                 {
                     continue;
                 }
@@ -163,7 +163,7 @@ namespace IBMConsultantTool
                 try
                 {
 
-                    if (oDoc.Paragraphs.First.Range.Text != "IT Provider Relationship Survey")
+                    //if (oDoc.Paragraphs.First.Range.Text != "IT Provider Relationship Survey\r")
                     {
                         continue;
                     }
