@@ -12,7 +12,6 @@ namespace IBMConsultantTool
     {
         public NewObjective owner;
         private string name;
-        private int baseHeight = 20;
 
         private float criticality = 0;
         private float differentiation = 0;

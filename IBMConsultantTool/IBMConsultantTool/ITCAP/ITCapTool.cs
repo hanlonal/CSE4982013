@@ -38,7 +38,6 @@ namespace IBMConsultantTool
         ScoringEntity currentEnt;
 
         //only used for testing
-        private int numBoms = 3;
         int questionCount = 1;
         //Functions just used for testing until we have save and load
 

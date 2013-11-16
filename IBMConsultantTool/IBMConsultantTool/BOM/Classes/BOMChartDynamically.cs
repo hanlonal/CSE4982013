@@ -88,7 +88,7 @@ namespace IBMConsultantTool
         private Panel infoPanel = new Panel();
         private DataGridView infoGridView = new DataGridView();
         private Label infoLabel = new Label();
-        string informationOfBubble;
+        
         private List<string> informationToSelect = new List<string>();
         private List<string> bubbleName = new List<string>();
         private List<string> bubbleInformation = new List<string>();
@@ -676,9 +676,6 @@ namespace IBMConsultantTool
         {
 
         }
-
-        bool sameNameOfBubble = false;
-        bool sameValueOfBubble = false;
         
         private void circle_MouseClick(object sender, MouseEventArgs e)
         {

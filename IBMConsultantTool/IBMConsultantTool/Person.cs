@@ -27,7 +27,6 @@ namespace IBMConsultantTool
         CupeForm owner;
         string codeName;
         string email;
-        string clientName;
         int id;
 
 

@@ -10,7 +10,6 @@ namespace IBMConsultantTool
         private List<ITCapQuestion> questionsOwned = new List<ITCapQuestion>();
         private Dictionary<string, int> OBJECTIVESCORES = new Dictionary<string, int>();
 
-        static private float staticThreshold = 1;
         enum SortTpe { Static, Dynamic };
         static SortTpe sortType;
         static private float percentToCategorizeAsHigh = .33f;

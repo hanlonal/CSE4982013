@@ -110,10 +110,6 @@ namespace IBMConsultantTool
 
         #endregion
 
-        private PictureBox star1;
-        private PictureBox star2;
-        private PictureBox star3;
-        private PictureBox star4;
         private Label label1;
         private Label label2;
         private Label label3;

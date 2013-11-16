@@ -41,9 +41,6 @@ namespace IBMConsultantTool
 
         public delegate void UpdateUIDelegate(bool IsDataLoaded);
 
-        int numberOfIT = 0;
-        int numerOfBusi = 0;
-
 
         int totalARowIndex = 21;
         int totalBRowIndex = 22;

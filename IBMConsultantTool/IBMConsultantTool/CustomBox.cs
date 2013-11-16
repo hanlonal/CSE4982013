@@ -9,7 +9,6 @@ namespace IBMConsultantTool
     class CustomBox : TextBox
     {
         private CupeQuestion owner;
-        private string value;
         private int questionID;
 
         public CustomBox(CupeQuestion owner)

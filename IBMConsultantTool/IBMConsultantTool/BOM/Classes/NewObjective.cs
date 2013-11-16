@@ -12,10 +12,8 @@ namespace IBMConsultantTool
 
         public NewCategory owner;
         
-        int ID;
         string name;
         private int labelHeight = 30;
-        private int labelWidth = 50;
         private int baseHeight = 90;
         private int baseWidth = 200;
         NewImperative currentImperative;

@@ -992,7 +992,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
         private IBMConsultantTool.DataGridViewDisableButtonColumn Collapse;
         private System.Windows.Forms.DataGridViewImageColumn Flags;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox objectiveToAddButton;
         private System.Windows.Forms.ToolStripMenuItem createSurveyDocumentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openSurveyDocumentsToolStripMenuItem;
