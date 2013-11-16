@@ -281,7 +281,7 @@ namespace IBMConsultantTool
                 }
 
                 cupeQuestionsComboBox.DataSource = names;
-                cupeQuestionsComboBox.Text = "<CUPE Questions";
+                cupeQuestionsComboBox.Text = "<CUPE Questions>";
             }
             if (value == "IT Attribues")
             {
@@ -1530,6 +1530,7 @@ namespace IBMConsultantTool
             {
                 lineChart.ChartAreas.Clear();
                 lineChart.Series.Clear();
+                lineChart.Titles.Clear();
             }
             lineChart.Parent = this.chartPanel;
             lineChart.Size = this.chartPanel.Size;
@@ -1884,6 +1885,7 @@ namespace IBMConsultantTool
             {
                 lineChart.ChartAreas.Clear();
                 lineChart.Series.Clear();
+                lineChart.Titles.Clear();
             }
             lineChart.Parent = this.chartPanel;
             lineChart.Size = this.chartPanel.Size;
@@ -1910,6 +1912,7 @@ namespace IBMConsultantTool
             {
                 lineChart.ChartAreas.Clear();
                 lineChart.Series.Clear();
+                lineChart.Titles.Clear();
             }
 
             lineChart.Parent = this.chartPanel;
@@ -2581,7 +2584,7 @@ namespace IBMConsultantTool
 
             else
             {
-                saveName = "Default Future";
+                saveName = "Default Business Future";
                 int newCount = 0;
                 int childrenCount = 0;
                 for (int cnt = 0; cnt < cupe.Count; cnt++)
@@ -2758,6 +2761,12 @@ namespace IBMConsultantTool
 
             #endregion
 
+            lineChart.Titles.Add("title");
+            lineChart.Titles[0].Name = "title";
+            lineChart.Titles["title"].Visible = true;
+            lineChart.Titles["title"].Text = title + " - " + saveName;
+            lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
         }
@@ -2774,6 +2783,7 @@ namespace IBMConsultantTool
             {
                 lineChart.ChartAreas.Clear();
                 lineChart.Series.Clear();
+                lineChart.Titles.Clear();
             }
 
             lineChart.Parent = this.chartPanel;
@@ -2906,7 +2916,7 @@ namespace IBMConsultantTool
 
             #region Prioritized Capability Gap Amount
 
-            if (boxText == "Prioritized Capability Gap Amount")
+            else if (boxText == "Prioritized Capability Gap Amount")
             {
                 int newCount = 0;
                 int childrenCount = 0;
@@ -3012,7 +3022,7 @@ namespace IBMConsultantTool
 
             #region Capability Gap Type Graph
 
-            if (boxText == "Capability Gap Type")
+            else if (boxText == "Capability Gap Type")
             {
                 int newCount = 0;
                 int childrenCount = 0;
@@ -3121,7 +3131,7 @@ namespace IBMConsultantTool
 
             #region Prioritized Capability Gap Type
 
-            if (boxText == "Prioritized Capability Gap Type")
+            else if (boxText == "Prioritized Capability Gap Type")
             {
                 int newCount = 0;
                 int childrenCount = 0;
@@ -3227,6 +3237,122 @@ namespace IBMConsultantTool
             }
 
             #endregion
+
+            #region Default is Capability Gap Amount Line Graph
+
+            else
+            {
+                saveName = "Default Capability Gap";
+                int newCount = 0;
+                int childrenCount = 0;
+                for (int cnt = 0; cnt < cap.Count; cnt++)
+                {
+                    string name = cap[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        seriesName = name;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (cap[cnt].Children > 0)
+                    {
+                        childrenCount = cap[cnt].Children;
+                        eachClients = cap[cnt].Children;
+                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                    }
+
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            newCntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+
+                    if (newCount != sameNum[newCntNum])
+                    {
+                        double gap = cap[cnt].CapabilityGap;
+
+                        double[] future = new double[100];
+                        future[cnt] = cap[cnt].CapabilityGap;
+                        int count = 1;
+
+                        DateTime date = cap[cnt].Date;
+                        for (int num = 0; num < childrenCount; num++)
+                        {
+                            if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            {
+                                gap += cap[num + cnt + 1].CapabilityGap;
+                                sameNum[cntNum] = num + cnt + 1;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            gap /= count;
+
+                            double temp = Convert.ToDouble(gap);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(cap[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            lineChart.Series[name].Points.AddXY(cap[cnt].Date, cap[cnt].CapabilityGap);
+                        }
+                    }
+                    newCount++;
+                    childrenCount--;
+                }
+            }
+            #endregion
+            
+            lineChart.Titles.Add("title");
+            lineChart.Titles[0].Name = "title";
+            lineChart.Titles["title"].Visible = true;
+            lineChart.Titles["title"].Text = title + " - " + saveName;
+            lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
+
+            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+                saveName + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void trendGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -3247,7 +3373,14 @@ namespace IBMConsultantTool
             if (clrDialog.ShowDialog() == DialogResult.OK)
             {
                 trendGridView.SelectedRows[0].DefaultCellStyle.BackColor = clrDialog.Color;
-                CreateBarGraph(imperativesToTrack, "Imperatives", graphType);
+                if (state == TrackingState.Capabilities)
+                    CreateCapabilityGraph(capabilitiesToTrack, "Capability", metricsComboBox.Text);
+                else if (state == TrackingState.CUPEQuestions)
+                    CreateCUPEGraph(cupeToTrack, "CUPE Question", metricsComboBox.Text);
+                else if (state == TrackingState.Imperatives)
+                    CreateBarGraph(imperativesToTrack, "Imperatives", graphType);
+                else if (state == TrackingState.ITAttributes)
+                    CreateITAttributeGraph(attributesToTrack, "IT Attributes", metricsComboBox.Text);
             }
 
         }

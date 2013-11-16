@@ -27,6 +27,7 @@ namespace IBMConsultantTool
         int capCount = 0;
         float avgGap = 0;
         int gapNum = 0;
+        string capGapName = "";
 
         List<string> nameOfDomain = new List<string>();
         List<string> nameOfCap = new List<string>();
@@ -42,7 +43,7 @@ namespace IBMConsultantTool
         ShapeContainer linePacks = new ShapeContainer();
 
         public HeatMapChart(List<string> dom, List<string> cap, List<int> capNum, List<float> gap, 
-            float avgGap, List<bool> notFocus, float totalGap, int numGap, List<string> gapType)
+            float avgGap, List<bool> notFocus, float totalGap, int numGap, List<string> gapType) //, string capName)
         {
             panelChart.Parent = this;
             panelList.Parent = this;
@@ -61,6 +62,7 @@ namespace IBMConsultantTool
             this.avgGap = avgGap;
             this.gapNum = numGap;
             this.gapType = gapType;
+            //this.capGapName = capName;
 
             for (int i = 0; i < domCount; i++)
             {
@@ -84,6 +86,8 @@ namespace IBMConsultantTool
             //this.Load += new EventHandler(HeatMapChart_Load);
 
             InitializeComponent();
+
+            this.FormClosing += new FormClosingEventHandler(HeatMapChart_FormClosing);
         }
 
         private void HeatMapChart_SizeChanged(object sender, EventArgs e)
@@ -235,7 +239,7 @@ namespace IBMConsultantTool
                 rectangle[i].Parent = con;
 
                 if (lastVal != 0)
-                    domTitle[i].Location = new Point(panelChart.Width / 2 - domTitle[i].Width / 2, 10 + capTitle[lastVal-1].Bottom);
+                    domTitle[i].Location = new Point(panelChart.Width / 2 - domTitle[i].Width / 2, 10 + rectangle[i-1].Bottom);
                 else
                     domTitle[i].Location = new Point(panelChart.Width / 2 - domTitle[i].Width / 2, title.Bottom + 20 + i * 10);
                 
@@ -331,12 +335,12 @@ namespace IBMConsultantTool
                 rectangle[i].FillGradientColor = Color.White;
                 rectangle[i].SendToBack();
 
-                panelChart.Refresh();
+                //panelChart.Refresh();
             }
 
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
             panelChart.DrawToBitmap(bmp, panelChart.Bounds);
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "HeatMap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
         private void HeatMapChart_Click(object sender, EventArgs e)
@@ -355,7 +359,26 @@ namespace IBMConsultantTool
             }
             string info = "Domain:  " + nameOfDomain[current] + "\nCapability:  " + nameOfCap[current] + "\nGap:  " 
                 + capabilityGap[current].ToString() + "\nGapType:  " + capabilityGapType[current];
+
+            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            panelChart.DrawToBitmap(bmp, panelChart.Bounds);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
             MessageBox.Show(info);
+        }
+
+        private void HeatMapChart_FormClosing(object sender, EventArgs e)
+        {
+            Rectangle form = this.Bounds;
+            using (Bitmap bitmap = new Bitmap(this.Width, this.Height))
+            {
+                using (Graphics graphic = Graphics.FromImage(bitmap))
+                {
+                    graphic.CopyFromScreen(this.Location, Point.Empty, this.Size);
+                }
+                bitmap.Save(Directory.GetCurrentDirectory() + @"/Charts/" +
+                    "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
         }
     }
 }
