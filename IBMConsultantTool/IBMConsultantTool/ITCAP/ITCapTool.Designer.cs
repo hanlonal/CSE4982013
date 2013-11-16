@@ -87,6 +87,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -106,11 +107,9 @@
             this.seperatorLabel = new System.Windows.Forms.Label();
             this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
@@ -123,8 +122,8 @@
             // 
             // surveryMakerGrid
             // 
-            this.surveryMakerGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.surveryMakerGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -289,6 +288,7 @@
             this.prioritizedCapabilityGapsToolStripMenuItem.Name = "prioritizedCapabilityGapsToolStripMenuItem";
             this.prioritizedCapabilityGapsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.prioritizedCapabilityGapsToolStripMenuItem.Text = "Prioritized Capability Gaps";
+            this.prioritizedCapabilityGapsToolStripMenuItem.Click += new System.EventHandler(this.prioritizedCapabilityGapsToolStripMenuItem_Click);
             // 
             // Insert
             // 
@@ -521,8 +521,8 @@
             // 
             // liveDataEntryGrid
             // 
-            this.liveDataEntryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.liveDataEntryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -596,6 +596,14 @@
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
             // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
+            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Type";
@@ -604,8 +612,8 @@
             // 
             // prioritizationGrid
             // 
-            this.prioritizationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.prioritizationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -803,18 +811,10 @@
             this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn1.Width = 30;
             // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
-            // 
             // loadSurveyFromDataGrid
             // 
-            this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -865,14 +865,6 @@
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
             this.Flags.Width = 50;
-            // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
             // 
             // dataGridViewButtonColumn2
             // 

@@ -1568,14 +1568,18 @@ namespace IBMConsultantTool
             List<float> capAsIs = new List<float>();
             List<float> capToBe = new List<float>();
             List<float> capGap = new List<float>();
+            List<float> entGap = new List<float>();
             List<string> capName = new List<string>();
             List<string> domName = new List<string>();
             List<int> capPerDom = new List<int>();
             List<bool> notAFocus = new List<bool>();
+            List<int> entPerCap = new List<int>();
+            List<string> capGapType = new List<string>();
             int counting = 0;
 
             int domCount = domains.Count;
             int capCount = capabilities.Count;
+
 
 
             foreach (Domain dom in domains)
@@ -1583,6 +1587,7 @@ namespace IBMConsultantTool
                 counting = 0;
                 foreach (Capability cap in dom.CapabilitiesOwned)
                 {
+                    
                     capAsIs.Add(cap.AsIsScore);
                     capToBe.Add(cap.ToBeScore);
                     if (cap.AsIsScore == 0 && cap.ToBeScore == 0)
@@ -1591,6 +1596,15 @@ namespace IBMConsultantTool
                         notAFocus.Add(false);
                     capGap.Add(cap.ToBeScore - cap.AsIsScore);
                     capName.Add(cap.Name);
+
+                    if (cap.GapType1 == ScoringEntity.GapType.High)
+                        capGapType.Add("High");
+                    else if (cap.GapType1 == ScoringEntity.GapType.Middle)
+                        capGapType.Add("Middle");
+                    else if (cap.GapType1 == ScoringEntity.GapType.Low)
+                        capGapType.Add("Low");
+                    else
+                        capGapType.Add("None");
                     counting++;
                 }
                 capPerDom.Add(counting);
@@ -1601,7 +1615,7 @@ namespace IBMConsultantTool
             float gap = CalculateGap(capGap);
             float total = CalculateTotalGap(capGap, notAFocus);
 
-            HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap);
+            HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap, capGapType);
             chart.Show();
         }
 
@@ -1775,6 +1789,62 @@ namespace IBMConsultantTool
             {
                 MessageBox.Show("Failed to save changes", "Error");
             }
+        }
+
+        private void prioritizedCapabilityGapsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<float> capAsIs = new List<float>();
+            List<float> capToBe = new List<float>();
+            List<float> capGap = new List<float>();
+            List<float> entGap = new List<float>();
+            List<string> capName = new List<string>();
+            List<string> domName = new List<string>();
+            List<int> capPerDom = new List<int>();
+            List<bool> notAFocus = new List<bool>();
+            List<int> entPerCap = new List<int>();
+            List<string> capGapType = new List<string>();
+            int counting = 0;
+
+            int domCount = domains.Count;
+            int capCount = capabilities.Count;
+
+
+
+            foreach (Domain dom in domains)
+            {
+                counting = 0;
+                foreach (Capability cap in dom.CapabilitiesOwned)
+                {
+
+                    capAsIs.Add(cap.AsIsScore);
+                    capToBe.Add(cap.ToBeScore);
+                    if (cap.AsIsScore == 0 && cap.ToBeScore == 0)
+                        notAFocus.Add(true);
+                    else
+                        notAFocus.Add(false);
+                    capGap.Add(cap.PrioritizedCapabilityGap);
+                    capName.Add(cap.Name);
+
+                    if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+                        capGapType.Add("High");
+                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+                        capGapType.Add("Middle");
+                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+                        capGapType.Add("Low");
+                    else
+                        capGapType.Add("None");
+                    counting++;
+                }
+                capPerDom.Add(counting);
+                domName.Add(dom.Name);
+            }
+
+
+            float gap = CalculateGap(capGap);
+            float total = CalculateTotalGap(capGap, notAFocus);
+
+            HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap, capGapType);
+            chart.Show();
         }
 
     }// end class
