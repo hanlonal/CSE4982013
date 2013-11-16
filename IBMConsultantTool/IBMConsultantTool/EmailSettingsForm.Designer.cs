@@ -36,12 +36,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.emailDisplayTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 120);
+            this.label1.Location = new System.Drawing.Point(111, 86);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 20);
             this.label1.TabIndex = 0;
@@ -50,7 +52,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 186);
+            this.label2.Location = new System.Drawing.Point(111, 185);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 20);
             this.label2.TabIndex = 1;
@@ -68,14 +70,14 @@
             // 
             // emailTextBox
             // 
-            this.emailTextBox.Location = new System.Drawing.Point(288, 120);
+            this.emailTextBox.Location = new System.Drawing.Point(292, 86);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(181, 27);
             this.emailTextBox.TabIndex = 3;
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(288, 186);
+            this.passwordTextBox.Location = new System.Drawing.Point(292, 185);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(181, 27);
             this.passwordTextBox.TabIndex = 4;
@@ -103,17 +105,35 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 48);
+            this.label4.Location = new System.Drawing.Point(50, 34);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(494, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "All email settings are encrypted and stored on local machine only";
+            // 
+            // emailDisplayTextBox
+            // 
+            this.emailDisplayTextBox.Location = new System.Drawing.Point(292, 135);
+            this.emailDisplayTextBox.Name = "emailDisplayTextBox";
+            this.emailDisplayTextBox.Size = new System.Drawing.Size(181, 27);
+            this.emailDisplayTextBox.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(111, 135);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(112, 20);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Email Display";
             // 
             // EmailSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 300);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.emailDisplayTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -142,5 +162,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox emailDisplayTextBox;
+        private System.Windows.Forms.Label label5;
     }
 }

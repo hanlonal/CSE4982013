@@ -24,8 +24,11 @@ namespace IBMConsultantTool
         private static Client client;
         public static List<ScoringEntity> itcapQuestionsForDiscussion = new List<ScoringEntity>();
 
-        private string emailAddress = "";
-        private string emailPassword = "";
+        private static string emailAddress = "";
+        private static string emailPassword = "";
+        private static string emailDisplay = "";
+
+
 
 
 
@@ -203,15 +206,15 @@ namespace IBMConsultantTool
 
             System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
 
-            var fromAddress = new MailAddress("", "Team IBM Capstone");
+            var fromAddress = new MailAddress(emailAddress, "IBM");
             var toAddress = new MailAddress("connorsname@gmail.com", "Survey Participant");
-            const string fromPassword = "CSE498-38734";
-            const string subject = "IBM Survey Request";
-            const string body = "Please download attatchment, fill out the form, and return to sender. Thank you!\n\n\n\n\nTeam IBM";
+            string fromPassword = emailPassword;
+            string subject = "IBM Survey Request";
+            string body = "Please download attatchment, fill out the form, and return to sender. Thank you!\n\n\n\n\nTeam IBM";
 
             var smtp = new SmtpClient
             {
-                Host = "smtp.gmail.com",
+                Host = "na.relay.ibm.com",
                 Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -287,6 +290,12 @@ namespace IBMConsultantTool
             {
                 ClientDataControl.db.ClientCompletedCUPE(client.EntityObject);
             }
+        }
+
+        public string EmailDisplay
+        {
+            get { return ClientDataControl.emailDisplay; }
+            set { ClientDataControl.emailDisplay = value; }
         }
 
         public static void SaveParticipantsToDB()
