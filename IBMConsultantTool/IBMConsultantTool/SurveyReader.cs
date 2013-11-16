@@ -163,7 +163,7 @@ namespace IBMConsultantTool
                 try
                 {
 
-                    //if (oDoc.Paragraphs.First.Range.Text != "IT Provider Relationship Survey\r")
+                    if (oDoc.Paragraphs.First.Range.Text != "IT Provider Relationship Survey\r")
                     {
                         continue;
                     }
