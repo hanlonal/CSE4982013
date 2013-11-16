@@ -2257,7 +2257,7 @@ namespace IBMConsultantTool
             capability.Add(new XElement("ITCAPQUESTIONS"));
 
             capability.Add(new XElement("ID", domain.Element("ID").Value[0] + "." + 
-                                             (domain.Element("CAPABILITIES").Elements("CAPABILITY").Count()+1).ToString() + ".0"));
+                                             (domain.Element("CAPABILITIES").Elements("CAPABILITY").Count()).ToString() + ".0"));
 
             domain.Element("CAPABILITIES").Add(capability);
 
@@ -2487,7 +2487,7 @@ namespace IBMConsultantTool
 
             itcapQuestion.Add(new XElement("ID", domain.Element("ID").Value[0] + "." + 
                                                  capability.Element("ID").Value[2] + "." +
-                                                 (capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION").Count()+1).ToString()));
+                                                 (capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION").Count()).ToString()));
 
             capability.Element("ITCAPQUESTIONS").Add(itcapQuestion);
 
