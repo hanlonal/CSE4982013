@@ -1894,6 +1894,7 @@ namespace IBMConsultantTool
 
             catch
             {
+                MessageBox.Show("Failed to update CUPE: " + cupeQuestion.QuestionText, "Error");
             }
 
 
