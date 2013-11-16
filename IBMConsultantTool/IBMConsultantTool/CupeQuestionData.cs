@@ -14,7 +14,6 @@ namespace IBMConsultantTool
         string currentValue = "";
         string futureValue = "";
         int questionID;
-        Person owner;
         int ownerId;
 
 

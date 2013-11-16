@@ -13,7 +13,6 @@ namespace IBMConsultantTool
 
         //why is everything in this static?????? AK
 
-        public static bool newClient;
         private static readonly ClientDataControl instance = new ClientDataControl();
         public static DataManager db;
         private static bool isOnline;

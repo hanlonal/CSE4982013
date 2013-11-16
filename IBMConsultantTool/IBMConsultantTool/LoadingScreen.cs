@@ -11,13 +11,7 @@ namespace IBMConsultantTool
 {
     public partial class LoadingScreen : Form
     {
-        
-        Panel panel;
-        Label label;
-        Container container;
         CUPETool owner;
-
-        private bool isClosed = false;
 
         public LoadingScreen(CUPETool form)
         {
@@ -59,7 +53,6 @@ namespace IBMConsultantTool
 
         private void LoadingScreen_FormClosed(object sender, FormClosedEventArgs e)
         {
-            isClosed = true;
         }
 
         private void AdjustLocation()

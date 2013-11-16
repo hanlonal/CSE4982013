@@ -15,7 +15,6 @@ namespace IBMConsultantTool
 
        private string current;
        private string future;
-       private string text;
        private CustomLabel textLabel;
        private int id;
 
@@ -27,8 +26,6 @@ namespace IBMConsultantTool
 
        private float totalCurrentAverageOfAllAnswers;
        private float totalFutureAverageOfAllAnswers;
-       private float totalAverageofAllITAnswers;
-       private float totalAverageofAllBusiAnswers;
 
        private int totalNumberOfFutureCommAnswersAll;
 

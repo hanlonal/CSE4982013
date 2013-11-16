@@ -13,7 +13,6 @@ namespace IBMConsultantTool
     {
         //private int categoryCount = 2;
         BOMTool mainForm;
-        int test;
 
         public DataEntryForm(BOMTool chart)
         {
@@ -64,7 +63,6 @@ namespace IBMConsultantTool
 
         private void saveDataButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(test.ToString());
             int rowCount = 0;
             //for (int i = 0; i < mainForm.CategoryCount; i++)
             foreach(NewCategory category in mainForm.Categories)

@@ -13,7 +13,6 @@ namespace IBMConsultantTool
 {
     public partial class CupeForm : Form
     {
-        string filepath = "Resouces/Questions.txt";
         string line;
         LinkedList<Person> persons = new LinkedList<Person>();
         Person currentPerson;
@@ -22,11 +21,6 @@ namespace IBMConsultantTool
 
         private float avgCurrentAll;
         private float avgFutureAll;
-
-        DataColumn colStudentID;
-        DataColumn colUsername;
-        DataTable tblStudents;
-        DataSet dsStudents;
 
         public CupeForm()
         {

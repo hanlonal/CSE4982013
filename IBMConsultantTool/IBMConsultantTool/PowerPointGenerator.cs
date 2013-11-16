@@ -29,8 +29,8 @@ namespace IBMConsultantTool
             Power.Slides objSlides;
             Power._Slide objSlide;
             Power.TextRange objTextRng;
-            Power.Shapes objShapes;
-            Power.Shape objShape;
+            //Power.Shapes objShapes;
+            //Power.Shape objShape;
 
             //Power.SlideShowWindows objSSWs;
             //Power.SlideShowTransition objSST;

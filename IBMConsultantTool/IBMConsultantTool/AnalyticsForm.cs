@@ -1904,7 +1904,6 @@ namespace IBMConsultantTool
 
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
-            int cntNum = 0;
             int[] sameNum = new int[100];
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +

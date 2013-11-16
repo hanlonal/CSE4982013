@@ -70,7 +70,6 @@ namespace IBMConsultantTool
             int effectivenessXValue = 351;
             int critXValue = 509;
             int diffXValue = 624;
-            int totalXValue = 791;
 
             Label nameLabel = new Label();
             detailInfoPanel.Controls.Add(nameLabel);
