@@ -111,6 +111,27 @@ namespace IBMConsultantTool
             panelChart.Width = this.Width - 16;
             panelChart.Height = this.Height - 77;
             HeatMapChart_Load(sender, e);
+
+            Save();
+            
+        }
+
+        public void Save()
+        {
+            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
+            panelChart.DrawToBitmap(bmp, panelChart.Bounds);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            /*Rectangle form = this.Bounds;
+            using (Bitmap bitmap = new Bitmap(this.Width, this.Height))
+            {
+                using (Graphics graphic = Graphics.FromImage(bitmap))
+                {
+                    graphic.CopyFromScreen(this.Location, Point.Empty, this.Size);
+                }
+                bitmap.Save(Directory.GetCurrentDirectory() + @"/Charts/" +
+                    "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }*/
         }
 
         private void HeatMapChart_Load(object sender, EventArgs e)
@@ -338,9 +359,8 @@ namespace IBMConsultantTool
                 //panelChart.Refresh();
             }
 
-            Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
-            panelChart.DrawToBitmap(bmp, panelChart.Bounds);
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            Save();
+            
         }
 
         private void HeatMapChart_Click(object sender, EventArgs e)
