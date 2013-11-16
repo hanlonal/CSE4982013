@@ -35,6 +35,8 @@ namespace IBMConsultantTool
         DataGridView currentGrid;
         private Button button13322345;
 
+        ScoringEntity currentEnt;
+
         //only used for testing
         private int numBoms = 3;
         int questionCount = 1;
@@ -1614,11 +1616,18 @@ namespace IBMConsultantTool
                         ContextMenuStrip strip = new ContextMenuStrip();
                         ToolStripMenuItem addToDebate = new ToolStripMenuItem();
                         addToDebate.Text = "Add to Discussion";
+                        currentEnt = ent;
+                        addToDebate.Click += new EventHandler(this.AddToDebate);
                         strip.Items.Add(addToDebate);
                         strip.Show(loadSurveyFromDataGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                     }
                 }
             }
+        }
+
+        private void AddToDebate(object sender, EventArgs e)
+        {
+            ClientDataControl.itcapQuestionsForDiscussion.Add(currentEnt);
         }
 
         private void asIsToolStripMenuItem1_Click(object sender, EventArgs e)
