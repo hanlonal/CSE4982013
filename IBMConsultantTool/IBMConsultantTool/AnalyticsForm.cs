@@ -139,7 +139,19 @@ namespace IBMConsultantTool
                     break;
             }
         }
+        private List<CUPEQuestionTrendAnalysis> FilterCUPEGraphContents(string type)
+        {
+            List<CUPEQuestionTrendAnalysis> filter = new List<CUPEQuestionTrendAnalysis>();
+            if (type == "Business Future")
+            {
+                //filter = cupeToTrack.FindAll(d => d.CupeType == "Business" && d.
 
+            }
+
+
+            return filter;
+
+        }
 
         #region Event Handlers
 
@@ -156,7 +168,10 @@ namespace IBMConsultantTool
             }
             else if (state == TrackingState.CUPEQuestions)
             {
+                List<CUPEQuestionTrendAnalysis> filters = FilterCUPEGraphContents(selectedInfo);
+
                 CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
+
             }
             else if (state == TrackingState.ITAttributes)
             {
