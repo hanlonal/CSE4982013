@@ -405,13 +405,16 @@ namespace IBMConsultantTool
         {
             int index = surveryMakerGrid.SelectedRows[0].Index;
             Capability cap = FindCapabilityByIndex(index);
-            foreach (ITCapQuestion question in cap.QuestionsOwned)
+            if (cap.QuestionsOwned != null)
             {
-                if (question.IsInGrid)
+                foreach (ITCapQuestion question in cap.QuestionsOwned)
                 {
-                    question.IsInGrid = false;
-                    surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
-                    ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
+                    if (question.IsInGrid)
+                    {
+                        question.IsInGrid = false;
+                        surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
+                        ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
+                    }
                 }
             }
             cap.IsInGrid = false;

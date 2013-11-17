@@ -1196,8 +1196,8 @@ namespace IBMConsultantTool
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-            //saveName + ".jpg", ChartImageFormat.Jpeg);
+            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+                saveName + ".jpg", ChartImageFormat.Jpeg);
         }
 
         public void CreateBarGraph(List<ImperativeTrendAnalysis> init, string title, string chartType)
@@ -1501,8 +1501,8 @@ namespace IBMConsultantTool
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-            //saveName + ".jpg", ChartImageFormat.Jpeg);
+            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+                saveName + ".jpg", ChartImageFormat.Jpeg);
 
             if (chartType == "Line Graph")
             {
@@ -1544,6 +1544,8 @@ namespace IBMConsultantTool
 
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
+            lineChart.ChartAreas[title].AxisY.Maximum = 5;
+
             int cntNum = 0;
             int[] sameNum = new int[100];
             int newCntNum = 0;
@@ -1926,6 +1928,7 @@ namespace IBMConsultantTool
 
             lineChart.ChartAreas.Add(title);
             lineChart.ChartAreas[title].Visible = true;
+            lineChart.ChartAreas[title].AxisY.Maximum = 4;
 
             string seriesName = "";
 
@@ -2817,6 +2820,7 @@ namespace IBMConsultantTool
 
             if (boxText == "Capability Gap Amount")
             {
+                lineChart.ChartAreas[title].AxisY.Maximum = 5;
                 int newCount = 0;
                 int childrenCount = 0;
                 for (int cnt = 0; cnt < cap.Count; cnt++)
@@ -2923,6 +2927,7 @@ namespace IBMConsultantTool
 
             else if (boxText == "Prioritized Capability Gap Amount")
             {
+                lineChart.ChartAreas[title].AxisY.Maximum = 5;
                 int newCount = 0;
                 int childrenCount = 0;
                 for (int cnt = 0; cnt < cap.Count; cnt++)
