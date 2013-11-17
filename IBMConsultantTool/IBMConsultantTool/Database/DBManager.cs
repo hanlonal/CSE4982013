@@ -1542,7 +1542,9 @@ namespace IBMConsultantTool
         public override List<CupeQuestionStringData> GetCUPESForClient()
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
-            List<CUPE> cupeList = client.CUPE.ToList();
+            List<CUPE> cupeList = (from ent in client.CUPE
+                                   orderby ent.QUESTIONNUMBER
+                                   select ent).ToList();
             List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
             CupeQuestionStringData data;
             foreach (CUPE cupe in cupeList)
@@ -1602,7 +1604,7 @@ namespace IBMConsultantTool
 
             return cupeQuestion.OriginalQuestionText;
         }
-        public override bool AddCUPE(string question, object clientObj)
+        public override bool AddCUPE(string question, object clientObj, int questionNumber)
         {
             CLIENT client = clientObj as CLIENT;
             CUPEQUESTION cupeQuestionEnt;
@@ -1634,6 +1636,7 @@ namespace IBMConsultantTool
             cupe.UTILITY = cupeQuestionEnt.UTILITY;
             cupe.PARTNER = cupeQuestionEnt.PARTNER;
             cupe.ENABLER = cupeQuestionEnt.ENABLER;
+            cupe.QUESTIONNUMBER = questionNumber;
             client.CUPE.Add(cupe);
 
             dbo.AddToCUPE(cupe);
@@ -3298,6 +3301,7 @@ namespace IBMConsultantTool
                     tempCUPE.Add(new XElement("UTILITY", cupe.UTILITY.TrimEnd()));
                     tempCUPE.Add(new XElement("PARTNER", cupe.PARTNER.TrimEnd()));
                     tempCUPE.Add(new XElement("ENABLER", cupe.ENABLER.TrimEnd()));
+                    tempCUPE.Add(new XElement("QUESTIONNUMBER", cupe.QUESTIONNUMBER));
                     cupeElement.Add(tempCUPE);
                 }
                 temp.Add(cupeElement);
@@ -3737,7 +3741,7 @@ namespace IBMConsultantTool
                                     {
                                         if (GetCUPEQuestion(lineArray[4].Replace('~', ' '), out cupeQuestion))
                                         {
-                                            if (!AddCUPE(cupeQuestion.NAME.TrimEnd(), client))
+                                            if (!AddCUPE(cupeQuestion.NAME.TrimEnd(), client, Convert.ToInt32(lineArray[5])))
                                             {
                                                 MessageBox.Show("Add CUPEResponse Instruction Failed: CUPE already exists\n\n" + line, "Error");
                                             }

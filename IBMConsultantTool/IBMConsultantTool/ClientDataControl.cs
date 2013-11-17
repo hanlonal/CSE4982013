@@ -78,9 +78,10 @@ namespace IBMConsultantTool
             if(cupeQuestions.Count == 0 && MessageBox.Show("No CUPE was found for this client. Would you like to make one?", "New CUPE", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
+                int questionNumber = 1;
                 foreach (CupeQuestionStringData cqsd in cupeQuestions)
                 {
-                    db.AddCUPE(cqsd.QuestionText, Client.EntityObject);
+                    db.AddCUPE(cqsd.QuestionText, Client.EntityObject, questionNumber++);
                 }
                 if (!ClientDataControl.db.SaveChanges())
                 {
@@ -93,10 +94,10 @@ namespace IBMConsultantTool
         {
             db.ClearCUPE(Client.EntityObject);
             cupeQuestions = db.GetCUPEQuestionStringDataTwenty();
-
+            int questionNumber = 1;
             foreach (CupeQuestionStringData cqsd in cupeQuestions)
             {
-                db.AddCUPE(cqsd.QuestionText, Client.EntityObject);
+                db.AddCUPE(cqsd.QuestionText, Client.EntityObject, questionNumber++);
             }
             if (!ClientDataControl.db.SaveChanges())
             {
@@ -108,10 +109,10 @@ namespace IBMConsultantTool
         {
             db.ClearCUPE(Client.EntityObject);
             cupeQuestions = db.GetCUPEQuestionStringDataTen();
-
+            int questionNumber = 1;
             foreach (CupeQuestionStringData cqsd in cupeQuestions)
             {
-                db.AddCUPE(cqsd.QuestionText, Client.EntityObject);
+                db.AddCUPE(cqsd.QuestionText, Client.EntityObject, questionNumber++);
             }
             if (!ClientDataControl.db.SaveChanges())
             {

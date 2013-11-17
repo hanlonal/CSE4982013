@@ -1517,7 +1517,9 @@ namespace IBMConsultantTool
         public override List<CupeQuestionStringData> GetCUPESForClient()
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
-            List<XElement> cupeList = client.Element("CUPES").Elements("CUPE").ToList();
+            List<XElement> cupeList = (from ent in client.Element("CUPES").Elements("CUPE")
+                                       orderby Convert.ToInt32(ent.Element("QUESTIONNUMBER").Value)
+                                       select ent).ToList();
             List<CupeQuestionStringData> cupeQuestions = new List<CupeQuestionStringData>();
             CupeQuestionStringData data;
             foreach (XElement cupe in cupeList)
@@ -1770,9 +1772,9 @@ namespace IBMConsultantTool
             }
 
 
-            return cupeQuestion.OriginalQuestionText;   
+            return cupeQuestion.OriginalQuestionText; 
         }
-        public override bool AddCUPE(string question, object clientObj)
+        public override bool AddCUPE(string question, object clientObj, int questionNumber)
         {
             XElement client = clientObj as XElement;
             XElement cupeQuestionEnt;
@@ -1804,9 +1806,10 @@ namespace IBMConsultantTool
             cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
             cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
             cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
+            cupe.Add(new XElement("QUESTIONNUMBER", questionNumber));
             client.Element("CUPES").Add(cupe);
 
-            changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
+            changeLog.Add("ADD CUPE CLIENT " + client.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~') + " " + questionNumber);
 
             return true;
         }
