@@ -883,66 +883,6 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddITCAPToGroup(object itcapObj, object groupObj)
-        {
-            XElement itcap = itcapObj as XElement;
-            XElement grp = groupObj as XElement;
-            string itcqXML = itcap.Element("ITCAPQUESTION").Value;
-            string capXML = itcap.Element("CAPABILITY").Value;
-            string domXML = itcap.Element("DOMAIN").Value;
-
-            List<XElement> itcapList = grp.Element("ITCAPS").Elements("ITCAP").ToList();
-            //If Client points to 2 BOMs with same Imperative, return false
-            if ((from ent in itcapList
-                 where ent != null &&
-                       ent.Element("ITCAPQUESTION") != null &&
-                       ent.Element("ITCAPQUESTION").Value == itcqXML
-                 select ent).Count() != 0)
-            {
-                return false;
-            }
-
-            itcap.Add(new XElement("ASIS", 0));
-            itcap.Add(new XElement("TOBE", 0));
-            itcap.Add(new XElement("COMMENT", ""));
-
-            grp.Element("ITCAPS").Add(itcap);
-
-            changeLog.Add("ADD ITCAP GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " + itcqXML.Replace(' ', '~'));
-
-            return true;
-        }
-
-        public override bool AddITCAPToContact(object itcapObj, object contactObj)
-        {
-            XElement itcap = itcapObj as XElement;
-            XElement contact = contactObj as XElement;
-            string itcqXML = itcap.Element("ITCAPQUESTION").Value;
-            string capXML = itcap.Element("CAPABILITY").Value;
-            string domXML = itcap.Element("DOMAIN").Value;
-
-            List<XElement> itcapList = contact.Element("ITCAPS").Elements("ITCAP").ToList();
-            //If Client points to 2 BOMs with same Imperative, return false
-            if ((from ent in itcapList
-                 where ent != null &&
-                       ent.Element("ITCAPQUESTION") != null &&
-                       ent.Element("ITCAPQUESTION").Value == itcqXML
-                 select ent).Count() != 0)
-            {
-                return false;
-            }
-
-            itcap.Add(new XElement("ASIS", 0));
-            itcap.Add(new XElement("TOBE", 0));
-            itcap.Add(new XElement("COMMENT", ""));
-
-            contact.Element("ITCAPS").Add(itcap);
-
-            changeLog.Add("ADD ITCAP CONTACT " + contact.Element("NAME").Value.Replace(' ', '~') + " " + itcqXML.Replace(' ', '~'));
-
-            return true;
-        }
-
         public override bool OpenITCAP(ITCapTool itcapForm)
         {
             if (ClientDataControl.Client.EntityObject == null)
@@ -993,12 +933,12 @@ namespace IBMConsultantTool
 
                 capability = itcapForm.capabilities.Find(delegate(Capability cap)
                 {
-                    return cap.Name == capName;
+                    return cap.CapName == capName;
                 });
                 if (capability == null)
                 {
                     capability = new Capability();
-                    capability.Name = capName;
+                    capability.CapName = capName;
                     if(!GetCapability(capName, out capEnt))
                     {
                         MessageBox.Show("Error: Could not find capability related to this ITCAP Entry", "Error");
@@ -1067,7 +1007,7 @@ namespace IBMConsultantTool
                         {
                             itcapEnt = new XElement("ITCAP");
                             itcapEnt.Add(new XElement("ITCAPQUESTION", itcapQuestion.Name));
-                            itcapEnt.Add(new XElement("CAPABILITY", capability.Name));
+                            itcapEnt.Add(new XElement("CAPABILITY", capability.CapName));
                             itcapEnt.Add(new XElement("DOMAIN", domain.Name));
                             if (!AddITCAP(itcapEnt, client))
                             {
@@ -1870,86 +1810,6 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public override bool AddCUPEToGroup(string question, object groupObj)
-        {
-            XElement grp = groupObj as XElement;
-            XElement cupeQuestionEnt;
-            try
-            {
-                cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
-                                   where ent.Element("NAME").Value == question
-                                   select ent).Single();
-            }
-
-            catch (Exception e)
-            {
-                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
-                return false;
-            }
-
-            if ((from ent in grp.Element("CUPES").Elements("CUPE")
-                 where ent.Element("CUPEQUESTION").Value == question
-                 select ent).Count() != 0)
-            {
-                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
-                return false;
-            }
-
-            XElement cupe = new XElement("CUPE");
-            cupe.Add(new XElement("CUPEQUESTION", question));
-            cupe.Add(new XElement("NAME", question));
-            cupe.Add(new XElement("COMMODITY", cupeQuestionEnt.Element("COMMODITY").Value));
-            cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
-            cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
-            cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
-            cupe.Add(new XElement("CURRENT", "A"));
-            cupe.Add(new XElement("FUTURE", "A"));
-            grp.Add(cupe);
-
-            changeLog.Add("ADD CUPE GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
-
-            return true;
-        }
-        public override bool AddCUPEToContact(string question, object contactObj)
-        {
-            XElement contact = contactObj as XElement;
-            XElement cupeQuestionEnt;
-            try
-            {
-                cupeQuestionEnt = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
-                                   where ent.Element("NAME").Value == question
-                                   select ent).Single();
-            }
-
-            catch (Exception e)
-            {
-                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
-                return false;
-            }
-
-            if ((from ent in contact.Element("CUPES").Elements("CUPE")
-                 where ent.Element("CUPEQUESTION").Value == question
-                 select ent).Count() != 0)
-            {
-                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
-                return false;
-            }
-
-            XElement cupe = new XElement("CUPE");
-            cupe.Add(new XElement("CUPEQUESTION", question));
-            cupe.Add(new XElement("NAME", question));
-            cupe.Add(new XElement("COMMODITY", cupeQuestionEnt.Element("COMMODITY").Value));
-            cupe.Add(new XElement("UTILITY", cupeQuestionEnt.Element("UTILITY").Value));
-            cupe.Add(new XElement("PARTNER", cupeQuestionEnt.Element("PARTNER").Value));
-            cupe.Add(new XElement("ENABLER", cupeQuestionEnt.Element("ENABLER").Value));
-            cupe.Add(new XElement("CURRENT", "A"));
-            cupe.Add(new XElement("FUTURE", "A"));
-            contact.Add(cupe);
-
-            changeLog.Add("ADD CUPE CONTACT " + contact.Element("NAME").Value.Replace(' ', '~') + " " + question.Replace(' ', '~'));
-
-            return true;
-        }
         
         public override void PopulateCUPEQuestionsForClient(CUPETool cupeForm)
         {
@@ -2250,12 +2110,12 @@ namespace IBMConsultantTool
         {
             XElement client = ClientDataControl.Client.EntityObject as XElement;
             XElement capGapInfo;
-            if (!GetCapabilityGapInfo(capability.Name, out capGapInfo))
+            if (!GetCapabilityGapInfo(capability.CapName, out capGapInfo))
             {
                 capGapInfo = new XElement("CAPABILITYGAPINFO");
                 XElement capabilityEnt;
-                GetCapability(capability.Name, out capabilityEnt);
-                capGapInfo.Add(new XElement("CAPABILITY", capability.Name));
+                GetCapability(capability.CapName, out capabilityEnt);
+                capGapInfo.Add(new XElement("CAPABILITY", capability.CapName));
                 capGapInfo.Add(new XElement("GAPTYPE", "None"));
                 capGapInfo.Add(new XElement("GAP", "0"));
                 capGapInfo.Add(new XElement("PRIORITIZEDGAPTYPE", "None"));
@@ -2263,7 +2123,7 @@ namespace IBMConsultantTool
                 client.Element("CAPABILITYGAPINFOS").Add(capGapInfo);
 
                 changeLog.Add("ADD CAPABILITYGAPINFO " + client.Element("NAME").Value.Replace(' ', '~') + " " +
-                              capability.Name.Replace(' ', '~'));
+                              capability.CapName.Replace(' ', '~'));
             }
             switch (capability.GapType1)
             {
@@ -2307,7 +2167,7 @@ namespace IBMConsultantTool
             capGapInfo.Element("GAP").Value = capability.CapabilityGap.ToString();
 
             changeLog.Add("UPDATE CAPABILITYGAPINFO " + client.Element("NAME").Value.Replace(' ', '~') + " " +
-                          capability.Name.Replace(' ', '~') + " " +
+                          capability.CapName.Replace(' ', '~') + " " +
                           capGapInfo.Element("GAPTYPE").Value.Replace(' ', '~') + " " +
                           capGapInfo.Element("PRIORITIZEDGAPTYPE").Value.Replace(' ', '~') + " " +
                           capGapInfo.Element("GAP").Value + " " +
@@ -2482,7 +2342,7 @@ namespace IBMConsultantTool
                 owner = domName;
                 Capability capForSearch = domForSearch.CapabilitiesOwned.Find(delegate(Capability cap)
                                                                               {
-                                                                                  return cap.Name == capName;
+                                                                                  return cap.CapName == capName;
                                                                               });
                 if (capForSearch != null)
                 {

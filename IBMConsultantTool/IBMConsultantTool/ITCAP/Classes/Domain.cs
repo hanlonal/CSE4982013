@@ -30,7 +30,7 @@ namespace IBMConsultantTool
         {
             foreach (Capability cap in capabilitiesOwned)
             {
-                if (cap.Flagged)
+                if (cap.IsFlagged)
                     return;
             }
             flagged = false;

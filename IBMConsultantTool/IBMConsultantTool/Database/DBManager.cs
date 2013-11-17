@@ -801,48 +801,6 @@ namespace IBMConsultantTool
             return true;
         }
 
-        public override bool AddITCAPToGroup(object itcqObject, object groupObj)
-        {
-            ITCAP itcap = itcqObject as ITCAP;
-            GROUP grp = groupObj as GROUP;
-
-            //If Client points to 2 BOMs with same Imperative, return false
-            if ((from ent in grp.ITCAP
-                 where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
-                 select ent).Count() != 0)
-            {
-                dbo.Detach(itcqObject);
-                return false;
-            }
-
-            itcap.GROUP = grp;
-
-            dbo.AddToITCAP(itcap);
-
-            return true;
-        }
-
-        public override bool AddITCAPToContact(object itcqObject, object contactObj)
-        {
-            ITCAP itcap = itcqObject as ITCAP;
-            CONTACT contact = contactObj as CONTACT;
-
-            //If Client points to 2 BOMs with same Imperative, return false
-            if ((from ent in contact.ITCAP
-                 where ent.ITCAPQUESTION.NAME.TrimEnd() == itcap.ITCAPQUESTION.NAME.TrimEnd()
-                 select ent).Count() != 0)
-            {
-                dbo.Detach(itcqObject);
-                return false;
-            }
-
-            itcap.CONTACT = contact;
-
-            dbo.AddToITCAP(itcap);
-
-            return true;
-        }
-
         public override bool RemoveITCAP(string itcqName, object clientObj)
         {
             ITCAP itcap;
@@ -906,12 +864,12 @@ namespace IBMConsultantTool
 
                 capability = itcapForm.capabilities.Find(delegate(Capability cap)
                                                          {
-                                                             return cap.Name == capName;
+                                                             return cap.CapName == capName;
                                                          });
                 if (capability == null)
                 {
                     capability = new Capability();
-                    capability.Name = capName;
+                    capability.CapName = capName;
                     capability.IsDefault = capEnt.DEFAULT == "Y";
                     domain.CapabilitiesOwned.Add(capability);
                     domain.TotalChildren++;
@@ -1682,82 +1640,6 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public override bool AddCUPEToGroup(string question, object groupObj)
-        {
-            GROUP grp = groupObj as GROUP;
-            CUPEQUESTION cupeQuestionEnt;
-            try
-            {
-                cupeQuestionEnt = (from ent in dbo.CUPEQUESTION
-                                   where ent.NAME.TrimEnd() == question
-                                   select ent).Single();
-            }
-
-            catch (Exception e)
-            {
-                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
-                return false;
-            }
-
-            if ((from ent in grp.CUPE
-                 where ent.CUPEQUESTION == cupeQuestionEnt
-                 select ent).Count() != 0)
-            {
-                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
-                return false;
-            }
-
-            CUPE cupe = new CUPE();
-            cupe.CUPEQUESTION = cupeQuestionEnt;
-            cupe.NAME = cupeQuestionEnt.NAME;
-            cupe.COMMODITY = cupeQuestionEnt.COMMODITY;
-            cupe.UTILITY = cupeQuestionEnt.UTILITY;
-            cupe.PARTNER = cupeQuestionEnt.PARTNER;
-            cupe.ENABLER = cupeQuestionEnt.ENABLER;
-            grp.CUPE.Add(cupe);
-
-            dbo.AddToCUPE(cupe);
-
-            return true;
-        }
-        public override bool AddCUPEToContact(string question, object contactObj)
-        {
-            CONTACT contact = contactObj as CONTACT;
-            CUPEQUESTION cupeQuestionEnt;
-            try
-            {
-                cupeQuestionEnt = (from ent in dbo.CUPEQUESTION
-                                   where ent.NAME.TrimEnd() == question
-                                   select ent).Single();
-            }
-
-            catch (Exception e)
-            {
-                MessageBox.Show("Error adding Cupe:\n\n" + e.Message, "Error");
-                return false;
-            }
-
-            if ((from ent in contact.CUPE
-                 where ent.CUPEQUESTION == cupeQuestionEnt
-                 select ent).Count() != 0)
-            {
-                MessageBox.Show("Error adding Cupe: Cupe already exists", "Error");
-                return false;
-            }
-
-            CUPE cupe = new CUPE();
-            cupe.CUPEQUESTION = cupeQuestionEnt;
-            cupe.NAME = cupeQuestionEnt.NAME;
-            cupe.COMMODITY = cupeQuestionEnt.COMMODITY;
-            cupe.UTILITY = cupeQuestionEnt.UTILITY;
-            cupe.PARTNER = cupeQuestionEnt.PARTNER;
-            cupe.ENABLER = cupeQuestionEnt.ENABLER;
-            contact.CUPE.Add(cupe);
-
-            dbo.AddToCUPE(cupe);
-
-            return true;
-        }
        
         public override void PopulateCUPEQuestionsForClient(CUPETool cupeForm)
         {
@@ -2053,12 +1935,12 @@ namespace IBMConsultantTool
         {
             CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
             CAPABILITYGAPINFO capGapInfo;
-            if(!GetCapabilityGapInfo(capability.Name, client, out capGapInfo))
+            if(!GetCapabilityGapInfo(capability.CapName, client, out capGapInfo))
             {
                 capGapInfo = new CAPABILITYGAPINFO();
                 capGapInfo.CLIENT = ClientDataControl.Client.EntityObject as CLIENT;
                 CAPABILITY capabilityEnt;
-                GetCapability(capability.Name, out capabilityEnt);
+                GetCapability(capability.CapName, out capabilityEnt);
                 capGapInfo.CAPABILITY = capabilityEnt;
                 dbo.AddToCAPABILITYGAPINFO(capGapInfo);
             }
@@ -2228,7 +2110,7 @@ namespace IBMConsultantTool
                 owner = domName;
                 Capability capForSearch = domForSearch.CapabilitiesOwned.Find(delegate(Capability cap)
                                                                               {
-                                                                                  return cap.Name == capName;
+                                                                                  return cap.CapName == capName;
                                                                               });
                 if (capForSearch != null)
                 {

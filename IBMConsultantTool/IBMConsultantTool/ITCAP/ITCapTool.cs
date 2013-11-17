@@ -70,14 +70,14 @@ namespace IBMConsultantTool
             foreach (string capabilityInfo in capabilityInfoArray)
             {
                 Capability cap = new Capability();
-                cap.Name = capabilityInfo;
+                cap.CapName = capabilityInfo;
                 cap.IsDefault = true;
                 dom.CapabilitiesOwned.Add(cap);
                 dom.TotalChildren++;
                 capabilities.Add(cap);
                 cap.Owner = dom;
                 cap.Type = "capability";
-                cap.ID = ClientDataControl.db.GetScoringEntityID(cap.Name);
+                cap.ID = ClientDataControl.db.GetScoringEntityID(cap.CapName);
                 entities.Add(cap);
                 LoadQuestions(cap);
 
@@ -87,7 +87,7 @@ namespace IBMConsultantTool
 
         private void LoadQuestions(Capability cap)
         {
-            string[] questionInfoArray = ClientDataControl.db.GetDefaultITCAPQuestionNames(cap.Name, cap.Owner.Name);
+            string[] questionInfoArray = ClientDataControl.db.GetDefaultITCAPQuestionNames(cap.CapName, cap.Owner.Name);
 
             questionCount = 1;
             foreach (string questionInfo in questionInfoArray)
@@ -612,7 +612,7 @@ namespace IBMConsultantTool
             //nameLabel.Font = font;
             nameLabel.Width = 150;
             nameLabel.AutoEllipsis = true;
-            nameLabel.Text = currentcap.Name;
+            nameLabel.Text = currentcap.CapName;
             panel1.Controls.Add(nameLabel);
             nameLabel.Location = new Point(capabilityNameLabel.Location.X, capabilityNameLabel.Location.Y + 50);
             int width = 150;
@@ -729,11 +729,11 @@ namespace IBMConsultantTool
             Capability cap = new Capability();
             owner.TotalChildren++;
             owner.CapabilitiesOwned.Add(cap);
-            cap.Name = capabilitiesList.Text;
+            cap.CapName = capabilitiesList.Text;
             cap.IsDefault = false;
             cap.Owner = owner;
             cap.Type = "capability";
-            cap.ID = ClientDataControl.db.GetScoringEntityID(cap.Name);
+            cap.ID = ClientDataControl.db.GetScoringEntityID(cap.CapName);
             capabilities.Add(cap);
             return cap;
         }
@@ -1480,7 +1480,7 @@ namespace IBMConsultantTool
             {
                 capAsIs.Add(cap.AsIsScore);
                 capToBe.Add(cap.ToBeScore);
-                capName.Add(cap.Name);
+                capName.Add(cap.CapName);
             }
 
             CreateChart(capName, capAsIs, capToBe);
@@ -1518,7 +1518,7 @@ namespace IBMConsultantTool
                     else
                         notAFocus.Add(false);
                     capGap.Add(cap.ToBeScore - cap.AsIsScore);
-                    capName.Add(cap.Name);
+                    capName.Add(cap.CapName);
 
                     if (cap.GapType1 == ScoringEntity.GapType.High)
                         capGapType.Add("High");
@@ -1757,7 +1757,7 @@ namespace IBMConsultantTool
                     else
                         notAFocus.Add(false);
                     capGap.Add(cap.PrioritizedCapabilityGap);
-                    capName.Add(cap.Name);
+                    capName.Add(cap.CapName);
 
                     if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
                         capGapType.Add("High");

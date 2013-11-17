@@ -141,7 +141,7 @@ namespace IBMConsultantTool
                 owner.CalculateAsIsAverage();
                 if (asisStandardDeviation > standardDeviationThreshold)
                 {
-                    owner.Flagged = true;
+                    owner.IsFlagged = true;
                     flagged = true;
                     asishighStandardDeviation = true;
                 }
@@ -197,7 +197,7 @@ namespace IBMConsultantTool
 
                 if (tobeStandardDeviation > standardDeviationThreshold)
                 {
-                    owner.Flagged = true;                    
+                    owner.IsFlagged = true;                    
                     flagged = true;
                     tobehighStandardDeviation = true;
                 }

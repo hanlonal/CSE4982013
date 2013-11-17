@@ -66,8 +66,6 @@ namespace IBMConsultantTool
 
         public abstract bool OpenITCAP(ITCapTool itcapForm);
         public abstract bool AddITCAP(object itcap, object client);
-        public abstract bool AddITCAPToGroup(object itcap, object grp);
-        public abstract bool AddITCAPToContact(object itcap, object contact);
         public abstract bool RemoveITCAP(string name, object client);
 
         public abstract bool RewriteITCAP(ITCapTool itcapForm);
@@ -100,8 +98,6 @@ namespace IBMConsultantTool
         public abstract string UpdateCUPE(CupeQuestionStringData cupeQuestion);
 
         public abstract bool AddCUPE(string question, object clientObj);
-        public abstract bool AddCUPEToGroup(string question, object groupObj);
-        public abstract bool AddCUPEToContact(string question, object contactObj);
 
         public abstract void PopulateCUPEQuestionsForClient(CUPETool cupeForm);
         public abstract List<CupeQuestionStringData> GetCUPESForClient();

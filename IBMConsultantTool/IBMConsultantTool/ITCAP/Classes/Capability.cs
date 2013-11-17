@@ -389,7 +389,29 @@ namespace IBMConsultantTool
             //Console.WriteLine("GAP = == " + prioritizedCapabilityGap);
         }
 
+        public string CapName
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
 
+        public bool IsFlagged
+        {
+            get
+            {
+                return flagged;
+            }
+            set
+            {
+                flagged = value;
+            }
+        }
         public Domain Owner
         {
             get { return owner; }
