@@ -18,8 +18,6 @@ namespace IBMConsultantTool
             owner = form;
             //InitializeComponent();
 
-            owner.Deactivate +=new EventHandler(owner_Deactivate);
-            owner.Activated +=new EventHandler(owner_Activated);
             owner.Move +=new EventHandler(owner_Move);
             this.ShowInTaskbar = false;
             this.TopMost = true;
@@ -30,29 +28,9 @@ namespace IBMConsultantTool
             InitializeComponent();
         }
 
-        private void owner_Deactivate(object sender, EventArgs e)
-        {
-            //if (!this.isClosed)
-            //{
-            //    this.Visible = false;
-            //}
-        }
-
-        private void owner_Activated(object sender, EventArgs e)
-        {
-            //if (!this.isClosed)
-            //{
-            //    this.Visible = true;
-            //}
-        }
-
         private void owner_Move(object sender, EventArgs e)
         {
             AdjustLocation();
-        }
-
-        private void LoadingScreen_FormClosed(object sender, FormClosedEventArgs e)
-        {
         }
 
         private void AdjustLocation()

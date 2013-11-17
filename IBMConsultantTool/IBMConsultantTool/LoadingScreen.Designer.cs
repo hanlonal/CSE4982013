@@ -58,7 +58,6 @@
             this.ShowInTaskbar = false;
             this.Text = "LoadingScreen";
             this.TopMost = true;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoadingScreen_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
