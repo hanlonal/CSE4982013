@@ -27,11 +27,13 @@ namespace IBMConsultantTool
         public List<Capability> capabilities = new List<Capability>();
         public List<ScoringEntity> entities = new List<ScoringEntity>();
         public ITCapQuestion[] questionsArray = new ITCapQuestion[1024];
-        enum FormStates { SurveryMaker, LiveDataEntry, Prioritization, Open };
+        enum FormStates { SurveryMaker, LiveDataEntry, Prioritization, Open, None };
         FormStates states;
         private List<Control> surverymakercontrols = new List<Control>();
         private List<Control> liveDataEntryControls = new List<Control>();
         private List<Control> prioritizationControls = new List<Control>();
+
+        private List<Control> loadFromSurveyControls = new List<Control>();
         DataGridView currentGrid;
         private Button button13322345;
 
@@ -109,7 +111,7 @@ namespace IBMConsultantTool
             InitializeComponent();
             currentGrid = surveryMakerGrid;
 
-            states = FormStates.Open;
+            states = FormStates.None;
 
             surverymakercontrols.Add(capabilityNameTextBox);
 
@@ -127,6 +129,13 @@ namespace IBMConsultantTool
             liveDataEntryControls.Add(LiveDataSaveITCAPButton);
 
             prioritizationControls.Add(prioritizationGrid);
+
+
+            loadFromSurveyControls.Add(panel1);
+            loadFromSurveyControls.Add(capabilityNameLabel);
+            loadFromSurveyControls.Add(objectiveToAddButton);
+            loadFromSurveyControls.Add(button13322345);
+            loadFromSurveyControls.Add(seperatorLabel);
 
             //loadSurveyFromDataGrid.Columns["Collapse"] = new DataGridViewDisableButtonColumn();
         }
@@ -173,11 +182,15 @@ namespace IBMConsultantTool
                 case FormStates.SurveryMaker:
                     currentGrid = surveryMakerGrid;
                     LoadChartSurvey();
+                    seperatorLabel.Text = "Survey Customization";
                     //Console.WriteLine("here");
                     ToggleControlsVisible(surverymakercontrols, true);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, false);
+                    ToggleControlsVisible(loadFromSurveyControls, false);
                     loadSurveyFromDataGrid.Visible = false;
+                    panel1.Visible = true;
+                    seperatorLabel.Visible = true;
                     break;
                 case FormStates.LiveDataEntry:
                     //probablly onlt used for testing
@@ -185,6 +198,7 @@ namespace IBMConsultantTool
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, true);
                     ToggleControlsVisible(prioritizationControls, false);
+                    ToggleControlsVisible(loadFromSurveyControls, false);
                     loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.Prioritization:
@@ -192,9 +206,11 @@ namespace IBMConsultantTool
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, true);
+                    ToggleControlsVisible(loadFromSurveyControls, false);
                     loadSurveyFromDataGrid.Visible = false;
                     break;
                 case FormStates.Open:
+                    seperatorLabel.Text = "Business Objective Mapping";
                     ToggleControlsVisible(surverymakercontrols, false);
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, false);
@@ -202,7 +218,7 @@ namespace IBMConsultantTool
                     currentGrid = loadSurveyFromDataGrid;
                     LoadChartSurvey();
 
-                    loadSurveyFromDataGrid.Visible = true;
+                    ToggleControlsVisible(loadFromSurveyControls, true);
                     break;
             }
         }
@@ -960,6 +976,7 @@ namespace IBMConsultantTool
                 surveryMakerGrid.Columns["ToBeNumZeros"].Visible = false;
                 surveryMakerGrid.RowHeadersVisible = false;
                 surveryMakerGrid.ReadOnly = true;
+                surveryMakerGrid.Columns["Name"].Width = 800;
                 //surveryMakerGrid.Columns["Flags"].Visible = false;
 
             }
@@ -1026,9 +1043,10 @@ namespace IBMConsultantTool
                         CheckFlags(update, row);
                     }
                 }
+                currentGrid.Columns["Name"].Width = 400;
             }
 
-            currentGrid.Columns["Name"].Width = 400;
+            
             currentGrid.Refresh();
         }
 

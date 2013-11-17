@@ -105,7 +105,6 @@
             this.objectiveToAddButton = new System.Windows.Forms.TextBox();
             this.button13322345 = new System.Windows.Forms.Button();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.objectiveMappingGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
@@ -117,7 +116,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prioritizationGrid)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objectiveMappingGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadSurveyFromDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,7 +146,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.surveryMakerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.surveryMakerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.surveryMakerGrid.Size = new System.Drawing.Size(681, 529);
+            this.surveryMakerGrid.Size = new System.Drawing.Size(938, 529);
             this.surveryMakerGrid.TabIndex = 3;
             this.surveryMakerGrid.Visible = false;
             this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
@@ -488,7 +486,7 @@
             // 
             this.domainList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.domainList.FormattingEnabled = true;
-            this.domainList.Location = new System.Drawing.Point(726, 62);
+            this.domainList.Location = new System.Drawing.Point(106, 35);
             this.domainList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.domainList.Name = "domainList";
             this.domainList.Size = new System.Drawing.Size(260, 28);
@@ -502,7 +500,7 @@
             // 
             this.capabilitiesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.capabilitiesList.FormattingEnabled = true;
-            this.capabilitiesList.Location = new System.Drawing.Point(726, 134);
+            this.capabilitiesList.Location = new System.Drawing.Point(285, 73);
             this.capabilitiesList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.capabilitiesList.Name = "capabilitiesList";
             this.capabilitiesList.Size = new System.Drawing.Size(260, 28);
@@ -515,7 +513,7 @@
             // 
             this.questionList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.questionList.FormattingEnabled = true;
-            this.questionList.Location = new System.Drawing.Point(726, 217);
+            this.questionList.Location = new System.Drawing.Point(417, 111);
             this.questionList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.questionList.Name = "questionList";
             this.questionList.Size = new System.Drawing.Size(260, 28);
@@ -691,7 +689,7 @@
             // addEntityButton
             // 
             this.addEntityButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addEntityButton.Location = new System.Drawing.Point(801, 286);
+            this.addEntityButton.Location = new System.Drawing.Point(772, 107);
             this.addEntityButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addEntityButton.Name = "addEntityButton";
             this.addEntityButton.Size = new System.Drawing.Size(119, 35);
@@ -740,6 +738,10 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.panel1.Controls.Add(this.addEntityButton);
+            this.panel1.Controls.Add(this.capabilitiesList);
+            this.panel1.Controls.Add(this.questionList);
+            this.panel1.Controls.Add(this.domainList);
             this.panel1.Controls.Add(this.capabilityNameLabel);
             this.panel1.Controls.Add(this.objectiveToAddButton);
             this.panel1.Controls.Add(this.button13322345);
@@ -749,6 +751,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1008, 163);
             this.panel1.TabIndex = 24;
+            this.panel1.Visible = false;
             // 
             // capabilityNameLabel
             // 
@@ -770,6 +773,7 @@
             this.objectiveToAddButton.TabIndex = 4;
             this.objectiveToAddButton.Tag = "permenant";
             this.objectiveToAddButton.Text = "<Add Objective>";
+            this.objectiveToAddButton.Visible = false;
             // 
             // button13322345
             // 
@@ -780,6 +784,7 @@
             this.button13322345.Tag = "permenant";
             this.button13322345.Text = "Add Objective";
             this.button13322345.UseVisualStyleBackColor = true;
+            this.button13322345.Visible = false;
             this.button13322345.Click += new System.EventHandler(this.button1_Click);
             // 
             // seperatorLabel
@@ -793,16 +798,7 @@
             this.seperatorLabel.TabIndex = 1;
             this.seperatorLabel.Tag = "permenant";
             this.seperatorLabel.Text = "Business Objective Mapping";
-            // 
-            // objectiveMappingGrid
-            // 
-            this.objectiveMappingGrid.AllowUserToAddRows = false;
-            this.objectiveMappingGrid.AllowUserToDeleteRows = false;
-            this.objectiveMappingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.objectiveMappingGrid.Location = new System.Drawing.Point(47, 638);
-            this.objectiveMappingGrid.Name = "objectiveMappingGrid";
-            this.objectiveMappingGrid.Size = new System.Drawing.Size(673, 80);
-            this.objectiveMappingGrid.TabIndex = 2;
+            this.seperatorLabel.Visible = false;
             // 
             // dataGridViewButtonColumn1
             // 
@@ -844,7 +840,7 @@
             this.loadSurveyFromDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.loadSurveyFromDataGrid.RowHeadersVisible = false;
             this.loadSurveyFromDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.loadSurveyFromDataGrid.Size = new System.Drawing.Size(982, 529);
+            this.loadSurveyFromDataGrid.Size = new System.Drawing.Size(973, 529);
             this.loadSurveyFromDataGrid.TabIndex = 21;
             this.loadSurveyFromDataGrid.Visible = false;
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
@@ -890,20 +886,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Controls.Add(this.loadSurveyFromDataGrid);
+            this.Controls.Add(this.surveryMakerGrid);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.changeTextButton);
             this.Controls.Add(this.editQuestionTextbox);
-            this.Controls.Add(this.objectiveMappingGrid);
             this.Controls.Add(this.LiveDataSaveITCAPButton);
-            this.Controls.Add(this.addEntityButton);
-            this.Controls.Add(this.questionList);
-            this.Controls.Add(this.capabilitiesList);
-            this.Controls.Add(this.domainList);
             this.Controls.Add(this.questionNameTextBox);
             this.Controls.Add(this.capabilityNameTextBox);
             this.Controls.Add(this.mainMenuToolBar);
-            this.Controls.Add(this.loadSurveyFromDataGrid);
-            this.Controls.Add(this.surveryMakerGrid);
             this.Controls.Add(this.prioritizationGrid);
             this.Controls.Add(this.liveDataEntryGrid);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -919,7 +910,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.prioritizationGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objectiveMappingGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadSurveyFromDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -983,7 +973,6 @@
         private System.Windows.Forms.ToolStripMenuItem bOMToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label seperatorLabel;
-        private System.Windows.Forms.DataGridView objectiveMappingGrid;
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showHideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem standardDeviationToolStripMenuItem;
