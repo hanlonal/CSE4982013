@@ -547,6 +547,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\blue-wave-background.jpg" />
     <Content Include="Resources\Data.xml" />
     <Content Include="Resources\ITPlanningTemplate.ppt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

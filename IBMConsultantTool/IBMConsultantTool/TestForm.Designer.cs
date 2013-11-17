@@ -41,6 +41,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.OnlineModeCheckbox = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).BeginInit();
@@ -65,10 +66,10 @@
             // 
             this.WelcomeMessage.AutoSize = true;
             this.WelcomeMessage.BackColor = System.Drawing.Color.Transparent;
-            this.WelcomeMessage.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WelcomeMessage.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WelcomeMessage.Location = new System.Drawing.Point(68, 83);
             this.WelcomeMessage.Name = "WelcomeMessage";
-            this.WelcomeMessage.Size = new System.Drawing.Size(563, 21);
+            this.WelcomeMessage.Size = new System.Drawing.Size(641, 21);
             this.WelcomeMessage.TabIndex = 5;
             this.WelcomeMessage.Text = "The IBM Consultant Toolkit makes it easier than ever to perform workshop tasks";
             // 
@@ -113,11 +114,11 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(216, 176);
+            this.label1.Location = new System.Drawing.Point(230, 174);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(624, 20);
+            this.label1.Size = new System.Drawing.Size(281, 20);
             this.label1.TabIndex = 9;
-            this.label1.Text = "The new consultant toolkit makes it easier than ever to plan your workshops. ";
+            this.label1.Text = "The new consultant toolkit makes ";
             // 
             // TrendAnalysisLabel
             // 
@@ -191,14 +192,26 @@
             this.OnlineModeCheckbox.UseVisualStyleBackColor = false;
             this.OnlineModeCheckbox.CheckedChanged += new System.EventHandler(this.OnlineModeCheckbox_CheckedChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(230, 194);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(357, 20);
+            this.label5.TabIndex = 18;
+            this.label5.Text = " it easier than ever to plan your workshops. ";
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::IBMConsultantTool.Properties.Resources.blue_wave_background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(774, 592);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.OnlineModeCheckbox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -238,5 +251,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox OnlineModeCheckbox;
+        private System.Windows.Forms.Label label5;
     }
 }
