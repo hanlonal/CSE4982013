@@ -336,26 +336,6 @@ namespace IBMConsultantTool
 
             return true;
         }
-        public bool AddGroups(string[] grpNames, CLIENT client)
-        {
-            foreach (string grpName in grpNames)
-            {
-                if ((from ent in client.GROUP
-                     where ent.NAME.TrimEnd() == grpName
-                     select ent).Count() != 0)
-                {
-                    return false;
-                }
-
-                GROUP grp = new GROUP();
-                grp.NAME = grpName;
-                grp.CLIENT = client;
-
-                dbo.AddToGROUP(grp);
-            }
-
-            return true;
-        }
         #endregion
 
         #region Contact
@@ -463,11 +443,6 @@ namespace IBMConsultantTool
         #endregion
 
         #region BOM
-        public List<BOM> GetBOMs()
-        {
-            return (from ent in dbo.BOM
-                    select ent).ToList();
-        }
 
         public bool GetBOM(string iniName, CLIENT client, out BOM bom)
         {
@@ -527,48 +502,6 @@ namespace IBMConsultantTool
             }
 
             bom.CLIENT = client;
-
-            dbo.AddToBOM(bom);
-
-            return true;
-        }
-
-        public override bool AddBOMToGroup(object bomObj, object groupObj)
-        {
-            BOM bom = bomObj as BOM;
-            GROUP grp = groupObj as GROUP;
-
-            //If Client points to 2 BOMs with same Imperative, return false
-            if ((from ent in grp.BOM
-                 where ent.IMPERATIVE.NAME.TrimEnd() == bom.IMPERATIVE.NAME.TrimEnd()
-                 select ent).Count() != 0)
-            {
-                dbo.Detach(bom);
-                return false;
-            }
-
-            bom.GROUP = grp;
-
-            dbo.AddToBOM(bom);
-
-            return true;
-        }
-
-        public override bool AddBOMToContact(object bomObj, object contactObj)
-        {
-            BOM bom = bomObj as BOM;
-            CONTACT contact = contactObj as CONTACT;
-
-            //If Client points to 2 BOMs with same Imperative, return false
-            if ((from ent in contact.BOM
-                 where ent.IMPERATIVE.NAME.TrimEnd() == bom.IMPERATIVE.NAME.TrimEnd()
-                 select ent).Count() != 0)
-            {
-                dbo.Detach(bom);
-                return false;
-            }
-
-            bom.CONTACT = contact;
 
             dbo.AddToBOM(bom);
 
@@ -685,22 +618,6 @@ namespace IBMConsultantTool
             }
 
             return true;
-        }
-
-        public List<ITCAP> GetITCAPs(string itcqName, CLIENT client)
-        {
-            GROUP grp;
-            if (GetGroup("ITCAP", client, out grp))
-            {
-                return (from con in grp.CONTACT
-                        from ent in con.ITCAP
-                        where ent.ITCAPQUESTION.NAME.TrimEnd() == itcqName
-                        select ent).ToList();
-            }
-            else
-            {
-                return null;
-            }
         }
 
         public override bool UpdateITCAP(object clientObj, ITCapQuestion itcapQuestion)
@@ -944,7 +861,10 @@ namespace IBMConsultantTool
 
         public override bool OpenITCAP(ITCapTool itcapForm)
         {
-            List<ITCAP> itcapList = (ClientDataControl.Client.EntityObject as CLIENT).ITCAP.ToList();
+            CLIENT client = ClientDataControl.Client.EntityObject as CLIENT;
+            List<ITCAP> itcapList = (from ent in client.ITCAP
+                                     orderby ent.ITCAPQUESTION.ID
+                                     select ent).ToList();
 
             ITCAPQUESTION itcqEnt;
             CAPABILITY capEnt;
