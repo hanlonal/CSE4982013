@@ -15,7 +15,7 @@ namespace IBMConsultantTool
 
         private static readonly ClientDataControl instance = new ClientDataControl();
         public static DataManager db;
-        private static bool isOnline;
+        public static bool isOnline = true;
         private static List<Person> participants = new List<Person>();
         private static List<CupeData> cupeAnswers = new List<CupeData>();
         private static List<NewCategory> bomCategories = new List<NewCategory>();
@@ -32,7 +32,7 @@ namespace IBMConsultantTool
 
 
 
-        private ClientDataControl() { }
+        private ClientDataControl() {}
 
         public static ClientDataControl Instance
         {

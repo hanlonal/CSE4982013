@@ -22,7 +22,7 @@ namespace IBMConsultantTool
 
             InitializeComponent();
 
-            OnlineModeCheckbox.Checked = true;
+            OnlineModeCheckbox.Checked = ClientDataControl.isOnline;
         }
 
         private void NewConsultButton_MouseLeave(object sender, EventArgs e)
