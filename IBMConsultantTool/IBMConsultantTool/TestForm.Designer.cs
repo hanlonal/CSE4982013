@@ -101,10 +101,10 @@
             // 
             this.NewConsultMessage.AutoSize = true;
             this.NewConsultMessage.BackColor = System.Drawing.Color.Transparent;
-            this.NewConsultMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewConsultMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewConsultMessage.Location = new System.Drawing.Point(215, 135);
             this.NewConsultMessage.Name = "NewConsultMessage";
-            this.NewConsultMessage.Size = new System.Drawing.Size(219, 29);
+            this.NewConsultMessage.Size = new System.Drawing.Size(238, 29);
             this.NewConsultMessage.TabIndex = 8;
             this.NewConsultMessage.Text = "Start a new Consult";
             // 
@@ -112,10 +112,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(216, 176);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(547, 20);
+            this.label1.Size = new System.Drawing.Size(624, 20);
             this.label1.TabIndex = 9;
             this.label1.Text = "The new consultant toolkit makes it easier than ever to plan your workshops. ";
             // 
@@ -123,11 +123,11 @@
             // 
             this.TrendAnalysisLabel.AutoSize = true;
             this.TrendAnalysisLabel.BackColor = System.Drawing.Color.Transparent;
-            this.TrendAnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TrendAnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TrendAnalysisLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.TrendAnalysisLabel.Location = new System.Drawing.Point(215, 454);
             this.TrendAnalysisLabel.Name = "TrendAnalysisLabel";
-            this.TrendAnalysisLabel.Size = new System.Drawing.Size(172, 29);
+            this.TrendAnalysisLabel.Size = new System.Drawing.Size(186, 29);
             this.TrendAnalysisLabel.TabIndex = 10;
             this.TrendAnalysisLabel.Text = "Trend Analysis";
             // 
@@ -135,10 +135,10 @@
             // 
             this.TrendDescription.AutoSize = true;
             this.TrendDescription.BackColor = System.Drawing.Color.Transparent;
-            this.TrendDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TrendDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TrendDescription.Location = new System.Drawing.Point(216, 529);
             this.TrendDescription.Name = "TrendDescription";
-            this.TrendDescription.Size = new System.Drawing.Size(471, 20);
+            this.TrendDescription.Size = new System.Drawing.Size(536, 20);
             this.TrendDescription.TabIndex = 11;
             this.TrendDescription.Text = "Organize past consults in a number of ways to see industry trends";
             // 
@@ -160,10 +160,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(215, 294);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(256, 29);
+            this.label2.Size = new System.Drawing.Size(278, 29);
             this.label2.TabIndex = 14;
             this.label2.Text = "Load an Active Consult";
             // 
@@ -171,10 +171,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(216, 339);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(259, 20);
+            this.label3.Size = new System.Drawing.Size(295, 20);
             this.label3.TabIndex = 15;
             this.label3.Text = "Load a consult currently in progress";
             // 

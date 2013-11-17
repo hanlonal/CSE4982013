@@ -48,6 +48,7 @@
             this.createSurveyDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveyDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createPowerPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createCommentsDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.View = new System.Windows.Forms.ToolStripMenuItem();
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityAssesmentSummaryScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +112,6 @@
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
             this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.createCommentsDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
@@ -252,6 +252,13 @@
             this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.createPowerPointToolStripMenuItem.Text = "Create PowerPoint";
             this.createPowerPointToolStripMenuItem.Click += new System.EventHandler(this.createPowerPointToolStripMenuItem_Click);
+            // 
+            // createCommentsDocumentToolStripMenuItem
+            // 
+            this.createCommentsDocumentToolStripMenuItem.Name = "createCommentsDocumentToolStripMenuItem";
+            this.createCommentsDocumentToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.createCommentsDocumentToolStripMenuItem.Text = "Create Comments Document";
+            this.createCommentsDocumentToolStripMenuItem.Click += new System.EventHandler(this.createCommentsDocumentToolStripMenuItem_Click);
             // 
             // View
             // 
@@ -809,6 +816,7 @@
             // 
             this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadSurveyFromDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -851,14 +859,14 @@
             this.Collapse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Collapse.Text = "+";
             this.Collapse.UseColumnTextForButtonValue = true;
-            this.Collapse.Width = 30;
+            this.Collapse.Width = 24;
             // 
             // Flags
             // 
             this.Flags.HeaderText = "Flags";
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
-            this.Flags.Width = 50;
+            this.Flags.Width = 54;
             // 
             // AddComment
             // 
@@ -875,13 +883,6 @@
             this.dataGridViewButtonColumn2.Text = "+";
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 30;
-            // 
-            // createCommentsDocumentToolStripMenuItem
-            // 
-            this.createCommentsDocumentToolStripMenuItem.Name = "createCommentsDocumentToolStripMenuItem";
-            this.createCommentsDocumentToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.createCommentsDocumentToolStripMenuItem.Text = "Create Comments Document";
-            this.createCommentsDocumentToolStripMenuItem.Click += new System.EventHandler(this.createCommentsDocumentToolStripMenuItem_Click);
             // 
             // ITCapTool
             // 
