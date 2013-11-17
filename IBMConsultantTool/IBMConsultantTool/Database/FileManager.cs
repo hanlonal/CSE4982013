@@ -928,7 +928,7 @@ namespace IBMConsultantTool
                     domain.Type = "domain";
                     domain.Visible = true;
                     itcapForm.domains.Add(domain);
-                    domain.ID = itcapForm.domains.Count.ToString();
+                    domain.ID = domEnt.Element("ID").Value;
                 }
 
                 capability = itcapForm.capabilities.Find(delegate(Capability cap)
@@ -950,7 +950,7 @@ namespace IBMConsultantTool
                     capability.Type = "capability";
                     itcapForm.capabilities.Add(capability);
                     capability.Owner = domain;
-                    capability.ID = domain.CapabilitiesOwned.Count.ToString();
+                    capability.ID = capEnt.Element("ID").Value;
                     //LoadQuestions(cap);
                 }
 
@@ -969,7 +969,7 @@ namespace IBMConsultantTool
                 capability.Owner.TotalChildren++;
                 capability.QuestionsOwned.Add(itcapQuestion);
                 itcapQuestion.Owner = capability;
-                itcapQuestion.ID = capability.QuestionsOwned.Count.ToString();
+                itcapQuestion.ID = itcqEnt.Element("ID").Value;
             }
 
             foreach (Domain domain in itcapForm.domains)
@@ -2050,7 +2050,7 @@ namespace IBMConsultantTool
             capability.Add(new XElement("ITCAPQUESTIONS"));
 
             capability.Add(new XElement("ID", domain.Element("ID").Value[0] + "." + 
-                                             (domain.Element("CAPABILITIES").Elements("CAPABILITY").Count()).ToString() + ".0"));
+                                             (domain.Element("CAPABILITIES").Elements("CAPABILITY").Count()+1).ToString() + ".0"));
 
             domain.Element("CAPABILITIES").Add(capability);
 
@@ -2280,7 +2280,7 @@ namespace IBMConsultantTool
 
             itcapQuestion.Add(new XElement("ID", domain.Element("ID").Value[0] + "." + 
                                                  capability.Element("ID").Value[2] + "." +
-                                                 (capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION").Count()).ToString()));
+                                                 (capability.Element("ITCAPQUESTIONS").Elements("ITCAPQUESTION").Count()+1).ToString()));
 
             capability.Element("ITCAPQUESTIONS").Add(itcapQuestion);
 

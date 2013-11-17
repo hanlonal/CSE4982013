@@ -3871,9 +3871,9 @@ namespace IBMConsultantTool
                                 }
                                 break;
                             case "CAPABILITYGAPINFO":
-                                if (GetClient(lineArray[2], out client))
+                                if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {
-                                    if (GetCapability(lineArray[3], out capability))
+                                    if (GetCapability(lineArray[3].Replace('~', ' '), out capability))
                                     {
                                         capGapInfo = new CAPABILITYGAPINFO();
                                         capGapInfo.CLIENT = client;
