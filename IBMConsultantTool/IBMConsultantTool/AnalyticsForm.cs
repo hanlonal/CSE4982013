@@ -30,6 +30,8 @@ namespace IBMConsultantTool
 
         private string graphType = "Line Graph";
 
+        string closeState = "close";
+
         public AnalyticsForm()
         {
             lineChart.Parent = this.chartPanel;
@@ -37,6 +39,23 @@ namespace IBMConsultantTool
 
             state = TrackingState.None;
             analyticsListBox.SelectedValueChanged +=new EventHandler(analyticsListBox_SelectedValueChanged);
+
+            this.FormClosed += new FormClosedEventHandler(AnalyticsForm_FormClosed);
+        }
+
+        private void AnalyticsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (closeState == "close")
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+            }
+        }
+
+        private void RUNTEST()
+        {
+            Application.Run(new TestForm());
         }
 
         private void AnalyticsForm_Load(object sender, EventArgs e)
@@ -3423,6 +3442,7 @@ namespace IBMConsultantTool
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closeState = "close from tool";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RunTestForm));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();

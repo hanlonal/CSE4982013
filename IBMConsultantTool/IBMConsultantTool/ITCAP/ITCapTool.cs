@@ -43,6 +43,8 @@ namespace IBMConsultantTool
         int questionCount = 1;
         //Functions just used for testing until we have save and load
 
+        string closeState = "close";
+
         private void LoadDomains()
         {
             string[] domainInfoArray = ClientDataControl.db.GetDefaultDomainNames();
@@ -137,7 +139,23 @@ namespace IBMConsultantTool
             loadFromSurveyControls.Add(button13322345);
             loadFromSurveyControls.Add(seperatorLabel);
 
+            this.FormClosed += new FormClosedEventHandler(ITCapTool_FormClosed);
             //loadSurveyFromDataGrid.Columns["Collapse"] = new DataGridViewDisableButtonColumn();
+        }
+
+        private void ITCapTool_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (closeState == "close")
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+            }
+        }
+
+        private void RUNTEST()
+        {
+            Application.Run(new TestForm());
         }
 
         private void ITCapTool_Load(object sender, EventArgs e)
@@ -1211,6 +1229,7 @@ namespace IBMConsultantTool
 
         private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closeState = "CUPE";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -1225,6 +1244,7 @@ namespace IBMConsultantTool
 
         private void bOMToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closeState = "BOM";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();

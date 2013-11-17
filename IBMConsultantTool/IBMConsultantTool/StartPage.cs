@@ -14,9 +14,12 @@ namespace IBMConsultantTool
     {
         Client currentClient;
 
+        string closeState = "close";
+
         public StartPage()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(StartPage_FormClosed);
         }
 
         private void StartPage_Load(object sender, EventArgs e)
@@ -27,6 +30,21 @@ namespace IBMConsultantTool
             dateStartedLabel.Text = ClientDataControl.Client.StartDate.ToString().Split(' ')[0];
             clientLocationLabel.Text = ClientDataControl.Client.Region.ToString();
             
+        }
+
+        private void StartPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (closeState == "close")
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+            }
+        }
+
+        private void RUNTEST()
+        {
+            Application.Run(new TestForm());
         }
 
         public static void ThreadProcReset()
@@ -51,10 +69,12 @@ namespace IBMConsultantTool
             get { return currentClient; }
             set { currentClient = value; BindLabels(); }
         }
+
         #region Run Bom Tool
 
         private void runBomButton_Click(object sender, EventArgs e)
         {
+            closeState = "BOM";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -72,6 +92,7 @@ namespace IBMConsultantTool
 
         private void runCupeButton_Click(object sender, EventArgs e)
         {
+            closeState = "CUPE";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -85,8 +106,11 @@ namespace IBMConsultantTool
         }
         #endregion
 
+        #region Run IT Capability Tool
+
         private void runITCapButton_Click(object sender, EventArgs e)
         {
+            closeState = "ITCap";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCAP));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -98,7 +122,7 @@ namespace IBMConsultantTool
             Application.Run(new ITCapTool());
         }
 
-
+        #endregion
 
 
     }

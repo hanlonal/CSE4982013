@@ -20,6 +20,8 @@ namespace IBMConsultantTool
         List<Control> removableControls = new List<Control>();
         List<NewCategory> categories = new List<NewCategory>();
 
+        string closeState = "close";
+
         public BOMTool()
         {
             InitializeComponent();
@@ -28,6 +30,23 @@ namespace IBMConsultantTool
 
             categoryNames.Items.AddRange(ClientDataControl.db.GetCategoryNames());
             ClientDataControl.db.BuildBOMForm(this);
+
+            this.FormClosed += new FormClosedEventHandler(BOMTool_FormClosed);
+        }
+
+        private void BOMTool_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (closeState == "close")
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+            }
+        }
+
+        private void RUNTEST()
+        {
+            Application.Run(new TestForm());
         }
 
         public void ObjectiveClicked(NewObjective obj)
@@ -278,6 +297,7 @@ namespace IBMConsultantTool
 
         private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closeState = "CUPE";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -480,6 +500,7 @@ namespace IBMConsultantTool
 
         private void iTCapToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closeState = "ITCap";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCap));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
