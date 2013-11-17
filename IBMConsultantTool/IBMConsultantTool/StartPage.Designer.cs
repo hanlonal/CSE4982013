@@ -52,6 +52,7 @@
             // clientNameLabel
             // 
             this.clientNameLabel.AutoSize = true;
+            this.clientNameLabel.BackColor = System.Drawing.Color.Transparent;
             this.clientNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clientNameLabel.Location = new System.Drawing.Point(264, 183);
             this.clientNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -63,6 +64,7 @@
             // clientTypeLabel
             // 
             this.clientTypeLabel.AutoSize = true;
+            this.clientTypeLabel.BackColor = System.Drawing.Color.Transparent;
             this.clientTypeLabel.Location = new System.Drawing.Point(264, 234);
             this.clientTypeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.clientTypeLabel.Name = "clientTypeLabel";
@@ -73,6 +75,7 @@
             // dateStartedLabel
             // 
             this.dateStartedLabel.AutoSize = true;
+            this.dateStartedLabel.BackColor = System.Drawing.Color.Transparent;
             this.dateStartedLabel.Location = new System.Drawing.Point(853, 194);
             this.dateStartedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateStartedLabel.Name = "dateStartedLabel";
@@ -144,6 +147,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(409, 340);
             this.label1.Name = "label1";
@@ -155,6 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(409, 430);
             this.label2.Name = "label2";
@@ -166,6 +171,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(409, 545);
             this.label3.Name = "label3";
@@ -177,6 +183,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(34, 183);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -188,6 +195,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Location = new System.Drawing.Point(743, 194);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
@@ -198,6 +206,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Location = new System.Drawing.Point(752, 234);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
@@ -208,6 +217,7 @@
             // clientLocationLabel
             // 
             this.clientLocationLabel.AutoSize = true;
+            this.clientLocationLabel.BackColor = System.Drawing.Color.Transparent;
             this.clientLocationLabel.Location = new System.Drawing.Point(862, 234);
             this.clientLocationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.clientLocationLabel.Name = "clientLocationLabel";
@@ -240,6 +250,7 @@
             this.Controls.Add(this.clientNameLabel);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
             this.Name = "StartPage";
             this.Text = "StartPage";
             this.Load += new System.EventHandler(this.StartPage_Load);
