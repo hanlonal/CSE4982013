@@ -3578,20 +3578,6 @@ namespace IBMConsultantTool
                                 }
                                 break;
 
-                            case "GROUP":
-                                if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                {
-                                    if (!AddGroup(lineArray[2].Replace('~', ' '), client))
-                                    {
-                                        MessageBox.Show("Add Group Instruction Failed: Group already exists\n\n" + line, "Error");
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Add Group Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                }
-                                break;
-
                             case "CONTACT":
                                 if (GetClient(lineArray[2].Replace('~', ' '), out client))
                                 {

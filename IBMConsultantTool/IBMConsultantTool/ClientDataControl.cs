@@ -44,17 +44,20 @@ namespace IBMConsultantTool
 
         public static bool LoadDatabase()
         {
-            try
+            if (db == null || !isOnline)
             {
-                //throw new Exception();
-                db = new DBManager();
-                isOnline = true;
-            }
-            catch (Exception e)
-            {
-                db = new FileManager();
-                isOnline = false;
-                MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
+                try
+                {
+                    //throw new Exception();
+                    db = new DBManager();
+                    isOnline = true;
+                }
+                catch (Exception e)
+                {
+                    db = new FileManager();
+                    isOnline = false;
+                    MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
+                }
             }
 
             return isOnline;
@@ -288,6 +291,7 @@ namespace IBMConsultantTool
             db.SaveCUPEParticipants();
             if (db.SaveChanges())
             {
+                MessageBox.Show("Changes Saved Successfully", "Success");
                 ClientDataControl.db.ClientCompletedCUPE(client.EntityObject);
             }
         }

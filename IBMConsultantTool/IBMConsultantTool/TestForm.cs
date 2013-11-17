@@ -121,6 +121,8 @@ namespace IBMConsultantTool
         {
             if (OnlineModeCheckbox.Checked)
             {
+                OnlineModeCheckbox.Text = "Connecting...";
+                OnlineModeCheckbox.Update();
                 OnlineModeCheckbox.Checked = ClientDataControl.LoadDatabase();
             }
 
@@ -129,6 +131,7 @@ namespace IBMConsultantTool
                 ClientDataControl.LoadFileSystem();
                 OnlineModeCheckbox.Checked = false;
             }
+            OnlineModeCheckbox.Text = "Online Mode";
         }
 
         private void TestForm_MouseEnter(object sender, EventArgs e)

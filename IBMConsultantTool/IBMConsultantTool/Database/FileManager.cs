@@ -395,11 +395,7 @@ namespace IBMConsultantTool
             grp.Add(new XElement("ITCAPS"));
             grp.Add(new XElement("CONTACTS"));
 
-
             client.Element("GROUPS").Add(grp);
-
-            changeLog.Add("ADD GROUP " + grp.Element("NAME").Value.Replace(' ', '~') + " " +
-                            client.Element("NAME").Value.Replace(' ', '~'));
 
             return true;
         }
