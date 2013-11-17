@@ -3063,7 +3063,7 @@ namespace IBMConsultantTool
                 System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
                 myToolTip.IsBalloon = true;
                 myToolTip.Show("Change the displayed grid by clicking on one of the radio buttons",
-                    this, 620, 450, 8000);
+                    this, 820, 450, 8000);
             }
             if (HelpCurrentStep == 3 && HelpEnabled)
             {
@@ -3076,7 +3076,7 @@ namespace IBMConsultantTool
             {
                 System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
                 myToolTip.IsBalloon = true;
-                myToolTip.Show("The questions can be viewed and altered here. Edit one now by clicking it once and changing it's text.",
+                myToolTip.Show("The questions can be viewed and altered here. Edit one now by clicking it once and changing its text.",
                     this, 600, 600, 8000);
             }
             if (HelpCurrentStep == 5 && HelpEnabled)

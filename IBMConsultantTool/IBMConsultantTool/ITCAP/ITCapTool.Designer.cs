@@ -377,7 +377,7 @@
             // 
             this.SurveryMaker.Name = "SurveryMaker";
             this.SurveryMaker.Size = new System.Drawing.Size(152, 22);
-            this.SurveryMaker.Text = "Survery Maker";
+            this.SurveryMaker.Text = "Survey Maker";
             this.SurveryMaker.Click += new System.EventHandler(this.SurveryMaker_Click);
             // 
             // toolsToolStripMenuItem
