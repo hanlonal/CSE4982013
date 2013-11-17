@@ -281,14 +281,6 @@ namespace IBMConsultantTool
                 imperativeToLabelDict[init].BackColor = Color.LawnGreen;
         }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
-
         public List<NewImperative> Imperatives
         {
             get

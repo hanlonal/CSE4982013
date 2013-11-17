@@ -31,7 +31,7 @@
             this.ChooseClientComboBox = new System.Windows.Forms.ComboBox();
             this.ChooseClientLabel = new System.Windows.Forms.Label();
             this.LoadClientButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.LoadClientCancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ChooseClientComboBox
@@ -61,22 +61,22 @@
             this.LoadClientButton.UseVisualStyleBackColor = true;
             this.LoadClientButton.Click += new System.EventHandler(this.LoadClientButton_Click);
             // 
-            // CancelButton
+            // LoadClientCancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(79, 163);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 3;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.LoadClientCancelButton.Location = new System.Drawing.Point(79, 163);
+            this.LoadClientCancelButton.Name = "LoadClientCancelButton";
+            this.LoadClientCancelButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadClientCancelButton.TabIndex = 3;
+            this.LoadClientCancelButton.Text = "Cancel";
+            this.LoadClientCancelButton.UseVisualStyleBackColor = true;
+            this.LoadClientCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // LoadClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 248);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.LoadClientCancelButton);
             this.Controls.Add(this.LoadClientButton);
             this.Controls.Add(this.ChooseClientLabel);
             this.Controls.Add(this.ChooseClientComboBox);
@@ -92,6 +92,6 @@
         private System.Windows.Forms.ComboBox ChooseClientComboBox;
         private System.Windows.Forms.Label ChooseClientLabel;
         private System.Windows.Forms.Button LoadClientButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button LoadClientCancelButton;
     }
 }
