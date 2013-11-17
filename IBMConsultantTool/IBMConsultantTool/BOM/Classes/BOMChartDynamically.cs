@@ -14,10 +14,14 @@ namespace IBMConsultantTool
 {
     public partial class BOMChartDynamically : Form
     {
+        #region Fields
+
         private string name;
         private float criticality = 0;
         private float differentiation = 0;
         private float effectiveness = 0;
+        private int currentCircle;
+        private bool mouseMove = false;
        
         private BOMTool mainForm;
 
@@ -28,7 +32,6 @@ namespace IBMConsultantTool
         private LineShape lineX = new LineShape();
         private LineShape lineY = new LineShape();
         private Label diffLabel = new Label();
-        //private Label criticLabel = new Label();
         private Label origin = new Label();
         private Label endX = new Label();
         private Label endY = new Label();
@@ -58,7 +61,6 @@ namespace IBMConsultantTool
         Label labelDescription = new Label();
         private int objCount = 0;
         Label[] categoryLabel = new Label[1000];
-        //Color[] color = "Color.AliceBlue;
 
         private bool mouseDown = false;
         private bool[] labelHide = new bool[1000];
@@ -93,6 +95,14 @@ namespace IBMConsultantTool
         private List<string> bubbleName = new List<string>();
         private List<string> bubbleInformation = new List<string>();
 
+        #endregion
+
+        #region Construction and Controls
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="info"></param>
         public BOMChartDynamically(BOMTool info)
         {
             mainForm = info;
@@ -447,31 +457,25 @@ namespace IBMConsultantTool
             //GenerateText();
         }
 
-        //private Label criticLabel = new Label();
-        
-
-        private void OnPaintBackground(object sender, PaintEventArgs e)
+        /// <summary>
+        /// Count of the Imperatives
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
         {
-            Rectangle diagonalFillRectangle = new Rectangle();
-            diagonalFillRectangle.Width = lineX.X2 - lineX.X1;
-            diagonalFillRectangle.Height = lineY.Y2 - lineY.Y1;
-
-            LinearGradientBrush brush = new LinearGradientBrush(new Point(lineX.X1, lineY.Y1), new Point(lineX.X2, lineY.Y2),
-                Color.LightGreen, Color.White);
-
-            Pen pen = new Pen(brush);
-
-            e.Graphics.FillRectangle(brush, lineX.X1, lineY.Y1, diagonalFillRectangle.Width, diagonalFillRectangle.Height);
-
-            //Point(0, 0), Point(this.ClientSize.Width, this.ClientSize.Height), Color.Yellow, Color.Blue);
-            //e.Graphics.FillRectangle(
-            /*tem.Drawing.Drawing2D.LinearGradientBrush brush(Color.Green, Color.White, 
-                new Point(lineX.X1, lineY.Y1), new Point(lineX.X2, lineY.Y2);
-            //Point(0, 0), Point(this.ClientSize.Width, this.ClientSize.Height), Color.Yellow, Color.Blue);
-            e.Graphics.FillRectangle(*/
+            int count = 0;
+            for (int i = 0; i < mainForm.Categories.Count; i++)
+                for (int j = 0; j < mainForm.Categories[i].Objectives.Count; j++)
+                    for (int k = 0; k < mainForm.Categories[i].Objectives[j].Imperatives.Count; k++)
+                        count++;
+            return count;
         }
 
-
+        /// <summary>
+        /// Paint the label and the background of the chart.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void picBox_Paint(object sender, PaintEventArgs e)
         {
             //System.Diagnostics.Trace.WriteLine("Painting!");
@@ -521,16 +525,13 @@ namespace IBMConsultantTool
 
         }
 
-        public int Count()
-        {
-            int count = 0;
-            for (int i = 0; i < mainForm.Categories.Count; i++)
-                for (int j = 0; j < mainForm.Categories[i].Objectives.Count; j++)
-                    for (int k = 0; k < mainForm.Categories[i].Objectives[j].Imperatives.Count; k++)
-                        count++;
-            return count;
-        }
-
+        /// <summary>
+        /// BOM Chart Size Change Function
+        /// The is the form size changing. If it size over than the maximum windowsize width and height,
+        /// then size of the form is same as the maximum windowsize height and width 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BOMChartDynamically_SizeChanged(object sender, EventArgs e)
         {
             System.Diagnostics.Trace.WriteLine("In size change this.Width: " + this.Width.ToString() + "  this.Height: " + this.Height.ToString());
@@ -541,6 +542,12 @@ namespace IBMConsultantTool
                 Width = maxWindowTrackSize.Width;
         }
 
+        /// <summary>
+        /// Panel Chart Function
+        /// If the form size is changing, then chart panel chart is change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelChart_SizeChanged(object sender, EventArgs e)
         {
             panelChart.Width = this.Width - 250;
@@ -593,10 +600,14 @@ namespace IBMConsultantTool
             panelChartWidth = panelChart.Width;
         }
 
+        /// <summary>
+        /// Panel List Size Change Function
+        /// If the form size is changing, then list panel size is change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelList_SizeChanged(object sender, EventArgs e)
         {
-            //System.Diagnostics.Trace.WriteLine("this.Width: " + this.DesktopBounds.Width.ToString() + "  this.Height: " + this.Height.ToString());
-            
             panelList.Width = 200;
             panelList.Height = this.Height - 350;
             panelList.Location = new Point(this.Width - panelList.Width - 25, 5);
@@ -607,6 +618,12 @@ namespace IBMConsultantTool
             btnClose.Location = new Point(this.Width - 225, btnSave.Location.Y + 38);
         }
 
+        /// <summary>
+        /// Information Panel Size Change Function
+        /// If the form size is changing, then information panel size is change 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void infoPanel_SizeChanged(object sender, EventArgs e)
         {
             infoPanel.Height = 140;
@@ -620,6 +637,12 @@ namespace IBMConsultantTool
             infoGridView.Location = new Point(0, 20);
         }
 
+        /// <summary>
+        /// Undo Button Function
+        /// Undo the position of the bubbles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUndo_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < circleCount; i++)
@@ -651,6 +674,12 @@ namespace IBMConsultantTool
             }
         }
 
+        /// <summary>
+        /// Reset Button Function
+        /// Reset the value of the bubbles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < circleCount; i++)
@@ -672,11 +701,12 @@ namespace IBMConsultantTool
             }
         }
 
-        private void infoGridView_RowsAdded(object sender, DataGridViewRowEventArgs e)
-        {
-
-        }
-        
+        /// <summary>
+        /// Mouse Click function
+        /// Show the value of the bubble is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void circle_MouseClick(object sender, MouseEventArgs e)
         {
             circle[currentCircle].AccessibleDescription = circle[currentCircle].Name + "  " + circle[currentCircle].AccessibleName;
@@ -805,8 +835,12 @@ namespace IBMConsultantTool
             //}
         }
 
-        private int currentCircle;
-        private bool mouseMove = false;
+        /// <summary>
+        /// Mouse down function
+        /// Check which bubble is down on the chart
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void circle_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -848,6 +882,12 @@ namespace IBMConsultantTool
             }
         }
 
+        /// <summary>
+        /// Mouse move change the value and check the bubble offset or not,
+        /// it only works during mouse downs.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void circle_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
@@ -1024,6 +1064,11 @@ namespace IBMConsultantTool
             }
         }
 
+        /// <summary>
+        /// Mouse Up on the current circle, then save the bubble location and values of it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void circle_MouseUp(object sender, MouseEventArgs e)
         {
             count[current] += 1;
@@ -1064,12 +1109,20 @@ namespace IBMConsultantTool
             infoGridView.Rows.Add(row);
         }
 
+        /// <summary>
+        /// Update Button Clicked, then store new value and bubble location
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             for (int cnt = 0; cnt < circleCount; cnt++)
             {
                 mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Imperatives[iniArray[cnt]].Criticality = criArray[cnt, count[cnt]];
                 mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Imperatives[iniArray[cnt]].Differentiation = difArray[cnt, count[cnt]];
+
+                locY[cnt, 0] = locY[cnt, count[cnt]];
+                locX[cnt, 0] = locX[cnt, count[cnt]];
             }
 
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
@@ -1218,5 +1271,8 @@ namespace IBMConsultantTool
             panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, panelChart.Width, panelChart.Height));
             bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
+        
+        #endregion
+
     }
 }

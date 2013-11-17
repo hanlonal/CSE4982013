@@ -50,8 +50,6 @@ namespace IBMConsultantTool
         public abstract bool UpdateBOM(object clientObj, NewImperative ini);
 
         public abstract bool AddBOM(object bom, object client);
-        public abstract bool AddBOMToGroup(object bom, object group);
-        public abstract bool AddBOMToContact(object bom, object contact);
 
         public abstract void BuildBOMForm(BOMTool bomForm);
 
