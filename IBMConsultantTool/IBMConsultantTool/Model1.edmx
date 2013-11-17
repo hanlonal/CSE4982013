@@ -252,6 +252,7 @@
           <Property Name="UTILITY" Type="character" MaxLength="250" />
           <Property Name="PARTNER" Type="character" MaxLength="250" />
           <Property Name="ENABLER" Type="character" MaxLength="250" />
+          <Property Name="QUESTIONNUMBER" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="CUPEQUESTION">
           <Key>
@@ -1033,6 +1034,7 @@
           <Property Name="UTILITY" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
           <Property Name="PARTNER" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
           <Property Name="ENABLER" Type="String" MaxLength="250" Unicode="false" FixedLength="true" />
+          <Property Name="QUESTIONNUMBER" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CLIENT" Relationship="CAPSTONEModel.CUPE_CLIENT_FK" FromRole="CUPE" ToRole="CLIENT" />
           <NavigationProperty Name="CONTACT" Relationship="CAPSTONEModel.CUPE_CONTACT_FK" FromRole="CUPE" ToRole="CONTACT" />
           <NavigationProperty Name="CUPEQUESTION" Relationship="CAPSTONEModel.CUPE_CUPEQUESTI_FK" FromRole="CUPE" ToRole="CUPEQUESTION" />
@@ -1395,6 +1397,7 @@
             <ScalarProperty Name="UTILITY" ColumnName="UTILITY" />
             <ScalarProperty Name="PARTNER" ColumnName="PARTNER" />
             <ScalarProperty Name="ENABLER" ColumnName="ENABLER" />
+            <ScalarProperty Name="QUESTIONNUMBER" ColumnName="QUESTIONNUMBER" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CUPEQUESTION"><EntityTypeMapping TypeName="CAPSTONEModel.CUPEQUESTION"><MappingFragment StoreEntitySet="CUPEQUESTION">
             <ScalarProperty Name="CUPEQUESTIONID" ColumnName="CUPEQUESTIONID" />
@@ -1728,220 +1731,228 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="CAPSTONEModel.BOM" Width="1.5" PointX="12" PointY="14.25" Height="2.5571907552083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="5.25" PointY="4" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSTYPE" Width="1.5" PointX="3" PointY="6.875" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITY" Width="1.5" PointX="5.25" PointY="13.75" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITYGAPINFO" Width="1.5" PointX="7.5" PointY="9.5" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CATEGORY" Width="1.5" PointX="3" PointY="4.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.BOM" Width="1.5" PointX="12" PointY="14.375" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSOBJECTIVE" Width="1.5" PointX="5.25" PointY="4.125" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.BUSINESSTYPE" Width="1.5" PointX="3" PointY="7" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITY" Width="1.5" PointX="5.25" PointY="13.875" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CAPABILITYGAPINFO" Width="1.5" PointX="7.5" PointY="9.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CATEGORY" Width="1.5" PointX="3" PointY="4.375" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.CLIENT" Width="1.5" PointX="5.25" PointY="8.875" Height="3.7109993489583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.COMMENT" Width="1.5" PointX="17.25" PointY="10.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CONTACT" Width="1.5" PointX="9.75" PointY="19.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.COUNTRY" Width="1.5" PointX="3" PointY="9.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPE" Width="1.5" PointX="15" PointY="14.875" Height="3.1340950520833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPEQUESTION" Width="1.5" PointX="12.75" PointY="18" Height="2.9417936197916745" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.CUPERESPONSE" Width="1.5" PointX="17.25" PointY="17.5" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.DOMAIN" Width="1.5" PointX="3" PointY="14" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.GROUP" Width="1.5" PointX="7.5" PointY="19.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.IMPERATIVE" Width="1.5" PointX="9.75" PointY="14.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.COMMENT" Width="1.5" PointX="17.25" PointY="10.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CONTACT" Width="1.5" PointX="9.75" PointY="20.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.COUNTRY" Width="1.5" PointX="3" PointY="9.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPE" Width="1.5" PointX="15" PointY="15" Height="3.3263964843750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPEQUESTION" Width="1.5" PointX="12.75" PointY="18.25" Height="2.9417936197916745" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.CUPERESPONSE" Width="1.5" PointX="17.25" PointY="17.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.DOMAIN" Width="1.5" PointX="3" PointY="14.125" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.GROUP" Width="1.5" PointX="7.5" PointY="20.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.IMPERATIVE" Width="1.5" PointX="9.75" PointY="14.75" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPSTONEModel.INITIATIVE" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.ITCAP" Width="1.5" PointX="15" PointY="9" Height="4.8648079427083388" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.ITCAPOBJMAP" Width="1.5" PointX="7.5" PointY="6.625" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.ITCAPQUESTION" Width="1.5" PointX="12.75" PointY="10.375" Height="2.172587890624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPSTONEModel.REGION" Width="1.5" PointX="0.75" PointY="9.875" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.ITCAP" Width="1.5" PointX="15" PointY="9.25" Height="4.8648079427083388" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.ITCAPOBJMAP" Width="1.5" PointX="7.5" PointY="6.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.ITCAPQUESTION" Width="1.5" PointX="12.75" PointY="10.625" Height="2.172587890624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPSTONEModel.REGION" Width="1.5" PointX="0.75" PointY="10" Height="1.5956835937500031" IsExpanded="true" />
         <AssociationConnector Association="CAPSTONEModel.BOM_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="9.15625" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="9.15625" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="9.15625" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="9.15625" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="9.15625" />
-          <ConnectorPoint PointX="12.34375" PointY="9.15625" />
-          <ConnectorPoint PointX="12.34375" PointY="14.25" />
+          <ConnectorPoint PointX="6.75" PointY="9.21875" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="9.21875" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="9.21875" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="9.21875" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="9.21875" />
+          <ConnectorPoint PointX="12.34375" PointY="9.21875" />
+          <ConnectorPoint PointX="12.34375" PointY="14.375" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BOM_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="21.559591471354171" />
-          <ConnectorPoint PointX="12.34375" PointY="21.559591471354171" />
-          <ConnectorPoint PointX="12.34375" PointY="16.807190755208332" />
+          <ConnectorPoint PointX="11.25" PointY="21.872091471354171" />
+          <ConnectorPoint PointX="12.34375" PointY="21.872091471354171" />
+          <ConnectorPoint PointX="12.34375" PointY="16.932190755208332" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BOM_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="19.75" />
-          <ConnectorPoint PointX="8.25" PointY="16.641337890625" />
-          <ConnectorPoint PointX="12" PointY="16.641337890625" />
+          <ConnectorPoint PointX="8.25" PointY="20.125" />
+          <ConnectorPoint PointX="8.25" PointY="16.766337890625" />
+          <ConnectorPoint PointX="12" PointY="16.766337890625" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BOM_IMPERATIVE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="15.518992513020834" />
-          <ConnectorPoint PointX="12" PointY="15.518992513020834" />
+          <ConnectorPoint PointX="11.25" PointY="15.643992513020834" />
+          <ConnectorPoint PointX="12" PointY="15.643992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.BUSINESSOB_CATE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="5.047841796875" />
-          <ConnectorPoint PointX="5.25" PointY="5.047841796875" />
+          <ConnectorPoint PointX="4.5" PointY="5.172841796875" />
+          <ConnectorPoint PointX="5.25" PointY="5.172841796875" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.IMPE_BUSINESSOB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="4.9901432291666667" />
-          <ConnectorPoint PointX="10.5" PointY="4.9901432291666667" />
-          <ConnectorPoint PointX="10.5" PointY="14.625" />
+          <ConnectorPoint PointX="6.75" PointY="5.1151432291666667" />
+          <ConnectorPoint PointX="10.5" PointY="5.1151432291666667" />
+          <ConnectorPoint PointX="10.5" PointY="14.75" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCA_BUSINESSOB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="5.51646734375" />
-          <ConnectorPoint PointX="8.25" PointY="5.51646734375" />
-          <ConnectorPoint PointX="8.25" PointY="6.625" />
+          <ConnectorPoint PointX="6.75" PointY="5.64146734375" />
+          <ConnectorPoint PointX="8.25" PointY="5.64146734375" />
+          <ConnectorPoint PointX="8.25" PointY="6.75" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CLIE_BUSINESSTY_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="7.672841796875" />
-          <ConnectorPoint PointX="6" PointY="7.672841796875" />
+          <ConnectorPoint PointX="4.5" PointY="7.797841796875" />
+          <ConnectorPoint PointX="6" PointY="7.797841796875" />
           <ConnectorPoint PointX="6" PointY="8.875" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CAPABILIT_DOMAI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="14.990143229166669" />
-          <ConnectorPoint PointX="5.25" PointY="14.990143229166669" />
+          <ConnectorPoint PointX="4.5" PointY="15.115143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="15.115143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CAPABILITY_CAPA_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="15.028595377604166" />
-          <ConnectorPoint PointX="7.197916666666667" PointY="15.028595377604166" />
-          <ConnectorPoint PointX="7.364583333333333" PointY="15.028595377604166" />
-          <ConnectorPoint PointX="8.25" PointY="15.028595377604166" />
-          <ConnectorPoint PointX="8.25" PointY="11.864889322916667" />
+          <ConnectorPoint PointX="6.75" PointY="15.153595377604166" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="15.153595377604166" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="15.153595377604166" />
+          <ConnectorPoint PointX="8.25" PointY="15.153595377604166" />
+          <ConnectorPoint PointX="8.25" PointY="11.989889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPOB_CAPABI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="13.751152846153847" />
-          <ConnectorPoint PointX="7.125" PointY="13.376152846153847" />
-          <ConnectorPoint PointX="7.125" PointY="7.6151432291666694" />
-          <ConnectorPoint PointX="7.5" PointY="7.6151432291666694" />
+          <ConnectorPoint PointX="6.75" PointY="13.876152846153847" />
+          <ConnectorPoint PointX="7.125" PointY="13.501152846153847" />
+          <ConnectorPoint PointX="7.125" PointY="7.7401432291666694" />
+          <ConnectorPoint PointX="7.5" PointY="7.7401432291666694" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPQUE_CAPAB_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="7.197916666666667" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="7.364583333333333" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="13.90625" PointY="14.000578923076922" />
-          <ConnectorPoint PointX="13.90625" PointY="12.547587890624996" />
+          <ConnectorPoint PointX="6.75" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="13.90625" PointY="14.125578923076922" />
+          <ConnectorPoint PointX="13.90625" PointY="12.797587890624996" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CAPABILITY_CLIE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="10.682444661458334" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="10.682444661458334" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="10.682444661458334" />
-          <ConnectorPoint PointX="7.5" PointY="10.682444661458334" />
+          <ConnectorPoint PointX="6.75" PointY="10.807444661458334" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="10.807444661458334" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="10.807444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="10.807444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CLIENT_COUNTRY_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="10.643992513020834" />
-          <ConnectorPoint PointX="5.25" PointY="10.643992513020834" />
+          <ConnectorPoint PointX="4.5" PointY="10.768992513020834" />
+          <ConnectorPoint PointX="5.25" PointY="10.768992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="12.560613733573717" />
-          <ConnectorPoint PointX="7.1503856153846144" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="13.822916666666666" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="13.989583333333334" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="14.625" PointY="12.960999348958332" />
-          <ConnectorPoint PointX="14.625" PointY="14.5" />
-          <ConnectorPoint PointX="14.816074434901122" PointY="14.69107443490112" />
-          <ConnectorPoint PointX="14.933925565098878" PointY="14.808925565098878" />
-          <ConnectorPoint PointX="15" PointY="14.875" />
+          <ConnectorPoint PointX="6.75" PointY="11.727974005208335" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="11.727974005208335" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="11.727974005208335" />
+          <ConnectorPoint PointX="7.25" PointY="11.727974005208335" />
+          <ConnectorPoint PointX="7.25" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="13.822916666666666" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="13.989583333333334" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="14.75" PointY="13.047587890624996" />
+          <ConnectorPoint PointX="14.75" PointY="14.364807942708339" />
+          <ConnectorPoint PointX="15.291667166666665" PointY="14.364807942708339" />
+          <ConnectorPoint PointX="15.458333833333333" PointY="14.364807942708339" />
+          <ConnectorPoint PointX="15.75" PointY="14.364807942708339" />
+          <ConnectorPoint PointX="15.75" PointY="15" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.GROUP_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="12.579075272035254" />
-          <ConnectorPoint PointX="7.0660744349011217" PointY="12.895149706936374" />
-          <ConnectorPoint PointX="7.1839255650988791" PointY="13.013000837134133" />
-          <ConnectorPoint PointX="7.28125" PointY="13.110325272035254" />
-          <ConnectorPoint PointX="7.28125" PointY="20.932444661458334" />
-          <ConnectorPoint PointX="7.5" PointY="20.932444661458334" />
+          <ConnectorPoint PointX="6.75" PointY="12.52369065665064" />
+          <ConnectorPoint PointX="7.0660744349011217" PointY="12.83976509155176" />
+          <ConnectorPoint PointX="7.1839255650988791" PointY="12.957616221749518" />
+          <ConnectorPoint PointX="7.1875" PointY="12.96119065665064" />
+          <ConnectorPoint PointX="7.1875" PointY="21.307444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="21.307444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_CLIENT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="9.359375" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="9.359375" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="9.359375" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="9.359375" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="9.359375" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="9.359375" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="9.359375" />
-          <ConnectorPoint PointX="15" PointY="9.359375" />
+          <ConnectorPoint PointX="6.75" PointY="9.40625" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="9.40625" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="9.40625" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="9.40625" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="9.40625" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="9.40625" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="9.40625" />
+          <ConnectorPoint PointX="15" PointY="9.40625" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAPOBJM_CLIE_FK" ManuallyRouted="false">
           <ConnectorPoint PointX="6.4062525" PointY="8.875" />
-          <ConnectorPoint PointX="6.4062525" PointY="8.1390641276041684" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="8.1390641276041684" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="8.1390641276041684" />
-          <ConnectorPoint PointX="7.5" PointY="8.1390641276041684" />
+          <ConnectorPoint PointX="6.4062525" PointY="8.2640641276041684" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="8.2640641276041684" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="8.2640641276041684" />
+          <ConnectorPoint PointX="7.5" PointY="8.2640641276041684" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.COMMENT_ITCAP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="16.5" PointY="11.547841796875" />
-          <ConnectorPoint PointX="17.25" PointY="11.547841796875" />
+          <ConnectorPoint PointX="16.5" PointY="11.672841796875" />
+          <ConnectorPoint PointX="17.25" PointY="11.672841796875" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CONTACT_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="20.932444661458334" />
-          <ConnectorPoint PointX="9.75" PointY="20.932444661458334" />
+          <ConnectorPoint PointX="9" PointY="21.307444661458334" />
+          <ConnectorPoint PointX="9.75" PointY="21.307444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="21.250690045572924" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="21.250690045572924" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="21.250690045572924" />
-          <ConnectorPoint PointX="15.75" PointY="21.250690045572924" />
-          <ConnectorPoint PointX="15.75" PointY="18.009095052083332" />
+          <ConnectorPoint PointX="11.25" PointY="21.531940045572924" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="21.531940045572924" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="21.531940045572924" />
+          <ConnectorPoint PointX="15.75" PointY="21.531940045572924" />
+          <ConnectorPoint PointX="15.75" PointY="18.326396484375003" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPERESPO_CONT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="21.868492897135418" />
-          <ConnectorPoint PointX="18" PointY="21.868492897135418" />
-          <ConnectorPoint PointX="18" PointY="19.480286458333339" />
+          <ConnectorPoint PointX="11.25" PointY="22.212242897135418" />
+          <ConnectorPoint PointX="18" PointY="22.212242897135418" />
+          <ConnectorPoint PointX="18" PointY="19.730286458333339" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_CONTACT_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="20.46909302278646" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="20.46909302278646" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="20.46909302278646" />
-          <ConnectorPoint PointX="12.5" PointY="20.46909302278646" />
-          <ConnectorPoint PointX="12.5" PointY="17.75" />
-          <ConnectorPoint PointX="14.75" PointY="17.75" />
-          <ConnectorPoint PointX="14.75" PointY="14.625" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="14.625" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="14.625" />
-          <ConnectorPoint PointX="15.75" PointY="14.625" />
-          <ConnectorPoint PointX="15.75" PointY="13.864807942708339" />
+          <ConnectorPoint PointX="11.25" PointY="20.79721802278646" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="20.79721802278646" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="20.79721802278646" />
+          <ConnectorPoint PointX="12.5" PointY="20.79721802278646" />
+          <ConnectorPoint PointX="12.5" PointY="18" />
+          <ConnectorPoint PointX="14.75" PointY="18" />
+          <ConnectorPoint PointX="14.75" PointY="14.75" />
+          <ConnectorPoint PointX="15.375000499999999" PointY="14.75" />
+          <ConnectorPoint PointX="15.375000499999999" PointY="14.114807942708339" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.COUNTRY_REGION_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="10.672841796875002" />
-          <ConnectorPoint PointX="3" PointY="10.672841796875002" />
+          <ConnectorPoint PointX="2.25" PointY="10.797841796875002" />
+          <ConnectorPoint PointX="3" PointY="10.797841796875002" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_CUPEQUESTI_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="19.506696835937504" />
-          <ConnectorPoint PointX="15.3437475" PointY="19.506696835937504" />
-          <ConnectorPoint PointX="15.3437475" PointY="18.009095052083332" />
+          <ConnectorPoint PointX="14.25" PointY="19.79034755208334" />
+          <ConnectorPoint PointX="15.3437475" PointY="19.79034755208334" />
+          <ConnectorPoint PointX="15.3437475" PointY="18.326396484375003" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPE_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.6562525" PointY="19.75" />
-          <ConnectorPoint PointX="8.6562525" PointY="17.309845377604166" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="17.309845377604166" />
-          <ConnectorPoint PointX="12.427083333333334" PointY="17.309845377604166" />
-          <ConnectorPoint PointX="14.666666666666666" PointY="17.309845377604166" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="17.309845377604166" />
-          <ConnectorPoint PointX="15" PointY="17.309845377604166" />
+          <ConnectorPoint PointX="8.6562525" PointY="20.125" />
+          <ConnectorPoint PointX="8.6562525" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="14.416666666666666" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="14.583333333333334" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="14.833333333333334" PointY="17.497345377604166" />
+          <ConnectorPoint PointX="15" PointY="17.497345377604166" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.CUPERESPON_CUPE_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="16.5" PointY="17.754547526041666" />
-          <ConnectorPoint PointX="17.25" PointY="17.754547526041666" />
+          <ConnectorPoint PointX="16.5" PointY="18.0381982421875" />
+          <ConnectorPoint PointX="17.25" PointY="18.0381982421875" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCAP_GROUP_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="20.309970330729165" />
-          <ConnectorPoint PointX="9.5" PointY="20.309970330729165" />
-          <ConnectorPoint PointX="9.5" PointY="17.875" />
-          <ConnectorPoint PointX="12.260416666666666" PointY="17.875" />
-          <ConnectorPoint PointX="12.583333333333334" PointY="17.875" />
-          <ConnectorPoint PointX="14.875" PointY="17.875" />
-          <ConnectorPoint PointX="14.875" PointY="14.375" />
-          <ConnectorPoint PointX="15.343748" PointY="14.375" />
-          <ConnectorPoint PointX="15.343748" PointY="13.864807942708339" />
+          <ConnectorPoint PointX="9" PointY="20.684970330729165" />
+          <ConnectorPoint PointX="9.5" PointY="20.684970330729165" />
+          <ConnectorPoint PointX="9.5" PointY="17.75" />
+          <ConnectorPoint PointX="12.260416666666666" PointY="17.75" />
+          <ConnectorPoint PointX="12.427083333333334" PointY="17.75" />
+          <ConnectorPoint PointX="14.5" PointY="17.75" />
+          <ConnectorPoint PointX="14.5" PointY="14.875" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="14.875" />
+          <ConnectorPoint PointX="14.833333333333334" PointY="14.875" />
+          <ConnectorPoint PointX="15.666666666666666" PointY="14.875" />
+          <ConnectorPoint PointX="15.833333333333334" PointY="14.875" />
+          <ConnectorPoint PointX="16.1249995" PointY="14.875" />
+          <ConnectorPoint PointX="16.1249995" PointY="14.114807942708339" />
         </AssociationConnector>
         <AssociationConnector Association="CAPSTONEModel.ITCA_ITCAPQUEST_FK" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="11.461293945312498" />
-          <ConnectorPoint PointX="15" PointY="11.461293945312498" />
+          <ConnectorPoint PointX="14.25" PointY="11.711293945312498" />
+          <ConnectorPoint PointX="15" PointY="11.711293945312498" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

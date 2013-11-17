@@ -2621,10 +2621,12 @@ namespace IBMConsultantTool
         /// Create a new CUPE object.
         /// </summary>
         /// <param name="cUPEID">Initial value of the CUPEID property.</param>
-        public static CUPE CreateCUPE(global::System.Int32 cUPEID)
+        /// <param name="qUESTIONNUMBER">Initial value of the QUESTIONNUMBER property.</param>
+        public static CUPE CreateCUPE(global::System.Int32 cUPEID, global::System.Int32 qUESTIONNUMBER)
         {
             CUPE cUPE = new CUPE();
             cUPE.CUPEID = cUPEID;
+            cUPE.QUESTIONNUMBER = qUESTIONNUMBER;
             return cUPE;
         }
 
@@ -2777,6 +2779,30 @@ namespace IBMConsultantTool
         private global::System.String _ENABLER;
         partial void OnENABLERChanging(global::System.String value);
         partial void OnENABLERChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 QUESTIONNUMBER
+        {
+            get
+            {
+                return _QUESTIONNUMBER;
+            }
+            set
+            {
+                OnQUESTIONNUMBERChanging(value);
+                ReportPropertyChanging("QUESTIONNUMBER");
+                _QUESTIONNUMBER = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("QUESTIONNUMBER");
+                OnQUESTIONNUMBERChanged();
+            }
+        }
+        private global::System.Int32 _QUESTIONNUMBER;
+        partial void OnQUESTIONNUMBERChanging(global::System.Int32 value);
+        partial void OnQUESTIONNUMBERChanged();
 
         #endregion
     
