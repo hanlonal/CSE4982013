@@ -58,7 +58,6 @@ namespace IBMConsultantTool
         Label labelDescription = new Label();
         private int objCount = 0;
         Label[] categoryLabel = new Label[1000];
-        //Color[] color = "Color.AliceBlue;
 
         private bool mouseDown = false;
         private bool[] labelHide = new bool[1000];
@@ -595,8 +594,6 @@ namespace IBMConsultantTool
 
         private void panelList_SizeChanged(object sender, EventArgs e)
         {
-            //System.Diagnostics.Trace.WriteLine("this.Width: " + this.DesktopBounds.Width.ToString() + "  this.Height: " + this.Height.ToString());
-            
             panelList.Width = 200;
             panelList.Height = this.Height - 350;
             panelList.Location = new Point(this.Width - panelList.Width - 25, 5);
@@ -1070,6 +1067,9 @@ namespace IBMConsultantTool
             {
                 mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Imperatives[iniArray[cnt]].Criticality = criArray[cnt, count[cnt]];
                 mainForm.Categories[catArray[cnt]].Objectives[objArray[cnt]].Imperatives[iniArray[cnt]].Differentiation = difArray[cnt, count[cnt]];
+
+                locY[cnt, 0] = locY[cnt, count[cnt]];
+                locX[cnt, 0] = locX[cnt, count[cnt]];
             }
 
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);

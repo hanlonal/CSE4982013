@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.Threading;
 using System.Net;
 using System.Net.Mail;
+using System.IO;
 
 namespace IBMConsultantTool
 {
@@ -267,6 +268,10 @@ namespace IBMConsultantTool
         {
             BOMChartDynamically chart = new BOMChartDynamically(this);
             chart.Show();
+
+            Bitmap bmp = new Bitmap(chart.Width, chart.Height);
+            chart.DrawToBitmap(bmp, new Rectangle(Point.Empty, bmp.Size));
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Bubble Chart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
 
