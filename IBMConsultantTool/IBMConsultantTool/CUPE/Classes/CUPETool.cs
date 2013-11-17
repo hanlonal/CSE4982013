@@ -1527,6 +1527,7 @@ namespace IBMConsultantTool
 
         private void iTCapabilityToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closeState = "ITCap";
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RunITCap));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
