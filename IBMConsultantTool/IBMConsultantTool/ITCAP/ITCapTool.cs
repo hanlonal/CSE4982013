@@ -582,7 +582,7 @@ namespace IBMConsultantTool
 
         private void ClearBottomPanel()
         {
-            foreach (Control con in panel1.Controls)
+         /*   foreach (Control con in panel1.Controls)
             {
                 //Console.Write(con.Name + "\n");
                 if ((string)con.Tag != "permenant")
@@ -590,11 +590,11 @@ namespace IBMConsultantTool
                     con.DataBindings.Clear();
                     panel1.Controls.Remove(con);
                 }
-            }
+            }*/
 
-            for (int i = 0; i < panel1.Controls.Count; i++)
+            for (int i = panel1.Controls.Count -1; i >-1; i--)
             {
-                Console.WriteLine(panel1.Controls[i].Name + "\n");
+                Console.WriteLine(panel1.Controls[i].Name);
                 if (panel1.Controls[i].Name == "Testing")
                 {
                     panel1.Controls[i].DataBindings.Clear();
@@ -628,6 +628,7 @@ namespace IBMConsultantTool
                 label.Text = val.Name;
                 TextBox combo = new TextBox();
                 combo.Name = "Testing";
+                label.Name = "Testing";
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
                 combo.DataBindings.Clear();
                 //combo.DataBindings.Add("Text", val, "Value");
