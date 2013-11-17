@@ -674,7 +674,7 @@ namespace IBMConsultantTool
                 busName = bom.Element("BUSINESSOBJECTIVE").Value.TrimEnd();
                 objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
-                    return bus.Name == busName;
+                    return bus.ObjName == busName;
                 });
                 if (objective == null)
                 {
@@ -1451,7 +1451,7 @@ namespace IBMConsultantTool
 
                 NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
-                    return bus.Name == busName;
+                    return bus.ObjName == busName;
                 });
                 if (objective == null)
                 {

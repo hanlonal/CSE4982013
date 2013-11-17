@@ -39,7 +39,7 @@ namespace IBMConsultantTool
                 {
 
                    dataGrid.Rows.Add(1);
-                   dataGrid.Rows[rowCount].Cells[1].Value = objective.Name;
+                   dataGrid.Rows[rowCount].Cells[1].Value = objective.ObjName;
                    dataGrid.Rows[rowCount].ReadOnly = true;
                    rowCount++;
 

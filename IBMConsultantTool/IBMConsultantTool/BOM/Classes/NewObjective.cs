@@ -288,5 +288,18 @@ namespace IBMConsultantTool
                 return imperatives;
             }
         }
+
+        public string ObjName
+        {
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace IBMConsultantTool
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
-            businessObjectiveName.Text = obj.Name;
+            businessObjectiveName.Text = obj.ObjName;
             
         }
 

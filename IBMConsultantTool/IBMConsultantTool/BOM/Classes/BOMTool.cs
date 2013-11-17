@@ -32,7 +32,7 @@ namespace IBMConsultantTool
         public void ObjectiveClicked(NewObjective obj)
         {
             int heightBetween = 30;
-            seperatorLabel.Text = "View Data: " + obj.Name;
+            seperatorLabel.Text = "View Data: " + obj.ObjName;
             ClearDetailPanel();
             for (int i = 0; i < obj.Imperatives.Count; i++)
             {
@@ -187,7 +187,7 @@ namespace IBMConsultantTool
                 ClientDataControl.db.RemoveBOM(imp.Name, ClientDataControl.Client.EntityObject);
             }
             obj.Controls.Clear();
-            Controls.RemoveByKey(obj.Name);
+            Controls.RemoveByKey(obj.ObjName);
             NewCategory cat = obj.owner;
             cat.objectives.Remove(obj);
             if (cat.Objectives.Count == 0)
@@ -207,7 +207,7 @@ namespace IBMConsultantTool
             obj.Imperatives.Remove(imp);
             if (obj.Imperatives.Count == 0)
             {
-                Controls.RemoveByKey(obj.Name);
+                Controls.RemoveByKey(obj.ObjName);
                 NewCategory cat = obj.owner;
                 if (cat.Objectives.Count == 0)
                 {

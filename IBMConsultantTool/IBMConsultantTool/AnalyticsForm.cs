@@ -79,11 +79,6 @@ namespace IBMConsultantTool
             trendGridView.RowHeadersVisible = false;
         }
 
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ClearControls(string tag)
         {
             foreach (Control con in filterPanel.Controls)
