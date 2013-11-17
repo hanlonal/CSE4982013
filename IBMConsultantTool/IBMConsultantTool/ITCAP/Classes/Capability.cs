@@ -390,12 +390,6 @@ namespace IBMConsultantTool
         }
 
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
         public Domain Owner
         {
             get { return owner; }
@@ -407,11 +401,6 @@ namespace IBMConsultantTool
             set { questionsOwned = value; }
         }
 
-        public bool Flagged
-        {
-            set { flagged = value; owner.Flagged = value; }
-            get { return flagged; }
-        }
         public Dictionary<string, int> OBJECTIVESCORES2
         {
             get { return OBJECTIVESCORES; }

@@ -88,7 +88,7 @@ namespace IBMConsultantTool
         {
             foreach (Control con in filterPanel.Controls)
             {
-                if ((string)con.Tag == tag || con.Tag == "All")
+                if ((string)con.Tag == tag || (string)con.Tag == "All")
                 {
                     con.Visible = true;
                 }
