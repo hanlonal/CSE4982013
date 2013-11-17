@@ -121,7 +121,7 @@ namespace IBMConsultantTool
                         oTable.Cell(r, 3).Range.Font.Size = 7;
 
                         oTable.Cell(r, 1).Range.Text = x.ToString() + ": " + BomCats[i].name;
-                        oTable.Cell(r, 2).Range.Text = BomCats[i].Objectives[j].Name;
+                        oTable.Cell(r, 2).Range.Text = BomCats[i].Objectives[j].ObjName;
                         oTable.Cell(r, 3).Range.Text = BomCats[i].Objectives[j].Imperatives[k].Name;
                         x++;
 
@@ -174,7 +174,7 @@ namespace IBMConsultantTool
 
 
                         string BaseFormName = TruncateLongString(BomCats[i].Name, 5) + 
-                            TruncateLongString(BomCats[i].Objectives[j].Name, 5) +
+                            TruncateLongString(BomCats[i].Objectives[j].ObjName, 5) +
                             TruncateLongString(BomCats[i].Objectives[j].Imperatives[k].Name, 5);
 
                         FormNames[c] = BaseFormName + "Eff";

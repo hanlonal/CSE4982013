@@ -85,7 +85,7 @@ namespace IBMConsultantTool
                             foreach (NewImperative ini in obj.Imperatives)
                             {
                                 string BaseIniName = TruncateLongString(cat.Name, 5) +
-                                TruncateLongString(obj.Name, 5) +
+                                TruncateLongString(obj.ObjName, 5) +
                                 TruncateLongString(ini.Name, 5);
                                 string temp = BaseIniName + "Diff";
                                 if (temp == form.Name)

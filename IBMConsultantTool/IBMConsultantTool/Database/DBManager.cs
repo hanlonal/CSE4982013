@@ -618,7 +618,7 @@ namespace IBMConsultantTool
                 busName = bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                 objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
-                    return bus.Name == busName;
+                    return bus.ObjName == busName;
                 });
                 if (objective == null)
                 {
@@ -1318,7 +1318,7 @@ namespace IBMConsultantTool
                 busName = bom.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                 NewObjective objective = category.Objectives.Find(delegate(NewObjective bus)
                 {
-                    return bus.Name == busName;
+                    return bus.ObjName == busName;
                 });
                 if (objective == null)
                 {
@@ -4027,47 +4027,6 @@ namespace IBMConsultantTool
                                         MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
                                     }
                                 }
-
-                                else if (lineArray[2] == "CONTACT")
-                                {
-                                    if (GetClient(lineArray[3].Replace('~', ' '), out client))
-                                    {
-                                        if (GetGroup(lineArray[4].Replace('~', ' '), client, out grp))
-                                        {
-                                            if (GetContact(Convert.ToInt32(lineArray[5]), out contact))
-                                            {
-                                                if (GetITCAPQuestion(lineArray[6].Replace('~', ' '), out itcapQuestion))
-                                                {
-                                                    itcap = new ITCAP();
-                                                    itcap.ITCAPQUESTION = itcapQuestion;
-                                                    itcap.ASIS = Convert.ToSingle(lineArray[7]);
-                                                    itcap.TOBE = Convert.ToSingle(lineArray[8]);
-                                                    if (!AddITCAP(itcap, client))
-                                                    {
-                                                        MessageBox.Show("Add ITCAP Instruction Failed: ITCAP already exists\n\n" + line, "Error");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Add ITCAP Instruction Failed: ITCAPQuestion does not exist\n\n" + line, "Error");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Add ITCAP Instruction Failed: Contact ID does not exist\n\n" + line, "Error");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Add ITCAP Instruction Failed: Group does not exist\n\n" + line, "Error");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Add ITCAP Instruction Failed: Client does not exist\n\n" + line, "Error");
-                                    }
-                                }
-                                
                                 else
                                 {
                                     MessageBox.Show("Invalid instruction detected:\n\n" + line, "Error");

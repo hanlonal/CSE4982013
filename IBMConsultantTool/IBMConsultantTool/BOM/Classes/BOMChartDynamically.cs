@@ -350,7 +350,7 @@ namespace IBMConsultantTool
                     rowCount++;
                     objectivesCheckBox[objCount].Parent = panelList;
                     //System.Diagnostics.Trace.WriteLine(mainForm.Categories[i].Objectives[j].Name);
-                    objectivesCheckBox[objCount].Text = mainForm.Categories[i].Objectives[j].Name;
+                    objectivesCheckBox[objCount].Text = mainForm.Categories[i].Objectives[j].ObjName;
                     objectivesCheckBox[objCount].Name = objectivesCheckBox[j].Text;
                     y += 24;
                     objectivesCheckBox[objCount].Location = new Point((x + 10), y);
