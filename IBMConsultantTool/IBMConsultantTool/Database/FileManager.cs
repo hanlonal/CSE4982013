@@ -15,6 +15,14 @@ namespace IBMConsultantTool
 
         public FileManager()
         {
+            if (!Directory.Exists(@"Resources"))
+            {
+                Directory.CreateDirectory(@"Resources");
+            }
+            if (!Directory.Exists(@"Resources\Clients"))
+            {
+                Directory.CreateDirectory(@"Resources\Clients");
+            }
             try
             {
                 dbo = XElement.Load(@"Resources\Data.xml");
