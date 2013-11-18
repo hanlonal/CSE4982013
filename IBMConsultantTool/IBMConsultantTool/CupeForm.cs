@@ -47,11 +47,6 @@ namespace IBMConsultantTool
             
         }
 
-        public void TextLabel_TextChanged(object sender, EventArgs e)
-        {         
-
-        }
-
         public void CreateQuestions(int number)
         {
             StringReader file = null;
@@ -70,7 +65,6 @@ namespace IBMConsultantTool
                     q.QuestionText = line;
                     q.CurrentBox.Location = new Point(250, 30 * i);
                     q.FutureBox.Location = new Point(310, 30 * i);
-                    q.TextLabel.TextChanged += new EventHandler(TextLabel_TextChanged);
                     
                     q.CurrentBox.TextChanged += new EventHandler(CurrentBox_TextChanged);
                     q.FutureBox.TextChanged += new EventHandler(FutureBox_TextChanged);

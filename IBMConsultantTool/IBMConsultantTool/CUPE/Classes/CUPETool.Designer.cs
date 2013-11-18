@@ -524,7 +524,6 @@
             this.questionInfoPanel.Padding = new System.Windows.Forms.Padding(100, 0, 0, 0);
             this.questionInfoPanel.Size = new System.Drawing.Size(1006, 195);
             this.questionInfoPanel.TabIndex = 10;
-            this.questionInfoPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.questionInfoPanel_Paint);
             // 
             // statusStrip1
             // 

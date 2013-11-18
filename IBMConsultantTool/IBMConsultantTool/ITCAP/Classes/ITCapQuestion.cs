@@ -303,11 +303,6 @@ namespace IBMConsultantTool
                 CapabilityGapText = "Low/No Gap";
                 GapType1 = GapType.Low;
             }
-
-            if (capabilityGap == 0)
-            {
-
-            }
         }
         public bool AsIsHighStandardDeviation
         {

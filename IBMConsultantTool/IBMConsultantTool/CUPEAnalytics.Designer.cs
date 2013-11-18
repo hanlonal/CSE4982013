@@ -78,7 +78,6 @@
             this.label1.Size = new System.Drawing.Size(162, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "Detailed Results Graphs";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -88,7 +87,6 @@
             this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Capability";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -98,7 +96,6 @@
             this.label3.Size = new System.Drawing.Size(86, 17);
             this.label3.TabIndex = 6;
             this.label3.Text = "Prioritization";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // CUPEAnalytics
             // 

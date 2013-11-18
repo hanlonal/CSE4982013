@@ -665,11 +665,6 @@ namespace IBMConsultantTool
             }
         }
 
-        private void questionInfoPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void filterQuestionsGo_Click(object sender, EventArgs e)
         {
             try
@@ -3114,11 +3109,6 @@ namespace IBMConsultantTool
             HelpEnabled = true;
             HelpCurrentStep = 0;
             StartTutorialMode();
-
-        }
-
-        private void continuteTutorialMode(object sender, EventArgs e)
-        {
 
         }
 

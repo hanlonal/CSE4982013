@@ -15,10 +15,5 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
         }
-
-        private void BubbleChart_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

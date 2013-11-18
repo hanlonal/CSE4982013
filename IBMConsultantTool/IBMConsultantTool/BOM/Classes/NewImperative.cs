@@ -122,13 +122,6 @@ namespace IBMConsultantTool
                         scoreState = ScoreState.Low;
                 }
             }
-
-            if (state == RatingsState.Dynamic)
-            {
-                
-
-            }
-
         }
 
         public float Criticality

@@ -162,10 +162,5 @@ namespace IBMConsultantTool
                 participantsGrid.Rows[e.RowIndex].Cells[4].Value = e.RowIndex;
             }
         }
-
-        private void EditParticipants_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

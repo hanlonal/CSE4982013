@@ -114,7 +114,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditParticipants";
             this.Text = "EditParticipants";
-            this.Load += new System.EventHandler(this.EditParticipants_Load);
             ((System.ComponentModel.ISupportInitialize)(this.participantsGrid)).EndInit();
             this.ResumeLayout(false);
 
