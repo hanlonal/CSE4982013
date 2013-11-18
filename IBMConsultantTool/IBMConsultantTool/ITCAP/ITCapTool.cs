@@ -687,24 +687,13 @@ namespace IBMConsultantTool
 
             currentGrid.Refresh();
         }
-        private void combo_TextChanged(object sender, EventArgs e)
-        {
-            
-            
-        }
+
         private void combo_ControlRemoved(object sender, EventArgs e)
         {
             TextBox box = (TextBox)sender;
             box.Visible = false;
             box.DataBindings.Clear();
         }
-
-        private void combo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         public void ResetSurveyGrid()
         {
@@ -1285,19 +1274,18 @@ namespace IBMConsultantTool
 
         private void systemsAgendaCapabilityAssesmentResultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<float> domAsIs = new List<float>();
-            List<float> domToBe = new List<float>();
-            List<string> domName = new List<string>();
+            List<float> capAsIs = new List<float>();
+            List<float> capToBe = new List<float>();
+            List<string> capName = new List<string>();
 
-            foreach (Domain dom in domains)
+            foreach (Capability cap in capabilities)
             {
-                domAsIs.Add(dom.AsIsScore);
-                domToBe.Add(dom.ToBeScore);
-
-                domName.Add(dom.Name);
+                capAsIs.Add(cap.AsIsScore);
+                capToBe.Add(cap.ToBeScore);
+                capName.Add(cap.CapName);
             }
 
-            CreateChartAgenda(domName, domAsIs, domToBe);
+            CreateChartAgenda(capName, capAsIs, capToBe);
         }
 
         public void CreateChartAgenda(List<string> name, List<float> current, List<float> future)
@@ -1309,7 +1297,7 @@ namespace IBMConsultantTool
             formChart.Show();
             Chart newChart = new Chart();
 
-            formChart.Text = "Capability Assessment Summary Score";
+            formChart.Text = "System Agenda Capability Assessment Results";
             newChart.Parent = formChart;
 
             int maxQuestion = 0;
@@ -1496,18 +1484,19 @@ namespace IBMConsultantTool
 
         private void capabilityAssesmentSummaryScoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<float> capAsIs = new List<float>();
-            List<float> capToBe = new List<float>();
-            List<string> capName = new List<string>();
+            List<float> domAsIs = new List<float>();
+            List<float> domToBe = new List<float>();
+            List<string> domName = new List<string>();
 
-            foreach (Capability cap in capabilities)
+            foreach (Domain dom in domains)
             {
-                capAsIs.Add(cap.AsIsScore);
-                capToBe.Add(cap.ToBeScore);
-                capName.Add(cap.CapName);
+                domAsIs.Add(dom.AsIsScore);
+                domToBe.Add(dom.ToBeScore);
+
+                domName.Add(dom.Name);
             }
 
-            CreateChart(capName, capAsIs, capToBe);
+            CreateChart(domName, domAsIs, domToBe);
         }
 
         private void capabilityGapHeatmapToolStripMenuItem_Click(object sender, EventArgs e)
