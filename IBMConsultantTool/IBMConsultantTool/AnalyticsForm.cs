@@ -19,6 +19,10 @@ namespace IBMConsultantTool
         List<CUPEQuestionTrendAnalysis> cupeToTrack = new List<CUPEQuestionTrendAnalysis>();
         List<ITAttributeTrendAnalysis> attributesToTrack = new List<ITAttributeTrendAnalysis>();
         List<ImperativeTrendAnalysis> imperativesToTrack = new List<ImperativeTrendAnalysis>();
+
+        private Dictionary<int, Color> colorDictionary = new Dictionary<int, Color>();
+        private List<Color> colorsList = new List<Color>();
+
         enum TrackingState { Capabilities, ITAttributes, Objectives, CUPEQuestions, Imperatives, None };
         TrackingState state;
         private DateTime fromTime;
@@ -40,7 +44,11 @@ namespace IBMConsultantTool
             state = TrackingState.None;
             analyticsListBox.SelectedValueChanged +=new EventHandler(analyticsListBox_SelectedValueChanged);
 
+            PopulateColorsList();
+
             this.FormClosed += new FormClosedEventHandler(AnalyticsForm_FormClosed);
+
+            //trendGridView.RowsAdded +=new DataGridViewRowsAddedEventHandler(trendGridView_RowsAdded);
         }
 
         private void AnalyticsForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -51,6 +59,19 @@ namespace IBMConsultantTool
                 t.SetApartmentState(System.Threading.ApartmentState.STA);
                 t.Start();
             }
+        }
+
+        private void PopulateColorsList()
+        {
+            colorsList.Add(Color.Aqua);
+            colorsList.Add(Color.Beige);
+            colorsList.Add(Color.CadetBlue);
+            colorsList.Add(Color.ForestGreen);
+            colorsList.Add(Color.Goldenrod);
+            colorsList.Add(Color.LavenderBlush);
+            colorsList.Add(Color.Lime);
+            colorsList.Add(Color.MintCream);
+
         }
 
         private void RUNTEST()
@@ -174,6 +195,13 @@ namespace IBMConsultantTool
 
         #region Event Handlers
 
+     //   private void trendGridView_RowsAdded(object sender, DataGridViewRowEventArgs e)
+     //   {
+      //      e.Row.DefaultCellStyle.BackColor = colorsList[SelectRandomColor()];
+
+      //  }
+
+
         private void metricsComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             // TODO
@@ -247,6 +275,24 @@ namespace IBMConsultantTool
             int resultIndex = -1;
 
             resultIndex = metricsComboBox.FindStringExact(selectedInfo);
+        }
+
+        private void trendGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            //e.Row.DefaultCellStyle.BackColor = colorsList[SelectRandomColor()];
+            for (int i = 0; i < e.RowCount; i++)
+            {
+                Color color = colorsList[SelectRandomColor()];
+                trendGridView.Rows[e.RowIndex + i].DefaultCellStyle.BackColor = color;
+                if (!colorDictionary.ContainsKey(e.RowIndex +i))
+                {
+                    colorDictionary.Add(e.RowIndex +i, color);
+                }
+            }
+
+            //TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
+
+            
         }
 
         private void analyticsListBox_SelectedValueChanged(object sender, EventArgs e)
@@ -561,7 +607,7 @@ namespace IBMConsultantTool
                 }
                 else
                     MessageBox.Show("Query did not return any results");
-                //trendGridView.DataSource = null;
+                trendGridView.DataSource = null;
                 trendGridView.DataSource = imperativesToTrack;
                 trendGridView.Refresh();
                 currentlyBeingTracked = "Imperative";
@@ -630,7 +676,7 @@ namespace IBMConsultantTool
                 businessTypeToSearch = "All";
             }
 
-            
+            int color = SelectRandomColor();
 
             if (state == TrackingState.Capabilities)
                 CreateCapabilityToTrack(regionToSearch, countryToSearch, businessTypeToSearch, fromDate, toDate);
@@ -648,6 +694,15 @@ namespace IBMConsultantTool
             form.Show();
         }
 
+        private int SelectRandomColor()
+        {
+            Random rand = new Random();
+
+            int index = rand.Next(colorsList.Count);
+
+            return index;
+        }
+
         public void ClearGrid()
         {
             trendGridView.DataSource = null;
@@ -657,6 +712,7 @@ namespace IBMConsultantTool
             cupeToTrack.Clear();
             capabilitiesToTrack.Clear();
             imperativesToTrack.Clear();
+            colorDictionary.Clear();
         }
 
 
@@ -675,9 +731,12 @@ namespace IBMConsultantTool
                 {
                     trendGridView.CurrentCell = null;
                     row.Visible = false;
+                    row.DefaultCellStyle.BackColor = Color.White;
                 }
                 else
-                    row.DefaultCellStyle.BackColor = Color.LightBlue;
+                {
+                    row.DefaultCellStyle.BackColor = colorDictionary[row.Index];
+                }
             }
 
             trendGridView.Columns["Children"].HeaderText = "Entries";
@@ -3454,5 +3513,7 @@ namespace IBMConsultantTool
         {
             Application.Run(new TestForm());
         }
+
+
     }
 }
