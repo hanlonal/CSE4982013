@@ -419,9 +419,7 @@ namespace IBMConsultantTool
         # endregion
 
         private void DateText_Click(object sender, EventArgs e)
-        {
-            
-           
+        {           
             TextBox box = (TextBox)sender;
             currentBox = box;
             MonthCalendar date = new MonthCalendar();
@@ -3463,6 +3461,7 @@ namespace IBMConsultantTool
             if (clrDialog.ShowDialog() == DialogResult.OK)
             {
                 trendGridView.SelectedRows[0].DefaultCellStyle.BackColor = clrDialog.Color;
+                colorDictionary[trendGridView.SelectedRows[0].Index] = clrDialog.Color;
                 if (state == TrackingState.Capabilities)
                     CreateCapabilityGraph(capabilitiesToTrack, "Capability", metricsComboBox.Text);
                 else if (state == TrackingState.CUPEQuestions)
