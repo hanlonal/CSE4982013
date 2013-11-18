@@ -47,8 +47,6 @@ namespace IBMConsultantTool
             PopulateColorsList();
 
             this.FormClosed += new FormClosedEventHandler(AnalyticsForm_FormClosed);
-
-            //trendGridView.RowsAdded +=new DataGridViewRowsAddedEventHandler(trendGridView_RowsAdded);
         }
 
         private void AnalyticsForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -130,7 +128,6 @@ namespace IBMConsultantTool
                 else
                     con.Visible = false;
             }
-
         }
 
         private void ChangeState(TrackingState newState)
@@ -194,13 +191,6 @@ namespace IBMConsultantTool
         }
 
         #region Event Handlers
-
-     //   private void trendGridView_RowsAdded(object sender, DataGridViewRowEventArgs e)
-     //   {
-      //      e.Row.DefaultCellStyle.BackColor = colorsList[SelectRandomColor()];
-
-      //  }
-
 
         private void metricsComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -288,11 +278,7 @@ namespace IBMConsultantTool
                 {
                     colorDictionary.Add(e.RowIndex +i, color);
                 }
-            }
-
-            //TrendAnalysisEntity ent = trendGridView.Rows[e.RowIndex].DataBoundItem as TrendAnalysisEntity;
-
-            
+            }            
         }
 
         private void analyticsListBox_SelectedValueChanged(object sender, EventArgs e)
