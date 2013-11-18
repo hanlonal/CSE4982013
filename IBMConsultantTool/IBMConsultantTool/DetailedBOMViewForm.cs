@@ -24,7 +24,9 @@ namespace IBMConsultantTool
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
             businessObjectiveName.Text = obj.ObjName;
             
+            
         }
+
 
         private void DetailedBOMViewForm_Load(object sender, EventArgs e)
         {
@@ -43,6 +45,11 @@ namespace IBMConsultantTool
             dataGridView1.Columns["Differentiation"].DefaultCellStyle.BackColor = Color.AliceBlue;
             dataGridView1.Columns["Effectiveness"].DefaultCellStyle.BackColor = Color.AliceBlue;
             dataGridView1.Columns["Criticality"].DefaultCellStyle.BackColor = Color.AliceBlue;
+
+            dataGridView1.Columns["TotalBOMScore"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView1.Columns["Differentiation"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView1.Columns["Effectiveness"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView1.Columns["Criticality"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
 
         }

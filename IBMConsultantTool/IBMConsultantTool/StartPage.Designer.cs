@@ -82,6 +82,7 @@
             // 
             // runITCapButton
             // 
+            this.runITCapButton.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.runITCapButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runITCapButton.Location = new System.Drawing.Point(132, 430);
             this.runITCapButton.Name = "runITCapButton";
@@ -93,6 +94,7 @@
             // 
             // runBomButton
             // 
+            this.runBomButton.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.runBomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runBomButton.Location = new System.Drawing.Point(132, 331);
             this.runBomButton.Name = "runBomButton";
@@ -104,6 +106,7 @@
             // 
             // runCupeButton
             // 
+            this.runCupeButton.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.runCupeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runCupeButton.Location = new System.Drawing.Point(132, 534);
             this.runCupeButton.Name = "runCupeButton";
