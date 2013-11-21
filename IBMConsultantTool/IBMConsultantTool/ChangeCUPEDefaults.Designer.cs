@@ -94,6 +94,7 @@
             this.CUPEQuestion.HeaderText = "Question";
             this.CUPEQuestion.MinimumWidth = 50;
             this.CUPEQuestion.Name = "CUPEQuestion";
+            this.CUPEQuestion.ReadOnly = true;
             this.CUPEQuestion.Width = 600;
             // 
             // Commodity
@@ -101,6 +102,7 @@
             this.Commodity.HeaderText = "Commodity";
             this.Commodity.MinimumWidth = 50;
             this.Commodity.Name = "Commodity";
+            this.Commodity.ReadOnly = true;
             this.Commodity.Width = 600;
             // 
             // Utility
@@ -108,6 +110,7 @@
             this.Utility.HeaderText = "Utility";
             this.Utility.MinimumWidth = 50;
             this.Utility.Name = "Utility";
+            this.Utility.ReadOnly = true;
             this.Utility.Width = 600;
             // 
             // Partner
@@ -115,6 +118,7 @@
             this.Partner.HeaderText = "Partner";
             this.Partner.MinimumWidth = 50;
             this.Partner.Name = "Partner";
+            this.Partner.ReadOnly = true;
             this.Partner.Width = 600;
             // 
             // Enabler
@@ -122,13 +126,14 @@
             this.Enabler.HeaderText = "Enabler";
             this.Enabler.MinimumWidth = 50;
             this.Enabler.Name = "Enabler";
+            this.Enabler.ReadOnly = true;
             this.Enabler.Width = 600;
             // 
             // ChangeCUPEDefaults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(790, 562);
             this.Controls.Add(this.SaveChangesButton);
             this.Controls.Add(this.CUPEQuestionDataGridView);
             this.Name = "ChangeCUPEDefaults";

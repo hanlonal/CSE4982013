@@ -88,10 +88,9 @@ namespace IBMConsultantTool
         public abstract List<CupeQuestionData> GetCUPEQuestionData();
         public abstract List<CupeQuestionStringData> GetCUPEQuestionStringData();
         public abstract List<CupeQuestionStringData> GetCUPEQuestionStringDataTwenty();
-        public abstract List<CupeQuestionStringData> GetCUPEQuestionStringDataFifteen();
         public abstract List<CupeQuestionStringData> GetCUPEQuestionStringDataTen();
         public abstract bool AddCupeQuestion(CupeQuestionStringData cupeQuestion);
-        public abstract bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen);
+        public abstract bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inTen);
         #endregion
 
         #region CUPE

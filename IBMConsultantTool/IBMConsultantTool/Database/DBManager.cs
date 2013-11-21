@@ -1260,7 +1260,6 @@ namespace IBMConsultantTool
                 cupeQuestionData = new CupeQuestionData();
                 cupeQuestionData.StringData = cupeQuestionStringData;
                 cupeQuestionData.InDefault20 = cupeQuestionEnt.INTWENTY == "Y";
-                cupeQuestionData.InDefault15 = cupeQuestionEnt.INFIFTEEN == "Y";
                 cupeQuestionData.InDefault10 = cupeQuestionEnt.INTEN == "Y";
 
                 cupeQuestionDataList.Add(cupeQuestionData);
@@ -1293,28 +1292,6 @@ namespace IBMConsultantTool
         {
             List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
                                                       where ent.INTWENTY == "Y"
-                                                      select ent).ToList();
-
-            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
-            CupeQuestionStringData cupeQuestion;
-            foreach (CUPEQUESTION cupeQuestionEnt in cupeQuestionEntList)
-            {
-                cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.OriginalQuestionText = cupeQuestionEnt.NAME.TrimEnd();
-                cupeQuestion.QuestionText = cupeQuestionEnt.NAME.TrimEnd();
-                cupeQuestion.ChoiceA = cupeQuestionEnt.COMMODITY.TrimEnd();
-                cupeQuestion.ChoiceB = cupeQuestionEnt.UTILITY.TrimEnd();
-                cupeQuestion.ChoiceC = cupeQuestionEnt.PARTNER.TrimEnd();
-                cupeQuestion.ChoiceD = cupeQuestionEnt.ENABLER.TrimEnd();
-                cupeQuestionList.Add(cupeQuestion);
-            }
-
-            return cupeQuestionList;
-        }
-        public override List<CupeQuestionStringData> GetCUPEQuestionStringDataFifteen()
-        {
-            List<CUPEQUESTION> cupeQuestionEntList = (from ent in dbo.CUPEQUESTION
-                                                      where ent.INFIFTEEN == "Y"
                                                       select ent).ToList();
 
             List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
@@ -1372,13 +1349,13 @@ namespace IBMConsultantTool
             cupeQuestionEnt.UTILITY = cupeQuestion.ChoiceB;
             cupeQuestionEnt.PARTNER = cupeQuestion.ChoiceC;
             cupeQuestionEnt.ENABLER = cupeQuestion.ChoiceD;
-            cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INFIFTEEN = cupeQuestionEnt.INTEN = "N";
+            cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INTEN = "N";
 
             dbo.AddToCUPEQUESTION(cupeQuestionEnt);
 
             return true;
         }
-        public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
+        public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inTen)
         {
             CUPEQUESTION cupeQuestionEnt;
             try
@@ -1388,7 +1365,6 @@ namespace IBMConsultantTool
                                    select ent).Single();
 
                 cupeQuestionEnt.INTWENTY = inTwenty ? "Y" : "N";
-                cupeQuestionEnt.INFIFTEEN = inFifteen ? "Y" : "N";
                 cupeQuestionEnt.INTEN = inTen ? "Y" : "N";
             }
 
@@ -1588,7 +1564,7 @@ namespace IBMConsultantTool
                         cupeQuestionEnt.UTILITY = cupe.UTILITY;
                         cupeQuestionEnt.PARTNER = cupe.PARTNER;
                         cupeQuestionEnt.ENABLER = cupe.ENABLER;
-                        cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INFIFTEEN = cupeQuestionEnt.INTEN = "N";
+                        cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INTEN = "N";
                     }
 
                     cupe.CUPEQUESTION = cupeQuestionEnt;
@@ -3406,7 +3382,6 @@ namespace IBMConsultantTool
                 tempCQ.Add(new XElement("PARTNER", cupeQuestion.PARTNER.TrimEnd()));
                 tempCQ.Add(new XElement("ENABLER", cupeQuestion.ENABLER.TrimEnd()));
                 tempCQ.Add(new XElement("INTWENTY", cupeQuestion.INTWENTY));
-                tempCQ.Add(new XElement("INFIFTEEN", cupeQuestion.INFIFTEEN));
                 tempCQ.Add(new XElement("INTEN", cupeQuestion.INTEN));
                 cqElement.Add(tempCQ);
             }
@@ -3976,8 +3951,7 @@ namespace IBMConsultantTool
                                 if (GetCUPEQuestion(lineArray[2].Replace('~', ' '), out cupeQuestion))
                                 {
                                     cupeQuestion.INTWENTY = lineArray[3];
-                                    cupeQuestion.INFIFTEEN = lineArray[4];
-                                    cupeQuestion.INTEN = lineArray[5];
+                                    cupeQuestion.INTEN = lineArray[4];
                                 }
                                 else
                                 {

@@ -1392,7 +1392,6 @@ namespace IBMConsultantTool
                 cupeQuestionData = new CupeQuestionData();
                 cupeQuestionData.StringData = cupeQuestionStringData;
                 cupeQuestionData.InDefault20 = cupeQuestionEnt.Element("INTWENTY").Value == "Y";
-                cupeQuestionData.InDefault15 = cupeQuestionEnt.Element("INFIFTEEN").Value == "Y";
                 cupeQuestionData.InDefault10 = cupeQuestionEnt.Element("INTEN").Value == "Y";
                 cupeQuestionDataList.Add(cupeQuestionData);
             }
@@ -1441,27 +1440,7 @@ namespace IBMConsultantTool
 
             return cupeQuestionList;
         }
-        public override List<CupeQuestionStringData> GetCUPEQuestionStringDataFifteen()
-        {
-            List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
-                                                  where ent.Element("INFIFTEEN").Value == "Y"
-                                                  select ent).ToList();
-
-            List<CupeQuestionStringData> cupeQuestionList = new List<CupeQuestionStringData>();
-            CupeQuestionStringData cupeQuestion;
-            foreach (XElement cupeQuestionEnt in cupeQuestionEntList)
-            {
-                cupeQuestion = new CupeQuestionStringData();
-                cupeQuestion.OriginalQuestionText = cupeQuestion.QuestionText = cupeQuestionEnt.Element("NAME").Value;
-                cupeQuestion.ChoiceA = cupeQuestionEnt.Element("COMMODITY").Value;
-                cupeQuestion.ChoiceB = cupeQuestionEnt.Element("UTILITY").Value;
-                cupeQuestion.ChoiceC = cupeQuestionEnt.Element("PARTNER").Value;
-                cupeQuestion.ChoiceD = cupeQuestionEnt.Element("ENABLER").Value;
-                cupeQuestionList.Add(cupeQuestion);
-            }
-
-            return cupeQuestionList;
-        }
+        
         public override List<CupeQuestionStringData> GetCUPEQuestionStringDataTen()
         {
             List<XElement> cupeQuestionEntList = (from ent in dbo.Element("CUPEQUESTIONS").Elements("CUPEQUESTION")
@@ -1506,7 +1485,6 @@ namespace IBMConsultantTool
             cupeQuestionEnt.Add(new XElement("PARTNER", partner));
             cupeQuestionEnt.Add(new XElement("ENABLER", enabler));
             cupeQuestionEnt.Add(new XElement("INTWENTY", "N"));
-            cupeQuestionEnt.Add(new XElement("INFIFTEEN", "N"));
             cupeQuestionEnt.Add(new XElement("INTEN", "N"));
 
             dbo.Add(cupeQuestionEnt);
@@ -1541,7 +1519,7 @@ namespace IBMConsultantTool
             return cupeQuestions;
         } 
 
-        public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inFifteen, bool inTen)
+        public override bool UpdateCupeQuestion(string cupeQuestion, bool inTwenty, bool inTen)
         {
             XElement cupeQuestionEnt;
             try
@@ -1551,17 +1529,14 @@ namespace IBMConsultantTool
                                    select ent).Single();
 
                 string inTwentyStr = inTwenty ? "Y" : "N";
-                string inFifteenStr = inFifteen? "Y" : "N";
                 string inTenStr = inTen ? "Y" : "N";
 
                 cupeQuestionEnt.Element("INTWENTY").Value = inTwentyStr;
-                cupeQuestionEnt.Element("INFIFTEEN").Value = inFifteenStr;
                 cupeQuestionEnt.Element("INTEN").Value = inTenStr;
 
-                changeLog.Add("UPDATE CUPEQUESTION " + cupeQuestion + " " +
-                              inTwentyStr.Replace(' ', '~') + " " +
-                              inFifteenStr.Replace(' ', '~') + " " + 
-                              inTenStr.Replace(' ', '~'));
+                changeLog.Add("UPDATE CUPEQUESTION " + cupeQuestion.Replace(' ', '~') + " " +
+                              inTwentyStr + " " + 
+                              inTenStr);
             }
 
             catch (Exception e)
@@ -1749,7 +1724,6 @@ namespace IBMConsultantTool
                         cupeQuestionEnt.Add(new XElement("PARTNER", partner));
                         cupeQuestionEnt.Add(new XElement("ENABLER", enabler));
                         cupeQuestionEnt.Add(new XElement("INTWENTY", "N"));
-                        cupeQuestionEnt.Add(new XElement("INFIFTEEN", "N"));
                         cupeQuestionEnt.Add(new XElement("INTEN", "N"));
 
 

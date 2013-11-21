@@ -3185,30 +3185,6 @@ namespace IBMConsultantTool
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String INFIFTEEN
-        {
-            get
-            {
-                return _INFIFTEEN;
-            }
-            set
-            {
-                OnINFIFTEENChanging(value);
-                ReportPropertyChanging("INFIFTEEN");
-                _INFIFTEEN = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("INFIFTEEN");
-                OnINFIFTEENChanged();
-            }
-        }
-        private global::System.String _INFIFTEEN;
-        partial void OnINFIFTEENChanging(global::System.String value);
-        partial void OnINFIFTEENChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String INTEN
         {
             get

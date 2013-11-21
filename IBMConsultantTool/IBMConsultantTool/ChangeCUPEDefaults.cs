@@ -41,10 +41,12 @@ namespace IBMConsultantTool
             int inTen = 0;
             foreach (DataGridViewRow row in CUPEQuestionDataGridView.Rows)
             {
-                if (row.Cells[3].Value != null)
+                if (row.Cells[3].Value != null && row.Cells[3].Value.ToString() != "")
                 {
-                    inTwenty += (bool)row.Cells[0].Value ? 1 : 0;
-                    inTen += (bool)row.Cells[2].Value ? 1 : 0;
+                    row.Cells[0].Value = row.Cells[0].Value == null ? false : row.Cells[0].Value;
+                    row.Cells[2].Value = row.Cells[2].Value == null ? false : row.Cells[2].Value;
+                    inTwenty += row.Cells[0].Value != null && (bool)row.Cells[0].Value ? 1 : 0;
+                    inTen += row.Cells[2].Value != null && (bool)row.Cells[2].Value ? 1 : 0;
                 }
             }
             if (inTwenty != 20)
@@ -61,7 +63,7 @@ namespace IBMConsultantTool
             {
                 if (row.Cells[3].Value != null)
                 {
-                    if (!ClientDataControl.db.UpdateCupeQuestion(row.Cells[3].Value as string, (bool)row.Cells[0].Value, (bool)row.Cells[1].Value, (bool)row.Cells[2].Value))
+                    if (!ClientDataControl.db.UpdateCupeQuestion(row.Cells[3].Value as string, (bool)row.Cells[0].Value, (bool)row.Cells[2].Value))
                     {
                         MessageBox.Show("CUPEQuestion \"" + row.Cells[3].Value as string + "\" Not Found", "Error");
                         return;
