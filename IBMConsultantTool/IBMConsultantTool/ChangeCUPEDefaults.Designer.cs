@@ -31,7 +31,6 @@
             this.CUPEQuestionDataGridView = new System.Windows.Forms.DataGridView();
             this.SaveChangesButton = new System.Windows.Forms.Button();
             this.Default20 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Default15 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Default10 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CUPEQuestion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Commodity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +45,6 @@
             this.CUPEQuestionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CUPEQuestionDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Default20,
-            this.Default15,
             this.Default10,
             this.CUPEQuestion,
             this.Commodity,
@@ -55,6 +53,7 @@
             this.Enabler});
             this.CUPEQuestionDataGridView.Location = new System.Drawing.Point(12, 12);
             this.CUPEQuestionDataGridView.Name = "CUPEQuestionDataGridView";
+            this.CUPEQuestionDataGridView.RowTemplate.ReadOnly = true;
             this.CUPEQuestionDataGridView.Size = new System.Drawing.Size(767, 440);
             this.CUPEQuestionDataGridView.TabIndex = 0;
             // 
@@ -74,13 +73,6 @@
             this.Default20.Name = "Default20";
             this.Default20.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Default20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Default15
-            // 
-            this.Default15.HeaderText = "Default15";
-            this.Default15.Name = "Default15";
-            this.Default15.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Default15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Default10
             // 
@@ -148,7 +140,6 @@
         private System.Windows.Forms.DataGridView CUPEQuestionDataGridView;
         private System.Windows.Forms.Button SaveChangesButton;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Default20;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Default15;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Default10;
         private System.Windows.Forms.DataGridViewTextBoxColumn CUPEQuestion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Commodity;

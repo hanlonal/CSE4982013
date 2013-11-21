@@ -21,18 +21,17 @@ namespace IBMConsultantTool
             {
                 row = CUPEQuestionDataGridView.Rows[0].Clone() as DataGridViewRow;
                 row.Cells[0].Value = data.InDefault20;
-                row.Cells[1].Value = data.InDefault15;
-                row.Cells[2].Value = data.InDefault10;
-                row.Cells[0].ReadOnly = row.Cells[1].ReadOnly = row.Cells[2].ReadOnly = false;
-                row.Cells[3].Value = data.StringData.OriginalQuestionText;
-                row.Cells[4].Value = data.StringData.ChoiceA;
-                row.Cells[5].Value = data.StringData.ChoiceB;
-                row.Cells[6].Value = data.StringData.ChoiceC;
-                row.Cells[7].Value = data.StringData.ChoiceD;
-                row.Cells[3].ReadOnly = row.Cells[4].ReadOnly = row.Cells[5].ReadOnly = 
-                    row.Cells[6].ReadOnly = row.Cells[7].ReadOnly = true;
+                row.Cells[1].Value = data.InDefault10;
+                row.Cells[2].Value = data.StringData.OriginalQuestionText;
+                row.Cells[3].Value = data.StringData.ChoiceA;
+                row.Cells[4].Value = data.StringData.ChoiceB;
+                row.Cells[5].Value = data.StringData.ChoiceC;
+                row.Cells[6].Value = data.StringData.ChoiceD;
                 CUPEQuestionDataGridView.Rows.Add(row);
             }
+
+            CUPEQuestionDataGridView.AllowUserToAddRows = false;
+            CUPEQuestionDataGridView.AllowUserToDeleteRows = false;
         }
 
         private void SaveChangesButton_Click(object sender, EventArgs e)
@@ -41,12 +40,12 @@ namespace IBMConsultantTool
             int inTen = 0;
             foreach (DataGridViewRow row in CUPEQuestionDataGridView.Rows)
             {
-                if (row.Cells[3].Value != null && row.Cells[3].Value.ToString() != "")
+                if (row.Cells[2].Value != null && row.Cells[2].Value.ToString() != "")
                 {
                     row.Cells[0].Value = row.Cells[0].Value == null ? false : row.Cells[0].Value;
-                    row.Cells[2].Value = row.Cells[2].Value == null ? false : row.Cells[2].Value;
+                    row.Cells[1].Value = row.Cells[1].Value == null ? false : row.Cells[1].Value;
                     inTwenty += row.Cells[0].Value != null && (bool)row.Cells[0].Value ? 1 : 0;
-                    inTen += row.Cells[2].Value != null && (bool)row.Cells[2].Value ? 1 : 0;
+                    inTen += row.Cells[1].Value != null && (bool)row.Cells[1].Value ? 1 : 0;
                 }
             }
             if (inTwenty != 20)
@@ -61,11 +60,11 @@ namespace IBMConsultantTool
             }
             foreach (DataGridViewRow row in CUPEQuestionDataGridView.Rows)
             {
-                if (row.Cells[3].Value != null)
+                if (row.Cells[2].Value != null)
                 {
-                    if (!ClientDataControl.db.UpdateCupeQuestion(row.Cells[3].Value as string, (bool)row.Cells[0].Value, (bool)row.Cells[2].Value))
+                    if (!ClientDataControl.db.UpdateCupeQuestion(row.Cells[2].Value as string, (bool)row.Cells[0].Value, (bool)row.Cells[1].Value))
                     {
-                        MessageBox.Show("CUPEQuestion \"" + row.Cells[3].Value as string + "\" Not Found", "Error");
+                        MessageBox.Show("CUPEQuestion \"" + row.Cells[2].Value as string + "\" Not Found", "Error");
                         return;
                     }
                 }
