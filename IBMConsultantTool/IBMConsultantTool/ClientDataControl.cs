@@ -27,7 +27,7 @@ namespace IBMConsultantTool
         private static string emailPassword = "";
         private static string emailDisplay = "";
 
-
+        private static string filePath = "";
 
 
 
@@ -193,6 +193,12 @@ namespace IBMConsultantTool
         {
             get { return emailAddress; }
             set { emailAddress = value; }
+        }
+
+        public string FilePath
+        {
+            get { return filePath; }
+            set { filePath = value; }
         }
 
 

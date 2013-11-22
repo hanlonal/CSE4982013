@@ -12,7 +12,7 @@ namespace IBMConsultantTool
         private string region;
         private string businessType;
         private DateTime startDate;
-
+        private string filepath;
 
         private bool bomCompleted;
         private bool cupeCompleted;
@@ -89,6 +89,12 @@ namespace IBMConsultantTool
             {
                 entityObject = value;
             }
+        }
+
+        public string FilePath
+        {
+            get { return filepath; }
+            set { filepath = value; }
         }
 
 

@@ -1140,7 +1140,7 @@ namespace IBMConsultantTool
                 Bitmap bmp = new Bitmap(this.panelChart.Width, this.panelChart.Height);
                 //new Bitmap(this.panelChart.Width,this.panelChart.Height);
                 this.panelChart.DrawToBitmap(bmp, this.panelChart.Bounds);
-                bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                bmp.Save(ClientDataControl.Client.FilePath + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 //bmp.Save(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
 
                 //Image img = 
