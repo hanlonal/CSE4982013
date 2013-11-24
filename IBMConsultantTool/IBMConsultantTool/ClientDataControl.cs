@@ -46,17 +46,19 @@ namespace IBMConsultantTool
         {
             if (db == null || !isOnline)
             {
+                LoadingDatabase loadingScreen = new LoadingDatabase();
                 try
                 {
                     //throw new Exception();
-                    db = new DBManager();
+                    db = new DBManager(loadingScreen);
                     isOnline = true;
                 }
                 catch (Exception e)
                 {
+                    loadingScreen.Close();
                     db = new FileManager();
                     isOnline = false;
-                    MessageBox.Show("Could not reach database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
+                    MessageBox.Show("Could not connect to database\n\n" + e.Message + "\n\n" + "Offline mode set", "Error");
                 }
             }
 

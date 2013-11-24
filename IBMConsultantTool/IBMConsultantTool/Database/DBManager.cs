@@ -12,11 +12,17 @@ namespace IBMConsultantTool
     {
         public SAMPLEEntities dbo;
 
-        public DBManager()
+        public DBManager(LoadingDatabase loadingScreen)
         {
+            loadingScreen.Show();
             dbo = new SAMPLEEntities();
+            loadingScreen.LoadingTextLabel.Text = "Applying offline changes to database...";
+            loadingScreen.LoadingTextLabel.Update();
             CheckChangeLog();
+            loadingScreen.LoadingTextLabel.Text = "Updating filesystem...";
+            loadingScreen.LoadingTextLabel.Update();
             UpdateDataFile();
+            loadingScreen.Close();
         }
 
         #region Client

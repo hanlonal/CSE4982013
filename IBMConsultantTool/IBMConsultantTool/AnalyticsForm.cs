@@ -28,7 +28,7 @@ namespace IBMConsultantTool
         private DateTime fromTime;
         private DateTime toTime;
         private string currentlyBeingTracked = "";
-        DBManager db = new DBManager();
+        DBManager db = ClientDataControl.db as DBManager;
         TextBox currentBox;
         Chart lineChart = new Chart();
 
