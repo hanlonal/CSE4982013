@@ -394,7 +394,38 @@ namespace IBMConsultantTool
 
         private void deleteDomain_Click(object sender, EventArgs e)
         {
-            //Console.WriteLine("Domain would be deleted");
+            DeleteDomain();
+
+        }
+
+        private void DeleteCapability()
+        {
+            Capability cap = surveryMakerGrid.SelectedRows[0].DataBoundItem as Capability;
+
+            if (cap.QuestionsOwned != null)
+            {
+                foreach (ITCapQuestion question in cap.QuestionsOwned)
+                {
+                     entities.Remove(question);
+                     ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);                    
+                }
+            }
+
+            entities.Remove(cap);
+            ClientDataControl.db.RemoveITCAP(cap.Name, ClientDataControl.Client.EntityObject);
+
+            Domain dom = cap.Owner;
+            dom.CapabilitiesOwned.Remove(cap);
+            if (dom.CapabilitiesOwned.Count == 0)
+            {
+                entities.Remove(dom);
+                domains.Remove(dom);
+            }
+            LoadChartSurvey();
+        }
+
+        private void DeleteDomain()
+        {
             Domain dom = surveryMakerGrid.SelectedRows[0].DataBoundItem as Domain;
 
             foreach (Capability cap in dom.CapabilitiesOwned)
@@ -419,36 +450,7 @@ namespace IBMConsultantTool
             LoadChartSurvey();
         }
 
-        private void deleteCapability_Click(object sender, EventArgs e)
-        {
-            int index = surveryMakerGrid.SelectedRows[0].Index;
-            Capability cap = FindCapabilityByIndex(index);
-            if (cap.QuestionsOwned != null)
-            {
-                foreach (ITCapQuestion question in cap.QuestionsOwned)
-                {
-                    if (question.IsInGrid)
-                    {
-                        question.IsInGrid = false;
-                        surveryMakerGrid.Rows.RemoveAt(question.IndexInGrid);
-                        ClientDataControl.db.RemoveITCAP(question.Name, ClientDataControl.Client.EntityObject);
-                    }
-                }
-            }
-            cap.IsInGrid = false;
-            surveryMakerGrid.Rows.RemoveAt(cap.IndexInGrid);
-
-            Domain dom = cap.Owner;
-            dom.CapabilitiesOwned.Remove(cap);
-            if (dom.CapabilitiesOwned.Count == 0)
-            {
-                entities.Remove(dom);
-                domains.Remove(dom);
-            }
-            LoadChartSurvey();
-        }
-
-        private void deleteAttribute_Click(object sender, EventArgs e)
+        private void DeleteAttribute()
         {
             ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
             entities.Remove(question);
@@ -469,6 +471,17 @@ namespace IBMConsultantTool
             }
 
             LoadChartSurvey();
+
+        }
+
+        private void deleteCapability_Click(object sender, EventArgs e)
+        {
+            DeleteCapability();
+        }
+
+        private void deleteAttribute_Click(object sender, EventArgs e)
+        {
+            DeleteAttribute();
         }
 
 
@@ -1808,6 +1821,53 @@ namespace IBMConsultantTool
             }
 
             generator.CreateCommentDoc(entities);
+        }
+
+        private void changeDefaultsButton_Click(object sender, EventArgs e)
+        {
+            new ChangeITCAPDefaults(this).ShowDialog();
+        }
+
+        private void createQuestionairreButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                ResetSurveyGrid();
+                LoadDomains();
+                if (ClientDataControl.db.RewriteITCAP(this))
+                {
+                    ChangeStates(FormStates.SurveryMaker);
+                }
+            }
+        }
+
+        private void openSurveyButton_Click(object sender, EventArgs e)
+        {
+
+            ResetSurveyGrid();
+
+            ClientDataControl.db.OpenITCAP(this);
+
+            GetAnswers();
+            ChangeStates(FormStates.Open);
+            //GetClientObjectives();
+            PopulateCapabilitiesWithObjectives();
+        }
+
+        private void deleteEntityButton_Click(object sender, EventArgs e)
+        {
+            if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Domain))
+            {
+                DeleteDomain();
+            }
+            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Capability))
+            {
+                DeleteCapability();
+            }
+            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
+            {
+                DeleteAttribute();
+            }
         }
 
     }// end class

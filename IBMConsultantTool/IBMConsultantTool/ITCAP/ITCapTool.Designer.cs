@@ -105,6 +105,14 @@
             this.objectiveToAddButton = new System.Windows.Forms.TextBox();
             this.button13322345 = new System.Windows.Forms.Button();
             this.seperatorLabel = new System.Windows.Forms.Label();
+            this.addEntittyButton = new System.Windows.Forms.Button();
+            this.createQuestionairreButton = new System.Windows.Forms.Button();
+            this.openSurveyButton = new System.Windows.Forms.Button();
+            this.changeDefaultsButton = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.deleteEntityButton = new System.Windows.Forms.Button();
+            this.doneButton = new System.Windows.Forms.Button();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
@@ -116,6 +124,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.liveDataEntryGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prioritizationGrid)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.loadSurveyFromDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,7 +142,7 @@
             this.surveryMakerGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.surveryMakerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.surveryMakerGrid.EnableHeadersVisualStyles = false;
-            this.surveryMakerGrid.Location = new System.Drawing.Point(13, 30);
+            this.surveryMakerGrid.Location = new System.Drawing.Point(192, 30);
             this.surveryMakerGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.surveryMakerGrid.MultiSelect = false;
             this.surveryMakerGrid.Name = "surveryMakerGrid";
@@ -146,7 +155,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.surveryMakerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.surveryMakerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.surveryMakerGrid.Size = new System.Drawing.Size(938, 529);
+            this.surveryMakerGrid.Size = new System.Drawing.Size(759, 529);
             this.surveryMakerGrid.TabIndex = 3;
             this.surveryMakerGrid.Visible = false;
             this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
@@ -548,7 +557,7 @@
             this.AddComment,
             this.dataGridViewTextBoxColumn5});
             this.liveDataEntryGrid.EnableHeadersVisualStyles = false;
-            this.liveDataEntryGrid.Location = new System.Drawing.Point(13, 30);
+            this.liveDataEntryGrid.Location = new System.Drawing.Point(192, 30);
             this.liveDataEntryGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.liveDataEntryGrid.MultiSelect = false;
             this.liveDataEntryGrid.Name = "liveDataEntryGrid";
@@ -562,7 +571,7 @@
             this.liveDataEntryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.liveDataEntryGrid.RowHeadersVisible = false;
             this.liveDataEntryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.liveDataEntryGrid.Size = new System.Drawing.Size(925, 529);
+            this.liveDataEntryGrid.Size = new System.Drawing.Size(746, 529);
             this.liveDataEntryGrid.TabIndex = 17;
             this.liveDataEntryGrid.Visible = false;
             this.liveDataEntryGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveDataEntryGrid_CellContentClick);
@@ -630,7 +639,7 @@
             this.PriorityGap,
             this.dataGridViewTextBoxColumn10});
             this.prioritizationGrid.EnableHeadersVisualStyles = false;
-            this.prioritizationGrid.Location = new System.Drawing.Point(13, 30);
+            this.prioritizationGrid.Location = new System.Drawing.Point(192, 30);
             this.prioritizationGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prioritizationGrid.MultiSelect = false;
             this.prioritizationGrid.Name = "prioritizationGrid";
@@ -644,7 +653,7 @@
             this.prioritizationGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.prioritizationGrid.RowHeadersVisible = false;
             this.prioritizationGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.prioritizationGrid.Size = new System.Drawing.Size(938, 529);
+            this.prioritizationGrid.Size = new System.Drawing.Size(759, 529);
             this.prioritizationGrid.TabIndex = 18;
             this.prioritizationGrid.Visible = false;
             // 
@@ -751,7 +760,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1008, 163);
             this.panel1.TabIndex = 24;
-            this.panel1.Visible = false;
             // 
             // capabilityNameLabel
             // 
@@ -798,7 +806,91 @@
             this.seperatorLabel.TabIndex = 1;
             this.seperatorLabel.Tag = "permenant";
             this.seperatorLabel.Text = "Business Objective Mapping";
-            this.seperatorLabel.Visible = false;
+            // 
+            // addEntittyButton
+            // 
+            this.addEntittyButton.Location = new System.Drawing.Point(0, 324);
+            this.addEntittyButton.Name = "addEntittyButton";
+            this.addEntittyButton.Size = new System.Drawing.Size(164, 31);
+            this.addEntittyButton.TabIndex = 28;
+            this.addEntittyButton.Text = "Add...";
+            this.addEntittyButton.UseVisualStyleBackColor = true;
+            // 
+            // createQuestionairreButton
+            // 
+            this.createQuestionairreButton.Location = new System.Drawing.Point(3, 92);
+            this.createQuestionairreButton.Name = "createQuestionairreButton";
+            this.createQuestionairreButton.Size = new System.Drawing.Size(164, 31);
+            this.createQuestionairreButton.TabIndex = 29;
+            this.createQuestionairreButton.Text = "Create Questionairre";
+            this.createQuestionairreButton.UseVisualStyleBackColor = true;
+            this.createQuestionairreButton.Click += new System.EventHandler(this.createQuestionairreButton_Click);
+            // 
+            // openSurveyButton
+            // 
+            this.openSurveyButton.Location = new System.Drawing.Point(3, 146);
+            this.openSurveyButton.Name = "openSurveyButton";
+            this.openSurveyButton.Size = new System.Drawing.Size(164, 31);
+            this.openSurveyButton.TabIndex = 30;
+            this.openSurveyButton.Text = "Open Client Survey";
+            this.openSurveyButton.UseVisualStyleBackColor = true;
+            this.openSurveyButton.Click += new System.EventHandler(this.openSurveyButton_Click);
+            // 
+            // changeDefaultsButton
+            // 
+            this.changeDefaultsButton.Location = new System.Drawing.Point(0, 38);
+            this.changeDefaultsButton.Name = "changeDefaultsButton";
+            this.changeDefaultsButton.Size = new System.Drawing.Size(164, 31);
+            this.changeDefaultsButton.TabIndex = 31;
+            this.changeDefaultsButton.Text = "Change Defaults";
+            this.changeDefaultsButton.UseVisualStyleBackColor = true;
+            this.changeDefaultsButton.Click += new System.EventHandler(this.changeDefaultsButton_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.doneButton);
+            this.panel2.Controls.Add(this.deleteEntityButton);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.addEntittyButton);
+            this.panel2.Controls.Add(this.openSurveyButton);
+            this.panel2.Controls.Add(this.changeDefaultsButton);
+            this.panel2.Controls.Add(this.createQuestionairreButton);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 25);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(185, 542);
+            this.panel2.TabIndex = 32;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(183, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Current Options";
+            // 
+            // deleteEntityButton
+            // 
+            this.deleteEntityButton.Location = new System.Drawing.Point(0, 379);
+            this.deleteEntityButton.Name = "deleteEntityButton";
+            this.deleteEntityButton.Size = new System.Drawing.Size(164, 31);
+            this.deleteEntityButton.TabIndex = 32;
+            this.deleteEntityButton.Text = "Delete...";
+            this.deleteEntityButton.UseVisualStyleBackColor = true;
+            this.deleteEntityButton.Click += new System.EventHandler(this.deleteEntityButton_Click);
+            // 
+            // doneButton
+            // 
+            this.doneButton.Location = new System.Drawing.Point(0, 473);
+            this.doneButton.Name = "doneButton";
+            this.doneButton.Size = new System.Drawing.Size(164, 31);
+            this.doneButton.TabIndex = 33;
+            this.doneButton.Text = "Done";
+            this.doneButton.UseVisualStyleBackColor = true;
             // 
             // dataGridViewButtonColumn1
             // 
@@ -826,7 +918,7 @@
             this.Collapse,
             this.Flags});
             this.loadSurveyFromDataGrid.EnableHeadersVisualStyles = false;
-            this.loadSurveyFromDataGrid.Location = new System.Drawing.Point(13, 30);
+            this.loadSurveyFromDataGrid.Location = new System.Drawing.Point(192, 30);
             this.loadSurveyFromDataGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.loadSurveyFromDataGrid.MultiSelect = false;
             this.loadSurveyFromDataGrid.Name = "loadSurveyFromDataGrid";
@@ -840,7 +932,7 @@
             this.loadSurveyFromDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.loadSurveyFromDataGrid.RowHeadersVisible = false;
             this.loadSurveyFromDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.loadSurveyFromDataGrid.Size = new System.Drawing.Size(973, 529);
+            this.loadSurveyFromDataGrid.Size = new System.Drawing.Size(794, 529);
             this.loadSurveyFromDataGrid.TabIndex = 21;
             this.loadSurveyFromDataGrid.Visible = false;
             this.loadSurveyFromDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.loadSurveyFromDataGrid_CellClick);
@@ -884,8 +976,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.loadSurveyFromDataGrid);
             this.Controls.Add(this.surveryMakerGrid);
             this.Controls.Add(this.panel1);
@@ -910,6 +1003,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.prioritizationGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.loadSurveyFromDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -992,6 +1086,14 @@
         private System.Windows.Forms.ToolStripMenuItem toBeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createCommentsDocumentToolStripMenuItem;
+        private System.Windows.Forms.Button addEntittyButton;
+        private System.Windows.Forms.Button createQuestionairreButton;
+        private System.Windows.Forms.Button openSurveyButton;
+        private System.Windows.Forms.Button changeDefaultsButton;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button doneButton;
+        private System.Windows.Forms.Button deleteEntityButton;
 
 
     }
