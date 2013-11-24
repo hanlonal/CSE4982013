@@ -30,17 +30,6 @@ namespace IBMConsultantTool
             dateStartedLabel.Text = ClientDataControl.Client.StartDate.ToString().Split(' ')[0];
             clientLocationLabel.Text = ClientDataControl.Client.Region.ToString();
 
-            FolderBrowserDialog openFileDialog1 = new FolderBrowserDialog();
-
-            DialogResult userClickedOK = openFileDialog1.ShowDialog();
-
-            if (userClickedOK == DialogResult.OK)
-            {
-                ClientDataControl.Client.FilePath = openFileDialog1.SelectedPath.ToString();
-                System.Diagnostics.Trace.WriteLine("path: " + openFileDialog1.SelectedPath.ToString());
-                MessageBox.Show("Charts will save in the path you selected.\nYou will find your charts' images in the folder you selected.");
-                    //System.IO.Path.GetDirectoryName().ToString();
-            }
         }
 
         private void StartPage_FormClosed(object sender, FormClosedEventArgs e)
