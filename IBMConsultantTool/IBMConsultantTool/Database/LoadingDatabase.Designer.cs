@@ -37,7 +37,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.LoadingTextLabel.AutoSize = true;
-            this.LoadingTextLabel.Location = new System.Drawing.Point(41, 73);
+            this.LoadingTextLabel.Location = new System.Drawing.Point(12, 73);
             this.LoadingTextLabel.Name = "LoadingTextLabel";
             this.LoadingTextLabel.Size = new System.Drawing.Size(129, 13);
             this.LoadingTextLabel.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(266, 155);
+            this.ClientSize = new System.Drawing.Size(354, 168);
             this.Controls.Add(this.LoadingTextLabel);
             this.Name = "LoadingDatabase";
             this.Text = "Loading Database";

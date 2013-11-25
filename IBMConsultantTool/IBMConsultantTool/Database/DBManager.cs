@@ -18,10 +18,10 @@ namespace IBMConsultantTool
             dbo = new SAMPLEEntities();
             loadingScreen.LoadingTextLabel.Text = "Applying offline changes to database...";
             loadingScreen.LoadingTextLabel.Update();
-            CheckChangeLog();
+            CheckChangeLog(loadingScreen);
             loadingScreen.LoadingTextLabel.Text = "Updating filesystem...";
             loadingScreen.LoadingTextLabel.Update();
-            UpdateDataFile();
+            UpdateDataFile(loadingScreen);
             loadingScreen.Close();
         }
 
@@ -3175,7 +3175,7 @@ namespace IBMConsultantTool
             return true;
         }
         
-        public void UpdateDataFile()
+        public void UpdateDataFile(LoadingDatabase loadingScreen = null)
         {
             if (Directory.Exists(@"Resources\Clients"))
             {
@@ -3186,6 +3186,11 @@ namespace IBMConsultantTool
             List<CLIENT> clientList = GetClients();
             foreach (CLIENT client in clientList)
             {
+                if (loadingScreen != null)
+                {
+                    loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Client " + client.NAME.TrimEnd();
+                    loadingScreen.LoadingTextLabel.Update();
+                }
                 XElement temp = new XElement("CLIENT");
                 temp.Add(new XElement("NAME", client.NAME.TrimEnd()));
                 temp.Add(new XElement("STARTDATE", client.STARTDATE.ToString()));
@@ -3317,6 +3322,12 @@ namespace IBMConsultantTool
 
             XElement root = new XElement("root");
 
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Regions";
+                loadingScreen.LoadingTextLabel.Update();
+            }
+
             List<REGION> regList = dbo.REGION.ToList();
             XElement regElement = new XElement("REGIONS");
             foreach (REGION region in regList)
@@ -3337,6 +3348,12 @@ namespace IBMConsultantTool
             }
             root.Add(regElement);
 
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... BusinessTypes";
+                loadingScreen.LoadingTextLabel.Update();
+            }
+
             List<string> busTypeList = GetBusinessTypeNames();
             XElement busTypeElement = new XElement("BUSINESSTYPES");
             foreach (string busTypeName in busTypeList)
@@ -3346,6 +3363,12 @@ namespace IBMConsultantTool
                 busTypeElement.Add(tempBusType);
             }
             root.Add(busTypeElement);
+
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... BOM";
+                loadingScreen.LoadingTextLabel.Update();
+            }
 
             List<CATEGORY> catList = GetCategories();
             XElement catElement = new XElement("CATEGORIES");
@@ -3377,6 +3400,12 @@ namespace IBMConsultantTool
             }
             root.Add(catElement);
 
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... CUPE";
+                loadingScreen.LoadingTextLabel.Update();
+            }
+
             List<CUPEQUESTION> cqList = dbo.CUPEQUESTION.ToList();
             XElement cqElement = new XElement("CUPEQUESTIONS");
             foreach (CUPEQUESTION cupeQuestion in cqList)
@@ -3392,6 +3421,12 @@ namespace IBMConsultantTool
                 cqElement.Add(tempCQ);
             }
             root.Add(cqElement);
+
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... ITCAP";
+                loadingScreen.LoadingTextLabel.Update();
+            }
 
             List<DOMAIN> domList = GetDomains();
             XElement domElement = new XElement("DOMAINS");
@@ -3436,11 +3471,11 @@ namespace IBMConsultantTool
 
             root.Save(@"Resources\Data.xml");
         }
-        public void CheckChangeLog()
+        public void CheckChangeLog(LoadingDatabase loadingScreen = null)
         {
             List<string> failedChanges = new List<string>();
 
-            string line;
+            //string line;
             string[] lineArray;
 
             CLIENT client;
@@ -3483,7 +3518,12 @@ namespace IBMConsultantTool
 
             using (System.IO.StreamReader file = new System.IO.StreamReader(@"Resources\Changes.log"))
             {
-                while ((line = file.ReadLine()) != null)
+                string allLines = file.ReadToEnd();
+                string[] allLinesArray = allLines.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                //while ((line = file.ReadLine()) != null)
+                float totalLines = allLinesArray.Length;
+                int linesComplete = 0;
+                foreach(string line in allLinesArray)
                 {
                     lineArray = line.Split(' ');
                     if (lineArray[0] == "ADD")
@@ -4165,12 +4205,18 @@ namespace IBMConsultantTool
 
                     if (!SaveChanges())
                     {
-                        if(MessageBox.Show("Instruction failed to execute: \n" + line +
+                        if (MessageBox.Show("Instruction failed to execute: \n" + line +
                                            "\n\nKeep change in log?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             failedChanges.Add(line);
                         }
                         break;
+                    }
+
+                    if (loadingScreen != null)
+                    {
+                        loadingScreen.LoadingTextLabel.Text = "Applying offline changes to database... " + (int)((linesComplete+=100)/totalLines) + "%";
+                        loadingScreen.LoadingTextLabel.Update();
                     }
                 }
             }

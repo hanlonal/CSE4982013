@@ -260,10 +260,10 @@
     <Compile Include="ITCAP\ITCapTool.Designer.cs">
       <DependentUpon>ITCapTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadingDatabase.cs">
+    <Compile Include="Database\LoadingDatabase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoadingDatabase.Designer.cs">
+    <Compile Include="Database\LoadingDatabase.Designer.cs">
       <DependentUpon>LoadingDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingScreen.cs">
@@ -394,7 +394,7 @@
     <EmbeddedResource Include="ITCAP\ITCapTool.resx">
       <DependentUpon>ITCapTool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoadingDatabase.resx">
+    <EmbeddedResource Include="Database\LoadingDatabase.resx">
       <DependentUpon>LoadingDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingScreen.resx">
