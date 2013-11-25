@@ -117,6 +117,8 @@ namespace IBMConsultantTool
 
             surverymakercontrols.Add(capabilityNameTextBox);
 
+            ClearOptionsPanelControls("Start");
+
 
             surverymakercontrols.Add(questionNameTextBox);
             surverymakercontrols.Add(capabilitiesList);
@@ -150,6 +152,19 @@ namespace IBMConsultantTool
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
                 t.SetApartmentState(System.Threading.ApartmentState.STA);
                 t.Start();
+            }
+        }
+
+        private void ClearOptionsPanelControls(string tag)
+        {
+            foreach (Control con in optionsPanel.Controls)
+            {
+                if ((string)con.Tag != tag)
+                {
+                    con.Visible = false;
+                }
+                else
+                    con.Visible = true;
             }
         }
 
@@ -209,6 +224,7 @@ namespace IBMConsultantTool
                     loadSurveyFromDataGrid.Visible = false;
                     panel1.Visible = true;
                     seperatorLabel.Visible = true;
+                    ClearOptionsPanelControls("SurveyMaker");
                     break;
                 case FormStates.LiveDataEntry:
                     //probablly onlt used for testing
@@ -1867,6 +1883,22 @@ namespace IBMConsultantTool
             else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
             {
                 DeleteAttribute();
+            }
+        }
+
+        private void addEntittyButton_Click(object sender, EventArgs e)
+        {
+            if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Domain))
+            {
+                
+            }
+            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Capability))
+            {
+                
+            }
+            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
+            {
+                
             }
         }
 
