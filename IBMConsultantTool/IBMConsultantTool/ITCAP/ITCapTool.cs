@@ -656,17 +656,28 @@ namespace IBMConsultantTool
                 label.Width = 100;
                 label.AutoEllipsis = true;
                 label.Text = val.Name;
-                TextBox combo = new TextBox();
+                ComboBox combo = new ComboBox();
                 combo.Name = "Testing";
                 label.Name = "Testing";
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
                 combo.DataBindings.Clear();
+                combo.Items.Add(0);
+                combo.Items.Add(1);
+                combo.Items.Add(2);
+                combo.Items.Add(3);
+                combo.Width = 50;
+                combo.SelectedItem = val.Value;
                 //combo.DataBindings.Add("Text", val, "Value");
-                combo.DataBindings.Add("Text", val, "Value");
+                combo.DataBindings.Add("SelectedItem", val, "Value");
                // combo.TextChanged +=new EventHandler(combo_TextChanged);
                 combo.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
                 combo.LostFocus +=new EventHandler(combo_LostFocus);
-                //combo.ValueMemberChanged +=new EventHandler(combo_ValueMemberChanged);
+                //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
+                //combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
+              //  combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
+                combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
+                combo.TextChanged +=new EventHandler(combo_TextChanged);
+                combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
                 panel1.Controls.Add(combo);
                 combo.Tag = " ";
                 panel1.Controls.Add(label);
@@ -678,8 +689,64 @@ namespace IBMConsultantTool
             }
         }
 
+        private void combo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            currentcap.CalculatePrioritizedCapabilityGap();
+            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+            }
+            currentGrid.Refresh();
+        }
+
+        private void combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentcap.CalculatePrioritizedCapabilityGap();
+            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+            }
+            currentGrid.Refresh();
+        }
 
         private void combo_LostFocus(object sender, EventArgs e)
+        {
+            currentcap.CalculatePrioritizedCapabilityGap();
+            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+            }
+            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+            {
+                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+            }
+            currentGrid.Refresh();
+        }
+
+        private void combo_TextChanged(object sender, EventArgs e)
         {
             currentcap.CalculatePrioritizedCapabilityGap();
             //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;

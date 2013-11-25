@@ -34,7 +34,6 @@ namespace IBMConsultantTool
 
         public Capability()
         {
-            //Console.WriteLine("capability created");
             sortType = SortTpe.Dynamic;
         }
 
@@ -348,7 +347,7 @@ namespace IBMConsultantTool
         public void AddObjectiveToTrack(string name)
         {
             //OBJECTIVESCORES.Add(name, 0);
-            ObjectiveValues val = new ObjectiveValues(name, 2);
+            ObjectiveValues val = new ObjectiveValues(name, 0);
             objectiveCollection.Add(val);
         }
 
