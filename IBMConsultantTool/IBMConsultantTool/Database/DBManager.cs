@@ -3177,6 +3177,11 @@ namespace IBMConsultantTool
         
         public void UpdateDataFile(LoadingDatabase loadingScreen = null)
         {
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Clearing old files";
+                loadingScreen.LoadingTextLabel.Update();
+            }
             if (Directory.Exists(@"Resources\Clients"))
             {
                 Directory.Delete(@"Resources\Clients", true);
@@ -3188,7 +3193,7 @@ namespace IBMConsultantTool
             {
                 if (loadingScreen != null)
                 {
-                    loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Client " + client.NAME.TrimEnd();
+                    loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing Client " + client.NAME.TrimEnd();
                     loadingScreen.LoadingTextLabel.Update();
                 }
                 XElement temp = new XElement("CLIENT");
@@ -3324,7 +3329,7 @@ namespace IBMConsultantTool
 
             if (loadingScreen != null)
             {
-                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Regions";
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing Regions";
                 loadingScreen.LoadingTextLabel.Update();
             }
 
@@ -3350,7 +3355,7 @@ namespace IBMConsultantTool
 
             if (loadingScreen != null)
             {
-                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... BusinessTypes";
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing BusinessTypes";
                 loadingScreen.LoadingTextLabel.Update();
             }
 
@@ -3366,7 +3371,7 @@ namespace IBMConsultantTool
 
             if (loadingScreen != null)
             {
-                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... BOM";
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing BOM";
                 loadingScreen.LoadingTextLabel.Update();
             }
 
@@ -3402,7 +3407,7 @@ namespace IBMConsultantTool
 
             if (loadingScreen != null)
             {
-                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... CUPE";
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing CUPE";
                 loadingScreen.LoadingTextLabel.Update();
             }
 
@@ -3424,7 +3429,7 @@ namespace IBMConsultantTool
 
             if (loadingScreen != null)
             {
-                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... ITCAP";
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing ITCAP";
                 loadingScreen.LoadingTextLabel.Update();
             }
 
@@ -3518,6 +3523,11 @@ namespace IBMConsultantTool
 
             using (System.IO.StreamReader file = new System.IO.StreamReader(@"Resources\Changes.log"))
             {
+                if (loadingScreen != null)
+                {
+                    loadingScreen.LoadingTextLabel.Text = "Applying offline changes to database... Reading change log";
+                    loadingScreen.LoadingTextLabel.Update();
+                }
                 string allLines = file.ReadToEnd();
                 string[] allLinesArray = allLines.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 //while ((line = file.ReadLine()) != null)
