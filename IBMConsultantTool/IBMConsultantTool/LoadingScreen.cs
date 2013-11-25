@@ -11,12 +11,12 @@ namespace IBMConsultantTool
 {
     public partial class LoadingScreen : Form
     {
-        CUPETool owner;
+        Form owner;
 
-        public LoadingScreen(CUPETool form)
+        public LoadingScreen(int xPos, int yPos, Form form)
         {
             owner = form;
-            //InitializeComponent();
+            InitializeComponent();
 
             owner.Move +=new EventHandler(owner_Move);
             this.ShowInTaskbar = false;
@@ -25,7 +25,7 @@ namespace IBMConsultantTool
             this.Visible = false;
 
             AdjustLocation();
-            InitializeComponent();
+            //InitializeComponent();
         }
 
         private void owner_Move(object sender, EventArgs e)

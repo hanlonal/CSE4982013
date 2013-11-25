@@ -535,7 +535,8 @@
             // 
             // QuestionView
             // 
-            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionView.Cursor = System.Windows.Forms.Cursors.Default;
             this.QuestionView.LabelEdit = true;
@@ -594,7 +595,8 @@
             "Least Commodity",
             "Least Utility",
             "Least Partner",
-            "Least Enabler"});
+            "Least Enabler",
+            "Highest Standard Deviation"});
             this.questionFilter.Location = new System.Drawing.Point(187, 8);
             this.questionFilter.Name = "questionFilter";
             this.questionFilter.Size = new System.Drawing.Size(152, 21);

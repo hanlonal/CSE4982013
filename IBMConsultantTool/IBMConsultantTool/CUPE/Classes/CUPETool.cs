@@ -70,6 +70,11 @@ namespace IBMConsultantTool
             charts.Add(itCurrentGraph);
             charts.Add(itFutureGraph);
 
+            foreach (DataGridView grid in grids)
+            {
+                grid.RowHeadersVisible = false;           
+            }
+
             this.FormClosed += new FormClosedEventHandler(CUPETool_FormClosed);
         }
 
@@ -718,10 +723,98 @@ namespace IBMConsultantTool
                 {
                     FilterQuestionByLowestAnswer(questionFilterAmount.Text, totalDIndex);
                 }
+                if (questionFilter.Text == "Highest Standard Deviation")
+                {
+                    FilterQuestionsByHighestStandardDeviation(questionFilterAmount.Text,averageIndex);
+                }
             }
             catch
             {
             }
+        }
+
+        public void FilterQuestionsByHighestStandardDeviation(string amount, int index)
+        {
+            if (toRemove != null)
+                questionInfoPanel.Controls.Remove(toRemove);
+            Console.WriteLine("here");
+            int num = Convert.ToInt32(amount);
+            List<Tuple<double, int>> values = new List<Tuple<double, int>>();
+            int count = 0;
+            foreach (DataGridViewRow row in currentGrid.Rows)
+            {
+                double avg = Convert.ToDouble(row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString());
+                double sum = 0;
+                double numAnswers = 0;
+                for (int i = 1; i <= currentGrid.ColumnCount - 7; i++)
+                {
+                    if ((row.Cells[i].Value).ToString() == "a" || (row.Cells[i].Value).ToString() == "A")
+                    {
+                        double answer = 1;
+                        sum += Math.Pow(answer - avg, 2);
+                        numAnswers++;
+                    }
+                    else if ((row.Cells[i].Value).ToString() == "b" || (row.Cells[i].Value).ToString() == "B")
+                    {
+                        double answer = 2;
+                        sum += Math.Pow(answer - avg, 2);
+                        numAnswers++;
+                    }
+                    else if ((row.Cells[i].Value).ToString() == "c" || (row.Cells[i].Value).ToString() == "C")
+                    {
+                        double answer = 3;
+                        sum += Math.Pow(answer - avg, 2);
+                        numAnswers++;
+                    }
+                    else if ((row.Cells[i].Value).ToString() == "d" || (row.Cells[i].Value).ToString() == "D")
+                    {
+                        double answer = 4;
+                        sum += Math.Pow(answer - avg, 2);
+                        numAnswers++;
+                    }
+                    else
+                        continue;
+
+
+                }
+                count++;
+                if (count > 20)
+                    break;
+                Console.WriteLine("here before sqrt");
+                double stdDev = Math.Sqrt(sum / numAnswers);
+                Console.WriteLine(stdDev);
+                values.Add(new Tuple<double,int>(stdDev, row.Index));
+                Console.WriteLine("here right after sqrt " + row.Index.ToString());
+            }
+            Console.WriteLine("right before grid creation");
+            DataGridView view = new DataGridView();
+            Console.WriteLine("created grid");
+            view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            toRemove = view;
+            foreach (DataGridViewColumn col in currentGrid.Columns)
+            {
+                view.Columns.Add((DataGridViewColumn)col.Clone());
+                Console.WriteLine("adding columns");
+            }
+
+            values.Sort();
+            Console.WriteLine("just sorted");
+            for (int i = 0; i < num; i++)
+            {
+                DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
+                for (int j = 0; j < currentGrid.ColumnCount; j++)
+                {
+                    row.Cells[j].Value = currentGrid.Rows[values[i].Item2].Cells[j].Value;
+                }
+                view.Rows.Add(row);
+                Console.WriteLine("added rows to new grid");
+            }
+
+            questionInfoPanel.Controls.Add(view);
+            view.Location = new Point(10, 35);
+            view.Width = 550;
+            view.Height = 130;
+
         }
 
         public void FilterQuestionByHighestScore(string amount, int index)
@@ -744,20 +837,17 @@ namespace IBMConsultantTool
             }
 
             DataGridView view = new DataGridView();
+            view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             toRemove = view;
             foreach (DataGridViewColumn col in currentGrid.Columns)
             {
                 view.Columns.Add((DataGridViewColumn)col.Clone());
-                //col.Width = 50;
-
             }
 
             values.Sort();
 
             values.Reverse();
 
-           // DataGridView grid = new DataGridView();
-            
             for (int i = 0; i < num; i++)
             {
                 DataGridViewRow row = (DataGridViewRow)currentGrid.Rows[values[i].Item2].Clone();
@@ -767,16 +857,13 @@ namespace IBMConsultantTool
                 }
                 view.Rows.Add(row);
             }
-            //currentGrid.Columns[0].cl
-
             
             questionInfoPanel.Controls.Add(view);
             view.Location = new Point(10, 35);
             view.Width = 550;
             view.Height = 130;
-            
-
         }
+
         public void FilterQuestionByLowestScore(string amount, int index)
         {
 
@@ -795,19 +882,14 @@ namespace IBMConsultantTool
             }
 
             DataGridView view = new DataGridView();
+            view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             toRemove = view;
             foreach (DataGridViewColumn col in currentGrid.Columns)
             {
                 view.Columns.Add((DataGridViewColumn)col.Clone());
-                //col.Width = 80;
-
             }
 
             values.Sort();
-
-           // values.Reverse();
-
-           // DataGridView grid = new DataGridView();
             
             for (int i = 0; i < num; i++)
             {
@@ -818,13 +900,11 @@ namespace IBMConsultantTool
                 }
                 view.Rows.Add(row);
             }
-            //currentGrid.Columns[0].cl
 
             questionInfoPanel.Controls.Add(view);
             view.Location = new Point(10, 35);
             view.Width = 550;
-            view.Height = 130;
-            
+            view.Height = 130;            
          }
 
         public void FilterQuestionByLowestAnswer(string amount, int index)
@@ -847,12 +927,11 @@ namespace IBMConsultantTool
             }
 
             DataGridView view = new DataGridView();
+            view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             toRemove = view;
             foreach (DataGridViewColumn col in currentGrid.Columns)
             {
-                view.Columns.Add((DataGridViewColumn)col.Clone());
-                //col.Width = 50;
-
+                view.Columns.Add((DataGridViewColumn)col.Clone());                
             }
 
             values.Sort();
@@ -1493,7 +1572,7 @@ namespace IBMConsultantTool
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
 
             
-            loadingScreen = new LoadingScreen(this);
+            LoadingScreen loadingScreen = new LoadingScreen(questionGridBusiFuture.Location.X, questionGridBusiFuture.Location.Y, this );
             UpdateUI(false);
             
             Thread t = new Thread(new ThreadStart(LoadSurveys));

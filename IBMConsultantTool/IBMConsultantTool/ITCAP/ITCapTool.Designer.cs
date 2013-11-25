@@ -809,7 +809,7 @@
             // 
             // addEntittyButton
             // 
-            this.addEntittyButton.Location = new System.Drawing.Point(0, 324);
+            this.addEntittyButton.Location = new System.Drawing.Point(4, 194);
             this.addEntittyButton.Name = "addEntittyButton";
             this.addEntittyButton.Size = new System.Drawing.Size(164, 31);
             this.addEntittyButton.TabIndex = 28;
@@ -870,7 +870,7 @@
             // 
             // doneButton
             // 
-            this.doneButton.Location = new System.Drawing.Point(0, 473);
+            this.doneButton.Location = new System.Drawing.Point(4, 476);
             this.doneButton.Name = "doneButton";
             this.doneButton.Size = new System.Drawing.Size(164, 31);
             this.doneButton.TabIndex = 33;
@@ -880,7 +880,7 @@
             // 
             // deleteEntityButton
             // 
-            this.deleteEntityButton.Location = new System.Drawing.Point(0, 379);
+            this.deleteEntityButton.Location = new System.Drawing.Point(4, 249);
             this.deleteEntityButton.Name = "deleteEntityButton";
             this.deleteEntityButton.Size = new System.Drawing.Size(164, 31);
             this.deleteEntityButton.TabIndex = 32;

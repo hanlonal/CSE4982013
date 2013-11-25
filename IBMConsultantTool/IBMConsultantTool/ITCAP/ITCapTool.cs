@@ -198,12 +198,17 @@ namespace IBMConsultantTool
         {
             if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                mainMenuToolBar.Enabled = false;
+                mainMenuToolBar.Enabled = true;
+                LoadingScreen form = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
+                form.Show();
                 ResetSurveyGrid();
                 LoadDomains();
                 if (ClientDataControl.db.RewriteITCAP(this))
                 {
                     ChangeStates(FormStates.SurveryMaker);
                 }
+                form.Close();
             }
         }
 
@@ -306,30 +311,6 @@ namespace IBMConsultantTool
                 liveDataEntryGrid.Rows[dom.IndexInGrid].Cells[3].Value = dom.CalculateToBeAverage();
             }
         }   
-
-     /*   private void UpdateGapColumns(int rowindex)
-        {
-            DataGridViewRow row = prioritizationGrid.Rows[rowindex];
-            float asis = row.Cells[1].Value != null ? (float)Convert.ToDouble(row.Cells[1].Value.ToString()) : 0;
-            float tobe = row.Cells[2].Value != null ? (float)Convert.ToDouble(row.Cells[2].Value.ToString()) : 0;
-            float gap = tobe - asis;
-
-            if (gap > 1.5 || gap < 3)
-            {
-                row.Cells[3].Style.BackColor = Color.Yellow;
-                row.Cells[3].Value = "Medium Gap";
-            }
-            if (gap >= 3)
-            {
-                row.Cells[3].Style.BackColor = Color.IndianRed;
-                row.Cells[3].Value = "Large Gap";
-            }
-            if (gap <= 1.5)
-            {
-                row.Cells[3].Style.BackColor = Color.LawnGreen;
-                row.Cells[3].Value = "Small Gap";
-            }
-        }*/
 
         private void ToggleControlsVisible(List<Control> controls, bool value)
         {
