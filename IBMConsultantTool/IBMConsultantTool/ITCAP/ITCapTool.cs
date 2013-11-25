@@ -331,45 +331,47 @@ namespace IBMConsultantTool
             if (e.Button == MouseButtons.Right)
             {
                 DataGridView.HitTestInfo hit = surveryMakerGrid.HitTest(e.X, e.Y);
-                //Console.WriteLine(hit.RowIndex.ToString());
-                surveryMakerGrid.Rows[hit.RowIndex].Selected = true;
-                ScoringEntity ent = surveryMakerGrid.SelectedRows[0].DataBoundItem as ScoringEntity;
-                if (ent.Type == "domain")
+                if (hit.RowIndex >= 0)
                 {
-                    ContextMenuStrip strip = new ContextMenuStrip();
-                    ToolStripMenuItem deleteDomain = new ToolStripMenuItem();
-                    deleteDomain.Click += new EventHandler(deleteDomain_Click);
-                    deleteDomain.Text = "Delete Domain";
-                    strip.Items.Add(deleteDomain);
-                    strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                    surveryMakerGrid.Rows[hit.RowIndex].Selected = true;
+                    ScoringEntity ent = surveryMakerGrid.SelectedRows[0].DataBoundItem as ScoringEntity;
+                    if (ent.Type == "domain")
+                    {
+                        ContextMenuStrip strip = new ContextMenuStrip();
+                        ToolStripMenuItem deleteDomain = new ToolStripMenuItem();
+                        deleteDomain.Click += new EventHandler(deleteDomain_Click);
+                        deleteDomain.Text = "Delete Domain";
+                        strip.Items.Add(deleteDomain);
+                        strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                    }
+                    if (ent.Type == "capability")
+                    {
+                        ContextMenuStrip strip = new ContextMenuStrip();
+                        ToolStripMenuItem deletecapability = new ToolStripMenuItem();
+                        ToolStripMenuItem addAttribute = new ToolStripMenuItem();
+                        deletecapability.Click += new EventHandler(deleteCapability_Click);
+                        addAttribute.Click += new EventHandler(addAttribute_Click);
+                        deletecapability.Text = "Delete Capability";
+                        addAttribute.Text = "Add Attribute";
+                        strip.Items.Add(deletecapability);
+                        strip.Items.Add(addAttribute);
+                        strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                    }
+                    if (ent.Type == "attribute")
+                    {
+                        activequestion = (ITCapQuestion)ent;
+                        ContextMenuStrip strip = new ContextMenuStrip();
+                        ToolStripMenuItem deletecapability = new ToolStripMenuItem();
+                        //ToolStripMenuItem editQuestionText = new ToolStripMenuItem();
+                        //editQuestionText.Click += new EventHandler(editQuestionText_Click);
+                        deletecapability.Click += new EventHandler(deleteAttribute_Click);
+                        deletecapability.Text = "Delete Attribute";
+                        //editQuestionText.Text = "Edit Question Text";
+                        strip.Items.Add(deletecapability);
+                        //strip.Items.Add(editQuestionText);
+                        strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
+                    }
                 }
-                if (ent.Type == "capability")
-                {
-                    ContextMenuStrip strip = new ContextMenuStrip();
-                    ToolStripMenuItem deletecapability = new ToolStripMenuItem();
-                    ToolStripMenuItem addAttribute = new ToolStripMenuItem();
-                    deletecapability.Click += new EventHandler(deleteCapability_Click);
-                    addAttribute.Click +=new EventHandler(addAttribute_Click);
-                    deletecapability.Text = "Delete Capability";
-                    addAttribute.Text = "Add Attribute";
-                    strip.Items.Add(deletecapability);
-                    strip.Items.Add(addAttribute);
-                    strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
-                }
-                if (ent.Type == "attribute")
-                {
-                    activequestion = (ITCapQuestion)ent;
-                    ContextMenuStrip strip = new ContextMenuStrip();
-                    ToolStripMenuItem deletecapability = new ToolStripMenuItem();
-                    //ToolStripMenuItem editQuestionText = new ToolStripMenuItem();
-                    //editQuestionText.Click += new EventHandler(editQuestionText_Click);
-                    deletecapability.Click += new EventHandler(deleteAttribute_Click);
-                    deletecapability.Text = "Delete Attribute";
-                    //editQuestionText.Text = "Edit Question Text";
-                    strip.Items.Add(deletecapability);
-                    //strip.Items.Add(editQuestionText);
-                    strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
-                }                
             }
         }
 

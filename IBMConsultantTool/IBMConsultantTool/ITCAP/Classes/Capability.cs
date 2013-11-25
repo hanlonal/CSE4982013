@@ -75,7 +75,7 @@ namespace IBMConsultantTool
             CalculateCapabilityGap();
 
             decimal asIs = Convert.ToDecimal(asIsScore);
-            asIs = Math.Round(asIs, 2);
+            asIs = Math.Round(asIs, 0);
             asIsScore = (float)asIs;
 
             return asIsScore;
