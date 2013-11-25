@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadingDatabase));
             this.LoadingTextLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -37,19 +38,25 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.LoadingTextLabel.AutoSize = true;
-            this.LoadingTextLabel.Location = new System.Drawing.Point(12, 73);
+            this.LoadingTextLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadingTextLabel.Location = new System.Drawing.Point(13, 60);
+            this.LoadingTextLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LoadingTextLabel.Name = "LoadingTextLabel";
-            this.LoadingTextLabel.Size = new System.Drawing.Size(129, 13);
+            this.LoadingTextLabel.Size = new System.Drawing.Size(154, 13);
             this.LoadingTextLabel.TabIndex = 0;
             this.LoadingTextLabel.Text = "Connecting to database...";
             this.LoadingTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoadingDatabase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 168);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(406, 234);
             this.Controls.Add(this.LoadingTextLabel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LoadingDatabase";
             this.Text = "Loading Database";
             this.ResumeLayout(false);

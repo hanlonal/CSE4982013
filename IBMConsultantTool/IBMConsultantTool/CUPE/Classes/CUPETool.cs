@@ -1566,6 +1566,7 @@ namespace IBMConsultantTool
             
             
         }
+
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientDataControl.SetParticipants(new List<Person>());
