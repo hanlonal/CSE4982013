@@ -1740,7 +1740,10 @@ namespace IBMConsultantTool
                 questionTempList.Add(question);
             }
             
-            generator.CreateITCapSurvey(entities);
+            if(!generator.CreateITCapSurvey(entities))
+            {
+                MessageBox.Show("Word encountered an error. Please retry");
+            }
         }
 
         private void openSurveyDocumentsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1942,7 +1945,11 @@ namespace IBMConsultantTool
                 questionTempList.Add(question);
             }
 
-            generator.CreateCommentDoc(entities);
+            if (!generator.CreateCommentDoc(entities))
+            {
+                MessageBox.Show("Word encountered an error. Please retry");
+            }
+        
         }
 
         private void changeDefaultsButton_Click(object sender, EventArgs e)

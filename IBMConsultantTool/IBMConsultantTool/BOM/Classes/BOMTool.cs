@@ -189,7 +189,10 @@ namespace IBMConsultantTool
         private void BomSurveyButton_Click(object sender, EventArgs e)
         {
             SurveyGenerator BomSurvGen = new SurveyGenerator();
-            BomSurvGen.CreateBomSurvey(this.Categories);
+            if(!BomSurvGen.CreateBomSurvey(this.Categories))
+            {
+                MessageBox.Show("Word encountered an error. Please retry");
+            }
         }
 
         private void OpenSurvey_Clicked(object sender, EventArgs e)

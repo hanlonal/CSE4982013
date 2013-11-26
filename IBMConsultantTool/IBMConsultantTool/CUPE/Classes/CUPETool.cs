@@ -1551,7 +1551,10 @@ namespace IBMConsultantTool
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SurveyGenerator generator = new SurveyGenerator();
-            generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions, is20Question);
+            if(!generator.CreateCupeSurvey(ClientDataControl.GetParticipants(), questions, is20Question))
+            {
+                MessageBox.Show("Word encountered an error. Please retry");
+            }
         }
         private void UpdateUI(bool IsDataLoaded)
         {

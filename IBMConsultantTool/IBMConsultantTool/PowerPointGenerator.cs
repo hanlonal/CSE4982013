@@ -151,72 +151,95 @@ namespace IBMConsultantTool
                 Microsoft.Office.Core.MsoTriState.msoTrue);
             objSlides = objPres.Slides;
 
-            //Slide 10
-            //Replace the bullets on Slide 10
-            //
-            objSlide = objSlides[10];
-
-            Power.Shape objShape = objSlide.Shapes[4];
+            Power.Shape objShape = null;
             String tempString = string.Empty;
-            //TODO: change this to objectives
-            foreach (string BomCat in ClientDataControl.db.GetCategoryNames())
+            try
             {
-                tempString += BomCat + "\r";
+                //Slide 10
+                //Replace the bullets on Slide 10
+                //
+                objSlide = objSlides[10];
+
+                objShape = objSlide.Shapes[4];
+                tempString = string.Empty;
+                //TODO: change this to objectives
+                foreach (string BomCat in ClientDataControl.db.GetCategoryNames())
+                {
+                    tempString += BomCat + "\r";
+                }
+                objShape.TextFrame.TextRange.Text = tempString;
+                ///
             }
-            objShape.TextFrame.TextRange.Text = tempString;
-            ///
-
-
-            //Slide 12
-            //Replace the bubblechart picture on slide 12
-            //
-            objSlide = objSlides[12];
-
-            objSlide.Shapes[2].Delete();
-
-
-            objSlide.Shapes.AddPicture(strBubblePic, Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 100, 100, 490, 275);
-            //Change the text on slide 12
-
-            objShape = objSlide.Shapes[3];
-
-            tempString = string.Empty + "Business Imperatives:\v\v ";
-
-            //TODO: Replace with imperatives
-            foreach(String s in ClientDataControl.db.GetDomainNames())
+            catch
             {
-                tempString += s + "\t\t";
+
             }
-            objShape.TextFrame.TextRange.Text = tempString;
-            ///
 
-            ///Slide 19
-            ///
-            objSlide = objSlides[19];
-            objShape = objSlide.Shapes[3];
-            objShape.Delete();
-            objShape = objSlide.Shapes[3];
-            objShape.Delete();
-            objShape = objSlide.Shapes[3];
-            objShape.Delete();
-            objShape = objSlide.Shapes[3];
-            objShape.Delete();
-            objShape = objSlide.Shapes[4];
-            objShape.Delete();
-            objShape = objSlide.Shapes[4];
-            objShape.Delete();
+            try
+            {
+                //Slide 12
+                //Replace the bubblechart picture on slide 12
+                //
+                objSlide = objSlides[12];
 
-            objSlide.Shapes.AddPicture(strBUSCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
-        Microsoft.Office.Core.MsoTriState.msoTrue, 80, 120, 300, 200);
-            objSlide.Shapes.AddPicture(strBUSCUPEFut, Microsoft.Office.Core.MsoTriState.msoFalse,
-        Microsoft.Office.Core.MsoTriState.msoTrue, 80, 320, 300, 200);
-            objSlide.Shapes.AddPicture(strITCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
-        Microsoft.Office.Core.MsoTriState.msoTrue, 360, 120, 300, 200);
-            objSlide.Shapes.AddPicture(strITCUPEFut, Microsoft.Office.Core.MsoTriState.msoFalse,
-        Microsoft.Office.Core.MsoTriState.msoTrue, 360, 320, 300, 200);
+                objSlide.Shapes[2].Delete();
 
-            ///
+
+                objSlide.Shapes.AddPicture(strBubblePic, Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 100, 100, 490, 275);
+                //Change the text on slide 12
+
+                objShape = objSlide.Shapes[3];
+
+                tempString = string.Empty + "Business Imperatives:\v\v ";
+
+                //TODO: Replace with imperatives
+                foreach(String s in ClientDataControl.db.GetDomainNames())
+                {
+                    tempString += s + "\t\t";
+                }
+                objShape.TextFrame.TextRange.Text = tempString;
+                ///
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                ///Slide 19
+                ///
+                objSlide = objSlides[19];
+                objShape = objSlide.Shapes[3];
+                objShape.Delete();
+                objShape = objSlide.Shapes[3];
+                objShape.Delete();
+                objShape = objSlide.Shapes[3];
+                objShape.Delete();
+                objShape = objSlide.Shapes[3];
+                objShape.Delete();
+                objShape = objSlide.Shapes[4];
+                objShape.Delete();
+                objShape = objSlide.Shapes[4];
+                objShape.Delete();
+
+                objSlide.Shapes.AddPicture(strBUSCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
+            Microsoft.Office.Core.MsoTriState.msoTrue, 80, 120, 300, 200);
+                objSlide.Shapes.AddPicture(strBUSCUPEFut, Microsoft.Office.Core.MsoTriState.msoFalse,
+            Microsoft.Office.Core.MsoTriState.msoTrue, 80, 320, 300, 200);
+                objSlide.Shapes.AddPicture(strITCUPECurr, Microsoft.Office.Core.MsoTriState.msoFalse,
+            Microsoft.Office.Core.MsoTriState.msoTrue, 360, 120, 300, 200);
+                objSlide.Shapes.AddPicture(strITCUPEFut, Microsoft.Office.Core.MsoTriState.msoFalse,
+            Microsoft.Office.Core.MsoTriState.msoTrue, 360, 320, 300, 200);
+
+            }
+            catch
+            {
+
+            }
+            try
+            {
             ///Slide 20
             ///
             objSlide = objSlides[20];
@@ -241,20 +264,31 @@ namespace IBMConsultantTool
             objSlide.Shapes.AddPicture(strITComparisonBar, Microsoft.Office.Core.MsoTriState.msoFalse,
         Microsoft.Office.Core.MsoTriState.msoTrue, 350, 100, 350, 380);
 
-            ///
+            }
+            catch
+            {
 
-            ///
-            ///Slide 26
-            ///
-            objSlide = objSlides[26];
-            objShape = objSlide.Shapes[3];
-            objShape.Delete();
+            }
 
-            objSlide.Shapes.AddPicture(strHeatMap, Microsoft.Office.Core.MsoTriState.msoFalse,
-        Microsoft.Office.Core.MsoTriState.msoTrue, 140, 120, 420, 330);
+            try
+            {
+                ///
+                ///Slide 26
+                ///
+                objSlide = objSlides[26];
+                objShape = objSlide.Shapes[3];
+                objShape.Delete();
+
+                objSlide.Shapes.AddPicture(strHeatMap, Microsoft.Office.Core.MsoTriState.msoFalse,
+            Microsoft.Office.Core.MsoTriState.msoTrue, 140, 120, 420, 330);
 
 
-            ///
+                ///
+            }
+            catch
+            {
+
+            }
 
 
         }
