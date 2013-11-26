@@ -15,6 +15,7 @@ namespace IBMConsultantTool
         public DBManager(LoadingDatabase loadingScreen)
         {
             loadingScreen.Show();
+            loadingScreen.LoadingTextLabel.Update();
             dbo = new SAMPLEEntities();
             loadingScreen.LoadingTextLabel.Text = "Applying offline changes to database...";
             loadingScreen.LoadingTextLabel.Update();
