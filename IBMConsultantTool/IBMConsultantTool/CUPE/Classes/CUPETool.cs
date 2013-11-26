@@ -743,6 +743,7 @@ namespace IBMConsultantTool
             int count = 0;
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
+                Console.WriteLine("beginning of function");
                 double avg = Convert.ToDouble(row.Cells[averageIndex + currentGrid.ColumnCount - 7].Value.ToString());
                 double sum = 0;
                 double numAnswers = 0;
@@ -773,13 +774,19 @@ namespace IBMConsultantTool
                         numAnswers++;
                     }
                     else
+                    {
+                        Console.WriteLine("count");
                         continue;
-
+                    }
 
                 }
                 count++;
-                if (count > 20)
+                if (count == 20)
+                {
+                  Console.WriteLine("about to break");
                     break;
+
+                }
                 Console.WriteLine("here before sqrt");
                 double stdDev = Math.Sqrt(sum / numAnswers);
                 Console.WriteLine(stdDev);
@@ -789,6 +796,7 @@ namespace IBMConsultantTool
             Console.WriteLine("right before grid creation");
             DataGridView view = new DataGridView();
             Console.WriteLine("created grid");
+            view.AllowUserToAddRows = false;
             view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             toRemove = view;
             foreach (DataGridViewColumn col in currentGrid.Columns)
@@ -798,6 +806,7 @@ namespace IBMConsultantTool
             }
 
             values.Sort();
+            values.Reverse();
             Console.WriteLine("just sorted");
             for (int i = 0; i < num; i++)
             {

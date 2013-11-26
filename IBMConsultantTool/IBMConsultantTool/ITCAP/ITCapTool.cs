@@ -11,6 +11,7 @@ using System.Resources;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Forms.DataVisualization.Charting;
 using Microsoft.VisualBasic.PowerPacks;
+using System.Threading;
 
 namespace IBMConsultantTool
 {
@@ -36,6 +37,10 @@ namespace IBMConsultantTool
         private List<Control> loadFromSurveyControls = new List<Control>();
         DataGridView currentGrid;
         private Button button13322345;
+
+        public delegate void UpdateUIDelegate(bool IsDataLoaded);
+        private delegate void ObjectDelegate(object obj);
+        private LoadingScreen loadingScreen;
 
         ScoringEntity currentEnt;
 
@@ -126,8 +131,7 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
             surverymakercontrols.Add(addEntityButton);
-            //surverymakercontrols.Add(editQuestionTextbox);
-            //surverymakercontrols.Add(changeTextButton);
+
 
             liveDataEntryControls.Add(liveDataEntryGrid);
             liveDataEntryControls.Add(LiveDataSaveITCAPButton);
@@ -168,6 +172,19 @@ namespace IBMConsultantTool
             }
         }
 
+        private void UpdateUI(bool IsDataLoaded)
+        {
+            if (IsDataLoaded && this.loadingScreen != null)
+            {
+                loadingScreen.Close();
+            }
+            else
+            {
+                loadingScreen.Show();
+               
+            }
+        }
+
         private void RUNTEST()
         {
             Application.Run(new TestForm());
@@ -194,26 +211,53 @@ namespace IBMConsultantTool
             Domain dom = new Domain();
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CreateNewSurvey()
         {
+                 // do we need to switch threads?
+	            if (InvokeRequired)
+	            {
+	                // slightly different now, as we dont need params
+	                // we can just use MethodInvoker
+	                MethodInvoker method = new MethodInvoker(CreateNewSurvey);
+	                Invoke(method);
+	                return;
+	            }
+
+
             if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                mainMenuToolBar.Enabled = false;
-                mainMenuToolBar.Enabled = true;
-                LoadingScreen form = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
-                form.Show();
                 ResetSurveyGrid();
                 LoadDomains();
                 if (ClientDataControl.db.RewriteITCAP(this))
                 {
                     ChangeStates(FormStates.SurveryMaker);
                 }
-                form.Close();
+
+                UpdateUI(true);
+
             }
+        }
+
+        private void DisplayLoadingScreen()
+        {
+
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadingScreen = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
+            UpdateUI(false);
+            Thread t = new Thread(new ThreadStart(CreateNewSurvey));
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.IsBackground = true;
+            t.Start();
+            //CreateNewSurvey();
         }
 
         private void ChangeStates(FormStates stateToGoInto)
         {
+
+
             states = stateToGoInto;
             switch (states)
             {
@@ -564,7 +608,6 @@ namespace IBMConsultantTool
         {
             
             ResetSurveyGrid();
-
             ClientDataControl.db.OpenITCAP(this);
             
             GetAnswers();

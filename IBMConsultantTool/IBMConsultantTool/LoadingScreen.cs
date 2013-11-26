@@ -18,11 +18,12 @@ namespace IBMConsultantTool
             owner = form;
             InitializeComponent();
 
-            owner.Move +=new EventHandler(owner_Move);
+            //owner.Move +=new EventHandler(owner_Move);
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.StartPosition = FormStartPosition.Manual;
             this.Visible = false;
+            this.Location = new Point(xPos, yPos);
 
             AdjustLocation();
             //InitializeComponent();
@@ -36,11 +37,11 @@ namespace IBMConsultantTool
         private void AdjustLocation()
         {
             // Adjust the position relative to main form
-            int dx = (owner.Width - this.Width) / 2;
-            int dy = (owner.Height - this.Height) / 2;
-            Point loc = new Point(owner.Location.X, owner.Location.Y);
-            loc.Offset(dx, dy);
-            this.Location = loc;
+            //int dx = (owner.Width - this.Width) / 2;
+            //int dy = (owner.Height - this.Height) / 2;
+            //Point loc = new Point(owner.Location.X, owner.Location.Y);
+            //loc.Offset(dx, dy);
+            //this.Location = loc;
         }
 
     }// end class   
