@@ -90,17 +90,26 @@ namespace IBMConsultantTool
                                 string temp = BaseIniName + "Diff";
                                 if (temp == form.Name)
                                 {
-                                    ini.Differentiation += Convert.ToSingle(form.Result);
+                                    if (form.Result.StartsWith("  "))
+                                        ini.Differentiation += 0;
+                                    else
+                                        ini.Differentiation += Convert.ToSingle(form.Result);
                                 }
                                 temp = BaseIniName + "Eff";
                                 if (temp == form.Name)
                                 {
-                                    ini.Effectiveness += Convert.ToSingle(form.Result);
+                                    if (form.Result.StartsWith("  "))
+                                        ini.Effectiveness += 0;
+                                    else
+                                        ini.Effectiveness += Convert.ToSingle(form.Result);
                                 }
                                 temp = BaseIniName + "Crit";
                                 if (temp == form.Name)
                                 {
-                                    ini.Criticality += Convert.ToSingle(form.Result);
+                                    if (form.Result.StartsWith("  "))
+                                        ini.Criticality += 0;
+                                    else
+                                        ini.Criticality += Convert.ToSingle(form.Result);
                                 }
                             }
                         }

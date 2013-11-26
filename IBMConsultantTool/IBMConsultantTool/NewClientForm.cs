@@ -13,7 +13,6 @@ namespace IBMConsultantTool
     public partial class NewClientForm : Form
     {
         DateTime selectedTime;
-        private string selectedCloseString = "OK";
 
         public NewClientForm()
         {
@@ -29,8 +28,6 @@ namespace IBMConsultantTool
             //countryComboBox.Items.AddRange(ClientDataControl.GetCoutnryNames());
             RegionComboBox.Items.AddRange(ClientDataControl.GetRegionNames());
             BusinessTypeComboBox.Items.AddRange(ClientDataControl.GetBusinessTypeNames());
-
-            this.FormClosed += new FormClosedEventHandler(NewClientForm_FormClosed);
         }
 
 
@@ -64,7 +61,6 @@ namespace IBMConsultantTool
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            selectedCloseString = "close";
             this.Close();
         }
         private void startDateText_Click(object ender, EventArgs e)
@@ -100,32 +96,6 @@ namespace IBMConsultantTool
             countryComboBox.Items.Clear();
             countryComboBox.Text = "";
             countryComboBox.Items.AddRange(ClientDataControl.db.GetCountryNames(RegionComboBox.Text).ToArray());
-        }
-
-        private void NewClientForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (selectedCloseString == "OK")
-            {
-                //System.Diagnostics.Trace.WriteLine("Name: " + ClientDataControl.Client.Name);
-                //string path = Directory.GetDirectoryRoot(Directory.GetCurrentDirectory());//.CreateDirectory(ClientDataControl.Client.Name);
-                //path = Directory.GetDirectoryRoot(path);
-                string path = "C:\\User\\Desktop\\" + ClientDataControl.Client.Name;
-                Directory.CreateDirectory(@"C:\\User\\Desktop\\" + ClientDataControl.Client.Name);
-                Directory.CreateDirectory(path + "\\Charts");
-
-
-                FolderBrowserDialog openFileDialog1 = new FolderBrowserDialog();
-
-                DialogResult userClickedOK = openFileDialog1.ShowDialog();
-
-                if (userClickedOK == DialogResult.OK)
-                {
-                    ClientDataControl.Client.FilePath = openFileDialog1.SelectedPath.ToString();
-                    System.Diagnostics.Trace.WriteLine("path: " + openFileDialog1.SelectedPath.ToString());
-                    //MessageBox.Show("Charts will save in the path you selected.\nYou will find your charts' images in the folder you selected.");
-                    //System.IO.Path.GetDirectoryName().ToString();
-                }
-            }
         }
 
     }

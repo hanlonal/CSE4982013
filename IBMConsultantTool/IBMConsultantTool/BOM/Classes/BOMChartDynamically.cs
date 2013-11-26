@@ -108,6 +108,8 @@ namespace IBMConsultantTool
             mainForm = info;
             MaxCount = Count();
 
+            //ClientDataControl.Client = mainForm.CompanyName;
+
             for (int i = 0; i < MaxCount; i++)
             {
                 circle[i] = new OvalShape();
@@ -1139,9 +1141,25 @@ namespace IBMConsultantTool
             {*/
                 Bitmap bmp = new Bitmap(this.panelChart.Width, this.panelChart.Height);
                 //new Bitmap(this.panelChart.Width,this.panelChart.Height);
+
                 this.panelChart.DrawToBitmap(bmp, this.panelChart.Bounds);
-                bmp.Save(ClientDataControl.Client.FilePath + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                //bmp.Save(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
+                //System.Diagnostics.Trace.WriteLine("Path: " + ClientDataControl.Client.FilePath.ToString());
+                if (ClientDataControl.Client.FilePath != null)
+                {
+                    System.Diagnostics.Trace.WriteLine("Path: " + ClientDataControl.Client.FilePath.ToString());
+                    bmp.Save(ClientDataControl.Client.FilePath + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+                else
+                {
+                    string path = "C:\\User\\Desktop\\" + ClientDataControl.Client.Name + "\\Charts";
+                    if (Directory.Exists(path))
+                        bmp.Save(path + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    else
+                    {
+                        bmp.Save(Directory.GetCurrentDirectory() + @"/Charts" + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                }
+            //bmp.Save(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
 
                 //Image img = 
                 //bmp.Save(@"C:\Temp\Test.bmp");

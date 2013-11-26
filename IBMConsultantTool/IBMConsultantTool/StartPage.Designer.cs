@@ -43,6 +43,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.clientLocationLabel = new System.Windows.Forms.Label();
+            this.btnFilePath = new System.Windows.Forms.Button();
+            this.labelFilePath = new System.Windows.Forms.Label();
+            this.textFilePathInfo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,8 +121,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImage = global::IBMConsultantTool.Properties.Resources.startpage_logo;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
@@ -138,7 +141,7 @@
             this.label1.Size = new System.Drawing.Size(340, 34);
             this.label1.TabIndex = 12;
             this.label1.Text = "Organize the business objectives and determine the \r\nactions needed to complete t" +
-    "hose objectives. (BOM)\r\n";
+                "hose objectives. (BOM)\r\n";
             // 
             // label2
             // 
@@ -150,7 +153,7 @@
             this.label2.Size = new System.Drawing.Size(311, 51);
             this.label2.TabIndex = 13;
             this.label2.Text = "Utilize the questionairre to determine the client\'s\r\nas-is and to-be state of var" +
-    "ious attributes\r\nthat contribute towards the IT factor. (ITCAP)\r\n";
+                "ious attributes\r\nthat contribute towards the IT factor. (ITCAP)\r\n";
             // 
             // label3
             // 
@@ -162,7 +165,7 @@
             this.label3.Size = new System.Drawing.Size(278, 51);
             this.label3.TabIndex = 14;
             this.label3.Text = "Use hueristics and questionairre replies to \r\ndetermine the state between the IT " +
-    "and \r\nbusiness branches of the client. (CUPE)\r\n";
+                "and \r\nbusiness branches of the client. (CUPE)\r\n";
             // 
             // label4
             // 
@@ -209,6 +212,36 @@
             this.clientLocationLabel.TabIndex = 18;
             this.clientLocationLabel.Text = "Location";
             // 
+            // btnFilePath
+            // 
+            this.btnFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFilePath.Location = new System.Drawing.Point(845, 637);
+            this.btnFilePath.Name = "btnFilePath";
+            this.btnFilePath.Size = new System.Drawing.Size(109, 27);
+            this.btnFilePath.TabIndex = 19;
+            this.btnFilePath.Text = "Browse...";
+            this.btnFilePath.UseVisualStyleBackColor = true;
+            this.btnFilePath.Click += new System.EventHandler(this.btnFilePath_Click);
+            // 
+            // labelFilePath
+            // 
+            this.labelFilePath.AutoSize = true;
+            this.labelFilePath.BackColor = System.Drawing.Color.Transparent;
+            this.labelFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFilePath.Location = new System.Drawing.Point(129, 644);
+            this.labelFilePath.Name = "labelFilePath";
+            this.labelFilePath.Size = new System.Drawing.Size(172, 17);
+            this.labelFilePath.TabIndex = 20;
+            this.labelFilePath.Text = "This is where charts save:";
+            // 
+            // textFilePathInfo
+            // 
+            this.textFilePathInfo.Location = new System.Drawing.Point(412, 638);
+            this.textFilePathInfo.Name = "textFilePathInfo";
+            this.textFilePathInfo.ReadOnly = true;
+            this.textFilePathInfo.Size = new System.Drawing.Size(337, 26);
+            this.textFilePathInfo.TabIndex = 21;
+            // 
             // StartPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -217,6 +250,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1006, 721);
+            this.Controls.Add(this.textFilePathInfo);
+            this.Controls.Add(this.labelFilePath);
+            this.Controls.Add(this.btnFilePath);
             this.Controls.Add(this.clientLocationLabel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -259,5 +295,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label clientLocationLabel;
+        private System.Windows.Forms.Button btnFilePath;
+        private System.Windows.Forms.Label labelFilePath;
+        private System.Windows.Forms.TextBox textFilePathInfo;
     }
 }

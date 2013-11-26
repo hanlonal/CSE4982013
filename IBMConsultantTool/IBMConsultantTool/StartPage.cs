@@ -16,9 +16,21 @@ namespace IBMConsultantTool
 
         string closeState = "close";
 
+        bool browser = false;
+
         public StartPage()
         {
             InitializeComponent();
+
+            string path = "C:\\Charts\\";
+            if (!Directory.Exists(@"C:\\" + "Charts"))
+                Directory.CreateDirectory(@"C:\\" + "Charts");
+            if (!Directory.Exists(@"C:\\Charts\\" + ClientDataControl.Client.Name))
+                Directory.CreateDirectory(path + ClientDataControl.Client.Name);
+
+            ClientDataControl.Client.FilePath = "C:\\Charts\\" + ClientDataControl.Client.Name;
+            textFilePathInfo.Text = ClientDataControl.Client.FilePath;
+
             this.FormClosed += new FormClosedEventHandler(StartPage_FormClosed);
         }
 
@@ -74,12 +86,20 @@ namespace IBMConsultantTool
 
         private void runBomButton_Click(object sender, EventArgs e)
         {
-            closeState = "BOM";
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
-            this.Close();
-            return;
+            if (!browser)
+            {
+                if (MessageBox.Show("You did not choose the File Path to save charts from each tool.\n\nDo you want to use the default File Path for saving charts from each tool?", "File Path Choose", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    browser = true;
+            }
+            else
+            {
+                closeState = "BOM";
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+                this.Close();
+                return;
+            }
         }
 
         private void RUNBOM()
@@ -92,12 +112,20 @@ namespace IBMConsultantTool
 
         private void runCupeButton_Click(object sender, EventArgs e)
         {
-            closeState = "CUPE";
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
-            this.Close();
-            return;
+            if (!browser)
+            {
+                if (MessageBox.Show("You did not choose the File Path to save charts from each tool.\n\nDo you want to use the default File Path for saving charts from each tool?", "File Path Choose", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    browser = true;
+            }
+            else
+            {
+                closeState = "CUPE";
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+                this.Close();
+                return;
+            }
         }
 
         private void RUNCUPE()
@@ -110,12 +138,20 @@ namespace IBMConsultantTool
 
         private void runITCapButton_Click(object sender, EventArgs e)
         {
-            closeState = "ITCap";
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCAP));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
-            this.Close();
-            return;
+            if (!browser)
+            {
+                if (MessageBox.Show("You did not choose the File Path to save charts from each tool.\n\nDo you want to use the default File Path for saving charts from each tool?", "File Path Choose", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    browser = true;
+            }
+            else
+            {
+                closeState = "ITCap";
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCAP));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+                this.Close();
+                return;
+            }
         }
         private void RUNITCAP()
         {
@@ -124,6 +160,35 @@ namespace IBMConsultantTool
 
         #endregion
 
+        private void agreeForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
 
+        private void btnFilePath_Click(object sender, EventArgs e)
+        {
+            string path = "C:\\Charts\\";
+            if (!Directory.Exists(@"C:\\" + "Charts"))
+                Directory.CreateDirectory(@"C:\\" + "Charts");
+            if (!Directory.Exists(@"C:\\Charts\\" + ClientDataControl.Client.Name))
+                Directory.CreateDirectory(path + ClientDataControl.Client.Name);
+
+            ClientDataControl.Client.FilePath = "C:\\Charts\\" + ClientDataControl.Client.Name;
+            textFilePathInfo.Text = ClientDataControl.Client.FilePath;
+
+            FolderBrowserDialog openFileDialog1 = new FolderBrowserDialog();
+
+            DialogResult userClickedOK = openFileDialog1.ShowDialog();
+
+            if (userClickedOK == DialogResult.OK)
+            {
+                ClientDataControl.Client.FilePath = openFileDialog1.SelectedPath.ToString();
+                System.Diagnostics.Trace.WriteLine("path: " + openFileDialog1.SelectedPath.ToString());
+
+                textFilePathInfo.Text = ClientDataControl.Client.FilePath;
+
+                browser = true;
+            }
+        }
     }
 }
