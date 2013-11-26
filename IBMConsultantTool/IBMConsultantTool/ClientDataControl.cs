@@ -51,6 +51,7 @@ namespace IBMConsultantTool
                 {
                     //throw new Exception();
                     db = new DBManager(loadingScreen);
+                    loadingScreen.Close();
                     isOnline = true;
                 }
                 catch (Exception e)

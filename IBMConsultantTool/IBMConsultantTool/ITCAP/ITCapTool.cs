@@ -941,6 +941,12 @@ namespace IBMConsultantTool
                 row.Cells["TobeStandardDeviation"].Style.BackColor = Color.White;                
         }
 
+        private void currentGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
+            e.Cancel = false;
+        }
+
 
 
         private void currentGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -1142,7 +1148,6 @@ namespace IBMConsultantTool
 
         private void currentGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
 
 

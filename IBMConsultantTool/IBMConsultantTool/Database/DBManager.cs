@@ -22,7 +22,6 @@ namespace IBMConsultantTool
             loadingScreen.LoadingTextLabel.Text = "Updating filesystem...";
             loadingScreen.LoadingTextLabel.Update();
             UpdateDataFile(loadingScreen);
-            loadingScreen.Close();
         }
 
         #region Client
