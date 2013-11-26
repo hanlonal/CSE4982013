@@ -180,8 +180,7 @@ namespace IBMConsultantTool
             }
             else
             {
-                loadingScreen.Show();
-               
+                loadingScreen.Show();               
             }
         }
 
@@ -213,6 +212,7 @@ namespace IBMConsultantTool
 
         private void CreateNewSurvey()
         {
+            
                  // do we need to switch threads?
 	            if (InvokeRequired)
 	            {
@@ -222,35 +222,43 @@ namespace IBMConsultantTool
 	                Invoke(method);
 	                return;
 	            }
-
-
-            if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                ResetSurveyGrid();
-                LoadDomains();
-                if (ClientDataControl.db.RewriteITCAP(this))
+                //loadingScreen.Visible = false;
+                if (MessageBox.Show("WARNING: Creating a new survey will overwrite the existing ITCAP Survey for this client. Do you want to continue?", "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    ChangeStates(FormStates.SurveryMaker);
+                    UpdateUI(false);
+                    ResetSurveyGrid();
+                    LoadDomains();
+                    if (ClientDataControl.db.RewriteITCAP(this))
+                    {
+                        ChangeStates(FormStates.SurveryMaker);
+                    }
+
+                    UpdateUI(true);
                 }
+                else
+                    loadingScreen.Visible = false;
 
-                UpdateUI(true);
-
-            }
+            
         }
 
         private void DisplayLoadingScreen()
         {
-
+            loadingScreen = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
+            UpdateUI(false);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            loadingScreen = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
-            UpdateUI(false);
-            Thread t = new Thread(new ThreadStart(CreateNewSurvey));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.IsBackground = true;
-            t.Start();
+
+                loadingScreen = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
+                 
+                Thread t = new Thread(new ThreadStart(CreateNewSurvey));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.IsBackground = true;
+                t.Start();
+               // CreateNewSurvey();
+                UpdateUI(false);
+            
             //CreateNewSurvey();
         }
 

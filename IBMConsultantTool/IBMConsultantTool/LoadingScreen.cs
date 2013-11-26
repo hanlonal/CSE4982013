@@ -21,7 +21,7 @@ namespace IBMConsultantTool
             //owner.Move +=new EventHandler(owner_Move);
             this.ShowInTaskbar = false;
             this.TopMost = true;
-            this.StartPosition = FormStartPosition.Manual;
+            //this.StartPosition = FormStartPosition.Manual;
             this.Visible = false;
             this.Location = new Point(xPos, yPos);
 
