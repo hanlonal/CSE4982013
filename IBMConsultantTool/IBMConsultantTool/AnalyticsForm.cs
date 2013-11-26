@@ -1258,8 +1258,9 @@ namespace IBMConsultantTool
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-                saveName + ".jpg", ChartImageFormat.Jpeg);
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+                //saveName + ".jpg", ChartImageFormat.Jpeg);
         }
 
         public void CreateBarGraph(List<ImperativeTrendAnalysis> init, string title, string chartType)
