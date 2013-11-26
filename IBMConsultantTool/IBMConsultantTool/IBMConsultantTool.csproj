@@ -168,12 +168,6 @@
     <Compile Include="EmailSettingsForm.Designer.cs">
       <DependentUpon>EmailSettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FilePathChooseAgreeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FilePathChooseAgreeForm.Designer.cs">
-      <DependentUpon>FilePathChooseAgreeForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ImperativeTrendAnalysis.cs" />
     <Compile Include="ITAttributeTrendAnalysis.cs" />
     <Compile Include="LoadClientForm.cs">
@@ -368,9 +362,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EmailSettingsForm.resx">
       <DependentUpon>EmailSettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FilePathChooseAgreeForm.resx">
-      <DependentUpon>FilePathChooseAgreeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadClientForm.resx">
       <DependentUpon>LoadClientForm.cs</DependentUpon>
