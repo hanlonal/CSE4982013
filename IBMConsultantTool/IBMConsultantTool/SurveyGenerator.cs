@@ -49,10 +49,10 @@ namespace IBMConsultantTool
             Word._Application oWord;
             Word._Document oDoc;
             oWord = new Word.Application();
-            oWord.Visible = true;
+            oWord.Visible = false;
             oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing);
-            oWord.Activate();
+            //oWord.Activate();
             System.Threading.Thread.Sleep(3000);
 
             //Insert a paragraph at the beginning of the document.
@@ -227,6 +227,7 @@ namespace IBMConsultantTool
                 form.Name = name;
                 c++;
             }
+            oWord.Visible = true;
 
             try
             {
@@ -253,10 +254,10 @@ namespace IBMConsultantTool
             Word._Application oWord;
             Word._Document oDoc;
             oWord = new Word.Application();
-            oWord.Visible = true;
+            oWord.Visible = false;
             oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing);
-            oWord.Activate();
+            //oWord.Activate();
             System.Threading.Thread.Sleep(3000);
 
             //Insert a paragraph at the beginning of the document.
@@ -405,6 +406,7 @@ namespace IBMConsultantTool
                 c++;
             }
 
+            oWord.Visible = true;
             try
             {
                 oDoc.SaveAs("CupeSurvey", Word.WdSaveFormat.wdFormatDocument);
@@ -433,10 +435,10 @@ namespace IBMConsultantTool
             Word._Application oWord;
             Word._Document oDoc;
             oWord = new Word.Application();
-            oWord.Visible = true;
+            oWord.Visible = false;
             oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing);
-            oWord.Activate();
+            //oWord.Activate();
             System.Threading.Thread.Sleep(3000);
 
             //Insert a paragraph at the beginning of the document.
@@ -588,6 +590,8 @@ namespace IBMConsultantTool
                 c++;
             }
 
+            oWord.Visible = true;
+
             try
             {
                 oDoc.SaveAs("ITCapSurvey", Word.WdSaveFormat.wdFormatDocument);
@@ -614,10 +618,10 @@ namespace IBMConsultantTool
             Word._Application oWord;
             Word._Document oDoc;
             oWord = new Word.Application();
-            oWord.Visible = true;
+            oWord.Visible = false;
             oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing);
-            oWord.Activate();
+            //oWord.Activate();
             System.Threading.Thread.Sleep(3000);
 
             //Insert a paragraph at the beginning of the document.
@@ -667,7 +671,7 @@ namespace IBMConsultantTool
 
             oDoc.Protect(Word.WdProtectionType.wdAllowOnlyFormFields, false, string.Empty, false, false);
 
-
+            oWord.Visible = true;
             try
             {
                 oDoc.SaveAs("ITCap Comments", Word.WdSaveFormat.wdFormatDocument);
