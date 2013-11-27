@@ -532,6 +532,7 @@ namespace IBMConsultantTool
 
             try
             {
+                currentChart.SaveImage(ClientDataControl.Client.FilePath + "/" + chartName + ".jpg", ChartImageFormat.Jpeg);
                 currentChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + chartName + ".jpg", ChartImageFormat.Jpeg);
             }
             catch
@@ -1104,6 +1105,7 @@ namespace IBMConsultantTool
                 newChart.Series["Future"].Points.AddXY(questionOfCupe, temp);
             }
 
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -1284,6 +1286,7 @@ namespace IBMConsultantTool
                 newChart.Series["IT"].Points.AddXY(questionOfCupe, temp);
             }
 
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
@@ -2061,6 +2064,7 @@ namespace IBMConsultantTool
 
             newChart.Series["IT Current"].Points.AddY(temp);
 
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -2628,6 +2632,7 @@ namespace IBMConsultantTool
 
             }
 
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -2875,6 +2880,7 @@ namespace IBMConsultantTool
             newChart.Series["Total Enabler"].Points.AddXY(id[1], it[3]);
             newChart.Series["Total Enabler"].Points.AddXY(id[2], total[3]);
 
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -3129,6 +3135,8 @@ namespace IBMConsultantTool
 
                 newChart.Series["Total Enabler"].Points.AddXY((cnt + 1).ToString(), temp);
             }
+
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
@@ -3457,6 +3465,8 @@ namespace IBMConsultantTool
 
                 Bitmap bmp = new Bitmap(chart.Width, chart.Height);
                 chart.DrawToBitmap(bmp, new Rectangle(Point.Empty, bmp.Size));
+
+                bmp.Save(ClientDataControl.Client.FilePath + "/IT Provider Relationship.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "IT Provider Relationship.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }

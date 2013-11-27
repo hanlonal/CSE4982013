@@ -356,6 +356,7 @@ namespace IBMConsultantTool
                 {
                     graphic.CopyFromScreen(this.Location, Point.Empty, this.Size);
                 }
+                bitmap.Save(ClientDataControl.Client.FilePath + "/Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 bitmap.Save(Directory.GetCurrentDirectory() + @"/Charts/" +
                     "Heat Map " + capGapName + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
             }

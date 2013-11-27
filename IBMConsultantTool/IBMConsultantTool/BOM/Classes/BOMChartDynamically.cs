@@ -1148,6 +1148,8 @@ namespace IBMConsultantTool
                 {
                     System.Diagnostics.Trace.WriteLine("Path: " + ClientDataControl.Client.FilePath.ToString());
                     bmp.Save(ClientDataControl.Client.FilePath + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    bmp.Save(Directory.GetCurrentDirectory() + @"/Charts" + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    
                 }
                 else
                 {
@@ -1159,6 +1161,8 @@ namespace IBMConsultantTool
                         bmp.Save(Directory.GetCurrentDirectory() + @"/Charts" + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
                 }
+
+                MessageBox.Show("It saves successfully");
             //bmp.Save(File.Create(save.FileName), System.Drawing.Imaging.ImageFormat.Jpeg);
 
                 //Image img = 

@@ -1512,7 +1512,8 @@ namespace IBMConsultantTool
                 newChart.Series["To_Be"].Points.AddXY(name[i], cur);
             }
 
-            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         public void CreateChart(List<string> name, List<float> current, List<float> future)
@@ -1614,7 +1615,8 @@ namespace IBMConsultantTool
 
             newChart.Series["To_Be"].Points.AddXY("Total", temp);
 
-            newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
 
         private void capabilityAssesmentSummaryScoresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1689,9 +1691,9 @@ namespace IBMConsultantTool
             HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap, capGapType, "Capability Gap");
             chart.Show();
             
-            Bitmap bmp = new Bitmap(chart.Width, chart.Height);
+            /*Bitmap bmp = new Bitmap(chart.Width, chart.Height);
             chart.DrawToBitmap(bmp, new Rectangle(Point.Empty, bmp.Size));
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map Capability Gap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map Capability Gap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);*/
         }
 
         public float CalculateGap(List<float> gap)
@@ -1931,9 +1933,9 @@ namespace IBMConsultantTool
             HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap, capGapType, "Prioritized Capability Gap");
             chart.Show();
 
-            Bitmap bmp = new Bitmap(chart.Width, chart.Height);
+            /*Bitmap bmp = new Bitmap(chart.Width, chart.Height);
             chart.DrawToBitmap(bmp, new Rectangle(Point.Empty, bmp.Size));
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map Prioritized Capability Gap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map Prioritized Capability Gap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);*/
         }
 
         private void createCommentsDocumentToolStripMenuItem_Click(object sender, EventArgs e)

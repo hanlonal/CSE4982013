@@ -148,7 +148,11 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Business Future");
                     metricsComboBox.Items.Add("Business Current");
                     metricsComboBox.Items.Add("IT Future");
-                    metricsComboBox.Items.Add("IT Current");                    
+                    metricsComboBox.Items.Add("IT Current");
+                  
+                    graphTypeComboBox.Items.Clear();
+                    graphTypeComboBox.Items.Add("Line Graph");
+                    graphTypeComboBox.Items.Add("Bar Graph");
                     break;
                 case TrackingState.Objectives:
                     ClearControls("Objectives");
@@ -212,7 +216,7 @@ namespace IBMConsultantTool
             }
             else if (state == TrackingState.ITAttributes)
             {
-                CreateITAttributeGraph(attributesToTrack, "IT Attributes", selectedInfo);
+                CreateITAttributeGraph(attributesToTrack, "IT Attributes", graphType);
             }
             else if (state == TrackingState.Imperatives)
             {
@@ -1970,13 +1974,13 @@ namespace IBMConsultantTool
                 saveName + ".jpg", ChartImageFormat.Jpeg);
         }
 
-        public void CreateCUPEGraph(List<CUPEQuestionTrendAnalysis> cupe, string title, string boxText)
+        public void CreateCUPEGraph(List<CUPEQuestionTrendAnalysis> cupe, string title, string chartType)
         {
             testingLabel.Visible = false;
 
             numberOfGraph = 0;
 
-            string saveName = boxText;
+            string saveName = chartType + " " + metricsComboBox.Text;
 
             if (lineChart != null)
             {
@@ -2001,136 +2005,13 @@ namespace IBMConsultantTool
             int[] sameNum = new int[100];
             int newCntNum = 0;
 
-            #region Business Future Line Graph
+            #region Bar Graph
 
-            if (boxText == "Business Future")
+            if (chartType == "Bar Graph")
             {
-                int[] arrayValue = new int[1000];
-                int indexOfArray = 0;
-                int valueCount = 0;
-                int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
-                {
-                    string name = cupe[cnt].Name;
+                #region Business Future Line Graph
 
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                        seriesName = name;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        valueCount = 0;
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-
-                    if (childrenCount == -1)
-                    {
-                        lineChart.Series.Add(numberOfGraph.ToString());
-                        seriesName = numberOfGraph.ToString();
-                        name = numberOfGraph.ToString();
-
-                        numberOfGraph++;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        valueCount = 0;
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-
-                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                    {
-                        name = seriesName;
-                    }
-
-                    Console.WriteLine(cupe[cnt].Name + " " + cupe[cnt].CupeType + " " + cupe[cnt].Children);
-                    if (cupe[cnt].Children > 0)
-                    {
-                        childrenCount = cupe[cnt].Children;
-                        eachClients = cupe[cnt].Children;
-                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                    }
-
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
-
-                    if (cupe[cnt].CupeType == "Business")
-                    {
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double futureScore = cupe[cnt].FutureAnswer;
-
-                            double[] future = new double[100];
-                            future[cnt] = cupe[cnt].FutureAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
-                                {
-                                    futureScore += cupe[num + cnt + 1].FutureAnswer;
-                                    sameNum[cntNum] = num + cnt + 1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                futureScore /= count;
-
-                                double temp = Convert.ToDouble(futureScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                                valueCount++;
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
-                                valueCount++;
-                            }
-                        }
-                    }
-                    newCount++;
-                    childrenCount--;
-                }
-
-                bool valueIsOne = false;
-                for (int i = 0; i < indexOfArray; i++)
-                {
-                    if (arrayValue[i] == 1)
-                    {
-                        valueIsOne = true;
-                        break;
-                    }
-                }
-                if (valueIsOne)
+                if (metricsComboBox.Text == "Business Future")
                 {
                     numberOfGraph = 0;
 
@@ -2156,8 +2037,8 @@ namespace IBMConsultantTool
 
                     cntNum = 0;
                     newCntNum = 0;
-                    newCount = 0;
-                    childrenCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
 
                     for (int cnt = 0; cnt < cupe.Count; cnt++)
                     {
@@ -2249,12 +2130,10 @@ namespace IBMConsultantTool
                                     temp = (double)tmp;
 
                                     lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                                    valueCount++;
                                 }
                                 else
                                 {
                                     lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
-                                    valueCount++;
                                 }
                             }
                         }
@@ -2262,241 +2141,12 @@ namespace IBMConsultantTool
                         childrenCount--;
                     }
                 }
-                /*int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
-                {
-                    string name = cupe[cnt].Name;
 
-                    if (cupe[cnt].CupeType == "Business")
-                    {
-                        if (lineChart.Series.FindByName(name) == null)
-                        {
-                            lineChart.Series.Add(name);
-                            seriesName = name;
-                            for (int i = 0; i < cntNum; i++)
-                            {
-                                sameNum[i] = new int();
-                            }
-                            cntNum = 0;
-                            newCount = 0;
-                        }
+                #endregion
 
-                        else if (childrenCount == -1)
-                        {
-                            lineChart.Series.Add(numberOfGraph.ToString());
-                            seriesName = numberOfGraph.ToString();
-                            name = numberOfGraph.ToString();
+                #region Business Current Line Graph
 
-                            numberOfGraph++;
-                            for (int i = 0; i < cntNum; i++)
-                            {
-                                sameNum[i] = new int();
-                            }
-                            cntNum = 0;
-                            newCount = 0;
-                        }
-
-                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                        {
-                            name = seriesName;
-                        }
-
-                        if (cupe[cnt].Children > 0)
-                        {
-                            childrenCount = cupe[cnt].Children;
-                            eachClients = cupe[cnt].Children;
-                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                        }
-
-                        lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Line;
-                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                        lineChart.Series[name].YValueType = ChartValueType.Double;
-                        lineChart.Series[name].BorderWidth = 5;
-
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double futureScore = cupe[cnt].FutureAnswer;
-
-                            double[] future = new double[100];
-                            future[cnt] = cupe[cnt].FutureAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num+cnt+1].CupeType == "Business" && date == cupe[num+cnt+1].Date)
-                                {
-                                    futureScore += cupe[num+cnt+1].FutureAnswer;
-                                    sameNum[cntNum] = num+cnt+1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                futureScore /= count;
-
-                                double temp = Convert.ToDouble(futureScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
-                            }
-                        }
-                        newCount++;
-                    }
-                    childrenCount--;
-                }*/
-            }
-
-            #endregion
-
-            #region Business Current Line Graph
-
-            else if (boxText == "Business Current")
-            {
-                int[] arrayValue = new int[1000];
-                int indexOfArray = 0;
-                int valueCount = 0;
-                int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
-                {
-                    string name = cupe[cnt].Name;
-
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                        seriesName = name;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        valueCount = 0;
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-
-                    else if (childrenCount == -1)
-                    {
-                        lineChart.Series.Add(numberOfGraph.ToString());
-                        seriesName = numberOfGraph.ToString();
-                        name = numberOfGraph.ToString();
-
-                        numberOfGraph++;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        valueCount = 0;
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-
-                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                    {
-                        name = seriesName;
-                    }
-
-                    if (cupe[cnt].Children > 0)
-                    {
-                        childrenCount = cupe[cnt].Children;
-                        eachClients = cupe[cnt].Children;
-                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                    }
-
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
-
-                    if (cupe[cnt].CupeType == "Business")
-                    {
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double currentScore = cupe[cnt].CurrentAnswer;
-
-                            double[] current = new double[100];
-                            current[cnt] = cupe[cnt].CurrentAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
-                                {
-                                    currentScore += cupe[num + cnt + 1].CurrentAnswer;
-                                    sameNum[cntNum] = num + cnt + 1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                currentScore /= count;
-
-                                double temp = Convert.ToDouble(currentScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                                valueCount++;
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
-                                valueCount++;
-                            }
-                        }
-                    }
-                    newCount++;
-                    childrenCount--;
-                }
-
-                bool valueIsOne = false;
-                for (int i = 0; i < indexOfArray; i++)
-                {
-                    if (arrayValue[i] == 1)
-                    {
-                        valueIsOne = true;
-                        break;
-                    }
-                }
-                if (valueIsOne)
+                else if (metricsComboBox.Text == "Business Current")
                 {
                     numberOfGraph = 0;
 
@@ -2522,8 +2172,8 @@ namespace IBMConsultantTool
 
                     cntNum = 0;
                     newCntNum = 0;
-                    newCount = 0;
-                    childrenCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
 
                     for (int cnt = 0; cnt < cupe.Count; cnt++)
                     {
@@ -2626,242 +2276,12 @@ namespace IBMConsultantTool
                         childrenCount--;
                     }
                 }
-                /*int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
-                {
-                    string name = cupe[cnt].Name;
 
-                    if (cupe[cnt].CupeType == "Business")
-                    {
+                #endregion
 
-                        if (lineChart.Series.FindByName(name) == null)
-                        {
-                            lineChart.Series.Add(name);
-                            seriesName = name;
-                            for (int i = 0; i < cntNum; i++)
-                            {
-                                sameNum[i] = new int();
-                            }
-                            cntNum = 0;
-                            newCount = 0;
-                        }
+                #region IT Future Line Graph
 
-                        else if (childrenCount == -1)
-                        {
-                            lineChart.Series.Add(numberOfGraph.ToString());
-                            seriesName = numberOfGraph.ToString();
-                            name = numberOfGraph.ToString();
-
-                            numberOfGraph++;
-                            for (int i = 0; i < cntNum; i++)
-                            {
-                                sameNum[i] = new int();
-                            }
-                            cntNum = 0;
-                            newCount = 0;
-                        }
-
-                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                        {
-                            name = seriesName;
-                        }
-
-                        if (cupe[cnt].Children > 0)
-                        {
-                            childrenCount = cupe[cnt].Children;
-                            eachClients = cupe[cnt].Children;
-                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                        }
-
-                        lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Line;
-                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                        lineChart.Series[name].YValueType = ChartValueType.Double;
-                        lineChart.Series[name].BorderWidth = 5;
-
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double currentScore = cupe[cnt].CurrentAnswer;
-
-                            double[] current = new double[100];
-                            current[cnt] = cupe[cnt].CurrentAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
-                                {
-                                    currentScore += cupe[num+cnt+1].CurrentAnswer;
-                                    sameNum[cntNum] = num+cnt+1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                currentScore /= count;
-
-                                double temp = Convert.ToDouble(currentScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
-                            }
-                        }
-                        newCount++;
-                    }
-                    childrenCount--;
-                }*/
-            }
-
-            #endregion
-
-            #region IT Future Line Graph
-
-            else if (boxText == "IT Future")
-            {
-                int[] arrayValue = new int[1000];
-                int indexOfArray = 0;
-                int valueCount = 0;
-                int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
-                {
-                    string name = cupe[cnt].Name;
-
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                        seriesName = name;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        cntNum = 0;
-                        newCount = 0;
-                        valueCount = 0;
-                    }
-
-                    else if (childrenCount == -1)
-                    {
-                        lineChart.Series.Add(numberOfGraph.ToString());
-                        seriesName = numberOfGraph.ToString();
-                        name = numberOfGraph.ToString();
-
-                        numberOfGraph++;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        cntNum = 0;
-                        newCount = 0;
-                        valueCount = 0;
-                    }
-
-                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                    {
-                        name = seriesName;
-                    }
-
-                    if (cupe[cnt].Children > 0)
-                    {
-                        childrenCount = cupe[cnt].Children;
-                        eachClients = cupe[cnt].Children;
-                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                    }
-
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
-
-                    if (cupe[cnt].CupeType == "IT")
-                    {
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double futureScore = cupe[cnt].FutureAnswer;
-
-                            double[] future = new double[100];
-                            future[cnt] = cupe[cnt].FutureAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
-                                {
-                                    futureScore += cupe[num + cnt + 1].FutureAnswer;
-                                    sameNum[cntNum] = num + cnt + 1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                futureScore /= count;
-
-                                double temp = Convert.ToDouble(futureScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                                valueCount++;
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
-                                valueCount++;
-                            }
-                        }
-                    }
-                    newCount++;
-                    childrenCount--;
-                }
-                bool valueIsOne = false;
-                for (int i = 0; i < indexOfArray; i++)
-                {
-                    if (arrayValue[i] == 1)
-                    {
-                        valueIsOne = true;
-                        break;
-                    }
-                }
-                if (valueIsOne)
+                else if (metricsComboBox.Text == "IT Future")
                 {
                     numberOfGraph = 0;
 
@@ -2887,8 +2307,8 @@ namespace IBMConsultantTool
 
                     cntNum = 0;
                     newCntNum = 0;
-                    newCount = 0;
-                    childrenCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
 
                     for (int cnt = 0; cnt < cupe.Count; cnt++)
                     {
@@ -2991,139 +2411,12 @@ namespace IBMConsultantTool
                         childrenCount--;
                     }
                 }
-            }
 
-            #endregion
+                #endregion
 
-            #region IT Current Line Graph
+                #region IT Current Line Graph
 
-            else if (boxText == "IT Current")
-            {
-                int[] arrayValue = new int[1000];
-                int indexOfArray = 0;
-                int valueCount = 0;
-                int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
-                {
-                    string name = cupe[cnt].Name;
-
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                        seriesName = name;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        cntNum = 0;
-                        newCount = 0;
-                        valueCount = 0;
-                    }
-
-                    else if (childrenCount == -1)
-                    {
-                        lineChart.Series.Add(numberOfGraph.ToString());
-                        seriesName = numberOfGraph.ToString();
-                        name = numberOfGraph.ToString();
-
-                        numberOfGraph++;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        cntNum = 0;
-                        newCount = 0;
-                        valueCount = 0;
-                    }
-
-                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                    {
-                        name = seriesName;
-                    }
-
-                    if (cupe[cnt].Children > 0)
-                    {
-                        childrenCount = cupe[cnt].Children;
-                        eachClients = cupe[cnt].Children;
-                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                    }
-
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
-
-                    if (cupe[cnt].CupeType == "IT")
-                    {
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double currentScore = cupe[cnt].CurrentAnswer;
-
-                            double[] current = new double[100];
-                            current[cnt] = cupe[cnt].CurrentAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
-                                {
-                                    currentScore += cupe[num+cnt+1].CurrentAnswer;
-                                    sameNum[cntNum] = num+cnt+1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                currentScore /= count;
-
-                                double temp = Convert.ToDouble(currentScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                                valueCount++;
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
-                                valueCount++;
-                            }
-                        }
-                    }
-                    newCount++;
-                    childrenCount--;
-                }
-
-                bool valueIsOne = false;
-                for (int i = 0; i < indexOfArray; i++)
-                {
-                    if (arrayValue[i] == 1)
-                    {
-                        valueIsOne = true;
-                        break;
-                    }
-                }
-                if (valueIsOne)
+                else if (metricsComboBox.Text == "IT Current")
                 {
                     numberOfGraph = 0;
 
@@ -3149,8 +2442,8 @@ namespace IBMConsultantTool
 
                     cntNum = 0;
                     newCntNum = 0;
-                    newCount = 0;
-                    childrenCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
 
                     for (int cnt = 0; cnt < cupe.Count; cnt++)
                     {
@@ -3253,142 +2546,14 @@ namespace IBMConsultantTool
                         childrenCount--;
                     }
                 }
-            }
 
-            #endregion
+                #endregion
 
-            #region Default Line Graph
+                #region Default Bar Graph
 
-            else
-            {
-                saveName = "Default Business Future";
-                int[] arrayValue = new int[1000];
-                int indexOfArray = 0;
-                int valueCount = 0;
-                int newCount = 0;
-                int childrenCount = 0;
-                for (int cnt = 0; cnt < cupe.Count; cnt++)
+                else
                 {
-                    string name = cupe[cnt].Name;
-
-                    if (lineChart.Series.FindByName(name) == null)
-                    {
-                        lineChart.Series.Add(name);
-                        seriesName = name;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        valueCount = 0;
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-
-                    if (childrenCount == -1)
-                    {
-                        lineChart.Series.Add(numberOfGraph.ToString());
-                        seriesName = numberOfGraph.ToString();
-                        name = numberOfGraph.ToString();
-
-                        numberOfGraph++;
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            sameNum[i] = new int();
-                        }
-                        arrayValue[indexOfArray] = valueCount;
-                        indexOfArray++;
-                        valueCount = 0;
-                        cntNum = 0;
-                        newCount = 0;
-                    }
-
-                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
-                    {
-                        name = seriesName;
-                    }
-
-                    Console.WriteLine(cupe[cnt].Name + " " + cupe[cnt].CupeType + " " + cupe[cnt].Children);
-                    if (cupe[cnt].Children > 0)
-                    {
-                        childrenCount = cupe[cnt].Children;
-                        eachClients = cupe[cnt].Children;
-                        lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
-                    }
-
-                    lineChart.Series[name].ChartArea = title;
-                    lineChart.Series[name].ChartType = SeriesChartType.Line;
-                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
-                    lineChart.Series[name].YValueType = ChartValueType.Double;
-                    lineChart.Series[name].BorderWidth = 5;
-
-                    if (cupe[cnt].CupeType == "Business")
-                    {
-                        for (int i = 0; i < cntNum; i++)
-                        {
-                            if (cnt == sameNum[i])
-                            {
-                                newCntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-
-                        if (newCount != sameNum[newCntNum])
-                        {
-                            double futureScore = cupe[cnt].FutureAnswer;
-
-                            double[] future = new double[100];
-                            future[cnt] = cupe[cnt].FutureAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = 0; num < childrenCount; num++)
-                            {
-                                if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
-                                {
-                                    futureScore += cupe[num + cnt + 1].FutureAnswer;
-                                    sameNum[cntNum] = num + cnt + 1;
-                                    cntNum++;
-                                    count++;
-                                }
-                            }
-
-                            if (count > 1)
-                            {
-                                futureScore /= count;
-
-                                double temp = Convert.ToDouble(futureScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
-
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                                valueCount++;
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
-                                valueCount++;
-                            }
-                        }
-                    }
-                    newCount++;
-                    childrenCount--;
-                }
-
-                bool valueIsOne = false;
-                for (int i = 0; i < indexOfArray; i++)
-                {
-                    if (arrayValue[i] == 1)
-                    {
-                        valueIsOne = true;
-                        break;
-                    }
-                }
-                if (valueIsOne)
-                {
+                    saveName = "Default Business Future as Bar Graph";
                     numberOfGraph = 0;
 
                     if (lineChart != null)
@@ -3413,8 +2578,8 @@ namespace IBMConsultantTool
 
                     cntNum = 0;
                     newCntNum = 0;
-                    newCount = 0;
-                    childrenCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
 
                     for (int cnt = 0; cnt < cupe.Count; cnt++)
                     {
@@ -3506,6 +2671,134 @@ namespace IBMConsultantTool
                                     temp = (double)tmp;
 
                                     lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                }
+                            }
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+                }
+
+                #endregion
+            }
+
+            #endregion
+
+            #region Line Graph
+
+            else
+            {
+                #region Business Future Line Graph
+
+                if (metricsComboBox.Text == "Business Future")
+                {
+                    int[] arrayValue = new int[1000];
+                    int indexOfArray = 0;
+                    int valueCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
+                    {
+                        string name = cupe[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            valueCount = 0;
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            valueCount = 0;
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        Console.WriteLine(cupe[cnt].Name + " " + cupe[cnt].CupeType + " " + cupe[cnt].Children);
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        if (cupe[cnt].CupeType == "Business")
+                        {
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+
+                            if (newCount != sameNum[newCntNum])
+                            {
+                                double futureScore = cupe[cnt].FutureAnswer;
+
+                                double[] future = new double[100];
+                                future[cnt] = cupe[cnt].FutureAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
+                                    {
+                                        futureScore += cupe[num + cnt + 1].FutureAnswer;
+                                        sameNum[cntNum] = num + cnt + 1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    futureScore /= count;
+
+                                    double temp = Convert.ToDouble(futureScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
                                     valueCount++;
                                 }
                                 else
@@ -3518,86 +2811,1344 @@ namespace IBMConsultantTool
                         newCount++;
                         childrenCount--;
                     }
-                    /*if (cupe[cnt].BusinessType == "IT")
+                    /*int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
                     {
+                        string name = cupe[cnt].Name;
+
+                        if (cupe[cnt].CupeType == "Business")
+                        {
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                seriesName = name;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount == -1)
+                            {
+                                lineChart.Series.Add(numberOfGraph.ToString());
+                                seriesName = numberOfGraph.ToString();
+                                name = numberOfGraph.ToString();
+
+                                numberOfGraph++;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                            {
+                                name = seriesName;
+                            }
+
+                            if (cupe[cnt].Children > 0)
+                            {
+                                childrenCount = cupe[cnt].Children;
+                                eachClients = cupe[cnt].Children;
+                                lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                            }
+
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Line;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+                            lineChart.Series[name].BorderWidth = 5;
+
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+                            if (newCount != sameNum[newCntNum])
+                            {
+                                double futureScore = cupe[cnt].FutureAnswer;
+
+                                double[] future = new double[100];
+                                future[cnt] = cupe[cnt].FutureAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num+cnt+1].CupeType == "Business" && date == cupe[num+cnt+1].Date)
+                                    {
+                                        futureScore += cupe[num+cnt+1].FutureAnswer;
+                                        sameNum[cntNum] = num+cnt+1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    futureScore /= count;
+
+                                    double temp = Convert.ToDouble(futureScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                }
+                            }
+                            newCount++;
+                        }
+                        childrenCount--;
+                    }*/
+                }
+
+                #endregion
+
+                #region Business Current Line Graph
+
+                else if (metricsComboBox.Text == "Business Current")
+                {
+                    int[] arrayValue = new int[1000];
+                    int indexOfArray = 0;
+                    int valueCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
+                    {
+                        string name = cupe[cnt].Name;
 
                         if (lineChart.Series.FindByName(name) == null)
                         {
                             lineChart.Series.Add(name);
+                            seriesName = name;
                             for (int i = 0; i < cntNum; i++)
                             {
                                 sameNum[i] = new int();
                             }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            valueCount = 0;
                             cntNum = 0;
                             newCount = 0;
                         }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            valueCount = 0;
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
                         lineChart.Series[name].ChartArea = title;
                         lineChart.Series[name].ChartType = SeriesChartType.Line;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
                         lineChart.Series[name].YValueType = ChartValueType.Double;
                         lineChart.Series[name].BorderWidth = 5;
 
-                        for (int i = 0; i < cntNum; i++)
+                        if (cupe[cnt].CupeType == "Business")
                         {
-                            if (cnt == sameNum[i])
+                            for (int i = 0; i < cntNum; i++)
                             {
-                                cntNum = i;
-                                newCount = cnt;
-                                break;
-                            }
-                        }
-                        if (newCount != sameNum[cntNum])
-                        {
-                            double futureScore = cupe[cnt].FutureAnswer;
-
-                            double[] future = new double[100];
-                            future[cnt] = cupe[cnt].FutureAnswer;
-                            int count = 1;
-
-                            DateTime date = cupe[cnt].Date;
-                            for (int num = (cnt + 1); num < cupe.Count; num++)
-                            {
-                                if (date == cupe[num].Date)
+                                if (cnt == sameNum[i])
                                 {
-                                    futureScore += cupe[num].FutureAnswer;
-                                    sameNum[cntNum] = num;
-                                    cntNum++;
-                                    count++;
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
                                 }
                             }
 
-                            if (count > 1)
+                            if (newCount != sameNum[newCntNum])
                             {
-                                futureScore /= count;
+                                double currentScore = cupe[cnt].CurrentAnswer;
 
-                                double temp = Convert.ToDouble(futureScore);
-                                decimal tmp = Convert.ToDecimal(temp);
-                                tmp = Math.Round(tmp, 2);
-                                temp = (double)tmp;
+                                double[] current = new double[100];
+                                current[cnt] = cupe[cnt].CurrentAnswer;
+                                int count = 1;
 
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
-                            }
-                            else
-                            {
-                                lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
+                                    {
+                                        currentScore += cupe[num + cnt + 1].CurrentAnswer;
+                                        sameNum[cntNum] = num + cnt + 1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    currentScore /= count;
+
+                                    double temp = Convert.ToDouble(currentScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    valueCount++;
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                                    valueCount++;
+                                }
                             }
                         }
                         newCount++;
                         childrenCount--;
+                    }
+
+                    /*bool valueIsOne = false;
+                    for (int i = 0; i < indexOfArray; i++)
+                    {
+                        if (arrayValue[i] == 1)
+                        {
+                            valueIsOne = true;
+                            break;
+                        }
+                    }
+                    if (valueIsOne)
+                    {
+                        numberOfGraph = 0;
+
+                        if (lineChart != null)
+                        {
+                            lineChart.ChartAreas.Clear();
+                            lineChart.Series.Clear();
+                            lineChart.Titles.Clear();
+                        }
+
+                        lineChart.Parent = this.chartPanel;
+                        lineChart.Size = this.chartPanel.Size;
+                        lineChart.Visible = true;
+
+                        lineChart.ChartAreas.Add(title);
+                        lineChart.ChartAreas[title].Visible = true;
+                        lineChart.ChartAreas[title].AxisY.Maximum = 4;
+                        lineChart.ChartAreas[title].AxisX.Interval = 1;
+
+                        seriesName = "";
+
+                        eachClients = 0;
+
+                        cntNum = 0;
+                        newCntNum = 0;
+                        newCount = 0;
+                        childrenCount = 0;
+
+                        for (int cnt = 0; cnt < cupe.Count; cnt++)
+                        {
+                            string name = cupe[cnt].Name;
+
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                seriesName = name;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount == -1)
+                            {
+                                lineChart.Series.Add(numberOfGraph.ToString());
+                                seriesName = numberOfGraph.ToString();
+                                name = numberOfGraph.ToString();
+
+                                numberOfGraph++;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                            {
+                                name = seriesName;
+                            }
+
+                            if (cupe[cnt].Children > 0)
+                            {
+                                childrenCount = cupe[cnt].Children;
+                                eachClients = cupe[cnt].Children;
+                                lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                            }
+
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+
+                            if (cupe[cnt].CupeType == "Business")
+                            {
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    if (cnt == sameNum[i])
+                                    {
+                                        newCntNum = i;
+                                        newCount = cnt;
+                                        break;
+                                    }
+                                }
+
+                                if (newCount != sameNum[newCntNum])
+                                {
+                                    double currentScore = cupe[cnt].FutureAnswer;
+
+                                    double[] current = new double[100];
+                                    current[cnt] = cupe[cnt].CurrentAnswer;
+                                    int count = 1;
+
+                                    DateTime date = cupe[cnt].Date;
+                                    for (int num = 0; num < childrenCount; num++)
+                                    {
+                                        if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
+                                        {
+                                            currentScore += cupe[num + cnt + 1].CurrentAnswer;
+                                            sameNum[cntNum] = num + cnt + 1;
+                                            cntNum++;
+                                            count++;
+                                        }
+                                    }
+
+                                    if (count > 1)
+                                    {
+                                        currentScore /= count;
+
+                                        double temp = Convert.ToDouble(currentScore);
+                                        decimal tmp = Convert.ToDecimal(temp);
+                                        tmp = Math.Round(tmp, 2);
+                                        temp = (double)tmp;
+
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    }
+                                    else
+                                    {
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                                    }
+                                }
+                            }
+                            newCount++;
+                            childrenCount--;
+                        }
+                    }*/
+                    /*int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
+                    {
+                        string name = cupe[cnt].Name;
+
+                        if (cupe[cnt].CupeType == "Business")
+                        {
+
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                seriesName = name;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount == -1)
+                            {
+                                lineChart.Series.Add(numberOfGraph.ToString());
+                                seriesName = numberOfGraph.ToString();
+                                name = numberOfGraph.ToString();
+
+                                numberOfGraph++;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                            {
+                                name = seriesName;
+                            }
+
+                            if (cupe[cnt].Children > 0)
+                            {
+                                childrenCount = cupe[cnt].Children;
+                                eachClients = cupe[cnt].Children;
+                                lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                            }
+
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Line;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+                            lineChart.Series[name].BorderWidth = 5;
+
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+
+                            if (newCount != sameNum[newCntNum])
+                            {
+                                double currentScore = cupe[cnt].CurrentAnswer;
+
+                                double[] current = new double[100];
+                                current[cnt] = cupe[cnt].CurrentAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
+                                    {
+                                        currentScore += cupe[num+cnt+1].CurrentAnswer;
+                                        sameNum[cntNum] = num+cnt+1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    currentScore /= count;
+
+                                    double temp = Convert.ToDouble(currentScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                                }
+                            }
+                            newCount++;
+                        }
+                        childrenCount--;
                     }*/
                 }
+
+                #endregion
+
+                #region IT Future Line Graph
+
+                else if (metricsComboBox.Text == "IT Future")
+                {
+                    int[] arrayValue = new int[1000];
+                    int indexOfArray = 0;
+                    int valueCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
+                    {
+                        string name = cupe[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            cntNum = 0;
+                            newCount = 0;
+                            valueCount = 0;
+                        }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            cntNum = 0;
+                            newCount = 0;
+                            valueCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        if (cupe[cnt].CupeType == "IT")
+                        {
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+
+                            if (newCount != sameNum[newCntNum])
+                            {
+                                double futureScore = cupe[cnt].FutureAnswer;
+
+                                double[] future = new double[100];
+                                future[cnt] = cupe[cnt].FutureAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
+                                    {
+                                        futureScore += cupe[num + cnt + 1].FutureAnswer;
+                                        sameNum[cntNum] = num + cnt + 1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    futureScore /= count;
+
+                                    double temp = Convert.ToDouble(futureScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    valueCount++;
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                    valueCount++;
+                                }
+                            }
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+                    /*bool valueIsOne = false;
+                    for (int i = 0; i < indexOfArray; i++)
+                    {
+                        if (arrayValue[i] == 1)
+                        {
+                            valueIsOne = true;
+                            break;
+                        }
+                    }
+                    if (valueIsOne)
+                    {
+                        numberOfGraph = 0;
+
+                        if (lineChart != null)
+                        {
+                            lineChart.ChartAreas.Clear();
+                            lineChart.Series.Clear();
+                            lineChart.Titles.Clear();
+                        }
+
+                        lineChart.Parent = this.chartPanel;
+                        lineChart.Size = this.chartPanel.Size;
+                        lineChart.Visible = true;
+
+                        lineChart.ChartAreas.Add(title);
+                        lineChart.ChartAreas[title].Visible = true;
+                        lineChart.ChartAreas[title].AxisY.Maximum = 4;
+                        lineChart.ChartAreas[title].AxisX.Interval = 1;
+
+                        seriesName = "";
+
+                        eachClients = 0;
+
+                        cntNum = 0;
+                        newCntNum = 0;
+                        newCount = 0;
+                        childrenCount = 0;
+
+                        for (int cnt = 0; cnt < cupe.Count; cnt++)
+                        {
+                            string name = cupe[cnt].Name;
+
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                seriesName = name;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount == -1)
+                            {
+                                lineChart.Series.Add(numberOfGraph.ToString());
+                                seriesName = numberOfGraph.ToString();
+                                name = numberOfGraph.ToString();
+
+                                numberOfGraph++;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                            {
+                                name = seriesName;
+                            }
+
+                            if (cupe[cnt].Children > 0)
+                            {
+                                childrenCount = cupe[cnt].Children;
+                                eachClients = cupe[cnt].Children;
+                                lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                            }
+
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+
+                            if (cupe[cnt].CupeType == "IT")
+                            {
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    if (cnt == sameNum[i])
+                                    {
+                                        newCntNum = i;
+                                        newCount = cnt;
+                                        break;
+                                    }
+                                }
+
+                                if (newCount != sameNum[newCntNum])
+                                {
+                                    double futureScore = cupe[cnt].FutureAnswer;
+
+                                    double[] current = new double[100];
+                                    current[cnt] = cupe[cnt].CurrentAnswer;
+                                    int count = 1;
+
+                                    DateTime date = cupe[cnt].Date;
+                                    for (int num = 0; num < childrenCount; num++)
+                                    {
+                                        if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
+                                        {
+                                            futureScore += cupe[num + cnt + 1].FutureAnswer;
+                                            sameNum[cntNum] = num + cnt + 1;
+                                            cntNum++;
+                                            count++;
+                                        }
+                                    }
+
+                                    if (count > 1)
+                                    {
+                                        futureScore /= count;
+
+                                        double temp = Convert.ToDouble(futureScore);
+                                        decimal tmp = Convert.ToDecimal(temp);
+                                        tmp = Math.Round(tmp, 2);
+                                        temp = (double)tmp;
+
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    }
+                                    else
+                                    {
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                    }
+                                }
+                            }
+                            newCount++;
+                            childrenCount--;
+                        }
+                    }*/
+                }
+
+                #endregion
+
+                #region IT Current Line Graph
+
+                else if (metricsComboBox.Text == "IT Current")
+                {
+                    int[] arrayValue = new int[1000];
+                    int indexOfArray = 0;
+                    int valueCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
+                    {
+                        string name = cupe[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            cntNum = 0;
+                            newCount = 0;
+                            valueCount = 0;
+                        }
+
+                        else if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            cntNum = 0;
+                            newCount = 0;
+                            valueCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        if (cupe[cnt].CupeType == "IT")
+                        {
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+
+                            if (newCount != sameNum[newCntNum])
+                            {
+                                double currentScore = cupe[cnt].CurrentAnswer;
+
+                                double[] current = new double[100];
+                                current[cnt] = cupe[cnt].CurrentAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
+                                    {
+                                        currentScore += cupe[num + cnt + 1].CurrentAnswer;
+                                        sameNum[cntNum] = num + cnt + 1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    currentScore /= count;
+
+                                    double temp = Convert.ToDouble(currentScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    valueCount++;
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                                    valueCount++;
+                                }
+                            }
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+
+                    /*bool valueIsOne = false;
+                    for (int i = 0; i < indexOfArray; i++)
+                    {
+                        if (arrayValue[i] == 1)
+                        {
+                            valueIsOne = true;
+                            break;
+                        }
+                    }
+                    if (valueIsOne)
+                    {
+                        numberOfGraph = 0;
+
+                        if (lineChart != null)
+                        {
+                            lineChart.ChartAreas.Clear();
+                            lineChart.Series.Clear();
+                            lineChart.Titles.Clear();
+                        }
+
+                        lineChart.Parent = this.chartPanel;
+                        lineChart.Size = this.chartPanel.Size;
+                        lineChart.Visible = true;
+
+                        lineChart.ChartAreas.Add(title);
+                        lineChart.ChartAreas[title].Visible = true;
+                        lineChart.ChartAreas[title].AxisY.Maximum = 4;
+                        lineChart.ChartAreas[title].AxisX.Interval = 1;
+
+                        seriesName = "";
+
+                        eachClients = 0;
+
+                        cntNum = 0;
+                        newCntNum = 0;
+                        newCount = 0;
+                        childrenCount = 0;
+
+                        for (int cnt = 0; cnt < cupe.Count; cnt++)
+                        {
+                            string name = cupe[cnt].Name;
+
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                seriesName = name;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount == -1)
+                            {
+                                lineChart.Series.Add(numberOfGraph.ToString());
+                                seriesName = numberOfGraph.ToString();
+                                name = numberOfGraph.ToString();
+
+                                numberOfGraph++;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                            {
+                                name = seriesName;
+                            }
+
+                            if (cupe[cnt].Children > 0)
+                            {
+                                childrenCount = cupe[cnt].Children;
+                                eachClients = cupe[cnt].Children;
+                                lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                            }
+
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+
+                            if (cupe[cnt].CupeType == "IT")
+                            {
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    if (cnt == sameNum[i])
+                                    {
+                                        newCntNum = i;
+                                        newCount = cnt;
+                                        break;
+                                    }
+                                }
+
+                                if (newCount != sameNum[newCntNum])
+                                {
+                                    double currentScore = cupe[cnt].CurrentAnswer;
+
+                                    double[] current = new double[100];
+                                    current[cnt] = cupe[cnt].CurrentAnswer;
+                                    int count = 1;
+
+                                    DateTime date = cupe[cnt].Date;
+                                    for (int num = 0; num < childrenCount; num++)
+                                    {
+                                        if (cupe[num + cnt + 1].CupeType == "IT" && date == cupe[num + cnt + 1].Date)
+                                        {
+                                            currentScore += cupe[num + cnt + 1].CurrentAnswer;
+                                            sameNum[cntNum] = num + cnt + 1;
+                                            cntNum++;
+                                            count++;
+                                        }
+                                    }
+
+                                    if (count > 1)
+                                    {
+                                        currentScore /= count;
+
+                                        double temp = Convert.ToDouble(currentScore);
+                                        decimal tmp = Convert.ToDecimal(temp);
+                                        tmp = Math.Round(tmp, 2);
+                                        temp = (double)tmp;
+
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    }
+                                    else
+                                    {
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].CurrentAnswer);
+                                    }
+                                }
+                            }
+                            newCount++;
+                            childrenCount--;
+                        }
+                    }*/
+                }
+
+                #endregion
+
+                #region Default Line Graph
+
+                else
+                {
+                    saveName = "Default Business Future";
+                    int[] arrayValue = new int[1000];
+                    int indexOfArray = 0;
+                    int valueCount = 0;
+                    int newCount = 0;
+                    int childrenCount = 0;
+                    for (int cnt = 0; cnt < cupe.Count; cnt++)
+                    {
+                        string name = cupe[cnt].Name;
+
+                        if (lineChart.Series.FindByName(name) == null)
+                        {
+                            lineChart.Series.Add(name);
+                            seriesName = name;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            valueCount = 0;
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        if (childrenCount == -1)
+                        {
+                            lineChart.Series.Add(numberOfGraph.ToString());
+                            seriesName = numberOfGraph.ToString();
+                            name = numberOfGraph.ToString();
+
+                            numberOfGraph++;
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                sameNum[i] = new int();
+                            }
+                            arrayValue[indexOfArray] = valueCount;
+                            indexOfArray++;
+                            valueCount = 0;
+                            cntNum = 0;
+                            newCount = 0;
+                        }
+
+                        else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                        {
+                            name = seriesName;
+                        }
+
+                        Console.WriteLine(cupe[cnt].Name + " " + cupe[cnt].CupeType + " " + cupe[cnt].Children);
+                        if (cupe[cnt].Children > 0)
+                        {
+                            childrenCount = cupe[cnt].Children;
+                            eachClients = cupe[cnt].Children;
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
+                        lineChart.Series[name].ChartArea = title;
+                        lineChart.Series[name].ChartType = SeriesChartType.Line;
+                        lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                        lineChart.Series[name].YValueType = ChartValueType.Double;
+                        lineChart.Series[name].BorderWidth = 5;
+
+                        if (cupe[cnt].CupeType == "Business")
+                        {
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    newCntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+
+                            if (newCount != sameNum[newCntNum])
+                            {
+                                double futureScore = cupe[cnt].FutureAnswer;
+
+                                double[] future = new double[100];
+                                future[cnt] = cupe[cnt].FutureAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = 0; num < childrenCount; num++)
+                                {
+                                    if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
+                                    {
+                                        futureScore += cupe[num + cnt + 1].FutureAnswer;
+                                        sameNum[cntNum] = num + cnt + 1;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    futureScore /= count;
+
+                                    double temp = Convert.ToDouble(futureScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                    valueCount++;
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                    valueCount++;
+                                }
+                            }
+                        }
+                        newCount++;
+                        childrenCount--;
+                    }
+
+                    /*bool valueIsOne = false;
+                    for (int i = 0; i < indexOfArray; i++)
+                    {
+                        if (arrayValue[i] == 1)
+                        {
+                            valueIsOne = true;
+                            break;
+                        }
+                    }
+                    if (valueIsOne)
+                    {
+                        numberOfGraph = 0;
+
+                        if (lineChart != null)
+                        {
+                            lineChart.ChartAreas.Clear();
+                            lineChart.Series.Clear();
+                            lineChart.Titles.Clear();
+                        }
+
+                        lineChart.Parent = this.chartPanel;
+                        lineChart.Size = this.chartPanel.Size;
+                        lineChart.Visible = true;
+
+                        lineChart.ChartAreas.Add(title);
+                        lineChart.ChartAreas[title].Visible = true;
+                        lineChart.ChartAreas[title].AxisY.Maximum = 4;
+                        lineChart.ChartAreas[title].AxisX.Interval = 1;
+
+                        seriesName = "";
+
+                        eachClients = 0;
+
+                        cntNum = 0;
+                        newCntNum = 0;
+                        newCount = 0;
+                        childrenCount = 0;
+
+                        for (int cnt = 0; cnt < cupe.Count; cnt++)
+                        {
+                            string name = cupe[cnt].Name;
+
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                seriesName = name;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount == -1)
+                            {
+                                lineChart.Series.Add(numberOfGraph.ToString());
+                                seriesName = numberOfGraph.ToString();
+                                name = numberOfGraph.ToString();
+
+                                numberOfGraph++;
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+
+                            else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                            {
+                                name = seriesName;
+                            }
+
+                            if (cupe[cnt].Children > 0)
+                            {
+                                childrenCount = cupe[cnt].Children;
+                                eachClients = cupe[cnt].Children;
+                                lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                            }
+
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+
+                            if (cupe[cnt].CupeType == "Business")
+                            {
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    if (cnt == sameNum[i])
+                                    {
+                                        newCntNum = i;
+                                        newCount = cnt;
+                                        break;
+                                    }
+                                }
+
+                                if (newCount != sameNum[newCntNum])
+                                {
+                                    double futureScore = cupe[cnt].FutureAnswer;
+
+                                    double[] current = new double[100];
+                                    current[cnt] = cupe[cnt].CurrentAnswer;
+                                    int count = 1;
+
+                                    DateTime date = cupe[cnt].Date;
+                                    for (int num = 0; num < childrenCount; num++)
+                                    {
+                                        if (cupe[num + cnt + 1].CupeType == "Business" && date == cupe[num + cnt + 1].Date)
+                                        {
+                                            futureScore += cupe[num + cnt + 1].FutureAnswer;
+                                            sameNum[cntNum] = num + cnt + 1;
+                                            cntNum++;
+                                            count++;
+                                        }
+                                    }
+
+                                    if (count > 1)
+                                    {
+                                        futureScore /= count;
+
+                                        double temp = Convert.ToDouble(futureScore);
+                                        decimal tmp = Convert.ToDecimal(temp);
+                                        tmp = Math.Round(tmp, 2);
+                                        temp = (double)tmp;
+
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                        valueCount++;
+                                    }
+                                    else
+                                    {
+                                        lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                        valueCount++;
+                                    }
+                                }
+                            }
+                            newCount++;
+                            childrenCount--;
+                        }
+                        /*if (cupe[cnt].BusinessType == "IT")
+                        {
+
+                            if (lineChart.Series.FindByName(name) == null)
+                            {
+                                lineChart.Series.Add(name);
+                                for (int i = 0; i < cntNum; i++)
+                                {
+                                    sameNum[i] = new int();
+                                }
+                                cntNum = 0;
+                                newCount = 0;
+                            }
+                            lineChart.Series[name].ChartArea = title;
+                            lineChart.Series[name].ChartType = SeriesChartType.Line;
+                            lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                            lineChart.Series[name].YValueType = ChartValueType.Double;
+                            lineChart.Series[name].BorderWidth = 5;
+
+                            for (int i = 0; i < cntNum; i++)
+                            {
+                                if (cnt == sameNum[i])
+                                {
+                                    cntNum = i;
+                                    newCount = cnt;
+                                    break;
+                                }
+                            }
+                            if (newCount != sameNum[cntNum])
+                            {
+                                double futureScore = cupe[cnt].FutureAnswer;
+
+                                double[] future = new double[100];
+                                future[cnt] = cupe[cnt].FutureAnswer;
+                                int count = 1;
+
+                                DateTime date = cupe[cnt].Date;
+                                for (int num = (cnt + 1); num < cupe.Count; num++)
+                                {
+                                    if (date == cupe[num].Date)
+                                    {
+                                        futureScore += cupe[num].FutureAnswer;
+                                        sameNum[cntNum] = num;
+                                        cntNum++;
+                                        count++;
+                                    }
+                                }
+
+                                if (count > 1)
+                                {
+                                    futureScore /= count;
+
+                                    double temp = Convert.ToDouble(futureScore);
+                                    decimal tmp = Convert.ToDecimal(temp);
+                                    tmp = Math.Round(tmp, 2);
+                                    temp = (double)tmp;
+
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, temp);
+                                }
+                                else
+                                {
+                                    lineChart.Series[name].Points.AddXY(cupe[cnt].Date, cupe[cnt].FutureAnswer);
+                                }
+                            }
+                            newCount++;
+                            childrenCount--;
+                        }*/
+                    //}
+                }
+
+                #endregion
             }
 
             #endregion
-
             lineChart.Titles.Add("title");
             lineChart.Titles[0].Name = "title";
             lineChart.Titles["title"].Visible = true;
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            //lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-               // saveName + ".jpg", ChartImageFormat.Jpeg);
+            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+                saveName + ".jpg", ChartImageFormat.Jpeg);
         }
 
         public void CreateCapabilityGraph(List<CapabilityTrendAnalysis> cap, string title, string boxText)
@@ -4210,7 +4761,7 @@ namespace IBMConsultantTool
                 if (state == TrackingState.Capabilities)
                     CreateCapabilityGraph(capabilitiesToTrack, "Capability", metricsComboBox.Text);
                 else if (state == TrackingState.CUPEQuestions)
-                    CreateCUPEGraph(cupeToTrack, "CUPE Question", metricsComboBox.Text);
+                    CreateCUPEGraph(cupeToTrack, "CUPE Question", graphType);
                 else if (state == TrackingState.Imperatives)
                     CreateBarGraph(imperativesToTrack, "Imperatives", graphType);
                 else if (state == TrackingState.ITAttributes)
