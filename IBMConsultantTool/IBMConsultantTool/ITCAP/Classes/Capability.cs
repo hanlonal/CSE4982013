@@ -353,11 +353,7 @@ namespace IBMConsultantTool
 
         public override void CalculatePrioritizedCapabilityGap()
         {
-            prioritizedCapabilityGap = 0;
-            foreach (ObjectiveValues val in ObjectiveCollection)
-            {
-                prioritizedCapabilityGap += val.Value;
-            }
+            //NEEDS TO BE DONE YOU HVAE FORMULA NOW
             CalculatePrioritizedGapText();
 
         }

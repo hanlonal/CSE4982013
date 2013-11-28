@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.CUPEQuestionDataGridView = new System.Windows.Forms.DataGridView();
-            this.SaveChangesButton = new System.Windows.Forms.Button();
             this.Default20 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Default10 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CUPEQuestion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +36,8 @@
             this.Utility = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Partner = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Enabler = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SaveChangesButton = new System.Windows.Forms.Button();
+            this.addQuestionButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CUPEQuestionDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,16 +57,6 @@
             this.CUPEQuestionDataGridView.RowTemplate.ReadOnly = true;
             this.CUPEQuestionDataGridView.Size = new System.Drawing.Size(767, 440);
             this.CUPEQuestionDataGridView.TabIndex = 0;
-            // 
-            // SaveChangesButton
-            // 
-            this.SaveChangesButton.Location = new System.Drawing.Point(343, 495);
-            this.SaveChangesButton.Name = "SaveChangesButton";
-            this.SaveChangesButton.Size = new System.Drawing.Size(118, 23);
-            this.SaveChangesButton.TabIndex = 1;
-            this.SaveChangesButton.Text = "Save Changes";
-            this.SaveChangesButton.UseVisualStyleBackColor = true;
-            this.SaveChangesButton.Click += new System.EventHandler(this.SaveChangesButton_Click);
             // 
             // Default20
             // 
@@ -121,11 +112,32 @@
             this.Enabler.ReadOnly = true;
             this.Enabler.Width = 600;
             // 
+            // SaveChangesButton
+            // 
+            this.SaveChangesButton.Location = new System.Drawing.Point(343, 495);
+            this.SaveChangesButton.Name = "SaveChangesButton";
+            this.SaveChangesButton.Size = new System.Drawing.Size(118, 23);
+            this.SaveChangesButton.TabIndex = 1;
+            this.SaveChangesButton.Text = "Save Changes";
+            this.SaveChangesButton.UseVisualStyleBackColor = true;
+            this.SaveChangesButton.Click += new System.EventHandler(this.SaveChangesButton_Click);
+            // 
+            // addQuestionButton
+            // 
+            this.addQuestionButton.Location = new System.Drawing.Point(186, 495);
+            this.addQuestionButton.Name = "addQuestionButton";
+            this.addQuestionButton.Size = new System.Drawing.Size(101, 23);
+            this.addQuestionButton.TabIndex = 2;
+            this.addQuestionButton.Text = "Add Question";
+            this.addQuestionButton.UseVisualStyleBackColor = true;
+            this.addQuestionButton.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ChangeCUPEDefaults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(790, 562);
+            this.Controls.Add(this.addQuestionButton);
             this.Controls.Add(this.SaveChangesButton);
             this.Controls.Add(this.CUPEQuestionDataGridView);
             this.Name = "ChangeCUPEDefaults";
@@ -146,5 +158,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Utility;
         private System.Windows.Forms.DataGridViewTextBoxColumn Partner;
         private System.Windows.Forms.DataGridViewTextBoxColumn Enabler;
+        private System.Windows.Forms.Button addQuestionButton;
     }
 }

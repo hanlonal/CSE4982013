@@ -150,6 +150,12 @@
       <DependentUpon>ClearGridForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CUPEQuestionTrendAnalysis.cs" />
+    <Compile Include="CUPE\Classes\AddCupeQuestionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUPE\Classes\AddCupeQuestionForm.Designer.cs">
+      <DependentUpon>AddCupeQuestionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CUPE\Classes\ITProviderRelationshipGraph.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -353,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClearGridForm.resx">
       <DependentUpon>ClearGridForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUPE\Classes\AddCupeQuestionForm.resx">
+      <DependentUpon>AddCupeQuestionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CUPE\Classes\ITProviderRelationshipGraph.resx">
       <DependentUpon>ITProviderRelationshipGraph.cs</DependentUpon>

@@ -1356,6 +1356,7 @@ namespace IBMConsultantTool
             cupeQuestionEnt.PARTNER = cupeQuestion.ChoiceC;
             cupeQuestionEnt.ENABLER = cupeQuestion.ChoiceD;
             cupeQuestionEnt.INTWENTY = cupeQuestionEnt.INTEN = "N";
+            
 
             dbo.AddToCUPEQUESTION(cupeQuestionEnt);
 
