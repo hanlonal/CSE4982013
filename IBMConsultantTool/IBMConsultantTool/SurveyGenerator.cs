@@ -203,7 +203,7 @@ namespace IBMConsultantTool
                 //    }
                 oTable.Rows[1].Range.Font.Bold = 1;
                 oTable.Rows[1].Range.Font.Italic = 1;
-                oTable.Rows[1].Range.Font.Size = 10;
+                oTable.Rows[1].Range.Font.Size = 14;
             
             
                 //Word.Range range = oDoc.Range(0, 20);
@@ -355,10 +355,10 @@ namespace IBMConsultantTool
                 {
 
                     oTable.Cell(r, 1).Range.Text = question.QuestionText +
-                        Environment.NewLine + question.ChoiceA +
-                        Environment.NewLine + question.ChoiceB +
-                        Environment.NewLine + question.ChoiceC +
-                        Environment.NewLine + question.ChoiceD +
+                        Environment.NewLine + "A.) " + question.ChoiceA +
+                        Environment.NewLine + "B.) " + question.ChoiceB +
+                        Environment.NewLine + "C.) " + question.ChoiceC +
+                        Environment.NewLine + "D.) " +question.ChoiceD +
                         Environment.NewLine + Environment.NewLine;
  
                     r++;
