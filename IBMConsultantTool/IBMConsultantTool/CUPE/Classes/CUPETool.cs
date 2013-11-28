@@ -3489,6 +3489,12 @@ namespace IBMConsultantTool
             removePersonColumns();
         }
 
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm form = new SettingsForm();
+            form.Show();
+        }
+
     }// end class
 
 

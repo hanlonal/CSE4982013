@@ -88,6 +88,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,7 +118,6 @@
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
@@ -340,8 +340,8 @@
             this.changeDefaultsToolStripMenuItem,
             this.preferencesToolStripMenuItem});
             this.ChangeDefaults.Name = "ChangeDefaults";
-            this.ChangeDefaults.Size = new System.Drawing.Size(61, 19);
-            this.ChangeDefaults.Text = "Settings";
+            this.ChangeDefaults.Size = new System.Drawing.Size(39, 19);
+            this.ChangeDefaults.Text = "Edit";
             // 
             // changeDefaultsToolStripMenuItem
             // 
@@ -354,7 +354,8 @@
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.preferencesToolStripMenuItem.Text = "Preferences";
+            this.preferencesToolStripMenuItem.Text = "Settings";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
             // Workshop
             // 
@@ -611,6 +612,14 @@
             this.Comments.HeaderText = "Comments";
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
+            // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -963,14 +972,6 @@
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
             this.Flags.Width = 54;
-            // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
             // 
             // dataGridViewButtonColumn2
             // 

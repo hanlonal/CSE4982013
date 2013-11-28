@@ -516,6 +516,12 @@ namespace IBMConsultantTool
             Application.Run(new ITCapTool());
         }
 
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm form = new Form();
+            form.Show();
+        }
+
 
 
 
