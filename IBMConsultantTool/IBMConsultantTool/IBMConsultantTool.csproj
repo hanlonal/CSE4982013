@@ -545,6 +545,7 @@
     <None Include="Resources\blue-wave-background.jpg" />
     <None Include="Resources\blue-wave-background1.jpg" />
     <None Include="Resources\blue-wave-background2.jpg" />
+    <None Include="Resources\blue line.png" />
     <Content Include="Resources\Data.xml" />
     <Content Include="Resources\ITPlanningTemplate.ppt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
