@@ -91,7 +91,7 @@ namespace IBMConsultantTool
                 if (MessageBox.Show("You did not choose the File Path to save charts from each tool.\n\nDo you want to use the default File Path for saving charts from each tool?", "File Path Choose", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     browser = true;
             }
-            else
+            if(browser)
             {
                 closeState = "BOM";
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
@@ -117,7 +117,7 @@ namespace IBMConsultantTool
                 if (MessageBox.Show("You did not choose the File Path to save charts from each tool.\n\nDo you want to use the default File Path for saving charts from each tool?", "File Path Choose", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     browser = true;
             }
-            else
+            if(browser)
             {
                 closeState = "CUPE";
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
@@ -143,7 +143,7 @@ namespace IBMConsultantTool
                 if (MessageBox.Show("You did not choose the File Path to save charts from each tool.\n\nDo you want to use the default File Path for saving charts from each tool?", "File Path Choose", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     browser = true;
             }
-            else
+            if(browser)
             {
                 closeState = "ITCap";
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCAP));
