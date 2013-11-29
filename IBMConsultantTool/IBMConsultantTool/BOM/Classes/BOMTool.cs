@@ -518,14 +518,8 @@ namespace IBMConsultantTool
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm form = new Form();
+            SettingsForm form = new SettingsForm();
             form.Show();
         }
-
-
-
-
-
-
     } // end class
 }
