@@ -226,11 +226,12 @@ namespace IBMConsultantTool
             string objectiveName;
             foreach (XElement bomObj in entList)
             {
-                if(bomObj.Element("EFFECTIVENESS").Value == "" || bomObj.Element("CRITICALITY").Value == "" || bomObj.Element("DIFFERENTIAL").Value == "") 
+                float test;
+                if(!float.TryParse(bomObj.Element("EFFECTIVENESS").Value, out test) || !float.TryParse(bomObj.Element("CRITICALITY").Value, out test) || !float.TryParse(bomObj.Element("DIFFERENTIAL").Value, out test)) 
                 {
                     continue;
                 }
-                bomScore = ((11 - Convert.ToSingle(bomObj.Element("EFFECTIVENESS").Value))*(Convert.ToSingle(bomObj.Element("CRITICALITY").Value)*.5f)) / (1+(Convert.ToSingle(bomObj.Element("DIFFERENTIAL").Value)*.5f));
+                bomScore = ((11 - Convert.ToSingle(bomObj.Element("EFFECTIVENESS").Value))*(Convert.ToSingle(bomObj.Element("CRITICALITY").Value)*.5f))/20 + (Convert.ToSingle(bomObj.Element("DIFFERENTIAL").Value)*.5f);
                 objectiveName = bomObj.Element("BUSINESSOBJECTIVE").Value;
                 if(!objDictionary.ContainsKey(objectiveName))
                 {
