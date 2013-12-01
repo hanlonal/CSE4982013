@@ -58,9 +58,10 @@ namespace IBMConsultantTool
 
         public bool AddClient(CLIENT client)
         {
+            string clientName = client.NAME.TrimEnd();
             //If already in DB, return false
             if ((from ent in dbo.CLIENT
-                 where ent.NAME.TrimEnd() == client.NAME.TrimEnd()
+                 where ent.NAME.TrimEnd() == clientName
                  select ent).Count() != 0)
             {
                 dbo.Detach(client);
@@ -72,6 +73,8 @@ namespace IBMConsultantTool
             AddGroup("Business", client);
             AddGroup("IT", client);
             AddGroup("ITCAP", client);
+
+            File.Create(@"Resources\Clients\" + clientName + ".xml").Close();
 
             return true;
         }
@@ -3199,15 +3202,20 @@ namespace IBMConsultantTool
                 loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Clearing old files";
                 loadingScreen.LoadingTextLabel.Update();
             }
-            if (Directory.Exists(@"Resources\Clients"))
-            {
-                Directory.Delete(@"Resources\Clients", true);
-            }
-            Directory.CreateDirectory(@"Resources\Clients");
 
-            List<CLIENT> clientList = GetClients();
-            foreach (CLIENT client in clientList)
+            if (!Directory.Exists(@"Resources\Clients"))
             {
+                Directory.CreateDirectory(@"Resources\Clients");
+            }
+
+            List<string> clientFileNames = Directory.EnumerateFiles(@"Resources\Clients").ToList();
+            List<string> clientNames = (from ent in clientFileNames
+                                        select Path.GetFileNameWithoutExtension(ent)).ToList();
+            CLIENT client;
+            foreach (string clientName in clientNames)
+            {
+                if (!GetClient(clientName, out client)) continue;
+
                 if (loadingScreen != null)
                 {
                     loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing Client " + client.NAME.TrimEnd();

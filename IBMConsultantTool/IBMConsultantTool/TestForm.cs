@@ -145,6 +145,19 @@ namespace IBMConsultantTool
 
         }
 
+        private void checkoutClientsForOfflineModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (OnlineModeCheckbox.Checked)
+            {
+                new CheckoutClients().ShowDialog();
+            }
+
+            else
+            {
+                MessageBox.Show("Must be online to checkout clients for offline mode", "Error");
+            }
+        }
+
     }
    
 }

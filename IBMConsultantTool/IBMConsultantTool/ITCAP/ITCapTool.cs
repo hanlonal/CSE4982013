@@ -622,7 +622,6 @@ namespace IBMConsultantTool
             ChangeStates(FormStates.Open);
             //GetClientObjectives();
             PopulateCapabilitiesWithObjectives();
-
         }
 
         private void PopulateCapabilitiesWithObjectives()
