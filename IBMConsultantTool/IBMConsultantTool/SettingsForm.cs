@@ -14,11 +14,20 @@ namespace IBMConsultantTool
         public SettingsForm()
         {
             InitializeComponent();
+            lowGapThresholdText.DataBindings.Add("Text", ConfigurationSettings.Instance, "StaticLowGapThreshold");
+            highGapThresholdText.DataBindings.Add("Text", ConfigurationSettings.Instance, "StaticHighGapThreshold");
+            dynamicAutoHighGapText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoHighGap");
+            dynamicAutoLowGaText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoLowGap");
+            stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "StandardDeviationThreshold");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+
+
+
     }
 }

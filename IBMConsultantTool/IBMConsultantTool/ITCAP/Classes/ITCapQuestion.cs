@@ -139,7 +139,7 @@ namespace IBMConsultantTool
                 }
 
                 owner.CalculateAsIsAverage();
-                if (asisStandardDeviation > standardDeviationThreshold)
+                if (asisStandardDeviation > ConfigurationSettings.Instance.StandardDeviationThreshold)
                 {
                     owner.IsFlagged = true;
                     flagged = true;
