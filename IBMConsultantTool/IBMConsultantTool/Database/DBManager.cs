@@ -156,7 +156,7 @@ namespace IBMConsultantTool
 
             Client client = new Client();
 
-            client.Name = clientEnt.NAME;
+            client.Name = clientEnt.NAME.TrimEnd();
             client.Country = clientEnt.COUNTRY.NAME.TrimEnd();
             client.Region = clientEnt.COUNTRY.REGION.NAME.TrimEnd();
             client.BusinessType = clientEnt.BUSINESSTYPE.NAME.TrimEnd();
