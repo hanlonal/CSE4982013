@@ -26,6 +26,7 @@ namespace IBMConsultantTool
 
         public bool CreateBomSurvey(List<NewCategory> BomCats)
         {
+            Word._Document oDoc;
             try
             {
                     //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
@@ -49,7 +50,7 @@ namespace IBMConsultantTool
 
                 //Start Word and create a new document.
                 Word._Application oWord;
-                Word._Document oDoc;
+
                 oWord = new Word.Application();
                 oWord.Visible = false;
                 oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
@@ -203,7 +204,7 @@ namespace IBMConsultantTool
                 //    }
                 oTable.Rows[1].Range.Font.Bold = 1;
                 oTable.Rows[1].Range.Font.Italic = 1;
-                oTable.Rows[1].Range.Font.Size = 14;
+                oTable.Rows[1].Range.Font.Size = 10;
             
             
                 //Word.Range range = oDoc.Range(0, 20);
@@ -216,7 +217,7 @@ namespace IBMConsultantTool
                 foreach(Word.FormField form in oDoc.FormFields)
                 {
                     //form.Name = FormNames[c].ToString();
-                    string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
+                    string removeChars = " ?&^$#@!()+-,:;/<>’\'-_*";
 
                     string name = FormNames[c];
                     foreach (char p in removeChars)
@@ -230,19 +231,27 @@ namespace IBMConsultantTool
                     c++;
                 }
                 oWord.Visible = true;
-                oDoc.SaveAs("BomSurvey", Word.WdSaveFormat.wdFormatDocument);
+                
             }
             catch
             {
                 return false;
             }
-
+            
+            try
+            {
+                oDoc.SaveAs("BomSurvey", Word.WdSaveFormat.wdFormatDocument);
+            }
+            catch
+            {
+            }
             return true;
 
         }
 
         public bool CreateCupeSurvey(List<Person> people, List<string> questions, bool istwenty)
         {
+            Word._Document oDoc;
             try
             {
                     //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
@@ -255,7 +264,6 @@ namespace IBMConsultantTool
 
                 //Start Word and create a new document.
                 Word._Application oWord;
-                Word._Document oDoc;
                 oWord = new Word.Application();
                 oWord.Visible = false;
                 oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
@@ -395,7 +403,7 @@ namespace IBMConsultantTool
                         continue;
                     }
                     //form.Name = FormNames[c].ToString();
-                    string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
+                    string removeChars = " ?&^$#@!()+-,:;/<>’\'-_*";
 
                     string name = FormNames[c];
                     foreach (char p in removeChars)
@@ -410,13 +418,20 @@ namespace IBMConsultantTool
                 }
 
                 oWord.Visible = true;
-                oDoc.SaveAs("CupeSurvey", Word.WdSaveFormat.wdFormatDocument);
+                
             }
             catch (Exception)
             {
                 return false;
             }
-
+            
+            try
+            {
+                oDoc.SaveAs("CupeSurvey", Word.WdSaveFormat.wdFormatDocument);
+            }
+            catch
+            {
+            }
             return true;
         }
 
@@ -424,6 +439,7 @@ namespace IBMConsultantTool
 
         public bool CreateITCapSurvey(List<ScoringEntity> questions)
         {
+            Word._Document oDoc;
             try
             {
     //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
@@ -436,7 +452,7 @@ namespace IBMConsultantTool
 
                 //Start Word and create a new document.
                 Word._Application oWord;
-                Word._Document oDoc;
+                
                 oWord = new Word.Application();
                 oWord.Visible = false;
                 oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
@@ -579,7 +595,7 @@ namespace IBMConsultantTool
                 foreach (Word.FormField form in oDoc.FormFields)
                 {
 
-                    string removeChars = " ?&^$#@!()+-,:;<>’\'-_*";
+                    string removeChars = " ?&^$#@!()+-,:;/<>’\'-_*";
 
                     string name = FormNames[c];
                     foreach (char p in removeChars)
@@ -594,11 +610,19 @@ namespace IBMConsultantTool
                 }
 
                 oWord.Visible = true;
-                oDoc.SaveAs("ITCapSurvey", Word.WdSaveFormat.wdFormatDocument);
+                
             }
             catch (Exception)
             {
                 return false;
+            }
+            try
+            {
+
+                oDoc.SaveAs("ITCapSurvey", Word.WdSaveFormat.wdFormatDocument);
+            }
+            catch
+            {
             }
             return true;
             
@@ -606,7 +630,7 @@ namespace IBMConsultantTool
 
         public bool CreateCommentDoc(List<ScoringEntity> questions)
         {
-           
+            Word._Document oDoc;
             try
             { 
                 //Find some stats regarding the Cats, Obj, and Imperatives for later reference.
@@ -619,7 +643,6 @@ namespace IBMConsultantTool
 
                 //Start Word and create a new document.
                 Word._Application oWord;
-                Word._Document oDoc;
                 oWord = new Word.Application();
                 oWord.Visible = false;
                 oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
@@ -675,11 +698,19 @@ namespace IBMConsultantTool
                 oDoc.Protect(Word.WdProtectionType.wdAllowOnlyFormFields, false, string.Empty, false, false);
 
                 oWord.Visible = true;
-                oDoc.SaveAs("ITCap Comments", Word.WdSaveFormat.wdFormatDocument);
+                
             }
             catch (Exception)
             {
                 return false;
+            }
+            
+            try
+            {
+                oDoc.SaveAs("ITCap Comments", Word.WdSaveFormat.wdFormatDocument);
+            }
+            catch
+            {
             }
             return true;
 
