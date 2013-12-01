@@ -451,7 +451,6 @@
     </EmbeddedResource>
     <None Include="App.Config" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="IBMConsultantTool_TemporaryKey.pfx" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
