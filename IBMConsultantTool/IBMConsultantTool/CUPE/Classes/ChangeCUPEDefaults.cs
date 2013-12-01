@@ -82,17 +82,8 @@ namespace IBMConsultantTool
             form.Show();
         }
 
-        public void AddQuestion(string main, string a, string b, string c, string d)
+        public bool AddQuestion(string main, string a, string b, string c, string d)
         {
-            DataGridViewRow row = row = CUPEQuestionDataGridView.Rows[0].Clone() as DataGridViewRow;
-            row.Cells[0].Value = false;
-            row.Cells[1].Value = false;
-            row.Cells[2].Value = main;
-            row.Cells[3].Value = a;
-            row.Cells[4].Value = b;
-            row.Cells[5].Value = c;
-            row.Cells[6].Value = d;
-            CUPEQuestionDataGridView.Rows.Add(row);
             CupeQuestionStringData data = new CupeQuestionStringData();
             data.ChoiceA = a;
             data.ChoiceB = b;
@@ -100,7 +91,24 @@ namespace IBMConsultantTool
             data.ChoiceD = d;
             data.OriginalQuestionText = main;
             data.QuestionText = main;
-            ClientDataControl.db.AddCupeQuestion(data);
+            if (ClientDataControl.db.AddCupeQuestion(data) && ClientDataControl.db.SaveChanges())
+            {
+                DataGridViewRow row = row = CUPEQuestionDataGridView.Rows[0].Clone() as DataGridViewRow;
+                row.Cells[0].Value = false;
+                row.Cells[1].Value = false;
+                row.Cells[2].Value = main;
+                row.Cells[3].Value = a;
+                row.Cells[4].Value = b;
+                row.Cells[5].Value = c;
+                row.Cells[6].Value = d;
+                CUPEQuestionDataGridView.Rows.Add(row);
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -137,10 +137,10 @@
     <Compile Include="ChangesMadeForm.Designer.cs">
       <DependentUpon>ChangesMadeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChangeCUPEDefaults.cs">
+    <Compile Include="CUPE\Classes\ChangeCUPEDefaults.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangeCUPEDefaults.Designer.cs">
+    <Compile Include="CUPE\Classes\ChangeCUPEDefaults.Designer.cs">
       <DependentUpon>ChangeCUPEDefaults.cs</DependentUpon>
     </Compile>
     <Compile Include="ClearGridForm.cs">
@@ -354,7 +354,7 @@
     <EmbeddedResource Include="ChangesMadeForm.resx">
       <DependentUpon>ChangesMadeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChangeCUPEDefaults.resx">
+    <EmbeddedResource Include="CUPE\Classes\ChangeCUPEDefaults.resx">
       <DependentUpon>ChangeCUPEDefaults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ClearGridForm.resx">
