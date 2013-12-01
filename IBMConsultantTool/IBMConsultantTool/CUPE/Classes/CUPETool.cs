@@ -1561,7 +1561,7 @@ namespace IBMConsultantTool
         }
         private void UpdateUI(bool IsDataLoaded)
         {
-            if (IsDataLoaded && this.loadingScreen != null)
+       /*     if (IsDataLoaded && this.loadingScreen != null)
             {
                 this.statusStrip1.Text = "Done.";
 
@@ -1571,7 +1571,7 @@ namespace IBMConsultantTool
             {
                 loadingScreen.Show();
                 this.statusStrip1.Text = "Loading data ...";
-            }
+            }*/
         }
 
         private void LoadSurveys()

@@ -211,12 +211,12 @@ namespace IBMConsultantTool
             {
                 //List<CUPEQuestionTrendAnalysis> filters = FilterCUPEGraphContents(selectedInfo);
 
-                CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
+                CreateCUPEGraph(cupeToTrack, "CUPE Question", graphType);
 
             }
             else if (state == TrackingState.ITAttributes)
             {
-                CreateITAttributeGraph(attributesToTrack, "IT Attributes", graphType);
+                CreateITAttributeGraph(attributesToTrack, "IT Attributes", selectedInfo);
             }
             else if (state == TrackingState.Imperatives)
             {
@@ -1568,8 +1568,8 @@ namespace IBMConsultantTool
             lineChart.Titles["title"].Text = title + " - " + saveName;
             lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
-            lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
-                saveName + ".jpg", ChartImageFormat.Jpeg);
+           // lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
+               // saveName + ".jpg", ChartImageFormat.Jpeg);
 
             if (chartType == "Line Graph")
             {
@@ -1980,7 +1980,7 @@ namespace IBMConsultantTool
 
             numberOfGraph = 0;
 
-            string saveName = chartType + " " + metricsComboBox.Text;
+            string saveName = metricsComboBox.Text + " " + chartType;
 
             if (lineChart != null)
             {
@@ -2029,7 +2029,6 @@ namespace IBMConsultantTool
                     lineChart.ChartAreas.Add(title);
                     lineChart.ChartAreas[title].Visible = true;
                     lineChart.ChartAreas[title].AxisY.Maximum = 4;
-                    lineChart.ChartAreas[title].AxisX.Interval = 1;
 
                     seriesName = "";
 
@@ -2084,7 +2083,7 @@ namespace IBMConsultantTool
                         }
 
                         lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                        lineChart.Series[name].ChartType = SeriesChartType.Column;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
                         lineChart.Series[name].YValueType = ChartValueType.Double;
 
@@ -2164,7 +2163,7 @@ namespace IBMConsultantTool
                     lineChart.ChartAreas.Add(title);
                     lineChart.ChartAreas[title].Visible = true;
                     lineChart.ChartAreas[title].AxisY.Maximum = 4;
-                    lineChart.ChartAreas[title].AxisX.Interval = 1;
+                    //lineChart.ChartAreas[title].AxisX.Interval = 1;
 
                     seriesName = "";
 
@@ -2219,7 +2218,7 @@ namespace IBMConsultantTool
                         }
 
                         lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                        lineChart.Series[name].ChartType = SeriesChartType.Column;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
                         lineChart.Series[name].YValueType = ChartValueType.Double;
 
@@ -2299,7 +2298,7 @@ namespace IBMConsultantTool
                     lineChart.ChartAreas.Add(title);
                     lineChart.ChartAreas[title].Visible = true;
                     lineChart.ChartAreas[title].AxisY.Maximum = 4;
-                    lineChart.ChartAreas[title].AxisX.Interval = 1;
+                    //lineChart.ChartAreas[title].AxisX.Interval = 1;
 
                     seriesName = "";
 
@@ -2354,7 +2353,7 @@ namespace IBMConsultantTool
                         }
 
                         lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                        lineChart.Series[name].ChartType = SeriesChartType.Column;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
                         lineChart.Series[name].YValueType = ChartValueType.Double;
 
@@ -2434,7 +2433,7 @@ namespace IBMConsultantTool
                     lineChart.ChartAreas.Add(title);
                     lineChart.ChartAreas[title].Visible = true;
                     lineChart.ChartAreas[title].AxisY.Maximum = 4;
-                    lineChart.ChartAreas[title].AxisX.Interval = 1;
+                    //lineChart.ChartAreas[title].AxisX.Interval = 1;
 
                     seriesName = "";
 
@@ -2489,7 +2488,7 @@ namespace IBMConsultantTool
                         }
 
                         lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                        lineChart.Series[name].ChartType = SeriesChartType.Column;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
                         lineChart.Series[name].YValueType = ChartValueType.Double;
 
@@ -2570,7 +2569,7 @@ namespace IBMConsultantTool
                     lineChart.ChartAreas.Add(title);
                     lineChart.ChartAreas[title].Visible = true;
                     lineChart.ChartAreas[title].AxisY.Maximum = 4;
-                    lineChart.ChartAreas[title].AxisX.Interval = 1;
+                   // lineChart.ChartAreas[title].AxisX.Interval = 1;
 
                     seriesName = "";
 
@@ -2625,7 +2624,7 @@ namespace IBMConsultantTool
                         }
 
                         lineChart.Series[name].ChartArea = title;
-                        lineChart.Series[name].ChartType = SeriesChartType.Bar;
+                        lineChart.Series[name].ChartType = SeriesChartType.Column;
                         lineChart.Series[name].XValueType = ChartValueType.DateTime;
                         lineChart.Series[name].YValueType = ChartValueType.Double;
 
@@ -4141,6 +4140,7 @@ namespace IBMConsultantTool
             }
 
             #endregion
+            
             lineChart.Titles.Add("title");
             lineChart.Titles[0].Name = "title";
             lineChart.Titles["title"].Visible = true;
