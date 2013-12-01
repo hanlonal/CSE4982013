@@ -1487,7 +1487,7 @@ namespace IBMConsultantTool
             cupeQuestionEnt.Add(new XElement("INTWENTY", "N"));
             cupeQuestionEnt.Add(new XElement("INTEN", "N"));
 
-            dbo.Add(cupeQuestionEnt);
+            dbo.Element("CUPEQUESTIONS").Add(cupeQuestionEnt);
 
             changeLog.Add("ADD CUPEQUESTION " + question.Replace(' ', '~') + " " +
                           commodity.Replace(' ', '~') + " " + utility.Replace(' ', '~') + " " +
