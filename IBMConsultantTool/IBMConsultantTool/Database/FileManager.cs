@@ -214,23 +214,40 @@ namespace IBMConsultantTool
             return client;
         }
 
-        public override List<string> GetObjectivesFromClientBOM(object clientObj)
+        public override Dictionary<string, float> GetObjectivesFromClientBOM(object clientObj)
         {
             XElement client = clientObj as XElement;
 
-            List<string> stringList = (from ent in client.Element("BOMS").Elements("BOM")
-                                    select ent.Element("BUSINESSOBJECTIVE").Value).ToList();
+            List<XElement> entList = client.Element("BOMS").Elements("BOM").ToList();
 
-            List<string> stringListNoRepeat = new List<string>();
-            foreach (string busName in stringList)
+            Dictionary<string, float> objDictionary = new Dictionary<string, float>();
+            Dictionary<string, float> objImpCount = new Dictionary<string, float>();
+            float bomScore;
+            string objectiveName;
+            foreach (XElement bomObj in entList)
             {
-                if (!stringListNoRepeat.Contains(busName))
+                float test;
+                if(!float.TryParse(bomObj.Element("EFFECTIVENESS").Value, out test) || !float.TryParse(bomObj.Element("CRITICALITY").Value, out test) || !float.TryParse(bomObj.Element("DIFFERENTIAL").Value, out test)) 
                 {
-                    stringListNoRepeat.Add(busName);
+                    continue;
+                }
+                bomScore = ((11 - Convert.ToSingle(bomObj.Element("EFFECTIVENESS").Value))*(Convert.ToSingle(bomObj.Element("CRITICALITY").Value)*.5f))/20 + (Convert.ToSingle(bomObj.Element("DIFFERENTIAL").Value)*.5f);
+                objectiveName = bomObj.Element("BUSINESSOBJECTIVE").Value;
+                if(!objDictionary.ContainsKey(objectiveName))
+                {
+                    objDictionary.Add(objectiveName, bomScore);
+                    objImpCount.Add(objectiveName, 1);
+                }
+
+                else
+                {
+                    objDictionary[objectiveName] = (objDictionary[objectiveName] * (objImpCount[objectiveName] / (objImpCount[objectiveName] + 1f))) + 
+                                                   (bomScore / (objImpCount[objectiveName] + 1f));
+                    objImpCount[objectiveName]++;
                 }
             }
 
-            return stringListNoRepeat;
+            return objDictionary;
         }
 
         public override void ClientCompletedBOM(object clientObj)
@@ -1487,7 +1504,7 @@ namespace IBMConsultantTool
             cupeQuestionEnt.Add(new XElement("INTWENTY", "N"));
             cupeQuestionEnt.Add(new XElement("INTEN", "N"));
 
-            dbo.Add(cupeQuestionEnt);
+            dbo.Element("CUPEQUESTIONS").Add(cupeQuestionEnt);
 
             changeLog.Add("ADD CUPEQUESTION " + question.Replace(' ', '~') + " " +
                           commodity.Replace(' ', '~') + " " + utility.Replace(' ', '~') + " " +

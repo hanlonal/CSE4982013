@@ -42,9 +42,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.OnlineModeCheckbox = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkoutClientsForOfflineModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // NewConsultButton
@@ -203,6 +207,31 @@
             this.label5.TabIndex = 18;
             this.label5.Text = " it easier than ever to plan your workshops. ";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(774, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkoutClientsForOfflineModeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // checkoutClientsForOfflineModeToolStripMenuItem
+            // 
+            this.checkoutClientsForOfflineModeToolStripMenuItem.Name = "checkoutClientsForOfflineModeToolStripMenuItem";
+            this.checkoutClientsForOfflineModeToolStripMenuItem.Size = new System.Drawing.Size(255, 22);
+            this.checkoutClientsForOfflineModeToolStripMenuItem.Text = "Checkout Clients for Offline Mode";
+            this.checkoutClientsForOfflineModeToolStripMenuItem.Click += new System.EventHandler(this.checkoutClientsForOfflineModeToolStripMenuItem_Click);
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -224,14 +253,18 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.WelcomeMessage);
             this.Controls.Add(this.NewConsultButton);
+            this.Controls.Add(this.menuStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "TestForm";
             this.Text = "IBM Consultant Toolkit";
             this.MouseEnter += new System.EventHandler(this.TestForm_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadConsultButton)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,5 +285,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox OnlineModeCheckbox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkoutClientsForOfflineModeToolStripMenuItem;
     }
 }

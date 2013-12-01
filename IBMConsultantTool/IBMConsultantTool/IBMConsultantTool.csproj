@@ -137,10 +137,17 @@
     <Compile Include="ChangesMadeForm.Designer.cs">
       <DependentUpon>ChangesMadeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChangeCUPEDefaults.cs">
+    <Compile Include="CheckoutClients.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangeCUPEDefaults.Designer.cs">
+    <Compile Include="CheckoutClients.Designer.cs">
+      <DependentUpon>CheckoutClients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationSettings.cs" />
+    <Compile Include="CUPE\Classes\ChangeCUPEDefaults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUPE\Classes\ChangeCUPEDefaults.Designer.cs">
       <DependentUpon>ChangeCUPEDefaults.cs</DependentUpon>
     </Compile>
     <Compile Include="ClearGridForm.cs">
@@ -354,7 +361,10 @@
     <EmbeddedResource Include="ChangesMadeForm.resx">
       <DependentUpon>ChangesMadeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChangeCUPEDefaults.resx">
+    <EmbeddedResource Include="CheckoutClients.resx">
+      <DependentUpon>CheckoutClients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUPE\Classes\ChangeCUPEDefaults.resx">
       <DependentUpon>ChangeCUPEDefaults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ClearGridForm.resx">
@@ -441,6 +451,7 @@
     </EmbeddedResource>
     <None Include="App.Config" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="IBMConsultantTool_TemporaryKey.pfx" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

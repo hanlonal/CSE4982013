@@ -58,9 +58,10 @@ namespace IBMConsultantTool
 
         public bool AddClient(CLIENT client)
         {
+            string clientName = client.NAME.TrimEnd();
             //If already in DB, return false
             if ((from ent in dbo.CLIENT
-                 where ent.NAME.TrimEnd() == client.NAME.TrimEnd()
+                 where ent.NAME.TrimEnd() == clientName
                  select ent).Count() != 0)
             {
                 dbo.Detach(client);
@@ -72,6 +73,8 @@ namespace IBMConsultantTool
             AddGroup("Business", client);
             AddGroup("IT", client);
             AddGroup("ITCAP", client);
+
+            File.Create(@"Resources\Clients\" + clientName + ".xml").Close();
 
             return true;
         }
@@ -156,7 +159,7 @@ namespace IBMConsultantTool
 
             Client client = new Client();
 
-            client.Name = clientEnt.NAME;
+            client.Name = clientEnt.NAME.TrimEnd();
             client.Country = clientEnt.COUNTRY.NAME.TrimEnd();
             client.Region = clientEnt.COUNTRY.REGION.NAME.TrimEnd();
             client.BusinessType = clientEnt.BUSINESSTYPE.NAME.TrimEnd();
@@ -168,23 +171,39 @@ namespace IBMConsultantTool
             return client;
         }
 
-        public override List<string> GetObjectivesFromClientBOM(object clientObj)
+        public override Dictionary<string, float> GetObjectivesFromClientBOM(object clientObj)
         {
             CLIENT client = clientObj as CLIENT;
 
-            List<BUSINESSOBJECTIVE> entList = (from ent in client.BOM
-                                               select ent.IMPERATIVE.BUSINESSOBJECTIVE).ToList();
+            List<BOM> entList = client.BOM.ToList();
 
-            List<string> stringList = new List<string>();
-            foreach (BUSINESSOBJECTIVE busObj in entList)
+            Dictionary<string, float> objDictionary = new Dictionary<string, float>();
+            Dictionary<string, float> objImpCount = new Dictionary<string, float>();
+            float bomScore;
+            string objectiveName;
+            foreach (BOM bomObj in entList)
             {
-                if(!stringList.Contains(busObj.NAME.TrimEnd()))
+                if(!bomObj.EFFECTIVENESS.HasValue || !bomObj.CRITICALITY.HasValue || !bomObj.DIFFERENTIAL.HasValue) 
                 {
-                    stringList.Add(busObj.NAME.TrimEnd());
+                    continue;
+                }
+                bomScore = ((11 - bomObj.EFFECTIVENESS.Value) * (bomObj.CRITICALITY.Value * .5f))/20 + (bomObj.DIFFERENTIAL.Value * .5f);
+                objectiveName = bomObj.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
+                if(!objDictionary.ContainsKey(objectiveName))
+                {
+                    objDictionary.Add(objectiveName, bomScore);
+                    objImpCount.Add(objectiveName, 1);
+                }
+
+                else
+                {
+                    objDictionary[objectiveName] = (objDictionary[objectiveName] * (objImpCount[objectiveName] / (objImpCount[objectiveName] + 1f))) + 
+                                                   (bomScore / (objImpCount[objectiveName] + 1f));
+                    objImpCount[objectiveName]++;
                 }
             }
 
-            return stringList;
+            return objDictionary;
         }
 
         public override void ClientCompletedBOM(object clientObj)
@@ -3183,15 +3202,20 @@ namespace IBMConsultantTool
                 loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Clearing old files";
                 loadingScreen.LoadingTextLabel.Update();
             }
-            if (Directory.Exists(@"Resources\Clients"))
-            {
-                Directory.Delete(@"Resources\Clients", true);
-            }
-            Directory.CreateDirectory(@"Resources\Clients");
 
-            List<CLIENT> clientList = GetClients();
-            foreach (CLIENT client in clientList)
+            if (!Directory.Exists(@"Resources\Clients"))
             {
+                Directory.CreateDirectory(@"Resources\Clients");
+            }
+
+            List<string> clientFileNames = Directory.EnumerateFiles(@"Resources\Clients").ToList();
+            List<string> clientNames = (from ent in clientFileNames
+                                        select Path.GetFileNameWithoutExtension(ent)).ToList();
+            CLIENT client;
+            foreach (string clientName in clientNames)
+            {
+                if (!GetClient(clientName, out client)) continue;
+
                 if (loadingScreen != null)
                 {
                     loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Writing Client " + client.NAME.TrimEnd();

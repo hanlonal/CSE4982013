@@ -35,26 +35,26 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.stdDeviationFlgAmount = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dynamicSortRadio = new System.Windows.Forms.RadioButton();
+            this.staticSortRadio = new System.Windows.Forms.RadioButton();
+            this.dynamicAutoLowGaText = new System.Windows.Forms.TextBox();
+            this.dynamicAutoHighGapText = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label9 = new System.Windows.Forms.Label();
+            this.highGapThresholdText = new System.Windows.Forms.TextBox();
+            this.lowGapThresholdText = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -83,7 +83,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(583, 258);
+            this.tabPage1.Size = new System.Drawing.Size(540, 406);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "BOM";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -132,33 +132,10 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Size = new System.Drawing.Size(583, 367);
+            this.tabPage2.Size = new System.Drawing.Size(540, 406);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CUPE";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.textBox9);
-            this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.radioButton2);
-            this.tabPage3.Controls.Add(this.radioButton1);
-            this.tabPage3.Controls.Add(this.textBox7);
-            this.tabPage3.Controls.Add(this.textBox8);
-            this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.textBox5);
-            this.tabPage3.Controls.Add(this.textBox6);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.label6);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(540, 406);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "IT Cap";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // textBox4
             // 
@@ -194,53 +171,97 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Auto Low Gap Threshold";
             // 
-            // textBox5
+            // tabPage3
             // 
-            this.textBox5.Location = new System.Drawing.Point(239, 96);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(70, 26);
-            this.textBox5.TabIndex = 7;
+            this.tabPage3.Controls.Add(this.stdDeviationFlgAmount);
+            this.tabPage3.Controls.Add(this.label11);
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.dynamicSortRadio);
+            this.tabPage3.Controls.Add(this.staticSortRadio);
+            this.tabPage3.Controls.Add(this.dynamicAutoLowGaText);
+            this.tabPage3.Controls.Add(this.dynamicAutoHighGapText);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.highGapThresholdText);
+            this.tabPage3.Controls.Add(this.lowGapThresholdText);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(540, 406);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "IT Cap";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBox6
+            // stdDeviationFlgAmount
             // 
-            this.textBox6.Location = new System.Drawing.Point(239, 50);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(70, 26);
-            this.textBox6.TabIndex = 6;
+            this.stdDeviationFlgAmount.Location = new System.Drawing.Point(290, 338);
+            this.stdDeviationFlgAmount.Name = "stdDeviationFlgAmount";
+            this.stdDeviationFlgAmount.Size = new System.Drawing.Size(59, 26);
+            this.stdDeviationFlgAmount.TabIndex = 18;
             // 
-            // label5
+            // label11
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 96);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(151, 20);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "High Gap Threshold";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 338);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(240, 20);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Standard Deviation Flag Amount";
             // 
-            // label6
+            // label10
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 50);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 20);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Low  Gap Threshold";
+            this.label10.Image = global::IBMConsultantTool.Properties.Resources.blue_line;
+            this.label10.Location = new System.Drawing.Point(3, 289);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(577, 20);
+            this.label10.TabIndex = 16;
             // 
-            // textBox7
+            // label9
             // 
-            this.textBox7.Location = new System.Drawing.Point(239, 242);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(59, 26);
-            this.textBox7.TabIndex = 12;
+            this.label9.Image = global::IBMConsultantTool.Properties.Resources.blue_line;
+            this.label9.Location = new System.Drawing.Point(-8, 137);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(577, 20);
+            this.label9.TabIndex = 15;
             // 
-            // textBox8
+            // dynamicSortRadio
             // 
-            this.textBox8.Location = new System.Drawing.Point(239, 203);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(59, 26);
-            this.textBox8.TabIndex = 11;
+            this.dynamicSortRadio.AutoSize = true;
+            this.dynamicSortRadio.Location = new System.Drawing.Point(33, 160);
+            this.dynamicSortRadio.Name = "dynamicSortRadio";
+            this.dynamicSortRadio.Size = new System.Drawing.Size(163, 24);
+            this.dynamicSortRadio.TabIndex = 14;
+            this.dynamicSortRadio.TabStop = true;
+            this.dynamicSortRadio.Text = "Dynamic sort mode";
+            this.dynamicSortRadio.UseVisualStyleBackColor = true;
+            // 
+            // staticSortRadio
+            // 
+            this.staticSortRadio.AutoSize = true;
+            this.staticSortRadio.Location = new System.Drawing.Point(33, 14);
+            this.staticSortRadio.Name = "staticSortRadio";
+            this.staticSortRadio.Size = new System.Drawing.Size(143, 24);
+            this.staticSortRadio.TabIndex = 13;
+            this.staticSortRadio.TabStop = true;
+            this.staticSortRadio.Text = "Static sort mode";
+            this.staticSortRadio.UseVisualStyleBackColor = true;
+            // 
+            // dynamicAutoLowGaText
+            // 
+            this.dynamicAutoLowGaText.Location = new System.Drawing.Point(239, 242);
+            this.dynamicAutoLowGaText.Name = "dynamicAutoLowGaText";
+            this.dynamicAutoLowGaText.Size = new System.Drawing.Size(59, 26);
+            this.dynamicAutoLowGaText.TabIndex = 12;
+            // 
+            // dynamicAutoHighGapText
+            // 
+            this.dynamicAutoHighGapText.Location = new System.Drawing.Point(239, 203);
+            this.dynamicAutoHighGapText.Name = "dynamicAutoHighGapText";
+            this.dynamicAutoHighGapText.Size = new System.Drawing.Size(59, 26);
+            this.dynamicAutoHighGapText.TabIndex = 11;
             // 
             // label7
             // 
@@ -262,35 +283,39 @@
             this.label8.TabIndex = 9;
             this.label8.Text = "Auto Low Gap Threshold";
             // 
-            // radioButton1
+            // highGapThresholdText
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(33, 14);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(143, 24);
-            this.radioButton1.TabIndex = 13;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Static sort mode";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.highGapThresholdText.Location = new System.Drawing.Point(239, 96);
+            this.highGapThresholdText.Name = "highGapThresholdText";
+            this.highGapThresholdText.Size = new System.Drawing.Size(70, 26);
+            this.highGapThresholdText.TabIndex = 7;
             // 
-            // radioButton2
+            // lowGapThresholdText
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(33, 160);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(163, 24);
-            this.radioButton2.TabIndex = 14;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Dynamic sort mode";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.lowGapThresholdText.Location = new System.Drawing.Point(239, 50);
+            this.lowGapThresholdText.Name = "lowGapThresholdText";
+            this.lowGapThresholdText.Size = new System.Drawing.Size(70, 26);
+            this.lowGapThresholdText.TabIndex = 6;
             // 
-            // label9
+            // label5
             // 
-            this.label9.Image = global::IBMConsultantTool.Properties.Resources.blue_line;
-            this.label9.Location = new System.Drawing.Point(-8, 137);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(577, 20);
-            this.label9.TabIndex = 15;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 96);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(151, 20);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "High Gap Threshold";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 50);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(151, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Low  Gap Threshold";
             // 
             // button1
             // 
@@ -301,31 +326,6 @@
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label10
-            // 
-            this.label10.Image = global::IBMConsultantTool.Properties.Resources.blue_line;
-            this.label10.Location = new System.Drawing.Point(3, 289);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(577, 20);
-            this.label10.TabIndex = 16;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 338);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(240, 20);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Standard Deviation Flag Amount";
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(290, 338);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(59, 26);
-            this.textBox9.TabIndex = 18;
             // 
             // SettingsForm
             // 
@@ -363,17 +363,17 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox dynamicAutoLowGaText;
+        private System.Windows.Forms.TextBox dynamicAutoHighGapText;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox highGapThresholdText;
+        private System.Windows.Forms.TextBox lowGapThresholdText;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.RadioButton dynamicSortRadio;
+        private System.Windows.Forms.RadioButton staticSortRadio;
+        private System.Windows.Forms.TextBox stdDeviationFlgAmount;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;

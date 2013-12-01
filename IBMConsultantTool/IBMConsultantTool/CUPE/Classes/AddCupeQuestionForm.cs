@@ -21,8 +21,10 @@ namespace IBMConsultantTool
 
         private void addQuestionButton_Click(object sender, EventArgs e)
         {
-            owner.AddQuestion(mainTextBox.Text, commTextBox.Text, utilTextBox.Text, partTextBox.Text, enabTextBox.Text);
-            this.Close();
+            if (owner.AddQuestion(mainTextBox.Text, commTextBox.Text, utilTextBox.Text, partTextBox.Text, enabTextBox.Text))
+            {
+                this.Close();
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

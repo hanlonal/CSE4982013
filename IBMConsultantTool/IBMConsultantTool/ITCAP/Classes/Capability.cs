@@ -12,6 +12,8 @@ namespace IBMConsultantTool
 
         enum SortTpe { Static, Dynamic };
         static SortTpe sortType;
+
+
         static private float percentToCategorizeAsHigh = .33f;
         static private float percentToCategorizeAsLow = .33f;
         static private float staticHighGapThreshold = 1.5f;
@@ -34,7 +36,7 @@ namespace IBMConsultantTool
 
         public Capability()
         {
-            sortType = SortTpe.Dynamic;
+            sortType = SortTpe.Static;
         }
 
         public override void UpdateIndexDecrease(int index)
@@ -101,17 +103,17 @@ namespace IBMConsultantTool
 
             if (sortType == SortTpe.Static || dynamicCapabilityGaps.Count <3)
             {
-                if (capabilityGap >= staticHighGapThreshold)
+                if (capabilityGap >= ConfigurationSettings.Instance.StaticHighGapThreshold)
                 {
                     CapabilityGapText = "High Gap";
                     gapType = GapType.High;
                 }
-                else if (capabilityGap >= staticLowGapThreshold && capabilityGap < staticHighGapThreshold)
+                else if (capabilityGap >= ConfigurationSettings.Instance.StaticLowGapThreshold && capabilityGap < ConfigurationSettings.Instance.StaticHighGapThreshold)
                 {
                     CapabilityGapText = "Medium Gap";
                     gapType = GapType.Middle;
                 }
-                else if (capabilityGap < staticLowGapThreshold)
+                else if (capabilityGap < ConfigurationSettings.Instance.StaticLowGapThreshold)
                 {
                     CapabilityGapText = "Low/No Gap";
                     gapType = GapType.Low;
@@ -139,12 +141,12 @@ namespace IBMConsultantTool
                     {
                         if (count < numberForLow)
                         {
-                            if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                            if (pair.Key.CapabilityGap >= ConfigurationSettings.Instance.DynamicAutoHighGap)
                             {
                                 CapabilityGapText = "High Gap";
                                 gapType = GapType.High;                                
                             }
-                            else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                            else if (pair.Key.CapabilityGap <= ConfigurationSettings.Instance.DynamicAutoLowGap)
                             {
                                 pair.Key.CapabilityGapText = "Low Gap";
                                 pair.Key.GapType1 = GapType.Low;                                
@@ -158,13 +160,13 @@ namespace IBMConsultantTool
 
                         else if (count >= numberForLow && count < numberForHigh)
                         {
-                            if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                            if (pair.Key.CapabilityGap >= ConfigurationSettings.Instance.DynamicAutoHighGap)
                             {
                                 CapabilityGapText = "High Gap";
                                 gapType = GapType.High;
 
                             }
-                            else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                            else if (pair.Key.CapabilityGap <= ConfigurationSettings.Instance.DynamicAutoLowGap)
                             {
                                 pair.Key.CapabilityGapText = "Low Gap";
                                 pair.Key.GapType1 = GapType.Low;
@@ -178,13 +180,13 @@ namespace IBMConsultantTool
 
                         else if (count >= numberForHigh)
                         {
-                            if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                            if (pair.Key.CapabilityGap >= ConfigurationSettings.Instance.DynamicAutoHighGap)
                             {
                                 CapabilityGapText = "High Gap";
                                 gapType = GapType.High;
 
                             }
-                            else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                            else if (pair.Key.CapabilityGap <= ConfigurationSettings.Instance.DynamicAutoLowGap)
                             {
                                 pair.Key.CapabilityGapText = "Low Gap";
                                 pair.Key.GapType1 = GapType.Low;
@@ -209,14 +211,14 @@ namespace IBMConsultantTool
                     int count = 0;
                     foreach (KeyValuePair<Capability, float> pair in items)
                     {
-                        if (pair.Key.CapabilityGap >= dynamicAutoHighGap)
+                        if (pair.Key.CapabilityGap >= ConfigurationSettings.Instance.DynamicAutoHighGap)
                         {
                             CapabilityGapText = "High Gap";
                             gapType = GapType.High;
                             count++;
                             continue;
                         }
-                        else if (pair.Key.CapabilityGap <= dynamicAutoLowGap)
+                        else if (pair.Key.CapabilityGap <= ConfigurationSettings.Instance.DynamicAutoLowGap)
                         {
                             pair.Key.CapabilityGapText = "Low Gap";
                             pair.Key.GapType1 = GapType.Low;
@@ -422,6 +424,12 @@ namespace IBMConsultantTool
         {
             get { return OBJECTIVESCORES; }
             // set { objectiveScores = value; }
+        }
+
+        private static SortTpe SortType
+        {
+            get { return Capability.sortType; }
+            set { Capability.sortType = value; }
         }
 
 
