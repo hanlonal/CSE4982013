@@ -495,20 +495,20 @@ namespace IBMConsultantTool
                         cupeToTrack.Add(c);
                         c.Type1 = TrendAnalysisEntity.Type.Child;
                     }
+                    trendGridView.DataSource = null;
+                    trendGridView.DataSource = cupeToTrack;
+                    trendGridView.Refresh();
+                    currentlyBeingTracked = "CUPE";
 
-                    Console.WriteLine("children cupe: " + track.Children.ToString());
+                    trendGridView.Columns["Collapse"].Visible = true;
+                    //Console.WriteLine("children cupe: " + track.Children.ToString());
                 }
                 else
                     MessageBox.Show("Query returned no results.");
 
 
 
-                trendGridView.DataSource = null;
-                trendGridView.DataSource = cupeToTrack;
-                trendGridView.Refresh();
-                currentlyBeingTracked = "CUPE";
 
-                trendGridView.Columns["Collapse"].Visible = true;
             }
             else
             {
@@ -4779,15 +4779,18 @@ namespace IBMConsultantTool
                 if (currentMouseOverColumn > 0 && currentMouseOverRow >= 0)
                 {
                     TrendAnalysisEntity ent = trendGridView.Rows[currentMouseOverRow].DataBoundItem as TrendAnalysisEntity;
-                    trendGridView.Rows[currentMouseOverRow].Selected = true;
-                    ContextMenuStrip strip = new ContextMenuStrip();
-                    ToolStripMenuItem color = new ToolStripMenuItem();
-                    strip.Items.Add(color);
-                    color.Click += new EventHandler(color_Click);
-                    color.Text = "Change Color";
+                    if (ent.Type1 == TrendAnalysisEntity.Type.Master)
+                    {
+                        trendGridView.Rows[currentMouseOverRow].Selected = true;
+                        ContextMenuStrip strip = new ContextMenuStrip();
+                        ToolStripMenuItem color = new ToolStripMenuItem();
+                        strip.Items.Add(color);
+                        color.Click += new EventHandler(color_Click);
+                        color.Text = "Change Color";
 
 
-                    strip.Show(trendGridView, e.Location, ToolStripDropDownDirection.BelowRight);
+                        strip.Show(trendGridView, e.Location, ToolStripDropDownDirection.BelowRight);
+                    }
 
                 }
 

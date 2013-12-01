@@ -13,6 +13,7 @@ namespace IBMConsultantTool
     public partial class NewClientForm : Form
     {
         DateTime selectedTime;
+        MonthCalendar date;
 
         public NewClientForm()
         {
@@ -25,9 +26,14 @@ namespace IBMConsultantTool
             okButton.Click += new EventHandler(okButton_Click);
             cancelButton.Click += new EventHandler(cancelButton_Click);
             startDateText.Click += new EventHandler(startDateText_Click);
+            startDateText.LostFocus +=new EventHandler(startDateText_LostFocus);
             //countryComboBox.Items.AddRange(ClientDataControl.GetCoutnryNames());
             RegionComboBox.Items.AddRange(ClientDataControl.GetRegionNames());
             BusinessTypeComboBox.Items.AddRange(ClientDataControl.GetBusinessTypeNames());
+            startDateText.ReadOnly = true;
+
+            // make all input read only
+            
         }
 
 
@@ -44,7 +50,8 @@ namespace IBMConsultantTool
             client.StartDate = selectedTime;
             client.BusinessType = BusinessTypeComboBox.Text;
 
-            if (client.Name == null || client.Region == null || client.Country == null || client.StartDate == null || client.BusinessType == null)
+            if (clientNameTextBox.Text == "" || RegionComboBox.Text == "" ||
+                        countryComboBox.Text == "" || startDateText.Text == "" || BusinessTypeComboBox.Text == "")
             {
                 MessageBox.Show("All fields required. Please check fields and try again.");
                 return;
@@ -65,10 +72,12 @@ namespace IBMConsultantTool
         }
         private void startDateText_Click(object ender, EventArgs e)
         {
-            MonthCalendar date = new MonthCalendar();
+            date = new MonthCalendar();
             this.Controls.Add(date);
             date.DateSelected += new DateRangeEventHandler(date_DateSelected);
             date.Visible = true;
+            date.Location = new Point(date.Parent.Location.X / 2, date.Parent.Location.Y / 2);
+            
             date.BringToFront();
             //date.MinDate = new System.DateTime
         }
@@ -81,6 +90,10 @@ namespace IBMConsultantTool
             cal.Visible = false;
         }
 
+        private void startDateText_LostFocus(object sender, EventArgs e)
+        {
+            date.Visible = false;
+        }
 
         #endregion
 

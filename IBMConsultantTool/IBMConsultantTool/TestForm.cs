@@ -61,6 +61,7 @@ namespace IBMConsultantTool
         {
             NewClientForm ncf = new NewClientForm();
             ncf.ShowDialog();
+            ncf.StartPosition = FormStartPosition.CenterParent;
             if (ClientDataControl.Client != null)
             {
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcMainForm));
