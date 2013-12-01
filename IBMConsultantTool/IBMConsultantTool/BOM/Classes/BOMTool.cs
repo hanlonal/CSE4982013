@@ -203,6 +203,8 @@ namespace IBMConsultantTool
             SurveyReader.ReadSurvey( this.categories);
         }
 
+        
+
         public void RemoveObjective(NewObjective obj)
         {
             foreach (NewImperative imp in obj.Imperatives)
@@ -222,7 +224,24 @@ namespace IBMConsultantTool
             obj.Visible = false;
             ClientDataControl.db.SaveChanges();
         }
+        public void RemoveCategory()
+        {
 
+                        foreach (NewCategory cat in categories)
+                        {
+                            if (cat.name == clickedPage.Text)
+                            {
+                                categories.Remove(cat);
+                                break;
+                            }
+                        }                        
+                        this.catWorkspace.TabPages.Remove(clickedPage);
+
+                       // ClientDataControl.db.RemoveBOM(imp.Name, ClientDataControl.Client.EntityObject);
+                      //  ClientDataControl.db.SaveChanges();
+                        Refresh();
+
+        }
         public void RemoveImperative(NewImperative imp)
         {
             Controls.RemoveByKey(imp.Name);
@@ -398,20 +417,23 @@ namespace IBMConsultantTool
                     Rectangle r = this.catWorkspace.GetTabRect(catWorkspace.TabPages.IndexOf(item));
                     if (r.X < e.Location.X && e.Location.X < r.X + r.Width && r.Y < e.Location.Y && e.Location.Y < r.Y + r.Height)
                     {
-                        clickedPage = item;
-                        foreach (NewCategory cat in categories)
-                        {
-                            if (cat.name == clickedPage.Text)
-                            {
-                                categories.Remove(cat);
-                                break;
-                            }
-                        }                        
-                        this.catWorkspace.TabPages.Remove(clickedPage);
+                         clickedPage = item;
+                         ContextMenuStrip strip = new ContextMenuStrip();
+                         ToolStripMenuItem deleteCat = new ToolStripMenuItem();
+                         strip.Items.Add(deleteCat);         
+                        deleteCat.Click +=new EventHandler(deleteCat_Click);
+                         deleteCat.Text = "Remove Category";
+                         strip.Show(catWorkspace, e.Location, ToolStripDropDownDirection.BelowRight);
                     }
-                }
+               }
+                    
 
             }
+        }
+
+        private void deleteCat_Click(object sender, EventArgs e)
+        {
+            RemoveCategory();
         }
 
         private void bOMScoreToolStripMenuItem_Click(object sender, EventArgs e)
