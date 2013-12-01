@@ -143,6 +143,7 @@
     <Compile Include="CheckoutClients.Designer.cs">
       <DependentUpon>CheckoutClients.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigurationSettings.cs" />
     <Compile Include="CUPE\Classes\ChangeCUPEDefaults.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -449,6 +450,8 @@
       <DependentUpon>TestITCap.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="IBMConsultantTool_TemporaryKey.pfx" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

@@ -32,6 +32,8 @@ namespace IBMConsultantTool
 
 
 
+
+
         private ClientDataControl() {}
 
         public static ClientDataControl Instance
@@ -321,5 +323,6 @@ namespace IBMConsultantTool
             return bomCategories;
 
         }
+
     }
 }
