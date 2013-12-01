@@ -627,9 +627,9 @@ namespace IBMConsultantTool
 
         private void PopulateCapabilitiesWithObjectives()
         {
-            string[] BOMS = ClientDataControl.db.GetObjectivesFromClientBOM(ClientDataControl.Client.EntityObject).ToArray();
+            Dictionary<string, float> BOMS = ClientDataControl.db.GetObjectivesFromClientBOM(ClientDataControl.Client.EntityObject);
 
-            foreach (string bom in BOMS)
+            foreach (string bom in BOMS.Keys)
             {
                 foreach (ScoringEntity ent in entities)
                 {

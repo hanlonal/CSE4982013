@@ -16,7 +16,7 @@ namespace IBMConsultantTool
         public abstract string[] GetClientNames();
         public abstract Client AddClient(Client client);
         public abstract Client LoadClient(string clientName);
-        public abstract List<string> GetObjectivesFromClientBOM(object clientObj);
+        public abstract Dictionary<string, float> GetObjectivesFromClientBOM(object clientObj);
         public abstract void ClientCompletedBOM(object clientObj);
         public abstract void ClientCompletedCUPE(object clientObj);
         public abstract void ClientCompletedITCAP(object clientObj);
