@@ -333,7 +333,7 @@ namespace IBMConsultantTool
                 cupeQuestionsComboBox.DataSource = names;
                 cupeQuestionsComboBox.Text = "<CUPE Questions>";
             }
-            if (value == "IT Attribues")
+            if (value == "IT Attributes")
             {
                 ChangeState(TrackingState.ITAttributes);
                 names = db.GetDomainNames().ToList();
