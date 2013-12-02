@@ -272,6 +272,28 @@ namespace IBMConsultantTool
             return objDictionary;
         }
 
+        public override Dictionary<string, List<string>> GetCapabilitiesAndAttributesFromClientITCAP(object clientObj)
+        {
+            XElement client = clientObj as XElement;
+
+            List<XElement> entList = client.Element("ITCAPS").Elements("ITCAP").ToList();
+
+            Dictionary<string, List<string>> capDictionary = new Dictionary<string, List<string>>();
+            string capabilityName;
+            foreach (XElement itcapObj in entList)
+            {
+                capabilityName = itcapObj.Element("CAPABILITY").Value;
+                if (!capDictionary.ContainsKey(capabilityName))
+                {
+                    capDictionary.Add(capabilityName, new List<string>());
+                }
+
+                capDictionary[capabilityName].Add(itcapObj.Element("ITCAPQUESTION").Value);
+            }
+
+            return capDictionary;
+        }
+
         public override void ClientCompletedBOM(object clientObj)
         {
             XElement client = clientObj as XElement;

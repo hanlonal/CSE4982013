@@ -228,6 +228,28 @@ namespace IBMConsultantTool
             return objDictionary;
         }
 
+        public override Dictionary<string, List<string>> GetCapabilitiesAndAttributesFromClientITCAP(object clientObj)
+        {
+            CLIENT client = clientObj as CLIENT;
+
+            List<ITCAP> entList = client.ITCAP.ToList();
+
+            Dictionary<string, List<string>> capDictionary = new Dictionary<string, List<string>>();
+            string capabilityName;
+            foreach (ITCAP itcapObj in entList)
+            {
+                capabilityName = itcapObj.ITCAPQUESTION.CAPABILITY.NAME.TrimEnd();
+                if (!capDictionary.ContainsKey(capabilityName))
+                {
+                    capDictionary.Add(capabilityName, new List<string>());
+                }
+
+                capDictionary[capabilityName].Add(itcapObj.ITCAPQUESTION.NAME.TrimEnd());
+            }
+
+            return capDictionary;
+        }
+
         public override void ClientCompletedBOM(object clientObj)
         {
             CLIENT client = clientObj as CLIENT;
