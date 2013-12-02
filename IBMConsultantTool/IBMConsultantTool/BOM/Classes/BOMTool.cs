@@ -92,7 +92,7 @@ namespace IBMConsultantTool
             }
             else if (sortedComboBox.Text == "Criticality")
             {
-                sortedImpList.OrderBy((d => d.Criticality);
+                sortedImpList.OrderBy((d => d.Criticality));
             }
             else if (sortedComboBox.Text == "Weighted ECD")
             {

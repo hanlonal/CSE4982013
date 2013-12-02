@@ -4275,7 +4275,9 @@ namespace IBMConsultantTool
                         DateTime date = cap[cnt].Date;
                         for (int num = 0; num < childrenCount; num++)
                         {
-                            if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            //Console.WriteLine("gap type: " + cap[num].GapType.ToString() + ", " + cap[num + cnt + 1].GapType.ToString());
+                            //if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            if (date == cap[num + cnt + 1].Date)
                             {
                                 gap += cap[num + cnt + 1].CapabilityGap;
                                 sameNum[cntNum] = num + cnt + 1;
@@ -4382,7 +4384,8 @@ namespace IBMConsultantTool
                         DateTime date = cap[cnt].Date;
                         for (int num = 0; num < childrenCount; num++)
                         {
-                            if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            //if (cap[num + cnt + 1].GapType == "" && date == cap[num + cnt + 1].Date)
+                            if (date == cap[num + cnt + 1].Date)
                             {
                                 prioritizedGap += cap[num + cnt + 1].PrioritizedCapabilityGap;
                                 sameNum[cntNum] = num + cnt + 1;
