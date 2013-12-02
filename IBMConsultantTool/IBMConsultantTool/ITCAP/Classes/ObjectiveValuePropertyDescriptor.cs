@@ -32,7 +32,7 @@ namespace IBMConsultantTool
             Capability val = (Capability)component;
             foreach (ObjectiveValues dv in val.ObjectiveCollection)
                 if (dv.Name == this.Name)
-                    dv.Value = Convert.ToInt32((string)value);
+                    dv.Score = Convert.ToInt32((string)value);
         }
 
         public override object GetValue(object component)
@@ -53,7 +53,7 @@ namespace IBMConsultantTool
 
             foreach (ObjectiveValues dv in cap.ObjectiveCollection)
                 if (dv.Name == this.Name)
-                    return dv.Value;
+                    return dv.Score;
 
             return 0;
         }

@@ -33,7 +33,7 @@ namespace IBMConsultantTool
         private List<Control> surverymakercontrols = new List<Control>();
         private List<Control> liveDataEntryControls = new List<Control>();
         private List<Control> prioritizationControls = new List<Control>();
-
+        private List<int> availablePriorityValues = new List<int>();
         private List<Control> loadFromSurveyControls = new List<Control>();
         DataGridView currentGrid;
         private Button button13322345;
@@ -124,6 +124,10 @@ namespace IBMConsultantTool
 
             ClearOptionsPanelControls("Start");
 
+            availablePriorityValues.Add(0);
+            availablePriorityValues.Add(1);
+            availablePriorityValues.Add(2);
+            availablePriorityValues.Add(3);
 
             surverymakercontrols.Add(questionNameTextBox);
             surverymakercontrols.Add(capabilitiesList);
@@ -675,7 +679,7 @@ namespace IBMConsultantTool
             for (int i = panel1.Controls.Count -1; i >-1; i--)
             {
                 Console.WriteLine(panel1.Controls[i].Name);
-                if (panel1.Controls[i].Name == "Testing")
+                if (panel1.Controls[i].Name.StartsWith("Testing"))
                 {
                     panel1.Controls[i].DataBindings.Clear();
                     panel1.Controls.RemoveAt(i);
@@ -699,35 +703,45 @@ namespace IBMConsultantTool
             panel1.Controls.Add(nameLabel);
             nameLabel.Location = new Point(capabilityNameLabel.Location.X, capabilityNameLabel.Location.Y + 50);
             int width = 150;
+            
             foreach (ObjectiveValues val in currentcap.ObjectiveCollection)
             {
+                
+                List<int> test = new List<int>();
+
                 Label label = new Label();
                 label.Font = font;
                 label.Width = 100;
                 label.AutoEllipsis = true;
                 label.Text = val.Name;
                 ComboBox combo = new ComboBox();
-                combo.Name = "Testing";
-                label.Name = "Testing";
+                combo.Name = "Testing" + count.ToString();
+                label.Name = "Testing" + count.ToString();
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
-                combo.DataBindings.Clear();
-                combo.Items.Add(0);
-                combo.Items.Add(1);
-                combo.Items.Add(2);
-                combo.Items.Add(3);
+                //combo.DataBindings.Clear();
+                combo.Items.Add((int)0);
+                combo.Items.Add((int)1);
+                combo.Items.Add((int)2);
+                combo.Items.Add((int)3);
+               // combo.DataSource = test;
                 combo.Width = 50;
-                combo.SelectedItem = val.Value;
+                combo.SelectedItem = val.Score;
+                
                 //combo.DataBindings.Add("Text", val, "Value");
-                combo.DataBindings.Add("SelectedItem", val, "Value");
+                combo.DataBindings.Add("SelectedItem", val, "Score");
+               
                // combo.TextChanged +=new EventHandler(combo_TextChanged);
                 combo.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                combo.LostFocus +=new EventHandler(combo_LostFocus);
+                //combo.LostFocus +=new EventHandler(combo_LostFocus);
                 //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
                 //combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
               //  combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
-                combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
-                combo.TextChanged +=new EventHandler(combo_TextChanged);
-                combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
+                //combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
+                //combo.TextChanged +=new EventHandler(combo_TextChanged);
+                //combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
+                combo.DropDownClosed +=new EventHandler(combo_DropDownClosed);
+                combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
+                combo.DropDownStyle = ComboBoxStyle.DropDownList;
                 panel1.Controls.Add(combo);
                 combo.Tag = " ";
                 panel1.Controls.Add(label);
@@ -738,66 +752,33 @@ namespace IBMConsultantTool
                 count++;
             }
         }
-
-        private void combo_SelectionChangeCommitted(object sender, EventArgs e)
+        private void combo_SelectedValueChanged(object sender, EventArgs e)
         {
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
+
+                currentcap.CalculatePrioritizedCapabilityGap();
+                //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+                if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+                {
+                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+                }
+                else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+                {
+                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+                }
+                else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+                {
+                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+                }
+            
+
             currentGrid.Refresh();
         }
 
-        private void combo_SelectedIndexChanged(object sender, EventArgs e)
+        private void combo_DropDownClosed(object sender, EventArgs e)
         {
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-            currentGrid.Refresh();
-        }
-
-        private void combo_LostFocus(object sender, EventArgs e)
-        {
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-            currentGrid.Refresh();
-        }
-
-        private void combo_TextChanged(object sender, EventArgs e)
-        {
+            ComboBox box = (ComboBox)sender;
+            
+            
             currentcap.CalculatePrioritizedCapabilityGap();
             //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
             if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
@@ -813,9 +794,11 @@ namespace IBMConsultantTool
                 loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
             }
 
-
             currentGrid.Refresh();
         }
+
+
+
 
         private void combo_ControlRemoved(object sender, EventArgs e)
         {

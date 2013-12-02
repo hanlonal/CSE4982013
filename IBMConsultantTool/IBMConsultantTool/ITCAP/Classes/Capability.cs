@@ -356,7 +356,14 @@ namespace IBMConsultantTool
 
         public override void CalculatePrioritizedCapabilityGap()
         {
+           int sum = 0;
             //NEEDS TO BE DONE YOU HVAE FORMULA NOW
+            foreach (ObjectiveValues val in objectiveCollection)
+            {
+                sum += val.Score;
+            }
+
+            prioritizedCapabilityGap = sum;
             CalculatePrioritizedGapText();
 
         }
@@ -384,7 +391,7 @@ namespace IBMConsultantTool
                 PrioritizedGapType1 = PrioritizedGapType.None;
             }
 
-            //Console.WriteLine("GAP = == " + prioritizedCapabilityGap);
+            Console.WriteLine("GAP = == " + prioritizedCapabilityGap);
         }
 
         public string CapName
