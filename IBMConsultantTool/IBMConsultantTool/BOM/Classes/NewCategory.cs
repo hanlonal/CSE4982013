@@ -9,7 +9,7 @@ namespace IBMConsultantTool
 {
     public class NewCategory : TabPage
     {
-        float[] heights = new float[4];
+        float[] heights = new float[3];
         NewObjective lastClicked;
         private BOMTool owner;
         public List<NewObjective> objectives = new List<NewObjective>();

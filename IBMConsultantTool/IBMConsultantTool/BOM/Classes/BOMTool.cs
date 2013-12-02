@@ -59,6 +59,9 @@ namespace IBMConsultantTool
                 NewImperative init = obj.Imperatives[i];
                 CreateDataLabels(55 + (i * heightBetween), init);
             }
+
+            categoryNames.Text = obj.owner.name;
+            objectiveNames.Text = obj.ObjName;
         }
 
         private void ClearDetailPanel()

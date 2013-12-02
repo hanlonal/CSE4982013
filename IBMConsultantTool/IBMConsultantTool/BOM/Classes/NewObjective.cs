@@ -15,7 +15,7 @@ namespace IBMConsultantTool
         string name;
         private int labelHeight = 30;
         private int baseHeight = 90;
-        private int baseWidth = 200;
+        private int baseWidth = 250;
         NewImperative currentImperative;
 
         
@@ -156,11 +156,11 @@ namespace IBMConsultantTool
         {
             Point p = new Point();
             // Console.WriteLine(owner.Width.ToString());
-            int index = (owner.Objectives.Count % 4);
-            p.X = baseWidth * (owner.Objectives.Count % 4);
-            if (owner.Objectives.Count > 3)
+            int index = (owner.Objectives.Count % 3);
+            p.X = baseWidth * (owner.Objectives.Count % 3);
+            if (owner.Objectives.Count > 2)
             {
-                owner.Heights[index] = owner.Objectives[owner.Objectives.Count - 4].Location.Y + owner.Objectives[owner.Objectives.Count - 4].Height;
+                owner.Heights[index] = owner.Objectives[owner.Objectives.Count - 3].Location.Y + owner.Objectives[owner.Objectives.Count - 3].Height;
                 p.Y = (int)owner.Heights[index];
             }
             else
@@ -183,7 +183,7 @@ namespace IBMConsultantTool
             label.ForeColor = Color.Black;
             label.Height = labelHeight;
             this.Controls.Add(label);
-            label.Width = label.Parent.Width;
+            label.Width = 250;
             label.BorderStyle = BorderStyle.Fixed3D;
             label.Location = new Point(0, 0);
             //label.BackColor = Color.Teal;
