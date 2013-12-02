@@ -4,6 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
+/*--------------------------------------------------------------------------------------------------
+ * Name: DataManager
+ * 
+ * Purpose: Base class for DBManager (handles online mode data management) and File Manager
+ *          (handles offline mode data management). Provides interface for tools to retrieve
+ *          necessary information. The regions are meant to sort the functions by the database
+ *          table it effects.
+ *-------------------------------------------------------------------------------------------------*/
+
 namespace IBMConsultantTool
 {
     public abstract class DataManager

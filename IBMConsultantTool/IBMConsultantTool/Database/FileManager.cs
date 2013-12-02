@@ -6,6 +6,17 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+/*--------------------------------------------------------------------------------------------------
+ * Name: FileManager
+ * 
+ * Purpose: This class is instantiated each time offline mode is set. It is responsible for
+ *          offline mode data management. Each region includes all functions related to
+ *          that database table. Each change this class makes to the client/data file will
+ *          also be written to changes.log so that the DBManager can push these changes to
+ *          the database upon instantiation.
+ *-------------------------------------------------------------------------------------------------*/
+
+
 namespace IBMConsultantTool
 {
     public class FileManager : DataManager
@@ -50,8 +61,6 @@ namespace IBMConsultantTool
         #region Client
         public List<XElement> GetClients()
         {
-            /*return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                    select ent).ToList();*/
             List<XElement> clients = new List<XElement>();
             foreach (string fileName in Directory.GetFiles(@"Resources\Clients"))
             {
@@ -63,8 +72,6 @@ namespace IBMConsultantTool
 
         public override string[] GetClientNames()
         {
-            /*return (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                    select ent.Element("NAME").Value).ToArray();*/
             return (from ent in Directory.GetFiles(@"Resources\Clients")
                     select Path.GetFileNameWithoutExtension(ent)).ToArray();
         }
@@ -73,9 +80,6 @@ namespace IBMConsultantTool
         {
             try
             {
-                /*client = (from ent in dbo.Element("CLIENTS").Elements("CLIENT")
-                          where ent.Element("NAME").Value == cntName
-                          select ent).Single();*/
                 client = (from ent in Directory.GetFiles(@"Resources\Clients")
                           where Path.GetFileNameWithoutExtension(ent) == cntName
                           select XElement.Load(ent)).Single();

@@ -6,6 +6,16 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+/*--------------------------------------------------------------------------------------------------
+ * Name: DBManager
+ * 
+ * Purpose: This class is instantiated each time online mode is set. It is responsible for
+ *          online mode data management. Each region includes all functions related to
+ *          that database table. Also includes functions for pushing offline changes to the 
+ *          database when back in online mode, and updating client/data files whenever changes
+ *          are made to the database. These two functions are called in the constructor.
+ *-------------------------------------------------------------------------------------------------*/
+
 namespace IBMConsultantTool
 {
     public class DBManager : DataManager
