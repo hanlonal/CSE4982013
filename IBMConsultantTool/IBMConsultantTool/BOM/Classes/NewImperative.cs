@@ -59,6 +59,11 @@ namespace IBMConsultantTool
             totalBOMScore = ((11-effectiveness)*criticality*.5f)/10 +differentiation*.5f;
         }
 
+        public void ChangeColorDynamicMode(string param)
+        {
+
+        }
+
         public void ChangeColor(string param)
         {
             if (state == RatingsState.Static)

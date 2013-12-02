@@ -22,10 +22,13 @@ namespace IBMConsultantTool
             dynamicAutoLowGaText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoLowGap");
             stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "StandardDeviationThreshold");
             staticSortRadio.DataBindings.Add("Checked", ConfigurationSettings.Instance, "StaticSort");
+            bomStaticRankingRadio.DataBindings.Add("Checked", ConfigurationSettings.Instance, "BOMSortModeStatic1");
             bomhighTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMhighThreshold1");
             bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
             staticSortRadio.CheckedChanged +=new EventHandler(staticSortRadio_CheckedChanged);
+            bomStaticRankingRadio.CheckedChanged +=new EventHandler(bomStaticRankingRadio_CheckedChanged);
             dynamicSortRadio.Checked = !staticSortRadio.Checked;
+            bomDynamicRankingRadio.Checked = !bomStaticRankingRadio.Checked;
             //staticSortRadio.Checked = ConfigurationSettings.Instance.StaticSort;
         }
 
@@ -44,6 +47,17 @@ namespace IBMConsultantTool
             else
                 ConfigurationSettings.Instance.StaticSort = false;
             Console.WriteLine(ConfigurationSettings.Instance.StaticSort);
+        }
+
+        private void bomStaticRankingRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (bomStaticRankingRadio.Checked == true)
+            {
+                ConfigurationSettings.Instance.BOMSortModeStatic1 = true;
+            }
+            else
+                ConfigurationSettings.Instance.BOMSortModeStatic1 = false;
+            Console.WriteLine(ConfigurationSettings.Instance.BOMSortModeStatic1);
         }
 
         private void bomhighTextbox_TextChanged(object sender, EventArgs e)

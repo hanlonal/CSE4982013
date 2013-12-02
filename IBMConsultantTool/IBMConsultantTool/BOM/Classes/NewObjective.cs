@@ -109,19 +109,22 @@ namespace IBMConsultantTool
 
         private void imperativeLabel_MouseDown(object sender, MouseEventArgs e)
         {
-            Label label = (Label)sender;
-            foreach (NewImperative imp in this.imperatives)
+            if (e.Button == MouseButtons.Right)
             {
-                if (imp.Name == label.Text)
-                    currentImperative = imp;
-            }
+                Label label = (Label)sender;
+                foreach (NewImperative imp in this.imperatives)
+                {
+                    if (imp.Name == label.Text)
+                        currentImperative = imp;
+                }
 
-            ContextMenuStrip strip = new ContextMenuStrip();
-            ToolStripMenuItem delete = new ToolStripMenuItem();
-            delete.Text = "Delete Imperative";
-            delete.Click +=new EventHandler(delete_Click);
-            strip.Items.Add(delete);
-            strip.Show(label, e.Location, ToolStripDropDownDirection.BelowRight);
+                ContextMenuStrip strip = new ContextMenuStrip();
+                ToolStripMenuItem delete = new ToolStripMenuItem();
+                delete.Text = "Delete Imperative";
+                delete.Click += new EventHandler(delete_Click);
+                strip.Items.Add(delete);
+                strip.Show(label, e.Location, ToolStripDropDownDirection.BelowRight);
+            }
         }
 
         private void delete_Click(object sender, EventArgs e)
@@ -237,8 +240,10 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                if(ConfigurationSettings.Instance.BOMSortModeStatic1 == false)
+                if(ConfigurationSettings.Instance.BOMSortModeStatic1 == true)
                     init.ChangeColor("differentiation");
+                else
+                    Console.WriteLine("dynamic mode");
 
                 CheckColor(init);
             }
@@ -248,8 +253,10 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == false)                
+                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == true)                
                     init.ChangeColor("effectiveness");
+                else
+                    Console.WriteLine("dynamic mode");
 
                 CheckColor(init);
             }
@@ -259,8 +266,10 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == false)
+                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == true)
                     init.ChangeColor("criticality");
+                else
+                    Console.WriteLine("dynamic mode");
 
                 CheckColor(init);
             }
@@ -270,8 +279,10 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == false)
+                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == true)
                     init.ChangeColor("bomscore");
+                else
+                    Console.WriteLine("dynamic mode");
 
                 CheckColor(init);
             }
