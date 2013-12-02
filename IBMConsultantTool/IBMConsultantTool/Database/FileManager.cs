@@ -250,6 +250,28 @@ namespace IBMConsultantTool
             return objDictionary;
         }
 
+        public override Dictionary<string, List<string>> GetObjectivesAndImperativesFromClientBOM(object clientObj)
+        {
+            XElement client = clientObj as XElement;
+
+            List<XElement> entList = client.Element("BOMS").Elements("BOM").ToList();
+
+            Dictionary<string, List<string>> objDictionary = new Dictionary<string, List<string>>();
+            string objectiveName;
+            foreach (XElement bomObj in entList)
+            {
+                objectiveName = bomObj.Element("BUSINESSOBJECTIVE").Value;
+                if (!objDictionary.ContainsKey(objectiveName))
+                {
+                    objDictionary.Add(objectiveName, new List<string>());
+                }
+
+                objDictionary[objectiveName].Add(bomObj.Element("IMPERATIVE").Value);
+            }
+
+            return objDictionary;
+        }
+
         public override void ClientCompletedBOM(object clientObj)
         {
             XElement client = clientObj as XElement;
