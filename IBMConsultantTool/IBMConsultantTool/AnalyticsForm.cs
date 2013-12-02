@@ -142,6 +142,8 @@ namespace IBMConsultantTool
                     metricsComboBox.Items.Add("Prioritized Capability Gap Type");
                     metricsComboBox.Items.Add("Capability Gap Amount");
                     metricsComboBox.Items.Add("Prioritized Capability Gap Amount");
+
+                    graphTypeComboBox.Items.Clear();
                     break;
                 case TrackingState.CUPEQuestions:
                     ClearControls("CUPE");
@@ -162,6 +164,8 @@ namespace IBMConsultantTool
                     ClearControls("Capabilities");                    
                     metricsComboBox.Items.Add("Average As Is Score");
                     metricsComboBox.Items.Add("Average To Be Score");
+
+                    graphTypeComboBox.Items.Clear();
                     break;
                 case TrackingState.Imperatives:
                     ClearControls("Imperatives");                    
@@ -249,17 +253,18 @@ namespace IBMConsultantTool
             string selectedInfo = (string)graphTypeComboBox.SelectedItem;
             graphType = selectedInfo;
 
-            if (state == TrackingState.Capabilities)
+            /*if (state == TrackingState.Capabilities)
             {
                 CreateCapabilityGraph(capabilitiesToTrack, "Capabilities", selectedInfo);
             }
-            else if (state == TrackingState.CUPEQuestions)
-            {
-                CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
-            }
+             
             else if (state == TrackingState.ITAttributes)
             {
                 CreateITAttributeGraph(attributesToTrack, "IT Attributes", selectedInfo);
+            }*/
+            if (state == TrackingState.CUPEQuestions)
+            {
+                CreateCUPEGraph(cupeToTrack, "CUPE Question", selectedInfo);
             }
             else if (state == TrackingState.Imperatives)
             {
@@ -1945,6 +1950,12 @@ namespace IBMConsultantTool
             }
 
             #endregion
+
+            lineChart.Titles.Add("title");
+            lineChart.Titles[0].Name = "title";
+            lineChart.Titles["title"].Visible = true;
+            lineChart.Titles["title"].Text = title + " - " + saveName;
+            lineChart.Titles["title"].Font = new Font("Arial", 14, FontStyle.Bold);
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
