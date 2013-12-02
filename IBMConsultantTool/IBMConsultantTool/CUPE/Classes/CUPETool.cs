@@ -3491,7 +3491,7 @@ namespace IBMConsultantTool
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm form = new SettingsForm();
+            SettingsForm form = new SettingsForm(this);
             form.Show();
         }
 

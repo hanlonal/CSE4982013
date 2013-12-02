@@ -2018,7 +2018,7 @@ namespace IBMConsultantTool
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm form = new SettingsForm();
+            SettingsForm form = new SettingsForm(this);
             form.Show();
         }
 

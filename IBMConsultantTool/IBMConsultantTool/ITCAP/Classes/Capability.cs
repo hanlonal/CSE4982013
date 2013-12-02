@@ -13,6 +13,7 @@ namespace IBMConsultantTool
         enum SortTpe { Static, Dynamic };
         static SortTpe sortType;
 
+        
 
         static private float percentToCategorizeAsHigh = .33f;
         static private float percentToCategorizeAsLow = .33f;
@@ -101,7 +102,7 @@ namespace IBMConsultantTool
             }
 
 
-            if (sortType == SortTpe.Static || dynamicCapabilityGaps.Count <3)
+            if (ConfigurationSettings.Instance.StaticSort || dynamicCapabilityGaps.Count <3)
             {
                 if (capabilityGap >= ConfigurationSettings.Instance.StaticHighGapThreshold)
                 {
@@ -124,7 +125,7 @@ namespace IBMConsultantTool
                     gapType = GapType.None;
                 }
             }
-            else if (sortType == SortTpe.Dynamic)
+            else if (!ConfigurationSettings.Instance.StaticSort)
             {
                 var items = from pair in dynamicCapabilityGaps
                             orderby pair.Value ascending
