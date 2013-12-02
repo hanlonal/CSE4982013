@@ -41,7 +41,6 @@ namespace IBMConsultantTool
 
         public delegate void UpdateUIDelegate(bool IsDataLoaded);
 
-
         int totalARowIndex = 21;
         int totalBRowIndex = 22;
         int totalCRowIndex = 23;
@@ -372,7 +371,7 @@ namespace IBMConsultantTool
             currentGrid.Rows[index].Cells[totalCIndex + (currentGrid.ColumnCount - 7)].Value = totalC.ToString();
             currentGrid.Rows[index].Cells[totalDIndex + (currentGrid.ColumnCount - 7)].Value = totalD.ToString();
             currentGrid.Rows[index].Cells[totalAnswers + (currentGrid.ColumnCount - 7)].Value = count.ToString();
-            currentGrid.Rows[index].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value = Math.Round((total / (currentGrid.ColumnCount - 7)), 2).ToString();
+            currentGrid.Rows[index].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value = currentGrid.ColumnCount > 7 ? Math.Round((total / (currentGrid.ColumnCount - 7)), 2).ToString() : "0";
 
             QuestionCellFormatting(index);
             
@@ -446,7 +445,7 @@ namespace IBMConsultantTool
             currentGrid.Rows[totalCRowIndex].Cells[colIndex].Value = totalC.ToString();
             currentGrid.Rows[totalDRowIndex].Cells[colIndex].Value = totalD.ToString();
             currentGrid.Rows[totalAnswerRowIndex].Cells[colIndex].Value = count.ToString();
-            currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = Math.Round((total / count), 2).ToString();
+            currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = currentGrid.ColumnCount > 7 ? Math.Round((total / (currentGrid.ColumnCount - 7)), 2).ToString() : "0";
 
             //questionGrid[colIndex, averageRowIndex].Style.BackColor = Color.Red;
            
@@ -2232,6 +2231,11 @@ namespace IBMConsultantTool
             ClientDataControl.cupeQuestions.Clear();
             ClientDataControl.LoadNewCUPE10(this);
             SetLastTenColumnVisibility(false);
+            UpdateCupeScore();
+            for (int i = 0; i < currentGrid.Rows.Count; i++)
+            {
+                ChangeTotalsByRow(i);
+            }
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -2241,6 +2245,11 @@ namespace IBMConsultantTool
             ClientDataControl.cupeQuestions.Clear();
             ClientDataControl.LoadNewCUPE20(this);
             SetLastTenColumnVisibility(true);
+            UpdateCupeScore();
+            for (int i = 0; i < currentGrid.Rows.Count; i++)
+            {
+                ChangeTotalsByRow(i);
+            }
         }
 
         private void SetLastTenColumnVisibility(bool isShown)
@@ -3471,7 +3480,7 @@ namespace IBMConsultantTool
             }
         }
 
-        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach( DataGridView grid in grids )
             {
@@ -3484,9 +3493,13 @@ namespace IBMConsultantTool
             CUPETool_Load(sender, e);
             loadColumnNames();
             changeAllTotals();
-            UpdateCupeScore();
             ClientDataControl.SetParticipants(new List<Person>());
             removePersonColumns();
+            UpdateCupeScore();
+            for (int i = 0; i < currentGrid.Rows.Count; i++)
+            {
+                ChangeTotalsByRow(i);
+            }
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)

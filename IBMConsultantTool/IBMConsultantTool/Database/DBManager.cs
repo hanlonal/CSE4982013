@@ -1475,6 +1475,27 @@ namespace IBMConsultantTool
 
                 dbo.DeleteObject(cupe);
             }
+
+            GROUP grp;
+            List<CONTACT> contactsToDelete;
+
+            if (GetGroup("Business", client, out grp))
+            {
+                contactsToDelete = grp.CONTACT.ToList();
+                foreach (CONTACT contactToDelete in contactsToDelete)
+                {
+                    dbo.DeleteObject(contactToDelete);
+                }
+            }
+
+            if (GetGroup("IT", client, out grp))
+            {
+                contactsToDelete = grp.CONTACT.ToList();
+                foreach (CONTACT contactToDelete in contactsToDelete)
+                {
+                    dbo.DeleteObject(contactToDelete);
+                }
+            }
         }
 
         public bool GetCUPE(string name, CLIENT client, out CUPE cupe)
