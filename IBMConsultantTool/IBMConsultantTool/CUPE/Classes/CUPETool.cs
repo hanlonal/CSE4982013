@@ -372,7 +372,7 @@ namespace IBMConsultantTool
             currentGrid.Rows[index].Cells[totalCIndex + (currentGrid.ColumnCount - 7)].Value = totalC.ToString();
             currentGrid.Rows[index].Cells[totalDIndex + (currentGrid.ColumnCount - 7)].Value = totalD.ToString();
             currentGrid.Rows[index].Cells[totalAnswers + (currentGrid.ColumnCount - 7)].Value = count.ToString();
-            currentGrid.Rows[index].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value = (total / (currentGrid.ColumnCount - 7)).ToString();
+            currentGrid.Rows[index].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value = Math.Round((total / (currentGrid.ColumnCount - 7)), 2).ToString();
 
             QuestionCellFormatting(index);
             
@@ -393,7 +393,7 @@ namespace IBMConsultantTool
                 }
             }
             if (count > 0)
-                cupeScoreLabel.Text = (num / count).ToString();
+                cupeScoreLabel.Text = Math.Round((num / count), 2).ToString();
             else
                 cupeScoreLabel.Text = " ";
         }
@@ -446,7 +446,7 @@ namespace IBMConsultantTool
             currentGrid.Rows[totalCRowIndex].Cells[colIndex].Value = totalC.ToString();
             currentGrid.Rows[totalDRowIndex].Cells[colIndex].Value = totalD.ToString();
             currentGrid.Rows[totalAnswerRowIndex].Cells[colIndex].Value = count.ToString();
-            currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = (total / count).ToString();
+            currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = Math.Round((total / count), 2).ToString();
 
             //questionGrid[colIndex, averageRowIndex].Style.BackColor = Color.Red;
            

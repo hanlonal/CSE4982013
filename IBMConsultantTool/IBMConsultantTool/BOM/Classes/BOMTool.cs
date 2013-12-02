@@ -230,6 +230,7 @@ namespace IBMConsultantTool
             {
                 if (cat.name == clickedPage.Text)
                 {
+                    Controls.Remove(cat);
                     categories.Remove(cat);
                     foreach(NewObjective objective in cat.Objectives)
                     {
