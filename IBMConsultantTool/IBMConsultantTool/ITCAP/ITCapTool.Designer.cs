@@ -51,16 +51,11 @@
             this.capabilityAssesmentSummaryScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityGapHeatmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prioritizedCapabilityGapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Insert = new System.Windows.Forms.ToolStripMenuItem();
-            this.domainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.capabilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.questionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeDefaults = new System.Windows.Forms.ToolStripMenuItem();
             this.changeDefaultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Workshop = new System.Windows.Forms.ToolStripMenuItem();
             this.LiveDataEntry = new System.Windows.Forms.ToolStripMenuItem();
-            this.Prioritization = new System.Windows.Forms.ToolStripMenuItem();
             this.SurveryMaker = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cUPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,7 +161,6 @@
             this.mainMenuToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.File,
             this.View,
-            this.Insert,
             this.ChangeDefaults,
             this.Workshop,
             this.toolsToolStripMenuItem,
@@ -280,34 +274,6 @@
             this.prioritizedCapabilityGapsToolStripMenuItem.Text = "Prioritized Capability Gaps";
             this.prioritizedCapabilityGapsToolStripMenuItem.Click += new System.EventHandler(this.prioritizedCapabilityGapsToolStripMenuItem_Click);
             // 
-            // Insert
-            // 
-            this.Insert.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.domainToolStripMenuItem,
-            this.capabilityToolStripMenuItem,
-            this.questionToolStripMenuItem});
-            this.Insert.Name = "Insert";
-            this.Insert.Size = new System.Drawing.Size(48, 19);
-            this.Insert.Text = "Insert";
-            // 
-            // domainToolStripMenuItem
-            // 
-            this.domainToolStripMenuItem.Name = "domainToolStripMenuItem";
-            this.domainToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.domainToolStripMenuItem.Text = "Domain";
-            // 
-            // capabilityToolStripMenuItem
-            // 
-            this.capabilityToolStripMenuItem.Name = "capabilityToolStripMenuItem";
-            this.capabilityToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.capabilityToolStripMenuItem.Text = "Capability";
-            // 
-            // questionToolStripMenuItem
-            // 
-            this.questionToolStripMenuItem.Name = "questionToolStripMenuItem";
-            this.questionToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.questionToolStripMenuItem.Text = "Question";
-            // 
             // ChangeDefaults
             // 
             this.ChangeDefaults.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -335,7 +301,6 @@
             // 
             this.Workshop.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LiveDataEntry,
-            this.Prioritization,
             this.SurveryMaker});
             this.Workshop.Name = "Workshop";
             this.Workshop.Size = new System.Drawing.Size(73, 19);
@@ -347,13 +312,6 @@
             this.LiveDataEntry.Size = new System.Drawing.Size(152, 22);
             this.LiveDataEntry.Text = "Live Data Entry";
             this.LiveDataEntry.Click += new System.EventHandler(this.LiveDataEntry_Click);
-            // 
-            // Prioritization
-            // 
-            this.Prioritization.Name = "Prioritization";
-            this.Prioritization.Size = new System.Drawing.Size(152, 22);
-            this.Prioritization.Text = "Prioritization";
-            this.Prioritization.Click += new System.EventHandler(this.Prioritization_Click);
             // 
             // SurveryMaker
             // 
@@ -999,10 +957,6 @@
         private System.Windows.Forms.MenuStrip mainMenuToolBar;
         private System.Windows.Forms.ToolStripMenuItem File;
         private System.Windows.Forms.ToolStripMenuItem View;
-        private System.Windows.Forms.ToolStripMenuItem Insert;
-        private System.Windows.Forms.ToolStripMenuItem domainToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem capabilityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem questionToolStripMenuItem;
         private System.Windows.Forms.TextBox capabilityNameTextBox;
         private System.Windows.Forms.TextBox questionNameTextBox;
         private System.Windows.Forms.ToolStripMenuItem ChangeDefaults;
@@ -1017,7 +971,6 @@
         private System.Windows.Forms.ToolStripMenuItem prioritizedCapabilityGapsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Workshop;
         private System.Windows.Forms.ToolStripMenuItem LiveDataEntry;
-        private System.Windows.Forms.ToolStripMenuItem Prioritization;
         private System.Windows.Forms.ToolStripMenuItem SurveryMaker;
         private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.ToolStripMenuItem changeDefaultsToolStripMenuItem;

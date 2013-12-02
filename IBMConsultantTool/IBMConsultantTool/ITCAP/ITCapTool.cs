@@ -2022,6 +2022,5 @@ namespace IBMConsultantTool
             form.Show();
         }
 
-
     }// end class
 }

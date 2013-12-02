@@ -40,10 +40,6 @@
             this.openSurveysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.staticMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dynamicMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ratingThresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectivenessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,8 +66,8 @@
             // 
             // catWorkspace
             // 
-            this.catWorkspace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.catWorkspace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.catWorkspace.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.catWorkspace.ItemSize = new System.Drawing.Size(0, 35);
             this.catWorkspace.Location = new System.Drawing.Point(11, 34);
@@ -188,8 +184,6 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.participantsToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.ratingThresholdsToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -199,44 +193,14 @@
             // 
             this.participantsToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.participantsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.participantsToolStripMenuItem.Text = "Participants";
             this.participantsToolStripMenuItem.Click += new System.EventHandler(this.participantsToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.staticMenuItem,
-            this.dynamicMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
-            this.toolStripMenuItem1.Text = "Rating Type";
-            // 
-            // staticMenuItem
-            // 
-            this.staticMenuItem.Checked = true;
-            this.staticMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.staticMenuItem.Name = "staticMenuItem";
-            this.staticMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.staticMenuItem.Text = "Static";
-            // 
-            // dynamicMenuItem
-            // 
-            this.dynamicMenuItem.Name = "dynamicMenuItem";
-            this.dynamicMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.dynamicMenuItem.Text = "Dynamic";
-            // 
-            // ratingThresholdsToolStripMenuItem
-            // 
-            this.ratingThresholdsToolStripMenuItem.Name = "ratingThresholdsToolStripMenuItem";
-            this.ratingThresholdsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.ratingThresholdsToolStripMenuItem.Text = "Rating Thresholds";
-            this.ratingThresholdsToolStripMenuItem.Click += new System.EventHandler(this.ratingThresholdsToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
@@ -318,9 +282,9 @@
             // 
             // detailInfoPanel
             // 
-            this.detailInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.detailInfoPanel.AutoScroll = true;
             this.detailInfoPanel.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.detailInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -466,10 +430,6 @@
         private System.Windows.Forms.ToolStripMenuItem iTCapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMScoreToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem staticMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem dynamicMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ratingThresholdsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem createSurveyToolStripMenuItem1;
