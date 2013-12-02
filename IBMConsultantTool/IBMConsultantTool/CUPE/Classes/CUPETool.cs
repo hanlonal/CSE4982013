@@ -1286,8 +1286,8 @@ namespace IBMConsultantTool
                 newChart.Series["IT"].Points.AddXY(questionOfCupe, temp);
             }
 
-            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
-            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
+            newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
 
