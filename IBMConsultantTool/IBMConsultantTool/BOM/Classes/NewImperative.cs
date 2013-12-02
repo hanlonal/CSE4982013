@@ -70,9 +70,9 @@ namespace IBMConsultantTool
                         scoreState = ScoreState.None;
                         return;
                     }
-                    if (criticality < criticalAmount)
+                    if (criticality < ConfigurationSettings.Instance.BOMlowThreshold1)
                         scoreState = ScoreState.High;
-                    if (criticality >= criticalAmount && criticality <= averageAmount)
+                    if (criticality >= ConfigurationSettings.Instance.BOMlowThreshold1 && criticality <= averageAmount)
                         scoreState = ScoreState.Medium;
                     if (criticality > averageAmount)
                         scoreState = ScoreState.Low;
@@ -84,11 +84,11 @@ namespace IBMConsultantTool
                         scoreState = ScoreState.None;
                         return;
                     }
-                    if (differentiation < criticalAmount)
+                    if (differentiation < ConfigurationSettings.Instance.BOMlowThreshold1)
                         scoreState = ScoreState.High;
-                    if (differentiation >= criticalAmount && differentiation <= averageAmount)
+                    if (differentiation >= ConfigurationSettings.Instance.BOMlowThreshold1 && differentiation <= ConfigurationSettings.Instance.BOMhighThreshold1)
                         scoreState = ScoreState.Medium;
-                    if (differentiation > averageAmount)
+                    if (differentiation > ConfigurationSettings.Instance.BOMhighThreshold1)
                         scoreState = ScoreState.Low;
                 }
 
@@ -99,11 +99,11 @@ namespace IBMConsultantTool
                         scoreState = ScoreState.None;
                         return;
                     }
-                    if (effectiveness < criticalAmount)
+                    if (effectiveness < ConfigurationSettings.Instance.BOMlowThreshold1)
                         scoreState = ScoreState.High;
-                    if (effectiveness >= criticalAmount && effectiveness <= averageAmount)
+                    if (effectiveness >= ConfigurationSettings.Instance.BOMlowThreshold1 && effectiveness <= ConfigurationSettings.Instance.BOMhighThreshold1)
                         scoreState = ScoreState.Medium;
-                    if (effectiveness > averageAmount)
+                    if (effectiveness > ConfigurationSettings.Instance.BOMhighThreshold1)
                         scoreState = ScoreState.Low;
                 }
 
@@ -114,11 +114,11 @@ namespace IBMConsultantTool
                         scoreState = ScoreState.None;
                         return;
                     }
-                    if (totalBOMScore < criticalAmount)
+                    if (totalBOMScore < ConfigurationSettings.Instance.BOMlowThreshold1)
                         scoreState = ScoreState.High;
-                    if (totalBOMScore >= criticalAmount && totalBOMScore <= averageAmount)
+                    if (totalBOMScore >= ConfigurationSettings.Instance.BOMlowThreshold1 && totalBOMScore <= ConfigurationSettings.Instance.BOMhighThreshold1)
                         scoreState = ScoreState.Medium;
-                    if (totalBOMScore > averageAmount)
+                    if (totalBOMScore > ConfigurationSettings.Instance.BOMhighThreshold1)
                         scoreState = ScoreState.Low;
                 }
             }

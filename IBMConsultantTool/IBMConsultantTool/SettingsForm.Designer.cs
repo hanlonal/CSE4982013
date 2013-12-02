@@ -30,8 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.bomhighTextbox = new System.Windows.Forms.TextBox();
+            this.bomlowTextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -75,8 +75,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.bomhighTextbox);
+            this.tabPage1.Controls.Add(this.bomlowTextbox);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
@@ -88,19 +88,20 @@
             this.tabPage1.Text = "BOM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // bomhighTextbox
             // 
-            this.textBox2.Location = new System.Drawing.Point(301, 134);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(70, 26);
-            this.textBox2.TabIndex = 3;
+            this.bomhighTextbox.Location = new System.Drawing.Point(301, 134);
+            this.bomhighTextbox.Name = "bomhighTextbox";
+            this.bomhighTextbox.Size = new System.Drawing.Size(70, 26);
+            this.bomhighTextbox.TabIndex = 3;
+            this.bomhighTextbox.TextChanged += new System.EventHandler(this.bomhighTextbox_TextChanged);
             // 
-            // textBox1
+            // bomlowTextbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(301, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(70, 26);
-            this.textBox1.TabIndex = 2;
+            this.bomlowTextbox.Location = new System.Drawing.Point(301, 38);
+            this.bomlowTextbox.Name = "bomlowTextbox";
+            this.bomlowTextbox.Size = new System.Drawing.Size(70, 26);
+            this.bomlowTextbox.TabIndex = 2;
             // 
             // label2
             // 
@@ -353,8 +354,8 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox bomhighTextbox;
+        private System.Windows.Forms.TextBox bomlowTextbox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;

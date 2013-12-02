@@ -29,7 +29,20 @@ namespace IBMConsultantTool
             get { return staticLowGapThreshold; }
             set { staticLowGapThreshold = value; }
         }
+        private double BOMlowThreshold = 4;
 
+        public double BOMlowThreshold1
+        {
+            get { return BOMlowThreshold; }
+            set { BOMlowThreshold = value; }
+        }
+        private double BOMhighThreshold = 7;
+
+        public double BOMhighThreshold1
+        {
+            get { return BOMhighThreshold; }
+            set { BOMhighThreshold = value; }
+        }
 
         bool staticSort = false;
 
