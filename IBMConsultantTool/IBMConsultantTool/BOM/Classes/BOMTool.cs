@@ -27,6 +27,7 @@ namespace IBMConsultantTool
             InitializeComponent();
             detailInfoPanel.Controls.Add(seperatorLabel);
             seperatorLabel.Width = detailInfoPanel.Width;
+            sortedComboBox.TextChanged +=new EventHandler(sortedComboBox_TextChanged);
 
             categoryNames.Items.AddRange(ClientDataControl.db.GetCategoryNames());
             ClientDataControl.db.BuildBOMForm(this);
@@ -62,6 +63,47 @@ namespace IBMConsultantTool
 
             categoryNames.Text = obj.owner.name;
             objectiveNames.Text = obj.ObjName;
+        }
+
+        private void sortedComboBox_TextChanged(object sender, EventArgs e)
+        {
+            SortImperatives();
+        }
+
+        private void SortImperatives()
+        {
+            sortedImperativesListBox.DataSource = null;
+            sortedImperativesListBox.Items.Clear();
+            List<NewImperative> sortedImpList = new List<NewImperative>();
+            foreach (NewCategory cat in categories)
+            {
+                foreach (NewObjective obj in cat.objectives)
+                {
+                    foreach (NewImperative imp in obj.Imperatives)
+                    {
+                        sortedImpList.Add(imp);
+                    }
+                }
+            }
+
+            if (sortedComboBox.Text == "Effectiveness")
+            {
+                
+            }
+            else if (sortedComboBox.Text == "Criticality")
+            {
+                sortedImpList.OrderBy((d => d.Criticality);
+            }
+            else if (sortedComboBox.Text == "Weighted ECD")
+            {
+                sortedImpList.OrderBy(d => d.TotalBOMScore);
+            }
+            else if (sortedComboBox.Text == "Differentiation")
+            {
+                sortedImpList.OrderBy(d => d.Differentiation);
+            }
+
+            sortedImperativesListBox.DataSource = sortedImpList;
         }
 
         private void ClearDetailPanel()
@@ -550,6 +592,7 @@ namespace IBMConsultantTool
             SettingsForm form = new SettingsForm(this);
             form.Show();
         }
+
 
     } // end class
 }

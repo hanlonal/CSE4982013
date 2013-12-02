@@ -153,6 +153,11 @@ namespace IBMConsultantTool
             get { return scoreState; }
             set { scoreState = value; }
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     
     }// end class
 }

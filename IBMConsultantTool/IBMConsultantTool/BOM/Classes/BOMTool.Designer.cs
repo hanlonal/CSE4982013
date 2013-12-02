@@ -57,11 +57,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.sortedImperativesListBox = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.sortedComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // catWorkspace
@@ -74,7 +74,7 @@
             this.catWorkspace.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.catWorkspace.Name = "catWorkspace";
             this.catWorkspace.SelectedIndex = 0;
-            this.catWorkspace.Size = new System.Drawing.Size(799, 459);
+            this.catWorkspace.Size = new System.Drawing.Size(779, 459);
             this.catWorkspace.TabIndex = 0;
             this.catWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.catWorkspace_MouseClick);
             // 
@@ -357,32 +357,47 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
             // 
-            // panel1
+            // sortedImperativesListBox
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(815, 72);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(191, 421);
-            this.panel1.TabIndex = 21;
+            this.sortedImperativesListBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.sortedImperativesListBox.FormattingEnabled = true;
+            this.sortedImperativesListBox.ItemHeight = 20;
+            this.sortedImperativesListBox.Location = new System.Drawing.Point(795, 109);
+            this.sortedImperativesListBox.Name = "sortedImperativesListBox";
+            this.sortedImperativesListBox.Size = new System.Drawing.Size(201, 384);
+            this.sortedImperativesListBox.TabIndex = 21;
             // 
             // label5
             // 
-            this.label5.BackColor = System.Drawing.SystemColors.Info;
-            this.label5.Location = new System.Drawing.Point(-1, 0);
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(831, 34);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(165, 24);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Sorting";
+            this.label5.Size = new System.Drawing.Size(141, 20);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Sort Imperatives";
+            // 
+            // sortedComboBox
+            // 
+            this.sortedComboBox.FormattingEnabled = true;
+            this.sortedComboBox.Items.AddRange(new object[] {
+            "Criticality",
+            "Differentiation",
+            "Effectiveness",
+            "Weighted ECD"});
+            this.sortedComboBox.Location = new System.Drawing.Point(795, 57);
+            this.sortedComboBox.Name = "sortedComboBox";
+            this.sortedComboBox.Size = new System.Drawing.Size(200, 28);
+            this.sortedComboBox.TabIndex = 23;
             // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.sortedComboBox);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.sortedImperativesListBox);
             this.Controls.Add(this.AddImperativeButton);
             this.Controls.Add(this.detailInfoPanel);
             this.Controls.Add(this.imperativeNames);
@@ -398,7 +413,6 @@
             this.menuStrip1.PerformLayout();
             this.detailInfoPanel.ResumeLayout(false);
             this.detailInfoPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,8 +449,9 @@
         private System.Windows.Forms.ToolStripMenuItem createSurveyToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openSurveysToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListBox sortedImperativesListBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox sortedComboBox;
 
     }
 }
