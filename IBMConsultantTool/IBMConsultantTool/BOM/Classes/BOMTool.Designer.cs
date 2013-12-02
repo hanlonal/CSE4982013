@@ -74,7 +74,7 @@
             this.catWorkspace.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.catWorkspace.Name = "catWorkspace";
             this.catWorkspace.SelectedIndex = 0;
-            this.catWorkspace.Size = new System.Drawing.Size(827, 459);
+            this.catWorkspace.Size = new System.Drawing.Size(799, 459);
             this.catWorkspace.TabIndex = 0;
             this.catWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.catWorkspace_MouseClick);
             // 
@@ -363,9 +363,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(843, 72);
+            this.panel1.Location = new System.Drawing.Point(815, 72);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(163, 421);
+            this.panel1.Size = new System.Drawing.Size(191, 421);
             this.panel1.TabIndex = 21;
             // 
             // label5
