@@ -44,6 +44,7 @@
             this.staticMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dynamicMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ratingThresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectivenessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.criticalityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,9 +61,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seperatorLabel = new System.Windows.Forms.Label();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.detailInfoPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // catWorkspace
@@ -75,7 +78,7 @@
             this.catWorkspace.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.catWorkspace.Name = "catWorkspace";
             this.catWorkspace.SelectedIndex = 0;
-            this.catWorkspace.Size = new System.Drawing.Size(997, 459);
+            this.catWorkspace.Size = new System.Drawing.Size(827, 459);
             this.catWorkspace.TabIndex = 0;
             this.catWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.catWorkspace_MouseClick);
             // 
@@ -214,13 +217,13 @@
             this.staticMenuItem.Checked = true;
             this.staticMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.staticMenuItem.Name = "staticMenuItem";
-            this.staticMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.staticMenuItem.Size = new System.Drawing.Size(121, 22);
             this.staticMenuItem.Text = "Static";
             // 
             // dynamicMenuItem
             // 
             this.dynamicMenuItem.Name = "dynamicMenuItem";
-            this.dynamicMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dynamicMenuItem.Size = new System.Drawing.Size(121, 22);
             this.dynamicMenuItem.Text = "Dynamic";
             // 
             // ratingThresholdsToolStripMenuItem
@@ -229,6 +232,13 @@
             this.ratingThresholdsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.ratingThresholdsToolStripMenuItem.Text = "Rating Thresholds";
             this.ratingThresholdsToolStripMenuItem.Click += new System.EventHandler(this.ratingThresholdsToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // vieToolStripMenuItem
             // 
@@ -383,18 +393,32 @@
             this.seperatorLabel.Tag = "permanent";
             this.seperatorLabel.Text = "View Data";
             // 
-            // settingsToolStripMenuItem
+            // panel1
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Location = new System.Drawing.Point(843, 72);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(163, 421);
+            this.panel1.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.SystemColors.Info;
+            this.label5.Location = new System.Drawing.Point(-1, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(165, 24);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Sorting";
             // 
             // BOMTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.AddImperativeButton);
             this.Controls.Add(this.detailInfoPanel);
             this.Controls.Add(this.imperativeNames);
@@ -410,6 +434,7 @@
             this.menuStrip1.PerformLayout();
             this.detailInfoPanel.ResumeLayout(false);
             this.detailInfoPanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,6 +475,8 @@
         private System.Windows.Forms.ToolStripMenuItem createSurveyToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openSurveysToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
 
     }
 }

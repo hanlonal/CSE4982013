@@ -22,13 +22,15 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
 
-            string path = "C:\\Charts\\";
-            if (!Directory.Exists(@"C:\\" + "Charts"))
-                Directory.CreateDirectory(@"C:\\" + "Charts");
-            if (!Directory.Exists(@"C:\\Charts\\" + ClientDataControl.Client.Name))
+            string path = "C:\\Clients\\";
+            if (!Directory.Exists(@"C:\\" + "Clients"))
+                Directory.CreateDirectory(@"C:\\" + "Clients");
+            if (!Directory.Exists(@"C:\\Clients\\" + ClientDataControl.Client.Name))
                 Directory.CreateDirectory(path + ClientDataControl.Client.Name);
+            if (!Directory.Exists(@"C:\\Clients\\" + ClientDataControl.Client.Name + "\\" + "Charts"))
+                Directory.CreateDirectory(@"C:\\Clients\\" + ClientDataControl.Client.Name + "\\Charts");
 
-            ClientDataControl.Client.FilePath = "C:\\Charts\\" + ClientDataControl.Client.Name;
+            ClientDataControl.Client.FilePath = "C:\\Clients\\" + ClientDataControl.Client.Name + "\\Charts";
             textFilePathInfo.Text = ClientDataControl.Client.FilePath;
 
             this.FormClosed += new FormClosedEventHandler(StartPage_FormClosed);
@@ -167,13 +169,15 @@ namespace IBMConsultantTool
 
         private void btnFilePath_Click(object sender, EventArgs e)
         {
-            string path = "C:\\Charts\\";
-            if (!Directory.Exists(@"C:\\" + "Charts"))
-                Directory.CreateDirectory(@"C:\\" + "Charts");
-            if (!Directory.Exists(@"C:\\Charts\\" + ClientDataControl.Client.Name))
+            string path = "C:\\Clients\\";
+            if (!Directory.Exists(@"C:\\" + "Clients"))
+                Directory.CreateDirectory(@"C:\\" + "Clients");
+            if (!Directory.Exists(@"C:\\Clients\\" + ClientDataControl.Client.Name))
                 Directory.CreateDirectory(path + ClientDataControl.Client.Name);
+            if (!Directory.Exists(@"C:\\Clients\\" + ClientDataControl.Client.Name + "\\" + "Charts"))
+                Directory.CreateDirectory(@"C:\\Clients\\" + ClientDataControl.Client.Name + "\\" + "Charts");
 
-            ClientDataControl.Client.FilePath = "C:\\Charts\\" + ClientDataControl.Client.Name;
+            ClientDataControl.Client.FilePath = "C:\\Clients\\" + ClientDataControl.Client.Name + "\\Charts";
             textFilePathInfo.Text = ClientDataControl.Client.FilePath;
 
             FolderBrowserDialog openFileDialog1 = new FolderBrowserDialog();
