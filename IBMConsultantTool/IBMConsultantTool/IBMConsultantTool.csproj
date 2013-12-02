@@ -312,6 +312,7 @@
     <Compile Include="Pair.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PowerPointGenerator.cs" />
+    <Compile Include="RadioButtonNoTrueToFalseConverter .cs" />
     <Compile Include="RoundedRectangle.cs">
       <SubType>Component</SubType>
     </Compile>

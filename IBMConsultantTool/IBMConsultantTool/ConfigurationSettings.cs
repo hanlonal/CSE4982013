@@ -30,6 +30,15 @@ namespace IBMConsultantTool
             set { staticLowGapThreshold = value; }
         }
 
+
+        bool staticSort = false;
+
+        public bool StaticSort
+        {
+            get { return staticSort; }
+            set { staticSort = value; }
+        }
+
         private float dynamicAutoHighGap = 4;
 
         public float DynamicAutoHighGap
@@ -51,6 +60,9 @@ namespace IBMConsultantTool
         {
             get
             {
+                if(instance == null)
+                    instance = new ConfigurationSettings();
+
                 return instance;
             }
         }
