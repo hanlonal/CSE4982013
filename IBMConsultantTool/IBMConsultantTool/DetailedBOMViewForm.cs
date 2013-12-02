@@ -36,7 +36,7 @@ namespace IBMConsultantTool
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dataGridView1.Columns["Name"].Width = 200;
-            dataGridView1.Columns["TotalBOMScore"].HeaderText = "Weighed ECD Score \n\n ((11-EFF)*(CRIT*.5))/10 \n +DIFF*0.5";
+            dataGridView1.Columns["TotalBOMScore"].HeaderText = "Weighed ECD Score \n ((11-EFF)*(CRIT*.5))/10 \n +DIFF*0.5";
             dataGridView1.Columns["TotalBOMScore"].Width = 190;
             dataGridView1.Columns["Effectiveness"].Width = 120;
             dataGridView1.Columns["Differentiation"].Width = 120;
