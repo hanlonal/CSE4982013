@@ -226,21 +226,24 @@ namespace IBMConsultantTool
         }
         public void RemoveCategory()
         {
-
-                        foreach (NewCategory cat in categories)
+            foreach (NewCategory cat in categories)
+            {
+                if (cat.name == clickedPage.Text)
+                {
+                    categories.Remove(cat);
+                    foreach(NewObjective objective in cat.Objectives)
+                    {
+                        foreach (NewImperative imp in objective.Imperatives)
                         {
-                            if (cat.name == clickedPage.Text)
-                            {
-                                categories.Remove(cat);
-                                break;
-                            }
-                        }                        
-                        this.catWorkspace.TabPages.Remove(clickedPage);
+                            ClientDataControl.db.RemoveBOM(imp.Name, ClientDataControl.Client.EntityObject);
+                        }
+                    }
+                    break;
+                }
+            }
 
-                       // ClientDataControl.db.RemoveBOM(imp.Name, ClientDataControl.Client.EntityObject);
-                      //  ClientDataControl.db.SaveChanges();
-                        Refresh();
-
+            this.catWorkspace.TabPages.Remove(clickedPage);        
+            Refresh();
         }
         public void RemoveImperative(NewImperative imp)
         {
