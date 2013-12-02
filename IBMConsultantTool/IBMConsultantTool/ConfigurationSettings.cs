@@ -30,6 +30,13 @@ namespace IBMConsultantTool
             set { staticLowGapThreshold = value; }
         }
         private double BOMlowThreshold = 4;
+        private bool BOMSortModeStatic = false;
+
+        public bool BOMSortModeStatic1
+        {
+            get { return BOMSortModeStatic; }
+            set { BOMSortModeStatic = value; }
+        }
 
         public double BOMlowThreshold1
         {

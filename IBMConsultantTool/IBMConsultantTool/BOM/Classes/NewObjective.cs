@@ -237,7 +237,9 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                init.ChangeColor("differentiation");
+                if(ConfigurationSettings.Instance.BOMSortModeStatic1 == false)
+                    init.ChangeColor("differentiation");
+
                 CheckColor(init);
             }
         }
@@ -246,7 +248,9 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                init.ChangeColor("effectiveness");
+                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == false)                
+                    init.ChangeColor("effectiveness");
+
                 CheckColor(init);
             }
         }
@@ -255,7 +259,9 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                init.ChangeColor("criticality");
+                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == false)
+                    init.ChangeColor("criticality");
+
                 CheckColor(init);
             }
         }
@@ -264,7 +270,9 @@ namespace IBMConsultantTool
         {
             foreach (NewImperative init in imperatives)
             {
-                init.ChangeColor("bomscore");
+                if (ConfigurationSettings.Instance.BOMSortModeStatic1 == false)
+                    init.ChangeColor("bomscore");
+
                 CheckColor(init);
             }
         }
