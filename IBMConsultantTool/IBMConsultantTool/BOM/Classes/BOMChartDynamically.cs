@@ -196,7 +196,7 @@ namespace IBMConsultantTool
             infoGridView.ColumnCount = 4;
             infoGridView.Columns[0].Name = "Imperative";
             infoGridView.Columns[1].Name = "Differentiation";
-            infoGridView.Columns[2].Name = "Critically";
+            infoGridView.Columns[2].Name = "Criticality";
             infoGridView.Columns[3].Name = "Effectiveness";
 
             infoGridView.RowHeadersVisible = false;
@@ -450,7 +450,8 @@ namespace IBMConsultantTool
             Bitmap bmp = new Bitmap(panelChart.Width, panelChart.Height);
             //new Bitmap(this.panelChart.Width,this.panelChart.Height);
             panelChart.DrawToBitmap(bmp, new Rectangle(5, 5, bmp.Width, bmp.Height));
-            System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
+            //System.Diagnostics.Trace.WriteLine("path: " + Application.StartupPath.ToString());
+            bmp.Save(ClientDataControl.Client.FilePath + "/BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
             bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "BubbleChart.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
             InitializeComponent();
