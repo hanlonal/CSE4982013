@@ -277,6 +277,7 @@
             // 
             // itAttributesComboBox
             // 
+            this.itAttributesComboBox.Enabled = false;
             this.itAttributesComboBox.FormattingEnabled = true;
             this.itAttributesComboBox.Location = new System.Drawing.Point(9, 235);
             this.itAttributesComboBox.Name = "itAttributesComboBox";
@@ -340,6 +341,7 @@
             this.objectiveNamesComboBox.Tag = "Objectives";
             this.objectiveNamesComboBox.Text = "<Objectives>";
             this.objectiveNamesComboBox.Visible = false;
+            this.objectiveNamesComboBox.SelectedValueChanged += new System.EventHandler(this.objectiveNamesComboBox_SelectedValueChanged);
             // 
             // showResultsButton
             // 
@@ -362,6 +364,7 @@
             this.domainsComboBox.Tag = "Capabilities";
             this.domainsComboBox.Text = "<Domains>";
             this.domainsComboBox.Visible = false;
+            this.domainsComboBox.SelectedValueChanged += new System.EventHandler(domainsComboBox_SelectedValueChanged);
             // 
             // fromDateCheckBox
             // 

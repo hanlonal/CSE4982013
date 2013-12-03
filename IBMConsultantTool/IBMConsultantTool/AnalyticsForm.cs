@@ -164,6 +164,7 @@ namespace IBMConsultantTool
                     ClearControls("Capabilities");                    
                     metricsComboBox.Items.Add("Average As Is Score");
                     metricsComboBox.Items.Add("Average To Be Score");
+                    itAttributesComboBox.Enabled = true;
 
                     graphTypeComboBox.Items.Clear();
                     break;
@@ -296,7 +297,6 @@ namespace IBMConsultantTool
             
             List<string> names = new List<string>();
 
-
             if (value == "Objectives")
             {
                 ChangeState(TrackingState.Objectives);
@@ -309,7 +309,6 @@ namespace IBMConsultantTool
                 }
                 objectiveNamesComboBox.DataSource = names;
                 objectiveNamesComboBox.Text = "<Objectives>";
-                objectiveNamesComboBox.SelectedValueChanged += new EventHandler(objectiveNamesComboBox_SelectedValueChanged);
             }
 
             if (value == "Capabilities")
@@ -319,8 +318,6 @@ namespace IBMConsultantTool
                 names = db.GetDomainNames().ToList();
                 domainsComboBox.DataSource = names;
                 domainsComboBox.Text = "<Domains>";
-                domainsComboBox.SelectedValueChanged += new EventHandler(domainsComboBox_SelectedValueChanged);
-
             }
 
             if (value == "CUPE Questions")
@@ -344,7 +341,6 @@ namespace IBMConsultantTool
                 names = db.GetDomainNames().ToList();
                 domainsComboBox.DataSource = names;
                 domainsComboBox.Text = "<Domains>";
-                domainsComboBox.SelectedValueChanged += new EventHandler(domainsComboBox_SelectedValueChanged);
             }
             if (value == "Imperatives")
             {
