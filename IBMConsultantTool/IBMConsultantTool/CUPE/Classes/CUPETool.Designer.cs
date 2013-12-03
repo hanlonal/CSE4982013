@@ -159,13 +159,10 @@
             this.partnerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enablerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.emailPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTCapabilityToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.beginTutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridBusinessCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionGridITCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.busiCurrentGraph)).BeginInit();
@@ -916,8 +913,7 @@
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1006, 24);
@@ -1133,7 +1129,6 @@
             this.numberOfQuestionsToolStripMenuItem,
             this.pieGraphColorsToolStripMenuItem,
             this.defaultSurveysToolStripMenuItem,
-            this.emailPreferencesToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -1215,13 +1210,6 @@
             this.defaultSurveysToolStripMenuItem.Text = "Default Surveys";
             this.defaultSurveysToolStripMenuItem.Click += new System.EventHandler(this.defaultSurveysToolStripMenuItem_Click);
             // 
-            // emailPreferencesToolStripMenuItem
-            // 
-            this.emailPreferencesToolStripMenuItem.Name = "emailPreferencesToolStripMenuItem";
-            this.emailPreferencesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.emailPreferencesToolStripMenuItem.Text = "Email Preferences";
-            this.emailPreferencesToolStripMenuItem.Click += new System.EventHandler(this.emailPreferencesToolStripMenuItem_Click);
-            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
@@ -1241,31 +1229,16 @@
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
             // iTCapabilityToolStripMenuItem1
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
-            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.iTCapabilityToolStripMenuItem1.Text = "ITCAP";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.beginTutorialToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // beginTutorialToolStripMenuItem
-            // 
-            this.beginTutorialToolStripMenuItem.Name = "beginTutorialToolStripMenuItem";
-            this.beginTutorialToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.beginTutorialToolStripMenuItem.Text = "Begin Tutorial";
-            this.beginTutorialToolStripMenuItem.Click += new System.EventHandler(this.beginTutorialToolStripMenuItem_Click);
             // 
             // CUPETool
             // 
@@ -1373,8 +1346,6 @@
         private System.Windows.Forms.ToolStripMenuItem cUPEScoreOverallToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem currentToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem futureToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem beginTutorialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pieGraphColorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem commodityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem utilityToolStripMenuItem;
@@ -1389,7 +1360,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn numAnswers;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgScore;
         private System.Windows.Forms.ToolStripMenuItem generatePowerpointToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem emailPreferencesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTProviderRelationshipToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

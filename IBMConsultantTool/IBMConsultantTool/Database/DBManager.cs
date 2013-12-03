@@ -3286,6 +3286,13 @@ namespace IBMConsultantTool
             List<string> clientFileNames = Directory.EnumerateFiles(@"Resources\Clients").ToList();
             List<string> clientNames = (from ent in clientFileNames
                                         select Path.GetFileNameWithoutExtension(ent)).ToList();
+
+            if (loadingScreen != null)
+            {
+                loadingScreen.LoadingTextLabel.Text = "Updating filesystem... Loading Clients";
+                loadingScreen.LoadingTextLabel.Update();
+            }
+
             CLIENT client;
             foreach (string clientName in clientNames)
             {
