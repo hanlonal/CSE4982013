@@ -1969,34 +1969,55 @@ namespace IBMConsultantTool
 
         private void deleteEntityButton_Click(object sender, EventArgs e)
         {
-            if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Domain))
+            if (surveryMakerGrid.SelectedRows.Count != 0)
             {
-                DeleteDomain();
+                if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Domain))
+                {
+                    DeleteDomain();
+                }
+                else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Capability))
+                {
+                    DeleteCapability();
+                }
+                else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
+                {
+                    DeleteAttribute();
+                }
             }
-            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Capability))
+            else
             {
-                DeleteCapability();
-            }
-            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
-            {
-                DeleteAttribute();
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show("Select a row before deleting.",
+                    this, 740, 850, 8000);
             }
         }
 
         private void addEntittyButton_Click(object sender, EventArgs e)
         {
-            if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Domain))
+            if (surveryMakerGrid.SelectedRows.Count != 0)
             {
-                
+                if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Domain))
+                {
+
+                }
+                else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Capability))
+                {
+
+                }
+                else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
+                {
+
+                }
             }
-            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(Capability))
+            else
             {
-                
+                System.Windows.Forms.ToolTip myToolTip = new System.Windows.Forms.ToolTip();
+                myToolTip.IsBalloon = true;
+                myToolTip.Show("Select a row before adding.",
+                    this, 120, 250, 8000);
             }
-            else if (surveryMakerGrid.SelectedRows[0].DataBoundItem.GetType() == typeof(ITCapQuestion))
-            {
-                
-            }
+
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)

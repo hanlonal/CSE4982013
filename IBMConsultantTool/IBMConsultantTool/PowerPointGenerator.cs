@@ -134,6 +134,7 @@ namespace IBMConsultantTool
             String strBUSCUPEFut = Directory.GetCurrentDirectory() + "\\Charts\\Business Future CUPE Responses.jpg";
             String strITComparisonBar = Directory.GetCurrentDirectory() + "\\Charts\\IT StakeHolders CurrentFuture Comparison.jpg";
             String strBUSIComparisonBar = Directory.GetCurrentDirectory() + "\\Charts\\Business Leaders CurrentFuture Comparison.jpg";
+            String ITProviderRelationship = Directory.GetCurrentDirectory() + "\\Charts\\IT Provider Relationship.jpg";
             String strHeatMap = Directory.GetCurrentDirectory() + "\\Charts\\HeatMap.jpg";
             strPic = Directory.GetCurrentDirectory() + "\\Resources\\Add record.png";
 
@@ -163,7 +164,7 @@ namespace IBMConsultantTool
                 objShape = objSlide.Shapes[4];
                 tempString = string.Empty;
                 //TODO: change this to objectives
-                foreach (string BomCat in ClientDataControl.db.GetCategoryNames())
+                foreach (string BomCat in ClientDataControl.db.GetObjectivesFromCurrentClientBOM())
                 {
                     tempString += BomCat + "\r";
                 }
@@ -194,12 +195,34 @@ namespace IBMConsultantTool
                 tempString = string.Empty + "Business Imperatives:\v\v ";
 
                 //TODO: Replace with imperatives
-                foreach(String s in ClientDataControl.db.GetDomainNames())
+                foreach(String s in ClientDataControl.db.GetImperativesFromCurrentClientBOM())
                 {
                     tempString += s + "\t\t";
                 }
                 objShape.TextFrame.TextRange.Text = tempString;
                 ///
+            }
+            catch
+            {
+
+            }
+
+
+            try
+            {
+                ///Slide 18
+                ///
+                objSlide = objSlides[18];
+                objShape = objSlide.Shapes[2];
+                objShape.Delete();
+                objShape = objSlide.Shapes[2];
+                objShape.Delete();
+
+
+                objSlide.Shapes.AddPicture(ITProviderRelationship, Microsoft.Office.Core.MsoTriState.msoFalse,
+            Microsoft.Office.Core.MsoTriState.msoTrue, 30, 100, 670, 400);
+
+
             }
             catch
             {
