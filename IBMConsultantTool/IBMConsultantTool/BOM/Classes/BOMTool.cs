@@ -238,7 +238,7 @@ namespace IBMConsultantTool
             string catName = categoryNames.Text.Trim();
             string busName = objectiveNames.Text.Trim();
             string iniName = imperativeNames.Text.Trim();
-
+  
             ClientDataControl.db.AddImperativeToBOM(iniName, busName, catName, this);
         }
 

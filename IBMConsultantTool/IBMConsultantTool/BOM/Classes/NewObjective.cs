@@ -70,7 +70,9 @@ namespace IBMConsultantTool
         {
             NewImperative init = new NewImperative(this, name);
 
+
             MakeImperativeLabel(init);
+            
 
             imperatives.Add(init);
             return init;
@@ -136,6 +138,8 @@ namespace IBMConsultantTool
             {
                 owner.bomTool.RemoveObjective(this);
             }
+            ReDrawImperatives(currentImperative);
+            
         }
 
         private Point FindImperativeLocation()
@@ -143,8 +147,24 @@ namespace IBMConsultantTool
 
             Point p = new Point();
 
+            p.Y = 0;
+            bool isFound = true;
+            while( isFound)
+            {
+                isFound = false;
+                p.Y += 30;
+                foreach (Label cont in Controls)
+                {
+                    if (p.Y == cont.Location.Y)
+                    {
+                        isFound = true;
+                        break;
+                    }
+                }
+
+            }
             p.X = 10;
-            p.Y = 30 + (Imperatives.Count) * 30;
+            //p.Y = 30 + (Controls.Count - 1) * 30;
             UpdateHeight();
             return p;
         }
@@ -176,7 +196,21 @@ namespace IBMConsultantTool
             return p;
         }
 
-
+        public void ReDrawImperatives(NewImperative removedImp)
+        {
+            Point p = new Point(10, 30);
+            foreach(Label lab in Controls)
+            {
+                if (lab.Location.Y == 0)
+                {
+                    continue;
+                }
+                lab.Location = p;
+                p.Y += 30;
+            }
+            UpdateHeight();
+            this.Refresh();
+        }
         private void MakeLabel()
         {
             Label label = new Label();
