@@ -9,18 +9,18 @@ namespace IBMConsultantTool
     public class ObjectiveValues : INotifyPropertyChanged
     {
         private string name;
-        private int score;
+        private float score;
 
         public event PropertyChangedEventHandler PropertyChanged;
         //public event PropertyChangedEventHandler PropertyChanged;
-      /*  private void OnPropertyChanged(String info)
+        private void OnPropertyChanged(String info)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(info));
             }
-        }*/
+        }
 
         private void NotifyPropertyChanged(string name)
         {
@@ -37,13 +37,12 @@ namespace IBMConsultantTool
 
         #region PROPERTIES
 
-        public int Score
+        public float Score
         {
-            get { return this.score; }
+            get { return score; }
             set 
-            {
-                int val = Convert.ToInt32(value);
-                this.score = val; this.NotifyPropertyChanged("Score"); 
+            {                
+                score = value; this.NotifyPropertyChanged("Score"); 
             }
         }
 

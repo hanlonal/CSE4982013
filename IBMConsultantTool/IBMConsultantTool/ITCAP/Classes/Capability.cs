@@ -356,14 +356,14 @@ namespace IBMConsultantTool
 
         public override void CalculatePrioritizedCapabilityGap()
         {
-           int sum = 0;
+           float sum = 0;
             //NEEDS TO BE DONE YOU HVAE FORMULA NOW
             foreach (ObjectiveValues val in objectiveCollection)
             {
                 sum += val.Score;
             }
 
-            prioritizedCapabilityGap = sum;
+            PrioritizedCapabilityGap = (float)sum;
             CalculatePrioritizedGapText();
 
         }
