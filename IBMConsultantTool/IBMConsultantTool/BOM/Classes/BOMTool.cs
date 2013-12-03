@@ -151,16 +151,32 @@ namespace IBMConsultantTool
            // effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
             effectbox.DataBindings.Add(new Binding("Text", init, "Effectiveness"));
             effectbox.Location = new Point(effectivenessXValue, yValue);
+            effectbox.LostFocus += new System.EventHandler(this.TextBoxLostFocus);
             //effectbox.TextChanged +=new EventHandler(effectbox_TextChanged);
             detailInfoPanel.Controls.Add(effectbox);
             TextBox critBox = new TextBox();
             critBox.DataBindings.Add(new Binding("Text", init, "Criticality"));            
             critBox.Location = new Point(critXValue, yValue);
+            critBox.LostFocus += new System.EventHandler(this.TextBoxLostFocus);
             detailInfoPanel.Controls.Add(critBox);
             TextBox diffBox = new TextBox();
             diffBox.DataBindings.Add(new Binding("Text", init, "Differentiation"));
             diffBox.Location = new Point(diffXValue, yValue);
+            diffBox.LostFocus += new System.EventHandler(this.TextBoxLostFocus);
             detailInfoPanel.Controls.Add(diffBox);
+        }
+
+        private void TextBoxLostFocus(object sender, EventArgs e)
+        {
+            TextBox senderTextBox = sender as TextBox;
+            float temp;
+            if (float.TryParse(senderTextBox.Text, out temp))
+            {
+                temp = Convert.ToSingle(senderTextBox.Text);
+
+                if (temp < 0) senderTextBox.Text = "0";
+                else if (temp > 10) senderTextBox.Text = "10";
+            }
         }
 
 
