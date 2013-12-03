@@ -15,8 +15,12 @@ namespace IBMConsultantTool
         public LoadClientForm()
         {
             InitializeComponent();
+            List<CLIENT> clients = new List<CLIENT>();
 
+            ClientDataControl.db.GetClientNames();
             ChooseClientComboBox.Items.AddRange(ClientDataControl.db.GetClientNames());
+            clientsgridView.DataSource = clients;
+            clientsgridView.Columns[0].HeaderText = "Client Name";
             this.Focus();
         }
 

@@ -21,7 +21,7 @@ namespace IBMConsultantTool
         bool asishighStandardDeviation = false;
         bool tobehighStandardDeviation = false;
 
-
+        
 
         private Dictionary<int, int> answers = new Dictionary<int, int>();
         private static float standardDeviationThreshold = 1.00f;
@@ -36,6 +36,8 @@ namespace IBMConsultantTool
             answers.Add(4, 0);
             answers.Add(5, 0);
             answers.Add(0, 0);
+            capabilityGap = -1;
+            capabilityGapText = "";
         }
 
         public override void UpdateIndexDecrease(int index)
@@ -298,10 +300,15 @@ namespace IBMConsultantTool
                 CapabilityGapText = "Medium Gap";
                 GapType1 = GapType.Middle;
             }
-            else if (capabilityGap < 1)
+            else if (capabilityGap < 1 )
             {
-                CapabilityGapText = "Low/No Gap";
+                CapabilityGapText = "Low Gap";
                 GapType1 = GapType.Low;
+            }
+            if (capabilityGap == 0)
+            {
+                GapType1 = GapType.None;
+                capabilityGapText = "No Gap";
             }
         }
         public bool AsIsHighStandardDeviation

@@ -46,7 +46,7 @@ namespace IBMConsultantTool
         protected int tobeNumFives = 0;
 
 
-        private string capabilityGapText;
+        protected string capabilityGapText;
 
         private string prioritizedGap;
 

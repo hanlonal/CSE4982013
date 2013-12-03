@@ -941,7 +941,10 @@ namespace IBMConsultantTool
             else if (ent.GapType1 == ScoringEntity.GapType.Low)
                 row.Cells["CapabilityGapText"].Style.ForeColor = Color.DarkGreen;
             else
+            {
                 row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
+                row.Cells["CapabilityGapText"].Style.ForeColor = Color.Black;
+            }
         }
 
         private void CheckFlags(ScoringEntity ent, DataGridViewRow row)

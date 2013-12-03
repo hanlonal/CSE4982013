@@ -93,6 +93,7 @@
             this.editQuestionTextbox = new System.Windows.Forms.RichTextBox();
             this.changeTextButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.deleteEntityButton = new System.Windows.Forms.Button();
             this.capabilityNameLabel = new System.Windows.Forms.Label();
             this.objectiveToAddButton = new System.Windows.Forms.TextBox();
             this.button13322345 = new System.Windows.Forms.Button();
@@ -101,7 +102,6 @@
             this.openSurveyButton = new System.Windows.Forms.Button();
             this.changeDefaultsButton = new System.Windows.Forms.Button();
             this.optionsPanel = new System.Windows.Forms.Panel();
-            this.deleteEntityButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
@@ -693,6 +693,18 @@
             this.panel1.Size = new System.Drawing.Size(1008, 163);
             this.panel1.TabIndex = 24;
             // 
+            // deleteEntityButton
+            // 
+            this.deleteEntityButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteEntityButton.Location = new System.Drawing.Point(772, 108);
+            this.deleteEntityButton.Name = "deleteEntityButton";
+            this.deleteEntityButton.Size = new System.Drawing.Size(119, 31);
+            this.deleteEntityButton.TabIndex = 32;
+            this.deleteEntityButton.Tag = "SurveyMaker";
+            this.deleteEntityButton.Text = "Delete";
+            this.deleteEntityButton.UseVisualStyleBackColor = true;
+            this.deleteEntityButton.Click += new System.EventHandler(this.deleteEntityButton_Click);
+            // 
             // capabilityNameLabel
             // 
             this.capabilityNameLabel.AutoSize = true;
@@ -786,18 +798,6 @@
             this.optionsPanel.Size = new System.Drawing.Size(185, 542);
             this.optionsPanel.TabIndex = 32;
             // 
-            // deleteEntityButton
-            // 
-            this.deleteEntityButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteEntityButton.Location = new System.Drawing.Point(772, 108);
-            this.deleteEntityButton.Name = "deleteEntityButton";
-            this.deleteEntityButton.Size = new System.Drawing.Size(119, 31);
-            this.deleteEntityButton.TabIndex = 32;
-            this.deleteEntityButton.Tag = "SurveyMaker";
-            this.deleteEntityButton.Text = "Delete";
-            this.deleteEntityButton.UseVisualStyleBackColor = true;
-            this.deleteEntityButton.Click += new System.EventHandler(this.deleteEntityButton_Click);
-            // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -818,6 +818,7 @@
             // 
             // loadSurveyFromDataGrid
             // 
+            this.loadSurveyFromDataGrid.AllowUserToResizeRows = false;
             this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

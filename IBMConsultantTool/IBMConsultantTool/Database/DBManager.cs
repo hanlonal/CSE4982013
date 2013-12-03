@@ -36,11 +36,21 @@ namespace IBMConsultantTool
         }
 
         #region Client
+
         public List<CLIENT> GetClients()
         {
             return (from ent in dbo.CLIENT
                     select ent).ToList();
         }
+        public List<CLIENT> GetClientInfo()
+        {
+            return (from ent in dbo.CLIENT
+                    select ent).ToList();
+        }
+        public void Test()
+        {
+        }
+
 
         public override string[] GetClientNames()
         {
@@ -90,6 +100,7 @@ namespace IBMConsultantTool
         }
 
         //Used by ClientDataControl
+
         public override Client AddClient(Client client)
         {
             CLIENT clientEnt = new CLIENT();

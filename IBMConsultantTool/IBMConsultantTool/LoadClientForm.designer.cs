@@ -32,6 +32,8 @@
             this.ChooseClientLabel = new System.Windows.Forms.Label();
             this.LoadClientButton = new System.Windows.Forms.Button();
             this.LoadClientCancelButton = new System.Windows.Forms.Button();
+            this.clientsgridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.clientsgridView)).BeginInit();
             this.SuspendLayout();
             // 
             // ChooseClientComboBox
@@ -53,7 +55,7 @@
             // 
             // LoadClientButton
             // 
-            this.LoadClientButton.Location = new System.Drawing.Point(183, 163);
+            this.LoadClientButton.Location = new System.Drawing.Point(219, 213);
             this.LoadClientButton.Name = "LoadClientButton";
             this.LoadClientButton.Size = new System.Drawing.Size(75, 23);
             this.LoadClientButton.TabIndex = 2;
@@ -63,13 +65,22 @@
             // 
             // LoadClientCancelButton
             // 
-            this.LoadClientCancelButton.Location = new System.Drawing.Point(79, 163);
+            this.LoadClientCancelButton.Location = new System.Drawing.Point(73, 213);
             this.LoadClientCancelButton.Name = "LoadClientCancelButton";
             this.LoadClientCancelButton.Size = new System.Drawing.Size(75, 23);
             this.LoadClientCancelButton.TabIndex = 3;
             this.LoadClientCancelButton.Text = "Cancel";
             this.LoadClientCancelButton.UseVisualStyleBackColor = true;
             this.LoadClientCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // clientsgridView
+            // 
+            this.clientsgridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.clientsgridView.Location = new System.Drawing.Point(22, 12);
+            this.clientsgridView.Name = "clientsgridView";
+            this.clientsgridView.Size = new System.Drawing.Size(292, 174);
+            this.clientsgridView.TabIndex = 4;
+            this.clientsgridView.Visible = false;
             // 
             // LoadClientForm
             // 
@@ -80,8 +91,10 @@
             this.Controls.Add(this.LoadClientButton);
             this.Controls.Add(this.ChooseClientLabel);
             this.Controls.Add(this.ChooseClientComboBox);
+            this.Controls.Add(this.clientsgridView);
             this.Name = "LoadClientForm";
             this.Text = "ChooseClient";
+            ((System.ComponentModel.ISupportInitialize)(this.clientsgridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,5 +106,6 @@
         private System.Windows.Forms.Label ChooseClientLabel;
         private System.Windows.Forms.Button LoadClientButton;
         private System.Windows.Forms.Button LoadClientCancelButton;
+        private System.Windows.Forms.DataGridView clientsgridView;
     }
 }
