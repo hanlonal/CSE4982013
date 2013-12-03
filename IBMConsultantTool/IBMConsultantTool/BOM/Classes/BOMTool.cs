@@ -68,6 +68,7 @@ namespace IBMConsultantTool
         private void sortedComboBox_TextChanged(object sender, EventArgs e)
         {
             SortImperatives();
+            sortedImperativesListBox.Refresh();
         }
 
         private void SortImperatives()
@@ -85,22 +86,22 @@ namespace IBMConsultantTool
                     }
                 }
             }
-
+            IEnumerable<NewImperative> query = null;
             if (sortedComboBox.Text == "Effectiveness")
             {
-                
+                sortedImpList = sortedImpList.OrderBy((d => (int)d.Effectiveness)).ToList<NewImperative>();
             }
             else if (sortedComboBox.Text == "Criticality")
             {
-                sortedImpList.OrderBy((d => d.Criticality));
+                sortedImpList = sortedImpList.OrderBy(d => (int)d.Criticality).ToList<NewImperative>();
             }
             else if (sortedComboBox.Text == "Weighted ECD")
             {
-                sortedImpList.OrderBy(d => d.TotalBOMScore);
+                sortedImpList = sortedImpList.OrderBy(d => (int)d.TotalBOMScore).ToList<NewImperative>();
             }
             else if (sortedComboBox.Text == "Differentiation")
             {
-                sortedImpList.OrderBy(d => d.Differentiation);
+                sortedImpList = sortedImpList.OrderBy(d => (int)d.Differentiation).ToList<NewImperative>();
             }
 
             sortedImperativesListBox.DataSource = sortedImpList;
