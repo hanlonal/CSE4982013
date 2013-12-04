@@ -607,7 +607,6 @@ namespace IBMConsultantTool
                     CreateLineGraph(imperativesToTrack, "Imperatives", metricsComboBox.Text);
                 }
 
-                CreateImperativeGraph(imperatives);
                 CreateLineGraph(imperativesToTrack, "Imperatives", "");
             }
             else
@@ -702,12 +701,6 @@ namespace IBMConsultantTool
             capabilitiesToTrack.Clear();
             imperativesToTrack.Clear();
             colorDictionary.Clear();
-        }
-
-
-        public void CreateImperativeGraph(List<ImperativeTrendAnalysis> init)
-        {
-
         }
 
         private void trendGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -4747,11 +4740,6 @@ namespace IBMConsultantTool
 
             lineChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + title + " " +
                 saveName + ".jpg", ChartImageFormat.Jpeg);
-        }
-
-        private void trendGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            
         }
 
         private void color_Click(object sender, EventArgs e)

@@ -86,7 +86,6 @@ namespace IBMConsultantTool
                     }
                 }
             }
-            IEnumerable<NewImperative> query = null;
             if (sortedComboBox.Text == "Effectiveness")
             {
                 sortedImpList = sortedImpList.OrderBy((d => (int)d.Effectiveness)).ToList<NewImperative>();

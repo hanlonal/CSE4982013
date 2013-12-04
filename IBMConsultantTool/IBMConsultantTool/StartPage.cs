@@ -162,11 +162,6 @@ namespace IBMConsultantTool
 
         #endregion
 
-        private void agreeForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
-        }
-
         private void btnFilePath_Click(object sender, EventArgs e)
         {
             string path = "C:\\Clients\\";

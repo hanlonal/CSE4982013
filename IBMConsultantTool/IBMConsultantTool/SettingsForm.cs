@@ -59,16 +59,5 @@ namespace IBMConsultantTool
                 ConfigurationSettings.Instance.BOMSortModeStatic1 = false;
             Console.WriteLine(ConfigurationSettings.Instance.BOMSortModeStatic1);
         }
-
-        private void bomhighTextbox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
-
-
     }
 }

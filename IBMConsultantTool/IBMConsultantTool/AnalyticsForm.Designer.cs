@@ -468,7 +468,6 @@
             this.trendGridView.Size = new System.Drawing.Size(740, 288);
             this.trendGridView.TabIndex = 0;
             this.trendGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.trendGridView_CellClick);
-            this.trendGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.trendGridView_CellMouseDown);
             this.trendGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.trendGridView_DataBindingComplete);
             this.trendGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.trendGridView_RowsAdded);
             this.trendGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trendGridView_MouseDown);

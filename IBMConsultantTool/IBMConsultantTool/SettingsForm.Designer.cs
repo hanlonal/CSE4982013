@@ -98,7 +98,6 @@
             this.bomhighTextbox.Name = "bomhighTextbox";
             this.bomhighTextbox.Size = new System.Drawing.Size(70, 26);
             this.bomhighTextbox.TabIndex = 3;
-            this.bomhighTextbox.TextChanged += new System.EventHandler(this.bomhighTextbox_TextChanged);
             // 
             // bomlowTextbox
             // 

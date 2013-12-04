@@ -153,7 +153,7 @@ namespace IBMConsultantTool
                     for (int i = senderCell.OwningRow.Index+1; ; i++)
                     {
                         //MessageBox.Show(i.ToString());
-                        if (i > ITCAPQuestionDataGridView.Rows.Count)
+                        if (i >= ITCAPQuestionDataGridView.Rows.Count)
                         {
                             break;
                         }
