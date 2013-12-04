@@ -350,7 +350,7 @@ namespace IBMConsultantTool
         public void AddObjectiveToTrack(string name, float score)
         {
             //OBJECTIVESCORES.Add(name, 0);'
-            ObjectiveValues val = new ObjectiveValues(name, 0,score);
+            ObjectiveValues val = new ObjectiveValues(name, 0, score);
             objectiveCollection.Add(val);
         }
 
@@ -362,7 +362,7 @@ namespace IBMConsultantTool
             //NEEDS TO BE DONE YOU HVAE FORMULA NOW
             foreach (ObjectiveValues val in objectiveCollection)
             {
-                sum += (val.Score * val.BomScore) / (3 * numBoms);
+                sum += ((val.Score * val.BomScore) / (3 * numBoms));
                 Console.WriteLine(sum);
             }
 

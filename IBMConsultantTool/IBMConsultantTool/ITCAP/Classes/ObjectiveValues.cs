@@ -12,11 +12,7 @@ namespace IBMConsultantTool
         private float score;
         private float bomScore;
 
-public float BomScore
-{
-  get { return bomScore; }
-  set { bomScore = value; }
-}
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         //public event PropertyChangedEventHandler PropertyChanged;
@@ -64,6 +60,13 @@ public float BomScore
             get { return name; }
             set { name = value; }
         }
+        public float BomScore
+        {
+            get { return bomScore; }
+            set { bomScore = value; }
+        }
+
+
         #endregion
     }
 }

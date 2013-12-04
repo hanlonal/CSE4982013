@@ -56,7 +56,7 @@ namespace IBMConsultantTool
         {
             if (criticality == 0 || differentiation == 0 || effectiveness == 0)
                 return;
-            totalBOMScore = ((11-effectiveness)*criticality*.5f)/10 +differentiation*.5f;
+            totalBOMScore = (((11-effectiveness)*criticality*.5f)/10) +differentiation*.5f;
         }
 
         public void ChangeColor(string param)
