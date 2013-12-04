@@ -36,7 +36,6 @@ namespace IBMConsultantTool
         private List<int> availablePriorityValues = new List<int>();
         private List<Control> loadFromSurveyControls = new List<Control>();
         DataGridView currentGrid;
-        private Button button13322345;
 
         public delegate void UpdateUIDelegate(bool IsDataLoaded);
         private delegate void ObjectDelegate(object obj);
