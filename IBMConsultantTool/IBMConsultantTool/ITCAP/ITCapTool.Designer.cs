@@ -63,11 +63,7 @@
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardDeviationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.asIsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toBeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.answersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.asIsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toBeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.capabilityNameTextBox = new System.Windows.Forms.TextBox();
             this.questionNameTextBox = new System.Windows.Forms.TextBox();
             this.domainList = new System.Windows.Forms.ComboBox();
@@ -118,8 +114,8 @@
             // 
             // surveryMakerGrid
             // 
-            this.surveryMakerGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.surveryMakerGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -353,54 +349,22 @@
             this.standardDeviationToolStripMenuItem,
             this.answersToolStripMenuItem});
             this.showHideToolStripMenuItem.Name = "showHideToolStripMenuItem";
-            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.showHideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showHideToolStripMenuItem.Text = "Show/Hide";
             // 
             // standardDeviationToolStripMenuItem
             // 
-            this.standardDeviationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.asIsToolStripMenuItem,
-            this.toBeToolStripMenuItem});
             this.standardDeviationToolStripMenuItem.Name = "standardDeviationToolStripMenuItem";
             this.standardDeviationToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.standardDeviationToolStripMenuItem.Text = "Standard Deviation";
             this.standardDeviationToolStripMenuItem.Click += new System.EventHandler(this.standardDeviationToolStripMenuItem_Click);
             // 
-            // asIsToolStripMenuItem
-            // 
-            this.asIsToolStripMenuItem.Name = "asIsToolStripMenuItem";
-            this.asIsToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.asIsToolStripMenuItem.Text = "As Is";
-            // 
-            // toBeToolStripMenuItem
-            // 
-            this.toBeToolStripMenuItem.Name = "toBeToolStripMenuItem";
-            this.toBeToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.toBeToolStripMenuItem.Text = "To Be";
-            // 
             // answersToolStripMenuItem
             // 
-            this.answersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.asIsToolStripMenuItem1,
-            this.toBeToolStripMenuItem1});
             this.answersToolStripMenuItem.Name = "answersToolStripMenuItem";
             this.answersToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.answersToolStripMenuItem.Text = "Answers";
             this.answersToolStripMenuItem.Click += new System.EventHandler(this.answersToolStripMenuItem_Click);
-            // 
-            // asIsToolStripMenuItem1
-            // 
-            this.asIsToolStripMenuItem1.Name = "asIsToolStripMenuItem1";
-            this.asIsToolStripMenuItem1.Size = new System.Drawing.Size(104, 22);
-            this.asIsToolStripMenuItem1.Text = "As Is";
-            this.asIsToolStripMenuItem1.Click += new System.EventHandler(this.asIsToolStripMenuItem1_Click);
-            // 
-            // toBeToolStripMenuItem1
-            // 
-            this.toBeToolStripMenuItem1.Name = "toBeToolStripMenuItem1";
-            this.toBeToolStripMenuItem1.Size = new System.Drawing.Size(104, 22);
-            this.toBeToolStripMenuItem1.Text = "To Be";
-            this.toBeToolStripMenuItem1.Click += new System.EventHandler(this.toBeToolStripMenuItem1_Click);
             // 
             // capabilityNameTextBox
             // 
@@ -466,8 +430,8 @@
             // 
             // liveDataEntryGrid
             // 
-            this.liveDataEntryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.liveDataEntryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -557,8 +521,8 @@
             // 
             // prioritizationGrid
             // 
-            this.prioritizationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.prioritizationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -801,9 +765,9 @@
             // loadSurveyFromDataGrid
             // 
             this.loadSurveyFromDataGrid.AllowUserToResizeRows = false;
-            this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.loadSurveyFromDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Highlight;
@@ -888,8 +852,8 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ITCapTool";
             this.Text = "IT Capability Assesment Tool";
-            this.Load += new System.EventHandler(this.ITCapTool_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ITCapTool_FormClosed);
+            this.Load += new System.EventHandler(this.ITCapTool_Load);
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).EndInit();
             this.mainMenuToolBar.ResumeLayout(false);
             this.mainMenuToolBar.PerformLayout();
@@ -956,8 +920,6 @@
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showHideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem standardDeviationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem asIsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toBeToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
         private IBMConsultantTool.DataGridViewDisableButtonColumn Collapse;
@@ -967,8 +929,6 @@
         private System.Windows.Forms.ToolStripMenuItem createPowerPointToolStripMenuItem;
         private System.Windows.Forms.Label capabilityNameLabel;
         private System.Windows.Forms.ToolStripMenuItem answersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem asIsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toBeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createCommentsDocumentToolStripMenuItem;
         private System.Windows.Forms.Button createQuestionairreButton;

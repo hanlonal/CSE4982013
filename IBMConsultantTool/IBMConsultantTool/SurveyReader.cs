@@ -265,8 +265,6 @@ namespace IBMConsultantTool
                 //oWord.Activate();
 
 
-                try
-                {
 
                     ScoringEntity currentQuestion = null;
 
@@ -294,33 +292,40 @@ namespace IBMConsultantTool
 
                             ITCapQuestion temp = (ITCapQuestion)currentQuestion;
 
-                            if (c == 1)
+                            if (string.IsNullOrEmpty(form.Result) || string.IsNullOrWhiteSpace(form.Result) )
                             {
-                                temp.AddAsIsAnswer(Convert.ToSingle(form.Result.ToString()));
-                                
-                                c = 2;
+                                if (c == 1) c = 2;
+                                else if (c == 2) c = 3;
+                                else if (c == 3) c = 1;
+                                continue;
                             }
-                            else if (c == 2)
+                            else
                             {
-                                temp.AddToBeAnswer(Convert.ToSingle(form.Result.ToString()));
-                                c = 3;
-                                q++;
+                                if (c == 1)
+                                {
+                                    temp.AddAsIsAnswer(Convert.ToSingle(form.Result.ToString()));
+
+                                    c = 2;
+                                }
+                                else if (c == 2)
+                                {
+                                    temp.AddToBeAnswer(Convert.ToSingle(form.Result.ToString()));
+                                    c = 3;
+                                    q++;
+                                }
+                                else if (c == 3)
+                                {
+                                    temp.AddComment(form.Result.ToString());
+                                    c = 1;
+                                    q++;
+                                }
                             }
-                            else if (c == 3)
-                            {
-                                temp.AddComment(form.Result.ToString());
-                                c = 1;
-                                q++;
-                            }
+
 
                         }
                     }
                     oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
-                }
-                catch
-                {
-                    oDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
-                }
+
             }
 
         }
