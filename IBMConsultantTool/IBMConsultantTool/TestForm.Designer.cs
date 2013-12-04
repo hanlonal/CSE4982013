@@ -258,7 +258,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TestForm";
-            this.Text = "IBM Consultant Toolkit";
+            this.Text = "IT Assessment Toolkit";
             this.MouseEnter += new System.EventHandler(this.TestForm_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.NewConsultButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrendAnalysisButton)).EndInit();
