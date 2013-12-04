@@ -452,7 +452,7 @@ namespace IBMConsultantTool
             currentGrid.Rows[totalCRowIndex].Cells[colIndex].Value = totalC.ToString();
             currentGrid.Rows[totalDRowIndex].Cells[colIndex].Value = totalD.ToString();
             currentGrid.Rows[totalAnswerRowIndex].Cells[colIndex].Value = count.ToString();
-            currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = currentGrid.ColumnCount > 7 ? Math.Round((total / (currentGrid.ColumnCount - 7)), 2).ToString() : "0";
+            currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = currentGrid.ColumnCount > 7 ? Math.Round((total / (count)), 2).ToString() : "0";
 
             //questionGrid[colIndex, averageRowIndex].Style.BackColor = Color.Red;
            
