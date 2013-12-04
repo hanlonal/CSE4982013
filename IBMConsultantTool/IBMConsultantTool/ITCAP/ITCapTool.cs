@@ -602,7 +602,14 @@ namespace IBMConsultantTool
 
         private void SurveryMaker_Click(object sender, EventArgs e)
         {
+            ResetSurveyGrid();
+
+            ClientDataControl.db.OpenITCAP(this);
+
+            GetAnswers();
             ChangeStates(FormStates.SurveryMaker);
+            //GetClientObjectives();
+            PopulateCapabilitiesWithObjectives();
         }
 
         private void liveDataEntryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)

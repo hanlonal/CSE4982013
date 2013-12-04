@@ -94,14 +94,14 @@
             this.clientNameTextBox.Location = new System.Drawing.Point(236, 105);
             this.clientNameTextBox.Name = "clientNameTextBox";
             this.clientNameTextBox.Size = new System.Drawing.Size(179, 26);
-            this.clientNameTextBox.TabIndex = 5;
+            this.clientNameTextBox.TabIndex = 1;
             // 
             // startDateText
             // 
             this.startDateText.Location = new System.Drawing.Point(236, 340);
             this.startDateText.Name = "startDateText";
             this.startDateText.Size = new System.Drawing.Size(179, 26);
-            this.startDateText.TabIndex = 7;
+            this.startDateText.TabIndex = 5;
             // 
             // BusinessTypeComboBox
             // 
@@ -109,14 +109,14 @@
             this.BusinessTypeComboBox.Location = new System.Drawing.Point(236, 281);
             this.BusinessTypeComboBox.Name = "BusinessTypeComboBox";
             this.BusinessTypeComboBox.Size = new System.Drawing.Size(179, 28);
-            this.BusinessTypeComboBox.TabIndex = 8;
+            this.BusinessTypeComboBox.TabIndex = 4;
             // 
             // okButton
             // 
             this.okButton.Location = new System.Drawing.Point(283, 400);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(132, 41);
-            this.okButton.TabIndex = 9;
+            this.okButton.TabIndex = 7;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             // 
@@ -125,7 +125,7 @@
             this.cancelButton.Location = new System.Drawing.Point(86, 400);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(132, 41);
-            this.cancelButton.TabIndex = 10;
+            this.cancelButton.TabIndex = 6;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
@@ -135,7 +135,7 @@
             this.RegionComboBox.Location = new System.Drawing.Point(236, 154);
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(179, 28);
-            this.RegionComboBox.TabIndex = 12;
+            this.RegionComboBox.TabIndex = 2;
             this.RegionComboBox.SelectedIndexChanged += new System.EventHandler(this.RegionComboBox_SelectedIndexChanged);
             this.RegionComboBox.LostFocus += new System.EventHandler(this.RegionComboBox_LostFocus);
             // 
@@ -154,7 +154,7 @@
             this.countryComboBox.Location = new System.Drawing.Point(236, 216);
             this.countryComboBox.Name = "countryComboBox";
             this.countryComboBox.Size = new System.Drawing.Size(179, 28);
-            this.countryComboBox.TabIndex = 13;
+            this.countryComboBox.TabIndex = 3;
             // 
             // NewClientForm
             // 
