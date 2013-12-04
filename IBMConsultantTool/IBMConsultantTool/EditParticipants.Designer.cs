@@ -40,6 +40,9 @@
             // 
             // participantsGrid
             // 
+            this.participantsGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.participantsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.participantsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.participantsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -51,13 +54,13 @@
             this.participantsGrid.Location = new System.Drawing.Point(10, 11);
             this.participantsGrid.Name = "participantsGrid";
             this.participantsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.participantsGrid.Size = new System.Drawing.Size(635, 329);
+            this.participantsGrid.Size = new System.Drawing.Size(251, 322);
             this.participantsGrid.TabIndex = 13;
             this.participantsGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.participantsGrid_RowsAdded);
             // 
             // SaveParticipantButton
             // 
-            this.SaveParticipantButton.Location = new System.Drawing.Point(519, 344);
+            this.SaveParticipantButton.Location = new System.Drawing.Point(88, 338);
             this.SaveParticipantButton.Margin = new System.Windows.Forms.Padding(2);
             this.SaveParticipantButton.Name = "SaveParticipantButton";
             this.SaveParticipantButton.Size = new System.Drawing.Size(92, 28);
@@ -70,12 +73,13 @@
             // 
             this.ParticipantEmail.HeaderText = "Email";
             this.ParticipantEmail.Name = "ParticipantEmail";
+            this.ParticipantEmail.Visible = false;
             this.ParticipantEmail.Width = 150;
             // 
             // TypeBusiness
             // 
             this.TypeBusiness.FalseValue = "False";
-            this.TypeBusiness.HeaderText = "is Business?";
+            this.TypeBusiness.HeaderText = "Add Business";
             this.TypeBusiness.IndeterminateValue = "False";
             this.TypeBusiness.Name = "TypeBusiness";
             this.TypeBusiness.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -85,7 +89,7 @@
             // TypeIT
             // 
             this.TypeIT.FalseValue = "False";
-            this.TypeIT.HeaderText = "is IT?";
+            this.TypeIT.HeaderText = "Add IT";
             this.TypeIT.IndeterminateValue = "False";
             this.TypeIT.Name = "TypeIT";
             this.TypeIT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -108,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 383);
+            this.ClientSize = new System.Drawing.Size(273, 376);
             this.Controls.Add(this.SaveParticipantButton);
             this.Controls.Add(this.participantsGrid);
             this.Margin = new System.Windows.Forms.Padding(2);
