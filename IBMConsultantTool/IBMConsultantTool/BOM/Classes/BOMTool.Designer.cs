@@ -79,7 +79,7 @@
             // 
             // categoryNames
             // 
-            this.categoryNames.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.categoryNames.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.categoryNames.DropDownWidth = 250;
             this.categoryNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryNames.FormattingEnabled = true;
@@ -94,7 +94,7 @@
             // 
             // objectiveNames
             // 
-            this.objectiveNames.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.objectiveNames.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.objectiveNames.DropDownWidth = 250;
             this.objectiveNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectiveNames.FormattingEnabled = true;
@@ -109,7 +109,7 @@
             // 
             // imperativeNames
             // 
-            this.imperativeNames.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.imperativeNames.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.imperativeNames.DropDownWidth = 250;
             this.imperativeNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imperativeNames.FormattingEnabled = true;
@@ -122,7 +122,7 @@
             // 
             // AddImperativeButton
             // 
-            this.AddImperativeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddImperativeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.AddImperativeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddImperativeButton.Location = new System.Drawing.Point(869, 512);
             this.AddImperativeButton.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
@@ -349,8 +349,7 @@
             // 
             // sortedImperativesListBox
             // 
-            this.sortedImperativesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sortedImperativesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sortedImperativesListBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sortedImperativesListBox.FormattingEnabled = true;
             this.sortedImperativesListBox.ItemHeight = 20;

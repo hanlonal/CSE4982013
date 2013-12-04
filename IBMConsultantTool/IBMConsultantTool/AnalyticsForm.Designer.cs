@@ -116,6 +116,7 @@
             // 
             // metricsComboBox
             // 
+            this.metricsComboBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.metricsComboBox.FormattingEnabled = true;
             this.metricsComboBox.Location = new System.Drawing.Point(592, 331);
             this.metricsComboBox.Name = "metricsComboBox";
@@ -364,7 +365,7 @@
             this.domainsComboBox.Tag = "Capabilities";
             this.domainsComboBox.Text = "<Domains>";
             this.domainsComboBox.Visible = false;
-            this.domainsComboBox.SelectedValueChanged += new System.EventHandler(domainsComboBox_SelectedValueChanged);
+            this.domainsComboBox.SelectedValueChanged += new System.EventHandler(this.domainsComboBox_SelectedValueChanged);
             // 
             // fromDateCheckBox
             // 
@@ -432,6 +433,7 @@
             // 
             // metricCheckBox
             // 
+            this.metricCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.metricCheckBox.AutoSize = true;
             this.metricCheckBox.Checked = true;
             this.metricCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -444,8 +446,8 @@
             // 
             // dataPanel
             // 
-            this.dataPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.dataPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataPanel.Controls.Add(this.trendGridView);
@@ -456,8 +458,8 @@
             // 
             // trendGridView
             // 
-            this.trendGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.trendGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.trendGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.trendGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Collapse});
@@ -485,8 +487,8 @@
             // 
             // chartPanel
             // 
-            this.chartPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.chartPanel.Location = new System.Drawing.Point(246, 361);
@@ -496,6 +498,7 @@
             // 
             // graphTypeComboBox
             // 
+            this.graphTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.graphTypeComboBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.graphTypeComboBox.FormattingEnabled = true;
             this.graphTypeComboBox.Location = new System.Drawing.Point(818, 331);
