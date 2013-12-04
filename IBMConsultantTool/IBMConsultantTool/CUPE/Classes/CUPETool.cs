@@ -12,9 +12,6 @@ using System.Threading;
 
 namespace IBMConsultantTool
 {
-    //TODO: Save changes to questions in the question view
-    //TODO: Load survey data
-    //TODO: Load any user data when tool starts up
 
     public partial class CUPETool : Form
     {
@@ -556,7 +553,7 @@ namespace IBMConsultantTool
         {
             string tempAvg = (string)currentGrid.Rows[averageRowIndex].Cells[index].Value;
             float average = (float)Convert.ToDouble(tempAvg);
-            if(average < 3)
+            if (average < ConfigurationSettings.Instance.CupeHigh)
                 currentGrid[index, averageRowIndex].Style.BackColor = Color.IndianRed;
             else
                 currentGrid[index, averageRowIndex].Style.BackColor = Color.SeaGreen;
@@ -565,7 +562,7 @@ namespace IBMConsultantTool
         {
             string tempAvg = (string)currentGrid.Rows[index].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value;
             float average = (float)Convert.ToDouble(tempAvg);
-            if (average < 3)
+            if (average < ConfigurationSettings.Instance.CupeHigh)
                 currentGrid[averageIndex + (currentGrid.ColumnCount - 7), index].Style.BackColor = Color.IndianRed;
             else
                 currentGrid[averageIndex + (currentGrid.ColumnCount - 7), index].Style.BackColor = Color.SeaGreen;
@@ -3511,7 +3508,11 @@ namespace IBMConsultantTool
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm form = new SettingsForm(this);
-            form.Show();
+            if(form.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                this.changeAllTotals();
+            }
+            
         }
 
     }// end class

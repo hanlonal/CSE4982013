@@ -75,6 +75,14 @@ namespace IBMConsultantTool
             set { dynamicAutoLowGap = value; }
         }
 
+        float cupeHigh = 3;
+
+        public float CupeHigh
+        {
+            get { return cupeHigh; }
+            set { cupeHigh = value; }
+        }
+
         private ConfigurationSettings() {}
 
         public static ConfigurationSettings Instance

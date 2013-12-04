@@ -35,10 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.CUPEHighThresholdBox = new System.Windows.Forms.TextBox();
+            this.CUPEHighThreshold = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.stdDeviationFlgAmount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -124,10 +122,8 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox4);
-            this.tabPage2.Controls.Add(this.textBox3);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.CUPEHighThresholdBox);
+            this.tabPage2.Controls.Add(this.CUPEHighThreshold);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
@@ -137,39 +133,22 @@
             this.tabPage2.Text = "CUPE";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // CUPEHighThresholdBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(316, 91);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 26);
-            this.textBox4.TabIndex = 8;
+            this.CUPEHighThresholdBox.Location = new System.Drawing.Point(316, 20);
+            this.CUPEHighThresholdBox.Name = "CUPEHighThresholdBox";
+            this.CUPEHighThresholdBox.Size = new System.Drawing.Size(100, 26);
+            this.CUPEHighThresholdBox.TabIndex = 7;
             // 
-            // textBox3
+            // CUPEHighThreshold
             // 
-            this.textBox3.Location = new System.Drawing.Point(316, 20);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 26);
-            this.textBox3.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 20);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(189, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Auto High Gap Threshold";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 97);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(185, 20);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Auto Low Gap Threshold";
+            this.CUPEHighThreshold.AutoSize = true;
+            this.CUPEHighThreshold.Location = new System.Drawing.Point(23, 20);
+            this.CUPEHighThreshold.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CUPEHighThreshold.Name = "CUPEHighThreshold";
+            this.CUPEHighThreshold.Size = new System.Drawing.Size(116, 20);
+            this.CUPEHighThreshold.TabIndex = 6;
+            this.CUPEHighThreshold.Text = "High Threshold";
             // 
             // tabPage3
             // 
@@ -358,10 +337,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox CUPEHighThresholdBox;
+        private System.Windows.Forms.Label CUPEHighThreshold;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox dynamicAutoLowGaText;
         private System.Windows.Forms.TextBox dynamicAutoHighGapText;

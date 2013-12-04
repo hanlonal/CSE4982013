@@ -32,8 +32,7 @@ namespace IBMConsultantTool
             //bomStaticRankingRadio.CheckedChanged += new EventHandler(bomStaticRankingRadio_CheckedChanged);
             dynamicSortRadio.Checked = !staticSortRadio.Checked;
             //bomDynamicRankingRadio.Checked = !bomStaticRankingRadio.Checked;
-
-
+            CUPEHighThresholdBox.DataBindings.Add("Text", ConfigurationSettings.Instance, "CupeHigh");
         }
 
         private void button1_Click(object sender, EventArgs e)
