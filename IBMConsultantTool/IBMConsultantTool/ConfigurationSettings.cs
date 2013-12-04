@@ -30,7 +30,7 @@ namespace IBMConsultantTool
             set { staticLowGapThreshold = value; }
         }
         private double BOMlowThreshold = 4;
-        private bool BOMSortModeStatic = false;
+        private bool BOMSortModeStatic = true;
 
         public bool BOMSortModeStatic1
         {
@@ -51,7 +51,7 @@ namespace IBMConsultantTool
             set { BOMhighThreshold = value; }
         }
 
-        bool staticSort = false;
+        bool staticSort = true;
 
         public bool StaticSort
         {
@@ -74,7 +74,7 @@ namespace IBMConsultantTool
             set { dynamicAutoLowGap = value; }
         }
 
-        private ConfigurationSettings() { }
+        private ConfigurationSettings() {}
 
         public static ConfigurationSettings Instance
         {

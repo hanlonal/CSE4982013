@@ -58,6 +58,9 @@ namespace IBMConsultantTool
                     }  
                 } 
             }
+
+            ITCAPQuestionDataGridView.AllowUserToAddRows = false;
+            ITCAPQuestionDataGridView.AllowUserToDeleteRows = false;
         }
 
         private void SaveChangesButton_Click(object sender, EventArgs e)
@@ -68,7 +71,7 @@ namespace IBMConsultantTool
 
             foreach (DataGridViewRow row in ITCAPQuestionDataGridView.Rows)
             {
-                if (row.DefaultCellStyle.BackColor == Color.LawnGreen)
+                if (row.DefaultCellStyle.BackColor == Color.White)
                 {
                     itcqName = (string)row.Cells[0].Value;
                     if (!ClientDataControl.db.ChangeITCAPQuestionDefault(itcqName, (bool)row.Cells[1].Value))
@@ -78,7 +81,7 @@ namespace IBMConsultantTool
                     }
                 }
 
-                else if (row.DefaultCellStyle.BackColor == Color.Yellow)
+                else if (row.DefaultCellStyle.BackColor == Color.LightSlateGray)
                 {
                     capName = (string)row.Cells[0].Value;
                     if (!ClientDataControl.db.ChangeCapabilityDefault(capName, (bool)row.Cells[1].Value))
@@ -88,7 +91,7 @@ namespace IBMConsultantTool
                     }
                 }
 
-                else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                else if (row.DefaultCellStyle.BackColor == Color.LightBlue)
                 {
                     domName = (string)row.Cells[0].Value;
                     if (!ClientDataControl.db.ChangeDomainDefault(domName, (bool)row.Cells[1].Value))
@@ -112,7 +115,10 @@ namespace IBMConsultantTool
 
         private void ITCAPQuestionDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
             DataGridViewCheckBoxCell senderCell = ITCAPQuestionDataGridView.Rows[e.RowIndex].Cells[1] as DataGridViewCheckBoxCell;
             bool capabilityIsDefault = false; //becomes true if we find another attribute that is default
             bool hitCapability = false;
@@ -121,7 +127,7 @@ namespace IBMConsultantTool
             //MessageBox.Show(e.RowIndex.ToString() + " " + ((bool)senderCell.EditedFormattedValue).ToString());
             if (((bool)senderCell.EditedFormattedValue) == true)
             {
-                if (senderCell.OwningRow.DefaultCellStyle.BackColor == Color.LawnGreen)
+                if (senderCell.OwningRow.DefaultCellStyle.BackColor == Color.White)
                 {
                     for (int i = senderCell.OwningRow.Index; ; i--)
                     {
@@ -132,12 +138,12 @@ namespace IBMConsultantTool
                             break;
                         }
                         row = ITCAPQuestionDataGridView.Rows[i];
-                        if (!hitCapability && row.DefaultCellStyle.BackColor == Color.Yellow)
+                        if (!hitCapability && row.DefaultCellStyle.BackColor == Color.LightSlateGray)
                         {
                             row.Cells[1].Value = true;
                             hitCapability = true;
                         }
-                        else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                        else if (row.DefaultCellStyle.BackColor == Color.LightBlue)
                         {
                             row.Cells[1].Value = true;
                             break;
@@ -148,7 +154,7 @@ namespace IBMConsultantTool
 
             else
             {
-                if (senderCell.OwningRow.DefaultCellStyle.BackColor == Color.LawnGreen)
+                if (senderCell.OwningRow.DefaultCellStyle.BackColor == Color.White)
                 {
                     for (int i = senderCell.OwningRow.Index+1; ; i++)
                     {
@@ -158,16 +164,16 @@ namespace IBMConsultantTool
                             break;
                         }
                         row = ITCAPQuestionDataGridView.Rows[i];
-                        if (!hitCapability && row.DefaultCellStyle.BackColor == Color.LawnGreen && (bool)(row.Cells[1].EditedFormattedValue))
+                        if (!hitCapability && row.DefaultCellStyle.BackColor == Color.White && (bool)(row.Cells[1].EditedFormattedValue))
                         {
                             capabilityIsDefault = true;
                         }
-                        if (row.DefaultCellStyle.BackColor == Color.Yellow && (bool)(row.Cells[1].EditedFormattedValue))
+                        if (row.DefaultCellStyle.BackColor == Color.LightSlateGray && (bool)(row.Cells[1].EditedFormattedValue))
                         {
                             hitCapability = true;
                             domainIsDefault = true;
                         }
-                        else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                        else if (row.DefaultCellStyle.BackColor == Color.LightBlue)
                         {
                             break;
                         }
@@ -183,11 +189,11 @@ namespace IBMConsultantTool
                         }
                         //MessageBox.Show(i.ToString());
                         row = ITCAPQuestionDataGridView.Rows[i];
-                        if (row.DefaultCellStyle.BackColor == Color.LawnGreen && (bool)(row.Cells[1].Value))
+                        if (row.DefaultCellStyle.BackColor == Color.White && (bool)(row.Cells[1].Value))
                         {
                             capabilityIsDefault = true;
                         }
-                        if (row.DefaultCellStyle.BackColor == Color.Yellow)
+                        if (row.DefaultCellStyle.BackColor == Color.LightSlateGray)
                         {
                             if (!hitCapability)
                             {
@@ -204,7 +210,7 @@ namespace IBMConsultantTool
                                 hitCapability = true;
                             }
                         }
-                        else if (row.DefaultCellStyle.BackColor == Color.Orange)
+                        else if (row.DefaultCellStyle.BackColor == Color.LightBlue)
                         {
                             row.Cells[1].Value = domainIsDefault;
                             break;

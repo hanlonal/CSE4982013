@@ -55,8 +55,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.bomStaticRankingRadio = new System.Windows.Forms.RadioButton();
-            this.bomDynamicRankingRadio = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -77,8 +75,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.bomDynamicRankingRadio);
-            this.tabPage1.Controls.Add(this.bomStaticRankingRadio);
             this.tabPage1.Controls.Add(this.bomhighTextbox);
             this.tabPage1.Controls.Add(this.bomlowTextbox);
             this.tabPage1.Controls.Add(this.label2);
@@ -236,7 +232,7 @@
             this.dynamicSortRadio.AutoSize = true;
             this.dynamicSortRadio.Location = new System.Drawing.Point(33, 160);
             this.dynamicSortRadio.Name = "dynamicSortRadio";
-            this.dynamicSortRadio.Size = new System.Drawing.Size(163, 24);
+            this.dynamicSortRadio.Size = new System.Drawing.Size(115, 17);
             this.dynamicSortRadio.TabIndex = 14;
             this.dynamicSortRadio.TabStop = true;
             this.dynamicSortRadio.Text = "Dynamic sort mode";
@@ -247,7 +243,7 @@
             this.staticSortRadio.AutoSize = true;
             this.staticSortRadio.Location = new System.Drawing.Point(33, 14);
             this.staticSortRadio.Name = "staticSortRadio";
-            this.staticSortRadio.Size = new System.Drawing.Size(143, 24);
+            this.staticSortRadio.Size = new System.Drawing.Size(101, 17);
             this.staticSortRadio.TabIndex = 13;
             this.staticSortRadio.TabStop = true;
             this.staticSortRadio.Text = "Static sort mode";
@@ -331,28 +327,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // bomStaticRankingRadio
-            // 
-            this.bomStaticRankingRadio.AutoSize = true;
-            this.bomStaticRankingRadio.Location = new System.Drawing.Point(130, 216);
-            this.bomStaticRankingRadio.Name = "bomStaticRankingRadio";
-            this.bomStaticRankingRadio.Size = new System.Drawing.Size(131, 24);
-            this.bomStaticRankingRadio.TabIndex = 4;
-            this.bomStaticRankingRadio.TabStop = true;
-            this.bomStaticRankingRadio.Text = "Static Ranking";
-            this.bomStaticRankingRadio.UseVisualStyleBackColor = true;
-            // 
-            // bomDynamicRankingRadio
-            // 
-            this.bomDynamicRankingRadio.AutoSize = true;
-            this.bomDynamicRankingRadio.Location = new System.Drawing.Point(130, 293);
-            this.bomDynamicRankingRadio.Name = "bomDynamicRankingRadio";
-            this.bomDynamicRankingRadio.Size = new System.Drawing.Size(151, 24);
-            this.bomDynamicRankingRadio.TabIndex = 5;
-            this.bomDynamicRankingRadio.TabStop = true;
-            this.bomDynamicRankingRadio.Text = "Dynamic Ranking";
-            this.bomDynamicRankingRadio.UseVisualStyleBackColor = true;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -404,7 +378,5 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RadioButton bomDynamicRankingRadio;
-        private System.Windows.Forms.RadioButton bomStaticRankingRadio;
     }
 }
