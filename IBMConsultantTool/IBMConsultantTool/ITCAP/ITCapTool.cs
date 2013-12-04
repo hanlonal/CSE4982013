@@ -946,8 +946,9 @@ namespace IBMConsultantTool
 
         private void currentGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
+            //currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
             e.Cancel = false;
+            e.ThrowException = false;
         }
 
 
@@ -1151,8 +1152,12 @@ namespace IBMConsultantTool
 
         private void currentGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            int value = Convert.ToInt32(currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            if(value < 0)
+            {
+                currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
+            }
             ITCapQuestion ent = currentGrid.Rows[e.RowIndex].DataBoundItem as ITCapQuestion;
-
 
             if (e.ColumnIndex == 4)
             {
