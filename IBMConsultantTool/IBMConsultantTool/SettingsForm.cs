@@ -26,8 +26,8 @@ namespace IBMConsultantTool
             bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
             //staticSortRadio.Checked = ConfigurationSettings.Instance.StaticSort;
             //bomStaticRankingRadio.DataBindings.Add("Checked", ConfigurationSettings.Instance, "BOMSortModeStatic1");
-            bomhighTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMhighThreshold1");
-            bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
+            //bomhighTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMhighThreshold1");
+            //bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
             staticSortRadio.CheckedChanged += new EventHandler(staticSortRadio_CheckedChanged);
             //bomStaticRankingRadio.CheckedChanged += new EventHandler(bomStaticRankingRadio_CheckedChanged);
             dynamicSortRadio.Checked = !staticSortRadio.Checked;
