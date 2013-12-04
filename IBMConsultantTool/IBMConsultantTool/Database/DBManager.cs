@@ -47,10 +47,6 @@ namespace IBMConsultantTool
             return (from ent in dbo.CLIENT
                     select ent).ToList();
         }
-        public void Test()
-        {
-        }
-
 
         public override string[] GetClientNames()
         {

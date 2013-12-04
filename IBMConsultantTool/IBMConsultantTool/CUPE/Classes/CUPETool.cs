@@ -79,7 +79,19 @@ namespace IBMConsultantTool
 
         private void CUPETool_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (closeState == "close")
+            if (closeState == "ITCap")
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCap));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+            }
+            else if (closeState == "BOM")
+            {
+                System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+            }
+            else if (closeState == "close")
             {
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
                 t.SetApartmentState(System.Threading.ApartmentState.STA);
@@ -1763,9 +1775,6 @@ namespace IBMConsultantTool
         private void iTCapabilityToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             closeState = "ITCap";
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNITCap));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
             this.Close();
             return;
         }
@@ -1778,9 +1787,6 @@ namespace IBMConsultantTool
         private void bOMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeState = "BOM";
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
             this.Close();
             return;
         }

@@ -889,6 +889,7 @@
             this.Name = "ITCapTool";
             this.Text = "IT Capability Assesment Tool";
             this.Load += new System.EventHandler(this.ITCapTool_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ITCapTool_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).EndInit();
             this.mainMenuToolBar.ResumeLayout(false);
             this.mainMenuToolBar.PerformLayout();

@@ -145,8 +145,6 @@ namespace IBMConsultantTool
             loadFromSurveyControls.Add(panel1);
             loadFromSurveyControls.Add(capabilityNameLabel);
             loadFromSurveyControls.Add(seperatorLabel);
-
-            this.FormClosed += new FormClosedEventHandler(ITCapTool_FormClosed);
             //loadSurveyFromDataGrid.Columns["Collapse"] = new DataGridViewDisableButtonColumn();
         }
 
