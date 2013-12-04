@@ -127,7 +127,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generatePowerpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iTStakeHoldersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.businessLeadersCurrentFutureComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -926,8 +925,7 @@
             this.newToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.createSurveyToolStripMenuItem,
-            this.openSurveysToolStripMenuItem,
-            this.generatePowerpointToolStripMenuItem});
+            this.openSurveysToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -935,37 +933,30 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // createSurveyToolStripMenuItem
             // 
             this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
-            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.createSurveyToolStripMenuItem.Text = "Create Survey";
             this.createSurveyToolStripMenuItem.Click += new System.EventHandler(this.createSurveyToolStripMenuItem_Click);
             // 
             // openSurveysToolStripMenuItem
             // 
             this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
-            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openSurveysToolStripMenuItem.Text = "Open Surveys";
             this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.openSurveysToolStripMenuItem_Click);
-            // 
-            // generatePowerpointToolStripMenuItem
-            // 
-            this.generatePowerpointToolStripMenuItem.Name = "generatePowerpointToolStripMenuItem";
-            this.generatePowerpointToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.generatePowerpointToolStripMenuItem.Text = "Create Powerpoint";
-            this.generatePowerpointToolStripMenuItem.Click += new System.EventHandler(this.generatePowerpointToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -1229,14 +1220,14 @@
             // bOMToolStripMenuItem
             // 
             this.bOMToolStripMenuItem.Name = "bOMToolStripMenuItem";
-            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bOMToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.bOMToolStripMenuItem.Text = "BOM";
             this.bOMToolStripMenuItem.Click += new System.EventHandler(this.bOMToolStripMenuItem_Click);
             // 
             // iTCapabilityToolStripMenuItem1
             // 
             this.iTCapabilityToolStripMenuItem1.Name = "iTCapabilityToolStripMenuItem1";
-            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.iTCapabilityToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
             this.iTCapabilityToolStripMenuItem1.Text = "ITCAP";
             this.iTCapabilityToolStripMenuItem1.Click += new System.EventHandler(this.iTCapabilityToolStripMenuItem1_Click);
             // 
@@ -1359,7 +1350,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalD;
         private System.Windows.Forms.DataGridViewTextBoxColumn numAnswers;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgScore;
-        private System.Windows.Forms.ToolStripMenuItem generatePowerpointToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iTProviderRelationshipToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

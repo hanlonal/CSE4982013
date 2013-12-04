@@ -44,7 +44,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurveyDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSurveyDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createPowerPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createCommentsDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.View = new System.Windows.Forms.ToolStripMenuItem();
             this.systemsAgendaCapabilityAssesmentResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +75,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,7 +101,6 @@
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
@@ -114,8 +113,8 @@
             // 
             // surveryMakerGrid
             // 
-            this.surveryMakerGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.surveryMakerGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -172,7 +171,6 @@
             this.saveToolStripMenuItem,
             this.createSurveyDocumentToolStripMenuItem,
             this.openSurveyDocumentsToolStripMenuItem,
-            this.createPowerPointToolStripMenuItem,
             this.createCommentsDocumentToolStripMenuItem});
             this.File.Name = "File";
             this.File.Size = new System.Drawing.Size(37, 19);
@@ -212,13 +210,6 @@
             this.openSurveyDocumentsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.openSurveyDocumentsToolStripMenuItem.Text = "Open Survey Documents";
             this.openSurveyDocumentsToolStripMenuItem.Click += new System.EventHandler(this.openSurveyDocumentsToolStripMenuItem_Click);
-            // 
-            // createPowerPointToolStripMenuItem
-            // 
-            this.createPowerPointToolStripMenuItem.Name = "createPowerPointToolStripMenuItem";
-            this.createPowerPointToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.createPowerPointToolStripMenuItem.Text = "Create PowerPoint";
-            this.createPowerPointToolStripMenuItem.Click += new System.EventHandler(this.createPowerPointToolStripMenuItem_Click);
             // 
             // createCommentsDocumentToolStripMenuItem
             // 
@@ -430,8 +421,8 @@
             // 
             // liveDataEntryGrid
             // 
-            this.liveDataEntryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.liveDataEntryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -505,6 +496,14 @@
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
             // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
+            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Type";
@@ -513,8 +512,8 @@
             // 
             // prioritizationGrid
             // 
-            this.prioritizationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.prioritizationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -758,9 +757,9 @@
             // loadSurveyFromDataGrid
             // 
             this.loadSurveyFromDataGrid.AllowUserToResizeRows = false;
-            this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.loadSurveyFromDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Highlight;
@@ -813,14 +812,6 @@
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
             this.Flags.Width = 54;
-            // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
             // 
             // dataGridViewButtonColumn2
             // 
@@ -927,7 +918,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Flags;
         private System.Windows.Forms.ToolStripMenuItem createSurveyDocumentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openSurveyDocumentsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createPowerPointToolStripMenuItem;
         private System.Windows.Forms.Label capabilityNameLabel;
         private System.Windows.Forms.ToolStripMenuItem answersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
