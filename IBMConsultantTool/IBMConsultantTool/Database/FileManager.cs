@@ -1348,6 +1348,12 @@ namespace IBMConsultantTool
                 }
             }
 
+            else if (objectiveXML.Parent.Parent.Element("NAME").Value != catName)
+            {
+                MessageBox.Show("Objective already exists under category " + objectiveXML.Parent.Parent.Element("NAME").Value, "Error");
+                return false;
+            }
+
             XElement imperativeXML;
             if (!GetImperative(iniName, out imperativeXML))
             {
@@ -1358,6 +1364,12 @@ namespace IBMConsultantTool
                     MessageBox.Show("Failed to add Imperative to File", "Error");
                     return false;
                 }
+            }
+
+            else if (imperativeXML.Parent.Parent.Element("NAME").Value != busName)
+            {
+                MessageBox.Show("Imperative already exists under objective " + imperativeXML.Parent.Parent.Element("NAME").Value, "Error");
+                return false;
             }
 
             XElement bom = new XElement("BOM");

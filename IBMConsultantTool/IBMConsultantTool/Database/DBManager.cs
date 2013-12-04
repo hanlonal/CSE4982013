@@ -1243,7 +1243,7 @@ namespace IBMConsultantTool
 
                     else if (!category.BUSINESSOBJECTIVE.Contains(objective))
                     {
-                        MessageBox.Show("Objective already exists under a different category", "Error");
+                        MessageBox.Show("Objective already exists under category " + objective.CATEGORY.NAME.TrimEnd(), "Error");
                         return false;
                     }
 
