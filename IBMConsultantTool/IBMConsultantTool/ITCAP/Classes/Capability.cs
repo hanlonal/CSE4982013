@@ -346,24 +346,27 @@ namespace IBMConsultantTool
         }
 
 
-
-        public void AddObjectiveToTrack(string name)
+         
+        public void AddObjectiveToTrack(string name, float score)
         {
-            //OBJECTIVESCORES.Add(name, 0);
-            ObjectiveValues val = new ObjectiveValues(name, 0);
+            //OBJECTIVESCORES.Add(name, 0);'
+            ObjectiveValues val = new ObjectiveValues(name, 0,score);
             objectiveCollection.Add(val);
         }
 
         public override void CalculatePrioritizedCapabilityGap()
         {
-           float sum = 0;
+            int numBoms = objectiveCollection.Count;
+            float sum = 0;
             //NEEDS TO BE DONE YOU HVAE FORMULA NOW
             foreach (ObjectiveValues val in objectiveCollection)
             {
                 sum += val.Score;
+                sum *= val.BomScore / (3 * numBoms);
             }
 
             PrioritizedCapabilityGap = (float)sum;
+            Console.WriteLine(PrioritizedCapabilityGap);
             CalculatePrioritizedGapText();
 
         }
