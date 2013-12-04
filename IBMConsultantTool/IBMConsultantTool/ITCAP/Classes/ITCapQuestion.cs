@@ -308,7 +308,7 @@ namespace IBMConsultantTool
             if (capabilityGap == 0)
             {
                 GapType1 = GapType.None;
-                capabilityGapText = "No Gap";
+                capabilityGapText = "Not Focus";
             }
         }
         public bool AsIsHighStandardDeviation

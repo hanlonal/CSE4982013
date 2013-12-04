@@ -13,7 +13,8 @@ namespace IBMConsultantTool
         enum SortTpe { Static, Dynamic };
         static SortTpe sortType;
 
-
+        public float currentScore = 0;
+        public float futureScore = 0;
 
         static private float percentToCategorizeAsHigh = .33f;
         static private float percentToCategorizeAsLow = .33f;
@@ -91,6 +92,8 @@ namespace IBMConsultantTool
             asIs = Math.Round(asIs, 0);
             asIsScore = (float)asIs;
 
+            currentScore = asIsScore;
+
             return asIsScore;
         }
 
@@ -164,7 +167,7 @@ namespace IBMConsultantTool
                     {
                         cap.PrioritizedGapType1 = PrioritizedGapType.High;
                         cap.PrioritizedGap = "High Gap";
-                    }                 
+                    }
                     
                     count2++;
                 }
@@ -186,6 +189,14 @@ namespace IBMConsultantTool
 
             if (dynamicCapabilityGaps.ContainsKey(this))
             {
+                if (this.asIsScore == 0.00 && this.toBeScore == 0.00)
+                {
+                    this.gapType = GapType.None;
+                    gapType = GapType.None;
+                    capabilityGapText = "Not Focus";
+                    dynamicCapabilityGaps.Remove(this);
+                    return;
+                }
                 dynamicCapabilityGaps[this] = capabilityGap;
             }
             else
@@ -218,7 +229,7 @@ namespace IBMConsultantTool
                 }
                 else
                 {
-                    CapabilityGapText = "No Focus";
+                    CapabilityGapText = "Not Focus";
                     gapType = GapType.None;
                 }
             }
@@ -251,8 +262,8 @@ namespace IBMConsultantTool
                             }
                             else
                             {
-                                pair.Key.CapabilityGapText = "Low Gap";
-                                pair.Key.gapType = GapType.Low;
+                                pair.Key.CapabilityGapText = "Middle Gap";
+                                pair.Key.gapType = GapType.Middle;
                             }
                         }
 
@@ -291,14 +302,14 @@ namespace IBMConsultantTool
                             }
                             else
                             {
-                                pair.Key.CapabilityGapText = "High Gap";
-                                pair.Key.gapType = GapType.High;
+                                pair.Key.CapabilityGapText = "Middle Gap";
+                                pair.Key.gapType = GapType.Middle;
                             }
                         }
                         if (pair.Value == 0.00)
                         {
                             pair.Key.gapType = GapType.None;
-                            pair.Key.CapabilityGapText = "No Focus";
+                            pair.Key.CapabilityGapText = "Not Focus";
                         }
 
                         count++;
@@ -385,6 +396,8 @@ namespace IBMConsultantTool
             decimal toBe = Convert.ToDecimal(toBeScore);
             toBe = Math.Round(toBe, 2);
             toBeScore = (float)toBe;
+
+            futureScore = toBeScore;
 
             return toBeScore;
         }
