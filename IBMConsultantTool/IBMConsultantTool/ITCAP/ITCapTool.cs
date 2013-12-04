@@ -705,7 +705,7 @@ namespace IBMConsultantTool
             
             foreach (ObjectiveValues val in currentcap.ObjectiveCollection)
             {
-                
+                val.PropertyChanged +=new PropertyChangedEventHandler(val_PropertyChanged);
                 List<int> test = new List<int>();
 
                 Label label = new Label();
@@ -718,31 +718,19 @@ namespace IBMConsultantTool
                 combo.Tag = "permenant";
                 label.Name = "Testing" + count.ToString();
                 label.Tag = "permenant";
-                //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
+
                 combo.DataBindings.Clear();
                 combo.Items.Add((int)0);
                 combo.Items.Add((int)1);
                 combo.Items.Add((int)2);
                 combo.Items.Add((int)3);
-               // combo.DataSource = test;
-                combo.Width = 50;
-                
+              
+                combo.Width = 50;               
                 
                 
                 combo.DataBindings.Add("Text", val, "Score");
-                combo.DataBindings.Add("SelectedIndex", val, "Score");
-               
-               // combo.TextChanged +=new EventHandler(combo_TextChanged);
-                combo.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                //combo.LostFocus +=new EventHandler(combo_LostFocus);
-                //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
-                combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
-                combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
-                //combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
-                //combo.TextChanged +=new EventHandler(combo_TextChanged);
-                //combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
-                combo.DropDownClosed +=new EventHandler(combo_DropDownClosed);
-                combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
+                combo.DataBindings.Add("SelectedValue", val, "Score");
+
                 combo.DropDownStyle = ComboBoxStyle.DropDownList;
                 panel1.Controls.Add(combo);
                 combo.Tag = " ";
@@ -754,80 +742,13 @@ namespace IBMConsultantTool
                 count++;
             }
         }
-        private void combo_SelectionChangeCommitted(object sender, EventArgs e)
+        private void val_PropertyChanged(object sender, EventArgs e)
         {
-            ComboBox boc = (ComboBox)sender;
-            boc.Update();
+            currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+            //ComboBox boc = (ComboBox)sender;
+            //boc.Update();
             currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-
-
-
-        }
-
-        private void combo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox boc = (ComboBox)sender;
-            boc.Update();
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-
-
-
-        }
-
-        private void combo_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-                currentcap.CalculatePrioritizedCapabilityGap();
-                //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-                if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-                {
-                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-                }
-                else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-                {
-                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-                }
-                else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-                {
-                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-                }
-
-
-        }
-
-        private void combo_DropDownClosed(object sender, EventArgs e)
-        {
-            ComboBox box = (ComboBox)sender;
             
-            
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
             if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
             {
                 loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
@@ -840,7 +761,9 @@ namespace IBMConsultantTool
             {
                 loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
             }
-
+            
+            currentGrid.Refresh();
+            
         }
 
 
