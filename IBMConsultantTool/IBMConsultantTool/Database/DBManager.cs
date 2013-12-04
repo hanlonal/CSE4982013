@@ -961,6 +961,7 @@ namespace IBMConsultantTool
                 if (capability == null)
                 {
                     capability = new Capability();
+                    Capability.AllCapabilities.Add(capability);
                     capability.CapName = capName;
                     capability.IsDefault = capEnt.DEFAULT == "Y";
                     domain.CapabilitiesOwned.Add(capability);

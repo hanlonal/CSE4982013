@@ -9,7 +9,7 @@ namespace IBMConsultantTool
     public class ObjectiveValues : INotifyPropertyChanged
     {
         private string name;
-        private float score;
+        private int score;
         private float bomScore;
 
 
@@ -41,7 +41,7 @@ namespace IBMConsultantTool
 
         #region PROPERTIES
 
-        public float Score
+        public int Score
         {
             get { return score; }
             set 

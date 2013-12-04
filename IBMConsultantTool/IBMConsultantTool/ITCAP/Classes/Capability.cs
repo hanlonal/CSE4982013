@@ -100,7 +100,7 @@ namespace IBMConsultantTool
             List<Capability> sortingList = new List<Capability>();
             foreach (Capability cap in allCapabilities)
             {
-                if (cap.prioritizedCapabilityGap == 0)
+                if (cap.PrioritizedCapabilityGap == 0)
                     continue;
                 else
                 {
@@ -108,36 +108,32 @@ namespace IBMConsultantTool
                 }
             }
             var items = from x in sortingList
-                        orderby x.prioritizedCapabilityGap ascending
+                        orderby x.PrioritizedCapabilityGap ascending
                         select x;
 
 
-            int numberForLow = (int)(sortingList.Count * .33f);
-            int numberForMid = (int)(sortingList.Count * .33f);
-            int numberForHigh = (int)(sortingList.Count * .33f) + numberForLow + numberForMid;
+
 
             int count = 0;
             if (sortingList.Count > 3)
             {
-                foreach (Capability cap in sortingList)
+                int numberForLow = sortingList.Count / 3;
+                int numberForMid = (sortingList.Count / 3) + numberForLow;
+                int numberForHigh = (sortingList.Count / 3) + numberForMid;
+                foreach (Capability cap in items)
                 {
-                    if (cap.prioritizedCapabilityGap == 0.00)
-                    {
-                      //  cap.PrioritizedGapType1 = PrioritizedGapType.None;
-                     //   cap.PrioritizedGap = "No Focus";
-                      //  continue;
-                    }
+
                     if (count < numberForLow)
                     {
                         cap.PrioritizedGapType1 = PrioritizedGapType.Low;
                         cap.PrioritizedGap = "Low Gap";
                     }
-                    else if (count >= numberForLow && count < numberForHigh)
+                    else if (count >= numberForLow && count < numberForMid)
                     {
                         cap.PrioritizedGapType1 = PrioritizedGapType.Middle;
                         cap.PrioritizedGap = "Medium Gap";
                     }
-                    else if (count >= numberForHigh)
+                    else if (count >= numberForMid)
                     {
                         cap.PrioritizedGapType1 = PrioritizedGapType.High;
                         cap.PrioritizedGap = "High Gap";
@@ -150,13 +146,28 @@ namespace IBMConsultantTool
             }
             else if (sortingList.Count == 3)
             {
-                allCapabilities.OrderBy(d => d.prioritizedCapabilityGap);
-                allCapabilities[0].PrioritizedGapType1 = PrioritizedGapType.Low;
-                allCapabilities[1].PrioritizedGapType1 = PrioritizedGapType.Middle;
-                allCapabilities[2].PrioritizedGapType1 = PrioritizedGapType.High;
-                allCapabilities[0].PrioritizedGap = "Low Gap";
-                allCapabilities[1].PrioritizedGap = "Medium Gap";
-                allCapabilities[2].PrioritizedGap = "High Gap";
+                int count2 = 0;
+                foreach (Capability cap in items)
+                {
+                    if (count2 == 0)
+                    {
+                        cap.PrioritizedGapType1 = PrioritizedGapType.Low;
+                        cap.PrioritizedGap = "Low Gap";
+
+                    }
+                    if (count2 == 1)
+                    {
+                        cap.PrioritizedGapType1 = PrioritizedGapType.Middle;
+                        cap.PrioritizedGap = "Medium Gap";
+                    }
+                    if (count2 == 2)
+                    {
+                        cap.PrioritizedGapType1 = PrioritizedGapType.High;
+                        cap.PrioritizedGap = "High Gap";
+                    }                 
+                    
+                    count2++;
+                }
             }
             else if (sortingList.Count < 3)
             {
@@ -445,15 +456,14 @@ namespace IBMConsultantTool
             int numBoms = objectiveCollection.Count;
             float sum = 0;
 
-            //NEEDS TO BE DONE YOU HVAE FORMULA NOW
             foreach (ObjectiveValues val in objectiveCollection)
             {
                 sum += ((val.Score * val.BomScore) / (3 * numBoms));
             }
 
-            prioritizedCapabilityGap = sum;
+            PrioritizedCapabilityGap = sum;
 
-            // CalculatePrioritizedGapText();
+            //CalculatePrioritizedGapText();
 
         }
 

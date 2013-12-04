@@ -78,6 +78,7 @@ namespace IBMConsultantTool
                 Capability cap = new Capability();
                 cap.CapName = capabilityInfo;
                 cap.IsDefault = true;
+                Capability.AllCapabilities.Add(cap);
                 dom.CapabilitiesOwned.Add(cap);
                 dom.TotalChildren++;
                 capabilities.Add(cap);
@@ -705,7 +706,7 @@ namespace IBMConsultantTool
             Font font = new Font("Arial", 12, FontStyle.Underline | FontStyle.Bold);
 
             ClearBottomPanel();
-
+            Console.WriteLine("ObjectiveValue " + currentcap.PrioritizedCapabilityGap.ToString());
             int count = 1;
             Label nameLabel = new Label();
             //nameLabel.Font = font;
@@ -719,51 +720,36 @@ namespace IBMConsultantTool
             foreach (ObjectiveValues val in currentcap.ObjectiveCollection)
             {
                 val.PropertyChanged +=new PropertyChangedEventHandler(val_PropertyChanged);
-                List<int> test = new List<int>();
-
                 Label label = new Label();
                 label.Font = font;
                 label.Width = 100;
                 label.AutoEllipsis = true;
                 label.Text = val.Name;
                 ComboBox combo = new ComboBox();
-                combo.Name = "Testing" + count.ToString();
-                combo.Tag = "permenant";
-                label.Name = "Testing" + count.ToString();
-                label.Tag = "permenant";
-                //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
-                combo.DataBindings.Clear();
+                //combo.DataBindings.Clear();
                 combo.Items.Add((int)0);
                 combo.Items.Add((int)1);
                 combo.Items.Add((int)2);
                 combo.Items.Add((int)3);
-               // combo.DataSource = test;
-                combo.Width = 50;
-                
-                
-                
-                combo.DataBindings.Add("Text", val, "Score");
-                combo.DataBindings.Add("SelectedIndex", val, "Score");
-                ClientDataControl.db.GetObjectivesFromClientBOM(ClientDataControl.Client.EntityObject);
-               // combo.TextChanged +=new EventHandler(combo_TextChanged);
                 combo.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                //combo.LostFocus +=new EventHandler(combo_LostFocus);
-                //combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
-                combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
-                combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
-                //combo.SelectedIndexChanged +=new EventHandler(combo_SelectedIndexChanged);
-                //combo.TextChanged +=new EventHandler(combo_TextChanged);
-                //combo.SelectionChangeCommitted +=new EventHandler(combo_SelectionChangeCommitted);
                 combo.DropDownClosed +=new EventHandler(combo_DropDownClosed);
-                combo.SelectedValueChanged +=new EventHandler(combo_SelectedValueChanged);
+                combo.DataBindings.Add("SelectedItem", val, "Score");
+                
+                combo.Name = "Testing" + count.ToString();
+                combo.Tag = "permenant";
+                label.Name = "Testinga" + count.ToString();
+                label.Tag = "permenant";    
+                
+
+                combo.Width = 50;                
+
                 combo.DropDownStyle = ComboBoxStyle.DropDownList;
-                panel1.Controls.Add(combo);
-                combo.Tag = " ";
+                panel1.Controls.Add(combo);                
                 panel1.Controls.Add(label);
                 width += label.Width;
                 label.Location = new Point(width, capabilityNameLabel.Location.Y);
                 combo.Location = new Point(label.Location.X, label.Location.Y + 50);
-                combo.ControlRemoved +=new ControlEventHandler(combo_ControlRemoved);
+                
                 count++;
             }
         }
@@ -771,111 +757,61 @@ namespace IBMConsultantTool
 
         private void val_PropertyChanged(object sender, EventArgs e)
         {
-
             currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            Capability.CalculatePrioritizedCapabilityGaps();
+            foreach (DataGridViewRow row in loadSurveyFromDataGrid.Rows)
             {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-        }
-
-        private void combo_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            ComboBox boc = (ComboBox)sender;
-            boc.Update();
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-
-
-
-        }
-
-        private void combo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox boc = (ComboBox)sender;
-            boc.Update();
-            currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-
-
-
-        }
-
-        private void combo_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-                currentcap.CalculatePrioritizedCapabilityGap();
-                //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-                if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
+                if (ent.GetType() == typeof(Capability))
                 {
-                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+                    Capability cap = (Capability)ent;
+                    //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+                    if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+                    {
+                        row.Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+                    }
+                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+                    {
+                        row.Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+                    }
+                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+                    {
+                        row.Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+                    }
                 }
-                else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-                {
-                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-                }
-                else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-                {
-                    loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-                }
-
-
+            }
+            currentGrid.Refresh();
+            currentGrid.Update();
         }
-
         private void combo_DropDownClosed(object sender, EventArgs e)
         {
-            ComboBox box = (ComboBox)sender;
-            
-            
             currentcap.CalculatePrioritizedCapabilityGap();
-            //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-            if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+            Capability.CalculatePrioritizedCapabilityGaps();
+            foreach (DataGridViewRow row in loadSurveyFromDataGrid.Rows)
             {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
+                if (ent.GetType() == typeof(Capability))
+                {
+                    Capability cap = (Capability)ent;
+                    //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
+                    if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
+                    {
+                        row.Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
+                    }
+                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
+                    {
+                        row.Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
+                    }
+                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
+                    {
+                        row.Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
+                    }
+                }
             }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-            }
-            else if (currentcap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-            {
-                loadSurveyFromDataGrid.SelectedRows[0].Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-            }
-
+            currentGrid.Refresh();
+            currentGrid.Update();
         }
+
 
 
 
@@ -930,6 +866,7 @@ namespace IBMConsultantTool
         private Capability CreateCapability(Domain owner)
         {
             Capability cap = new Capability();
+            Capability.AllCapabilities.Add(cap);
             owner.TotalChildren++;
             owner.CapabilitiesOwned.Add(cap);
             cap.CapName = capabilitiesList.Text;
