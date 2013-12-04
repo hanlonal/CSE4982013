@@ -71,9 +71,18 @@ namespace IBMConsultantTool
             sortedImperativesListBox.Refresh();
         }
 
+        private void sortedImperativesListBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            NewImperative imp = (NewImperative)sortedImperativesListBox.SelectedValue;
+            categoryNames.Text = imp.owner.owner.Owner.Name;
+            imperativeNames.Text = imp.Name;
+            objectiveNames.Text = imp.owner.ObjName;
+        }
+
         private void SortImperatives()
         {
             sortedImperativesListBox.DataSource = null;
+            sortedImperativesListBox.SelectedValueChanged +=new EventHandler(sortedImperativesListBox_SelectedValueChanged);
             sortedImperativesListBox.Items.Clear();
             List<NewImperative> sortedImpList = new List<NewImperative>();
             foreach (NewCategory cat in categories)

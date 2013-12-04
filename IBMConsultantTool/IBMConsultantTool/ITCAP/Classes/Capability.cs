@@ -128,12 +128,12 @@ namespace IBMConsultantTool
                         cap.PrioritizedGapType1 = PrioritizedGapType.Low;
                         cap.PrioritizedGap = "Low Gap";
                     }
-                    else if (count >= numberForLow && count < numberForMid)
+                    else if (count >= numberForLow && count <= numberForMid)
                     {
                         cap.PrioritizedGapType1 = PrioritizedGapType.Middle;
                         cap.PrioritizedGap = "Medium Gap";
                     }
-                    else if (count >= numberForMid)
+                    else if (count > numberForMid)
                     {
                         cap.PrioritizedGapType1 = PrioritizedGapType.High;
                         cap.PrioritizedGap = "High Gap";

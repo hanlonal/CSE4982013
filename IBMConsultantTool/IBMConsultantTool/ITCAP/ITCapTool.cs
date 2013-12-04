@@ -786,7 +786,7 @@ namespace IBMConsultantTool
         }
         private void combo_DropDownClosed(object sender, EventArgs e)
         {
-            currentcap.CalculatePrioritizedCapabilityGap();
+            /*currentcap.CalculatePrioritizedCapabilityGap();
             Capability.CalculatePrioritizedCapabilityGaps();
             foreach (DataGridViewRow row in loadSurveyFromDataGrid.Rows)
             {
@@ -810,7 +810,7 @@ namespace IBMConsultantTool
                 }
             }
             currentGrid.Refresh();
-            currentGrid.Update();
+            currentGrid.Update();*/
         }
 
 
