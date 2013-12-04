@@ -3660,7 +3660,7 @@ namespace IBMConsultantTool
                 Directory.CreateDirectory(@"Resources\Clients");
             }
 
-            else if (!File.Exists(@"Resources\Changes.log"))
+            if (!File.Exists(@"Resources\Changes.log"))
             {
                 FileStream file = File.Create(@"Resources\Changes.log");
                 file.Close();
