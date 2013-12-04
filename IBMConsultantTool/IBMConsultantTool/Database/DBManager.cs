@@ -1241,6 +1241,12 @@ namespace IBMConsultantTool
                         }
                     }
 
+                    else if (!category.BUSINESSOBJECTIVE.Contains(objective))
+                    {
+                        MessageBox.Show("Objective already exists under category " + objective.CATEGORY.NAME.TrimEnd(), "Error");
+                        return false;
+                    }
+
                     objective.CATEGORY = category;
                     if (!AddObjective(objective))
                     {
@@ -1249,12 +1255,31 @@ namespace IBMConsultantTool
                     }
                 }
 
+                else if (objective.CATEGORY.NAME.TrimEnd() != catName)
+                {
+                    MessageBox.Show("Objective already exists under category " + objective.CATEGORY.NAME.TrimEnd(), "Error");
+                    return false;
+                }
+
                 imperative.BUSINESSOBJECTIVE = objective;
                 if (!AddImperative(imperative))
                 {
                     MessageBox.Show("Failed to add Imperative to Database", "Error");
                     return false;
                 }
+            }
+
+            else if (imperative.BUSINESSOBJECTIVE.NAME.TrimEnd() != busName)
+            {
+                MessageBox.Show("Imperative already exists under objective " + imperative.BUSINESSOBJECTIVE.NAME.TrimEnd(), "Error");
+                return false;
+            }
+
+            BUSINESSOBJECTIVE testObjective;
+            if (GetObjective(busName, out testObjective) && testObjective.CATEGORY.NAME.TrimEnd() != catName)
+            {
+                MessageBox.Show("Objective already exists under category " + testObjective.CATEGORY.NAME.TrimEnd(), "Error");
+                return false;
             }
 
             BOM bom = new BOM();
