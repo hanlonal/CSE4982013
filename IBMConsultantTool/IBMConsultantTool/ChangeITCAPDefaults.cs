@@ -31,7 +31,7 @@ namespace IBMConsultantTool
                 domRow.Cells[0].Value = domainName;
                 (domRow.Cells[1] as DataGridViewCheckBoxCell).Value = domain.Last() == 'Y';
 
-                domRow.DefaultCellStyle.BackColor = Color.Orange;
+                domRow.DefaultCellStyle.BackColor = Color.LightBlue;
                 domRow.ReadOnly = true;
                 ITCAPQuestionDataGridView.Rows.Add(domRow);
                 capabilityList = ClientDataControl.db.GetCapabilityNamesAndDefault(domainName).ToList();
@@ -41,7 +41,7 @@ namespace IBMConsultantTool
                     DataGridViewRow capRow = (DataGridViewRow)ITCAPQuestionDataGridView.Rows[0].Clone();
                     capRow.Cells[0].Value = capabilityName;
                     (capRow.Cells[1] as DataGridViewCheckBoxCell).Value = capability.Last() == 'Y';
-                    capRow.DefaultCellStyle.BackColor = Color.Yellow;
+                    capRow.DefaultCellStyle.BackColor = Color.LightSlateGray;
                     capRow.ReadOnly = true;
                     ITCAPQuestionDataGridView.Rows.Add(capRow);
                     questionList = ClientDataControl.db.GetITCAPQuestionNamesAndDefault(capabilityName, domainName).ToList();
@@ -51,7 +51,7 @@ namespace IBMConsultantTool
                         DataGridViewRow itcqRow = (DataGridViewRow)ITCAPQuestionDataGridView.Rows[0].Clone();
                         itcqRow.Cells[0].Value = itcapQuestionName;
                         (itcqRow.Cells[1] as DataGridViewCheckBoxCell).Value = question.Last() == 'Y';
-                        itcqRow.DefaultCellStyle.BackColor = Color.LawnGreen;
+                        itcqRow.DefaultCellStyle.BackColor = Color.White;
                         itcqRow.Cells[0].ReadOnly = true;
                         itcqRow.Cells[1].ReadOnly = false;
                         ITCAPQuestionDataGridView.Rows.Add(itcqRow);
