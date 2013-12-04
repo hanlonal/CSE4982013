@@ -316,6 +316,9 @@ namespace IBMConsultantTool
                     ToggleControlsVisible(loadFromSurveyControls, true);
                     break;
             }
+            openSurveyButton.Visible = true;
+            changeDefaultsButton.Visible = true;
+            createQuestionairreButton.Visible = true;
         }
 
         private void CopyGrid()
@@ -1980,7 +1983,6 @@ namespace IBMConsultantTool
 
         private void openSurveyButton_Click(object sender, EventArgs e)
         {
-
             ResetSurveyGrid();
             ClientDataControl.db.OpenITCAP(this);
 
