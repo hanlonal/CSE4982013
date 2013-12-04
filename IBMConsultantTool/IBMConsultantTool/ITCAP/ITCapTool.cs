@@ -134,6 +134,7 @@ namespace IBMConsultantTool
             surverymakercontrols.Add(questionList);
             surverymakercontrols.Add(surveryMakerGrid);
             surverymakercontrols.Add(addEntityButton);
+            surverymakercontrols.Add(deleteEntityButton);
 
 
             liveDataEntryControls.Add(liveDataEntryGrid);
@@ -270,17 +271,19 @@ namespace IBMConsultantTool
             {
                 case FormStates.SurveryMaker:
                     currentGrid = surveryMakerGrid;
+                    ClearBottomPanel();
                     LoadChartSurvey();
                     seperatorLabel.Text = "Survey Customization";
-                    //Console.WriteLine("here");
-                    ToggleControlsVisible(surverymakercontrols, true);
+                    //Console.WriteLine("here"); 
                     ToggleControlsVisible(liveDataEntryControls, false);
                     ToggleControlsVisible(prioritizationControls, false);
                     ToggleControlsVisible(loadFromSurveyControls, false);
                     loadSurveyFromDataGrid.Visible = false;
                     panel1.Visible = true;
                     seperatorLabel.Visible = true;
-                    ClearOptionsPanelControls("SurveyMaker");
+                    ClearOptionsPanelControls("SurveyMaker"); 
+                    ToggleControlsVisible(surverymakercontrols, true);
+                    ToggleControlsToFront(surverymakercontrols);
                     break;
                 case FormStates.LiveDataEntry:
                     //probablly onlt used for testing
@@ -368,6 +371,15 @@ namespace IBMConsultantTool
             foreach (Control con in controls)
             {
                 con.Visible = value;
+            }
+        }
+
+        private void ToggleControlsToFront(List<Control> controls)
+        {
+            
+            foreach (Control con in controls)
+            {
+                con.BringToFront();
             }
         }
 
@@ -672,7 +684,7 @@ namespace IBMConsultantTool
             foreach (Control con in panel1.Controls)
             {
                 //Console.Write(con.Name + "\n");
-                if ((string)con.Tag != "permenant")
+                if ((string)con.Tag != "permenant" && con.Visible)
                 {
                     con.DataBindings.Clear();
                     panel1.Controls.Remove(con);
