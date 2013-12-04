@@ -411,13 +411,9 @@ namespace IBMConsultantTool
                     {
                         ContextMenuStrip strip = new ContextMenuStrip();
                         ToolStripMenuItem deletecapability = new ToolStripMenuItem();
-                        ToolStripMenuItem addAttribute = new ToolStripMenuItem();
                         deletecapability.Click += new EventHandler(deleteCapability_Click);
-                        addAttribute.Click += new EventHandler(addAttribute_Click);
                         deletecapability.Text = "Delete Capability";
-                        addAttribute.Text = "Add Attribute";
                         strip.Items.Add(deletecapability);
-                        strip.Items.Add(addAttribute);
                         strip.Show(surveryMakerGrid, e.Location, ToolStripDropDownDirection.BelowRight);
                     }
                     if (ent.Type == "attribute")
