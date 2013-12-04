@@ -235,7 +235,7 @@ namespace IBMConsultantTool
                 {
                     continue;
                 }
-                bomScore = ((11 - Convert.ToSingle(bomObj.Element("EFFECTIVENESS").Value))*(Convert.ToSingle(bomObj.Element("CRITICALITY").Value)*.5f))/20 + (Convert.ToSingle(bomObj.Element("DIFFERENTIAL").Value)*.5f);
+                bomScore = ((11 - Convert.ToSingle(bomObj.Element("EFFECTIVENESS").Value))*(Convert.ToSingle(bomObj.Element("CRITICALITY").Value)))/20 + (Convert.ToSingle(bomObj.Element("DIFFERENTIAL").Value)*.5f);
                 objectiveName = bomObj.Element("BUSINESSOBJECTIVE").Value;
                 if(!objDictionary.ContainsKey(objectiveName))
                 {

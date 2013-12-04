@@ -204,7 +204,7 @@ namespace IBMConsultantTool
                 {
                     continue;
                 }
-                bomScore = ((11 - bomObj.EFFECTIVENESS.Value) * (bomObj.CRITICALITY.Value * .5f))/20 + (bomObj.DIFFERENTIAL.Value * .5f);
+                bomScore = ((11 - bomObj.EFFECTIVENESS.Value) * (bomObj.CRITICALITY.Value))/20 + (bomObj.DIFFERENTIAL.Value * .5f);
                 objectiveName = bomObj.IMPERATIVE.BUSINESSOBJECTIVE.NAME.TrimEnd();
                 if(!objDictionary.ContainsKey(objectiveName))
                 {
