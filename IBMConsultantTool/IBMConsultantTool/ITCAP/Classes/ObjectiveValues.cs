@@ -10,6 +10,13 @@ namespace IBMConsultantTool
     {
         private string name;
         private float score;
+        private float bomScore;
+
+public float BomScore
+{
+  get { return bomScore; }
+  set { bomScore = value; }
+}
 
         public event PropertyChangedEventHandler PropertyChanged;
         //public event PropertyChangedEventHandler PropertyChanged;
@@ -28,9 +35,10 @@ namespace IBMConsultantTool
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
-        public ObjectiveValues(string name, int value)
+        public ObjectiveValues(string name, int value, float score)
         {
             this.name = name;
+            bomScore = score;
             this.score = value;
         }
 
@@ -59,3 +67,4 @@ namespace IBMConsultantTool
         #endregion
     }
 }
+ 
