@@ -838,6 +838,116 @@ namespace IBMConsultantTool
                     {
                         childrenCount = init[cnt].Children;
                         eachClients = init[cnt].Children;
+
+                        if (cnt < trendGridView.Rows.Count)
+                        {
+                            lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
+                        }
+
+                    }
+
+                    lineChart.Series[name].ChartArea = title;
+                    lineChart.Series[name].ChartType = SeriesChartType.Line;
+                    lineChart.Series[name].XValueType = ChartValueType.DateTime;
+                    lineChart.Series[name].YValueType = ChartValueType.Double;
+                    lineChart.Series[name].BorderWidth = 5;
+
+                    for (int i = 0; i < cntNum; i++)
+                    {
+                        if (cnt == sameNum[i])
+                        {
+                            newCntNum = i;
+                            newCount = cnt;
+                            break;
+                        }
+                    }
+                    if (newCount != sameNum[newCntNum])
+                    {
+                        System.Diagnostics.Trace.WriteLine(init[cnt].Date + ", diff: " + init[cnt].Differentiation.ToString());
+                        double differentiation = init[cnt].Differentiation;
+
+                        double[] diff = new double[100];
+                        diff[cnt] = init[cnt].Differentiation;
+                        int count = 1;
+
+                        DateTime date = init[cnt].Date;
+                        for (int num = 0; num < childrenCount; num++)
+                        {
+                            if (date == init[num + cnt + 1].Date)
+                            {
+                                differentiation += init[num + cnt + 1].Differentiation;
+                                sameNum[cntNum] = num + cnt + 1;
+                                cntNum++;
+                                count++;
+                            }
+                        }
+
+                        if (count > 1)
+                        {
+                            differentiation /= count;
+
+                            double temp = Convert.ToDouble(differentiation);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                        else
+                        {
+                            double temp = Convert.ToDouble(init[cnt].Differentiation);
+                            decimal tmp = Convert.ToDecimal(temp);
+                            tmp = Math.Round(tmp, 2);
+                            temp = (double)tmp;
+
+                            lineChart.Series[name].Points.AddXY(init[cnt].Date, temp);
+                        }
+                    }
+                    newCount++;
+                    childrenCount--;
+                }
+                /*int newCount = 0;
+                int childrenCount = 0;
+                for (int cnt = 0; cnt < init.Count; cnt++)
+                {
+                    string name = init[cnt].Name;
+
+                    if (lineChart.Series.FindByName(name) == null)
+                    {
+                        lineChart.Series.Add(name);
+                        seriesName = name;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount == -1)
+                    {
+                        lineChart.Series.Add(numberOfGraph.ToString());
+                        seriesName = numberOfGraph.ToString();
+                        name = numberOfGraph.ToString();
+
+                        numberOfGraph++;
+                        for (int i = 0; i < cntNum; i++)
+                        {
+                            sameNum[i] = new int();
+                        }
+                        cntNum = 0;
+                        newCount = 0;
+                    }
+
+                    else if (childrenCount >= 0 && lineChart.Series.FindByName(name) != null)
+                    {
+                        name = seriesName;
+                    }
+
+                    if (init[cnt].Children > 0)
+                    {
+                        childrenCount = init[cnt].Children;
+                        eachClients = init[cnt].Children;
                         lineChart.Series[name].Color = trendGridView.Rows[cnt].DefaultCellStyle.BackColor;
                     }
 
@@ -900,7 +1010,7 @@ namespace IBMConsultantTool
                     }
                     newCount++;
                     childrenCount--;
-                }
+                }*/
             }
 
             #endregion
