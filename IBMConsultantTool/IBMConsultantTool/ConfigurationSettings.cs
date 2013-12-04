@@ -59,6 +59,7 @@ namespace IBMConsultantTool
             set { staticSort = value; }
         }
 
+
         private float dynamicAutoHighGap = 4;
 
         public float DynamicAutoHighGap
