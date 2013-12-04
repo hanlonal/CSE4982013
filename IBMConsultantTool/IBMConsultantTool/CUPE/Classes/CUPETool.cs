@@ -21,8 +21,6 @@ namespace IBMConsultantTool
         DataGridView toRemove;
         Chart currentChart;
 
-        private LoadingScreen loadingScreen;
-
         int personCount = 0;
         bool isAnonymous = true;
         public bool is20Question = true;

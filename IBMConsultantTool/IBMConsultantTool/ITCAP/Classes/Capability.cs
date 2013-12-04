@@ -17,13 +17,7 @@ namespace IBMConsultantTool
 
         static private float percentToCategorizeAsHigh = .33f;
         static private float percentToCategorizeAsLow = .33f;
-        static private float staticHighGapThreshold = 1.5f;
-        static private float staticLowGapThreshold = 1;
         static private Dictionary<Capability, float> dynamicCapabilityGaps = new Dictionary<Capability, float>();
-
-        static private float dynamicAutoHighGap = 4;
-        static private float dynamicAutoLowGap = .5f;
-
 
         ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
