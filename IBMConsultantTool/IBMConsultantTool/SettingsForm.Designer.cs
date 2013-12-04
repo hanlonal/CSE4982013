@@ -232,10 +232,10 @@
             this.dynamicSortRadio.AutoSize = true;
             this.dynamicSortRadio.Location = new System.Drawing.Point(33, 160);
             this.dynamicSortRadio.Name = "dynamicSortRadio";
-            this.dynamicSortRadio.Size = new System.Drawing.Size(115, 17);
+            this.dynamicSortRadio.Size = new System.Drawing.Size(281, 24);
             this.dynamicSortRadio.TabIndex = 14;
             this.dynamicSortRadio.TabStop = true;
-            this.dynamicSortRadio.Text = "Dynamic sort mode";
+            this.dynamicSortRadio.Text = "Dynamic  Gap Determination Factor";
             this.dynamicSortRadio.UseVisualStyleBackColor = true;
             // 
             // staticSortRadio
@@ -243,10 +243,10 @@
             this.staticSortRadio.AutoSize = true;
             this.staticSortRadio.Location = new System.Drawing.Point(33, 14);
             this.staticSortRadio.Name = "staticSortRadio";
-            this.staticSortRadio.Size = new System.Drawing.Size(101, 17);
+            this.staticSortRadio.Size = new System.Drawing.Size(257, 24);
             this.staticSortRadio.TabIndex = 13;
             this.staticSortRadio.TabStop = true;
-            this.staticSortRadio.Text = "Static sort mode";
+            this.staticSortRadio.Text = "Static Gap Determination Factor";
             this.staticSortRadio.UseVisualStyleBackColor = true;
             // 
             // dynamicAutoLowGaText

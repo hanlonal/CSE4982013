@@ -517,8 +517,14 @@ namespace IBMConsultantTool
                                                                               });
                     if (questionIndex != -1)
                     {
-                        cupeData.CurrentAnswers.Add("Question " + (questionIndex+1).ToString(), response.CURRENT[0]);
-                        cupeData.FutureAnswers.Add("Question " + (questionIndex+1).ToString(), response.FUTURE[0]);
+                        if(response.CURRENT.Length > 0)
+                        {
+                            cupeData.CurrentAnswers.Add("Question " + (questionIndex + 1).ToString(), response.CURRENT[0]);
+                        }
+                        if (response.FUTURE.Length > 0)
+                        {
+                            cupeData.FutureAnswers.Add("Question " + (questionIndex + 1).ToString(), response.FUTURE[0]);
+                        }
                     }
                 }
                 person.cupeDataHolder = cupeData;
