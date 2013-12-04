@@ -735,12 +735,12 @@
             // 
             // createQuestionairreButton
             // 
-            this.createQuestionairreButton.Location = new System.Drawing.Point(3, 92);
+            this.createQuestionairreButton.Location = new System.Drawing.Point(4, 92);
             this.createQuestionairreButton.Name = "createQuestionairreButton";
-            this.createQuestionairreButton.Size = new System.Drawing.Size(164, 31);
+            this.createQuestionairreButton.Size = new System.Drawing.Size(168, 31);
             this.createQuestionairreButton.TabIndex = 29;
             this.createQuestionairreButton.Tag = "Start";
-            this.createQuestionairreButton.Text = "Create Questionaire";
+            this.createQuestionairreButton.Text = "Create Questionnaire";
             this.createQuestionairreButton.UseVisualStyleBackColor = true;
             this.createQuestionairreButton.Click += new System.EventHandler(this.createQuestionairreButton_Click);
             // 
@@ -757,7 +757,7 @@
             // 
             // changeDefaultsButton
             // 
-            this.changeDefaultsButton.Location = new System.Drawing.Point(0, 38);
+            this.changeDefaultsButton.Location = new System.Drawing.Point(4, 38);
             this.changeDefaultsButton.Name = "changeDefaultsButton";
             this.changeDefaultsButton.Size = new System.Drawing.Size(164, 31);
             this.changeDefaultsButton.TabIndex = 31;

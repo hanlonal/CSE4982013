@@ -144,8 +144,6 @@ namespace IBMConsultantTool
 
             loadFromSurveyControls.Add(panel1);
             loadFromSurveyControls.Add(capabilityNameLabel);
-            loadFromSurveyControls.Add(objectiveToAddButton);
-            loadFromSurveyControls.Add(button13322345);
             loadFromSurveyControls.Add(seperatorLabel);
 
             this.FormClosed += new FormClosedEventHandler(ITCapTool_FormClosed);
@@ -1759,11 +1757,6 @@ namespace IBMConsultantTool
             }
 
             return totalGap;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AddObjectiveToITCAP(objectiveToAddButton.Text);
         }
 
         private void createSurveyDocumentToolStripMenuItem_Click(object sender, EventArgs e)
