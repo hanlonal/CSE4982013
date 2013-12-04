@@ -358,14 +358,15 @@ namespace IBMConsultantTool
         {
             int numBoms = objectiveCollection.Count;
             float sum = 0;
+
             //NEEDS TO BE DONE YOU HVAE FORMULA NOW
             foreach (ObjectiveValues val in objectiveCollection)
             {
-                sum += val.Score;
-                sum *= val.BomScore / (3 * numBoms);
+                sum += (val.Score * val.BomScore) / (3 * numBoms);
+                Console.WriteLine(sum);
             }
 
-            PrioritizedCapabilityGap = (float)sum;
+            PrioritizedCapabilityGap = sum;
             Console.WriteLine(PrioritizedCapabilityGap);
             CalculatePrioritizedGapText();
 

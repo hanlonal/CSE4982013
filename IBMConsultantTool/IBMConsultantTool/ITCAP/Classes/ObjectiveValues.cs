@@ -38,7 +38,7 @@ public float BomScore
         public ObjectiveValues(string name, int value, float score)
         {
             this.name = name;
-            bomScore = bomScore;
+            bomScore = score;
             this.score = value;
         }
 
