@@ -77,6 +77,7 @@ namespace IBMConsultantTool
             categoryNames.Text = imp.owner.owner.Owner.Name;
             imperativeNames.Text = imp.Name;
             objectiveNames.Text = imp.owner.ObjName;
+            ObjectiveClicked(imp.owner);
         }
 
         private void SortImperatives()
@@ -616,6 +617,11 @@ namespace IBMConsultantTool
         {
             SettingsForm form = new SettingsForm(this);
             form.Show();
+        }
+
+        private void detailInfoPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
 

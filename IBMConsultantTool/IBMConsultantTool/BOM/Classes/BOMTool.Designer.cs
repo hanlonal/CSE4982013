@@ -288,6 +288,7 @@
             this.detailInfoPanel.Name = "detailInfoPanel";
             this.detailInfoPanel.Size = new System.Drawing.Size(1008, 173);
             this.detailInfoPanel.TabIndex = 20;
+            this.detailInfoPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.detailInfoPanel_Paint);
             // 
             // label4
             // 
