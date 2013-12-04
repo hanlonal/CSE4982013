@@ -13,11 +13,26 @@ namespace IBMConsultantTool
         enum SortTpe { Static, Dynamic };
         static SortTpe sortType;
 
-        
+
 
         static private float percentToCategorizeAsHigh = .33f;
         static private float percentToCategorizeAsLow = .33f;
+        static private float staticHighGapThreshold = 1.5f;
+        static private float staticLowGapThreshold = 1;
         static private Dictionary<Capability, float> dynamicCapabilityGaps = new Dictionary<Capability, float>();
+        static private Dictionary<Capability, float> prioritizedDyanmicCapabilityGaps = new Dictionary<Capability, float>();
+
+        static private List<Capability> allCapabilities = new List<Capability>();
+
+        public static List<Capability> AllCapabilities
+        {
+            get { return Capability.allCapabilities; }
+            set { Capability.allCapabilities = value; }
+        }
+
+        static private float dynamicAutoHighGap = 4;
+        static private float dynamicAutoLowGap = .5f;
+
 
         ObjectiveValueCollection objectiveCollection = new ObjectiveValueCollection();
 
@@ -31,7 +46,9 @@ namespace IBMConsultantTool
 
         public Capability()
         {
-            sortType = SortTpe.Static;
+            sortType = SortTpe.Dynamic;
+            PrioritizedGapType1 = PrioritizedGapType.None;
+
         }
 
         public override void UpdateIndexDecrease(int index)
@@ -77,6 +94,81 @@ namespace IBMConsultantTool
             return asIsScore;
         }
 
+        public static void CalculatePrioritizedCapabilityGaps()
+        {
+
+            List<Capability> sortingList = new List<Capability>();
+            foreach (Capability cap in allCapabilities)
+            {
+                if (cap.prioritizedCapabilityGap == 0)
+                    continue;
+                else
+                {
+                    sortingList.Add(cap);
+                }
+            }
+            var items = from x in sortingList
+                        orderby x.prioritizedCapabilityGap ascending
+                        select x;
+
+
+            int numberForLow = (int)(sortingList.Count * .33f);
+            int numberForMid = (int)(sortingList.Count * .33f);
+            int numberForHigh = (int)(sortingList.Count * .33f) + numberForLow + numberForMid;
+
+            int count = 0;
+            if (sortingList.Count > 3)
+            {
+                foreach (Capability cap in sortingList)
+                {
+                    if (cap.prioritizedCapabilityGap == 0.00)
+                    {
+                      //  cap.PrioritizedGapType1 = PrioritizedGapType.None;
+                     //   cap.PrioritizedGap = "No Focus";
+                      //  continue;
+                    }
+                    if (count < numberForLow)
+                    {
+                        cap.PrioritizedGapType1 = PrioritizedGapType.Low;
+                        cap.PrioritizedGap = "Low Gap";
+                    }
+                    else if (count >= numberForLow && count < numberForHigh)
+                    {
+                        cap.PrioritizedGapType1 = PrioritizedGapType.Middle;
+                        cap.PrioritizedGap = "Medium Gap";
+                    }
+                    else if (count >= numberForHigh)
+                    {
+                        cap.PrioritizedGapType1 = PrioritizedGapType.High;
+                        cap.PrioritizedGap = "High Gap";
+
+                    }
+
+
+                    count++;
+                }
+            }
+            else if (sortingList.Count == 3)
+            {
+                allCapabilities.OrderBy(d => d.prioritizedCapabilityGap);
+                allCapabilities[0].PrioritizedGapType1 = PrioritizedGapType.Low;
+                allCapabilities[1].PrioritizedGapType1 = PrioritizedGapType.Middle;
+                allCapabilities[2].PrioritizedGapType1 = PrioritizedGapType.High;
+                allCapabilities[0].PrioritizedGap = "Low Gap";
+                allCapabilities[1].PrioritizedGap = "Medium Gap";
+                allCapabilities[2].PrioritizedGap = "High Gap";
+            }
+            else if (sortingList.Count < 3)
+            {
+                foreach (Capability cap in sortingList)
+                {
+                    cap.PrioritizedGapType1 = PrioritizedGapType.Middle;
+                    cap.PrioritizedGap = "Middle Gap";
+                }
+            }
+
+        }
+
         public override void CalculateCapabilityGap()
         {
             base.CalculateCapabilityGap();
@@ -96,7 +188,7 @@ namespace IBMConsultantTool
             }
 
 
-            if (ConfigurationSettings.Instance.StaticSort || dynamicCapabilityGaps.Count <3)
+            if (ConfigurationSettings.Instance.StaticSort || dynamicCapabilityGaps.Count < 3)
             {
                 if (capabilityGap >= ConfigurationSettings.Instance.StaticHighGapThreshold)
                 {
@@ -139,12 +231,12 @@ namespace IBMConsultantTool
                             if (pair.Key.CapabilityGap >= ConfigurationSettings.Instance.DynamicAutoHighGap)
                             {
                                 CapabilityGapText = "High Gap";
-                                gapType = GapType.High;                                
+                                gapType = GapType.High;
                             }
                             else if (pair.Key.CapabilityGap <= ConfigurationSettings.Instance.DynamicAutoLowGap)
                             {
                                 pair.Key.CapabilityGapText = "Low Gap";
-                                pair.Key.GapType1 = GapType.Low;                                
+                                pair.Key.GapType1 = GapType.Low;
                             }
                             else
                             {
@@ -197,11 +289,11 @@ namespace IBMConsultantTool
                             pair.Key.gapType = GapType.None;
                             pair.Key.CapabilityGapText = "No Focus";
                         }
-                        
+
                         count++;
                     }
                 }
-                else if(dynamicCapabilityGaps.Count == 3)
+                else if (dynamicCapabilityGaps.Count == 3)
                 {
                     int count = 0;
                     foreach (KeyValuePair<Capability, float> pair in items)
@@ -293,7 +385,7 @@ namespace IBMConsultantTool
             int twos = 0;
             int threes = 0;
             int fours = 0;
-            int fives = 0; 
+            int fives = 0;
             foreach (ITCapQuestion ques in questionsOwned)
             {
                 zeros += ques.AsIsNumZeros;
@@ -340,7 +432,7 @@ namespace IBMConsultantTool
         }
 
 
-         
+
         public void AddObjectiveToTrack(string name, float score)
         {
             //OBJECTIVESCORES.Add(name, 0);'
@@ -357,39 +449,38 @@ namespace IBMConsultantTool
             foreach (ObjectiveValues val in objectiveCollection)
             {
                 sum += ((val.Score * val.BomScore) / (3 * numBoms));
-                Console.WriteLine(sum);
             }
 
-            PrioritizedCapabilityGap = sum;
-            Console.WriteLine(PrioritizedCapabilityGap);
-            CalculatePrioritizedGapText();
+            prioritizedCapabilityGap = sum;
+
+            // CalculatePrioritizedGapText();
 
         }
 
         public void CalculatePrioritizedGapText()
         {
-            if (prioritizedCapabilityGap >= 6)
-            {
-                PrioritizedGap = "High Gap";
-                PrioritizedGapType1 = PrioritizedGapType.High;
-            }
-            else if (prioritizedCapabilityGap > 4 && prioritizedCapabilityGap < 6)
-            {
-                PrioritizedGap = "Medium Gap";
-                PrioritizedGapType1 = PrioritizedGapType.Middle;
-            }
-            else if (prioritizedCapabilityGap <= 4)
-            {
-                PrioritizedGap = "Low Gap";
-                PrioritizedGapType1 = PrioritizedGapType.Low;
-            }
-            else
-            {
-                PrioritizedGap = "No Gap";
-                PrioritizedGapType1 = PrioritizedGapType.None;
-            }
+            /* if (prioritizedCapabilityGap >= 6)
+             {
+                 PrioritizedGap = "High Gap";
+                 PrioritizedGapType1 = PrioritizedGapType.High;
+             }
+             else if (prioritizedCapabilityGap > 4 && prioritizedCapabilityGap < 6)
+             {
+                 PrioritizedGap = "Medium Gap";
+                 PrioritizedGapType1 = PrioritizedGapType.Middle;
+             }
+             else if (prioritizedCapabilityGap <= 4)
+             {
+                 PrioritizedGap = "Low Gap";
+                 PrioritizedGapType1 = PrioritizedGapType.Low;
+             }
+             else
+             {
+                 PrioritizedGap = "No Gap";
+                 PrioritizedGapType1 = PrioritizedGapType.None;
+             }
+             */
 
-            Console.WriteLine("GAP = == " + prioritizedCapabilityGap);
         }
 
         public string CapName
