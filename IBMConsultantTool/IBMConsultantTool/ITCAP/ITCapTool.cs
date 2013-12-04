@@ -155,6 +155,7 @@ namespace IBMConsultantTool
         {
             if (closeState == "close")
             {
+                Capability.AllCapabilities.Clear();
                 System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNTEST));
                 t.SetApartmentState(System.Threading.ApartmentState.STA);
                 t.Start();
@@ -1361,6 +1362,7 @@ namespace IBMConsultantTool
         private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeState = "CUPE";
+            Capability.AllCapabilities.Clear();
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNCUPE));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -1376,6 +1378,7 @@ namespace IBMConsultantTool
         private void bOMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeState = "BOM";
+            Capability.AllCapabilities.Clear();
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(RUNBOM));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
