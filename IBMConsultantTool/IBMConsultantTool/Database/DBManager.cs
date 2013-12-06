@@ -1242,12 +1242,6 @@ namespace IBMConsultantTool
                         }
                     }
 
-                    else if (!category.BUSINESSOBJECTIVE.Contains(objective))
-                    {
-                        MessageBox.Show("Objective already exists under category " + objective.CATEGORY.NAME.TrimEnd(), "Error");
-                        return false;
-                    }
-
                     objective.CATEGORY = category;
                     if (!AddObjective(objective))
                     {
