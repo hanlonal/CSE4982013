@@ -20,7 +20,7 @@ namespace IBMConsultantTool
             highGapThresholdText.DataBindings.Add("Text", ConfigurationSettings.Instance, "StaticHighGapThreshold");
             dynamicAutoHighGapText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoHighGap");
             dynamicAutoLowGaText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoLowGap");
-            stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "StandardDeviationThreshold");
+           // stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "StandardDeviationThreshold1");
             staticSortRadio.DataBindings.Add("Checked", ConfigurationSettings.Instance, "StaticSort");
             bomhighTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMhighThreshold1");
             bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
@@ -33,10 +33,12 @@ namespace IBMConsultantTool
             dynamicSortRadio.Checked = !staticSortRadio.Checked;
             //bomDynamicRankingRadio.Checked = !bomStaticRankingRadio.Checked;
             CUPEHighThresholdBox.DataBindings.Add("Text", ConfigurationSettings.Instance, "CupeHigh");
+            stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "ITCapstdDevThreshold1");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            owner.Update();
             owner.Refresh();
             this.Close();
         }

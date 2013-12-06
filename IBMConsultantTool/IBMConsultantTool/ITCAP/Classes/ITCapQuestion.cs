@@ -24,7 +24,7 @@ namespace IBMConsultantTool
         
 
         private Dictionary<int, int> answers = new Dictionary<int, int>();
-        private static float standardDeviationThreshold = 1.00f;
+        
 
         public ITCapQuestion()
         {
@@ -141,7 +141,7 @@ namespace IBMConsultantTool
                 }
 
                 owner.CalculateAsIsAverage();
-                if (asisStandardDeviation > ConfigurationSettings.Instance.StandardDeviationThreshold)
+                if (asisStandardDeviation > ConfigurationSettings.Instance.ITCapstdDevThreshold1)
                 {
                     owner.IsFlagged = true;
                     flagged = true;
@@ -197,7 +197,7 @@ namespace IBMConsultantTool
             }
                 owner.CalculateToBeAverage();
 
-                if (tobeStandardDeviation > standardDeviationThreshold)
+                if (tobeStandardDeviation > ConfigurationSettings.Instance.ITCapstdDevThreshold1)
                 {
                     owner.IsFlagged = true;                    
                     flagged = true;

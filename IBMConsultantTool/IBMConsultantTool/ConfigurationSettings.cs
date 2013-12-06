@@ -51,6 +51,13 @@ namespace IBMConsultantTool
             set { BOMhighThreshold = value; }
         }
 
+        private float ITCapstdDevThreshold = 1;
+
+        public float ITCapstdDevThreshold1
+        {
+            get { return ITCapstdDevThreshold; }
+            set { ITCapstdDevThreshold = value; }
+        }
         bool staticSort = true;
 
         public bool StaticSort
