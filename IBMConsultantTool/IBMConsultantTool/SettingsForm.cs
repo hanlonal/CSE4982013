@@ -12,26 +12,21 @@ namespace IBMConsultantTool
     public partial class SettingsForm : Form
     {
         Form owner;
+        //This holds the data bindings for all of the objects in the form
         public SettingsForm(Form form)
         {
+            
             this.owner = form;
             InitializeComponent();
             lowGapThresholdText.DataBindings.Add("Text", ConfigurationSettings.Instance, "StaticLowGapThreshold");
             highGapThresholdText.DataBindings.Add("Text", ConfigurationSettings.Instance, "StaticHighGapThreshold");
             dynamicAutoHighGapText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoHighGap");
             dynamicAutoLowGaText.DataBindings.Add("Text", ConfigurationSettings.Instance, "DynamicAutoLowGap");
-           // stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "StandardDeviationThreshold1");
             staticSortRadio.DataBindings.Add("Checked", ConfigurationSettings.Instance, "StaticSort");
             bomhighTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMhighThreshold1");
             bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
-            //staticSortRadio.Checked = ConfigurationSettings.Instance.StaticSort;
-            //bomStaticRankingRadio.DataBindings.Add("Checked", ConfigurationSettings.Instance, "BOMSortModeStatic1");
-            //bomhighTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMhighThreshold1");
-            //bomlowTextbox.DataBindings.Add("Text", ConfigurationSettings.Instance, "BOMlowThreshold1");
             staticSortRadio.CheckedChanged += new EventHandler(staticSortRadio_CheckedChanged);
-            //bomStaticRankingRadio.CheckedChanged += new EventHandler(bomStaticRankingRadio_CheckedChanged);
             dynamicSortRadio.Checked = !staticSortRadio.Checked;
-            //bomDynamicRankingRadio.Checked = !bomStaticRankingRadio.Checked;
             CUPEHighThresholdBox.DataBindings.Add("Text", ConfigurationSettings.Instance, "CupeHigh");
             stdDeviationFlgAmount.DataBindings.Add("Text", ConfigurationSettings.Instance, "ITCapstdDevThreshold1");
         }

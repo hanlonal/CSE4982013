@@ -8,16 +8,16 @@ namespace IBMConsultantTool
     public class ITCapQuestion : ScoringEntity
     {
         private Capability owner;
-
+        //holds comments from the survey creation
         public List<string> comment;
 
-        /*private List<float> AsIsanswersToAttributes = new List<float>();
-        private List<float> ToBeanswersToAttributes = new List<float>();*/
+
         public List<float> asIsAnswers = new List<float>();
         public List<float> toBeAnswers = new List<float>();
         private int numasIsAnswers = 0;
         private int numtoBeAnswers = 0;
 
+        
         bool asishighStandardDeviation = false;
         bool tobehighStandardDeviation = false;
 

@@ -1206,6 +1206,7 @@ namespace IBMConsultantTool
 
         private void currentGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            
             int value = Convert.ToInt32(currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
             if(value < 0)
             {
@@ -1289,7 +1290,7 @@ namespace IBMConsultantTool
 
         private void loadSurveyFromDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Console.WriteLine(e.RowIndex.ToString());
+            
             if (e.ColumnIndex == 0 && e.RowIndex != -1)
             {
                 DataGridViewButtonCell cell = (DataGridViewButtonCell)loadSurveyFromDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];

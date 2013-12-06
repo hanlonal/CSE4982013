@@ -75,7 +75,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comments = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prioritizationGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,6 +100,7 @@
             this.loadSurveyFromDataGrid = new System.Windows.Forms.DataGridView();
             this.Collapse = new IBMConsultantTool.DataGridViewDisableButtonColumn();
             this.Flags = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AddComment = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.surveryMakerGrid)).BeginInit();
             this.mainMenuToolBar.SuspendLayout();
@@ -498,14 +498,6 @@
             this.Comments.Name = "Comments";
             this.Comments.Width = 250;
             // 
-            // AddComment
-            // 
-            this.AddComment.HeaderText = "";
-            this.AddComment.Name = "AddComment";
-            this.AddComment.Text = "+";
-            this.AddComment.UseColumnTextForButtonValue = true;
-            this.AddComment.Width = 30;
-            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Type";
@@ -759,6 +751,8 @@
             // 
             // loadSurveyFromDataGrid
             // 
+            this.loadSurveyFromDataGrid.AllowUserToAddRows = false;
+            this.loadSurveyFromDataGrid.AllowUserToDeleteRows = false;
             this.loadSurveyFromDataGrid.AllowUserToResizeRows = false;
             this.loadSurveyFromDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -807,7 +801,7 @@
             this.Collapse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Collapse.Text = "+";
             this.Collapse.UseColumnTextForButtonValue = true;
-            this.Collapse.Width = 24;
+            this.Collapse.Width = 5;
             // 
             // Flags
             // 
@@ -815,6 +809,14 @@
             this.Flags.Name = "Flags";
             this.Flags.ReadOnly = true;
             this.Flags.Width = 54;
+            // 
+            // AddComment
+            // 
+            this.AddComment.HeaderText = "";
+            this.AddComment.Name = "AddComment";
+            this.AddComment.Text = "+";
+            this.AddComment.UseColumnTextForButtonValue = true;
+            this.AddComment.Width = 30;
             // 
             // dataGridViewButtonColumn2
             // 
