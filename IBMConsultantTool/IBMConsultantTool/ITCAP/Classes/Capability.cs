@@ -262,8 +262,8 @@ namespace IBMConsultantTool
                             }
                             else
                             {
-                                pair.Key.CapabilityGapText = "Middle Gap";
-                                pair.Key.gapType = GapType.Middle;
+                                pair.Key.CapabilityGapText = "High Gap";
+                                pair.Key.gapType = GapType.High;
                             }
                         }
 
@@ -302,8 +302,8 @@ namespace IBMConsultantTool
                             }
                             else
                             {
-                                pair.Key.CapabilityGapText = "Middle Gap";
-                                pair.Key.gapType = GapType.Middle;
+                                pair.Key.CapabilityGapText = "Low Gap";
+                                pair.Key.gapType = GapType.Low;
                             }
                         }
                         if (pair.Value == 0.00)
