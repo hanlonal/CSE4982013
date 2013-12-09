@@ -197,8 +197,6 @@
             this.questionGridBusinessCurrent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridBusinessCurrent_CellClick);
             this.questionGridBusinessCurrent.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             this.questionGridBusinessCurrent.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridBusinessCurrent_CellClick);
-            this.questionGridBusinessCurrent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.cellClick);
-            this.questionGridBusinessCurrent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cellClick);
             // 
             // Header
             // 
@@ -325,7 +323,6 @@
             this.questionGridITCurrent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridITCurrent_CellClick);
             this.questionGridITCurrent.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGrid_CellEndEdit);
             this.questionGridITCurrent.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionGridITCurrent_CellClick);
-            this.questionGridITCurrent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cellClick);
             // 
             // dataGridViewTextBoxColumn1
             // 

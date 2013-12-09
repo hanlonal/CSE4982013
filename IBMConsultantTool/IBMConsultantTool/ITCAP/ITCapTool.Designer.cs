@@ -142,7 +142,6 @@
             this.surveryMakerGrid.Size = new System.Drawing.Size(759, 529);
             this.surveryMakerGrid.TabIndex = 3;
             this.surveryMakerGrid.Visible = false;
-            this.surveryMakerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.surveryMakerGrid_CellClick);
             this.surveryMakerGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.currentGrid_CellEndEdit);
             this.surveryMakerGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.currentGrid_DataBindingComplete);
             this.surveryMakerGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);

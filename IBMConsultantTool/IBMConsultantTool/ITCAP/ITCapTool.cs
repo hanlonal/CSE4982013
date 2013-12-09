@@ -734,12 +734,11 @@ namespace IBMConsultantTool
                 combo.Items.Add((int)2);
                 combo.Items.Add((int)3);
                 combo.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                combo.DropDownClosed +=new EventHandler(combo_DropDownClosed);
                 combo.DataBindings.Add("SelectedItem", val, "Score");
                 
                 combo.Name = "Testing" + count.ToString();
                 combo.Tag = "permenant";
-                label.Name = "Testinga" + count.ToString();
+                label.Name = "Testing" + count.ToString();
                 label.Tag = "permenant";    
                 
 
