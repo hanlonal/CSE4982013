@@ -20,27 +20,28 @@ namespace IBMConsultantTool
     {
         private ITCapQuestion activequestion;
         Capability currentcap = new Capability();
-        MasterCollection coll = new MasterCollection();
-
-        
+        MasterCollection coll = new MasterCollection();        
 
         public List<Domain> domains = new List<Domain>();
         public List<Capability> capabilities = new List<Capability>();
+        //list of all the entities to be used. These are stored in order from how they appear in the grid
         public List<ScoringEntity> entities = new List<ScoringEntity>();
         public ITCapQuestion[] questionsArray = new ITCapQuestion[1024];
+        //enum to determine which state the form is currently in
         enum FormStates { SurveryMaker, LiveDataEntry, Prioritization, Open, None };
         FormStates states;
+        //different buttons to be used depending on the state of the tool
         private List<Control> surverymakercontrols = new List<Control>();
         private List<Control> liveDataEntryControls = new List<Control>();
         private List<Control> prioritizationControls = new List<Control>();
         private List<int> availablePriorityValues = new List<int>();
         private List<Control> loadFromSurveyControls = new List<Control>();
         DataGridView currentGrid;
-
+        //creates loading screen 
         public delegate void UpdateUIDelegate(bool IsDataLoaded);
         private delegate void ObjectDelegate(object obj);
         private LoadingScreen loadingScreen;
-
+        //the current entity that is selected in the grid view
         ScoringEntity currentEnt;
 
         //only used for testing
@@ -48,7 +49,7 @@ namespace IBMConsultantTool
         //Functions just used for testing until we have save and load
 
         string closeState = "close";
-
+        //loads the default domains into the entities list
         private void LoadDomains()
         {
             string[] domainInfoArray = ClientDataControl.db.GetDefaultDomainNames();
@@ -61,13 +62,14 @@ namespace IBMConsultantTool
                 dom.ID = ClientDataControl.db.GetScoringEntityID(dom.Name);
                 dom.Type = "domain";
                 entities.Add(dom);
+                //load all capabilities that it owns
                 LoadCapabilities(dom);
                 domains.Add(dom);
 
                 domCount++;
             }
         }
-
+        //loads the cpaabilities for the given domain paramenter
         private void LoadCapabilities(Domain dom)
         {
             string[] capabilityInfoArray = ClientDataControl.db.GetDefaultCapabilityNames(dom.Name);
@@ -86,12 +88,13 @@ namespace IBMConsultantTool
                 cap.Type = "capability";
                 cap.ID = ClientDataControl.db.GetScoringEntityID(cap.CapName);
                 entities.Add(cap);
+                //loads all questions that are owned by this capability
                 LoadQuestions(cap);
                 //panel1.MouseEnter += new EventHandler(panel1_MouseEnter);
                 capCount++;
             }
         }
-
+        //load all the questions ownes by the given paramter capability
         private void LoadQuestions(Capability cap)
         {
             string[] questionInfoArray = ClientDataControl.db.GetDefaultITCAPQuestionNames(cap.CapName, cap.Owner.Name);
@@ -117,7 +120,7 @@ namespace IBMConsultantTool
         {
             InitializeComponent();
             currentGrid = surveryMakerGrid;
-
+            //opens to a blank screen and waits for user input
             states = FormStates.None;
 
             surverymakercontrols.Add(capabilityNameTextBox);
@@ -150,7 +153,7 @@ namespace IBMConsultantTool
             loadFromSurveyControls.Add(seperatorLabel);
             //loadSurveyFromDataGrid.Columns["Collapse"] = new DataGridViewDisableButtonColumn();
         }
-
+        //decides if the form is in the closed state, or just switching tools
         private void ITCapTool_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (closeState == "close")
@@ -174,7 +177,7 @@ namespace IBMConsultantTool
                     con.Visible = true;
             }
         }
-
+        //UI deletegate to create loading screen
         private void UpdateUI(bool IsDataLoaded)
         {
             if (IsDataLoaded && this.loadingScreen != null)
@@ -186,7 +189,7 @@ namespace IBMConsultantTool
                 loadingScreen.Show();               
             }
         }
-
+        // test form is the first form when the tool opens with the new, load, and trend anaylisys options
         private void RUNTEST()
         {
             Application.Run(new TestForm());
@@ -249,7 +252,7 @@ namespace IBMConsultantTool
             loadingScreen = new LoadingScreen(surveryMakerGrid.Location.X, surveryMakerGrid.Location.Y, this);
             UpdateUI(false);
         }
-
+        //creates new survey
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -263,7 +266,8 @@ namespace IBMConsultantTool
                 UpdateUI(false);
 
         }
-
+        //which state are we changing into? set the current grid based on that state, and hide controls
+        // that are not currently being used.
         private void ChangeStates(FormStates stateToGoInto)
         {
 
@@ -387,13 +391,14 @@ namespace IBMConsultantTool
                 con.BringToFront();
             }
         }
-
+        //sets the grid source to the entities list
+        //this will triggle the databinding complete event
         private void LoadChartSurvey()
         {
             currentGrid.DataSource = null;
             currentGrid.DataSource = entities;
         }
-
+        //check if user has right clicked on a cell, and then give options based on the cell type
         private void surveryMakerGrid_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -438,7 +443,7 @@ namespace IBMConsultantTool
                 }
             }
         }
-
+        //open the change button text
         private void editQuestionText_Click(object sender, EventArgs e)
         {
             ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
@@ -460,7 +465,7 @@ namespace IBMConsultantTool
             DeleteDomain();
 
         }
-
+        // removes capability from datagrid and from the clients profile in the database
         private void DeleteCapability()
         {
             Capability cap = surveryMakerGrid.SelectedRows[0].DataBoundItem as Capability;
@@ -486,7 +491,7 @@ namespace IBMConsultantTool
             }
             LoadChartSurvey();
         }
-
+        //deletes domain from datagrid as well as from the clients profile in the database
         private void DeleteDomain()
         {
             Domain dom = surveryMakerGrid.SelectedRows[0].DataBoundItem as Domain;
@@ -512,7 +517,7 @@ namespace IBMConsultantTool
             ClientDataControl.db.SaveChanges();
             LoadChartSurvey();
         }
-
+        //deletes attribute from the datagrid as well as from the clients profile in the database
         private void DeleteAttribute()
         {
             ITCapQuestion question = surveryMakerGrid.SelectedRows[0].DataBoundItem as ITCapQuestion;
@@ -536,12 +541,12 @@ namespace IBMConsultantTool
             LoadChartSurvey();
 
         }
-
+        //delete capability button clicked
         private void deleteCapability_Click(object sender, EventArgs e)
         {
             DeleteCapability();
         }
-
+        // delete attr button clicked
         private void deleteAttribute_Click(object sender, EventArgs e)
         {
             DeleteAttribute();
@@ -600,7 +605,7 @@ namespace IBMConsultantTool
             //GetClientObjectives();
             PopulateCapabilitiesWithObjectives();
         }
-
+        //switch state to survey maker
         private void SurveryMaker_Click(object sender, EventArgs e)
         {
             ResetSurveyGrid();
@@ -621,16 +626,7 @@ namespace IBMConsultantTool
             }
         }
 
-        private void Prioritization_Click(object sender, EventArgs e)
-        {
-            //ChangeStates(FormStates.Prioritization);
-        }
-
-        private void surveryMakerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
+        //open clients survey with the questions yoi have chose for them
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
@@ -642,7 +638,7 @@ namespace IBMConsultantTool
             //GetClientObjectives();
             PopulateCapabilitiesWithObjectives();
         }
-
+        //receive a list of objectives the client made for BOM tool, and load them in now for prioritization
         private void PopulateCapabilitiesWithObjectives()
         {
             Dictionary<string, float> BOMS = ClientDataControl.db.GetObjectivesFromClientBOM(ClientDataControl.Client.EntityObject);
@@ -659,7 +655,7 @@ namespace IBMConsultantTool
                 }
             }
         }
-
+        //get answers from database
         private void GetAnswers()
         {
             ITCapQuestion question;
@@ -678,7 +674,9 @@ namespace IBMConsultantTool
             capabilityNameLabel.Visible = true;
             BuildObjectiveMappingArea();
         }
-
+        //clear objectives bottom panel when switching between capabilities
+        //this is raised when a capability is clicked on to fill the panel with options
+        // for changing the prioritization for each capability
         private void ClearBottomPanel()
         {
             panel1.Controls.Cast<Control>();
@@ -704,7 +702,7 @@ namespace IBMConsultantTool
             
 
         }
-
+        //this sets up all of the labels and combo boxes for the user too chahnge prioritization amounts
         private void BuildObjectiveMappingArea()
         {
             Font font = new Font("Arial", 12, FontStyle.Underline | FontStyle.Bold);
@@ -758,7 +756,7 @@ namespace IBMConsultantTool
             }
         }
 
-
+        //triggers when a combo box is changed. updates the datagrid with new values
         private void val_PropertyChanged(object sender, EventArgs e)
         {
             currentcap.CalculatePrioritizedCapabilityGap();
@@ -787,46 +785,15 @@ namespace IBMConsultantTool
             currentGrid.Refresh();
             currentGrid.Update();
         }
-        private void combo_DropDownClosed(object sender, EventArgs e)
-        {
-            /*currentcap.CalculatePrioritizedCapabilityGap();
-            Capability.CalculatePrioritizedCapabilityGaps();
-            foreach (DataGridViewRow row in loadSurveyFromDataGrid.Rows)
-            {
-                ScoringEntity ent = row.DataBoundItem as ScoringEntity;
-                if (ent.GetType() == typeof(Capability))
-                {
-                    Capability cap = (Capability)ent;
-                    //currentcap = loadSurveyFromDataGrid.SelectedRows[0].DataBoundItem as Capability;
-                    if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.High)
-                    {
-                        row.Cells["PrioritizedGap"].Style.BackColor = Color.IndianRed;
-                    }
-                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Middle)
-                    {
-                        row.Cells["PrioritizedGap"].Style.BackColor = Color.Yellow;
-                    }
-                    else if (cap.PrioritizedGapType1 == ScoringEntity.PrioritizedGapType.Low)
-                    {
-                        row.Cells["PrioritizedGap"].Style.BackColor = Color.LawnGreen;
-                    }
-                }
-            }
-            currentGrid.Refresh();
-            currentGrid.Update();*/
-        }
 
-
-
-
-
+        
         private void combo_ControlRemoved(object sender, EventArgs e)
         {
             TextBox box = (TextBox)sender;
             box.Visible = false;
             box.DataBindings.Clear();
         }
-
+        //clear survey grid and entities list  of all values
         public void ResetSurveyGrid()
         {
             currentGrid.DataSource = null;
@@ -835,7 +802,8 @@ namespace IBMConsultantTool
             entities.Clear();
 
         }
-
+        //these functions control what is in the combo boxes in order to add entities to the datagrid
+        //they pull values from the database depending on what the parent combo box has in it
         private void domainList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClientDataControl.db.ChangedDomain(this);
@@ -895,7 +863,7 @@ namespace IBMConsultantTool
             return ques;
         }
 
-
+        //adds the entity based on the combo box values
         private void AddButton_Click(object sender, EventArgs e)
         {
             int value;
@@ -941,7 +909,7 @@ namespace IBMConsultantTool
         {
             new ChangeITCAPDefaults(this).ShowDialog();
         }
-
+        //check the UI backcolor of all the cells that need to be updated
         private void CheckBackColor(ScoringEntity ent, DataGridViewRow row)
         {
             if (ent.GapType1 == ScoringEntity.GapType.High)
@@ -953,6 +921,7 @@ namespace IBMConsultantTool
             else
                 row.Cells["CapabilityGapText"].Style.BackColor = Color.LightGray;
         }
+        // same but for forecolor
         private void CheckForeColor(ScoringEntity ent, DataGridViewRow row)
         {
             if (ent.GapType1 == ScoringEntity.GapType.High)
@@ -967,7 +936,7 @@ namespace IBMConsultantTool
                 row.Cells["CapabilityGapText"].Style.ForeColor = Color.Black;
             }
         }
-
+        //Check if there needs to be a yellow exclamation point for a flag based on the updated values
         private void CheckFlags(ScoringEntity ent, DataGridViewRow row)
         {
             if (ent.Flagged)
@@ -984,7 +953,7 @@ namespace IBMConsultantTool
                 cell.Value = null;
             }
         }
-
+        //check if the backcolor of the standard deviation fields needto be updated
         private void CheckStandardDeviations(ITCapQuestion ent, DataGridViewRow row)
         {
             if (ent.AsIsHighStandardDeviation)
@@ -997,7 +966,7 @@ namespace IBMConsultantTool
             else
                 row.Cells["TobeStandardDeviation"].Style.BackColor = Color.White;                
         }
-
+        //wrong data input in the datagrid triggers this event
         private void currentGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             //currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
@@ -1006,7 +975,10 @@ namespace IBMConsultantTool
         }
 
 
-
+        //when setting a new entities list, this will get called after the source as updated all of its values.
+        //this functions checks the current state, and does various grid manipulations on the rows, such as giding values, setting some to read only
+        // and so on
+        //it also sets back and forecolors depending on which type of entitity is bound to it
         private void currentGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             currentGrid.CurrentCell = null;
@@ -1203,7 +1175,7 @@ namespace IBMConsultantTool
             
             currentGrid.Refresh();
         }
-
+        //if either the as is or to be answers are updated, make sure to update all of its entities that need to know about it
         private void currentGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -1287,7 +1259,8 @@ namespace IBMConsultantTool
 
 
         }
-
+        //this is for the button in the first colun of datagrid.
+        //checks what syayes its currently in, and changes the collapsable text
         private void loadSurveyFromDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -1362,7 +1335,7 @@ namespace IBMConsultantTool
                 }
             }
         }
-
+        //opens cupe tool
         private void cUPEToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeState = "CUPE";
@@ -1378,7 +1351,7 @@ namespace IBMConsultantTool
         {
             Application.Run(new CUPETool());
         }
-
+        //opens bom tool
         private void bOMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeState = "BOM";
@@ -1415,12 +1388,13 @@ namespace IBMConsultantTool
                 HideDeviations();
             }
         }
+        //hitting the button in the toolstrip menu hides the columns for more visibility
         private void HideDeviations()
         {
             currentGrid.Columns["AsisStandardDeviation"].Visible = !currentGrid.Columns["AsisStandardDeviation"].Visible;
             currentGrid.Columns["TobeStandardDeviation"].Visible = !currentGrid.Columns["TobeStandardDeviation"].Visible;
         }
-
+        //opens the systems agenda chart data
         private void systemsAgendaCapabilityAssesmentResultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> capAsIs = new List<float>();
@@ -1474,13 +1448,7 @@ namespace IBMConsultantTool
             newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
             newChart.ChartAreas["chart1"].AxisX.LabelStyle.Format = "#.##";
 
-            /*newChart.ChartAreas["chart1"].AxisX.Title = "Question";
-            newChart.ChartAreas["chart1"].AxisX.TitleFont = new Font("Microsoft Sans Serif", 12);
-            newChart.ChartAreas["chart1"].AxisX.Maximum = maxQuestion + 1;
-            newChart.ChartAreas["chart1"].AxisY.Title = "Score";
-            newChart.ChartAreas["chart1"].AxisY.TitleFont = new Font("Microsoft Sans Serif", 12);
-            newChart.ChartAreas["chart1"].AxisY.Maximum = 4;*/
-            //newChart.ChartAreas["chart1"].AxisY.
+
 
             newChart.Legends.Add("legend");
             newChart.Legends["legend"].Enabled = true;
@@ -1632,7 +1600,7 @@ namespace IBMConsultantTool
             newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
-
+        //opens chart data
         private void capabilityAssesmentSummaryScoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> domAsIs = new List<float>();
@@ -1649,7 +1617,7 @@ namespace IBMConsultantTool
 
             CreateChart(domName, domAsIs, domToBe);
         }
-
+        //capability heatmap open
         private void capabilityGapHeatmapToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> capAsIs = new List<float>();
@@ -1704,10 +1672,7 @@ namespace IBMConsultantTool
 
             HeatMapChart chart = new HeatMapChart(domName, capName, capPerDom, capGap, gap, notAFocus, total, numberOfGap, capGapType, "Capability Gap");
             chart.Show();
-            
-            /*Bitmap bmp = new Bitmap(chart.Width, chart.Height);
-            chart.DrawToBitmap(bmp, new Rectangle(Point.Empty, bmp.Size));
-            bmp.Save(Directory.GetCurrentDirectory() + @"/Charts/" + "Heat Map Capability Gap.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);*/
+
         }
 
         public float CalculateGap(List<float> gap)
@@ -1743,7 +1708,9 @@ namespace IBMConsultantTool
         }
 
 
-
+        //creates the survey document from the questions currently laid out. 
+        // it begins sending commands to word in order to build the survey
+        //word will open up shortly
         private void createSurveyDocumentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SurveyGenerator generator = new SurveyGenerator();
@@ -1768,14 +1735,14 @@ namespace IBMConsultantTool
 
 
         }
-
+        //only partially implemented, left in for later use
         private void createPowerPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var Powah = new PowerPointGenerator();
 
             Powah.ReplaceTemplatePowerpoint();
         }
-
+        //hides as is and to be answers from data grid
         private void answersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentGrid == loadSurveyFromDataGrid)
@@ -1822,7 +1789,7 @@ namespace IBMConsultantTool
                 HideAsIsAnswers();
             }
         }
-
+        //this just hides as is answers
         private void HideAsIsAnswers()
         {
             loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Visible = !loadSurveyFromDataGrid.Columns["AsIsNumZeros"].Visible;
