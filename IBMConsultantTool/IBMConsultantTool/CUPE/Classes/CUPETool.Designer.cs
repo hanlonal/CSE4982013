@@ -177,8 +177,8 @@
             // 
             // questionGridBusinessCurrent
             // 
-            this.questionGridBusinessCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridBusinessCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridBusinessCurrent.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridBusinessCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridBusinessCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -304,8 +304,8 @@
             // 
             // questionGridITCurrent
             // 
-            this.questionGridITCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridITCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridITCurrent.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridITCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridITCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -504,9 +504,9 @@
             // 
             // questionInfoPanel
             // 
-            this.questionInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionInfoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionInfoPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.questionInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.questionInfoPanel.Controls.Add(this.statusStrip1);
@@ -532,9 +532,8 @@
             // 
             // QuestionView
             // 
-            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuestionView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionView.Cursor = System.Windows.Forms.Cursors.Default;
             this.QuestionView.LabelEdit = true;
             this.QuestionView.Location = new System.Drawing.Point(565, 6);
@@ -610,8 +609,8 @@
             // 
             // questionGridBusiFuture
             // 
-            this.questionGridBusiFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridBusiFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridBusiFuture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridBusiFuture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridBusiFuture.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -708,8 +707,8 @@
             // 
             // questionGridITFuture
             // 
-            this.questionGridITFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionGridITFuture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionGridITFuture.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.questionGridITFuture.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionGridITFuture.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -933,28 +932,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // createSurveyToolStripMenuItem
             // 
             this.createSurveyToolStripMenuItem.Name = "createSurveyToolStripMenuItem";
-            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createSurveyToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.createSurveyToolStripMenuItem.Text = "Create Survey";
             this.createSurveyToolStripMenuItem.Click += new System.EventHandler(this.createSurveyToolStripMenuItem_Click);
             // 
             // openSurveysToolStripMenuItem
             // 
             this.openSurveysToolStripMenuItem.Name = "openSurveysToolStripMenuItem";
-            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openSurveysToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openSurveysToolStripMenuItem.Text = "Open Surveys";
             this.openSurveysToolStripMenuItem.Click += new System.EventHandler(this.openSurveysToolStripMenuItem_Click);
             // 

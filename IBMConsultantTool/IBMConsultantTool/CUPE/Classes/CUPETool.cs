@@ -35,7 +35,9 @@ namespace IBMConsultantTool
         int totalAnswers = 5;
 
         public delegate void UpdateUIDelegate(bool IsDataLoaded);
-
+        //indexes of the row items. 
+        //there are 20 questions, plus 1 blank row, then these are the resulting indexes.
+        //When there is only 10 questions, the rows are hidden, but still technically indexed, so these values do not change
         int totalARowIndex = 21;
         int totalBRowIndex = 22;
         int totalCRowIndex = 23;
@@ -44,12 +46,13 @@ namespace IBMConsultantTool
         int totalAnswerRowIndex = 25;
 
         List<string> questions = new List<string>();
-
+        // part of our help tutorial Not completed, but still functional
         bool HelpEnabled = false;
         int HelpCurrentStep = 0;
 
         string chartName;
-
+        //variable that says whether the tool was closed by the "X" or if we are just switching in between tools
+        // close means x was hit
         string closeState = "close";
 
         public CUPETool()
@@ -71,7 +74,7 @@ namespace IBMConsultantTool
 
             this.FormClosed += new FormClosedEventHandler(CUPETool_FormClosed);
         }
-
+        // when switching tools, deciding what to do based on what we are switching to.
         private void CUPETool_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (closeState == "ITCap")
@@ -93,12 +96,12 @@ namespace IBMConsultantTool
                 t.Start();
             }
         }
-
+        // Test form is the intial blue form with save load trend analysis
         private void RUNTEST()
         {
             Application.Run(new TestForm());
         }
-
+        //builds the main grid view with the 20 questions, and any answers that were loading form surveys
         private void CUPETool_Load(object sender, EventArgs e)
         {
             ClientDataControl.cupeQuestions.Clear();
@@ -138,8 +141,10 @@ namespace IBMConsultantTool
 
                 CreateStatsRows();
             }
+            //sets the business current grid as the default and first to view on open
             currentGrid = questionGridBusinessCurrent;
             currentChart = busiCurrentGraph;
+            //hides all other charts in the form
             foreach (Chart chart in charts)
             {
                 chart.Visible = false;
@@ -178,24 +183,20 @@ namespace IBMConsultantTool
                 point3.Color = Color.Orange;
                 point3.BackGradientStyle = GradientStyle.Center;
                 point3.LegendText = "Partner";
-                //point3.Name = "Partner";
-                //point3.Label = "Partner";
-                //point3.SetValueY(5);
+
                 currentChart.Series["BusiCurrent"].Points.Add(point3);
                 DataPoint point4 = new DataPoint();
                 point4.Color = Color.Green;
                 point4.BackGradientStyle = GradientStyle.Center;
                 point4.LegendText = "Enabler";
-                //point4.Name = "Enabler";
-                //point4.Label = "Enabler";
-                //point4.SetValueY(25);
+
                 currentChart.Series["BusiCurrent"].Points.Add(point4);
             }
         }
 
         private void CreateLabel()
         {
-            //Console.WriteLine("yo");
+            
             Label label = new Label();
             questionInfoPanel.Controls.Add(label);
             label.Width = questionInfoPanel.Width;
@@ -204,9 +205,10 @@ namespace IBMConsultantTool
             label.BorderStyle = BorderStyle.FixedSingle;
             label.Visible = true;
             label.Text = "Question Info";
-            //Console.WriteLine(label.Text);
-        }
 
+        }
+        //adds these set rows after the initial rows have been created
+        
         private void CreateStatsRows()
         {
             DataGridViewRow row0 = (DataGridViewRow)currentGrid.Rows[0].Clone();
@@ -254,7 +256,7 @@ namespace IBMConsultantTool
 
 
         }
-
+        //creates a new person from the edit participants window
         public void CreatePerson()
         {
             personCount++;
@@ -282,7 +284,9 @@ namespace IBMConsultantTool
         private void questionGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             changesMade = true;
+            // which row was changed
             var currentCell = currentGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //check for null value, and then make sure it is also not blank. Double error check here
             if ( currentCell.Value!= null)
             {
                 if (currentCell.Value.ToString().Length > 0)
@@ -332,7 +336,12 @@ namespace IBMConsultantTool
 
             oldCellValue = string.Empty;
         }
-
+        //iterate through all of the rows
+        //check the values, give them a score depending on the letter
+        //A =1
+        //B =2
+        //C =3
+        //D =4
         public void ChangeTotalsByRow(int index)
         {
             int totalA=0;
@@ -373,6 +382,9 @@ namespace IBMConsultantTool
 
                 }
             }
+            //the -7 here is the number of static columns that exist. The current count - the number of static rows is the person count
+            // this is also a way to get the index when added to the index
+            //If Another static row is to be added. (such as a row for standard deviation) these need to be updated to 8.
             currentGrid.Rows[index].Cells[totalAIndex + (currentGrid.ColumnCount -7)].Value = totalA.ToString();
             currentGrid.Rows[index].Cells[totalBIndex + (currentGrid.ColumnCount - 7)].Value = totalB.ToString();
             currentGrid.Rows[index].Cells[totalCIndex + (currentGrid.ColumnCount - 7)].Value = totalC.ToString();
@@ -389,7 +401,7 @@ namespace IBMConsultantTool
             int count = 0;
             string total = "";
             float num = 0;
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < 21; i++) // 21 becuase if 10, rows are still indexed in the grid
             {
                 if (currentGrid.Rows[i].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value != null)
                 {
@@ -398,6 +410,7 @@ namespace IBMConsultantTool
                     count++;
                 }
             }
+            // make sure there is a person, and calculate average
             if (count > 0)
                 cupeScoreLabel.Text = Math.Round((num / count), 2).ToString();
             else
@@ -405,7 +418,8 @@ namespace IBMConsultantTool
         }
 
 
-
+        // happens after changetotalsbyrow
+        //runs down the column of the cell last changed, and updates the bottom rows for averages per person
         private void ChangeTotalsByColumn(int colIndex, int rowIndex)
         {
             int totalA = 0;
@@ -414,7 +428,7 @@ namespace IBMConsultantTool
             int totalD = 0;
             int count = 0;
             float total = 0;
-
+            //check the answers in each of the cells
             foreach (DataGridViewRow row in currentGrid.Rows)
             {
                 if (row.Cells[colIndex].Value == null)
@@ -446,7 +460,7 @@ namespace IBMConsultantTool
                     total += 4;
                 }
             }
-
+            //total row indexes are for each of the stats being tracked and are set 
             currentGrid.Rows[totalARowIndex].Cells[colIndex].Value = totalA.ToString();
             currentGrid.Rows[totalBRowIndex].Cells[colIndex].Value = totalB.ToString();
             currentGrid.Rows[totalCRowIndex].Cells[colIndex].Value = totalC.ToString();
@@ -454,7 +468,7 @@ namespace IBMConsultantTool
             currentGrid.Rows[totalAnswerRowIndex].Cells[colIndex].Value = count.ToString();
             currentGrid.Rows[averageRowIndex].Cells[colIndex].Value = currentGrid.ColumnCount > 7 ? Math.Round((total / (count)), 2).ToString() : "0";
 
-            //questionGrid[colIndex, averageRowIndex].Style.BackColor = Color.Red;
+
            
 
             
@@ -502,9 +516,7 @@ namespace IBMConsultantTool
                 chartName = "IT Future CUPE Responses";
 
               
-              // int temp = (int)Convert.ToInt32(totalComm);
-              // num += temp;
-            //Console.WriteLine(numA.ToString());
+
             if (numA != 0 && numA > 0)
                 currentChart.Series["BusiCurrent"].Points[0].SetValueXY("Commodity", numA);
             if (numB != 0 && numB > 0)
@@ -546,7 +558,7 @@ namespace IBMConsultantTool
 
             }
         }
-
+        //check the the average of the last row updated, and set the color is loow
         public void PersonCellFormatting(int index)
         {
             string tempAvg = (string)currentGrid.Rows[averageRowIndex].Cells[index].Value;
@@ -556,6 +568,7 @@ namespace IBMConsultantTool
             else
                 currentGrid[index, averageRowIndex].Style.BackColor = Color.SeaGreen;
         }
+        //update the column of the last column updated, and change color depending on the answer
         public void QuestionCellFormatting(int index)
         {
             string tempAvg = (string)currentGrid.Rows[index].Cells[averageIndex + (currentGrid.ColumnCount - 7)].Value;
@@ -565,7 +578,7 @@ namespace IBMConsultantTool
             else
                 currentGrid[averageIndex + (currentGrid.ColumnCount - 7), index].Style.BackColor = Color.SeaGreen;
         }
-
+        //determines which chart you currently would like to view, and hides the rest
         private void itRadioButton_Click(object sender, EventArgs e)
         {
             foreach (DataGridView view in grids)
@@ -615,20 +628,6 @@ namespace IBMConsultantTool
 
         }
 
-
-
-        private void cellClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                DataGridView.HitTestInfo hit = currentGrid.HitTest(e.X, e.Y);
-
-                Console.WriteLine((hit.ColumnIndex + "   " + hit.RowIndex).ToString());
-                
-            }
-            
-        }
-
         private void busiFutureRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             foreach (DataGridView view in grids)
@@ -676,7 +675,7 @@ namespace IBMConsultantTool
                 StartTutorialMode();
             }
         }
-
+        //hitting go button checks for what it needs to search, and then calls the appropriate function
         private void filterQuestionsGo_Click(object sender, EventArgs e)
         {
             try
@@ -802,6 +801,7 @@ namespace IBMConsultantTool
             }
             Console.WriteLine("right before grid creation");
             DataGridView view = new DataGridView();
+            view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Console.WriteLine("created grid");
             view.AllowUserToAddRows = false;
             view.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -975,7 +975,7 @@ namespace IBMConsultantTool
 
 
         }
-
+        //create s view for chart
         private void iTStakeHoldersCurrentFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> currentFloats = new List<float>();
@@ -1138,7 +1138,7 @@ namespace IBMConsultantTool
 
             CreateChart(currentFloats, futureFloats, "Business Leaders Current/Future Comparison");
         }
-
+        //creates view for chart
         private void iTVsBusinessLeadersCurrentComparisonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> currentBusinessFloats = new List<float>();
@@ -1162,7 +1162,7 @@ namespace IBMConsultantTool
 
             CreateChartITVsBussiness(currentBusinessFloats, currentITFloats, "IT vs Business Leaders Current Comparison");
         }
-
+        //creates view for chhart
         private void iTVsBusinessFutureComparisonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<float> futureBusinessFloats = new List<float>();
@@ -1296,7 +1296,7 @@ namespace IBMConsultantTool
             newChart.SaveImage(Directory.GetCurrentDirectory() + @"/Charts/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
             //newChart.SaveImage(Application.StartupPath + "/" + newChart.Text + ".jpg", ChartImageFormat.Jpeg);
         }
-
+        //opens the particapants menu. Here you can change which people receive the survey, and how many answers to record.
         private void participantsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             changesMade = true;
@@ -1375,6 +1375,7 @@ namespace IBMConsultantTool
         }
 
         //Saves the table values to the clientdatacontrol
+        //runs through every cell in the column, and saves values to database
         private void saveCupeDataValues()
         {
 
@@ -1515,6 +1516,7 @@ namespace IBMConsultantTool
             }
 
         }
+        //remove s all people from all data grids
         private void removePersonColumns()
         {
             for( int i=1; i<= questionGridITCurrent.ColumnCount - 7; i=1)
@@ -1535,7 +1537,7 @@ namespace IBMConsultantTool
             }
 
         }
-
+        //saves cupe answers to data base
         private void saveCupeAnswersToClientDataControl()
         {
             ClientDataControl.SetCupeAnswers(new List<CupeData>());
@@ -1556,7 +1558,7 @@ namespace IBMConsultantTool
             ClientDataControl.SaveCUPE();
             changesMade = false;
         }
-
+        //starts sending commands to microsoft word to build the surveys
         private void createSurveyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SurveyGenerator generator = new SurveyGenerator();
@@ -1567,17 +1569,7 @@ namespace IBMConsultantTool
         }
         private void UpdateUI(bool IsDataLoaded)
         {
-       /*     if (IsDataLoaded && this.loadingScreen != null)
-            {
-                this.statusStrip1.Text = "Done.";
 
-                loadingScreen.Close();
-            }
-            else
-            {
-                loadingScreen.Show();
-                this.statusStrip1.Text = "Loading data ...";
-            }*/
         }
 
         private void LoadSurveys()
@@ -1587,7 +1579,7 @@ namespace IBMConsultantTool
             
             
         }
-
+        //opens surveys and answers into the tool
         private void openSurveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientDataControl.SetParticipants(new List<Person>());
@@ -1645,7 +1637,7 @@ namespace IBMConsultantTool
             }
         }
 
-
+        //after the tree view in the bottom right hand corner is edited, it registers a new question with the database
         private void QuestionView_AfterLabelEdit(object sender,
          System.Windows.Forms.NodeLabelEditEventArgs e)
         {
@@ -1658,7 +1650,7 @@ namespace IBMConsultantTool
                     {
                         // Stop editing without canceling the label change.
                         e.Node.EndEdit(false);
-
+                        //adds question to database along with all of its avilable answers
                         CupeQuestionStringData data = new CupeQuestionStringData();
 
                         if ( ClientDataControl.cupeQuestions[indexCurrentQuestionNode].QuestionText == e.Node.Text)
@@ -1713,7 +1705,7 @@ namespace IBMConsultantTool
 
             }
         }
-
+        // actual function to search through the word documents in the folder specified and loads them into the tool
         private void LoadCupeQuestionsFromDocument()
         {
             CupeQuestionStringData data = new CupeQuestionStringData();
@@ -2067,7 +2059,7 @@ namespace IBMConsultantTool
             newChart.SaveImage(ClientDataControl.Client.FilePath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
             newChart.SaveImage(Application.StartupPath + "/" + newChart.Name + ".jpg", ChartImageFormat.Jpeg);
         }
-
+        // when loaded in from another tool, checks the client data to see if any already exists
         private void LoadAnswersFromDataControl()
         {
             foreach (DataGridViewColumn column in questionGridITCurrent.Columns)
@@ -2371,16 +2363,16 @@ namespace IBMConsultantTool
                 node.Text = ClientDataControl.GetCupeQuestions()[index].QuestionText;
 
                 TreeNode nodeA = new TreeNode();
-                nodeA.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceA;
+                nodeA.Text ="A " + ClientDataControl.GetCupeQuestions()[index].ChoiceA;
 
                 TreeNode nodeB = new TreeNode();
-                nodeB.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceB;
+                nodeB.Text = "B " + ClientDataControl.GetCupeQuestions()[index].ChoiceB;
 
                 TreeNode nodeC = new TreeNode();
-                nodeC.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceC;
+                nodeC.Text = "C " + ClientDataControl.GetCupeQuestions()[index].ChoiceC;
 
                 TreeNode nodeD = new TreeNode();
-                nodeD.Text = ClientDataControl.GetCupeQuestions()[index].ChoiceD;
+                nodeD.Text = "D " + ClientDataControl.GetCupeQuestions()[index].ChoiceD;
 
                 node.Nodes.Add(nodeA);
                 node.Nodes.Add(nodeB);
